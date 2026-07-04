@@ -6,7 +6,7 @@
 <title>Página Inicial | Ideal Metrics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 <header class="header">
@@ -231,11 +231,19 @@
 
 
 <!-- ===== DIAGRAMA 2 — Jornada do Cliente (Timeline) ===== -->
-<section class="diag-section diag-timeline" data-diag>
+<section class="diag-section diag-timeline diag-timeline--band" data-diag>
+  <svg class="diag-band-geo" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-40 350 C320 250, 520 110, 1250 60"/>
+    <circle cx="1040" cy="150" r="72"/>
+    <circle cx="170" cy="80" r="32"/>
+    <line x1="0" y1="205" x2="1200" y2="205"/>
+    <circle class="diag-band-geo-dot" cx="600" cy="205" r="3.5"/>
+    <g class="diag-band-geo-cross" transform="translate(970,300)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="6" y1="-6" x2="-6" y2="6"/></g>
+  </svg>
   <div class="diag-header">
     <span class="diag-tag">PROCESSO</span>
     <h2 class="diag-title">Como <strong>Atuamos</strong></h2>
-    <p class="diag-sub">Do diagnóstico à implementação — acompanhamos cada etapa.</p>
+    <p class="diag-sub">Do diagnóstico à certificação, conduzimos cada etapa.</p>
   </div>
   <div class="diag-timeline-track">
     <div class="diag-timeline-line"></div>
@@ -293,32 +301,50 @@
   </div>
   <div class="diag-sectors-grid">
     <div class="diag-sector" data-step="0">
-      <div class="diag-sector-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M3 7v14M21 7v14M6 7V3h12v4M9 21v-4h6v4" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="diag-sector-top">
+        <div class="diag-sector-icon"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"><path d="M5 31V16l8 4v-4l8 4V11h12v20z"/><line x1="5" y1="31" x2="33" y2="31"/></svg></div>
+        <span class="diag-sector-idx">01</span>
+      </div>
       <h4>Indústria</h4>
-      <p>Manufatura, metalurgia, plásticos e automobilística.</p>
+      <p>Manufatura, metalurgia, plásticos e automotivo.</p>
     </div>
     <div class="diag-sector" data-step="1">
-      <div class="diag-sector-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="diag-sector-top">
+        <div class="diag-sector-icon"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"><path d="M19 5 5 12l14 7 14-7z"/><path d="M5 26l14 7 14-7M5 19l14 7 14-7"/></svg></div>
+        <span class="diag-sector-idx">02</span>
+      </div>
       <h4>Logística</h4>
       <p>Transporte, armazenagem e cadeia de suprimentos.</p>
     </div>
     <div class="diag-sector" data-step="2">
-      <div class="diag-sector-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="diag-sector-top">
+        <div class="diag-sector-icon"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M28 13h2a5 5 0 010 10h-2M6 13h22v13a6 6 0 01-6 6H12a6 6 0 01-6-6z"/><path d="M12 4v4M18 4v4M24 4v4"/></svg></div>
+        <span class="diag-sector-idx">03</span>
+      </div>
       <h4>Alimentos</h4>
       <p>Processamento, distribuição e food service.</p>
     </div>
     <div class="diag-sector" data-step="3">
-      <div class="diag-sector-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="diag-sector-top">
+        <div class="diag-sector-icon"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h7l4 12 8-24 4 12h6"/></svg></div>
+        <span class="diag-sector-idx">04</span>
+      </div>
       <h4>Saúde</h4>
       <p>Hospitais, laboratórios e dispositivos médicos.</p>
     </div>
     <div class="diag-sector" data-step="4">
-      <div class="diag-sector-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" fill="none" stroke-width="1.5"/><line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="1.5"/></svg></div>
+      <div class="diag-sector-top">
+        <div class="diag-sector-icon"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="30" height="20" rx="1.5"/><line x1="13" y1="32" x2="25" y2="32"/><line x1="19" y1="26" x2="19" y2="32"/></svg></div>
+        <span class="diag-sector-idx">05</span>
+      </div>
       <h4>Tecnologia</h4>
       <p>Software, TI e serviços digitais.</p>
     </div>
     <div class="diag-sector" data-step="5">
-      <div class="diag-sector-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="diag-sector-top">
+        <div class="diag-sector-icon"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 8 22h9l-2 12 13-18h-9z"/></svg></div>
+        <span class="diag-sector-idx">06</span>
+      </div>
       <h4>Energia</h4>
       <p>Petróleo, gás, renováveis e utilities.</p>
     </div>
