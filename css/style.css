@@ -2374,7 +2374,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* Ícones — idioma da icon-library (38x38, traço fino, monocromático) */
-.carb-ic { width: 38px; height: 38px; display: block; color: #1e293b; flex-shrink: 0; }
+.carb-ic { width: 38px; height: 38px; display: block; color: var(--color-text); flex-shrink: 0; }
 .carb-ic svg { width: 100%; height: 100%; display: block; }
 .carb-ic svg * { stroke-width: 0.8; }
 
