@@ -2272,6 +2272,19 @@ img { max-width: 100%; display: block; }
   .hx-content { padding: 0 16px 14px; }
 }
 
+/* ===== Posicionamento (home) + fatos (como-trabalhamos) ===== */
+.pos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 960px; margin: 0 auto; }
+.pos-card { border: 1px solid rgba(113,144,171,0.3); border-radius: 3px; padding: 26px 24px; background: transparent; transition: border-color 0.3s; }
+.pos-card:hover { border-color: rgba(239,69,69,0.45); }
+.pos-num { display: block; font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--accent-red); margin-bottom: 14px; }
+.pos-card h4 { font-size: 16px; font-weight: 700; color: #3D394A; margin-bottom: 8px; text-wrap: pretty; }
+.pos-card p { font-size: 13.5px; color: #7190AB; line-height: 1.55; }
+.pos-cta-wrap { text-align: center; margin-top: 34px; }
+.pos-cta { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-red); border: 1px solid rgba(239,69,69,0.4); border-radius: 3px; padding: 12px 28px; transition: background 0.25s, color 0.25s, border-color 0.25s; }
+.pos-cta:hover { background: var(--accent-red); color: #fff; border-color: var(--accent-red); }
+.fact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin: 22px 0 10px; }
+@media (max-width: 760px) { .pos-grid { grid-template-columns: 1fr; } }
+
 /* ========== DIAGRAMA 6 — Compare ========== */
 .diag-compare-grid {
   display: grid;
