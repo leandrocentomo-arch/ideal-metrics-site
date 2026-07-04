@@ -2234,6 +2234,9 @@ img { max-width: 100%; display: block; }
 /* ===== Setores — lista HoverExpand (linhas que expandem com foto) ===== */
 .diag-sectors .hx { max-width: 800px; margin: 0 auto; color: #3D394A; }
 .hx-row {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   position: relative;
   height: 72px;
   overflow: hidden;
