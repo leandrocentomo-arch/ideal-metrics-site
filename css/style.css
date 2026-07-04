@@ -2231,18 +2231,46 @@ img { max-width: 100%; display: block; }
 .diag-timeline--band .diag-timeline-card h4 { color: #fff; font-size: 15px; margin: 4px 0 7px; }
 .diag-timeline--band .diag-timeline-card p { color: rgba(255,255,255,0.5); font-size: 12px; }
 
-/* ===== Setores — índice grande + hover slate ===== */
-.diag-sector { text-align: left; background: transparent; border-color: rgba(113,144,171,0.3); border-radius: 3px; padding: 22px 22px 20px; transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, background 0.3s; }
-.diag-sector-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-.diag-sector-idx { font-size: 27px; font-weight: 200; color: #cdd8e3; letter-spacing: -0.5px; line-height: 1; transition: color 0.3s; }
-.diag-sector .diag-sector-icon { width: 30px; height: 30px; margin: 0; color: #50687B; }
-.diag-sector h4 { transition: color 0.3s; }
-.diag-sector p { transition: color 0.3s; }
-.diag-sector:hover { background: #33465c; border-color: #33465c; transform: translateY(-4px); box-shadow: none; }
-.diag-sector:hover h4 { color: #fff; }
-.diag-sector:hover p { color: rgba(255,255,255,0.6); }
-.diag-sector:hover .diag-sector-icon { color: #ff6b6b; }
-.diag-sector:hover .diag-sector-idx { color: rgba(255,255,255,0.3); }
+/* ===== Setores — lista HoverExpand (linhas que expandem com foto) ===== */
+.diag-sectors .hx { max-width: 800px; margin: 0 auto; color: #3D394A; }
+.hx-row {
+  position: relative;
+  height: 72px;
+  overflow: hidden;
+  border-top: 1px solid rgba(61,57,74,0.14);
+  transition: height 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.25s ease;
+}
+.hx-row:last-child { border-bottom: 1px solid rgba(61,57,74,0.14); }
+.hx-row:hover { height: 300px; }
+.hx:hover .hx-row:not(:hover) { opacity: 0.4; }
+.hx-media {
+  position: absolute; inset: 0;
+  background-image: var(--hx-img);
+  background-size: cover; background-position: center;
+  opacity: 0; transform: scale(1.06);
+  transition: opacity 0.5s cubic-bezier(0.23,1,0.32,1), transform 0.6s cubic-bezier(0.23,1,0.32,1);
+}
+.hx-media::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(18,26,38,0.82) 0%, rgba(18,26,38,0.28) 48%, rgba(18,26,38,0.08) 100%);
+}
+.hx-row:hover .hx-media { opacity: 1; transform: scale(1); }
+.hx-content { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 0 24px 16px; z-index: 1; }
+.hx-inner { display: flex; width: 100%; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.hx-lead { display: flex; align-items: baseline; gap: 14px; min-width: 0; }
+.hx-idx { font-size: 12px; color: #7190AB; opacity: 0.7; flex-shrink: 0; transition: color 0.3s, opacity 0.3s; }
+.hx-label { font-size: clamp(19px, 2.4vw, 27px); font-weight: 600; letter-spacing: -0.3px; color: #3D394A; white-space: nowrap; transition: color 0.3s; }
+.hx-desc { font-size: 13px; color: rgba(255,255,255,0.78); white-space: nowrap; opacity: 0; transform: translateX(-8px); transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.23,1,0.32,1); }
+.hx-sub { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #7190AB; opacity: 0.55; flex-shrink: 0; transition: color 0.3s, opacity 0.3s; }
+.hx-row:hover .hx-idx { color: rgba(255,255,255,0.6); opacity: 1; }
+.hx-row:hover .hx-label { color: #fff; }
+.hx-row:hover .hx-desc { opacity: 1; transform: translateX(0); transition-delay: 0.1s; }
+.hx-row:hover .hx-sub { color: rgba(255,255,255,0.72); opacity: 1; }
+@media (max-width: 640px) {
+  .hx-desc { display: none; }
+  .hx-label { font-size: 19px; }
+  .hx-content { padding: 0 16px 14px; }
+}
 
 /* ========== DIAGRAMA 6 — Compare ========== */
 .diag-compare-grid {
