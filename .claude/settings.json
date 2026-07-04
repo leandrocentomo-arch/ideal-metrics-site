@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add css/style.css index.html)",
+      "Bash(git pull --rebase)",
+      "WebFetch(domain:www.cqt-br.com)",
+      "WebFetch(domain:web.archive.org)",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/sobre-n%C3%B3s\")",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/\")",
+      "Bash(python3 -c \":*)",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/todos-os-servi%C3%A7os\")",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/implanta%C3%A7%C3%A3o-de-normas-iso\")",
+      "Bash(PYTHONUTF8=1 curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/implanta%C3%A7%C3%A3o-de-normas-iso\")",
+      "Bash(python3 -X utf8 -c \":*)",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/suporte-a-sistemas-de-gest%C3%A3o\")",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/padr%C3%B5es-de-mercado\")",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/pegada-de-carbono\")",
+      "Bash(PYTHONIOENCODING=utf-8 curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/padr%C3%B5es-de-mercado\")",
+      "Bash(PYTHONIOENCODING=utf-8)",
+      "Bash(export PYTHONIOENCODING)",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/atendimento-a-normas-regulamentadoras\")",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/inspe%C3%A7%C3%B5es\")",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/produtos-que-inspecionamos\")",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/esg\")",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/seguran%C3%A7a-de-alimentos\")",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/sedex-smeta\")",
+      "Bash(curl -s -L -H \"User-Agent: Mozilla/5.0 \\(compatible; Googlebot/2.1; +http://www.google.com/bot.html\\)\" \"https://www.cqt-br.com/conte%C3%BAdo-de-destaque\")",
+      "Bash(git add blog.html css/style.css esg.html implantacao-iso.html index.html inspecoes.html nrs.html padroes-mercado.html pegada-carbono.html produtos-inspecionamos.html sedex-smeta.html seguranca-alimentos.html servicos.html sobre.html suporte.html)",
+      "Bash(git add index.html css/style.css)",
+      "Bash(git add css/style.css)",
+      "Bash(for f in clientes.html contato.html sobre.html suporte.html padroes-mercado.html implantacao-iso.html pegada-carbono.html servicos.html nrs.html produtos-inspecionamos.html esg.html blog.html inspecoes.html seguranca-alimentos.html sedex-smeta.html)",
+      "Bash(do sed -i 's|img/CQT_Logo_Regular.svg|img/logo-cqt.svg|g' \"$f\")",
+      "Bash(done)",
+      "Bash(git add css/style.css index.html clientes.html contato.html sobre.html suporte.html padroes-mercado.html implantacao-iso.html pegada-carbono.html servicos.html nrs.html produtos-inspecionamos.html esg.html blog.html inspecoes.html seguranca-alimentos.html sedex-smeta.html)",
+      "Bash(git pull)",
+      "Bash(git add clientes.html contato.html sobre.html suporte.html padroes-mercado.html implantacao-iso.html pegada-carbono.html servicos.html nrs.html produtos-inspecionamos.html esg.html blog.html inspecoes.html seguranca-alimentos.html sedex-smeta.html)",
+      "Bash(git add index.html)"
+    ]
+  }
+}

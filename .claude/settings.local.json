@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add Comunicacao_HSE_Calendario.html)",
+      "Bash(git add \"Sodexo SGI Brazil/Comunicacao_HSE_Calendario.html\")",
+      "Bash(git add .claude/SHAREPOINT-LIST-INTEGRATION.md)",
+      "Bash(git add \"Sodexo SGI Brazil/rnc-dashboard.html\")",
+      "Bash(git add rnc-dashboard.html)",
+      "Bash(git add -A)",
+      "Bash(git add \"Sodexo SGI Brazil/\\(draft\\) rnc-dashboard.html\")",
+      "Bash(git add \"Sodexo SGI Brazil/sp-page-blue-override.html\")",
+      "mcp__Desktop_Commander__get_file_info",
+      "Bash(npm install -g dev-browser)",
+      "Bash(start \"\" \"C:/Program Files/Google/Chrome/Application/chrome.exe\" --remote-debugging-port=9222 --user-data-dir=\"$TEMP/chrome-debug\")",
+      "Bash(notebooklm status:*)",
+      "Bash(py -m pip install notebooklm-py)",
+      "Bash(py -m notebooklm login)"
+    ]
+  }
+}
