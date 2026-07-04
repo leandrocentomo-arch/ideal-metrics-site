@@ -860,11 +860,11 @@ img { max-width: 100%; display: block; }
   transform: translateY(-50%) rotate(180deg);
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 40px;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  opacity: 0.3;
+  letter-spacing: -1px;
+  opacity: 0.2;
   white-space: nowrap;
   color: #fff;
   transition: opacity 0.5s;
@@ -872,7 +872,7 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
 }
 .sh-column:hover .sh-vertical {
-  opacity: 0.45;
+  opacity: 0.35;
 }
 
 /* List items (appear on hover) */
