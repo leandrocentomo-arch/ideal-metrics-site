@@ -860,11 +860,11 @@ img { max-width: 100%; display: block; }
   transform: translateY(-50%) rotate(180deg);
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  font-size: 40px;
-  font-weight: 900;
+  font-size: 16px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: -1px;
-  opacity: 0.2;
+  letter-spacing: 1.5px;
+  opacity: 0.3;
   white-space: nowrap;
   color: #fff;
   transition: opacity 0.5s;
@@ -872,7 +872,7 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
 }
 .sh-column:hover .sh-vertical {
-  opacity: 0.35;
+  opacity: 0.45;
 }
 
 /* List items (appear on hover) */
@@ -938,12 +938,14 @@ img { max-width: 100%; display: block; }
   gap: 6px;
   font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.5px;
   color: rgba(255,255,255,0.4);
+  max-width: calc(100% - 56px);
 }
 .sh-label svg {
   width: 12px;
   height: 12px;
+  flex-shrink: 0;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -2372,8 +2374,9 @@ img { max-width: 100%; display: block; }
 }
 
 /* Ícones — idioma da icon-library (38x38, traço fino, monocromático) */
-.carb-ic { width: 38px; height: 38px; display: block; color: var(--mid-gray); flex-shrink: 0; }
+.carb-ic { width: 38px; height: 38px; display: block; color: #1e293b; flex-shrink: 0; }
 .carb-ic svg { width: 100%; height: 100%; display: block; }
+.carb-ic svg * { stroke-width: 0.8; }
 
 /* Infográfico: escopos GHG */
 .carb-scopes {
