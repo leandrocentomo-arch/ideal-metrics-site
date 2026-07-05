@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página Inicial (Teste Swiss) | Ideal Metrics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== Swiss test page — self-contained ===== */
+:root {
+  --ink: #111111;
+  --paper: #ffffff;
+  --red: #EF4545;
+  --hair: #111111;
+  --mut: #6b6b6b;
+  --gut: 24px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'IBM Plex Sans Condensed', Helvetica, Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.4;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+.sw-wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--gut); }
+.sw-mono { font-family: 'IBM Plex Mono', monospace; }
+
+/* masthead */
+.sw-mast {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  padding: 20px var(--gut) 16px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.sw-logo { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+.sw-logo i { font-style: normal; color: var(--red); }
+.sw-nav { display: flex; gap: 28px; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.2px; }
+.sw-nav a { border-bottom: 1px solid transparent; padding-bottom: 2px; }
+.sw-nav a:hover { border-color: var(--ink); }
+.sw-rule { border: 0; border-top: 1px solid var(--hair); }
+.sw-rule--thick { border-top: 4px solid var(--hair); }
+
+/* hero */
+.sw-hero { padding: 56px 0 48px; }
+.sw-kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--mut);
+  margin-bottom: 28px;
+}
+.sw-kicker b { color: var(--red); font-weight: 500; }
+.sw-h1 {
+  font-size: clamp(52px, 9vw, 118px);
+  line-height: 0.96;
+  font-weight: 700;
+  letter-spacing: -3px;
+  text-wrap: balance;
+}
+.sw-h1 .dot { color: var(--red); }
+.sw-hero-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--gut);
+  margin-top: 40px;
+  align-items: end;
+}
+.sw-lede { font-size: 18px; line-height: 1.5; max-width: 30em; color: var(--ink); }
+.sw-hero-aside { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--mut); text-align: right; }
+
+/* stats */
+.sw-stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--hair); }
+.sw-stat { padding: 22px 0 26px; border-right: 1px solid var(--hair); padding-right: var(--gut); }
+.sw-stat:last-child { border-right: 0; }
+.sw-stat + .sw-stat { padding-left: var(--gut); }
+.sw-stat b { display: block; font-size: clamp(40px, 5vw, 64px); font-weight: 700; letter-spacing: -2px; line-height: 1; }
+.sw-stat span { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--mut); }
+
+/* section heading */
+.sw-sec { display: grid; grid-template-columns: 1fr 3fr; gap: var(--gut); padding: 18px 0; align-items: baseline; }
+.sw-sec-n { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--red); }
+.sw-sec-t { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+
+/* services table */
+.sw-serv a {
+  display: grid;
+  grid-template-columns: 80px 1fr 1.4fr 24px;
+  gap: var(--gut);
+  align-items: baseline;
+  padding: 26px 0;
+  border-top: 1px solid var(--hair);
+  transition: padding-left 0.2s ease;
+}
+.sw-serv a:hover { padding-left: 12px; }
+.sw-serv a:hover .sw-serv-arrow { color: var(--red); }
+.sw-serv-n { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--mut); }
+.sw-serv-t { font-size: clamp(24px, 3vw, 38px); font-weight: 700; letter-spacing: -1px; line-height: 1.05; }
+.sw-serv-d { font-size: 14px; color: var(--mut); line-height: 1.5; }
+.sw-serv-arrow { font-size: 20px; text-align: right; transition: color 0.2s; }
+
+/* positioning band */
+.sw-band { background: var(--ink); color: var(--paper); }
+.sw-band-in { max-width: 1280px; margin: 0 auto; padding: 72px var(--gut); display: grid; grid-template-columns: 3fr 1fr; gap: var(--gut); align-items: end; }
+.sw-band h2 { font-size: clamp(30px, 4.6vw, 56px); font-weight: 700; letter-spacing: -1.5px; line-height: 1.08; text-wrap: balance; }
+.sw-band h2 em { font-style: normal; color: var(--red); }
+.sw-band p { font-size: 14px; color: #a8a8a8; margin-top: 18px; max-width: 40em; }
+.sw-band-link { font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--paper); border-bottom: 1px solid var(--red); padding-bottom: 4px; justify-self: end; white-space: nowrap; }
+.sw-band-link:hover { color: var(--red); }
+
+/* sectors */
+.sw-sect { display: grid; grid-template-columns: repeat(3, 1fr); }
+.sw-sect a {
+  border-top: 1px solid var(--hair);
+  border-right: 1px solid var(--hair);
+  padding: 22px 18px 40px 0;
+  padding-left: 18px;
+}
+.sw-sect a:nth-child(3n) { border-right: 0; }
+.sw-sect a:nth-child(1), .sw-sect a:nth-child(4) { padding-left: 0; }
+.sw-sect a:hover .sw-sect-t { color: var(--red); }
+.sw-sect-n { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--mut); display: block; margin-bottom: 34px; }
+.sw-sect-t { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; transition: color 0.2s; }
+.sw-sect-d { font-size: 13px; color: var(--mut); margin-top: 4px; }
+
+/* photo */
+.sw-photo { display: grid; grid-template-columns: 2fr 1fr; gap: var(--gut); align-items: end; }
+.sw-photo img { width: 100%; height: 420px; object-fit: cover; }
+.sw-photo figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--mut); line-height: 1.7; padding-bottom: 6px; }
+.sw-photo figcaption b { color: var(--ink); font-weight: 500; }
+
+/* clients */
+.sw-cli { display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid var(--hair); border-left: 1px solid var(--hair); }
+.sw-cli div { border-right: 1px solid var(--hair); border-bottom: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; padding: 26px 18px; }
+.sw-cli img { max-height: 34px; width: auto; filter: grayscale(1); opacity: 0.75; transition: opacity 0.2s; }
+.sw-cli div:hover img { opacity: 1; }
+
+/* contact */
+.sw-cta { padding: 90px 0 100px; }
+.sw-cta h2 { font-size: clamp(48px, 8vw, 104px); font-weight: 700; letter-spacing: -3px; line-height: 0.98; }
+.sw-cta h2 a { border-bottom: 6px solid var(--red); }
+.sw-cta h2 a:hover { color: var(--red); }
+.sw-cta-meta { display: flex; gap: 48px; margin-top: 36px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
+.sw-cta-meta a { border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+.sw-cta-meta a:hover { color: var(--red); border-color: var(--red); }
+
+/* footer */
+.sw-foot { border-top: 1px solid var(--hair); padding: 26px var(--gut) 40px; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: var(--gut); font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--mut); }
+.sw-foot a:hover { color: var(--red); }
+
+/* spacing helpers */
+.sw-space { height: 88px; }
+.sw-space--s { height: 48px; }
+
+@media (max-width: 800px) {
+  .sw-nav { display: none; }
+  .sw-hero-grid, .sw-band-in, .sw-photo { grid-template-columns: 1fr; }
+  .sw-hero-aside { text-align: left; }
+  .sw-stats { grid-template-columns: 1fr; }
+  .sw-stat { border-right: 0; border-bottom: 1px solid var(--hair); padding-left: 0 !important; }
+  .sw-stat:last-child { border-bottom: 0; }
+  .sw-serv a { grid-template-columns: 48px 1fr; }
+  .sw-serv-d, .sw-serv-arrow { display: none; }
+  .sw-sect { grid-template-columns: 1fr; }
+  .sw-sect a { border-right: 0; padding-left: 0; }
+  .sw-cli { grid-template-columns: repeat(2, 1fr); }
+  .sw-band-link { justify-self: start; }
+  .sw-photo img { height: 260px; }
+}
+</style>
+</head>
+<body>
+
+<header class="sw-mast">
+  <a href="index.html" class="sw-logo">ideal<i>·</i>m</a>
+  <nav class="sw-nav">
+    <a href="servicos.html">Serviços</a>
+    <a href="como-trabalhamos.html">Como trabalhamos</a>
+    <a href="sobre.html">Quem somos</a>
+    <a href="clientes.html">Clientes</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+</header>
+<hr class="sw-rule sw-rule--thick" style="max-width:1280px;margin:0 auto;">
+
+<main class="sw-wrap">
+
+  <section class="sw-hero">
+    <p class="sw-kicker">Consultoria em sistemas de gestão e inspeção da qualidade <b>/</b> desde 1998 <b>/</b> SP, Brasil</p>
+    <h1 class="sw-h1">Qualidade que<br>se mede<span class="dot">.</span></h1>
+    <div class="sw-hero-grid">
+      <p class="sw-lede">Implantamos normas ISO, padrões de mercado e programas de carbono, e inspecionamos produto na fonte. Preparamos sua organização para a auditoria do certificador, sem sermos o certificador: essa independência é o nosso método.</p>
+      <p class="sw-hero-aside">Projeto típico: 6 meses<br>Até 5 visitas por mês<br>Consultor dedicado</p>
+    </div>
+  </section>
+
+  <section class="sw-stats">
+    <div class="sw-stat"><b>28</b><span>anos de mercado</span></div>
+    <div class="sw-stat"><b>500+</b><span>projetos entregues</span></div>
+    <div class="sw-stat"><b>300+</b><span>clientes atendidos</span></div>
+  </section>
+
+  <div class="sw-space"></div>
+
+  <div class="sw-sec">
+    <span class="sw-sec-n">01</span>
+    <span class="sw-sec-t">O que fazemos</span>
+  </div>
+  <section class="sw-serv">
+    <a href="implantacao-iso.html">
+      <span class="sw-serv-n">01</span>
+      <span class="sw-serv-t">Qualidade e processos</span>
+      <span class="sw-serv-d">Implantação de sistemas de gestão: ISO 9001, IATF 16949 e integrações num único projeto.</span>
+      <span class="sw-serv-arrow">&rarr;</span>
+    </a>
+    <a href="gestao-carbono.html">
+      <span class="sw-serv-n">02</span>
+      <span class="sw-serv-t">Meio ambiente e ESG</span>
+      <span class="sw-serv-d">ISO 14001, ISO 50001, inventário de GEE, carbono neutro e padrões de sustentabilidade.</span>
+      <span class="sw-serv-arrow">&rarr;</span>
+    </a>
+    <a href="sedex-smeta.html">
+      <span class="sw-serv-n">03</span>
+      <span class="sw-serv-t">Saúde, segurança e ética</span>
+      <span class="sw-serv-d">ISO 45001, Normas Regulamentadoras, SEDEX/SMETA e segurança de alimentos.</span>
+      <span class="sw-serv-arrow">&rarr;</span>
+    </a>
+    <a href="inspecoes.html">
+      <span class="sw-serv-n">04</span>
+      <span class="sw-serv-t">Inspeção de produto</span>
+      <span class="sw-serv-d">Fábrica, pré-embarque e fornecedores, na fonte. Inspetores próprios na Ásia, Europa e Oriente Médio.</span>
+      <span class="sw-serv-arrow">&rarr;</span>
+    </a>
+  </section>
+
+</main>
+
+<div class="sw-space"></div>
+
+<section class="sw-band">
+  <div class="sw-band-in">
+    <div>
+      <h2>Preparamos e inspecionamos<em>.</em><br>Não certificamos<em>.</em></h2>
+      <p>Quem certifica é um organismo acreditado, independente de nós. Essa separação garante a isenção do nosso trabalho: o nosso único interesse é sua organização aprovada na auditoria.</p>
+    </div>
+    <a class="sw-band-link" href="como-trabalhamos.html">Como trabalhamos &rarr;</a>
+  </div>
+</section>
+
+<div class="sw-space"></div>
+
+<main class="sw-wrap">
+
+  <div class="sw-sec">
+    <span class="sw-sec-n">02</span>
+    <span class="sw-sec-t">Setores de atuação</span>
+  </div>
+  <section class="sw-sect">
+    <a href="setor-industria.html"><span class="sw-sect-n">S.01</span><span class="sw-sect-t">Indústria</span><p class="sw-sect-d">Manufatura, metalurgia, plásticos e automotivo</p></a>
+    <a href="setor-logistica.html"><span class="sw-sect-n">S.02</span><span class="sw-sect-t">Logística</span><p class="sw-sect-d">Transporte, armazenagem e suprimentos</p></a>
+    <a href="setor-alimentos.html"><span class="sw-sect-n">S.03</span><span class="sw-sect-t">Alimentos</span><p class="sw-sect-d">Processamento, distribuição e food service</p></a>
+    <a href="setor-saude.html"><span class="sw-sect-n">S.04</span><span class="sw-sect-t">Saúde</span><p class="sw-sect-d">Hospitais, laboratórios e dispositivos médicos</p></a>
+    <a href="setor-tecnologia.html"><span class="sw-sect-n">S.05</span><span class="sw-sect-t">Tecnologia</span><p class="sw-sect-d">Software, TI e serviços digitais</p></a>
+    <a href="setor-energia.html"><span class="sw-sect-n">S.06</span><span class="sw-sect-t">Energia</span><p class="sw-sect-d">Petróleo, gás, renováveis e utilities</p></a>
+  </section>
+
+  <div class="sw-space"></div>
+
+  <figure class="sw-photo">
+    <img src="https://static.wixstatic.com/media/b83354_b4f277dfbbb6428bbb94d4f7af459784~mv2.png/v1/fill/w_1200,h_640,al_c,q_80,enc_auto/foto.png" alt="Inspeção dimensional com paquímetro digital" loading="lazy">
+    <figcaption>
+      <b>Fig. 01</b> Inspeção dimensional na fonte.<br><br>
+      Verificação de produto antes do embarque: funcionamento, estado, embalagem, quantidade e atendimento a requisitos. O defeito que não embarca custa menos que o defeito que chega.
+    </figcaption>
+  </figure>
+
+  <div class="sw-space"></div>
+
+  <div class="sw-sec">
+    <span class="sw-sec-n">03</span>
+    <span class="sw-sec-t">Empresas que confiam</span>
+  </div>
+  <section class="sw-cli">
+    <div><img src="img/cliente-dexco.png" alt="Dexco" loading="lazy"></div>
+    <div><img src="img/cliente-viabahia.png" alt="ViaBahia" loading="lazy"></div>
+    <div><img src="img/cliente-carmeuse.png" alt="Carmeuse" loading="lazy"></div>
+    <div><img src="img/cliente-ld-celulose.png" alt="LD Celulose" loading="lazy"></div>
+    <div><img src="img/cliente-weir.png" alt="Weir Minerals" loading="lazy"></div>
+    <div><img src="img/cliente-oxiteno.png" alt="Oxiteno" loading="lazy"></div>
+    <div><img src="img/cliente-horiba.png" alt="Horiba" loading="lazy"></div>
+    <div><img src="img/cliente-green-plac.png" alt="Green Plac" loading="lazy"></div>
+    <div><img src="img/cliente-brissolo.png" alt="Brissolo" loading="lazy"></div>
+    <div><img src="img/cliente-bracell.png" alt="Bracell" loading="lazy"></div>
+    <div><img src="img/cliente-brasical.png" alt="Brasical" loading="lazy"></div>
+    <div><img src="img/cliente-mobibrasil.png" alt="Mobibrasil" loading="lazy"></div>
+  </section>
+
+  <section class="sw-cta">
+    <h2>Vamos <a href="contato.html">conversar</a>.</h2>
+    <div class="sw-cta-meta">
+      <a href="mailto:info@cqt-br.com">info@cqt-br.com</a>
+      <a href="https://wa.me/5511954684086">WhatsApp +55 11 95468 4086</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="sw-foot">
+  <span>Ideal Metrics · Centomo &amp; Consultores Ltda · CNPJ 02.569.436/0001-21 · SP, Brasil · Desde 1998</span>
+  <span><a href="https://www.linkedin.com/company/cqt-br/" target="_blank">LinkedIn</a> · <a href="index.html">Versão atual do site</a></span>
+</footer>
+
+</body></html>
