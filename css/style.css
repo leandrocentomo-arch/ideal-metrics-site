@@ -2297,6 +2297,12 @@ img { max-width: 100%; display: block; }
 .clientes-names { text-align: center; font-size: 13px; color: #7190AB; letter-spacing: 0.4px; margin-top: 18px; }
 .norm-list a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: color 0.2s, border-color 0.2s; }
 .norm-list a:hover { color: var(--accent-red); border-color: var(--accent-red); }
+.logo-wall { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 4px 18px; align-items: center; max-width: 1000px; margin: 0 auto; }
+.logo-wall--page { margin: 26px auto 6px; }
+.logo-cell { display: flex; align-items: center; justify-content: center; padding: 18px 14px; }
+.logo-cell img { max-width: 100%; max-height: 48px; width: auto; height: auto; opacity: 0.72; transition: opacity 0.25s; }
+.logo-cell img:hover { opacity: 1; }
+@media (max-width: 640px) { .logo-wall { grid-template-columns: repeat(2, 1fr); } .logo-cell { padding: 14px 10px; } .logo-cell img { max-height: 42px; } }
 
 /* ========== DIAGRAMA 6 — Compare ========== */
 .diag-compare-grid {
