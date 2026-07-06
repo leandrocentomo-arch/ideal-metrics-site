@@ -2744,3 +2744,131 @@ img { max-width: 100%; display: block; }
 a.pos-card { display: block; text-decoration: none; color: inherit; }
 .pos-card--link:hover { border-color: rgba(239,69,69,0.5); }
 .pos-card--link .pos-more { display: block; margin-top: 12px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-red); }
+
+/* ==========================================================================
+   EFEITO DE NAVEGACAO (paginas de carbono / roteiro) — marca Ideal Metrics
+   Barra de secao fixa com scrollspy + secoes numeradas com numero serif fixo
+   + scroll-reveal. Referencia de interacao: — CQT/cqt-smeta.html.
+   ========================================================================== */
+
+/* Barra de navegacao de secao — gruda sob o header (48px) */
+.secnav {
+  position: sticky;
+  top: 48px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 46px;
+  padding: 0 max(20px, calc(50% - 550px));
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border-gray);
+  overflow-x: auto;
+  scrollbar-width: none;
+  transition: box-shadow 0.25s;
+}
+.secnav::-webkit-scrollbar { display: none; }
+.secnav.scrolled { box-shadow: 0 6px 20px -12px rgba(0, 0, 0, 0.35); }
+.secnav a {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mid-gray);
+  padding: 7px 13px;
+  border-radius: 3px;
+  transition: color 0.2s, background 0.2s;
+}
+.secnav a:hover { color: var(--accent-red); }
+.secnav a.active {
+  color: var(--accent-red);
+  background: rgba(239, 69, 69, 0.08);
+}
+
+/* Corpo do roteiro */
+.rot-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 40px 20px;
+}
+.rot-lead {
+  font-size: 19px;
+  line-height: 1.7;
+  color: var(--text-light);
+  max-width: 760px;
+  margin: 0 0 8px;
+}
+.rot-lead strong { color: var(--color-text); font-weight: 600; }
+
+/* Secao com scroll-reveal */
+.rot-sec {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 40px 0;
+  border-top: 1px solid var(--border-gray);
+  scroll-margin-top: 104px; /* header 48 + secnav 46 + folga */
+}
+.rot-sec:first-of-type { border-top: none; }
+.rot-sec.in-view { opacity: 1; transform: none; }
+
+/* Layout de coluna: numero serif fixo | conteudo */
+.rot-row {
+  display: grid;
+  grid-template-columns: 156px 1fr;
+  gap: 2.6rem;
+  align-items: start;
+}
+.rot-aside {
+  position: sticky;
+  top: 120px; /* header 48 + secnav 46 + folga */
+}
+.rot-num {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 46px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--accent-red);
+  letter-spacing: -0.02em;
+}
+.rot-kicker {
+  display: inline-block;
+  margin-top: 12px;
+  padding-top: 9px;
+  border-top: 2px solid var(--accent-red);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--mid-gray);
+}
+.rot-body > h2 {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-text);
+  margin: 0 0 14px;
+  text-wrap: pretty;
+}
+.rot-body > p { margin: 0 0 14px; }
+.rot-body > p:last-child { margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  .rot-main { padding: 22px 20px 16px; }
+  .rot-row { grid-template-columns: 1fr; gap: 1rem; }
+  .rot-aside {
+    position: relative;
+    top: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .rot-num { font-size: 38px; }
+  .rot-kicker { margin-top: 0; }
+}
