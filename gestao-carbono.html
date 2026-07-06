@@ -7,7 +7,8 @@
 <meta name="description" content="Inventário, neutralização e relatório de emissões de gases de efeito estufa. Consultoria, capacitação e registro oficial do GHG Protocol pela Ideal Metrics.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=13">
+<link rel="stylesheet" href="css/style.css?v=15">
+<script>document.documentElement.classList.add('js');window.addEventListener('load',function(){setTimeout(function(){if(!document.querySelector('.rot-sec.in-view,.sec.in-view')){var n=document.querySelectorAll('.rot-sec,.sec');for(var i=0;i<n.length;i++){n[i].classList.add('in-view');}}},1200);});</script>
 </head>
 <body>
 <header class="header">
@@ -50,24 +51,31 @@
 <div class="page-banner"><h1>GESTÃO DE CARBONO</h1><p>Inventário, neutralização e relatório de emissões de gases de efeito estufa.</p></div>
 <div class="breadcrumb"><a href="index.html">Página Inicial</a> &gt; Gestão de Carbono</div>
 
-<nav class="secnav" aria-label="Seções desta página">
-  <a href="#frentes">Frentes de emissão</a>
-  <a href="#produtos">Produtos</a>
-  <a href="#metodo">Método</a>
-  <a href="#beneficios">Benefícios</a>
-  <a href="#diagnostico">Diagnóstico</a>
+<div class="rot-doc">
+<nav class="rail" aria-label="Seções desta página">
+  <div class="rail-title">Nesta página</div>
+  <a href="#overview"><span class="rn">01</span>Visão geral</a>
+  <a href="#inventario"><span class="rn">02</span>Inventário de GEE</a>
+  <a href="#pegada"><span class="rn">03</span>Pegada de Produto</a>
+  <a href="#neutro"><span class="rn">04</span>Carbono Neutro</a>
+  <a href="#descarb"><span class="rn">05</span>Descarbonização</a>
+  <a href="#creditos"><span class="rn">06</span>Créditos de Carbono</a>
+  <a href="#regulado"><span class="rn">07</span>SBCE e CBAM</a>
+  <a href="#agro"><span class="rn">08</span>Agronegócio</a>
+  <a href="#metodo"><span class="rn">09</span>Método</a>
+  <a href="#beneficios"><span class="rn">10</span>Benefícios</a>
+  <a href="#diagnostico"><span class="rn">11</span>Falar com a equipe</a>
 </nav>
 
-<main class="rot-main">
+<div class="rot-flow">
+<section class="rot-sec" id="overview">
+  <div class="rot-head"><div class="rot-num">01</div><div class="rot-kicker">GHG Protocol</div>
+    <h2>Visão geral</h2>
+  </div>
+  <div class="rot-body">
 <p class="rot-lead">A <strong>Ideal Metrics</strong> apoia organizações na medição, redução e neutralização das suas emissões de gases de efeito estufa (GEE). Reunimos consultoria, capacitação e registro oficial em um único fluxo de trabalho, do diagnóstico inicial à publicação do inventário.</p>
 <p class="rot-lead">O GHG Protocol é a ferramenta mais utilizada no mundo por governos e empresas para quantificar e gerenciar emissões de GEE. Ele estabelece bases padronizadas para medir emissões de operações, cadeias de valor e ações de mitigação, e serve de referência para metas, relatórios e acesso a financiamento.</p>
-
-<section class="rot-sec" id="frentes">
-  <div class="rot-row">
-    <aside class="rot-aside"><div class="rot-num">01</div><div class="rot-kicker">GHG Protocol</div></aside>
-    <div class="rot-body">
-      <h2>As três frentes de emissão</h2>
-      <p>Todo inventário parte da separação das emissões em três escopos. É o que define onde medir, o que priorizar e como reportar.</p>
+<h3>As três frentes de emissão</h3>
 <div class="carb-scopes">
   <div class="carb-scope">
     <div class="carb-scope-top">
@@ -94,71 +102,304 @@
     <p>Emissões indiretas a montante e a jusante: fornecedores, logística e uso do produto.</p>
   </div>
 </div>
-    </div>
   </div>
 </section>
 
-<section class="rot-sec" id="produtos">
-  <div class="rot-row">
-    <aside class="rot-aside"><div class="rot-num">02</div><div class="rot-kicker">Linha de carbono</div></aside>
-    <div class="rot-body">
-      <h2>Produtos</h2>
-      <p>Cada produto tem escopo, entregas e ciclo definidos. Clique para ver o que você recebe em cada um.</p>
-<div class="fact-grid">
-  <a class="pos-card pos-card--link" href="carbono-inventario-gee.html">
-    <span class="pos-num">01</span>
-    <h4>Inventário de GEE</h4>
-    <p>Escopos 1, 2 e 3 com publicação no RPE da FGV e preparação para o Selo Ouro.</p>
-    <span class="pos-more">Ver produto &rarr;</span>
-  </a>
-  <a class="pos-card pos-card--link" href="carbono-pegada-produto.html">
-    <span class="pos-num">02</span>
-    <h4>Pegada de Carbono de Produto</h4>
-    <p>Estudo ISO 14067 por unidade funcional, base para EPD e para o dado CBAM.</p>
-    <span class="pos-more">Ver produto &rarr;</span>
-  </a>
-  <a class="pos-card pos-card--link" href="carbono-neutralizacao.html">
-    <span class="pos-num">03</span>
-    <h4>Carbono Neutro</h4>
-    <p>Neutralização ISO 14068-1 com comprovante público: empresa, evento e frete.</p>
-    <span class="pos-more">Ver produto &rarr;</span>
-  </a>
-  <a class="pos-card pos-card--link" href="carbono-descarbonizacao.html">
-    <span class="pos-num">04</span>
-    <h4>Descarbonização e Metas</h4>
-    <p>Plano de redução com curva MACC e dossiê de meta para a SBTi.</p>
-    <span class="pos-more">Ver produto &rarr;</span>
-  </a>
-  <a class="pos-card pos-card--link" href="carbono-creditos.html">
-    <span class="pos-num">05</span>
-    <h4>Créditos de Carbono</h4>
-    <p>Due diligence e aposentadoria nominal na compra; viabilidade e PDD na originação.</p>
-    <span class="pos-more">Ver produto &rarr;</span>
-  </a>
-  <a class="pos-card pos-card--link" href="carbono-mercado-regulado.html">
-    <span class="pos-num">06</span>
-    <h4>SBCE e CBAM</h4>
-    <p>Gap analysis da Lei 15.042/2024 e relatório de emissões embutidas para exportação.</p>
-    <span class="pos-more">Ver produto &rarr;</span>
-  </a>
-  <a class="pos-card pos-card--link" href="carbono-agro.html">
-    <span class="pos-num">07</span>
-    <h4>Carbono no Agronegócio</h4>
-    <p>Emissões, remoções, geoespacial e conformidade socioambiental da porteira para dentro.</p>
-    <span class="pos-more">Ver produto &rarr;</span>
-  </a>
+<section class="rot-sec" id="inventario">
+  <div class="rot-head"><div class="rot-num">02</div><div class="rot-kicker">Produto 02</div>
+    <h2>Inventário de GEE</h2>
+    <p class="rot-desc">Escopos 1, 2 e 3 com publicação no Registro Público de Emissões da FGV e preparação para o Selo Ouro.</p>
+  </div>
+  <div class="rot-body">
+<p>O inventário de emissões é a peça-mãe de toda a gestão de carbono: é ele que alimenta o Registro Público de Emissões da FGV, o CDP, os indicadores GRI 305, as metas de redução e, em breve, o relato obrigatório do mercado regulado brasileiro (SBCE). Sem inventário, não há neutralização nem meta que se sustente.</p>
+<p>A Ideal Metrics elabora o inventário completo da sua organização, com memória de cálculo rastreável, e prepara a publicação e a verificação.</p>
+<h3>Para quem</h3>
+<ul>
+<li>Empresas cobradas por clientes, investidores ou matriz para reportar emissões</li>
+<li>Organizações que se aproximam dos limiares do SBCE (10.000 tCO2e/ano)</li>
+<li>Quem busca os selos do Registro Público de Emissões da FGV (Bronze, Prata, Ouro)</li>
+</ul>
+<h3>O que você recebe</h3>
+<div class="numbered-items">
+<div class="numbered-item"><div class="num">01</div><div><h4>Relatório de Inventário de GEE</h4><p>Escopos 1, 2 e 3 conforme GHG Protocol e ABNT NBR ISO 14064-1, com limites organizacionais e ano-base definidos.</p></div></div>
+<div class="numbered-item"><div class="num">02</div><div><h4>Memória de cálculo rastreável</h4><p>Planilha com dados de atividade e fatores de emissão documentados, pronta para auditoria.</p></div></div>
+<div class="numbered-item"><div class="num">03</div><div><h4>Publicação no Registro Público de Emissões da FGV</h4><p>Apoio na adesão ao Programa Brasileiro GHG Protocol e na publicação do ciclo anual.</p></div></div>
+<div class="numbered-item"><div class="num">04</div><div><h4>Preparação para a verificação de terceira parte</h4><p>Organização das evidências para a auditoria do organismo verificador acreditado (ISO 14064-3), rumo ao Selo Ouro.</p></div></div>
+<div class="numbered-item"><div class="num">05</div><div><h4>Caderno de indicadores para relato</h4><p>Dados prontos para responder CDP e preencher os indicadores GRI 305.</p></div></div>
 </div>
-<p>Complementam a linha de carbono a <a href="esg.html">estruturação ESG</a> e o Plano de Gerenciamento de Resíduos Sólidos (PGRS), contratados como serviços próprios.</p>
-    </div>
+<h3>Como funciona</h3>
+<ul>
+<li>Definição de limites organizacionais e ano-base</li>
+<li>Coleta de dados por fonte de emissão (combustão, energia, processos, cadeia de valor)</li>
+<li>Cálculo, consolidação e análise dos resultados</li>
+<li>Relatório, publicação e plano de melhoria</li>
+<li>Rotina anual de atualização</li>
+</ul>
+<h3>Normas e referências</h3>
+<div class="fact-grid">
+  <div class="pos-card"><h4>GHG Protocol</h4><p>Padrão corporativo de contabilização e relato, adaptado ao Brasil pela FGV</p></div>
+  <div class="pos-card"><h4>ISO 14064-1</h4><p>Quantificação e relato de emissões no nível da organização</p></div>
+  <div class="pos-card"><h4>ISO 14064-3</h4><p>Verificação de terceira parte da declaração de GEE</p></div>
+  <div class="pos-card"><h4>Selos RPE</h4><p>Bronze (parcial), Prata (completo) e Ouro (completo e verificado)</p></div>
+</div>
+<p><strong>Ciclo típico:</strong> Anual: o inventário cobre o ano-calendário anterior e é publicado no ciclo seguinte.</p>
+<p>A verificação do inventário é feita por organismo acreditado pelo Inmetro, independente de nós. Nós elaboramos e preparamos; quem verifica é terceiro. Essa separação é o que dá valor ao Selo Ouro.</p>
+<p style="margin-top:24px"><a class="link-arrow" href="carbono-inventario-gee.html">Ver a página dedicada de Inventário de GEE &rarr;</a></p>
+  </div>
+</section>
+
+<section class="rot-sec" id="pegada">
+  <div class="rot-head"><div class="rot-num">03</div><div class="rot-kicker">Produto 03</div>
+    <h2>Pegada de Carbono de Produto</h2>
+    <p class="rot-desc">Estudo ISO 14067 por unidade funcional, base para EPD e para o dado do CBAM.</p>
+  </div>
+  <div class="rot-body">
+<p>A pegada de carbono de produto quantifica as emissões de um produto específico ao longo do ciclo de vida, em kgCO2e por unidade funcional. É o dado que grandes compradores pedem aos fornecedores e que o exportador precisa entregar ao cliente europeu no contexto do CBAM.</p>
+<p>A Ideal Metrics conduz o estudo completo, da definição de fronteira ao relatório, com base na avaliação de ciclo de vida.</p>
+<h3>Para quem</h3>
+<ul>
+<li>Exportadores de setores cobertos pelo CBAM (ferro e aço, alumínio, cimento, fertilizantes)</li>
+<li>Fornecedores de grandes marcas que exigem pegada declarada</li>
+<li>Produtos que buscam rótulo ambiental ou diferenciação de mercado</li>
+</ul>
+<h3>O que você recebe</h3>
+<div class="numbered-items">
+<div class="numbered-item"><div class="num">01</div><div><h4>Estudo de Pegada de Carbono de Produto</h4><p>Conforme ISO 14067: unidade funcional, fronteira do sistema, regras de alocação e tratamento de carbono biogênico.</p></div></div>
+<div class="numbered-item"><div class="num">02</div><div><h4>Relatório técnico com análise de sensibilidade</h4><p>Resultados por etapa do ciclo de vida e identificação dos pontos quentes de emissão.</p></div></div>
+<div class="numbered-item"><div class="num">03</div><div><h4>Base para Declaração Ambiental de Produto (EPD)</h4><p>Estrutura do estudo pronta para evoluir para uma EPD conforme ISO 14025, registrada em programa operador.</p></div></div>
+<div class="numbered-item"><div class="num">04</div><div><h4>Dado de emissões embutidas em formato CBAM</h4><p>Relatório por produto e instalação no formato que o importador europeu precisa declarar.</p></div></div>
+</div>
+<h3>Como funciona</h3>
+<ul>
+<li>Definição de escopo, unidade funcional e fronteira (berço ao portão ou ao túmulo)</li>
+<li>Inventário de ciclo de vida: insumos, energia, transporte e fim de vida</li>
+<li>Cálculo e análise de sensibilidade</li>
+<li>Relatório e recomendações de redução</li>
+<li>Opcional: verificação de terceira parte e registro de EPD</li>
+</ul>
+<h3>Normas e referências</h3>
+<div class="fact-grid">
+  <div class="pos-card"><h4>ISO 14067</h4><p>Norma internacional de referência para pegada de carbono de produto</p></div>
+  <div class="pos-card"><h4>ISO 14040/14044</h4><p>Princípios e requisitos da avaliação de ciclo de vida (ACV)</p></div>
+  <div class="pos-card"><h4>ISO 14025</h4><p>Declarações ambientais de produto (EPD)</p></div>
+  <div class="pos-card"><h4>GHG Protocol Product Standard</h4><p>Padrão complementar de contabilização por produto</p></div>
+</div>
+<p><strong>Ciclo típico:</strong> Por produto ou família de produtos. Recalcula-se quando muda a formulação, o processo ou a matriz energética; EPDs valem tipicamente 5 anos.</p>
+<p style="margin-top:24px"><a class="link-arrow" href="carbono-pegada-produto.html">Ver a página dedicada de Pegada de Carbono de Produto &rarr;</a></p>
+  </div>
+</section>
+
+<section class="rot-sec" id="neutro">
+  <div class="rot-head"><div class="rot-num">04</div><div class="rot-kicker">Produto 04</div>
+    <h2>Carbono Neutro</h2>
+    <p class="rot-desc">Neutralização ISO 14068-1 com comprovante público: empresa, evento e frete.</p>
+  </div>
+  <div class="rot-body">
+<p>Declarar neutralidade de carbono com seriedade exige quatro blocos: medir, reduzir, compensar o residual e declarar. A ISO 14068-1 substituiu a PAS 2060 como norma de referência e passou a exigir hierarquia de mitigação (reduzir antes de compensar) e a inclusão das emissões materiais de escopo 3.</p>
+<p>A Ideal Metrics estrutura a neutralização completa, da medição ao comprovante público de compensação, para organizações, produtos, eventos e operações de transporte.</p>
+<h3>Para quem</h3>
+<ul>
+<li>Empresas que querem declarar neutralidade anual com lastro técnico</li>
+<li>Eventos corporativos, feiras e produções que buscam selo de evento neutro</li>
+<li>Operações logísticas que precisam oferecer frete neutro a clientes</li>
+</ul>
+<h3>O que você recebe</h3>
+<div class="numbered-items">
+<div class="numbered-item"><div class="num">01</div><div><h4>Inventário do objeto declarado</h4><p>Organização, produto, evento ou frete, medido conforme GHG Protocol.</p></div></div>
+<div class="numbered-item"><div class="num">02</div><div><h4>Plano de gestão de carbono</h4><p>Metas e trajetória de redução do que pode ser reduzido, antes da compensação.</p></div></div>
+<div class="numbered-item"><div class="num">03</div><div><h4>Compensação com comprovante público</h4><p>Aposentadoria nominal de créditos em registro reconhecido (Verra ou Gold Standard), com comprovante rastreável.</p></div></div>
+<div class="numbered-item"><div class="num">04</div><div><h4>Declaração de Neutralidade</h4><p>Documento estruturado conforme ISO 14068-1, pronto para comunicação e para verificação.</p></div></div>
+<div class="numbered-item"><div class="num">05</div><div><h4>Certificado com ano de referência</h4><p>Peça de comunicação para o cliente exibir, renovada a cada ciclo.</p></div></div>
+</div>
+<h3>Como funciona</h3>
+<ul>
+<li>Medição do objeto (organização, evento, frete ou lote de produto)</li>
+<li>Plano de redução com hierarquia de mitigação</li>
+<li>Seleção e aposentadoria de créditos com due diligence</li>
+<li>Declaração conforme ISO 14068-1</li>
+<li>Renovação anual ou por edição do evento</li>
+</ul>
+<h3>Normas e referências</h3>
+<div class="fact-grid">
+  <div class="pos-card"><h4>ISO 14068-1</h4><p>Neutralidade de carbono (substituiu a PAS 2060; NBR publicada em 2024)</p></div>
+  <div class="pos-card"><h4>GHG Protocol</h4><p>Base de medição do inventário</p></div>
+  <div class="pos-card"><h4>Verra / Gold Standard</h4><p>Registros dos créditos usados na compensação</p></div>
+</div>
+<p><strong>Ciclo típico:</strong> Anual para organizações (a neutralidade vale para o período declarado); pontual por evento, lote ou operação.</p>
+<p>Selo sem lastro é passivo de reputação. O que sustenta a declaração é o conjunto inventário + redução + comprovante de aposentadoria nominal dos créditos, e é isso que entregamos.</p>
+<p style="margin-top:24px"><a class="link-arrow" href="carbono-neutralizacao.html">Ver a página dedicada de Carbono Neutro &rarr;</a></p>
+  </div>
+</section>
+
+<section class="rot-sec" id="descarb">
+  <div class="rot-head"><div class="rot-num">05</div><div class="rot-kicker">Produto 05</div>
+    <h2>Descarbonização e Metas</h2>
+    <p class="rot-desc">Plano de redução com curva MACC e dossiê de meta para a SBTi.</p>
+  </div>
+  <div class="rot-body">
+<p>Medir sem reduzir não sustenta nenhuma declaração. O plano de descarbonização transforma o inventário em decisão: quais medidas reduzem mais tCO2e por real investido, em que ordem, e que meta a empresa consegue assumir publicamente.</p>
+<p>A Ideal Metrics constrói o plano com critério econômico, medida por medida, e prepara o dossiê para validação de meta na SBTi quando esse é o objetivo.</p>
+<h3>Para quem</h3>
+<ul>
+<li>Empresas com meta imposta por clientes, matriz ou financiadores</li>
+<li>Organizações que vão cair nos limiares do SBCE e precisam de trajetória</li>
+<li>Quem quer assumir compromisso público validado (SBTi)</li>
+</ul>
+<h3>O que você recebe</h3>
+<div class="numbered-items">
+<div class="numbered-item"><div class="num">01</div><div><h4>Plano de Descarbonização</h4><p>Cenário-base, projeção de emissões e portfólio de medidas quantificadas em tCO2e/ano e custo.</p></div></div>
+<div class="numbered-item"><div class="num">02</div><div><h4>Curva MACC</h4><p>Custo marginal de abatimento (R$/tCO2e) de cada medida, separando as que se pagam das que exigem investimento.</p></div></div>
+<div class="numbered-item"><div class="num">03</div><div><h4>Trajetória de metas</h4><p>Metas de curto e longo prazo compatíveis com a operação e com os compromissos assumidos.</p></div></div>
+<div class="numbered-item"><div class="num">04</div><div><h4>Dossiê de submissão à SBTi</h4><p>Preparação da meta near-term ou net-zero para validação pela Science Based Targets initiative.</p></div></div>
+<div class="numbered-item"><div class="num">05</div><div><h4>Governança e monitoramento</h4><p>Indicadores, responsáveis e rotina de acompanhamento do plano.</p></div></div>
+</div>
+<h3>Como funciona</h3>
+<ul>
+<li>Cenário-base a partir do inventário</li>
+<li>Levantamento e quantificação das medidas de abatimento</li>
+<li>Curva MACC e priorização econômica</li>
+<li>Definição de metas e trajetória</li>
+<li>Plano de implementação e rotina de reporte</li>
+</ul>
+<h3>Normas e referências</h3>
+<div class="fact-grid">
+  <div class="pos-card"><h4>SBTi</h4><p>Validação de metas contra trajetórias de 1,5 °C; near-term cobre no mínimo 95% dos escopos 1 e 2</p></div>
+  <div class="pos-card"><h4>GHG Protocol / ISO 14064-1</h4><p>Base de medição do cenário e do progresso</p></div>
+</div>
+<p><strong>Ciclo típico:</strong> Projeto único com revisão a cada 2 ou 3 anos; metas SBTi têm reporte anual de progresso e revalidação em ciclos de 5 anos.</p>
+<p style="margin-top:24px"><a class="link-arrow" href="carbono-descarbonizacao.html">Ver a página dedicada de Descarbonização e Metas &rarr;</a></p>
+  </div>
+</section>
+
+<section class="rot-sec" id="creditos">
+  <div class="rot-head"><div class="rot-num">06</div><div class="rot-kicker">Produto 06</div>
+    <h2>Créditos de Carbono</h2>
+    <p class="rot-desc">Due diligence e aposentadoria nominal na compra; viabilidade e PDD na originação.</p>
+  </div>
+  <div class="rot-body">
+<p>O mercado voluntário de carbono tem qualidade desigual: crédito ruim vira passivo de reputação. Comprar bem exige verificar registro, metodologia, adicionalidade e risco de reversão antes de pagar. E quem tem ativo (terra, aterro, processo industrial) pode estar sentado sobre um projeto de créditos sem saber.</p>
+<p>A Ideal Metrics atua nas duas pontas: assessora o comprador na seleção e aposentadoria de créditos, e o dono do ativo na originação do projeto.</p>
+<h3>Para quem</h3>
+<ul>
+<li>Empresas que compensam emissões e precisam de créditos com integridade</li>
+<li>Proprietários de terra, aterros e indústrias com potencial de gerar créditos</li>
+<li>Compradores que querem parecer técnico independente antes da transação</li>
+</ul>
+<h3>O que você recebe</h3>
+<div class="numbered-items">
+<div class="numbered-item"><div class="num">01</div><div><h4>Estratégia de compensação</h4><p>Quanto compensar, com que tipo de crédito e em que registro, alinhado à declaração pretendida.</p></div></div>
+<div class="numbered-item"><div class="num">02</div><div><h4>Parecer de due diligence por lote</h4><p>Status no registro, metodologia e vigência, adicionalidade, risco de permanência, vintage, dupla contagem e ratings independentes.</p></div></div>
+<div class="numbered-item"><div class="num">03</div><div><h4>Execução da aposentadoria nominal</h4><p>Compra e aposentadoria em nome do cliente, com comprovante público do registro.</p></div></div>
+<div class="numbered-item"><div class="num">04</div><div><h4>Estudo de viabilidade de projeto</h4><p>Pré-elegibilidade do ativo: metodologia aplicável, potencial de geração e economics.</p></div></div>
+<div class="numbered-item"><div class="num">05</div><div><h4>PDD e apoio à certificação</h4><p>Documento de concepção do projeto (Verra VCS ou Gold Standard) e apoio na contratação do organismo validador.</p></div></div>
+</div>
+<h3>Como funciona</h3>
+<ul>
+<li>Compra: estratégia, due diligence, transação e comprovante</li>
+<li>Originação: viabilidade, PDD, validação, registro e monitoramento</li>
+<li>Prazo típico da originação: 12 a 24 meses até a primeira emissão de créditos</li>
+</ul>
+<h3>Normas e referências</h3>
+<div class="fact-grid">
+  <div class="pos-card"><h4>Verra VCS</h4><p>Maior padrão do mercado voluntário (créditos VCU)</p></div>
+  <div class="pos-card"><h4>Gold Standard</h4><p>Padrão com foco em cobenefícios (créditos GS VER)</p></div>
+  <div class="pos-card"><h4>ICVCM / CCP</h4><p>Selo de integridade que qualifica créditos de alta qualidade</p></div>
+</div>
+<p><strong>Ciclo típico:</strong> Compra e due diligence são pontuais, por transação; originação é projeto plurianual com verificações periódicas.</p>
+<p style="margin-top:24px"><a class="link-arrow" href="carbono-creditos.html">Ver a página dedicada de Créditos de Carbono &rarr;</a></p>
+  </div>
+</section>
+
+<section class="rot-sec" id="regulado">
+  <div class="rot-head"><div class="rot-num">07</div><div class="rot-kicker">Produto 07</div>
+    <h2>SBCE e CBAM</h2>
+    <p class="rot-desc">Gap analysis da Lei 15.042/2024 e relatório de emissões embutidas para exportação.</p>
+  </div>
+  <div class="rot-body">
+<p>A Lei 15.042/2024 criou o Sistema Brasileiro de Comércio de Emissões (SBCE): instalações que emitem acima de 10.000 tCO2e/ano terão de monitorar e relatar; acima de 25.000 tCO2e/ano, também conciliar cotas (CBE) e certificados (CRVE). A regulamentação está em curso, e quem estrutura o MRV agora chega pronto.</p>
+<p>Na fronteira europeia, o CBAM entrou no período definitivo em 2026: o exportador brasileiro de setores cobertos precisa entregar ao cliente europeu o dado de emissões embutidas por produto, senão valem valores-padrão punitivos.</p>
+<h3>Para quem</h3>
+<ul>
+<li>Instalações industriais acima de 10.000 tCO2e/ano (obrigação de relato no SBCE)</li>
+<li>Instalações acima de 25.000 tCO2e/ano (conciliação de CBEs e CRVEs)</li>
+<li>Exportadores de ferro e aço, alumínio, cimento, fertilizantes e hidrogênio para a UE</li>
+</ul>
+<h3>O que você recebe</h3>
+<div class="numbered-items">
+<div class="numbered-item"><div class="num">01</div><div><h4>Gap analysis SBCE</h4><p>Enquadramento da operação nos limiares da Lei 15.042/2024 e roadmap de conformidade por fase.</p></div></div>
+<div class="numbered-item"><div class="num">02</div><div><h4>Inventário por instalação</h4><p>Estrutura de dados no recorte que a lei regula: instalação e fonte, não só o CNPJ consolidado.</p></div></div>
+<div class="numbered-item"><div class="num">03</div><div><h4>Plano de monitoramento</h4><p>Rotina de MRV em formato exigível pelo órgão gestor do SBCE.</p></div></div>
+<div class="numbered-item"><div class="num">04</div><div><h4>Relatório de emissões embutidas (CBAM)</h4><p>Dado por tonelada de produto e instalação, no formato que o importador europeu declara.</p></div></div>
+<div class="numbered-item"><div class="num">05</div><div><h4>Preparação para verificação</h4><p>Evidências organizadas para a verificação de terceira parte do relato regulado.</p></div></div>
+</div>
+<h3>Como funciona</h3>
+<ul>
+<li>Enquadramento nos limiares e nas fases de implementação</li>
+<li>Inventário e estrutura de dados por instalação</li>
+<li>Plano de monitoramento e rotina de relato</li>
+<li>Relatório CBAM por produto, quando aplicável</li>
+<li>Rotina anual e acompanhamento da regulamentação</li>
+</ul>
+<h3>Normas e referências</h3>
+<div class="fact-grid">
+  <div class="pos-card"><h4>Lei 15.042/2024</h4><p>SBCE: cotas (CBE), certificados (CRVE) e obrigações por limiar de emissão</p></div>
+  <div class="pos-card"><h4>GHG Protocol / ISO 14064-1</h4><p>Base técnica do inventário verificável</p></div>
+  <div class="pos-card"><h4>Regulamento CBAM (UE)</h4><p>Ajuste de carbono na fronteira europeia, definitivo desde 2026</p></div>
+</div>
+<p><strong>Ciclo típico:</strong> Estruturação única, com relato anual a partir da vigência das obrigações; CBAM segue o calendário de declaração do importador europeu.</p>
+<p>A produção primária agropecuária está fora do teto do SBCE por lei. A regulamentação ainda define formatos exatos de plano e relato; estruturar o inventário em padrão verificável desde já é o caminho sem arrependimento.</p>
+<p style="margin-top:24px"><a class="link-arrow" href="carbono-mercado-regulado.html">Ver a página dedicada de SBCE e CBAM &rarr;</a></p>
+  </div>
+</section>
+
+<section class="rot-sec" id="agro">
+  <div class="rot-head"><div class="rot-num">08</div><div class="rot-kicker">Produto 08</div>
+    <h2>Carbono no Agronegócio</h2>
+    <p class="rot-desc">Emissões, remoções, geoespacial e conformidade socioambiental da porteira para dentro.</p>
+  </div>
+  <div class="rot-body">
+<p>O agro tem uma posição única: a produção primária ficou fora do teto do mercado regulado brasileiro, mas os compradores internacionais cobram balanço de carbono, rastreabilidade e conformidade socioambiental. E as remoções (solo, floresta, integração) podem virar ativo em vez de passivo.</p>
+<p>A Ideal Metrics mede emissões e remoções da porteira para dentro, mapeia a propriedade com dados geoespaciais e organiza a conformidade que os mercados exigem.</p>
+<h3>Para quem</h3>
+<ul>
+<li>Propriedades rurais e cooperativas que precisam de diagnóstico de carbono</li>
+<li>Agroindústrias e exportadores cobrados por rastreabilidade e origem conforme</li>
+<li>Produtores com potencial de remoção (floresta, solo, integração lavoura-pecuária)</li>
+</ul>
+<h3>O que você recebe</h3>
+<div class="numbered-items">
+<div class="numbered-item"><div class="num">01</div><div><h4>Inventário de emissões e remoções</h4><p>Balanço de carbono da propriedade ou cooperativa, com base no GHG Protocol e na orientação para agricultura.</p></div></div>
+<div class="numbered-item"><div class="num">02</div><div><h4>Análise geoespacial</h4><p>Mapeamento do uso do solo: áreas produtivas, áreas protegidas e dinâmica de conversão.</p></div></div>
+<div class="numbered-item"><div class="num">03</div><div><h4>Relatório de conformidade socioambiental</h4><p>Cruzamento do CAR com alertas de desmatamento, embargos e listas oficiais, por CPF ou CNPJ.</p></div></div>
+<div class="numbered-item"><div class="num">04</div><div><h4>Dossiê de acesso a mercado</h4><p>Documentação de origem e balanço de carbono para compradores e linhas de financiamento verdes.</p></div></div>
+<div class="numbered-item"><div class="num">05</div><div><h4>Avaliação de potencial de créditos</h4><p>Pré-elegibilidade de projetos de remoção na propriedade (encaminha ao produto Créditos de Carbono).</p></div></div>
+</div>
+<h3>Como funciona</h3>
+<ul>
+<li>Levantamento de dados da propriedade e da produção</li>
+<li>Mapeamento geoespacial e verificação de conformidade</li>
+<li>Cálculo de emissões e remoções por atividade</li>
+<li>Relatório, plano de melhoria e dossiê de mercado</li>
+<li>Atualização por safra ou ciclo anual</li>
+</ul>
+<h3>Normas e referências</h3>
+<div class="fact-grid">
+  <div class="pos-card"><h4>GHG Protocol Agricultural Guidance</h4><p>Orientação de contabilização para o setor agropecuário</p></div>
+  <div class="pos-card"><h4>ISO 14064-1</h4><p>Quantificação e relato no nível da organização</p></div>
+  <div class="pos-card"><h4>CAR</h4><p>Cadastro Ambiental Rural como base da conformidade territorial</p></div>
+</div>
+<p><strong>Ciclo típico:</strong> Anual ou por safra, conforme a cultura e a demanda do comprador.</p>
+<p>Exigências de cadeias livres de desmatamento, como a regulamentação europeia, tornam a rastreabilidade e a conformidade documentada condição de acesso, não diferencial.</p>
+<p style="margin-top:24px"><a class="link-arrow" href="carbono-agro.html">Ver a página dedicada de Carbono no Agronegócio &rarr;</a></p>
   </div>
 </section>
 
 <section class="rot-sec" id="metodo">
-  <div class="rot-row">
-    <aside class="rot-aside"><div class="rot-num">03</div><div class="rot-kicker">Como trabalhamos</div></aside>
-    <div class="rot-body">
-      <h2>Método de trabalho</h2>
-      <p>A metodologia é estruturada para garantir precisão e conformidade em todas as etapas do processo:</p>
+  <div class="rot-head"><div class="rot-num">09</div><div class="rot-kicker">Como trabalhamos</div>
+    <h2>Método de trabalho</h2>
+  </div>
+  <div class="rot-body">
+<p>A metodologia é estruturada para garantir precisão e conformidade em todas as etapas do processo:</p>
 <div class="carb-flow">
   <div class="carb-flow-step">
     <span class="carb-flow-num">1</span>
@@ -186,17 +427,15 @@
     <p>Acompanhamento contínuo dos indicadores e das ações.</p>
   </div>
 </div>
-
-    </div>
   </div>
 </section>
 
 <section class="rot-sec" id="beneficios">
-  <div class="rot-row">
-    <aside class="rot-aside"><div class="rot-num">04</div><div class="rot-kicker">Por que fazer</div></aside>
-    <div class="rot-body">
-      <h2>Benefícios</h2>
-      <p>A gestão estruturada do carbono gera vantagens competitivas concretas:</p>
+  <div class="rot-head"><div class="rot-num">10</div><div class="rot-kicker">Por que fazer</div>
+    <h2>Benefícios</h2>
+  </div>
+  <div class="rot-body">
+<p>A gestão estruturada do carbono gera vantagens competitivas concretas:</p>
 <div class="carb-benes">
   <div class="carb-bene">
     <span class="carb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg></span>
@@ -219,23 +458,20 @@
     <p>Credibilidade junto a clientes, investidores e partes interessadas.</p>
   </div>
 </div>
-
-    </div>
   </div>
 </section>
 
 <section class="rot-sec" id="diagnostico">
-  <div class="rot-row">
-    <aside class="rot-aside"><div class="rot-num">05</div><div class="rot-kicker">Próximo passo</div></aside>
-    <div class="rot-body">
-      <h2>Comece pelo diagnóstico</h2>
-      <p>Para avaliar o ponto de partida da sua organização, mapear as fontes de emissão e definir o produto certo, fale com a nossa equipe técnica.</p>
-      <a href="contato.html" class="carb-cta">Solicitar diagnóstico</a>
-    </div>
+  <div class="rot-head"><div class="rot-num">11</div><div class="rot-kicker">Próximo passo</div>
+    <h2>Comece pelo diagnóstico</h2>
+  </div>
+  <div class="rot-body">
+<p>Para avaliar o ponto de partida da sua organização, mapear as fontes de emissão e definir o produto certo, fale com a nossa equipe técnica.</p>
+<a href="contato.html" class="carb-cta">Solicitar diagnóstico</a>
   </div>
 </section>
-</main>
-
+</div>
+</div>
 <footer class="footer">
   <div class="footer-top">
     <div class="footer-brand">
@@ -256,21 +492,6 @@
     <a href="https://www.linkedin.com/company/cqt-br/" class="footer-linkedin" target="_blank">in</a>
   </div>
 </footer>
-<script>
-(function(){
-  var header = document.querySelector('.header');
-  var threshold = 80;
-  function onScroll(){
-    if(window.scrollY > threshold){
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-})();
-</script>
 <a href="https://wa.me/5511954684086" class="whatsapp-float" target="_blank"><img src="img/WhatsApp_Logo_White.svg" alt="WhatsApp"></a>
 <script src="js/roteiro-nav.js"></script>
 </body></html>

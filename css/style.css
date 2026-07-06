@@ -20,6 +20,7 @@ img { max-width: 100%; display: block; }
   --light-gray: #D1DEE8;
   --border-gray: #CCCCCB;
   --accent-red: #EF4545;
+  --accent-red-text: #C62828;   /* vermelho escuro p/ texto pequeno (passa WCAG AA) */
   --white: #ffffff;
   --text-dark: #000000;
   --text-light: #50687B;
@@ -70,7 +71,7 @@ img { max-width: 100%; display: block; }
 }
 .header-logo img,
 .header-logo svg {
-  height: 77px;
+  height: 88px;
   width: auto;
   display: block;
 }
@@ -184,17 +185,25 @@ img { max-width: 100%; display: block; }
 /* ========== PAGE BANNER ========== */
 .page-banner {
   background: linear-gradient(135deg, var(--dark-gray) 0%, var(--mid-gray) 100%);
-  padding: 50px max(40px, calc(50% - 510px)) 40px;
+  padding: 44px max(40px, calc(50% - 510px));
+  min-height: 220px;               /* espaço reservado para a foto */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   overflow: hidden;
+  --banner-photo: none;            /* cada página define a foto: style="--banner-photo:url('img/...')" */
 }
-.page-banner::after {
+.page-banner::after {              /* zona da foto, à direita; sem foto mostra o degradê */
   content: '';
   position: absolute;
   top: 0; right: 0;
-  width: 45%;
+  width: 42%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(113,144,171,0.2) 0%, rgba(80,104,123,0.1) 100%);
+  background-image: var(--banner-photo), linear-gradient(180deg, rgba(113,144,171,0.22) 0%, rgba(80,104,123,0.10) 100%);
+  background-size: cover;
+  background-position: center;
+  border-left: 1px solid rgba(255,255,255,0.06);
 }
 .page-banner h1 {
   font-size: 26px;
@@ -204,14 +213,19 @@ img { max-width: 100%; display: block; }
   letter-spacing: 1px;
   position: relative;
   z-index: 2;
+  max-width: min(520px, 52%);      /* não invade a zona da foto à direita */
+  text-wrap: balance;
 }
 .page-banner p {
   color: var(--blue-light);
   font-size: 17px;
-  margin-top: 8px;
+  margin-top: 4px;                 /* subtítulo mais próximo do título */
   position: relative;
   z-index: 2;
-  max-width: 600px;
+  max-width: min(520px, 52%);      /* alinhado ao título, livre da zona da foto */
+}
+@media (max-width: 768px) {
+  .page-banner h1, .page-banner p { max-width: 100%; }
 }
 .breadcrumb {
   background: rgba(0,0,0,0.3);
@@ -435,7 +449,7 @@ img { max-width: 100%; display: block; }
   line-height: 1.6;
 }
 .link-arrow {
-  color: var(--accent-red);
+  color: var(--accent-red-text);
   font-size: 13px;
   text-decoration: underline;
   display: inline-block;
@@ -559,7 +573,7 @@ img { max-width: 100%; display: block; }
 .service-block ul li { font-size: 16px; color: var(--text-light); margin-bottom: 4px; list-style: disc; }
 .service-block h3 { font-size: 15px; font-weight: 700; margin-top: 16px; margin-bottom: 6px; }
 .service-block .link-arrow {
-  color: var(--accent-red);
+  color: var(--accent-red-text);
   font-size: 13px;
   text-decoration: none;
   border-bottom: 1px solid var(--border-gray);
@@ -2418,7 +2432,8 @@ img { max-width: 100%; display: block; }
   .footer-top { flex-direction: column; gap: 24px; }
   .footer-columns { flex-direction: column; gap: 16px; }
   .content { padding: 24px 16px; }
-  .page-banner { padding: 30px 16px; }
+  .page-banner { padding: 26px 16px; min-height: auto; }
+  .page-banner::after { display: none; }
   .breadcrumb { padding: 6px 16px; }
   .service-block { padding: 24px 16px; }
   .contact-grid { grid-template-columns: 1fr; }
@@ -2743,7 +2758,7 @@ img { max-width: 100%; display: block; }
 /* ===== Cards de produto clicaveis (Gestao de Carbono) ===== */
 a.pos-card { display: block; text-decoration: none; color: inherit; }
 .pos-card--link:hover { border-color: rgba(239,69,69,0.5); }
-.pos-card--link .pos-more { display: block; margin-top: 12px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-red); }
+.pos-card--link .pos-more { display: block; margin-top: 12px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-red-text); }
 
 /* ==========================================================================
    EFEITO DE NAVEGACAO (paginas de carbono / roteiro) — marca Ideal Metrics
@@ -2806,16 +2821,22 @@ a.pos-card { display: block; text-decoration: none; color: inherit; }
 
 /* Secao com scroll-reveal */
 .rot-sec {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 40px 0;
   border-top: 1px solid var(--border-gray);
   scroll-margin-top: 104px; /* header 48 + secnav 46 + folga */
 }
 .rot-sec:first-of-type { border-top: none; }
-.rot-sec.in-view { opacity: 1; transform: none; }
+/* Estado oculto do reveal SO quando ha JS (html.js). Sem JS, o conteudo aparece. */
+html.js .rot-sec {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+html.js .rot-sec.in-view { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html.js .rot-sec { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
 
 /* Layout de coluna: numero serif fixo | conteudo */
 .rot-row {
@@ -2871,4 +2892,178 @@ a.pos-card { display: block; text-decoration: none; color: inherit; }
   }
   .rot-num { font-size: 38px; }
   .rot-kicker { margin-top: 0; }
+}
+
+/* ==========================================================================
+   DOCUMENTO CONSOLIDADO — rail de seções fixo à esquerda + fluxo à direita
+   (gestao-carbono: todo o conteúdo dos produtos numa página só).
+   ========================================================================== */
+.rot-doc {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 40px 20px;
+  display: grid;
+  grid-template-columns: 216px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Rail vertical fixo */
+.rail {
+  position: sticky;
+  top: 72px;                       /* header 48 + folga */
+  align-self: start;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  border-left: 1px solid var(--border-gray);
+}
+.rail-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mid-gray);
+  padding: 0 0 12px 16px;
+}
+.rail a {
+  display: flex;
+  gap: 11px;
+  align-items: baseline;
+  padding: 8px 0 8px 16px;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  color: var(--text-light);
+  font-size: 14px;
+  line-height: 1.25;
+  transition: color 0.2s, border-color 0.2s;
+}
+.rail a .rn {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 12px;
+  color: var(--mid-gray);
+  min-width: 16px;
+  transition: color 0.2s;
+}
+.rail a:hover { color: var(--color-text); }
+.rail a.active {
+  color: var(--accent-red-text);
+  border-left-color: var(--accent-red);
+  font-weight: 600;
+}
+.rail a.active .rn { color: var(--accent-red-text); }
+
+/* Fluxo de seções */
+.rot-flow { min-width: 0; }
+.rot-flow .rot-sec { scroll-margin-top: 68px; } /* doc consolidado nao tem secnav no topo */
+.rot-flow .rot-sec:first-of-type { border-top: none; padding-top: 0; }
+
+/* Cabeçalho de cada seção: número serif + kicker + título */
+.rot-head { margin: 0 0 16px; }
+.rot-head .rot-num { display: block; }
+.rot-head .rot-kicker { margin-top: 10px; }
+.rot-head h2 {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--color-text);
+  margin: 10px 0 0;
+  text-wrap: pretty;
+}
+.rot-desc {
+  color: var(--text-light);
+  font-size: 18px;
+  margin: 8px 0 0;
+  max-width: 680px;
+}
+/* Subtítulos internos de uma seção de produto */
+.rot-flow h3 {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mid-gray);
+  margin: 28px 0 12px;
+}
+
+@media (max-width: 860px) {
+  .rot-doc { grid-template-columns: 1fr; gap: 0; padding: 20px 20px 12px; }
+  .rail {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    border-left: none;
+    border-bottom: 1px solid var(--border-gray);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+  }
+  .rail-title { display: none; }
+  .rail a {
+    padding: 6px 11px;
+    margin-left: 0;
+    border-left: none;
+    border-radius: 3px;
+    font-size: 12.5px;
+  }
+  .rail a.active { background: rgba(239, 69, 69, 0.08); border-left: none; }
+  .rot-head h2 { font-size: 23px; }
+}
+
+/* Call-out "Mais sobre o SMETA" — leva ao roteiro completo */
+.more-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 660px;
+  margin: 26px 0;
+  padding: 16px 20px;
+  border: 1px solid var(--border-gray);
+  border-radius: 3px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.more-card:hover {
+  border-color: rgba(239, 69, 69, 0.5);
+  background: rgba(239, 69, 69, 0.03);
+  box-shadow: 0 6px 22px -16px rgba(0, 0, 0, 0.4);
+}
+.more-card .mc-ic {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  color: var(--accent-red);
+}
+.more-card .mc-ic svg { width: 100%; height: 100%; display: block; }
+.more-card .mc-body { display: flex; flex-direction: column; }
+.more-card .mc-t {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+.more-card .mc-d {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-top: 3px;
+  line-height: 1.45;
+}
+.more-card .mc-arrow {
+  flex: 0 0 auto;
+  margin-left: auto;
+  align-self: center;
+  color: var(--accent-red-text);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .more-card { flex-wrap: wrap; gap: 12px; }
+  .more-card .mc-arrow { margin-left: 52px; }
 }
