@@ -2739,3 +2739,8 @@ img { max-width: 100%; display: block; }
   height: 84px;
   width: auto;
 }
+
+/* ===== Cards de produto clicaveis (Gestao de Carbono) ===== */
+a.pos-card { display: block; text-decoration: none; color: inherit; }
+.pos-card--link:hover { border-color: rgba(239,69,69,0.5); }
+.pos-card--link .pos-more { display: block; margin-top: 12px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-red); }
