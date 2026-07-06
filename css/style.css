@@ -189,10 +189,10 @@ img { max-width: 100%; display: block; }
 .page-banner {
   background-color: #fff;                              /* cabeçalho branco (harmonia estilo cqt-br.com) */
   background-image:
-    linear-gradient(to right, #ffffff 0%, #ffffff 32%, rgba(255,255,255,0.72) 50%, rgba(255,255,255,0.22) 74%, rgba(255,255,255,0.10) 100%),
+    linear-gradient(to right, #ffffff 0%, #ffffff 40%, rgba(255,255,255,0.82) 56%, rgba(255,255,255,0.25) 80%, rgba(255,255,255,0.08) 100%),
     var(--banner-photo, none);                         /* foto cobre a largura toda, esmaecida à esquerda */
   background-size: cover;
-  background-position: center right;
+  background-position: center;
   background-repeat: no-repeat;
   padding: 46px max(40px, calc(50% - 510px));
   min-height: 240px;
