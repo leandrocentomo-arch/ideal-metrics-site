@@ -48,14 +48,15 @@ img { max-width: 100%; display: block; }
   height: 48px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
   border-bottom: 1px solid var(--border-gray);
 }
-.header .header-nav { margin-left: auto; }
 .header.scrolled { box-shadow: 0 2px 14px rgba(0,0,0,0.07); }
+.header.scrolled .header-logo img,
+.header.scrolled .header-logo svg { height: 56px; }  /* rolando, o logo recolhe e libera o menu fixo (sidenav top 68) */
 .header-logo {
   display: flex;
   align-items: flex-start;
@@ -77,6 +78,7 @@ img { max-width: 100%; display: block; }
   height: 88px;
   width: auto;
   display: block;
+  transition: height 0.25s ease;
 }
 .header-nav { display: flex; align-items: center; gap: 28px; height: 100%; }
 .header-nav a {
@@ -2454,8 +2456,19 @@ img { max-width: 100%; display: block; }
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
-  .header { padding: 10px 16px; }
-  .header-nav { display: none; }
+  .header { height: auto; padding: 8px 16px; flex-wrap: wrap; }
+  .header-logo img, .header-logo svg { height: 56px; }
+  /* menu do topo continua no mobile: links enxutos com quebra de linha */
+  .header-nav {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    gap: 2px 14px;
+    padding: 4px 0 8px;
+  }
+  .header-nav a { font-size: 11.5px; }
+  .mega-menu { display: none !important; }  /* sem hover no toque; o link do pai navega */
   /* hero-refined responsive handled inline above */
   .hero-refined { padding-left: 20px; padding-right: 20px; }
   .secondary-nav { flex-wrap: wrap; gap: 12px; padding: 10px 20px; }
@@ -3112,140 +3125,99 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
 }
 
 /* ==========================================================================
-   SISTEMA DE DESIGN 2026-07: menu lateral + reveal editorial + polish
-   Mantidos: cabecalho branco, menu branco (mega), barra cinza (breadcrumb),
-   hero da home. Fonte: IBM Plex Sans Condensed; Serif so como acento.
+   SISTEMA DE DESIGN 2026-07: menu lateral FIXO + reveal editorial + polish
+   Mantidos: cabecalho branco com menu no topo (como era), mega-menu branco,
+   barra cinza (breadcrumb), hero da home. Serif so como acento.
    ========================================================================== */
 
-/* ---- Botao Menu (abre o menu lateral) ---- */
-.menu-toggle {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-left: 28px;
-  background: none;
-  border: 1px solid var(--border-gray);
-  border-radius: 3px;
-  padding: 6px 14px;
-  font-family: inherit;
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--color-text);
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
+/* ---- Layout de pagina com menu fixo a esquerda ---- */
+.page-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 36px 40px 68px;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 3.2rem;
+  align-items: start;
 }
-.menu-toggle:hover {
-  color: var(--accent-red-text);
-  border-color: rgba(239, 69, 69, 0.5);
-  background: rgba(239, 69, 69, 0.04);
-}
-.mt-lines { display: flex; flex-direction: column; gap: 4px; }
-.mt-lines span { display: block; width: 15px; height: 1.5px; background: currentColor; transition: width 0.2s; }
-.mt-lines span:last-child { width: 10px; }
-.menu-toggle:hover .mt-lines span { width: 15px; }
-@media (max-width: 768px) {
-  .menu-toggle { margin-left: auto; }
-}
+.page-layout .content { max-width: none; margin: 0; padding: 0; }
 
-/* ---- Menu lateral (drawer) ---- */
-.drawer-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(10, 12, 20, 0.4);
-  z-index: 290;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.drawer-overlay.open { opacity: 1; }
-.drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: min(340px, 88vw);
-  background: #fff;
-  z-index: 300;
-  transform: translateX(-102%);
-  visibility: hidden;              /* fechado sai do tab order (links nao focaveis) */
-  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 0.38s;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 12px 0 40px -18px rgba(0, 0, 0, 0.35);
-}
-.drawer.open {
-  transform: none;
-  visibility: visible;
-  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s;
-}
-.drawer-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 22px 8px;
-  border-bottom: 1px solid var(--border-gray);
-  flex-shrink: 0;
-}
-.drawer-head img { height: 64px; width: auto; }
-.drawer-close {
-  background: none;
-  border: 1px solid var(--border-gray);
-  border-radius: 3px;
-  width: 32px;
-  height: 32px;
-  font-size: 18px;
-  line-height: 1;
-  color: var(--mid-gray);
-  cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
-}
-.drawer-close:hover { color: var(--accent-red); border-color: rgba(239, 69, 69, 0.5); }
-.drawer-nav {
-  flex: 1;
+.sidenav {
+  position: sticky;
+  top: 68px;                        /* header 48 + folga */
+  max-height: calc(100vh - 92px);
   overflow-y: auto;
-  padding: 20px 22px 24px;
   scrollbar-width: thin;
+  padding-right: 6px;
 }
-.drawer-group { margin-bottom: 26px; }
-.drawer-group .dg-num {
-  font-family: 'IBM Plex Serif', serif;
-  font-size: 21px;
-  font-weight: 300;
-  line-height: 1;
-  color: var(--accent-red-text);   /* 21px nao e texto grande WCAG; usa o vermelho AA */
-}
-.drawer-group h5 {
-  font-size: 11px;
+.sn-title {
+  font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--mid-gray);
-  margin: 7px 0 8px;
-  padding-bottom: 7px;
+  padding-bottom: 12px;
+}
+.sn-group { margin-bottom: 22px; }
+.sn-group .sn-num {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--accent-red-text);
+}
+.sn-group h5 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid-gray);
+  margin: 6px 0 6px;
+  padding-bottom: 6px;
   border-bottom: 1px solid var(--border-gray);
 }
-.drawer-group a {
+.sn-group a {
   display: block;
-  padding: 6px 0 6px 0;
-  font-size: 15px;
-  color: var(--color-text);
-  border-left: 0;
-  transition: color 0.18s, padding-left 0.18s;
-}
-.drawer-group a:hover { color: var(--accent-red-text); padding-left: 8px; }
-.drawer-foot {
-  flex-shrink: 0;
-  padding: 14px 22px 18px;
-  border-top: 1px solid var(--border-gray);
-  font-size: 13px;
+  padding: 5px 0 5px 10px;
+  font-size: 13.5px;
+  line-height: 1.35;
   color: var(--text-light);
+  border-left: 2px solid transparent;
+  transition: color 0.18s, border-color 0.18s;
 }
-.drawer-foot a { color: var(--accent-red-text); }
-body.drawer-open { overflow: hidden; }
-body.drawer-open .whatsapp-float {   /* nao flutua sobre o menu aberto */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s;
+.sn-group a:hover { color: var(--color-text); }
+.sn-group a.active {
+  color: var(--accent-red-text);
+  border-left-color: var(--accent-red);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .page-layout { grid-template-columns: 1fr; gap: 0; padding: 22px 20px 56px; }
+  .sidenav {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 4px;
+    padding: 0 0 14px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-gray);
+  }
+  .sn-title, .sn-group .sn-num, .sn-group h5 { display: none; }
+  .sn-group { display: contents; }
+  .sn-group a {
+    padding: 5px 10px;
+    border-left: none;
+    border: 1px solid var(--border-gray);
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  .sn-group a.active {
+    border-color: rgba(239, 69, 69, 0.5);
+    background: rgba(239, 69, 69, 0.06);
+  }
 }
 
 /* ---- Reveal suave do conteudo (gated: so com JS presente) ---- */
@@ -3265,6 +3237,3 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 ::selection { background: rgba(239, 69, 69, 0.16); }
 :focus-visible { outline: 2px solid var(--accent-red-text); outline-offset: 2px; }
 .footer { border-top: 3px solid var(--accent-red); }
-@media (prefers-reduced-motion: reduce) {
-  .drawer, .drawer-overlay { transition: none !important; }
-}
