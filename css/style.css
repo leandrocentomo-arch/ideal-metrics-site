@@ -48,12 +48,13 @@ img { max-width: 100%; display: block; }
   height: 48px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   position: sticky;
   top: 0;
   z-index: 100;
   border-bottom: 1px solid var(--border-gray);
 }
+.header .header-nav { margin-left: auto; }
 .header.scrolled { box-shadow: 0 2px 14px rgba(0,0,0,0.07); }
 .header-logo {
   display: flex;
@@ -421,18 +422,38 @@ img { max-width: 100%; display: block; }
 .secondary-nav a:hover { color: var(--dark-gray); }
 
 /* ========== CONTENT CONTAINERS ========== */
-.content { max-width: 1100px; margin: 0 auto; padding: 40px 40px 68px; }
+.content { max-width: 1100px; margin: 0 auto; padding: 40px 40px 68px; counter-reset: csec; }
 .content h2 {
-  font-size: 18px;
+  counter-increment: csec;
+  font-size: 21px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  margin-bottom: 6px;
+  color: var(--color-text);
+  margin: 44px 0 10px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border-gray);
+  text-wrap: pretty;
 }
+.content h2::before {                    /* numero editorial serifado (padrao roteiro) */
+  content: counter(csec, decimal-leading-zero);
+  display: block;
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--accent-red);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.content h2:first-of-type { border-top: none; padding-top: 0; margin-top: 8px; }
 .content h3 {
-  font-size: 15px;
+  font-size: 13.5px;
   font-weight: 700;
-  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--mid-gray);
+  margin: 26px 0 10px;
 }
 .content h4 {
   font-size: 14px;
@@ -440,14 +461,32 @@ img { max-width: 100%; display: block; }
   margin-bottom: 6px;
 }
 .content p { margin-bottom: 12px; font-size: 17px; line-height: 1.7; color: var(--text-light); }
-.content ul { margin: 8px 0 16px 20px; }
-.content ul li { font-size: 16px; color: var(--text-light); margin-bottom: 4px; list-style: disc; }
+.content ul { margin: 8px 0 18px 2px; }
+.content ul li {
+  font-size: 16px;
+  color: var(--text-light);
+  margin-bottom: 7px;
+  list-style: none;
+  padding-left: 20px;
+  position: relative;
+}
+.content ul li::before {                 /* marcador da marca: quadrado 6px, 3px seria invisivel */
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border: 1.5px solid var(--accent-red);
+  border-radius: 2px;
+}
 .section-divider { border: none; border-top: 1px solid var(--border-gray); margin: 32px 0; }
-.highlight-box {
-  background: var(--light-gray);
+.highlight-box {                         /* sem faixa lateral; card transparente de borda fina */
+  background: transparent;
   padding: 20px 24px;
   margin: 20px 0;
-  border-left: 3px solid var(--accent-red);
+  border: 1px solid rgba(113, 144, 171, 0.55);
+  border-radius: 3px;
   font-size: 16px;
   color: var(--mid-gray);
   line-height: 1.6;
@@ -2765,7 +2804,7 @@ a.pos-card { display: block; text-decoration: none; color: inherit; }
 .pos-card--link .pos-more { display: block; margin-top: 12px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-red-text); }
 
 /* ==========================================================================
-   EFEITO DE NAVEGACAO (paginas de carbono / roteiro) — marca Ideal Metrics
+   EFEITO DE NAVEGACAO (paginas de carbono / roteiro): marca Ideal Metrics
    Barra de secao fixa com scrollspy + secoes numeradas com numero serif fixo
    + scroll-reveal. Referencia de interacao: — CQT/cqt-smeta.html.
    ========================================================================== */
@@ -2899,7 +2938,7 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
 }
 
 /* ==========================================================================
-   DOCUMENTO CONSOLIDADO — rail de seções fixo à esquerda + fluxo à direita
+   DOCUMENTO CONSOLIDADO: rail de seções fixo à esquerda + fluxo à direita
    (gestao-carbono: todo o conteúdo dos produtos numa página só).
    ========================================================================== */
 .rot-doc {
@@ -3017,7 +3056,7 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
   .rot-head h2 { font-size: 23px; }
 }
 
-/* Call-out "Mais sobre o SMETA" — leva ao roteiro completo */
+/* Call-out "Mais sobre o SMETA": leva ao roteiro completo */
 .more-card {
   display: flex;
   align-items: center;
@@ -3070,4 +3109,162 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
 @media (max-width: 640px) {
   .more-card { flex-wrap: wrap; gap: 12px; }
   .more-card .mc-arrow { margin-left: 52px; }
+}
+
+/* ==========================================================================
+   SISTEMA DE DESIGN 2026-07: menu lateral + reveal editorial + polish
+   Mantidos: cabecalho branco, menu branco (mega), barra cinza (breadcrumb),
+   hero da home. Fonte: IBM Plex Sans Condensed; Serif so como acento.
+   ========================================================================== */
+
+/* ---- Botao Menu (abre o menu lateral) ---- */
+.menu-toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-left: 28px;
+  background: none;
+  border: 1px solid var(--border-gray);
+  border-radius: 3px;
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.menu-toggle:hover {
+  color: var(--accent-red-text);
+  border-color: rgba(239, 69, 69, 0.5);
+  background: rgba(239, 69, 69, 0.04);
+}
+.mt-lines { display: flex; flex-direction: column; gap: 4px; }
+.mt-lines span { display: block; width: 15px; height: 1.5px; background: currentColor; transition: width 0.2s; }
+.mt-lines span:last-child { width: 10px; }
+.menu-toggle:hover .mt-lines span { width: 15px; }
+@media (max-width: 768px) {
+  .menu-toggle { margin-left: auto; }
+}
+
+/* ---- Menu lateral (drawer) ---- */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 20, 0.4);
+  z-index: 290;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.drawer-overlay.open { opacity: 1; }
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(340px, 88vw);
+  background: #fff;
+  z-index: 300;
+  transform: translateX(-102%);
+  visibility: hidden;              /* fechado sai do tab order (links nao focaveis) */
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 0.38s;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 12px 0 40px -18px rgba(0, 0, 0, 0.35);
+}
+.drawer.open {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s;
+}
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 22px 8px;
+  border-bottom: 1px solid var(--border-gray);
+  flex-shrink: 0;
+}
+.drawer-head img { height: 64px; width: auto; }
+.drawer-close {
+  background: none;
+  border: 1px solid var(--border-gray);
+  border-radius: 3px;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--mid-gray);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.drawer-close:hover { color: var(--accent-red); border-color: rgba(239, 69, 69, 0.5); }
+.drawer-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 22px 24px;
+  scrollbar-width: thin;
+}
+.drawer-group { margin-bottom: 26px; }
+.drawer-group .dg-num {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 21px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--accent-red-text);   /* 21px nao e texto grande WCAG; usa o vermelho AA */
+}
+.drawer-group h5 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid-gray);
+  margin: 7px 0 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border-gray);
+}
+.drawer-group a {
+  display: block;
+  padding: 6px 0 6px 0;
+  font-size: 15px;
+  color: var(--color-text);
+  border-left: 0;
+  transition: color 0.18s, padding-left 0.18s;
+}
+.drawer-group a:hover { color: var(--accent-red-text); padding-left: 8px; }
+.drawer-foot {
+  flex-shrink: 0;
+  padding: 14px 22px 18px;
+  border-top: 1px solid var(--border-gray);
+  font-size: 13px;
+  color: var(--text-light);
+}
+.drawer-foot a { color: var(--accent-red-text); }
+body.drawer-open { overflow: hidden; }
+body.drawer-open .whatsapp-float {   /* nao flutua sobre o menu aberto */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+/* ---- Reveal suave do conteudo (gated: so com JS presente) ---- */
+html.js .content > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--rvl-d, 0ms);
+}
+html.js .content > .in-view { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html.js .content > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ---- Polish global ---- */
+::selection { background: rgba(239, 69, 69, 0.16); }
+:focus-visible { outline: 2px solid var(--accent-red-text); outline-offset: 2px; }
+.footer { border-top: 3px solid var(--accent-red); }
+@media (prefers-reduced-motion: reduce) {
+  .drawer, .drawer-overlay { transition: none !important; }
 }
