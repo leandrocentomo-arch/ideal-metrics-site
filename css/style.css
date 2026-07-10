@@ -208,11 +208,11 @@ img { max-width: 100%; display: block; }
   --banner-photo: none;                                /* cada página define: style="--banner-photo:url('...')" */
 }
 .page-banner h1 {
-  font-size: 30px;
+  font-size: clamp(30px, 3.2vw, 40px);                 /* aproveitamento swiss: grande, caixa normal, tight */
   font-weight: 700;
   color: var(--color-primary);                         /* título escuro sobre o branco */
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: -0.8px;
+  line-height: 1.06;
   position: relative;
   z-index: 2;
   max-width: min(560px, 54%);
