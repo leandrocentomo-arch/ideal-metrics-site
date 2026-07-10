@@ -756,7 +756,7 @@ img { max-width: 100%; display: block; }
 .footer-top { display: flex; gap: 50px; margin-bottom: 24px; }
 .footer-brand { min-width: 220px; }
 .footer-logo { margin-bottom: 12px; }
-.footer-logo img { height: 56px; width: auto; }   /* emblema circular (Asset 41), maior */
+.footer-logo img { height: 40px; width: auto; }   /* wordmark horizontal branco (Asset 43) */
 .footer-brand-text { font-size: 14px; color: var(--blue-medium); margin-bottom: 3px; }
 .footer-brand a { color: var(--blue-light); text-decoration: underline; font-size: 14px; }
 .footer-wa { display: flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 14px; }
