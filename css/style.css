@@ -45,7 +45,7 @@ img { max-width: 100%; display: block; }
 .header {
   background: #fff;
   padding: 0 max(40px, calc(50% - 580px));
-  height: 48px;
+  height: 52px;   /* borda inferior alinha com a linha horizontal interna do logo (~51,5px) */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2822,10 +2822,10 @@ a.pos-card { display: block; text-decoration: none; color: inherit; }
    + scroll-reveal. Referencia de interacao: — CQT/cqt-smeta.html.
    ========================================================================== */
 
-/* Barra de navegacao de secao — gruda sob o header (48px) */
+/* Barra de navegacao de secao — gruda sob o header (52px) */
 .secnav {
   position: sticky;
-  top: 48px;
+  top: 52px;
   z-index: 90;
   display: flex;
   align-items: center;
@@ -3144,8 +3144,8 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
 
 .sidenav {
   position: sticky;
-  top: 68px;                        /* header 48 + folga */
-  max-height: calc(100vh - 92px);
+  top: 72px;                        /* header 52 + folga */
+  max-height: calc(100vh - 96px);
   overflow-y: auto;
   scrollbar-width: thin;
   padding-right: 6px;
