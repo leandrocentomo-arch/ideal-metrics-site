@@ -1803,9 +1803,10 @@ img { max-width: 100%; display: block; }
   overflow: hidden;
 }
 .hero-refined__img-wrap img {
-  width: 100%;
+  width: 80%;
   height: auto;
   display: block;
+  margin: 0 auto;
 }
 
 /* Texto vertical decorativo lado direito */
@@ -1815,6 +1816,7 @@ img { max-width: 100%; display: block; }
   bottom: 0;
   writing-mode: vertical-rl;
   text-orientation: mixed;
+  transform: rotate(180deg);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 2.5px;
