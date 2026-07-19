@@ -220,6 +220,9 @@
 .vd-panel{border:1px solid rgba(69,97,159,.32);border-radius:3px;padding:32px 20px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.5);min-height:180px;}
 .vd-panel img{display:block;width:100%;max-width:220px;height:auto;}
 .vd-panel-label{margin-top:16px;padding-top:10px;border-top:1px solid rgba(69,97,159,.24);width:100%;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#45619F;}
+.vd-plate--single{grid-template-columns:1fr;width:min(420px,80%);}
+.vd-panel--single{padding:36px 28px;min-height:0;}
+.vd-panel--single img{max-width:280px;}
 @media (max-width:640px){.vd-plate{grid-template-columns:1fr;}}
 
 /* rodape da folha */
@@ -310,9 +313,8 @@
     <a class="vd-link" href="https://wa.me/5511954684086">Fale pelo WhatsApp</a>
   </nav>
 
-  <div class="vd-plate">
-    <div class="vd-panel"><img src="img/logo-opcao-a.svg" alt="Ideal Metrics — opção de logo A"><span class="vd-panel-label">Opção A</span></div>
-    <div class="vd-panel"><img src="img/logo-opcao-b.svg" alt="Ideal Metrics — opção de logo B"><span class="vd-panel-label">Opção B</span></div>
+  <div class="vd-plate vd-plate--single">
+    <div class="vd-panel vd-panel--single"><img src="img/ideal-metrics-a73.svg" alt="Ideal Metrics"></div>
   </div>
 </div>
 
