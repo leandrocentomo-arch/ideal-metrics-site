@@ -169,6 +169,8 @@
 /* barra superior: carimbo + slogan */
 .vd-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;position:relative;z-index:2;animation:vdIn .6s ease .05s both;}
 .vd-stamp{margin:0;display:inline-flex;align-items:stretch;border:1px solid #1a2b4d;border-radius:3px;overflow:hidden;background:#F8FAFC;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1;letter-spacing:.14em;text-transform:uppercase;}
+.vd-logo-corner{margin:0;display:block;}
+.vd-logo-corner img{display:block;height:34px;width:auto;}
 .vd-st-a{padding:8px 12px 7px;font-weight:600;color:#1a2b4d;border-right:1px solid #1a2b4d;}
 .vd-st-b{padding:8px 12px 7px;font-weight:400;color:#45619F;}
 .vd-slogan{margin:0;padding-top:9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1;letter-spacing:.22em;text-transform:uppercase;color:#45619F;}
@@ -216,15 +218,6 @@
 .vd-link:hover{border-color:#1a2b4d;}
 .vd-link:focus-visible{outline:2px solid #45619F;outline-offset:2px;}
 
-.vd-plate{margin:clamp(28px,4vh,38px) auto 0;width:min(720px,94%);display:grid;grid-template-columns:1fr 1fr;gap:18px;animation:vdIn .8s ease .85s both;}
-.vd-panel{border:1px solid rgba(69,97,159,.32);border-radius:3px;padding:32px 20px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.5);min-height:180px;}
-.vd-panel img{display:block;width:100%;max-width:220px;height:auto;}
-.vd-panel-label{margin-top:16px;padding-top:10px;border-top:1px solid rgba(69,97,159,.24);width:100%;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#45619F;}
-.vd-plate--single{grid-template-columns:1fr;width:min(420px,80%);}
-.vd-panel--single{padding:36px 28px;min-height:0;}
-.vd-panel--single img{max-width:280px;}
-@media (max-width:640px){.vd-plate{grid-template-columns:1fr;}}
-
 /* rodape da folha */
 .vd-base{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:18px;padding-top:10px;border-top:1px solid rgba(69,97,159,.28);position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#45619F;animation:vdIn .7s ease 1.95s both;}
 
@@ -264,7 +257,7 @@
 <i class="vd-cross vd-c-br" aria-hidden="true"></i>
 
 <header class="vd-top">
-  <p class="vd-stamp"><span class="vd-st-a">Ideal Metrics</span><span class="vd-st-b">desde 1998</span></p>
+  <div class="vd-logo-corner"><img src="img/ideal-metrics-a73.svg" alt="Ideal Metrics"></div>
   <p class="vd-slogan">Medir, melhorar, comprovar</p>
 </header>
 
@@ -312,10 +305,6 @@
     <a class="vd-btn" href="servicos.html">Conheça nossos serviços</a>
     <a class="vd-link" href="https://wa.me/5511954684086">Fale pelo WhatsApp</a>
   </nav>
-
-  <div class="vd-plate vd-plate--single">
-    <div class="vd-panel vd-panel--single"><img src="img/ideal-metrics-a73.svg" alt="Ideal Metrics"></div>
-  </div>
 </div>
 
 <footer class="vd-base">
