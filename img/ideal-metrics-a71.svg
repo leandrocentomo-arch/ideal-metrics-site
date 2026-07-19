@@ -8,7 +8,8 @@
     </style>
     <radialGradient id="linear-gradient" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(348,81.5) scale(205,82)">
       <stop offset="0" stop-color="#000"/>
-      <stop offset=".42" stop-color="#000"/>
+      <stop offset=".15" stop-color="#000"/>
+      <stop offset=".42" stop-color="#000" stop-opacity=".92"/>
       <stop offset="1" stop-color="#000" stop-opacity="0"/>
     </radialGradient>
   </defs>
