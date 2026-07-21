@@ -32,10 +32,10 @@
         <polygon class="cls-5" points="9.59 101.19 26.4 101.19 24.75 104.73 7.94 104.73 9.59 101.19"/>
       </g>
     </mask>
-    <radialGradient id="radial-gradient" cx="230.84" cy="-969.92" fx="230.84" fy="-969.92" r="1.0" gradientTransform="translate(-10195.53 -79430.31) scale(205 -82) skewX(10.57)" gradientUnits="userSpaceOnUse">
+    <radialGradient id="radial-gradient" cx="230.84" cy="-969.92" fx="230.84" fy="-969.92" r=".382" gradientTransform="translate(-10195.53 -79430.31) scale(205 -82) skewX(10.57)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#010101"/>
-      <stop offset=".15" stop-color="#010101"/>
-      <stop offset=".42" stop-color="#010101" stop-opacity=".92"/>
+      <stop offset=".70" stop-color="#010101"/>
+      <stop offset=".90" stop-color="#010101" stop-opacity=".25"/>
       <stop offset="1" stop-color="#010101" stop-opacity="0"/>
     </radialGradient>
   </defs>
