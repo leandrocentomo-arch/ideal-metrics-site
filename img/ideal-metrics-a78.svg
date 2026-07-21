@@ -28,7 +28,7 @@
         <polygon class="cls-4" points="90.81 31.25 114.89 31.25 112.52 36.32 88.45 36.32 90.81 31.25"/>
       </g>
     </mask>
-    <radialGradient id="radial-gradient" cx="2846.58" cy="-1565.51" fx="2846.58" fy="-1565.51" r=".42" gradientTransform="translate(-523555.52 -128337.26) scale(205 -82) skewX(10.57)" gradientUnits="userSpaceOnUse">
+    <radialGradient id="radial-gradient" cx="2846.58" cy="-1565.51" fx="2846.58" fy="-1565.51" r=".551" gradientTransform="translate(-523555.52 -128337.26) scale(205 -82) skewX(10.57)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#000"/>
       <stop offset=".15" stop-color="#000"/>
       <stop offset=".42" stop-color="#000" stop-opacity=".92"/>
