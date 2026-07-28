@@ -1,0 +1,227 @@
+{
+  ".claude/launch.json": {
+    "mtime": 1783181188.1546128,
+    "ast_hash": "6865e1441553419ee828ff89a5b2f5a2",
+    "semantic_hash": "6865e1441553419ee828ff89a5b2f5a2"
+  },
+  ".claude/settings.json": {
+    "mtime": 1774185851.0,
+    "ast_hash": "677fbfb660d5924f3d023b093dc2aaf5",
+    "semantic_hash": "677fbfb660d5924f3d023b093dc2aaf5"
+  },
+  ".claude/settings.local.json": {
+    "mtime": 1780762042.0,
+    "ast_hash": "cf5c87fb14ec9c30fcaee8d13a870714",
+    "semantic_hash": "cf5c87fb14ec9c30fcaee8d13a870714"
+  },
+  "js/roteiro-nav.js": {
+    "mtime": 1783376592.374574,
+    "ast_hash": "881964bca401833ec696244d8d6a063d",
+    "semantic_hash": "881964bca401833ec696244d8d6a063d"
+  },
+  "js/site-nav.js": {
+    "mtime": 1783387267.6976376,
+    "ast_hash": "7aa6ec9f6ce78c504b919daf8c9256ff",
+    "semantic_hash": "7aa6ec9f6ce78c504b919daf8c9256ff"
+  },
+  "stal/js/stal.js": {
+    "mtime": 1783711921.2383683,
+    "ast_hash": "3d648780a352f40ab29ea649099e4008",
+    "semantic_hash": "3d648780a352f40ab29ea649099e4008"
+  },
+  "CLAUDE.md": {
+    "mtime": 1783179961.9651012,
+    "ast_hash": "93a5eb809f127bef9a5d54aec2842f7b",
+    "semantic_hash": "93a5eb809f127bef9a5d54aec2842f7b"
+  },
+  "README.md": {
+    "mtime": 1783179972.016153,
+    "ast_hash": "f2e61dc023b1be2d392267704991ad73",
+    "semantic_hash": "f2e61dc023b1be2d392267704991ad73"
+  },
+  "blog.html": {
+    "mtime": 1783704548.7056022,
+    "ast_hash": "ec6e6d14fd6124379db5e33e437de839",
+    "semantic_hash": "ec6e6d14fd6124379db5e33e437de839"
+  },
+  "carbono-agro.html": {
+    "mtime": 1783704548.7605915,
+    "ast_hash": "62ade47604c42a5f164b1c8d58b2d6e3",
+    "semantic_hash": "62ade47604c42a5f164b1c8d58b2d6e3"
+  },
+  "carbono-creditos.html": {
+    "mtime": 1783704548.8145845,
+    "ast_hash": "bb951736b0cf14aadb8d7be53151f4a1",
+    "semantic_hash": "bb951736b0cf14aadb8d7be53151f4a1"
+  },
+  "carbono-descarbonizacao.html": {
+    "mtime": 1783704548.8666835,
+    "ast_hash": "07ae98bbeaad07605022523d6c223fce",
+    "semantic_hash": "07ae98bbeaad07605022523d6c223fce"
+  },
+  "carbono-inventario-gee.html": {
+    "mtime": 1783704548.9279306,
+    "ast_hash": "fb912b5408429f4206059939108560a7",
+    "semantic_hash": "fb912b5408429f4206059939108560a7"
+  },
+  "carbono-mercado-regulado.html": {
+    "mtime": 1783704548.9965222,
+    "ast_hash": "84abe31d059096f16a3a2f4c9b34745e",
+    "semantic_hash": "84abe31d059096f16a3a2f4c9b34745e"
+  },
+  "carbono-neutralizacao.html": {
+    "mtime": 1783704549.0617795,
+    "ast_hash": "967d321e0cf362c9952d9483e03dcaa9",
+    "semantic_hash": "967d321e0cf362c9952d9483e03dcaa9"
+  },
+  "carbono-pegada-produto.html": {
+    "mtime": 1783704549.1222548,
+    "ast_hash": "7cd61541ef24d95874e9977de3e426a6",
+    "semantic_hash": "7cd61541ef24d95874e9977de3e426a6"
+  },
+  "clientes.html": {
+    "mtime": 1783704549.1777244,
+    "ast_hash": "6d47571dd1b7e9ccecaace9961dc65d7",
+    "semantic_hash": "6d47571dd1b7e9ccecaace9961dc65d7"
+  },
+  "como-trabalhamos.html": {
+    "mtime": 1783704549.2493749,
+    "ast_hash": "afb4430a9c73652d17b57d7d7466ebd5",
+    "semantic_hash": "afb4430a9c73652d17b57d7d7466ebd5"
+  },
+  "contato.html": {
+    "mtime": 1783704549.317026,
+    "ast_hash": "2cacfc7bb45c32f9895bc35b63f9242f",
+    "semantic_hash": "2cacfc7bb45c32f9895bc35b63f9242f"
+  },
+  "esg.html": {
+    "mtime": 1783704549.376712,
+    "ast_hash": "b8d5844122484d7377947327adc04382",
+    "semantic_hash": "b8d5844122484d7377947327adc04382"
+  },
+  "gestao-carbono.html": {
+    "mtime": 1783704549.4388103,
+    "ast_hash": "5b92fffc928dd5cc4995e70be8ff8410",
+    "semantic_hash": "5b92fffc928dd5cc4995e70be8ff8410"
+  },
+  "implantacao-iso.html": {
+    "mtime": 1783704549.4949954,
+    "ast_hash": "5194a61cf8db3dfe839704cfb62ab66c",
+    "semantic_hash": "5194a61cf8db3dfe839704cfb62ab66c"
+  },
+  "index-swiss.html": {
+    "mtime": 1783704549.5506623,
+    "ast_hash": "4ea69645dd7f6e15d51af7595ede99c7",
+    "semantic_hash": "4ea69645dd7f6e15d51af7595ede99c7"
+  },
+  "index.html": {
+    "mtime": 1783707038.5813837,
+    "ast_hash": "30afde625b3c9cf50a3345e45d96aaeb",
+    "semantic_hash": "30afde625b3c9cf50a3345e45d96aaeb"
+  },
+  "inspecoes.html": {
+    "mtime": 1783704549.677168,
+    "ast_hash": "34cb9f720717cfa5791082ecf4e4ab7c",
+    "semantic_hash": "34cb9f720717cfa5791082ecf4e4ab7c"
+  },
+  "norma-iso-14001.html": {
+    "mtime": 1783704549.741859,
+    "ast_hash": "2c2ceff1bf0ecab39469d5a8bade6456",
+    "semantic_hash": "2c2ceff1bf0ecab39469d5a8bade6456"
+  },
+  "norma-iso-45001.html": {
+    "mtime": 1783704549.8129942,
+    "ast_hash": "1d36af312cef504d536d12a502c1c758",
+    "semantic_hash": "1d36af312cef504d536d12a502c1c758"
+  },
+  "norma-iso-9001.html": {
+    "mtime": 1783704549.8807073,
+    "ast_hash": "206c6e015eb2480cca55748cd00ad14a",
+    "semantic_hash": "206c6e015eb2480cca55748cd00ad14a"
+  },
+  "nrs.html": {
+    "mtime": 1783704549.932158,
+    "ast_hash": "e7248c79cae45a412b2253021fb37d56",
+    "semantic_hash": "e7248c79cae45a412b2253021fb37d56"
+  },
+  "padroes-mercado.html": {
+    "mtime": 1783704549.9970796,
+    "ast_hash": "78a1dfdfec2da47cf6f04788fa950756",
+    "semantic_hash": "78a1dfdfec2da47cf6f04788fa950756"
+  },
+  "pegada-carbono.html": {
+    "mtime": 1783704550.052183,
+    "ast_hash": "3cc644cb44288e2903dba6723fb73d97",
+    "semantic_hash": "3cc644cb44288e2903dba6723fb73d97"
+  },
+  "produtos-inspecionamos.html": {
+    "mtime": 1783704550.1188433,
+    "ast_hash": "0e494cba7b6d6e71e08e7c62158d8b73",
+    "semantic_hash": "0e494cba7b6d6e71e08e7c62158d8b73"
+  },
+  "sedex-smeta-roteiro.html": {
+    "mtime": 1783704550.1936688,
+    "ast_hash": "8e410c3d8db071a7f327ab644f412ded",
+    "semantic_hash": "8e410c3d8db071a7f327ab644f412ded"
+  },
+  "sedex-smeta.html": {
+    "mtime": 1783704550.2673104,
+    "ast_hash": "944fe5ace4184364cba643539e12bb24",
+    "semantic_hash": "944fe5ace4184364cba643539e12bb24"
+  },
+  "seguranca-alimentos.html": {
+    "mtime": 1783704550.3263416,
+    "ast_hash": "9cc415bf791da5c21c0bdb248a711997",
+    "semantic_hash": "9cc415bf791da5c21c0bdb248a711997"
+  },
+  "servicos.html": {
+    "mtime": 1783704550.3908799,
+    "ast_hash": "16be2902d621c204995ab7991739453a",
+    "semantic_hash": "16be2902d621c204995ab7991739453a"
+  },
+  "setor-alimentos.html": {
+    "mtime": 1783704550.447968,
+    "ast_hash": "c495532eea135e548c0530c5e6d05ee3",
+    "semantic_hash": "c495532eea135e548c0530c5e6d05ee3"
+  },
+  "setor-energia.html": {
+    "mtime": 1783704550.5108836,
+    "ast_hash": "42b604097f9c46a92bc9af7c3ec95d9c",
+    "semantic_hash": "42b604097f9c46a92bc9af7c3ec95d9c"
+  },
+  "setor-industria.html": {
+    "mtime": 1783704550.5806515,
+    "ast_hash": "500c5f44669218b4d6c8ff0319d7bb01",
+    "semantic_hash": "500c5f44669218b4d6c8ff0319d7bb01"
+  },
+  "setor-logistica.html": {
+    "mtime": 1783704550.6561818,
+    "ast_hash": "5614bd34ed4c772a022921b714b6c093",
+    "semantic_hash": "5614bd34ed4c772a022921b714b6c093"
+  },
+  "setor-saude.html": {
+    "mtime": 1783704550.7149322,
+    "ast_hash": "fbb4f6cd4cae366e67142f7b7fcb9808",
+    "semantic_hash": "fbb4f6cd4cae366e67142f7b7fcb9808"
+  },
+  "setor-tecnologia.html": {
+    "mtime": 1783704550.7937238,
+    "ast_hash": "aee02c87671ad5c594165938ea772270",
+    "semantic_hash": "aee02c87671ad5c594165938ea772270"
+  },
+  "sobre.html": {
+    "mtime": 1783704550.8910208,
+    "ast_hash": "79e1986558d80a02e51e0e816adc013e",
+    "semantic_hash": "79e1986558d80a02e51e0e816adc013e"
+  },
+  "stal/index.html": {
+    "mtime": 1783711904.1646602,
+    "ast_hash": "0bc3aee35d49b9ca26149b4e09b84fd6",
+    "semantic_hash": "0bc3aee35d49b9ca26149b4e09b84fd6"
+  },
+  "suporte.html": {
+    "mtime": 1783704550.9840622,
+    "ast_hash": "5ec491f427d13dc0bdc35eb434b67df0",
+    "semantic_hash": "5ec491f427d13dc0bdc35eb434b67df0"
+  }
+}
