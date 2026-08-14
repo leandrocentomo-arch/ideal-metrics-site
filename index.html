@@ -169,8 +169,9 @@
 /* barra superior: carimbo + slogan */
 .vd-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;position:relative;z-index:2;animation:vdIn .6s ease .05s both;}
 .vd-stamp{margin:0;display:inline-flex;align-items:stretch;border:1px solid #1a2b4d;border-radius:3px;overflow:hidden;background:#F8FAFC;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1;letter-spacing:.14em;text-transform:uppercase;}
-.vd-logo-corner{margin:0;display:block;}
-.vd-logo-corner img{display:block;height:70px;width:auto;}
+.vd-logo-corner{margin:0;display:flex;align-items:flex-end;gap:26px;flex-wrap:wrap;}
+.vd-logo-corner img{display:block;height:42px;width:auto;}
+@media(max-width:700px){.vd-logo-corner{gap:16px}.vd-logo-corner img{height:32px}}
 .vd-st-a{padding:8px 12px 7px;font-weight:600;color:#1a2b4d;border-right:1px solid #1a2b4d;}
 .vd-st-b{padding:8px 12px 7px;font-weight:400;color:#45619F;}
 .vd-slogan{margin:0;padding-top:9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1;letter-spacing:.22em;text-transform:uppercase;color:#45619F;}
@@ -257,7 +258,11 @@
 <i class="vd-cross vd-c-br" aria-hidden="true"></i>
 
 <header class="vd-top">
-  <div class="vd-logo-corner"><img src="img/ideal-metrics-caps.svg" alt="Ideal Metrics"></div>
+  <div class="vd-logo-corner">
+    <img src="img/ideal-metrics-a12.svg" alt="Ideal Metrics">
+    <img src="img/ideal-metrics-a15.svg" alt="Ideal Metrics">
+    <img src="img/ideal-metrics-a16.svg" alt="Ideal Metrics">
+  </div>
   <p class="vd-slogan">Medir, melhorar, comprovar</p>
 </header>
 
