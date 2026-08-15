@@ -756,7 +756,7 @@ img { max-width: 100%; display: block; }
 .footer-top { display: flex; gap: 50px; margin-bottom: 24px; }
 .footer-brand { min-width: 220px; }
 .footer-logo { margin-bottom: 12px; }
-.footer-logo img { height: 62px; width: auto; }   /* lockup empilhado branco (Asset 25); 62px iguala a largura do wordmark horizontal a 50px */
+.footer-logo img { height: 52px; width: auto; }   /* lockup empilhado branco (Asset 28, razao 1,85); 96px de largura, um passo abaixo dos 62px/121px do a25 */
 .footer-brand-text { font-size: 14px; color: var(--blue-medium); margin-bottom: 3px; }
 .footer-brand a { color: var(--blue-light); text-decoration: underline; font-size: 14px; }
 .footer-wa { display: flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 14px; }
@@ -2566,7 +2566,7 @@ img { max-width: 100%; display: block; }
   gap: 28px;
 }
 .im-hero-stamp img {
-  height: 76px;   /* Asset 27, lockup empilhado (razao 1,95); 148px de largura, um passo abaixo dos 86px/167px do a25 */
+  height: 76px;   /* Asset 28, lockup empilhado (razao 1,85); 140px de largura */
   width: auto;
   opacity: 1;
   filter: brightness(0);
