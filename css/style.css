@@ -2566,7 +2566,7 @@ img { max-width: 100%; display: block; }
   gap: 28px;
 }
 .im-hero-stamp img {
-  height: 86px;   /* Asset 25 e um lockup empilhado (razao 1,96); 86px iguala a largura que o caps horizontal ocupava a 70px */
+  height: 76px;   /* Asset 27, lockup empilhado (razao 1,95); 148px de largura, um passo abaixo dos 86px/167px do a25 */
   width: auto;
   opacity: 1;
   filter: brightness(0);
