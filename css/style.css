@@ -3480,3 +3480,14 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .svc-ticker__track { animation: none; }
 }
+
+/* ===== Logo de secao (Asset 5) — 3a secao (.nh-hero) e 4a (.pos-section) ===== */
+.im-secao-logo { margin: 0 0 22px; }
+.im-secao-logo img { display: block; height: 46px; width: auto; }
+/* .diag-header e centralizado, entao o bloco tambem precisa ser */
+.diag-header .im-secao-logo { margin: 0 auto 20px; }
+.diag-header .im-secao-logo img { margin: 0 auto; }
+@media (max-width: 700px) {
+  .im-secao-logo { margin-bottom: 16px; }
+  .im-secao-logo img { height: 36px; }
+}
