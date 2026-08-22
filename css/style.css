@@ -2560,13 +2560,13 @@ img { max-width: 100%; display: block; }
 
 /* ===== Ideal Metrics horizontal lockup ===== */
 .im-hero-stamp {
-  margin: 0 0 22px;
+  margin: 30px 0 22px;   /* respiro do topo da secao */
   display: flex;
   align-items: center;
   gap: 28px;
 }
 .im-hero-stamp img {
-  height: 76px;   /* Asset 29, lockup empilhado (razao 2,02); 153px de largura */
+  height: 92px;   /* Asset 41, lockup horizontal (razao 2,32); 214px de largura */
   width: auto;
   opacity: 1;
   /* sem filter: o a29 traz a estrela em #ef4545 e brightness(0) a deixaria preta */
