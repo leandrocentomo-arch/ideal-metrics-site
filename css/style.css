@@ -525,10 +525,8 @@ img { max-width: 100%; display: block; }
   background: none;
   border: none;
   padding: 0;
-  width: auto;
-  flex: 0 0 auto;
 }
-.services-icon--a4 img { height: 55px; width: auto; }
+.services-icon--a4 img { height: 55px; width: 55px; }
 .services-header-right {
   max-width: 300px;
   background: var(--lavender);
