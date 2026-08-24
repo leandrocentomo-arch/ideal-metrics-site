@@ -56,7 +56,7 @@ img { max-width: 100%; display: block; }
 }
 .header.scrolled { box-shadow: 0 2px 14px rgba(0,0,0,0.07); }
 .header.scrolled .header-logo img,
-.header.scrolled .header-logo svg { height: 36px; }  /* rolando, o logo recolhe um pouco mais */
+.header.scrolled .header-logo svg { height: 56px; }  /* rolando, o logo recolhe e libera o menu fixo (sidenav top 68) */
 .header-logo {
   display: flex;
   align-items: flex-start;
@@ -75,7 +75,7 @@ img { max-width: 100%; display: block; }
 }
 .header-logo img,
 .header-logo svg {
-  height: 40px;   /* logo deitado: cabe dentro da barra de 52px, sem vazar para a seção de baixo */
+  height: 88px;
   width: auto;
   display: block;
   transition: height 0.25s ease;
@@ -2487,7 +2487,7 @@ img { max-width: 100%; display: block; }
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
   .header { height: auto; padding: 8px 16px; flex-wrap: wrap; }
-  .header-logo img, .header-logo svg { height: 34px; }
+  .header-logo img, .header-logo svg { height: 56px; }
   /* menu do topo continua no mobile: links enxutos com quebra de linha */
   .header-nav {
     display: flex;
