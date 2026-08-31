@@ -43,15 +43,12 @@ body>*{position:relative;z-index:1}
   transform-origin:top;transition:transform .9s cubic-bezier(.76,0,.24,1) .1s}
 .abertura .l-h{top:50%;left:0;height:1px;width:100%;transform:scaleX(0);
   transform-origin:left;transition:transform .9s cubic-bezier(.76,0,.24,1) .25s}
-.abertura .aro{width:130px;height:130px;border:1.5px solid rgba(232,230,224,.9);
-  border-radius:50%;position:absolute;transform:scale(0);
-  transition:transform .8s cubic-bezier(.76,0,.24,1) .55s}
-.abertura img{width:min(240px,50vw);position:relative;opacity:0;transform:rotate(-8deg);
-  transition:opacity .7s ease .9s,transform 1.4s cubic-bezier(.76,0,.24,1) .9s}
+/* o logo so APARECE: sem giro, sem deslocamento, sem circulo */
+.abertura img{width:min(240px,50vw);position:relative;opacity:0;
+  transition:opacity .7s ease .55s}
 .abertura.arma .l-v{transform:scaleY(1)}
 .abertura.arma .l-h{transform:scaleX(1)}
-.abertura.arma .aro{transform:scale(1)}
-.abertura.arma img{opacity:1;transform:rotate(0)}
+.abertura.arma img{opacity:1}
 .pronta .abertura{transform:translateY(-101%)}
 .abertura.fora{display:none}
 
@@ -1214,7 +1211,7 @@ body>*{position:relative;z-index:1}
 <body class="carga">
 
 <div class="abertura" id="abertura">
-  <span class="l-v"></span><span class="l-h"></span><span class="aro"></span>
+  <span class="l-v"></span><span class="l-h"></span>
   <img src="img/ideal-metrics-a16b-claro.svg" alt="">
 </div>
 <div class="cursor" id="cursor"><span class="c-mais">+</span><span class="c-abre">[</span><span class="c-fecha">]</span></div>
