@@ -3,514 +3,503 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ideal Metrics — Qualidade, Conformidade e Sustentabilidade</title>
-<meta name="description" content="Implantação de normas ISO, gestão de carbono, SEDEX SMETA e inspeções de qualidade. Desde 1998, do diagnóstico ao certificado.">
+<title>Ideal Metrics — Integração e Sustentabilidade</title>
+<meta name="description" content="Consultoria em normas ISO, padrões internacionais, gestão de carbono e inspeções da qualidade. Desde 1998.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
-   Ideal Metrics — página inicial experimental
-   Direção: a gramática do site de referência (papel greige, uma cor só,
-   grotesca condensada + mono, meio-tom Floyd-Steinberg, colchetes) vertida
-   para o aço azulado do tingimento 8999B1 da marca.
+   Ideal Metrics — página inicial experimental, clonada do modelo OCI
+   (código-fonte medido: azul dominando a página, mercury de fundo, grotesca
+   peso 400 em corpos gigantes, mono nos rótulos, grade-guia de colunas,
+   quantum 15px, zero bold, zero radius).
+   Azul = #45619F, âncora oficial do halftone da marca; fotos = tratamento
+   oficial --halftone do _tingir-fotos; grotesca = IBM Plex Sans.
    ========================================================================== */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --papel:#E8E6E1;
-  --aco:#2B3C54;          /* o campo dominante, sombra do tingimento */
-  --aco-14:rgba(43,60,84,.14);
-  --aco-35:rgba(43,60,84,.35);
-  --meio:#8999B1;         /* a cor do tingimento em pessoa */
-  --claro:#C9D2DE;
-  --tinta:#14181F;
-  --disp:'IBM Plex Sans Condensed',sans-serif;
+  --azul:#45619F;
+  --azul-escuro:#31477A;
+  --mercurio:#E8E6E0;
+  --branco:#FFFFFF;
+  --fio:rgba(69,97,159,.28);
+  --sans:'IBM Plex Sans',sans-serif;
   --mono:'IBM Plex Mono',monospace;
-  --corpo:'IBM Plex Sans',sans-serif;
+  --gut:15px;
+  --lado:clamp(28px,4vw,64px);
 }
 html{scroll-behavior:smooth}
-/* a grade-guia do modelo: 12 colunas com fio de 1px, atras de tudo */
-body::before{content:"";position:fixed;inset:0 clamp(28px,4vw,64px);z-index:0;pointer-events:none;
-  background-image:linear-gradient(to right,var(--aco-14) 1px,transparent 1px);
-  background-size:calc(100%/12) 100%}
-body>*{position:relative;z-index:1}
-body{background:var(--papel);color:var(--tinta);font-family:var(--corpo);
-  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{background:var(--mercurio);color:var(--azul);font-family:var(--sans);
+  font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
-::selection{background:var(--aco);color:var(--papel)}
+button{font:inherit}
+::selection{background:var(--azul);color:var(--mercurio)}
 
-/* ---------- réguas de composição ---------- */
-.miolo{padding:0 clamp(28px,4vw,64px)}
-.rotulo{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--aco)}
-.rotulo .tag{color:var(--meio)}
-h2.grande{font-family:var(--disp);font-weight:400;letter-spacing:0;
-  font-size:clamp(40px,6.4vw,92px);line-height:.96;
-  color:var(--aco)}
-.miolo .cab.centro{display:block;text-align:center;margin-bottom:64px}
-.miolo .cab.centro .rotulo{margin-bottom:14px}
-.mono-txt{font-family:var(--mono);font-size:12.5px;line-height:1.75;
-  letter-spacing:.05em;text-transform:uppercase;color:var(--aco)}
+/* a grade-guia do modelo: colunas de fio atrás de tudo */
+body::before{content:"";position:fixed;inset:0 var(--lado);z-index:0;pointer-events:none;
+  background-image:linear-gradient(to right,rgba(69,97,159,.12) 1px,transparent 1px);
+  background-size:calc(100%/12) 100%}
+body>*{position:relative;z-index:1}
 
-/* colchetes: o botão da casa */
+.mono-txt{font-family:var(--mono);font-size:12px;line-height:1.8;
+  letter-spacing:.05em;text-transform:uppercase}
+.rotulo{font-family:var(--mono);font-size:12px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--azul)}
 .colchete{font-family:var(--mono);font-size:12px;letter-spacing:.12em;
-  text-transform:uppercase;display:inline-flex;align-items:baseline;gap:.55em;
-  color:var(--tinta);transition:color .2s}
-.colchete i{font-style:normal;color:var(--meio);transition:transform .25s}
-.colchete:hover{color:var(--aco)}
+  text-transform:uppercase;display:inline-flex;align-items:baseline;gap:.55em}
+.colchete i{font-style:normal;transition:transform .3s cubic-bezier(.4,0,.2,1)}
 .colchete:hover i:first-child{transform:translateX(-4px)}
 .colchete:hover i:last-child{transform:translateX(4px)}
 
-/* cursor do site de origem: uma cruz que vira colchetes sobre o clicavel */
-@media(pointer:fine){
-  .cursor{position:fixed;left:0;top:0;z-index:2000;pointer-events:none;
-    font-family:var(--mono);font-size:15px;color:var(--aco);
-    transform:translate(-50%,-50%);transition:opacity .2s;mix-blend-mode:multiply}
-  .cursor .c-mais{display:inline}
-  .cursor .c-abre,.cursor .c-fecha{display:none;letter-spacing:0}
-  .cursor.liga .c-mais{display:none}
-  .cursor.liga .c-abre,.cursor.liga .c-fecha{display:inline}
-  .cursor.liga{font-size:17px;color:var(--aco)}
-  .cursor.liga .c-abre{margin-right:14px}
-  .escuro-sob .cursor{color:var(--claro);mix-blend-mode:normal}
-}
-@media(pointer:coarse){.cursor{display:none}}
-
-/* abertura: o painel em aco com o logo, como a entrada do site de origem */
-.abertura{position:fixed;inset:0;z-index:3000;background:var(--aco);
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .8s cubic-bezier(.76,0,.24,1)}
-.abertura img{width:min(300px,56vw)}
-.pronta .abertura{transform:translateY(-101%)}
-.abertura.fora{display:none}
-
-/* revelação no scroll */
-.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv{opacity:0;transform:translateY(24px);
+  transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
 .rv.in-view{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 
-/* ---------- herói: as marcas do modelo, foto com o tingimento oficial ---------- */
+/* ---------- o cromo fixo do modelo: placa do logo + aba MENU ---------- */
+.placa{position:fixed;top:var(--gut);left:var(--lado);z-index:900;
+  background:var(--azul);color:var(--mercurio);display:flex;align-items:center;
+  gap:14px;padding:12px 22px;font-family:var(--mono);font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase}
+.placa img{height:30px;width:auto}
+.aba-menu{position:fixed;top:var(--gut);right:var(--lado);z-index:900;
+  background:var(--branco);color:var(--azul);border:none;cursor:pointer;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;padding:16px 24px}
+.veu-menu{position:fixed;inset:0;z-index:950;background:var(--azul);
+  color:var(--mercurio);display:flex;flex-direction:column;justify-content:center;
+  padding:0 var(--lado);gap:6px;transform:translateY(-101%);
+  transition:transform .6s cubic-bezier(.76,0,.24,1)}
+.veu-menu.aberto{transform:none}
+.veu-menu a{font-family:var(--sans);font-weight:400;
+  font-size:clamp(30px,5vw,58px);line-height:1.16}
+.veu-menu a:hover{color:var(--branco)}
+.veu-menu .fecha{position:absolute;top:var(--gut);right:var(--lado);
+  background:var(--branco);color:var(--azul);border:none;cursor:pointer;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;padding:16px 24px}
+.veu-menu .mono-txt{opacity:.8;margin-bottom:24px}
+
+/* ---------- herói: foto no tratamento halftone oficial ---------- */
 .heroi{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
-  background:var(--aco) url('img/tanques-industriais-01.webp') center/cover no-repeat;
-  color:var(--papel);position:relative;padding:15px clamp(28px,4vw,64px) 28px}
+  background:var(--azul) url('img/tanques-halftone-01.webp') center/cover no-repeat;
+  color:var(--branco);position:relative;padding:15px var(--lado) 10px}
 .heroi::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(160deg,rgba(43,60,84,.30),rgba(43,60,84,.05) 45%,rgba(43,60,84,.55))}
+  background:linear-gradient(165deg,rgba(49,71,122,.30),rgba(49,71,122,.05) 45%,rgba(49,71,122,.48))}
 .heroi>*{position:relative;z-index:1}
-.heroi .placa{position:absolute;top:15px;left:15px;background:var(--aco);
-  color:var(--papel);display:flex;align-items:center;gap:14px;padding:12px 22px;
-  font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
-.heroi .placa img{height:30px;width:auto}
-.nav-heroi{position:absolute;top:0;left:50%;right:15px;display:flex;
+.nav-heroi{position:absolute;top:0;left:50%;right:var(--lado);display:flex;
   gap:clamp(30px,8vw,150px)}
 .nav-heroi .col{position:relative;padding:26px 0 0 18px;display:flex;
   flex-direction:column;gap:3px}
-.nav-heroi .col.fio::before{content:"";position:absolute;left:0;top:0;width:1px;
-  height:56svh;background:rgba(232,230,224,.6)}
+.nav-heroi .col::before{content:"";position:absolute;left:0;top:0;width:1px;
+  height:56svh;background:rgba(232,230,224,.55)}
 .nav-heroi a{font-family:var(--mono);font-size:12px;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--papel)}
+  text-transform:uppercase;color:var(--mercurio)}
 .nav-heroi a:hover{text-decoration:underline}
-.heroi .assina{margin:0}
-.heroi .assina img{width:clamp(320px,46vw,680px);height:auto;display:block;
-  filter:drop-shadow(0 2px 22px rgba(43,60,84,.5))}
-@media(max-width:880px){.nav-heroi{display:none}
-  .heroi .placa{position:static;align-self:flex-start;margin-bottom:auto}}
-.carga .heroi .assina{opacity:0;transform:translateY(30px)}
-.pronta .heroi .assina{opacity:1;transform:none;
-  transition:opacity .9s ease .35s,transform .9s ease .35s}
-/* faixa de abertura sob o herói */
-.abre{background:var(--papel);border-top:1px solid var(--aco-35)}
-.abre .miolo{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
-  gap:clamp(24px,5vw,90px);padding-top:64px;padding-bottom:64px}
-.abre p.lede{font-size:clamp(17px,1.6vw,21px);line-height:1.45;font-weight:500;max-width:56ch}
-.abre .lado{display:flex;flex-direction:column;gap:26px;justify-content:space-between}
-@media(max-width:880px){.abre .miolo{grid-template-columns:1fr}}
+.heroi .frase{align-self:flex-end;max-width:340px;margin-bottom:clamp(20px,4vh,44px);
+  font-size:clamp(20px,1.9vw,27px);line-height:1.18;font-weight:400}
+.heroi .nome{font-weight:400;letter-spacing:-.01em;
+  font-size:clamp(52px,9.6vw,148px);line-height:1.02;margin-bottom:.05em}
+.carga .heroi .nome,.carga .heroi .frase{opacity:0;transform:translateY(30px)}
+.pronta .heroi .nome,.pronta .heroi .frase{opacity:1;transform:none;
+  transition:opacity .9s cubic-bezier(.4,0,.2,1) .35s,transform .9s cubic-bezier(.4,0,.2,1) .35s}
+.pronta .heroi .frase{transition-delay:.55s}
+@media(max-width:880px){.nav-heroi{display:none}}
 
-/* ---------- banda de declaração ---------- */
-.banda{border-top:1px solid var(--aco-35);border-bottom:1px solid var(--aco-35)}
-.banda .miolo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,90px);
-  padding-top:46px;padding-bottom:46px}
+/* ---------- intro com revelação palavra a palavra ---------- */
+.abre{padding:120px 0 80px}
+.abre .miolo{padding:0 var(--lado);display:flex;justify-content:center}
+.abre p{max-width:900px;font-size:clamp(24px,2.6vw,38px);line-height:1.3;font-weight:400}
+.abre p .pal{opacity:.16;transition:opacity .5s cubic-bezier(.4,0,.2,1)}
+.abre p .pal.acesa{opacity:1}
+
+/* ---------- banda mono em duas colunas ---------- */
+.banda{padding:40px 0 110px}
+.banda .miolo{padding:0 var(--lado);display:grid;
+  grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,90px)}
+.banda .mono-txt{max-width:52ch}
 @media(max-width:880px){.banda .miolo{grid-template-columns:1fr}}
 
 /* ---------- serviços ---------- */
-.servicos{padding:110px 0 90px}
-.servicos .cab{display:flex;justify-content:space-between;align-items:flex-end;
-  margin-bottom:56px;gap:24px}
-.svc{border-top:1px solid var(--aco-35);display:grid;
-  grid-template-columns:64px minmax(0,1.1fr) minmax(0,1.3fr) auto;
-  gap:clamp(14px,2.5vw,44px);align-items:baseline;padding:30px 0;
+.servicos{background:var(--branco);padding:90px 0 0}
+.servicos .cab{text-align:center;padding:0 var(--lado);margin-bottom:80px}
+.servicos .cab .rotulo{display:flex;justify-content:space-between;margin-bottom:40px}
+h2.grande{font-family:var(--sans);font-weight:400;letter-spacing:-.005em;
+  font-size:clamp(52px,8vw,124px);line-height:1.04;color:var(--azul)}
+.svc{border-top:1px solid var(--fio);display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto;
+  gap:clamp(16px,3vw,60px);align-items:center;
+  padding:34px var(--lado);transition:background .3s cubic-bezier(.4,0,.2,1)}
+.svc:hover{background:rgba(69,97,159,.06)}
+.svc h3{font-family:var(--sans);font-weight:400;font-size:clamp(22px,2.1vw,30px);
+  line-height:1.1}
+.svc .desc{font-family:var(--mono);font-size:12px;letter-spacing:.05em;
+  text-transform:uppercase;line-height:1.8;max-width:52ch}
+.barra-azul{display:block;background:var(--azul);color:var(--mercurio);
+  text-align:center;font-family:var(--mono);font-size:13px;letter-spacing:.18em;
+  text-transform:uppercase;padding:26px 15px;
   transition:background .3s cubic-bezier(.4,0,.2,1)}
-.svc:last-of-type{border-bottom:1px solid var(--aco-35)}
-.svc:hover{background:rgba(137,153,177,.12)}
-.svc .num{font-family:var(--mono);font-size:12px;color:var(--meio)}
-.svc h3{font-family:var(--disp);font-weight:500;font-size:clamp(19px,1.9vw,26px);
-  line-height:1;letter-spacing:-.01em}
-.svc .desc{max-width:52ch}
-@media(max-width:880px){.svc{grid-template-columns:44px 1fr;grid-template-rows:auto auto auto}
-  .svc h3{grid-column:2}.svc .desc{grid-column:2}.svc .colchete{grid-column:2}}
+.barra-azul:hover{background:var(--azul-escuro)}
+@media(max-width:880px){.svc{grid-template-columns:1fr}}
 
-/* ---------- processo: os cartoes inclinados do modelo ---------- */
-.processo{position:relative;padding:110px 0 130px;border-top:1px solid var(--aco-35)}
-.processo .miolo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
-  gap:clamp(24px,4vw,70px)}
+/* ---------- processo: cartões que se alinham COM o scroll ---------- */
+.processo{position:relative;padding:110px 0 130px}
+.processo .miolo{padding:0 var(--lado);display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,70px)}
 .processo .rotulo{grid-column:1/-1;display:flex;justify-content:space-between;
   margin-bottom:30px}
-.processo h2.grande{font-size:clamp(56px,8.4vw,132px);line-height:.94;margin:0 0 40px}
+.processo h2.grande{margin:0 0 40px}
 .processo .sub{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--aco);max-width:44ch;line-height:1.85;
+  text-transform:uppercase;max-width:44ch;line-height:1.85;
   margin-left:clamp(0px,8vw,120px)}
 .cartas{display:flex;flex-direction:column;gap:clamp(28px,4vh,54px);padding-top:20px}
-.passo{background:#fff;padding:26px 30px 34px;max-width:520px;width:100%;
-  box-shadow:0 14px 40px rgba(43,60,84,.13)}
-.passo:nth-child(odd){transform:rotate(-2.4deg);align-self:flex-start}
-.passo:nth-child(even){transform:rotate(2deg);align-self:flex-end}
-.passo{transition:transform .8s cubic-bezier(.4,0,.2,1)}
-.passo.reto{transform:rotate(0)}
+.passo{background:var(--branco);padding:26px 30px 34px;max-width:520px;width:100%;
+  box-shadow:0 14px 40px rgba(49,71,122,.14);will-change:transform}
+.passo:nth-child(odd){align-self:flex-start}
+.passo:nth-child(even){align-self:flex-end}
 .passo .topo{display:flex;justify-content:space-between;align-items:baseline;
-  border-bottom:1px solid var(--aco);padding-bottom:10px;margin-bottom:16px}
-.passo h3{font-family:var(--disp);font-weight:400;font-size:clamp(24px,2.4vw,34px);
-  line-height:1;color:var(--aco)}
-.passo .num{font-family:var(--disp);font-weight:400;font-size:clamp(22px,2.2vw,30px);
-  color:var(--aco)}
+  border-bottom:1px solid var(--azul);padding-bottom:10px;margin-bottom:16px}
+.passo h3{font-weight:400;font-size:clamp(24px,2.4vw,32px);line-height:1}
+.passo .num{font-weight:400;font-size:clamp(22px,2.2vw,28px)}
 .passo p{font-family:var(--mono);font-size:12px;letter-spacing:.05em;
-  text-transform:uppercase;color:var(--aco);line-height:1.8;
-  border-bottom:1px solid var(--aco);padding-bottom:22px}
+  text-transform:uppercase;line-height:1.8;border-bottom:1px solid var(--azul);
+  padding-bottom:22px}
 @media(max-width:880px){.processo .miolo{grid-template-columns:1fr}
-  .passo:nth-child(odd),.passo:nth-child(even){transform:none;align-self:stretch}}
-/* ---------- diferenciais ---------- */
-.difs{padding:110px 0 90px}
-.difs .cab{margin-bottom:60px}
-.dif{border-top:1px solid var(--aco-35);display:grid;
-  grid-template-columns:64px minmax(0,1fr) auto;gap:clamp(14px,2.5vw,44px);
-  align-items:baseline;padding:34px 0}
-.dif:last-of-type{border-bottom:1px solid var(--aco-35)}
-.dif .num{font-family:var(--mono);font-size:12px;color:var(--meio)}
-.dif h3{font-family:var(--disp);font-weight:400;letter-spacing:0;
-  font-size:clamp(26px,3.2vw,46px);line-height:.98}
-.dif .cat{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--aco)}
-.dif p{grid-column:2;max-width:60ch;margin-top:10px;color:var(--aco);font-size:15px}
-@media(max-width:880px){.dif{grid-template-columns:44px 1fr}
-  .dif .cat{grid-column:2}.dif p{grid-column:2}}
+  .passo:nth-child(odd),.passo:nth-child(even){align-self:stretch}}
 
-/* ---------- números ---------- */
-.numeros{border-top:1px solid var(--aco-35);border-bottom:1px solid var(--aco-35)}
-.numeros .miolo{display:grid;grid-template-columns:repeat(3,1fr);
-  padding-top:0;padding-bottom:0}
-.numeros .celula{padding:48px clamp(10px,2vw,32px);border-right:1px solid var(--aco-35)}
-.numeros .celula:first-child{padding-left:0}
-.numeros .celula:last-child{border-right:none}
-.numeros b{display:block;font-family:var(--disp);font-weight:400;
-  font-size:clamp(30px,3.8vw,54px);line-height:.9;letter-spacing:-.02em}
-.numeros span{display:block;margin-top:12px}
-@media(max-width:880px){.numeros .miolo{grid-template-columns:1fr}
-  .numeros .celula{border-right:none;border-bottom:1px solid var(--aco-14);padding-left:0}}
+/* ---------- diferenciais: as três colunas do modelo ---------- */
+.difs{padding:40px 0 130px}
+.difs .cab{text-align:center;padding:0 var(--lado);margin-bottom:90px}
+.difs .cab .rotulo{display:flex;justify-content:space-between;margin-bottom:40px}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);padding:0 var(--lado)}
+.tres .colu{position:relative;padding:0 clamp(14px,2vw,34px);min-height:460px;
+  display:flex;flex-direction:column}
+.tres .colu+.colu{border-left:1px solid var(--fio)}
+.tres .meta{display:flex;justify-content:space-between;margin-bottom:26px}
+.tres h3{font-weight:400;font-size:clamp(24px,2.4vw,34px);line-height:1.12;
+  margin-top:auto}
+.tres .colu:nth-child(1) h3{margin-top:120px}
+.tres .colu:nth-child(2) h3{margin-top:240px}
+.tres .colu:nth-child(3) h3{margin-top:40px}
+.tres p{font-family:var(--mono);font-size:12px;letter-spacing:.05em;
+  text-transform:uppercase;line-height:1.8;margin-top:18px;max-width:40ch}
+@media(max-width:880px){.tres{grid-template-columns:1fr}
+  .tres .colu{min-height:0;padding:0 0 44px}
+  .tres .colu+.colu{border-left:none;border-top:1px solid var(--fio);padding-top:34px}
+  .tres .colu:nth-child(n) h3{margin-top:0}}
 
 /* ---------- clientes ---------- */
-.clientes{padding:90px 0}
-.grade-logos{display:grid;grid-template-columns:repeat(6,1fr);margin-top:40px;
-  border:1px solid var(--aco-35);border-right:none;border-bottom:none}
-.grade-logos .cel{border-right:1px solid var(--aco-35);border-bottom:1px solid var(--aco-35);
+.clientes{background:var(--branco);padding:100px 0 110px}
+.clientes .cab{text-align:center;padding:0 var(--lado);margin-bottom:70px}
+.clientes .cab .rotulo{display:flex;justify-content:space-between;margin-bottom:40px}
+.grade-logos{display:grid;grid-template-columns:repeat(6,1fr);
+  margin:0 var(--lado);border:1px solid var(--fio);border-right:none;border-bottom:none}
+.grade-logos .cel{border-right:1px solid var(--fio);border-bottom:1px solid var(--fio);
   display:flex;align-items:center;justify-content:center;padding:26px 18px;min-height:104px}
 .grade-logos img{max-height:44px;max-width:78%;width:auto;
-  filter:grayscale(1);opacity:.72;transition:opacity .25s,filter .25s}
+  filter:grayscale(1);opacity:.66;transition:opacity .3s,filter .3s}
 .grade-logos .cel:hover img{filter:none;opacity:1}
 @media(max-width:880px){.grade-logos{grid-template-columns:repeat(2,1fr)}}
 
-/* ---------- conteúdo: a moldura da referência ----------
-   foto tingida ocupando a metade esquerda, grade 2x2 de cartões à direita,
-   um deles invertido em aço sólido; tudo dentro de um fio duplo */
-.conteudo{padding:0 0 110px}
+/* ---------- conteúdo: a moldura com foto que segue o mouse ---------- */
+.conteudo{padding:100px 0 120px}
 .conteudo .cab{display:flex;justify-content:space-between;align-items:baseline;
-  margin-bottom:16px;gap:24px}
-.moldura{border:2px solid var(--aco);display:grid;
+  padding:0 var(--lado);margin-bottom:16px}
+.moldura{margin:0 var(--lado);border:2px solid var(--azul);display:grid;
   grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}
-.moldura .foto{position:relative;min-height:520px;background:var(--meio);overflow:hidden}
+.moldura .foto{position:relative;min-height:520px;background:var(--azul);overflow:hidden}
 .moldura .foto .camada{position:absolute;inset:0;background-position:center;
   background-size:cover;opacity:0;transition:opacity .45s cubic-bezier(.4,0,.2,1)}
 .moldura .foto .camada.on{opacity:1}
 .mgrade{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
 .post{display:flex;flex-direction:column;justify-content:space-between;
-  padding:26px 26px 30px;min-height:250px;border-left:1px solid var(--aco-35);
-  border-top:1px solid var(--aco-35);transition:background .3s cubic-bezier(.4,0,.2,1)}
+  padding:26px 26px 30px;min-height:250px;border-left:1px solid var(--fio);
+  border-top:1px solid var(--fio);transition:background .3s cubic-bezier(.4,0,.2,1)}
 .mgrade .post:nth-child(1),.mgrade .post:nth-child(2){border-top:none}
-.post:hover{background:rgba(137,153,177,.14)}
-.post .data{font-family:var(--corpo);font-weight:500;font-size:19px;color:var(--aco)}
+.post:hover{background:rgba(69,97,159,.06)}
+.post .data{font-weight:400;font-size:22px}
 .post .pe{display:flex;flex-direction:column;gap:12px}
 .post .cat{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--aco)}
-.post h3{font-family:var(--corpo);font-weight:500;font-size:16.5px;line-height:1.35;
-  color:var(--tinta)}
-.post.cheio{background:var(--aco)}
-.post.cheio .data,.post.cheio .cat{color:var(--claro)}
-.post.cheio h3{color:var(--papel)}
-.post.cheio:hover{background:#33475f}
+  text-transform:uppercase}
+.post h3{font-weight:400;font-size:clamp(17px,1.7vw,22px);line-height:1.3}
+.post.cheio{background:var(--azul);color:var(--mercurio)}
+.post.cheio:hover{background:var(--azul-escuro)}
 @media(max-width:880px){.moldura{grid-template-columns:1fr}
   .moldura .foto{min-height:280px}.mgrade{grid-template-columns:1fr}
   .post{min-height:0;gap:22px}}
 
-/* ---------- rodapé ---------- */
-.rodape{background:var(--aco);color:var(--papel);
-  background-image:url('img/setor-energia.webp');background-size:cover;
-  background-position:center bottom;position:relative}
-.rodape::before{content:"";position:absolute;inset:0;background:rgba(43,60,84,.88)}
-.rodape .miolo{position:relative;padding-top:96px;padding-bottom:36px}
-.rodape .chamada{display:flex;justify-content:space-between;align-items:flex-end;
-  gap:32px;padding-bottom:70px;border-bottom:1px solid rgba(201,210,222,.3)}
-.rodape .chamada h2{font-family:var(--disp);font-weight:400;letter-spacing:0;
-  font-size:clamp(30px,4.2vw,62px);line-height:.96}
-.rodape .colchete{color:var(--papel)}
-.rodape .colchete:hover{color:var(--claro)}
-.rodape .colunas{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));
-  gap:clamp(24px,4vw,70px);padding:56px 0 70px}
-.rodape .colunas img{width:min(240px,60%)}
-.rodape .colunas h4{font-family:var(--mono);font-size:11px;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--claro);margin-bottom:16px}
-.rodape .colunas a{display:block;font-family:var(--mono);font-size:12.5px;
-  letter-spacing:.06em;text-transform:uppercase;padding:5px 0;opacity:.85;transition:opacity .2s}
-.rodape .colunas a:hover{opacity:1}
-.rodape .legal{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  padding-top:22px;border-top:1px solid rgba(201,210,222,.3);
+/* ---------- rodapé do modelo: azul sólido, marca gigante, fios ---------- */
+.rodape{background:var(--azul);color:var(--mercurio);padding:60px 0 26px}
+.rodape .miolo{padding:0 var(--lado);display:grid;
+  grid-template-columns:minmax(0,1.2fr) 1fr 1fr;gap:clamp(24px,3vw,50px)}
+.rodape .marca-g{display:flex;align-items:center}
+.rodape .marca-g img{width:min(300px,70%)}
+.rodape .colu{position:relative;padding:20px 0 0 18px;display:flex;
+  flex-direction:column}
+.rodape .colu::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;
+  background:rgba(232,230,224,.4)}
+.rodape .colu a{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;
+  text-transform:uppercase;padding:3px 0}
+.rodape .colu a:hover{color:var(--branco)}
+.rodape .colu .grupo2{margin-top:auto;padding-top:60px;display:flex;
+  flex-direction:column}
+.rodape .news label{display:block;font-family:var(--mono);font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px}
+.rodape .news .caixa{display:flex;border:1px solid rgba(232,230,224,.6)}
+.rodape .news input{flex:1;background:transparent;border:none;outline:none;
+  color:var(--mercurio);font-family:var(--sans);font-size:14px;padding:14px 16px;
+  min-width:0}
+.rodape .news input::placeholder{color:rgba(232,230,224,.7)}
+.rodape .news button{background:transparent;border:none;color:var(--mercurio);
+  font-size:18px;padding:0 18px;cursor:pointer}
+.rodape .legal{grid-column:1/-1;display:flex;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;margin-top:70px;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--claro)}
-@media(max-width:880px){.rodape .chamada{flex-direction:column;align-items:flex-start}
-  .rodape .colunas{grid-template-columns:1fr}}
+  text-transform:uppercase;color:rgba(232,230,224,.85)}
+@media(max-width:880px){.rodape .miolo{grid-template-columns:1fr}
+  .rodape .colu{padding-left:0}.rodape .colu::before{display:none}}
+
+/* ---------- cursor do modelo ---------- */
+@media(pointer:fine){
+  .cursor{position:fixed;left:0;top:0;z-index:2000;pointer-events:none;
+    font-family:var(--mono);font-size:15px;color:var(--azul);
+    transform:translate(-50%,-50%);mix-blend-mode:multiply}
+  .cursor .c-abre,.cursor .c-fecha{display:none}
+  .cursor.liga .c-mais{display:none}
+  .cursor.liga .c-abre,.cursor.liga .c-fecha{display:inline}
+  .cursor.liga{font-size:17px}
+  .cursor.liga .c-abre{margin-right:14px}
+}
+@media(pointer:coarse){.cursor{display:none}}
+
+/* ---------- abertura ---------- */
+.abertura{position:fixed;inset:0;z-index:3000;background:var(--azul);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .8s cubic-bezier(.76,0,.24,1)}
+.abertura img{width:min(300px,56vw)}
+.pronta .abertura{transform:translateY(-101%)}
+.abertura.fora{display:none}
 </style>
 </head>
 <body class="carga">
+
 <div class="abertura" id="abertura"><img src="img/ideal-metrics-a16b-claro.svg" alt=""></div>
 <div class="cursor" id="cursor"><span class="c-mais">+</span><span class="c-abre">[</span><span class="c-fecha">]</span></div>
 
-
+<a class="placa" href="index-teste.html"><img src="img/ideal-metrics-a19b.svg" alt="">Ideal Metrics</a>
+<button class="aba-menu" id="abreMenu">Menu</button>
+<nav class="veu-menu" id="veuMenu" aria-label="Menu">
+  <p class="mono-txt">Ideal Metrics &middot; Integra&ccedil;&atilde;o e Sustentabilidade</p>
+  <a href="servicos.html">Servi&ccedil;os</a>
+  <a href="como-trabalhamos.html">Como trabalhamos</a>
+  <a href="sobre.html">Quem somos</a>
+  <a href="clientes.html">Clientes</a>
+  <a href="blog.html">Conte&uacute;do</a>
+  <a href="contato.html">Contato</a>
+  <button class="fecha" id="fechaMenu">Fechar</button>
+</nav>
 
 <section class="heroi">
-  <a class="placa" href="index-teste.html"><img src="img/ideal-metrics-a19b.svg" alt="">Ideal Metrics</a>
   <nav class="nav-heroi" aria-label="Principal">
-    <div class="col fio">
+    <div class="col">
       <a href="servicos.html">Servi&ccedil;os</a>
       <a href="como-trabalhamos.html">Como trabalhamos</a>
       <a href="sobre.html">Quem somos</a>
       <a href="clientes.html">Clientes</a>
     </div>
-    <div class="col fio">
+    <div class="col">
       <a href="blog.html">Conte&uacute;do</a>
       <a href="contato.html">Contato</a>
     </div>
   </nav>
-  <h1 class="assina"><img src="img/ideal-metrics-a16b-claro.svg" alt="Ideal Metrics"></h1>
+  <p class="frase">Integra&ccedil;&atilde;o e Sustentabilidade, do diagn&oacute;stico ao certificado.</p>
+  <h1 class="nome">Ideal<br>Metrics</h1>
 </section>
 
 <section class="abre">
   <div class="miolo">
-    <p class="lede rv">Com atuação desde 1998, apoiamos empresas na conquista de certificações, na conformidade com padrões internacionais e na inspeção da qualidade. Não emitimos o certificado, e é justamente isso que assegura a isenção do nosso trabalho.</p>
-    <div class="lado rv">
-      <p class="mono-txt">Implantamos sistemas de gestão e preparamos sua organização para a auditoria do organismo certificador. Como não certificamos, não existe o conflito de quem consulta e certifica o mesmo cliente.</p>
-      <a class="colchete" href="contato.html"><i>[</i>Fale com um consultor<i>]</i></a>
-    </div>
+    <p id="lede">Com atua&ccedil;&atilde;o desde 1998, apoiamos empresas na conquista de certifica&ccedil;&otilde;es, na conformidade com padr&otilde;es internacionais e na inspe&ccedil;&atilde;o da qualidade. N&atilde;o emitimos o certificado, e &eacute; justamente isso que assegura a isen&ccedil;&atilde;o do nosso trabalho.</p>
   </div>
 </section>
 
 <section class="banda">
   <div class="miolo">
-    <p class="mono-txt rv">Do primeiro diagnóstico ao certificado na parede, a Ideal Metrics conduz norma, auditoria, carbono e o que mais o seu sistema de gestão precisar.</p>
-    <p class="mono-txt rv">Com inspetores próprios na Ásia, na Europa e no Oriente Médio, verificamos produção e fornecedores na fonte, antes do embarque.</p>
+    <p class="mono-txt rv">Do primeiro diagn&oacute;stico ao certificado na parede, a Ideal Metrics conduz norma, auditoria, carbono e o que mais o seu sistema de gest&atilde;o precisar.</p>
+    <p class="mono-txt rv">Com inspetores pr&oacute;prios na &Aacute;sia, na Europa e no Oriente M&eacute;dio, verificamos produ&ccedil;&atilde;o e fornecedores na fonte, antes do embarque.</p>
   </div>
 </section>
 
 <section class="servicos" id="servicos">
-  <div class="miolo">
-    <div class="cab centro">
-      <p class="rotulo rv">Serviços <span class="tag">[IM.1]</span></p>
-      <h2 class="grande rv">Nossos Serviços</h2>
-    </div>
-
-    <article class="svc rv">
-      <span class="num">01</span>
-      <h3>Implantação ISO</h3>
-      <p class="desc mono-txt">Mais de 25 anos preparando organizações de diversos setores para as normas ISO 9001, 14001, 45001 e padrões de mercado.</p>
-      <a class="colchete" href="implantacao-iso.html"><i>[</i>Saiba mais<i>]</i></a>
-    </article>
-    <article class="svc rv">
-      <span class="num">02</span>
-      <h3>Gestão de Carbono</h3>
-      <p class="desc mono-txt">Inventário, neutralização e registro de emissões de gases de efeito estufa segundo o GHG Protocol.</p>
-      <a class="colchete" href="gestao-carbono.html"><i>[</i>Saiba mais<i>]</i></a>
-    </article>
-    <article class="svc rv">
-      <span class="num">03</span>
-      <h3>SEDEX SMETA</h3>
-      <p class="desc mono-txt">Consultoria para organizações que buscam atender aos padrões éticos SEDEX SMETA nas auditorias de 2 e 4 pilares.</p>
-      <a class="colchete" href="sedex-smeta.html"><i>[</i>Saiba mais<i>]</i></a>
-    </article>
-    <article class="svc rv">
-      <span class="num">04</span>
-      <h3>Sustentabilidade ESG</h3>
-      <p class="desc mono-txt">Estruturação de práticas ambientais, sociais e de governança alinhadas aos padrões internacionais.</p>
-      <a class="colchete" href="esg.html"><i>[</i>Saiba mais<i>]</i></a>
-    </article>
-    <article class="svc rv">
-      <span class="num">05</span>
-      <h3>Inspeções de Qualidade</h3>
-      <p class="desc mono-txt">Verificação de produto pós-produção e antes do embarque: funcionamento, estado, embalagem, quantidade e requisitos.</p>
-      <a class="colchete" href="inspecoes.html"><i>[</i>Saiba mais<i>]</i></a>
-    </article>
-    <article class="svc rv">
-      <span class="num">06</span>
-      <h3>Suporte pós-certificação</h3>
-      <p class="desc mono-txt">Manutenção do sistema de gestão, auditorias internas e preparação para as recertificações periódicas.</p>
-      <a class="colchete" href="suporte.html"><i>[</i>Saiba mais<i>]</i></a>
-    </article>
-    <p style="text-align:center;margin-top:44px"><a class="colchete rv" href="servicos.html"><i>[</i>Ver todos os serviços<i>]</i></a></p>
+  <div class="cab">
+    <p class="rotulo rv"><span>Servi&ccedil;os</span><span>[IM.1]</span></p>
+    <h2 class="grande rv">Nossos<br>Servi&ccedil;os</h2>
   </div>
+
+  <article class="svc rv">
+    <h3>Implanta&ccedil;&atilde;o ISO</h3>
+    <p class="desc">Mais de 25 anos preparando organiza&ccedil;&otilde;es de diversos setores para as normas ISO 9001, 14001, 45001 e padr&otilde;es de mercado.</p>
+    <a class="colchete" href="implantacao-iso.html"><i>[</i>Saiba mais<i>]</i></a>
+  </article>
+  <article class="svc rv">
+    <h3>Gest&atilde;o de Carbono</h3>
+    <p class="desc">Invent&aacute;rio, neutraliza&ccedil;&atilde;o e registro de emiss&otilde;es de gases de efeito estufa segundo o GHG Protocol.</p>
+    <a class="colchete" href="gestao-carbono.html"><i>[</i>Saiba mais<i>]</i></a>
+  </article>
+  <article class="svc rv">
+    <h3>SEDEX SMETA</h3>
+    <p class="desc">Consultoria para organiza&ccedil;&otilde;es que buscam atender aos padr&otilde;es &eacute;ticos SEDEX SMETA nas auditorias de 2 e 4 pilares.</p>
+    <a class="colchete" href="sedex-smeta.html"><i>[</i>Saiba mais<i>]</i></a>
+  </article>
+  <article class="svc rv">
+    <h3>Sustentabilidade ESG</h3>
+    <p class="desc">Estrutura&ccedil;&atilde;o de pr&aacute;ticas ambientais, sociais e de governan&ccedil;a alinhadas aos padr&otilde;es internacionais.</p>
+    <a class="colchete" href="esg.html"><i>[</i>Saiba mais<i>]</i></a>
+  </article>
+  <article class="svc rv">
+    <h3>Inspe&ccedil;&otilde;es de Qualidade</h3>
+    <p class="desc">Verifica&ccedil;&atilde;o de produto p&oacute;s-produ&ccedil;&atilde;o e antes do embarque: funcionamento, estado, embalagem, quantidade e requisitos.</p>
+    <a class="colchete" href="inspecoes.html"><i>[</i>Saiba mais<i>]</i></a>
+  </article>
+  <article class="svc rv">
+    <h3>Suporte p&oacute;s-certifica&ccedil;&atilde;o</h3>
+    <p class="desc">Manuten&ccedil;&atilde;o do sistema de gest&atilde;o, auditorias internas e prepara&ccedil;&atilde;o para as recertifica&ccedil;&otilde;es peri&oacute;dicas.</p>
+    <a class="colchete" href="suporte.html"><i>[</i>Saiba mais<i>]</i></a>
+  </article>
+  <a class="barra-azul" href="servicos.html">Ver todos os servi&ccedil;os</a>
 </section>
 
 <section class="processo">
   <div class="miolo">
-    <p class="rotulo rv"><span>Processo</span><span class="tag">[IM.2]</span></p>
+    <p class="rotulo rv"><span>Processo</span><span>[IM.2]</span></p>
     <div>
       <h2 class="grande rv">Ao lado<br>em cada<br>etapa</h2>
       <p class="sub rv">Do diagn&oacute;stico &agrave; certifica&ccedil;&atilde;o, conduzimos cada etapa com o consultor dentro do seu processo.</p>
     </div>
     <div class="cartas">
-      <article class="passo rv"><div class="topo"><h3>Diagn&oacute;stico</h3><span class="num">01</span></div><p>An&aacute;lise da situa&ccedil;&atilde;o atual e identifica&ccedil;&atilde;o de gaps em rela&ccedil;&atilde;o &agrave;s normas.</p></article>
-      <article class="passo rv"><div class="topo"><h3>Planejamento</h3><span class="num">02</span></div><p>Plano de implanta&ccedil;&atilde;o com respons&aacute;veis, prazos e entregas por visita.</p></article>
-      <article class="passo rv"><div class="topo"><h3>Implanta&ccedil;&atilde;o</h3><span class="num">03</span></div><p>Constru&ccedil;&atilde;o do sistema de gest&atilde;o integrado &agrave; rotina da opera&ccedil;&atilde;o.</p></article>
-      <article class="passo rv"><div class="topo"><h3>Auditoria interna</h3><span class="num">04</span></div><p>Verifica&ccedil;&atilde;o da conformidade e prepara&ccedil;&atilde;o para a auditoria de certifica&ccedil;&atilde;o.</p></article>
-      <article class="passo rv"><div class="topo"><h3>Certifica&ccedil;&atilde;o</h3><span class="num">05</span></div><p>Acompanhamento da auditoria do organismo certificador at&eacute; o certificado emitido.</p></article>
+      <article class="passo" data-rot="-2.4"><div class="topo"><h3>Diagn&oacute;stico</h3><span class="num">01</span></div><p>An&aacute;lise da situa&ccedil;&atilde;o atual e identifica&ccedil;&atilde;o de gaps em rela&ccedil;&atilde;o &agrave;s normas.</p></article>
+      <article class="passo" data-rot="2"><div class="topo"><h3>Planejamento</h3><span class="num">02</span></div><p>Plano de implanta&ccedil;&atilde;o com respons&aacute;veis, prazos e entregas por visita.</p></article>
+      <article class="passo" data-rot="-2"><div class="topo"><h3>Implanta&ccedil;&atilde;o</h3><span class="num">03</span></div><p>Constru&ccedil;&atilde;o do sistema de gest&atilde;o integrado &agrave; rotina da opera&ccedil;&atilde;o.</p></article>
+      <article class="passo" data-rot="2.4"><div class="topo"><h3>Auditoria interna</h3><span class="num">04</span></div><p>Verifica&ccedil;&atilde;o da conformidade e prepara&ccedil;&atilde;o para a auditoria de certifica&ccedil;&atilde;o.</p></article>
+      <article class="passo" data-rot="-1.8"><div class="topo"><h3>Certifica&ccedil;&atilde;o</h3><span class="num">05</span></div><p>Acompanhamento da auditoria do organismo certificador at&eacute; o certificado emitido.</p></article>
     </div>
   </div>
 </section>
 
 <section class="difs">
-  <div class="miolo">
-    <div class="cab centro">
-      <p class="rotulo rv">Diferenciais <span class="tag">[IM.3]</span></p>
-      <h2 class="grande rv">Por que a Ideal Metrics</h2>
-    </div>
-
-    <article class="dif rv">
-      <span class="num">01</span>
-      <h3>Independência real</h3>
-      <span class="cat">Posicionamento</span>
-      <p>Preparamos sua organização para a auditoria do organismo certificador. Como não certificamos, não existe o conflito de quem consulta e certifica o mesmo cliente.</p>
-    </article>
-    <article class="dif rv">
-      <span class="num">02</span>
-      <h3>Inspeção internacional</h3>
-      <span class="cat">Alcance</span>
-      <p>Equipe de inspetores na Ásia, Europa e Oriente Médio. Verificamos produção e fornecedores na fonte, antes do embarque, um serviço que poucas consultorias oferecem.</p>
-    </article>
-    <article class="dif rv">
-      <span class="num">03</span>
-      <h3>Foco de especialista</h3>
-      <span class="cat">Método</span>
-      <p>Desde 1998, cada projeto é conduzido de perto, com o consultor dentro do seu processo. Profundidade de boutique, não número de protocolo.</p>
-    </article>
+  <div class="cab">
+    <p class="rotulo rv"><span>Diferenciais</span><span>[IM.3]</span></p>
+    <h2 class="grande rv">Por que a<br>Ideal Metrics</h2>
   </div>
-</section>
-
-<section class="numeros">
-  <div class="miolo">
-    <div class="celula rv"><b>28</b><span class="mono-txt">anos de experiência</span></div>
-    <div class="celula rv"><b>500+</b><span class="mono-txt">projetos entregues</span></div>
-    <div class="celula rv"><b>300+</b><span class="mono-txt">clientes atendidos</span></div>
+  <div class="tres">
+    <div class="colu rv">
+      <div class="meta rotulo"><span>01</span><span>Posicionamento</span></div>
+      <h3>Independ&ecirc;ncia real</h3>
+      <p>Preparamos sua organiza&ccedil;&atilde;o para a auditoria do organismo certificador. Como n&atilde;o certificamos, n&atilde;o existe o conflito de quem consulta e certifica o mesmo cliente.</p>
+    </div>
+    <div class="colu rv">
+      <div class="meta rotulo"><span>02</span><span>Alcance</span></div>
+      <h3>Inspe&ccedil;&atilde;o internacional</h3>
+      <p>Equipe de inspetores na &Aacute;sia, Europa e Oriente M&eacute;dio. Verificamos produ&ccedil;&atilde;o e fornecedores na fonte, antes do embarque.</p>
+    </div>
+    <div class="colu rv">
+      <div class="meta rotulo"><span>03</span><span>M&eacute;todo</span></div>
+      <h3>Foco de especialista</h3>
+      <p>Desde 1998, cada projeto &eacute; conduzido de perto, com o consultor dentro do seu processo. Profundidade de boutique, n&atilde;o n&uacute;mero de protocolo.</p>
+    </div>
   </div>
 </section>
 
 <section class="clientes">
-  <div class="miolo">
-    <p class="rotulo rv" style="text-align:center">Clientes <span class="tag">[IM.4]</span></p>
-    <h2 class="grande rv" style="text-align:center;margin-bottom:8px">Empresas que confiam</h2>
-    <div class="grade-logos rv">
-      <div class="cel"><img src="img/cliente-bracell.png" alt="bracell" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-dexco.png" alt="dexco" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-oxiteno.png" alt="oxiteno" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-carmeuse.png" alt="carmeuse" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-weir.png" alt="weir" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-horiba.png" alt="horiba" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-ld-celulose.png" alt="ld-celulose" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-viabahia.png" alt="viabahia" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-mobibrasil.png" alt="mobibrasil" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-green-plac.png" alt="green-plac" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-brissolo.png" alt="brissolo" loading="lazy"></div>
-      <div class="cel"><img src="img/cliente-brasical.png" alt="brasical" loading="lazy"></div>
-    </div>
+  <div class="cab">
+    <p class="rotulo rv"><span>Clientes</span><span>[IM.4]</span></p>
+    <h2 class="grande rv">Empresas que<br>confiam</h2>
+  </div>
+  <div class="grade-logos rv">
+    <div class="cel"><img src="img/cliente-bracell.png" alt="Bracell" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-dexco.png" alt="Dexco" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-oxiteno.png" alt="Oxiteno" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-carmeuse.png" alt="Carmeuse" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-weir.png" alt="Weir" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-horiba.png" alt="Horiba" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-ld-celulose.png" alt="LD Celulose" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-viabahia.png" alt="ViaBahia" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-mobibrasil.png" alt="MobiBrasil" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-green-plac.png" alt="Green Plac" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-brissolo.png" alt="Brissolo" loading="lazy"></div>
+    <div class="cel"><img src="img/cliente-brasical.png" alt="Brasical" loading="lazy"></div>
   </div>
 </section>
 
 <section class="conteudo">
-  <div class="miolo">
-    <div class="cab">
-      <p class="rotulo rv">Conteúdo de destaque <span class="tag">[IM.5]</span></p>
-      <a class="colchete rv" href="blog.html"><i>[</i>Ver todo o conteúdo &rarr;<i>]</i></a>
+  <div class="cab">
+    <p class="rotulo rv">Conte&uacute;do de destaque <span style="opacity:.6">[IM.5]</span></p>
+    <a class="colchete rv" href="blog.html"><i>[</i>Ver todo o conte&uacute;do &rarr;<i>]</i></a>
+  </div>
+  <div class="moldura rv">
+    <div class="foto" id="fotoConteudo">
+      <div class="camada on" style="background-image:url('img/setor-tecnologia.webp')"></div>
+      <div class="camada" style="background-image:url('img/setor-industria.webp')"></div>
+      <div class="camada" style="background-image:url('img/setor-alimentos.webp')"></div>
+      <div class="camada" style="background-image:url('img/setor-logistica.webp')"></div>
     </div>
-
-    <div class="moldura rv">
-      <div class="foto" id="fotoConteudo">
-        <div class="camada on" style="background-image:url('img/setor-tecnologia.webp')"></div>
-        <div class="camada" style="background-image:url('img/setor-industria.webp')"></div>
-        <div class="camada" style="background-image:url('img/setor-alimentos.webp')"></div>
-        <div class="camada" style="background-image:url('img/setor-logistica.webp')"></div>
-      </div>
-      <div class="mgrade">
-        <a class="post" href="blog.html" data-foto="0">
-          <span class="data">01</span>
-          <span class="pe"><span class="cat">Consultoria</span><h3>Como a Ideal Metrics aplica a ISO 20700 na prática da consultoria</h3></span>
-        </a>
-        <a class="post" href="blog.html" data-foto="1">
-          <span class="data">02</span>
-          <span class="pe"><span class="cat">Normas</span><h3>Publicação da versão NBR da ISO 45001:2024</h3></span>
-        </a>
-        <a class="post cheio" href="blog.html" data-foto="2">
-          <span class="data">03</span>
-          <span class="pe"><span class="cat">Alimentos</span><h3>Nova NBR 17183:2024 para a implementação de um APPCC</h3></span>
-        </a>
-        <a class="post" href="blog.html" data-foto="3">
-          <span class="data">04</span>
-          <span class="pe"><span class="cat">Compliance</span><h3>NBR ISO 37301:2021: elevando padrões de compliance</h3></span>
-        </a>
-      </div>
+    <div class="mgrade">
+      <a class="post" href="blog.html" data-foto="0">
+        <span class="data">01</span>
+        <span class="pe"><span class="cat">Consultoria</span><h3>Como a Ideal Metrics aplica a ISO 20700 na pr&aacute;tica da consultoria</h3></span>
+      </a>
+      <a class="post" href="blog.html" data-foto="1">
+        <span class="data">02</span>
+        <span class="pe"><span class="cat">Normas</span><h3>Publica&ccedil;&atilde;o da vers&atilde;o NBR da ISO 45001:2024</h3></span>
+      </a>
+      <a class="post cheio" href="blog.html" data-foto="2">
+        <span class="data">03</span>
+        <span class="pe"><span class="cat">Alimentos</span><h3>Nova NBR 17183:2024 para a implementa&ccedil;&atilde;o de um APPCC</h3></span>
+      </a>
+      <a class="post" href="blog.html" data-foto="3">
+        <span class="data">04</span>
+        <span class="pe"><span class="cat">Compliance</span><h3>NBR ISO 37301:2021: elevando padr&otilde;es de compliance</h3></span>
+      </a>
     </div>
   </div>
 </section>
 
-<footer class="rodape">
+<footer class="rodape" id="rodape">
   <div class="miolo">
-    <div class="chamada">
-      <h2 class="rv">Integração e<br>Sustentabilidade.</h2>
-      <a class="colchete rv" href="https://wa.me/5511954684086"><i>[</i>Fale pelo WhatsApp<i>]</i></a>
-    </div>
-    <div class="colunas">
-      <!-- o lockup novo (a16b) em silhueta branca: nao existe versao branca do
-           arquivo, entao o filtro achata tudo em branco solido, que e a
-           linguagem chapada desta pagina -->
-      <div class="rv"><img src="img/ideal-metrics-a16b.svg" alt="Ideal Metrics" style="filter:brightness(0) invert(1)"></div>
-      <div class="rv">
-        <h4>Navegue</h4>
-        <a href="servicos.html">Serviços</a>
-        <a href="como-trabalhamos.html">Como trabalhamos</a>
-        <a href="sobre.html">Quem somos</a>
-        <a href="clientes.html">Clientes</a>
-        <a href="blog.html">Conteúdo</a>
+    <div class="marca-g rv"><img src="img/ideal-metrics-a16b-claro.svg" alt="Ideal Metrics"></div>
+    <div class="colu rv">
+      <a href="servicos.html">Servi&ccedil;os</a>
+      <a href="como-trabalhamos.html">Como trabalhamos</a>
+      <a href="sobre.html">Quem somos</a>
+      <a href="clientes.html">Clientes</a>
+      <div class="grupo2">
+        <a href="blog.html">Conte&uacute;do</a>
+        <a href="contato.html">Contato</a>
       </div>
-      <div class="rv">
-        <h4>Contato</h4>
-        <a href="mailto:info@cqt-br.com">info@cqt-br.com</a>
-        <a href="https://wa.me/5511954684086">WhatsApp</a>
-        <a href="https://www.linkedin.com/company/cqt-br/">LinkedIn</a>
-        <a href="contato.html">Formulário</a>
+    </div>
+    <div class="colu rv">
+      <a href="https://www.linkedin.com/company/cqt-br/">LinkedIn</a>
+      <a href="https://wa.me/5511954684086">WhatsApp</a>
+      <a href="mailto:info@cqt-br.com">info@cqt-br.com</a>
+      <div class="grupo2 news">
+        <label for="nEmail">Fale conosco &nbsp;|&nbsp; +55 11 95468-4086</label>
+        <div class="caixa">
+          <input id="nEmail" type="email" placeholder="Seu email..." autocomplete="email">
+          <button id="nEnvia" aria-label="Enviar">&rarr;</button>
+        </div>
       </div>
     </div>
     <div class="legal">
-      <span>Centomo &amp; Consultores Ltda &middot; CNPJ 02.569.436/0001-21</span>
-      <span>Ideal Metrics &middot; desde 1998 &middot; São Paulo, Brasil</span>
+      <span>&copy; 2026 Centomo &amp; Consultores Ltda &middot; CNPJ 02.569.436/0001-21</span>
+      <span>Ideal Metrics &middot; desde 1998 &middot; S&atilde;o Paulo, Brasil</span>
     </div>
   </div>
 </footer>
 
 <script>
-// revelação no scroll + entrada do herói + abertura
+// abertura + entrada do herói
 window.addEventListener('load', function(){
   setTimeout(function(){
     document.body.classList.remove('carga');
@@ -518,13 +507,53 @@ window.addEventListener('load', function(){
     setTimeout(function(){ document.getElementById('abertura').classList.add('fora'); }, 900);
   }, 500);
 });
-// os cartoes do processo se alinham conforme a pagina avanca
+
+// revelação no scroll
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+}, {threshold:.12});
+document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
+
+// o parágrafo acende palavra a palavra conforme a página avança
 (function(){
-  var obs = new IntersectionObserver(function(es){
-    es.forEach(function(e){ e.target.classList.toggle('reto', e.isIntersecting); });
-  }, {threshold:.55});
-  document.querySelectorAll('.passo').forEach(function(c){ obs.observe(c); });
+  var p = document.getElementById('lede');
+  var palavras = p.textContent.split(' ');
+  p.innerHTML = palavras.map(function(w){ return '<span class="pal">' + w + '</span>'; }).join(' ');
+  var spans = p.querySelectorAll('.pal');
+  function acende(){
+    var r = p.getBoundingClientRect();
+    var t = 1 - Math.min(1, Math.max(0, (r.top + r.height*0.4) / window.innerHeight));
+    var n = Math.round(t * 1.6 * spans.length);
+    spans.forEach(function(s, i){ s.classList.toggle('acesa', i < n); });
+  }
+  document.addEventListener('scroll', acende, {passive:true});
+  acende();
 })();
+
+// os cartões nascem tortos e se ALINHAM CONFORME O SCROLL, dirigidos pela
+// posição na tela (não é liga/desliga: cada pixel de rolagem gira um pouco)
+(function(){
+  var cartas = Array.prototype.slice.call(document.querySelectorAll('.passo[data-rot]'));
+  if(!cartas.length) return;
+  var ticking = false;
+  function ajusta(){
+    ticking = false;
+    var vh = window.innerHeight;
+    cartas.forEach(function(c){
+      var r = c.getBoundingClientRect();
+      var centro = r.top + r.height/2;
+      // torto embaixo da tela, reto quando o centro chega a 38% da altura
+      var t = Math.min(1, Math.max(0, (centro - vh*0.38) / (vh*0.5)));
+      c.style.transform = 'rotate(' + ((+c.dataset.rot) * t).toFixed(2) + 'deg)';
+    });
+  }
+  document.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(ajusta); }
+  }, {passive:true});
+  window.addEventListener('resize', ajusta);
+  ajusta();
+})();
+
 // a foto da moldura segue o quadrante sob o mouse
 (function(){
   var caixa = document.getElementById('fotoConteudo');
@@ -537,7 +566,16 @@ window.addEventListener('load', function(){
     });
   });
 })();
-// o cursor do site de origem
+
+// menu véu
+(function(){
+  var veu = document.getElementById('veuMenu');
+  document.getElementById('abreMenu').addEventListener('click', function(){ veu.classList.add('aberto'); });
+  document.getElementById('fechaMenu').addEventListener('click', function(){ veu.classList.remove('aberto'); });
+  veu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ veu.classList.remove('aberto'); }); });
+})();
+
+// o cursor do modelo
 (function(){
   var c = document.getElementById('cursor');
   if(!c || !window.matchMedia('(pointer:fine)').matches) return;
@@ -548,10 +586,13 @@ window.addEventListener('load', function(){
     c.classList.toggle('liga', !!alvo);
   });
 })();
-var io = new IntersectionObserver(function(es){
-  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
-}, {threshold:.12});
-document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
+
+// a newsletter abre o e-mail já endereçado
+document.getElementById('nEnvia').addEventListener('click', function(){
+  var v = document.getElementById('nEmail').value.trim();
+  location.href = 'mailto:info@cqt-br.com?subject=' + encodeURIComponent('Contato pelo site Ideal Metrics')
+    + (v ? '&body=' + encodeURIComponent('Meu e-mail: ' + v) : '');
+});
 </script>
 </body>
 </html>
