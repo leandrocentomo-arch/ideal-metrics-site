@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
 <style>
 /* ==========================================================================
    Ideal Metrics — página inicial experimental
@@ -31,6 +30,11 @@
   --corpo:'IBM Plex Sans',sans-serif;
 }
 html{scroll-behavior:smooth}
+/* a grade-guia do modelo: 12 colunas com fio de 1px, atras de tudo */
+body::before{content:"";position:fixed;inset:0 clamp(28px,4vw,64px);z-index:0;pointer-events:none;
+  background-image:linear-gradient(to right,var(--aco-14) 1px,transparent 1px);
+  background-size:calc(100%/12) 100%}
+body>*{position:relative;z-index:1}
 body{background:var(--papel);color:var(--tinta);font-family:var(--corpo);
   font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
@@ -38,13 +42,15 @@ img{max-width:100%;display:block}
 ::selection{background:var(--aco);color:var(--papel)}
 
 /* ---------- réguas de composição ---------- */
-.miolo{padding:0 15px}
+.miolo{padding:0 clamp(28px,4vw,64px)}
 .rotulo{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--aco)}
 .rotulo .tag{color:var(--meio)}
-h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
-  font-size:clamp(32px,4.4vw,60px);line-height:.94;text-transform:lowercase;
-  color:var(--tinta)}
+h2.grande{font-family:var(--disp);font-weight:400;letter-spacing:0;
+  font-size:clamp(40px,6.4vw,92px);line-height:.96;
+  color:var(--aco)}
+.miolo .cab.centro{display:block;text-align:center;margin-bottom:64px}
+.miolo .cab.centro .rotulo{margin-bottom:14px}
 .mono-txt{font-family:var(--mono);font-size:12.5px;line-height:1.75;
   letter-spacing:.05em;text-transform:uppercase;color:var(--aco)}
 
@@ -57,34 +63,62 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
 .colchete:hover i:first-child{transform:translateX(-4px)}
 .colchete:hover i:last-child{transform:translateX(4px)}
 
+/* cursor do site de origem: uma cruz que vira colchetes sobre o clicavel */
+@media(pointer:fine){
+  .cursor{position:fixed;left:0;top:0;z-index:2000;pointer-events:none;
+    font-family:var(--mono);font-size:15px;color:var(--aco);
+    transform:translate(-50%,-50%);transition:opacity .2s;mix-blend-mode:multiply}
+  .cursor .c-mais{display:inline}
+  .cursor .c-abre,.cursor .c-fecha{display:none;letter-spacing:0}
+  .cursor.liga .c-mais{display:none}
+  .cursor.liga .c-abre,.cursor.liga .c-fecha{display:inline}
+  .cursor.liga{font-size:17px;color:var(--aco)}
+  .cursor.liga .c-abre{margin-right:14px}
+  .escuro-sob .cursor{color:var(--claro);mix-blend-mode:normal}
+}
+@media(pointer:coarse){.cursor{display:none}}
+
+/* abertura: o painel em aco com o logo, como a entrada do site de origem */
+.abertura{position:fixed;inset:0;z-index:3000;background:var(--aco);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .8s cubic-bezier(.76,0,.24,1)}
+.abertura img{width:min(300px,56vw)}
+.pronta .abertura{transform:translateY(-101%)}
+.abertura.fora{display:none}
+
 /* revelação no scroll */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .rv.in-view{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 
-/* ---------- herói ---------- */
-/* a foto entra com o tingimento oficial da marca (efeito 9AACC1), sem outro
-   tratamento; o veu escuro embaixo garante a leitura do slogan */
-.heroi{min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;
-  background:var(--meio) url('img/tanques-industriais-01.webp') center/cover no-repeat;
-  color:var(--papel);position:relative;padding:40px clamp(18px,4vw,56px) 0}
-.heroi::after{content:"";position:absolute;inset:auto 0 0;height:52%;
-  background:linear-gradient(to bottom,transparent,rgba(43,60,84,.55))}
+/* ---------- herói: as marcas do modelo, foto com o tingimento oficial ---------- */
+.heroi{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+  background:var(--aco) url('img/tanques-industriais-01.webp') center/cover no-repeat;
+  color:var(--papel);position:relative;padding:15px clamp(28px,4vw,64px) 28px}
+.heroi::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(43,60,84,.30),rgba(43,60,84,.05) 45%,rgba(43,60,84,.55))}
 .heroi>*{position:relative;z-index:1}
-.heroi .frase{align-self:flex-end;max-width:440px;text-align:left;
-  font-family:var(--corpo);font-weight:500;font-size:clamp(16px,1.6vw,20px);
-  line-height:1.32;margin-top:clamp(24px,6vh,80px);
-  background:var(--aco);padding:26px 30px}
-.heroi .frase em{font-style:normal;color:var(--claro);display:block;margin-bottom:6px}
-.heroi .assina{font-family:var(--disp);font-weight:700;letter-spacing:-.02em;
-  font-size:clamp(44px,7.2vw,112px);line-height:.9;text-transform:lowercase;
-  margin-bottom:.4em;overflow:hidden;text-shadow:0 1px 22px rgba(43,60,84,.35)}
-.heroi .assina span{display:block}
-.carga .heroi .frase,.carga .heroi .assina{opacity:0;transform:translateY(30px)}
-.pronta .heroi .frase,.pronta .heroi .assina{opacity:1;transform:none;
-  transition:opacity .9s ease .15s,transform .9s ease .15s}
-.pronta .heroi .assina{transition-delay:.35s}
-
+.heroi .placa{position:absolute;top:15px;left:15px;background:var(--aco);
+  color:var(--papel);display:flex;align-items:center;gap:14px;padding:12px 22px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.heroi .placa img{height:30px;width:auto}
+.nav-heroi{position:absolute;top:0;left:50%;right:15px;display:flex;
+  gap:clamp(30px,8vw,150px)}
+.nav-heroi .col{position:relative;padding:26px 0 0 18px;display:flex;
+  flex-direction:column;gap:3px}
+.nav-heroi .col.fio::before{content:"";position:absolute;left:0;top:0;width:1px;
+  height:56svh;background:rgba(232,230,224,.6)}
+.nav-heroi a{font-family:var(--mono);font-size:12px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--papel)}
+.nav-heroi a:hover{text-decoration:underline}
+.heroi .assina{margin:0}
+.heroi .assina img{width:clamp(320px,46vw,680px);height:auto;display:block;
+  filter:drop-shadow(0 2px 22px rgba(43,60,84,.5))}
+@media(max-width:880px){.nav-heroi{display:none}
+  .heroi .placa{position:static;align-self:flex-start;margin-bottom:auto}}
+.carga .heroi .assina{opacity:0;transform:translateY(30px)}
+.pronta .heroi .assina{opacity:1;transform:none;
+  transition:opacity .9s ease .35s,transform .9s ease .35s}
 /* faixa de abertura sob o herói */
 .abre{background:var(--papel);border-top:1px solid var(--aco-35)}
 .abre .miolo{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
@@ -106,38 +140,44 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
 .svc{border-top:1px solid var(--aco-35);display:grid;
   grid-template-columns:64px minmax(0,1.1fr) minmax(0,1.3fr) auto;
   gap:clamp(14px,2.5vw,44px);align-items:baseline;padding:30px 0;
-  transition:background .25s}
+  transition:background .3s cubic-bezier(.4,0,.2,1)}
 .svc:last-of-type{border-bottom:1px solid var(--aco-35)}
 .svc:hover{background:rgba(137,153,177,.12)}
 .svc .num{font-family:var(--mono);font-size:12px;color:var(--meio)}
-.svc h3{font-family:var(--disp);font-weight:600;font-size:clamp(19px,1.9vw,26px);
+.svc h3{font-family:var(--disp);font-weight:500;font-size:clamp(19px,1.9vw,26px);
   line-height:1;letter-spacing:-.01em}
 .svc .desc{max-width:52ch}
 @media(max-width:880px){.svc{grid-template-columns:44px 1fr;grid-template-rows:auto auto auto}
   .svc h3{grid-column:2}.svc .desc{grid-column:2}.svc .colchete{grid-column:2}}
 
-/* ---------- processo (seção escura) ---------- */
-.processo{background:var(--aco);color:var(--papel);position:relative;
-  background-image:url('img/setor-industria.webp');background-size:cover;
-  background-position:center}
-.processo::before{content:"";position:absolute;inset:0;background:rgba(43,60,84,.92)}
-.processo .miolo{position:relative;padding-top:110px;padding-bottom:110px}
-.processo .rotulo{color:var(--claro)}
-.processo h2.grande{color:var(--papel);margin:18px 0 14px}
+/* ---------- processo: os cartoes inclinados do modelo ---------- */
+.processo{position:relative;padding:110px 0 130px;border-top:1px solid var(--aco-35)}
+.processo .miolo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(24px,4vw,70px)}
+.processo .rotulo{grid-column:1/-1;display:flex;justify-content:space-between;
+  margin-bottom:30px}
+.processo h2.grande{font-size:clamp(56px,8.4vw,132px);line-height:.94;margin:0 0 40px}
 .processo .sub{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--claro);max-width:64ch;line-height:1.8;
-  margin-bottom:70px}
-.passo{border-top:1px solid rgba(201,210,222,.35);display:grid;
-  grid-template-columns:minmax(0,1fr) 70px minmax(0,1.4fr);
-  gap:clamp(14px,2.5vw,44px);align-items:baseline;padding:26px 0}
-.passo:last-child{border-bottom:1px solid rgba(201,210,222,.35)}
-.passo h3{font-family:var(--disp);font-weight:600;font-size:clamp(19px,1.9vw,26px);line-height:1}
-.passo .num{font-family:var(--mono);font-size:12px;color:var(--claro)}
+  text-transform:uppercase;color:var(--aco);max-width:44ch;line-height:1.85;
+  margin-left:clamp(0px,8vw,120px)}
+.cartas{display:flex;flex-direction:column;gap:clamp(28px,4vh,54px);padding-top:20px}
+.passo{background:#fff;padding:26px 30px 34px;max-width:520px;width:100%;
+  box-shadow:0 14px 40px rgba(43,60,84,.13)}
+.passo:nth-child(odd){transform:rotate(-2.4deg);align-self:flex-start}
+.passo:nth-child(even){transform:rotate(2deg);align-self:flex-end}
+.passo{transition:transform .8s cubic-bezier(.4,0,.2,1)}
+.passo.reto{transform:rotate(0)}
+.passo .topo{display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:1px solid var(--aco);padding-bottom:10px;margin-bottom:16px}
+.passo h3{font-family:var(--disp);font-weight:400;font-size:clamp(24px,2.4vw,34px);
+  line-height:1;color:var(--aco)}
+.passo .num{font-family:var(--disp);font-weight:400;font-size:clamp(22px,2.2vw,30px);
+  color:var(--aco)}
 .passo p{font-family:var(--mono);font-size:12px;letter-spacing:.05em;
-  text-transform:uppercase;color:var(--claro);line-height:1.75;max-width:52ch}
-@media(max-width:880px){.passo{grid-template-columns:56px 1fr}
-  .passo h3{grid-column:2}.passo p{grid-column:2}}
-
+  text-transform:uppercase;color:var(--aco);line-height:1.8;
+  border-bottom:1px solid var(--aco);padding-bottom:22px}
+@media(max-width:880px){.processo .miolo{grid-template-columns:1fr}
+  .passo:nth-child(odd),.passo:nth-child(even){transform:none;align-self:stretch}}
 /* ---------- diferenciais ---------- */
 .difs{padding:110px 0 90px}
 .difs .cab{margin-bottom:60px}
@@ -146,8 +186,8 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
   align-items:baseline;padding:34px 0}
 .dif:last-of-type{border-bottom:1px solid var(--aco-35)}
 .dif .num{font-family:var(--mono);font-size:12px;color:var(--meio)}
-.dif h3{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
-  font-size:clamp(22px,2.7vw,38px);line-height:.96;text-transform:lowercase}
+.dif h3{font-family:var(--disp);font-weight:400;letter-spacing:0;
+  font-size:clamp(26px,3.2vw,46px);line-height:.98}
 .dif .cat{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--aco)}
 .dif p{grid-column:2;max-width:60ch;margin-top:10px;color:var(--aco);font-size:15px}
@@ -161,7 +201,7 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
 .numeros .celula{padding:48px clamp(10px,2vw,32px);border-right:1px solid var(--aco-35)}
 .numeros .celula:first-child{padding-left:0}
 .numeros .celula:last-child{border-right:none}
-.numeros b{display:block;font-family:var(--disp);font-weight:700;
+.numeros b{display:block;font-family:var(--disp);font-weight:400;
   font-size:clamp(30px,3.8vw,54px);line-height:.9;letter-spacing:-.02em}
 .numeros span{display:block;margin-top:12px}
 @media(max-width:880px){.numeros .miolo{grid-template-columns:1fr}
@@ -186,12 +226,14 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
   margin-bottom:16px;gap:24px}
 .moldura{border:2px solid var(--aco);display:grid;
   grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}
-.moldura .foto{background:var(--meio) url('img/setor-tecnologia.webp') center/cover no-repeat;
-  min-height:520px}
+.moldura .foto{position:relative;min-height:520px;background:var(--meio);overflow:hidden}
+.moldura .foto .camada{position:absolute;inset:0;background-position:center;
+  background-size:cover;opacity:0;transition:opacity .45s cubic-bezier(.4,0,.2,1)}
+.moldura .foto .camada.on{opacity:1}
 .mgrade{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
 .post{display:flex;flex-direction:column;justify-content:space-between;
   padding:26px 26px 30px;min-height:250px;border-left:1px solid var(--aco-35);
-  border-top:1px solid var(--aco-35);transition:background .25s}
+  border-top:1px solid var(--aco-35);transition:background .3s cubic-bezier(.4,0,.2,1)}
 .mgrade .post:nth-child(1),.mgrade .post:nth-child(2){border-top:none}
 .post:hover{background:rgba(137,153,177,.14)}
 .post .data{font-family:var(--corpo);font-weight:500;font-size:19px;color:var(--aco)}
@@ -210,14 +252,14 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
 
 /* ---------- rodapé ---------- */
 .rodape{background:var(--aco);color:var(--papel);
-  background-image:url('img/dither-energia.png');background-size:cover;
+  background-image:url('img/setor-energia.webp');background-size:cover;
   background-position:center bottom;position:relative}
-.rodape::before{content:"";position:absolute;inset:0;background:rgba(43,60,84,.9)}
+.rodape::before{content:"";position:absolute;inset:0;background:rgba(43,60,84,.88)}
 .rodape .miolo{position:relative;padding-top:96px;padding-bottom:36px}
 .rodape .chamada{display:flex;justify-content:space-between;align-items:flex-end;
   gap:32px;padding-bottom:70px;border-bottom:1px solid rgba(201,210,222,.3)}
-.rodape .chamada h2{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
-  font-size:clamp(26px,3.4vw,48px);line-height:.92;text-transform:lowercase}
+.rodape .chamada h2{font-family:var(--disp);font-weight:400;letter-spacing:0;
+  font-size:clamp(30px,4.2vw,62px);line-height:.96}
 .rodape .colchete{color:var(--papel)}
 .rodape .colchete:hover{color:var(--claro)}
 .rodape .colunas{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));
@@ -237,48 +279,26 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
 </style>
 </head>
 <body class="carga">
+<div class="abertura" id="abertura"><img src="img/ideal-metrics-a16b-claro.svg" alt=""></div>
+<div class="cursor" id="cursor"><span class="c-mais">+</span><span class="c-abre">[</span><span class="c-fecha">]</span></div>
 
-<header class="header">
-  <div class="header-logo"><a href="index.html"><img src="img/ideal-metrics-a19b.svg" alt="Ideal Metrics"></a></div>
-  <nav class="header-nav">
-    <a href="index.html">Página Inicial</a>
-    <div class="dropdown">
-      <a href="servicos.html">Todos os serviços ▾</a>
-      <div class="mega-menu">
-        <div class="mega-menu-col">
-          <h4>Certificação ISO</h4>
-          <a href="implantacao-iso.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></span>Implantação ISO</a>
-          <a href="suporte.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Suporte pós certificação</a>
-        </div>
-        <div class="mega-menu-col">
-          <h4>Padrões e Sustentabilidade</h4>
-          <a href="padroes-mercado.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>Padrões de mercado</a>
-          <a href="gestao-carbono.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>Gestão de carbono</a>
-          <a href="esg.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/></svg></span>ESG</a>
-          <a href="sedex-smeta.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg></span>SEDEX/SMETA</a>
-        </div>
-        <div class="mega-menu-col">
-          <h4>Inspeções</h4>
-          <a href="inspecoes.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>Inspeções</a>
-          <a href="produtos-inspecionamos.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span>Produtos que inspecionamos</a>
-        </div>
-        <div class="mega-menu-col">
-          <h4>Apoio Técnico</h4>
-          <a href="nrs.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>Atendimento a NRs</a>
-          <a href="seguranca-alimentos.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg></span>Segurança de alimentos</a>
-        </div>
-      </div>
-    </div>
-    <a href="sobre.html">Quem somos</a>
-    <a href="como-trabalhamos.html">Como trabalhamos</a>
-    <a href="contato.html">Contato</a>
-    <a href="blog.html">Conteúdo</a>
-  </nav>
-</header>
+
 
 <section class="heroi">
-  <p class="frase"><em>Integração e Sustentabilidade.</em> Consultoria em normas ISO, padrões internacionais, gestão de carbono e inspeções da qualidade. Desde 1998.</p>
-  <h1 class="assina"><span>ideal</span><span>metrics</span></h1>
+  <a class="placa" href="index-teste.html"><img src="img/ideal-metrics-a19b.svg" alt="">Ideal Metrics</a>
+  <nav class="nav-heroi" aria-label="Principal">
+    <div class="col fio">
+      <a href="servicos.html">Servi&ccedil;os</a>
+      <a href="como-trabalhamos.html">Como trabalhamos</a>
+      <a href="sobre.html">Quem somos</a>
+      <a href="clientes.html">Clientes</a>
+    </div>
+    <div class="col fio">
+      <a href="blog.html">Conte&uacute;do</a>
+      <a href="contato.html">Contato</a>
+    </div>
+  </nav>
+  <h1 class="assina"><img src="img/ideal-metrics-a16b-claro.svg" alt="Ideal Metrics"></h1>
 </section>
 
 <section class="abre">
@@ -300,12 +320,9 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
 
 <section class="servicos" id="servicos">
   <div class="miolo">
-    <div class="cab">
-      <div>
-        <p class="rotulo rv">Serviços <span class="tag">[IM.1]</span></p>
-        <h2 class="grande rv">nossos<br>serviços</h2>
-      </div>
-      <a class="colchete rv" href="servicos.html"><i>[</i>Ver todos<i>]</i></a>
+    <div class="cab centro">
+      <p class="rotulo rv">Serviços <span class="tag">[IM.1]</span></p>
+      <h2 class="grande rv">Nossos Serviços</h2>
     </div>
 
     <article class="svc rv">
@@ -344,45 +361,49 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
       <p class="desc mono-txt">Manutenção do sistema de gestão, auditorias internas e preparação para as recertificações periódicas.</p>
       <a class="colchete" href="suporte.html"><i>[</i>Saiba mais<i>]</i></a>
     </article>
+    <p style="text-align:center;margin-top:44px"><a class="colchete rv" href="servicos.html"><i>[</i>Ver todos os serviços<i>]</i></a></p>
   </div>
 </section>
 
 <section class="processo">
   <div class="miolo">
-    <p class="rotulo rv">Processo <span class="tag">[IM.2]</span></p>
-    <h2 class="grande rv">ao lado<br>em cada etapa</h2>
-    <p class="sub rv">Do diagnóstico à certificação, conduzimos cada etapa com o consultor dentro do seu processo.</p>
-
-    <div class="passo rv"><h3>Diagnóstico</h3><span class="num">01</span><p>Análise da situação atual e identificação de gaps em relação às normas.</p></div>
-    <div class="passo rv"><h3>Planejamento</h3><span class="num">02</span><p>Plano de implantação com responsáveis, prazos e entregas por visita.</p></div>
-    <div class="passo rv"><h3>Implantação</h3><span class="num">03</span><p>Construção do sistema de gestão integrado à rotina da operação.</p></div>
-    <div class="passo rv"><h3>Auditoria interna</h3><span class="num">04</span><p>Verificação da conformidade e preparação para a auditoria de certificação.</p></div>
-    <div class="passo rv"><h3>Certificação</h3><span class="num">05</span><p>Acompanhamento da auditoria do organismo certificador até o certificado emitido.</p></div>
+    <p class="rotulo rv"><span>Processo</span><span class="tag">[IM.2]</span></p>
+    <div>
+      <h2 class="grande rv">Ao lado<br>em cada<br>etapa</h2>
+      <p class="sub rv">Do diagn&oacute;stico &agrave; certifica&ccedil;&atilde;o, conduzimos cada etapa com o consultor dentro do seu processo.</p>
+    </div>
+    <div class="cartas">
+      <article class="passo rv"><div class="topo"><h3>Diagn&oacute;stico</h3><span class="num">01</span></div><p>An&aacute;lise da situa&ccedil;&atilde;o atual e identifica&ccedil;&atilde;o de gaps em rela&ccedil;&atilde;o &agrave;s normas.</p></article>
+      <article class="passo rv"><div class="topo"><h3>Planejamento</h3><span class="num">02</span></div><p>Plano de implanta&ccedil;&atilde;o com respons&aacute;veis, prazos e entregas por visita.</p></article>
+      <article class="passo rv"><div class="topo"><h3>Implanta&ccedil;&atilde;o</h3><span class="num">03</span></div><p>Constru&ccedil;&atilde;o do sistema de gest&atilde;o integrado &agrave; rotina da opera&ccedil;&atilde;o.</p></article>
+      <article class="passo rv"><div class="topo"><h3>Auditoria interna</h3><span class="num">04</span></div><p>Verifica&ccedil;&atilde;o da conformidade e prepara&ccedil;&atilde;o para a auditoria de certifica&ccedil;&atilde;o.</p></article>
+      <article class="passo rv"><div class="topo"><h3>Certifica&ccedil;&atilde;o</h3><span class="num">05</span></div><p>Acompanhamento da auditoria do organismo certificador at&eacute; o certificado emitido.</p></article>
+    </div>
   </div>
 </section>
 
 <section class="difs">
   <div class="miolo">
-    <div class="cab">
+    <div class="cab centro">
       <p class="rotulo rv">Diferenciais <span class="tag">[IM.3]</span></p>
-      <h2 class="grande rv">por que a<br>ideal metrics</h2>
+      <h2 class="grande rv">Por que a Ideal Metrics</h2>
     </div>
 
     <article class="dif rv">
       <span class="num">01</span>
-      <h3>independência real</h3>
+      <h3>Independência real</h3>
       <span class="cat">Posicionamento</span>
       <p>Preparamos sua organização para a auditoria do organismo certificador. Como não certificamos, não existe o conflito de quem consulta e certifica o mesmo cliente.</p>
     </article>
     <article class="dif rv">
       <span class="num">02</span>
-      <h3>inspeção internacional</h3>
+      <h3>Inspeção internacional</h3>
       <span class="cat">Alcance</span>
       <p>Equipe de inspetores na Ásia, Europa e Oriente Médio. Verificamos produção e fornecedores na fonte, antes do embarque, um serviço que poucas consultorias oferecem.</p>
     </article>
     <article class="dif rv">
       <span class="num">03</span>
-      <h3>foco de especialista</h3>
+      <h3>Foco de especialista</h3>
       <span class="cat">Método</span>
       <p>Desde 1998, cada projeto é conduzido de perto, com o consultor dentro do seu processo. Profundidade de boutique, não número de protocolo.</p>
     </article>
@@ -399,8 +420,8 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
 
 <section class="clientes">
   <div class="miolo">
-    <p class="rotulo rv">Clientes <span class="tag">[IM.4]</span></p>
-    <h2 class="grande rv">empresas que<br>confiam</h2>
+    <p class="rotulo rv" style="text-align:center">Clientes <span class="tag">[IM.4]</span></p>
+    <h2 class="grande rv" style="text-align:center;margin-bottom:8px">Empresas que confiam</h2>
     <div class="grade-logos rv">
       <div class="cel"><img src="img/cliente-bracell.png" alt="bracell" loading="lazy"></div>
       <div class="cel"><img src="img/cliente-dexco.png" alt="dexco" loading="lazy"></div>
@@ -426,21 +447,26 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
     </div>
 
     <div class="moldura rv">
-      <div class="foto"></div>
+      <div class="foto" id="fotoConteudo">
+        <div class="camada on" style="background-image:url('img/setor-tecnologia.webp')"></div>
+        <div class="camada" style="background-image:url('img/setor-industria.webp')"></div>
+        <div class="camada" style="background-image:url('img/setor-alimentos.webp')"></div>
+        <div class="camada" style="background-image:url('img/setor-logistica.webp')"></div>
+      </div>
       <div class="mgrade">
-        <a class="post" href="blog.html">
+        <a class="post" href="blog.html" data-foto="0">
           <span class="data">01</span>
           <span class="pe"><span class="cat">Consultoria</span><h3>Como a Ideal Metrics aplica a ISO 20700 na prática da consultoria</h3></span>
         </a>
-        <a class="post" href="blog.html">
+        <a class="post" href="blog.html" data-foto="1">
           <span class="data">02</span>
           <span class="pe"><span class="cat">Normas</span><h3>Publicação da versão NBR da ISO 45001:2024</h3></span>
         </a>
-        <a class="post cheio" href="blog.html">
+        <a class="post cheio" href="blog.html" data-foto="2">
           <span class="data">03</span>
           <span class="pe"><span class="cat">Alimentos</span><h3>Nova NBR 17183:2024 para a implementação de um APPCC</h3></span>
         </a>
-        <a class="post" href="blog.html">
+        <a class="post" href="blog.html" data-foto="3">
           <span class="data">04</span>
           <span class="pe"><span class="cat">Compliance</span><h3>NBR ISO 37301:2021: elevando padrões de compliance</h3></span>
         </a>
@@ -452,7 +478,7 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
 <footer class="rodape">
   <div class="miolo">
     <div class="chamada">
-      <h2 class="rv">integração e<br>sustentabilidade.</h2>
+      <h2 class="rv">Integração e<br>Sustentabilidade.</h2>
       <a class="colchete rv" href="https://wa.me/5511954684086"><i>[</i>Fale pelo WhatsApp<i>]</i></a>
     </div>
     <div class="colunas">
@@ -484,11 +510,44 @@ h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
 </footer>
 
 <script>
-// revelação no scroll + entrada do herói
+// revelação no scroll + entrada do herói + abertura
 window.addEventListener('load', function(){
-  document.body.classList.remove('carga');
-  document.body.classList.add('pronta');
+  setTimeout(function(){
+    document.body.classList.remove('carga');
+    document.body.classList.add('pronta');
+    setTimeout(function(){ document.getElementById('abertura').classList.add('fora'); }, 900);
+  }, 500);
 });
+// os cartoes do processo se alinham conforme a pagina avanca
+(function(){
+  var obs = new IntersectionObserver(function(es){
+    es.forEach(function(e){ e.target.classList.toggle('reto', e.isIntersecting); });
+  }, {threshold:.55});
+  document.querySelectorAll('.passo').forEach(function(c){ obs.observe(c); });
+})();
+// a foto da moldura segue o quadrante sob o mouse
+(function(){
+  var caixa = document.getElementById('fotoConteudo');
+  if(!caixa) return;
+  var camadas = caixa.querySelectorAll('.camada');
+  document.querySelectorAll('.post[data-foto]').forEach(function(p){
+    p.addEventListener('mouseenter', function(){
+      var n = +p.dataset.foto;
+      camadas.forEach(function(c, i){ c.classList.toggle('on', i === n); });
+    });
+  });
+})();
+// o cursor do site de origem
+(function(){
+  var c = document.getElementById('cursor');
+  if(!c || !window.matchMedia('(pointer:fine)').matches) return;
+  document.addEventListener('mousemove', function(e){
+    c.style.left = e.clientX + 'px';
+    c.style.top = e.clientY + 'px';
+    var alvo = e.target.closest && e.target.closest('a,button,[role=button]');
+    c.classList.toggle('liga', !!alvo);
+  });
+})();
 var io = new IntersectionObserver(function(es){
   es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
 }, {threshold:.12});
