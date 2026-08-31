@@ -939,13 +939,10 @@ body>*{position:relative;z-index:1}
 .nt-card-link:focus-visible{outline:1px solid var(--azul);outline-offset:-1px;}
 
 /* Cartão invertido em azul sólido (03) */
-.nt-card-azul{background:var(--azul);color:var(--mercurio);}
-/* quadrante aceso no hover, igual ao cartao azul permanente */
+.nt-card.nt-on{background:var(--azul);color:var(--mercurio);}
+/* transicao do quadrante ativo */
 .nt-card{transition:background .3s cubic-bezier(.4,0,.2,1),color .3s cubic-bezier(.4,0,.2,1)}
-.nt-card:hover,.nt-card:focus-within{background:var(--azul);color:var(--mercurio)}
-.nt-card:hover .nt-card-link:focus-visible{outline-color:var(--mercurio)}
-.nt-card-azul:hover{background:var(--azul-escuro)}
-.nt-card-azul .nt-card-link:focus-visible{outline-color:var(--mercurio);}
+.nt-card.nt-on .nt-card-link:focus-visible{outline-color:var(--mercurio);}
 
 /* Botão de canto do cartão azul: quadrado mercúrio, nasce em scale(0) no canto sup. direito */
 .nt-btn{
@@ -965,8 +962,8 @@ body>*{position:relative;z-index:1}
   transition:transform .4s cubic-bezier(.4,0,.2,1);
   will-change:transform;
 }
-.nt-card-azul:hover .nt-btn,
-.nt-card-azul:focus-within .nt-btn{transform:scale(1);}
+.nt-card.nt-on:hover .nt-btn,
+.nt-card.nt-on:focus-within .nt-btn{transform:scale(1);}
 
 /* ============ Mobile <=880px ============ */
 @media (max-width:880px){
@@ -1555,7 +1552,7 @@ body>*{position:relative;z-index:1}
       <a class="nt-card-link" href="blog.html" aria-label="Ler no blog: Publicação da versão NBR da ISO 45001:2024"></a>
     </article>
 
-    <article class="nt-card nt-card-azul" data-nt-camada="2">
+    <article class="nt-card" data-nt-camada="2">
       <div class="nt-btn" aria-hidden="true"><svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><path d="M0 8h19M13 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1"/></svg></div>
       <span class="nt-num">03</span>
       <div class="nt-baixo">
@@ -1881,19 +1878,29 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   var grade = document.querySelector('.nt-grade');
   var midia = document.querySelector('.nt-midia');
   if (!grade || !midia) return;
-  if (!window.matchMedia || !window.matchMedia('(hover: hover)').matches) return;
   var camadas = Array.prototype.slice.call(midia.querySelectorAll('.nt-layer'));
   var cartoes = Array.prototype.slice.call(grade.querySelectorAll('.nt-card'));
   function mostrar(i){
     camadas.forEach(function(c, k){ c.classList.toggle('nt-layer-ativa', k === i); });
-  }
-  cartoes.forEach(function(cartao){
-    cartao.addEventListener('mouseenter', function(){
-      var i = parseInt(cartao.getAttribute('data-nt-camada'), 10);
-      if (!isNaN(i) && camadas[i]) mostrar(i);
+    cartoes.forEach(function(c){
+      var k = parseInt(c.getAttribute('data-nt-camada'), 10);
+      c.classList.toggle('nt-on', k === i);
     });
-  });
-  grade.addEventListener('mouseleave', function(){ mostrar(0); });
+  }
+  mostrar(0);   /* a secao abre com o quadrante da foto aceso */
+  if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+    cartoes.forEach(function(cartao){
+      cartao.addEventListener('mouseenter', function(){
+        var i = parseInt(cartao.getAttribute('data-nt-camada'), 10);
+        if (!isNaN(i) && camadas[i]) mostrar(i);
+      });
+      cartao.addEventListener('focusin', function(){
+        var i = parseInt(cartao.getAttribute('data-nt-camada'), 10);
+        if (!isNaN(i) && camadas[i]) mostrar(i);
+      });
+    });
+    grade.addEventListener('mouseleave', function(){ mostrar(0); });
+  }
 })();
 
 // ===== rodape =====
