@@ -11,8 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--azul:#45619F;--azul-escuro:#31477A;--mercurio:#E8E6E0;--branco:#FFFFFF;
-  --fio:rgba(69,97,159,.28);--sans:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
+:root{--azul:#1E2CA8;--azul-escuro:#151F78;--mercurio:#E8E6E0;--branco:#FFFFFF;
+  --fio:rgba(30,44,168,.30);--sans:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
   --lado:clamp(28px,4vw,64px)}
 html{scroll-behavior:smooth}
 body{background:var(--mercurio);color:var(--azul);font-family:var(--sans);
@@ -30,7 +30,7 @@ button{font:inherit}
 
 /* grade-guia de colunas atrás de tudo */
 body::before{content:"";position:fixed;inset:0 var(--lado);z-index:0;pointer-events:none;
-  background-image:linear-gradient(to right,rgba(69,97,159,.12) 1px,transparent 1px);
+  background-image:linear-gradient(to right,rgba(30,44,168,.12) 1px,transparent 1px);
   background-size:calc(100%/12) 100%}
 body>*{position:relative;z-index:1}
 
@@ -100,7 +100,7 @@ body>*{position:relative;z-index:1}
 /* foto full-bleed + véu */
 .hx-fundo{position:absolute;inset:0;overflow:hidden;z-index:0}
 .hx-fundo img{display:block;width:100%;height:100%;object-fit:cover}
-.hx-fundo::after{content:"";position:absolute;inset:0;background:rgba(49,71,122,.35)}
+.hx-fundo::after{content:"";position:absolute;inset:0;background:rgba(21,31,120,.35)}
 
 /* h1 só para leitor de tela */
 .hx-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -133,6 +133,8 @@ body>*{position:relative;z-index:1}
 .hx-titulo{font-family:var(--sans);font-weight:400;letter-spacing:0;color:var(--branco);font-size:160px;line-height:.9375;margin-left:15px;transition:opacity .5s cubic-bezier(.4,0,.2,1) .1s,transform .5s cubic-bezier(.4,0,.2,1) .1s}
 .hx-t1{grid-area:t1;margin-top:-.05em}
 .hx-t2{grid-area:t2;margin-bottom:10px}
+.hx-logo{width:clamp(280px,30vw,440px);height:auto;display:block;
+  margin:0 0 6px 15px;filter:drop-shadow(0 2px 22px rgba(21,31,120,.45))}
 .hx-titulo-m{display:none}
 
 /* statement à direita */
@@ -443,7 +445,7 @@ body>*{position:relative;z-index:1}
   --pr-p:0;
   --pr-s:1;
   transform:translate3d(calc(var(--pr-p)*48px),0,0) rotate(calc(var(--pr-s)*var(--pr-p)*3deg));
-  box-shadow:0 18px 44px rgba(49,71,122,calc(var(--pr-p)*.18));
+  box-shadow:0 18px 44px rgba(21,31,120,calc(var(--pr-p)*.18));
   will-change:transform;
 }
 .pr-card + .pr-card{margin-top:32px}
@@ -938,6 +940,11 @@ body>*{position:relative;z-index:1}
 
 /* Cartão invertido em azul sólido (03) */
 .nt-card-azul{background:var(--azul);color:var(--mercurio);}
+/* quadrante aceso no hover, igual ao cartao azul permanente */
+.nt-card{transition:background .3s cubic-bezier(.4,0,.2,1),color .3s cubic-bezier(.4,0,.2,1)}
+.nt-card:hover,.nt-card:focus-within{background:var(--azul);color:var(--mercurio)}
+.nt-card:hover .nt-card-link:focus-visible{outline-color:var(--mercurio)}
+.nt-card-azul:hover{background:var(--azul-escuro)}
 .nt-card-azul .nt-card-link:focus-visible{outline-color:var(--mercurio);}
 
 /* Botão de canto do cartão azul: quadrado mercúrio, nasce em scale(0) no canto sup. direito */
@@ -1193,20 +1200,18 @@ body>*{position:relative;z-index:1}
 }
 
 /* ===== efeito de mouse nas fotos (receita hx-media do site oficial) ===== */
-.df-foto,.sv-media-fig,.nt-midia{overflow:hidden}
-.df-foto img,.sv-media-fig img,.sv-media-item img{display:block;width:100%;height:100%;
-  object-fit:cover;transform:scale(1);
-  transition:transform .6s cubic-bezier(.23,1,.32,1)}
-.df-col:hover .df-foto img{transform:scale(1.06)}
-.sv-item:hover ~ .sv-media .sv-media-fig img,
+.df-quadro{overflow:hidden}
+.df-foto{transform:scale(1);transition:transform .6s cubic-bezier(.23,1,.32,1)}
+.df-bloco:hover .df-foto{transform:scale(1.06)}
+.sv-media-fig{overflow:hidden}
+.sv-media-fig img{transform:scale(1);transition:transform .6s cubic-bezier(.23,1,.32,1)}
 .sv-media:hover .sv-media-fig img{transform:scale(1.06)}
-.nt-layer{transition:opacity .45s cubic-bezier(.4,0,.2,1),
-  transform .8s cubic-bezier(.23,1,.32,1);transform:scale(1)}
-.nt-midia:hover .nt-layer{transform:scale(1.05)}
-.nt-card:hover~*{}
+.nt-layer{transform:scale(1);transition:opacity .45s cubic-bezier(.4,0,.2,1),
+  transform .8s cubic-bezier(.23,1,.32,1)}
+.nt-midia:hover .nt-layer,.nt-midia.nt-zoom .nt-layer{transform:scale(1.05)}
 @media(prefers-reduced-motion:reduce){
-  .df-foto img,.sv-media-fig img,.nt-layer{transition:none}}
-.nt-midia.nt-zoom .nt-layer{transform:scale(1.05)}
+  .df-foto,.sv-media-fig img,.nt-layer{transition:none}}
+.hx-fluido{position:absolute;inset:0;width:100%;height:100%;display:block}
 </style>
 </head>
 <body class="carga">
@@ -1231,7 +1236,7 @@ body>*{position:relative;z-index:1}
 <!-- ===== heroi ===== -->
 <section class="hx-heroi" id="hx-heroi">
   <div class="hx-fundo" aria-hidden="true">
-    <img src="img/tanques-halftone-01.webp" alt="" width="1920" height="1080" loading="eager" fetchpriority="high">
+    <img src="img/tanques-azul-01.webp" alt="" width="1920" height="1080" loading="eager" fetchpriority="high">
   </div>
   <h1 class="hx-sr">Ideal Metrics</h1>
   <nav class="hx-nav" aria-label="Navegação principal">
@@ -1252,9 +1257,9 @@ body>*{position:relative;z-index:1}
     <div class="hx-fio hx-f3" aria-hidden="true"><div class="hx-fio-linha"></div></div>
     <div class="hx-fio hx-f4" aria-hidden="true"><div class="hx-fio-linha"></div></div>
     <div class="hx-fio hx-f5" aria-hidden="true"><div class="hx-fio-linha"></div></div>
-    <span class="hx-titulo hx-t1" aria-hidden="true" role="text">Ideal</span>
-    <span class="hx-titulo hx-t2" aria-hidden="true" role="text">Metrics</span>
-    <span class="hx-titulo hx-titulo-m" aria-hidden="true" role="text">Ideal<br>Metrics</span>
+    <span class="hx-titulo hx-t1" aria-hidden="true"></span>
+    <span class="hx-titulo hx-t2" aria-hidden="true"><img class="hx-logo" src="img/ideal-metrics-a16b-claro.svg" alt=""></span>
+    <span class="hx-titulo hx-titulo-m" aria-hidden="true"><img class="hx-logo" src="img/ideal-metrics-a16b-claro.svg" alt=""></span>
     <p class="hx-frase">Integração e<br>Sustentabilidade,<br>do diagnóstico ao certificado.</p>
   </div>
 </section>
@@ -1285,12 +1290,12 @@ body>*{position:relative;z-index:1}
     <div class="sv-title-b">Serviços</div>
   </div>
   <div class="sv-media" aria-hidden="true">
-    <div class="sv-media-item sv-ativa"><div class="sv-media-fig"><img src="img/setor-industria.webp" alt="" loading="lazy"></div></div>
-    <div class="sv-media-item"><div class="sv-media-fig"><img src="img/setor-energia.webp" alt="" loading="lazy"></div></div>
-    <div class="sv-media-item"><div class="sv-media-fig"><img src="img/setor-alimentos.webp" alt="" loading="lazy"></div></div>
-    <div class="sv-media-item"><div class="sv-media-fig"><img src="img/setor-logistica.webp" alt="" loading="lazy"></div></div>
-    <div class="sv-media-item"><div class="sv-media-fig"><img src="img/setor-tecnologia.webp" alt="" loading="lazy"></div></div>
-    <div class="sv-media-item"><div class="sv-media-fig"><img src="img/setor-saude.webp" alt="" loading="lazy"></div></div>
+    <div class="sv-media-item sv-ativa"><div class="sv-media-fig"><img src="img/industria-azul-01.webp" alt="" loading="lazy"></div></div>
+    <div class="sv-media-item"><div class="sv-media-fig"><img src="img/energia-azul-01.webp" alt="" loading="lazy"></div></div>
+    <div class="sv-media-item"><div class="sv-media-fig"><img src="img/alimentos-azul-01.webp" alt="" loading="lazy"></div></div>
+    <div class="sv-media-item"><div class="sv-media-fig"><img src="img/logistica-azul-01.webp" alt="" loading="lazy"></div></div>
+    <div class="sv-media-item"><div class="sv-media-fig"><img src="img/tecnologia-azul-01.webp" alt="" loading="lazy"></div></div>
+    <div class="sv-media-item"><div class="sv-media-fig"><img src="img/saude-azul-01.webp" alt="" loading="lazy"></div></div>
   </div>
   <div class="sv-list">
     <div class="sv-acc" role="presentation">
@@ -1448,7 +1453,7 @@ body>*{position:relative;z-index:1}
       <div class="df-bloco">
         <h3 class="df-nome">Independência real</h3>
         <div class="df-quadro">
-          <img class="df-foto" src="img/setor-industria.webp" alt="Planta industrial em tratamento halftone azul da marca" loading="lazy">
+          <img class="df-foto" src="img/industria-azul-01.webp" alt="Planta industrial em tratamento halftone azul da marca" loading="lazy">
         </div>
         <p class="df-mono">Preparamos sua organização para a auditoria do organismo certificador. Como não certificamos, não existe o conflito de quem consulta e certifica o mesmo cliente.</p>
       </div>
@@ -1461,7 +1466,7 @@ body>*{position:relative;z-index:1}
       <div class="df-bloco">
         <h3 class="df-nome">Inspeção internacional</h3>
         <div class="df-quadro">
-          <img class="df-foto" src="img/setor-logistica.webp" alt="Operação logística em tratamento halftone azul da marca" loading="lazy">
+          <img class="df-foto" src="img/logistica-azul-01.webp" alt="Operação logística em tratamento halftone azul da marca" loading="lazy">
         </div>
         <p class="df-mono">Equipe de inspetores na Ásia, Europa e Oriente Médio. Verificamos produção e fornecedores na fonte, antes do embarque.</p>
       </div>
@@ -1474,7 +1479,7 @@ body>*{position:relative;z-index:1}
       <div class="df-bloco">
         <h3 class="df-nome">Foco de especialista</h3>
         <div class="df-quadro">
-          <img class="df-foto" src="img/setor-tecnologia.webp" alt="Ambiente de tecnologia em tratamento halftone azul da marca" loading="lazy">
+          <img class="df-foto" src="img/tecnologia-azul-01.webp" alt="Ambiente de tecnologia em tratamento halftone azul da marca" loading="lazy">
         </div>
         <p class="df-mono">Desde 1998, cada projeto é conduzido de perto, com o consultor dentro do seu processo.</p>
       </div>
@@ -1525,10 +1530,10 @@ body>*{position:relative;z-index:1}
   </div>
 
   <div class="nt-midia" aria-hidden="true">
-    <div class="nt-layer nt-layer-ativa"><img src="img/setor-tecnologia.webp" alt="" loading="lazy"></div>
-    <div class="nt-layer"><img src="img/setor-industria.webp" alt="" loading="lazy"></div>
-    <div class="nt-layer"><img src="img/setor-alimentos.webp" alt="" loading="lazy"></div>
-    <div class="nt-layer"><img src="img/setor-logistica.webp" alt="" loading="lazy"></div>
+    <div class="nt-layer nt-layer-ativa"><img src="img/tecnologia-azul-01.webp" alt="" loading="lazy"></div>
+    <div class="nt-layer"><img src="img/industria-azul-01.webp" alt="" loading="lazy"></div>
+    <div class="nt-layer"><img src="img/alimentos-azul-01.webp" alt="" loading="lazy"></div>
+    <div class="nt-layer"><img src="img/logistica-azul-01.webp" alt="" loading="lazy"></div>
   </div>
 
   <div class="nt-grade">
@@ -1916,6 +1921,179 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     c.addEventListener('mouseenter', function(){ midia.classList.add('nt-zoom'); });
     c.addEventListener('mouseleave', function(){ midia.classList.remove('nt-zoom'); });
   });
+})();
+
+// ===== displacement da foto do heroi sob o mouse (mecanismo do modelo:
+// ===== textura de rastro em ping-pong que decai e desloca a imagem)
+(function(){
+  if(!window.matchMedia('(pointer:fine)').matches) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var fundo = document.querySelector('.hx-fundo');
+  var img = fundo && fundo.querySelector('img');
+  if(!fundo || !img) return;
+
+  var cv = document.createElement('canvas');
+  cv.className = 'hx-fluido';
+  var gl = cv.getContext('webgl', {antialias:false, depth:false, stencil:false});
+  if(!gl) return;
+
+  var VERT = 'attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
+  // passo do rastro: decai e recebe um carimbo de velocidade na posicao do mouse
+  var FRAG_RASTRO =
+    'precision mediump float;varying vec2 v;uniform sampler2D t;' +
+    'uniform vec2 m;uniform vec2 vel;uniform float liga;' +
+    'void main(){' +
+    '  vec2 c = texture2D(t, v).rg - .5;' +
+    '  c *= .945;' +                                  /* decaimento do rastro */
+    '  float d = distance(v, m);' +
+    '  float b = exp(-d*d*140.0) * liga;' +           /* carimbo gaussiano */
+    '  c += vel * b;' +
+    '  gl_FragColor = vec4(c + .5, 0., 1.);}';
+  // passo de exibicao: desloca a amostragem da foto pelo rastro
+  var FRAG_VER =
+    'precision mediump float;varying vec2 v;uniform sampler2D foto;uniform sampler2D t;' +
+    'uniform vec2 uvA;uniform vec2 uvB;' +
+    'void main(){' +
+    '  vec2 c = texture2D(t, v).rg - .5;' +
+    '  vec2 uv = uvA + v * uvB;' +                    /* cover fit */
+    '  uv -= c * .22;' +                              /* forca do deslocamento */
+    '  gl_FragColor = texture2D(foto, uv);}';
+
+  function shader(tipo, src){
+    var sh = gl.createShader(tipo);
+    gl.shaderSource(sh, src); gl.compileShader(sh);
+    return gl.getShaderParameter(sh, gl.COMPILE_STATUS) ? sh : null;
+  }
+  function programa(fs){
+    var p = gl.createProgram();
+    var v = shader(gl.VERTEX_SHADER, VERT), f = shader(gl.FRAGMENT_SHADER, fs);
+    if(!v || !f) return null;
+    gl.attachShader(p, v); gl.attachShader(p, f); gl.linkProgram(p);
+    return gl.getProgramParameter(p, gl.LINK_STATUS) ? p : null;
+  }
+  var pR = programa(FRAG_RASTRO), pV = programa(FRAG_VER);
+  if(!pR || !pV) return;
+
+  var quad = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  function liga(p){
+    var a = gl.getAttribLocation(p, 'p');
+    gl.enableVertexAttribArray(a);
+    gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+  }
+
+  // ping-pong do rastro em resolucao baixa
+  var SW = 256, SH = 144;
+  function alvoNovo(){
+    var tx = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tx);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, SW, SH, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+      new Uint8Array(SW*SH*4).fill(127));
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    var fb = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tx, 0);
+    return {tx: tx, fb: fb};
+  }
+  var rastro = [alvoNovo(), alvoNovo()], idx = 0;
+
+  var texFoto = gl.createTexture(), fotoOk = false, fotoW = 1, fotoH = 1;
+  var carrega = new Image();
+  carrega.crossOrigin = 'anonymous';
+  carrega.onload = function(){
+    fotoW = carrega.naturalWidth; fotoH = carrega.naturalHeight;
+    gl.bindTexture(gl.TEXTURE_2D, texFoto);
+    try{ gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, carrega); }
+    catch(e){ return; }  /* file:// nega textura; fica a imagem normal */
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    fotoOk = true;
+    img.style.opacity = '0';
+    fundo.appendChild(cv);
+  };
+  carrega.src = img.currentSrc || img.src;
+
+  var mx = -1, my = -1, vx = 0, vy = 0, ativo = 0;
+  var heroi = document.querySelector('.hx-heroi') || fundo;
+  heroi.addEventListener('mousemove', function(e){
+    var r = fundo.getBoundingClientRect();
+    var nx = (e.clientX - r.left) / r.width;
+    var ny = 1 - (e.clientY - r.top) / r.height;
+    if(mx >= 0){ vx = (nx - mx) * 4.2; vy = (ny - my) * 4.2; }
+    mx = nx; my = ny; ativo = 1;
+  });
+  heroi.addEventListener('mouseleave', function(){ ativo = 0; });
+
+  function mede(){
+    var r = fundo.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var w = Math.max(2, Math.round(r.width * dpr));
+    var h = Math.max(2, Math.round(r.height * dpr));
+    if(cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; }
+    return r;
+  }
+  window.addEventListener('resize', mede);
+
+  var visivel = true;
+  new IntersectionObserver(function(es){
+    es.forEach(function(e){ visivel = e.isIntersecting; });
+  }).observe(fundo);
+
+  var uR = {t: gl.getUniformLocation(pR,'t'), m: gl.getUniformLocation(pR,'m'),
+            vel: gl.getUniformLocation(pR,'vel'), liga: gl.getUniformLocation(pR,'liga')};
+  var uV = {foto: gl.getUniformLocation(pV,'foto'), t: gl.getUniformLocation(pV,'t'),
+            uvA: gl.getUniformLocation(pV,'uvA'), uvB: gl.getUniformLocation(pV,'uvB')};
+
+  function quadroCover(r){
+    // reproduz object-fit: cover no espaco uv
+    var arC = r.width / r.height, arF = fotoW / fotoH;
+    var sx = 1, sy = 1;
+    if(arC > arF){ sy = arF / arC; } else { sx = arC / arF; }
+    return [ (1-sx)/2, (1-sy)/2, sx, sy ];
+  }
+
+  function passo(){
+    requestAnimationFrame(passo);
+    if(!fotoOk || !visivel) return;
+    var r = mede();
+    // 1. rastro
+    var prox = 1 - idx;
+    gl.useProgram(pR); liga(pR);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, rastro[prox].fb);
+    gl.viewport(0, 0, SW, SH);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, rastro[idx].tx);
+    gl.uniform1i(uR.t, 0);
+    gl.uniform2f(uR.m, mx, my);
+    gl.uniform2f(uR.vel, Math.max(-.5, Math.min(.5, vx)), Math.max(-.5, Math.min(.5, vy)));
+    gl.uniform1f(uR.liga, ativo);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    vx *= .82; vy *= .82;
+    idx = prox;
+    // 2. exibicao
+    var q = quadroCover(r);
+    gl.useProgram(pV); liga(pV);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, 0, cv.width, cv.height);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, texFoto);
+    gl.uniform1i(uV.foto, 0);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, rastro[idx].tx);
+    gl.uniform1i(uV.t, 1);
+    gl.uniform2f(uV.uvA, q[0], 1 - q[1] - q[3]);
+    gl.uniform2f(uV.uvB, q[2], q[3]);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+  // uv de textura de imagem tem y invertido em relacao ao clip space do quad
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+  passo();
 })();
 </script>
 </body>
