@@ -23,7 +23,7 @@ img { max-width: 100%; display: block; }
   --accent-red-text: #C62828;   /* vermelho escuro p/ texto pequeno (passa WCAG AA) */
   --white: #ffffff;
   --text-dark: #000000;
-  --text-light: #50687B;
+  --text-light: #3E505F;   /* era #50687B; escurecido ~9pt de luminosidade a pedido */
   --blue-medium: #7190AB;
   --blue-light: #C0DBF3;
   --lavender: #DFDDE8;
@@ -34,7 +34,7 @@ img { max-width: 100%; display: block; }
   --color-primary-light: #152E4A;
   --color-accent: #B8952A;
   --color-accent-light: #D4B04A;
-  --color-text: #1A1A2E;
+  --color-text: #000000;   /* era #1A1A2E (cinza-escuro); titulos em preto a pedido */
   --color-text-light: #6B7280;
   --color-bg: #FFFFFF;
   --color-bg-alt: #F5F5F5;
@@ -758,7 +758,7 @@ img { max-width: 100%; display: block; }
 .footer-top { display: flex; gap: 50px; margin-bottom: 24px; }
 .footer-brand { min-width: 220px; }
 .footer-logo { margin-bottom: 12px; }
-.footer-logo img { height: 44px; width: auto; }   /* Asset 45, razao 2,357: 104px de largura */
+.footer-logo img { height: 44px; width: auto; }   /* Asset 55, razao 2,232: 98px de largura */
 .footer-brand-text { font-size: 14px; color: var(--blue-medium); margin-bottom: 3px; }
 .footer-brand a { color: var(--blue-light); text-decoration: underline; font-size: 14px; }
 .footer-wa { display: flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 14px; }
