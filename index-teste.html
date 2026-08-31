@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideal Metrics — Qualidade, Conformidade e Sustentabilidade</title>
+<meta name="description" content="Implantação de normas ISO, gestão de carbono, SEDEX SMETA e inspeções de qualidade. Desde 1998, do diagnóstico ao certificado.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ==========================================================================
+   Ideal Metrics — página inicial experimental
+   Direção: a gramática do site de referência (papel greige, uma cor só,
+   grotesca condensada + mono, meio-tom Floyd-Steinberg, colchetes) vertida
+   para o aço azulado do tingimento 8999B1 da marca.
+   ========================================================================== */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --papel:#E8E6E1;
+  --aco:#2B3C54;          /* o campo dominante, sombra do tingimento */
+  --aco-14:rgba(43,60,84,.14);
+  --aco-35:rgba(43,60,84,.35);
+  --meio:#8999B1;         /* a cor do tingimento em pessoa */
+  --claro:#C9D2DE;
+  --tinta:#14181F;
+  --disp:'IBM Plex Sans Condensed',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --corpo:'IBM Plex Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--papel);color:var(--tinta);font-family:var(--corpo);
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--aco);color:var(--papel)}
+
+/* ---------- réguas de composição ---------- */
+.miolo{padding:0 15px}
+.rotulo{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--aco)}
+.rotulo .tag{color:var(--meio)}
+h2.grande{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
+  font-size:clamp(32px,4.4vw,60px);line-height:.94;text-transform:lowercase;
+  color:var(--tinta)}
+.mono-txt{font-family:var(--mono);font-size:12.5px;line-height:1.75;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--aco)}
+
+/* colchetes: o botão da casa */
+.colchete{font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;display:inline-flex;align-items:baseline;gap:.55em;
+  color:var(--tinta);transition:color .2s}
+.colchete i{font-style:normal;color:var(--meio);transition:transform .25s}
+.colchete:hover{color:var(--aco)}
+.colchete:hover i:first-child{transform:translateX(-4px)}
+.colchete:hover i:last-child{transform:translateX(4px)}
+
+/* revelação no scroll */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv.in-view{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ---------- herói ---------- */
+/* a foto entra com o tingimento oficial da marca (efeito 9AACC1), sem outro
+   tratamento; o veu escuro embaixo garante a leitura do slogan */
+.heroi{min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--meio) url('img/tanques-industriais-01.webp') center/cover no-repeat;
+  color:var(--papel);position:relative;padding:40px clamp(18px,4vw,56px) 0}
+.heroi::after{content:"";position:absolute;inset:auto 0 0;height:52%;
+  background:linear-gradient(to bottom,transparent,rgba(43,60,84,.55))}
+.heroi>*{position:relative;z-index:1}
+.heroi .frase{align-self:flex-end;max-width:440px;text-align:left;
+  font-family:var(--corpo);font-weight:500;font-size:clamp(16px,1.6vw,20px);
+  line-height:1.32;margin-top:clamp(24px,6vh,80px);
+  background:var(--aco);padding:26px 30px}
+.heroi .frase em{font-style:normal;color:var(--claro);display:block;margin-bottom:6px}
+.heroi .assina{font-family:var(--disp);font-weight:700;letter-spacing:-.02em;
+  font-size:clamp(44px,7.2vw,112px);line-height:.9;text-transform:lowercase;
+  margin-bottom:.4em;overflow:hidden;text-shadow:0 1px 22px rgba(43,60,84,.35)}
+.heroi .assina span{display:block}
+.carga .heroi .frase,.carga .heroi .assina{opacity:0;transform:translateY(30px)}
+.pronta .heroi .frase,.pronta .heroi .assina{opacity:1;transform:none;
+  transition:opacity .9s ease .15s,transform .9s ease .15s}
+.pronta .heroi .assina{transition-delay:.35s}
+
+/* faixa de abertura sob o herói */
+.abre{background:var(--papel);border-top:1px solid var(--aco-35)}
+.abre .miolo{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  gap:clamp(24px,5vw,90px);padding-top:64px;padding-bottom:64px}
+.abre p.lede{font-size:clamp(17px,1.6vw,21px);line-height:1.45;font-weight:500;max-width:56ch}
+.abre .lado{display:flex;flex-direction:column;gap:26px;justify-content:space-between}
+@media(max-width:880px){.abre .miolo{grid-template-columns:1fr}}
+
+/* ---------- banda de declaração ---------- */
+.banda{border-top:1px solid var(--aco-35);border-bottom:1px solid var(--aco-35)}
+.banda .miolo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,90px);
+  padding-top:46px;padding-bottom:46px}
+@media(max-width:880px){.banda .miolo{grid-template-columns:1fr}}
+
+/* ---------- serviços ---------- */
+.servicos{padding:110px 0 90px}
+.servicos .cab{display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:56px;gap:24px}
+.svc{border-top:1px solid var(--aco-35);display:grid;
+  grid-template-columns:64px minmax(0,1.1fr) minmax(0,1.3fr) auto;
+  gap:clamp(14px,2.5vw,44px);align-items:baseline;padding:30px 0;
+  transition:background .25s}
+.svc:last-of-type{border-bottom:1px solid var(--aco-35)}
+.svc:hover{background:rgba(137,153,177,.12)}
+.svc .num{font-family:var(--mono);font-size:12px;color:var(--meio)}
+.svc h3{font-family:var(--disp);font-weight:600;font-size:clamp(19px,1.9vw,26px);
+  line-height:1;letter-spacing:-.01em}
+.svc .desc{max-width:52ch}
+@media(max-width:880px){.svc{grid-template-columns:44px 1fr;grid-template-rows:auto auto auto}
+  .svc h3{grid-column:2}.svc .desc{grid-column:2}.svc .colchete{grid-column:2}}
+
+/* ---------- processo (seção escura) ---------- */
+.processo{background:var(--aco);color:var(--papel);position:relative;
+  background-image:url('img/setor-industria.webp');background-size:cover;
+  background-position:center}
+.processo::before{content:"";position:absolute;inset:0;background:rgba(43,60,84,.92)}
+.processo .miolo{position:relative;padding-top:110px;padding-bottom:110px}
+.processo .rotulo{color:var(--claro)}
+.processo h2.grande{color:var(--papel);margin:18px 0 14px}
+.processo .sub{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--claro);max-width:64ch;line-height:1.8;
+  margin-bottom:70px}
+.passo{border-top:1px solid rgba(201,210,222,.35);display:grid;
+  grid-template-columns:minmax(0,1fr) 70px minmax(0,1.4fr);
+  gap:clamp(14px,2.5vw,44px);align-items:baseline;padding:26px 0}
+.passo:last-child{border-bottom:1px solid rgba(201,210,222,.35)}
+.passo h3{font-family:var(--disp);font-weight:600;font-size:clamp(19px,1.9vw,26px);line-height:1}
+.passo .num{font-family:var(--mono);font-size:12px;color:var(--claro)}
+.passo p{font-family:var(--mono);font-size:12px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--claro);line-height:1.75;max-width:52ch}
+@media(max-width:880px){.passo{grid-template-columns:56px 1fr}
+  .passo h3{grid-column:2}.passo p{grid-column:2}}
+
+/* ---------- diferenciais ---------- */
+.difs{padding:110px 0 90px}
+.difs .cab{margin-bottom:60px}
+.dif{border-top:1px solid var(--aco-35);display:grid;
+  grid-template-columns:64px minmax(0,1fr) auto;gap:clamp(14px,2.5vw,44px);
+  align-items:baseline;padding:34px 0}
+.dif:last-of-type{border-bottom:1px solid var(--aco-35)}
+.dif .num{font-family:var(--mono);font-size:12px;color:var(--meio)}
+.dif h3{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
+  font-size:clamp(22px,2.7vw,38px);line-height:.96;text-transform:lowercase}
+.dif .cat{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--aco)}
+.dif p{grid-column:2;max-width:60ch;margin-top:10px;color:var(--aco);font-size:15px}
+@media(max-width:880px){.dif{grid-template-columns:44px 1fr}
+  .dif .cat{grid-column:2}.dif p{grid-column:2}}
+
+/* ---------- números ---------- */
+.numeros{border-top:1px solid var(--aco-35);border-bottom:1px solid var(--aco-35)}
+.numeros .miolo{display:grid;grid-template-columns:repeat(3,1fr);
+  padding-top:0;padding-bottom:0}
+.numeros .celula{padding:48px clamp(10px,2vw,32px);border-right:1px solid var(--aco-35)}
+.numeros .celula:first-child{padding-left:0}
+.numeros .celula:last-child{border-right:none}
+.numeros b{display:block;font-family:var(--disp);font-weight:700;
+  font-size:clamp(30px,3.8vw,54px);line-height:.9;letter-spacing:-.02em}
+.numeros span{display:block;margin-top:12px}
+@media(max-width:880px){.numeros .miolo{grid-template-columns:1fr}
+  .numeros .celula{border-right:none;border-bottom:1px solid var(--aco-14);padding-left:0}}
+
+/* ---------- clientes ---------- */
+.clientes{padding:90px 0}
+.grade-logos{display:grid;grid-template-columns:repeat(6,1fr);margin-top:40px;
+  border:1px solid var(--aco-35);border-right:none;border-bottom:none}
+.grade-logos .cel{border-right:1px solid var(--aco-35);border-bottom:1px solid var(--aco-35);
+  display:flex;align-items:center;justify-content:center;padding:26px 18px;min-height:104px}
+.grade-logos img{max-height:44px;max-width:78%;width:auto;
+  filter:grayscale(1);opacity:.72;transition:opacity .25s,filter .25s}
+.grade-logos .cel:hover img{filter:none;opacity:1}
+@media(max-width:880px){.grade-logos{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- conteúdo: a moldura da referência ----------
+   foto tingida ocupando a metade esquerda, grade 2x2 de cartões à direita,
+   um deles invertido em aço sólido; tudo dentro de um fio duplo */
+.conteudo{padding:0 0 110px}
+.conteudo .cab{display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:16px;gap:24px}
+.moldura{border:2px solid var(--aco);display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}
+.moldura .foto{background:var(--meio) url('img/setor-tecnologia.webp') center/cover no-repeat;
+  min-height:520px}
+.mgrade{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.post{display:flex;flex-direction:column;justify-content:space-between;
+  padding:26px 26px 30px;min-height:250px;border-left:1px solid var(--aco-35);
+  border-top:1px solid var(--aco-35);transition:background .25s}
+.mgrade .post:nth-child(1),.mgrade .post:nth-child(2){border-top:none}
+.post:hover{background:rgba(137,153,177,.14)}
+.post .data{font-family:var(--corpo);font-weight:500;font-size:19px;color:var(--aco)}
+.post .pe{display:flex;flex-direction:column;gap:12px}
+.post .cat{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--aco)}
+.post h3{font-family:var(--corpo);font-weight:500;font-size:16.5px;line-height:1.35;
+  color:var(--tinta)}
+.post.cheio{background:var(--aco)}
+.post.cheio .data,.post.cheio .cat{color:var(--claro)}
+.post.cheio h3{color:var(--papel)}
+.post.cheio:hover{background:#33475f}
+@media(max-width:880px){.moldura{grid-template-columns:1fr}
+  .moldura .foto{min-height:280px}.mgrade{grid-template-columns:1fr}
+  .post{min-height:0;gap:22px}}
+
+/* ---------- rodapé ---------- */
+.rodape{background:var(--aco);color:var(--papel);
+  background-image:url('img/dither-energia.png');background-size:cover;
+  background-position:center bottom;position:relative}
+.rodape::before{content:"";position:absolute;inset:0;background:rgba(43,60,84,.9)}
+.rodape .miolo{position:relative;padding-top:96px;padding-bottom:36px}
+.rodape .chamada{display:flex;justify-content:space-between;align-items:flex-end;
+  gap:32px;padding-bottom:70px;border-bottom:1px solid rgba(201,210,222,.3)}
+.rodape .chamada h2{font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
+  font-size:clamp(26px,3.4vw,48px);line-height:.92;text-transform:lowercase}
+.rodape .colchete{color:var(--papel)}
+.rodape .colchete:hover{color:var(--claro)}
+.rodape .colunas{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));
+  gap:clamp(24px,4vw,70px);padding:56px 0 70px}
+.rodape .colunas img{width:min(240px,60%)}
+.rodape .colunas h4{font-family:var(--mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--claro);margin-bottom:16px}
+.rodape .colunas a{display:block;font-family:var(--mono);font-size:12.5px;
+  letter-spacing:.06em;text-transform:uppercase;padding:5px 0;opacity:.85;transition:opacity .2s}
+.rodape .colunas a:hover{opacity:1}
+.rodape .legal{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding-top:22px;border-top:1px solid rgba(201,210,222,.3);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--claro)}
+@media(max-width:880px){.rodape .chamada{flex-direction:column;align-items:flex-start}
+  .rodape .colunas{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="carga">
+
+<header class="header">
+  <div class="header-logo"><a href="index.html"><img src="img/ideal-metrics-a19b.svg" alt="Ideal Metrics"></a></div>
+  <nav class="header-nav">
+    <a href="index.html">Página Inicial</a>
+    <div class="dropdown">
+      <a href="servicos.html">Todos os serviços ▾</a>
+      <div class="mega-menu">
+        <div class="mega-menu-col">
+          <h4>Certificação ISO</h4>
+          <a href="implantacao-iso.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></span>Implantação ISO</a>
+          <a href="suporte.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Suporte pós certificação</a>
+        </div>
+        <div class="mega-menu-col">
+          <h4>Padrões e Sustentabilidade</h4>
+          <a href="padroes-mercado.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>Padrões de mercado</a>
+          <a href="gestao-carbono.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>Gestão de carbono</a>
+          <a href="esg.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/></svg></span>ESG</a>
+          <a href="sedex-smeta.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg></span>SEDEX/SMETA</a>
+        </div>
+        <div class="mega-menu-col">
+          <h4>Inspeções</h4>
+          <a href="inspecoes.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>Inspeções</a>
+          <a href="produtos-inspecionamos.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span>Produtos que inspecionamos</a>
+        </div>
+        <div class="mega-menu-col">
+          <h4>Apoio Técnico</h4>
+          <a href="nrs.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>Atendimento a NRs</a>
+          <a href="seguranca-alimentos.html"><span class="mega-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg></span>Segurança de alimentos</a>
+        </div>
+      </div>
+    </div>
+    <a href="sobre.html">Quem somos</a>
+    <a href="como-trabalhamos.html">Como trabalhamos</a>
+    <a href="contato.html">Contato</a>
+    <a href="blog.html">Conteúdo</a>
+  </nav>
+</header>
+
+<section class="heroi">
+  <p class="frase"><em>Integração e Sustentabilidade.</em> Consultoria em normas ISO, padrões internacionais, gestão de carbono e inspeções da qualidade. Desde 1998.</p>
+  <h1 class="assina"><span>ideal</span><span>metrics</span></h1>
+</section>
+
+<section class="abre">
+  <div class="miolo">
+    <p class="lede rv">Com atuação desde 1998, apoiamos empresas na conquista de certificações, na conformidade com padrões internacionais e na inspeção da qualidade. Não emitimos o certificado, e é justamente isso que assegura a isenção do nosso trabalho.</p>
+    <div class="lado rv">
+      <p class="mono-txt">Implantamos sistemas de gestão e preparamos sua organização para a auditoria do organismo certificador. Como não certificamos, não existe o conflito de quem consulta e certifica o mesmo cliente.</p>
+      <a class="colchete" href="contato.html"><i>[</i>Fale com um consultor<i>]</i></a>
+    </div>
+  </div>
+</section>
+
+<section class="banda">
+  <div class="miolo">
+    <p class="mono-txt rv">Do primeiro diagnóstico ao certificado na parede, a Ideal Metrics conduz norma, auditoria, carbono e o que mais o seu sistema de gestão precisar.</p>
+    <p class="mono-txt rv">Com inspetores próprios na Ásia, na Europa e no Oriente Médio, verificamos produção e fornecedores na fonte, antes do embarque.</p>
+  </div>
+</section>
+
+<section class="servicos" id="servicos">
+  <div class="miolo">
+    <div class="cab">
+      <div>
+        <p class="rotulo rv">Serviços <span class="tag">[IM.1]</span></p>
+        <h2 class="grande rv">nossos<br>serviços</h2>
+      </div>
+      <a class="colchete rv" href="servicos.html"><i>[</i>Ver todos<i>]</i></a>
+    </div>
+
+    <article class="svc rv">
+      <span class="num">01</span>
+      <h3>Implantação ISO</h3>
+      <p class="desc mono-txt">Mais de 25 anos preparando organizações de diversos setores para as normas ISO 9001, 14001, 45001 e padrões de mercado.</p>
+      <a class="colchete" href="implantacao-iso.html"><i>[</i>Saiba mais<i>]</i></a>
+    </article>
+    <article class="svc rv">
+      <span class="num">02</span>
+      <h3>Gestão de Carbono</h3>
+      <p class="desc mono-txt">Inventário, neutralização e registro de emissões de gases de efeito estufa segundo o GHG Protocol.</p>
+      <a class="colchete" href="gestao-carbono.html"><i>[</i>Saiba mais<i>]</i></a>
+    </article>
+    <article class="svc rv">
+      <span class="num">03</span>
+      <h3>SEDEX SMETA</h3>
+      <p class="desc mono-txt">Consultoria para organizações que buscam atender aos padrões éticos SEDEX SMETA nas auditorias de 2 e 4 pilares.</p>
+      <a class="colchete" href="sedex-smeta.html"><i>[</i>Saiba mais<i>]</i></a>
+    </article>
+    <article class="svc rv">
+      <span class="num">04</span>
+      <h3>Sustentabilidade ESG</h3>
+      <p class="desc mono-txt">Estruturação de práticas ambientais, sociais e de governança alinhadas aos padrões internacionais.</p>
+      <a class="colchete" href="esg.html"><i>[</i>Saiba mais<i>]</i></a>
+    </article>
+    <article class="svc rv">
+      <span class="num">05</span>
+      <h3>Inspeções de Qualidade</h3>
+      <p class="desc mono-txt">Verificação de produto pós-produção e antes do embarque: funcionamento, estado, embalagem, quantidade e requisitos.</p>
+      <a class="colchete" href="inspecoes.html"><i>[</i>Saiba mais<i>]</i></a>
+    </article>
+    <article class="svc rv">
+      <span class="num">06</span>
+      <h3>Suporte pós-certificação</h3>
+      <p class="desc mono-txt">Manutenção do sistema de gestão, auditorias internas e preparação para as recertificações periódicas.</p>
+      <a class="colchete" href="suporte.html"><i>[</i>Saiba mais<i>]</i></a>
+    </article>
+  </div>
+</section>
+
+<section class="processo">
+  <div class="miolo">
+    <p class="rotulo rv">Processo <span class="tag">[IM.2]</span></p>
+    <h2 class="grande rv">ao lado<br>em cada etapa</h2>
+    <p class="sub rv">Do diagnóstico à certificação, conduzimos cada etapa com o consultor dentro do seu processo.</p>
+
+    <div class="passo rv"><h3>Diagnóstico</h3><span class="num">01</span><p>Análise da situação atual e identificação de gaps em relação às normas.</p></div>
+    <div class="passo rv"><h3>Planejamento</h3><span class="num">02</span><p>Plano de implantação com responsáveis, prazos e entregas por visita.</p></div>
+    <div class="passo rv"><h3>Implantação</h3><span class="num">03</span><p>Construção do sistema de gestão integrado à rotina da operação.</p></div>
+    <div class="passo rv"><h3>Auditoria interna</h3><span class="num">04</span><p>Verificação da conformidade e preparação para a auditoria de certificação.</p></div>
+    <div class="passo rv"><h3>Certificação</h3><span class="num">05</span><p>Acompanhamento da auditoria do organismo certificador até o certificado emitido.</p></div>
+  </div>
+</section>
+
+<section class="difs">
+  <div class="miolo">
+    <div class="cab">
+      <p class="rotulo rv">Diferenciais <span class="tag">[IM.3]</span></p>
+      <h2 class="grande rv">por que a<br>ideal metrics</h2>
+    </div>
+
+    <article class="dif rv">
+      <span class="num">01</span>
+      <h3>independência real</h3>
+      <span class="cat">Posicionamento</span>
+      <p>Preparamos sua organização para a auditoria do organismo certificador. Como não certificamos, não existe o conflito de quem consulta e certifica o mesmo cliente.</p>
+    </article>
+    <article class="dif rv">
+      <span class="num">02</span>
+      <h3>inspeção internacional</h3>
+      <span class="cat">Alcance</span>
+      <p>Equipe de inspetores na Ásia, Europa e Oriente Médio. Verificamos produção e fornecedores na fonte, antes do embarque, um serviço que poucas consultorias oferecem.</p>
+    </article>
+    <article class="dif rv">
+      <span class="num">03</span>
+      <h3>foco de especialista</h3>
+      <span class="cat">Método</span>
+      <p>Desde 1998, cada projeto é conduzido de perto, com o consultor dentro do seu processo. Profundidade de boutique, não número de protocolo.</p>
+    </article>
+  </div>
+</section>
+
+<section class="numeros">
+  <div class="miolo">
+    <div class="celula rv"><b>28</b><span class="mono-txt">anos de experiência</span></div>
+    <div class="celula rv"><b>500+</b><span class="mono-txt">projetos entregues</span></div>
+    <div class="celula rv"><b>300+</b><span class="mono-txt">clientes atendidos</span></div>
+  </div>
+</section>
+
+<section class="clientes">
+  <div class="miolo">
+    <p class="rotulo rv">Clientes <span class="tag">[IM.4]</span></p>
+    <h2 class="grande rv">empresas que<br>confiam</h2>
+    <div class="grade-logos rv">
+      <div class="cel"><img src="img/cliente-bracell.png" alt="bracell" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-dexco.png" alt="dexco" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-oxiteno.png" alt="oxiteno" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-carmeuse.png" alt="carmeuse" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-weir.png" alt="weir" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-horiba.png" alt="horiba" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-ld-celulose.png" alt="ld-celulose" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-viabahia.png" alt="viabahia" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-mobibrasil.png" alt="mobibrasil" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-green-plac.png" alt="green-plac" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-brissolo.png" alt="brissolo" loading="lazy"></div>
+      <div class="cel"><img src="img/cliente-brasical.png" alt="brasical" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="conteudo">
+  <div class="miolo">
+    <div class="cab">
+      <p class="rotulo rv">Conteúdo de destaque <span class="tag">[IM.5]</span></p>
+      <a class="colchete rv" href="blog.html"><i>[</i>Ver todo o conteúdo &rarr;<i>]</i></a>
+    </div>
+
+    <div class="moldura rv">
+      <div class="foto"></div>
+      <div class="mgrade">
+        <a class="post" href="blog.html">
+          <span class="data">01</span>
+          <span class="pe"><span class="cat">Consultoria</span><h3>Como a Ideal Metrics aplica a ISO 20700 na prática da consultoria</h3></span>
+        </a>
+        <a class="post" href="blog.html">
+          <span class="data">02</span>
+          <span class="pe"><span class="cat">Normas</span><h3>Publicação da versão NBR da ISO 45001:2024</h3></span>
+        </a>
+        <a class="post cheio" href="blog.html">
+          <span class="data">03</span>
+          <span class="pe"><span class="cat">Alimentos</span><h3>Nova NBR 17183:2024 para a implementação de um APPCC</h3></span>
+        </a>
+        <a class="post" href="blog.html">
+          <span class="data">04</span>
+          <span class="pe"><span class="cat">Compliance</span><h3>NBR ISO 37301:2021: elevando padrões de compliance</h3></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="miolo">
+    <div class="chamada">
+      <h2 class="rv">integração e<br>sustentabilidade.</h2>
+      <a class="colchete rv" href="https://wa.me/5511954684086"><i>[</i>Fale pelo WhatsApp<i>]</i></a>
+    </div>
+    <div class="colunas">
+      <!-- o lockup novo (a16b) em silhueta branca: nao existe versao branca do
+           arquivo, entao o filtro achata tudo em branco solido, que e a
+           linguagem chapada desta pagina -->
+      <div class="rv"><img src="img/ideal-metrics-a16b.svg" alt="Ideal Metrics" style="filter:brightness(0) invert(1)"></div>
+      <div class="rv">
+        <h4>Navegue</h4>
+        <a href="servicos.html">Serviços</a>
+        <a href="como-trabalhamos.html">Como trabalhamos</a>
+        <a href="sobre.html">Quem somos</a>
+        <a href="clientes.html">Clientes</a>
+        <a href="blog.html">Conteúdo</a>
+      </div>
+      <div class="rv">
+        <h4>Contato</h4>
+        <a href="mailto:info@cqt-br.com">info@cqt-br.com</a>
+        <a href="https://wa.me/5511954684086">WhatsApp</a>
+        <a href="https://www.linkedin.com/company/cqt-br/">LinkedIn</a>
+        <a href="contato.html">Formulário</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>Centomo &amp; Consultores Ltda &middot; CNPJ 02.569.436/0001-21</span>
+      <span>Ideal Metrics &middot; desde 1998 &middot; São Paulo, Brasil</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// revelação no scroll + entrada do herói
+window.addEventListener('load', function(){
+  document.body.classList.remove('carga');
+  document.body.classList.add('pronta');
+});
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+}, {threshold:.12});
+document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
+</script>
+</body>
+</html>
