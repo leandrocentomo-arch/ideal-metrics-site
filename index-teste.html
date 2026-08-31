@@ -1271,7 +1271,7 @@ body>*{position:relative;z-index:1}
     <div class="ia-stair ia-stair-2"></div>
     <div class="ia-stair ia-stair-3"></div>
   </div>
-  <p class="ia-lead ia-split">Com atuação desde 1998, apoiamos empresas na conquista de certificações, na conformidade com padrões internacionais e na inspeção da qualidade. Não emitimos o certificado, e é justamente isso que assegura a isenção do nosso trabalho.</p>
+  <p class="ia-lead ia-split">Com atuação desde 1998, apoiamos empresas na conquista de certificações, na conformidade com padrões internacionais e na inspeção da qualidade, do diagnóstico ao certificado na parede.</p>
   <div class="ia-mono-wrap">
     <ul class="ia-mono-list">
       <li class="ia-mono ia-split">Do primeiro diagnóstico ao certificado na parede, a Ideal Metrics conduz norma, auditoria, carbono e o que mais o seu sistema de gestão precisar.</li>
@@ -1448,14 +1448,14 @@ body>*{position:relative;z-index:1}
     <article class="df-col" style="--df-desloc:22vh">
       <header class="df-cab">
         <span class="df-num">01</span>
-        <span class="df-cat">Posicionamento</span>
+        <span class="df-cat">Trajetória</span>
       </header>
       <div class="df-bloco">
-        <h3 class="df-nome">Independência real</h3>
+        <h3 class="df-nome">Experiência desde 1998</h3>
         <div class="df-quadro">
           <img class="df-foto" src="img/industria-azul-01.webp" alt="Planta industrial em tratamento halftone azul da marca" loading="lazy">
         </div>
-        <p class="df-mono">Preparamos sua organização para a auditoria do organismo certificador. Como não certificamos, não existe o conflito de quem consulta e certifica o mesmo cliente.</p>
+        <p class="df-mono">Mais de 25 anos preparando organizações de diversos setores para normas e padrões de mercado, do diagnóstico ao certificado.</p>
       </div>
     </article>
     <article class="df-col" style="--df-desloc:16vh">
@@ -1952,12 +1952,25 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   // passo de exibicao: desloca a amostragem da foto pelo rastro
   var FRAG_VER =
     'precision mediump float;varying vec2 v;uniform sampler2D foto;uniform sampler2D t;' +
-    'uniform vec2 uvA;uniform vec2 uvB;' +
+    'uniform vec2 uvA;uniform vec2 uvB;uniform float tp;uniform vec2 ar;' +
+    /* ruido de valor com 2 oitavas: a camada de nuvens */
+    'float h(vec2 p){return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);}' +
+    'float ru(vec2 p){vec2 i = floor(p); vec2 f = fract(p); f = f*f*(3.-2.*f);' +
+    '  return mix(mix(h(i), h(i+vec2(1.,0.)), f.x),' +
+    '             mix(h(i+vec2(0.,1.)), h(i+vec2(1.,1.)), f.x), f.y);}' +
     'void main(){' +
     '  vec2 c = texture2D(t, v).rg - .5;' +
-    '  vec2 uv = uvA + v * uvB;' +                    /* cover fit */
-    '  uv -= c * .22;' +                              /* forca do deslocamento */
-    '  gl_FragColor = texture2D(foto, uv);}';
+    '  vec2 uv = uvA + v * uvB;' +
+    '  uv -= c * .18;' +                              /* distorce a foto */
+    '  vec4 cor = texture2D(foto, uv);' +
+    /* nuvens: derivam sozinhas com o tempo e sao ARRASTADAS pelo rastro */
+    '  vec2 np = v * ar * 2.6 + vec2(tp * .045, tp * -.028) - c * 2.4;' +
+    '  float n = ru(np) * .62 + ru(np * 2.3 + 7.7) * .38;' +
+    '  float luz = smoothstep(.48, .78, n);' +
+    '  cor.rgb = mix(cor.rgb, vec3(.72, .77, .94), luz * .38);' +
+    '  float sombra = smoothstep(.52, .22, n);' +
+    '  cor.rgb = mix(cor.rgb, vec3(.10, .14, .45), sombra * .22);' +
+    '  gl_FragColor = cor;}';
 
   function shader(tipo, src){
     var sh = gl.createShader(tipo);
@@ -2048,7 +2061,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   var uR = {t: gl.getUniformLocation(pR,'t'), m: gl.getUniformLocation(pR,'m'),
             vel: gl.getUniformLocation(pR,'vel'), liga: gl.getUniformLocation(pR,'liga')};
   var uV = {foto: gl.getUniformLocation(pV,'foto'), t: gl.getUniformLocation(pV,'t'),
-            uvA: gl.getUniformLocation(pV,'uvA'), uvB: gl.getUniformLocation(pV,'uvB')};
+            uvA: gl.getUniformLocation(pV,'uvA'), uvB: gl.getUniformLocation(pV,'uvB'),
+            tp: gl.getUniformLocation(pV,'tp'), ar: gl.getUniformLocation(pV,'ar')};
 
   function quadroCover(r){
     // reproduz object-fit: cover no espaco uv
@@ -2089,6 +2103,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     gl.uniform1i(uV.t, 1);
     gl.uniform2f(uV.uvA, q[0], 1 - q[1] - q[3]);
     gl.uniform2f(uV.uvB, q[2], q[3]);
+    gl.uniform1f(uV.tp, performance.now() / 1000);
+    gl.uniform2f(uV.ar, Math.max(1, r.width / r.height), 1);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
   // uv de textura de imagem tem y invertido em relacao ao clip space do quad
