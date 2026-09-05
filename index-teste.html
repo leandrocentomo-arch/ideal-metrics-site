@@ -159,7 +159,7 @@ body>*{position:relative;z-index:1}
 
 /* statement à direita */
 /* swiss: corpo grande, peso alto e o contraste dentro da propria frase */
-.hx-frase{grid-area:frase;margin:0 0 0 -8px;font-family:var(--sans);font-weight:500;font-size:clamp(26px,2.5vw,38px);line-height:1.04;letter-spacing:-.022em;transition:opacity .5s cubic-bezier(.4,0,.2,1) .18s,transform .5s cubic-bezier(.4,0,.2,1) .18s}
+.hx-frase{grid-area:frase;margin:0 0 0 -8px;font-family:var(--sans);font-weight:700;font-size:clamp(26px,2.5vw,38px);line-height:1.04;letter-spacing:-.022em;transition:opacity .5s cubic-bezier(.4,0,.2,1) .18s,transform .5s cubic-bezier(.4,0,.2,1) .18s}
 
 /* animação de entrada (só quando o JS arma .hx-anim) */
 .hx-heroi.hx-anim .hx-fio-linha{transform:scaleY(0)}
@@ -199,7 +199,7 @@ body>*{position:relative;z-index:1}
   grid-column:1 / -3;
   margin:0;
   font-family:var(--sans);
-  font-weight:400;
+  font-weight:700;
   font-size:clamp(26px,3vw,42px);
   line-height:1.16;
   letter-spacing:-.024em;
@@ -259,12 +259,9 @@ body>*{position:relative;z-index:1}
 .ia-stairs.ia-in .ia-stair-1{transition-delay:.2s}
 
 /* Word-reveal: palavras nascem a 16% e acendem no scroll */
-.ia-intro /* swiss: o peso muda dentro da frase, nas palavras que carregam a
-   informacao. Quem poe a classe e o divisor de palavras, porque ele
-   reconstroi o elemento e apagaria qualquer <strong> do markup. */
-.ia-forte{font-weight:800;letter-spacing:-.03em}
-.hx-frase b{font-weight:800;letter-spacing:-.03em}
-.hx-frase-leve{font-weight:300}
+.ia-intro /* swiss: o peso e do BLOCO, nao da palavra. Alternar grosso e fino de
+   palavra em palavra faz o texto piscar; o contraste fica entre blocos,
+   entre a chamada em 700 e o texto mono em 400. */
 .ia-w{
   opacity:.16;
   transition:opacity .3s cubic-bezier(.4,0,.2,1);
@@ -1278,7 +1275,7 @@ body>*{position:relative;z-index:1}
     <span class="hx-titulo hx-t1" aria-hidden="true"></span>
     <span class="hx-titulo hx-t2" aria-hidden="true"><img class="hx-logo" src="img/logo-liga.svg" alt=""></span>
     <span class="hx-titulo hx-titulo-m" aria-hidden="true"><img class="hx-logo" src="img/logo-liga.svg" alt=""></span>
-    <p class="hx-frase"><b>Integração</b> e<br><b>Sustentabilidade</b>,<br><span class="hx-frase-leve">do diagnóstico ao certificado.</span></p>
+    <p class="hx-frase">Integração e<br>Sustentabilidade, cuidamos da sua organização</p>
   </div>
 </section>
 
@@ -1289,7 +1286,7 @@ body>*{position:relative;z-index:1}
     <div class="ia-stair ia-stair-2"></div>
     <div class="ia-stair ia-stair-3"></div>
   </div>
-  <p class="ia-lead ia-split" data-forte="1998|certificações|padrões|internacionais|inspeção|qualidade|certificado">Com atuação desde 1998, apoiamos empresas na conquista de certificações, na conformidade com padrões internacionais e na inspeção da qualidade, do diagnóstico ao certificado na parede.</p>
+  <p class="ia-lead ia-split">Com atuação desde 1998, apoiamos empresas na conquista de certificações, na conformidade com padrões internacionais e na inspeção da qualidade, do diagnóstico ao certificado na parede.</p>
   <div class="ia-mono-wrap">
     <ul class="ia-mono-list">
       <li class="ia-mono ia-split">Do primeiro diagnóstico ao certificado na parede, a Ideal Metrics conduz norma, auditoria, carbono e o que mais o seu sistema de gestão precisar.</li>
@@ -1724,14 +1721,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   /* Split das palavras (equivalente ao split-text do modelo) */
   var data = [].slice.call(section.querySelectorAll('.ia-split')).map(function(el){
     var text = el.textContent.replace(/\s+/g, ' ').trim();
-    /* palavras que recebem peso, declaradas em data-forte separadas por | */
-    var fortes = (el.getAttribute('data-forte') || '').toLowerCase().split('|')
-      .filter(function(w){ return w; });
-    var nu = function(w){ return w.toLowerCase()
-      .replace(/[.,;:()\u2014\u2013"']/g, '')
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); };
-    var ehForte = function(w){ var k = nu(w);
-      return fortes.some(function(f){ return nu(f) === k; }); };
     el.setAttribute('role', 'text');
     el.setAttribute('aria-label', text);
     var frag = document.createDocumentFragment();
@@ -1739,7 +1728,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var words = [];
     for (var i = 0; i < parts.length; i++) {
       var s = document.createElement('span');
-      s.className = ehForte(parts[i]) ? 'ia-w ia-forte' : 'ia-w';
+      s.className = 'ia-w';
       s.textContent = parts[i];
       s.setAttribute('aria-hidden', 'true');
       frag.appendChild(s);

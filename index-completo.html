@@ -159,7 +159,7 @@ body>*{position:relative;z-index:1}
 
 /* statement à direita */
 /* swiss: corpo grande, peso alto e o contraste dentro da propria frase */
-.hx-frase{grid-area:frase;margin:0 0 0 -8px;font-family:var(--sans);font-weight:500;font-size:clamp(26px,2.5vw,38px);line-height:1.04;letter-spacing:-.022em;transition:opacity .5s cubic-bezier(.4,0,.2,1) .18s,transform .5s cubic-bezier(.4,0,.2,1) .18s}
+.hx-frase{grid-area:frase;margin:0 0 0 -8px;font-family:var(--sans);font-weight:700;font-size:clamp(26px,2.5vw,38px);line-height:1.04;letter-spacing:-.022em;transition:opacity .5s cubic-bezier(.4,0,.2,1) .18s,transform .5s cubic-bezier(.4,0,.2,1) .18s}
 
 /* animação de entrada (só quando o JS arma .hx-anim) */
 .hx-heroi.hx-anim .hx-fio-linha{transform:scaleY(0)}
@@ -199,7 +199,7 @@ body>*{position:relative;z-index:1}
   grid-column:1 / -3;
   margin:0;
   font-family:var(--sans);
-  font-weight:400;
+  font-weight:700;
   font-size:clamp(26px,3vw,42px);
   line-height:1.16;
   letter-spacing:-.024em;
@@ -259,12 +259,9 @@ body>*{position:relative;z-index:1}
 .ia-stairs.ia-in .ia-stair-1{transition-delay:.2s}
 
 /* Word-reveal: palavras nascem a 16% e acendem no scroll */
-.ia-intro /* swiss: o peso muda dentro da frase, nas palavras que carregam a
-   informacao. Quem poe a classe e o divisor de palavras, porque ele
-   reconstroi o elemento e apagaria qualquer <strong> do markup. */
-.ia-forte{font-weight:800;letter-spacing:-.03em}
-.hx-frase b{font-weight:800;letter-spacing:-.03em}
-.hx-frase-leve{font-weight:300}
+.ia-intro /* swiss: o peso e do BLOCO, nao da palavra. Alternar grosso e fino de
+   palavra em palavra faz o texto piscar; o contraste fica entre blocos,
+   entre a chamada em 700 e o texto mono em 400. */
 .ia-w{
   opacity:.16;
   transition:opacity .3s cubic-bezier(.4,0,.2,1);
@@ -1303,7 +1300,21 @@ body>*{position:relative;z-index:1}
    hover, a lista sobe, o rotulo vertical clareia e as quatro entram
    escalonadas. Cores refeitas: o veu era preto puro e o acento era
    vermelho; aqui sao a tinta #14304C e o claro #9FC5F0 da paleta. */
-.qc-sec{display:flex;width:100%;height:min(560px,40vw);overflow:hidden;
+/* A secao tem a mesma abertura das outras: rotulo mono com indice, titulo
+   pequeno e uma linha de chamada. So depois vem a tira, que sangra de
+   ponta a ponta. Sem isso ela comecava direto na foto e destoava. */
+.qc-sec{padding:110px 0 0;background:var(--mercurio)}
+.qc-abre{padding:0 var(--lado)}
+.qc-abre .qc-rotulo{display:flex;justify-content:space-between;
+  border-top:1px solid var(--azul);padding-top:12px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--azul-escuro)}
+.qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:12px;
+  line-height:1.4;letter-spacing:.16em;text-transform:uppercase;color:var(--azul-escuro)}
+.qc-lead{margin:10px 0 40px;font-family:var(--sans);font-weight:700;
+  font-size:clamp(20px,2.2vw,30px);line-height:1.2;letter-spacing:-.024em;
+  color:var(--azul);max-width:26ch}
+.qc-tira{display:flex;width:100%;height:min(560px,40vw);overflow:hidden;
   background:var(--azul);position:relative}
 .qc-col{position:relative;flex:1;overflow:hidden;min-width:0;
   border-right:1px solid rgba(247,250,254,.14);
@@ -1325,10 +1336,10 @@ body>*{position:relative;z-index:1}
   transition:background .5s cubic-bezier(.4,0,.2,1)}
 .qc-col:hover::before{
   background:linear-gradient(to bottom,rgba(20,48,76,.22) 0%,rgba(20,48,76,.78) 100%)}
-/* o topo abre 88px porque o cracha fixo do cabecalho passa por cima da
-   primeira coluna quando a secao encosta no alto da tela */
+/* 58px no topo: a tira nao encosta mais no alto da tela, porque a
+   abertura da secao vem antes dela */
 .qc-conteudo{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
-  justify-content:space-between;padding:88px 30px 54px;color:var(--mercurio)}
+  justify-content:space-between;padding:58px 30px 54px;color:var(--mercurio)}
 .qc-titulo{margin:0 0 12px;font-family:var(--sans);font-weight:300;
   font-size:clamp(20px,1.9vw,28px);line-height:1.1;letter-spacing:-.028em}
 .qc-titulo strong{font-weight:800}
@@ -1366,13 +1377,14 @@ body>*{position:relative;z-index:1}
   .qc-col,.qc-bg,.qc-col::before,.qc-vertical,.qc-lista{transition:none}
 }
 @media (max-width:880px){
-  .qc-sec{flex-direction:column;height:auto}
+  .qc-sec{padding-top:76px}
+  .qc-tira{flex-direction:column;height:auto}
   .qc-col{min-height:300px;border-right:none;
     border-bottom:1px solid rgba(247,250,254,.14)}
   .qc-col:hover{flex:1}
   .qc-vertical{display:none}
   .qc-lista{opacity:1;transform:none}
-  .qc-conteudo{padding:76px 22px 48px}
+  .qc-conteudo{padding:52px 22px 48px}
   .qc-rodape{left:22px}
 }
 </style>
@@ -1424,7 +1436,7 @@ body>*{position:relative;z-index:1}
     <span class="hx-titulo hx-t1" aria-hidden="true"></span>
     <span class="hx-titulo hx-t2" aria-hidden="true"><img class="hx-logo" src="img/logo-liga.svg" alt=""></span>
     <span class="hx-titulo hx-titulo-m" aria-hidden="true"><img class="hx-logo" src="img/logo-liga.svg" alt=""></span>
-    <p class="hx-frase"><b>Integração</b> e<br><b>Sustentabilidade</b>,<br><span class="hx-frase-leve">do diagnóstico ao certificado.</span></p>
+    <p class="hx-frase">Integração e<br>Sustentabilidade, cuidamos da sua organização</p>
   </div>
 </section>
 
@@ -1435,7 +1447,7 @@ body>*{position:relative;z-index:1}
     <div class="ia-stair ia-stair-2"></div>
     <div class="ia-stair ia-stair-3"></div>
   </div>
-  <p class="ia-lead ia-split" data-forte="1998|certificações|padrões|internacionais|inspeção|qualidade|certificado">Com atuação desde 1998, apoiamos empresas na conquista de certificações, na conformidade com padrões internacionais e na inspeção da qualidade, do diagnóstico ao certificado na parede.</p>
+  <p class="ia-lead ia-split">Com atuação desde 1998, apoiamos empresas na conquista de certificações, na conformidade com padrões internacionais e na inspeção da qualidade, do diagnóstico ao certificado na parede.</p>
   <div class="ia-mono-wrap">
     <ul class="ia-mono-list">
       <li class="ia-mono ia-split">Do primeiro diagnóstico ao certificado na parede, a Ideal Metrics conduz norma, auditoria, carbono e o que mais o seu sistema de gestão precisar.</li>
@@ -1446,7 +1458,13 @@ body>*{position:relative;z-index:1}
 
 <!-- ===== servicos ===== -->
   <!-- ===== quatro colunas (a abertura do index.html, na paleta nova) ===== -->
-  <section class="qc-sec" id="quatro-colunas" aria-label="Frentes de trabalho">
+  <section class="qc-sec" id="quatro-colunas" aria-labelledby="qc-titulo-sec">
+    <div class="qc-abre">
+      <div class="qc-rotulo"><span>Frentes</span><span>[IM.1]</span></div>
+      <h2 class="qc-titulo-sec" id="qc-titulo-sec">Por onde começar</h2>
+      <p class="qc-lead">Quatro frentes, e a sua organização costuma entrar por uma delas.</p>
+    </div>
+    <div class="qc-tira">
     <article class="qc-col qc-col--iso">
       <img class="qc-bg" src="img/industria-azul-01.webp" alt="" loading="lazy">
       <div class="qc-conteudo">
@@ -1507,10 +1525,11 @@ body>*{position:relative;z-index:1}
       </div>
       <p class="qc-rodape"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> Comprova a sua prática de sustentabilidade</p>
     </article>
+    </div>
   </section>
 
 <section class="sv" id="servicos" aria-labelledby="sv-h2">
-  <p class="sv-label">Serviços / [ IM.1 ]</p>
+  <p class="sv-label">Serviços / [ IM.2 ]</p>
   <div class="sv-line" aria-hidden="true"></div>
   <h2 class="sv-sr" id="sv-h2">Nossos Serviços</h2>
   <div class="sv-title" aria-hidden="true">
@@ -1634,7 +1653,7 @@ body>*{position:relative;z-index:1}
   <div class="pr-rails" aria-hidden="true"><div class="pr-rail"></div></div>
   <div class="pr-label">
     <span>Processo</span>
-    <span aria-hidden="true">[IM.2]</span>
+    <span aria-hidden="true">[IM.3]</span>
   </div>
   <div class="pr-grid">
     <div class="pr-left">
@@ -1684,7 +1703,7 @@ body>*{position:relative;z-index:1}
   <div class="df-topo">
     <div class="df-rotulo">
       <span>Diferenciais</span>
-      <span>[IM.3]</span>
+      <span>[IM.4]</span>
     </div>
   </div>
   <div class="df-grade df-grade-titulo">
@@ -1748,7 +1767,7 @@ body>*{position:relative;z-index:1}
   <!-- ===== setores de atuacao ===== -->
   <section class="st-sec" id="setores" aria-labelledby="st-titulo">
     <div class="st-topo">
-      <div class="st-rotulo"><span>Abrangência</span><span>[IM.4]</span></div>
+      <div class="st-rotulo"><span>Abrangência</span><span>[IM.5]</span></div>
     </div>
     <h2 class="st-titulo" id="st-titulo">Setores de atuação</h2>
     <p class="st-lead">Atendemos os mais diversos segmentos produtivos.</p>
@@ -1795,7 +1814,7 @@ body>*{position:relative;z-index:1}
 <section class="cl-sec" id="clientes" aria-labelledby="cl-titulo-el">
   <div class="cl-topo">
     <div><span>Clientes</span></div>
-    <div aria-hidden="true">[IM.5]</div>
+    <div aria-hidden="true">[IM.6]</div>
   </div>
   <div class="cl-miolo">
     <h2 class="cl-titulo" id="cl-titulo-el">Empresas que confiam</h2>
@@ -1823,7 +1842,7 @@ body>*{position:relative;z-index:1}
 <!-- ===== noticias ===== -->
 <section class="nt-sec" aria-labelledby="nt-rotulo-txt">
   <div class="nt-head">
-    <div class="nt-rotulo"><span id="nt-rotulo-txt">Conteúdo de destaque</span><span class="nt-idx">[IM.6]</span></div>
+    <div class="nt-rotulo"><span id="nt-rotulo-txt">Conteúdo de destaque</span><span class="nt-idx">[IM.7]</span></div>
     <a class="nt-vertodo" href="blog.html">[<span class="nt-vertodo-meio"><span class="nt-vertodo-txt">Ver todo o conteúdo</span><span class="nt-seta" aria-hidden="true"><svg width="15" height="10" viewBox="0 0 15 10" xmlns="http://www.w3.org/2000/svg"><path d="M0 5h13M9 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg><svg width="15" height="10" viewBox="0 0 15 10" xmlns="http://www.w3.org/2000/svg"><path d="M0 5h13M9 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg></span></span>]</a>
   </div>
 
@@ -1898,7 +1917,7 @@ body>*{position:relative;z-index:1}
   <!-- ===== newsletter e contato ===== -->
   <section class="nl-sec" aria-labelledby="nl-h">
     <div class="nl-topo">
-      <div class="nl-rotulo"><span id="nl-h">Contato</span><span>[IM.7]</span></div>
+      <div class="nl-rotulo"><span id="nl-h">Contato</span><span>[IM.8]</span></div>
     </div>
     <div class="nl-grade">
       <div class="nl-bloco">
@@ -2049,14 +2068,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   /* Split das palavras (equivalente ao split-text do modelo) */
   var data = [].slice.call(section.querySelectorAll('.ia-split')).map(function(el){
     var text = el.textContent.replace(/\s+/g, ' ').trim();
-    /* palavras que recebem peso, declaradas em data-forte separadas por | */
-    var fortes = (el.getAttribute('data-forte') || '').toLowerCase().split('|')
-      .filter(function(w){ return w; });
-    var nu = function(w){ return w.toLowerCase()
-      .replace(/[.,;:()\u2014\u2013"']/g, '')
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); };
-    var ehForte = function(w){ var k = nu(w);
-      return fortes.some(function(f){ return nu(f) === k; }); };
     el.setAttribute('role', 'text');
     el.setAttribute('aria-label', text);
     var frag = document.createDocumentFragment();
@@ -2064,7 +2075,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var words = [];
     for (var i = 0; i < parts.length; i++) {
       var s = document.createElement('span');
-      s.className = ehForte(parts[i]) ? 'ia-w ia-forte' : 'ia-w';
+      s.className = 'ia-w';
       s.textContent = parts[i];
       s.setAttribute('aria-hidden', 'true');
       frag.appendChild(s);
