@@ -962,13 +962,21 @@ body>*{position:relative;z-index:1}
   align-items:center;
   justify-content:center;
   color:var(--azul);
-  transform:scale(0);
+  transform:scale(1);
   transform-origin:top right;
   transition:transform .4s cubic-bezier(.4,0,.2,1);
   will-change:transform;
 }
-.nt-card.nt-on:hover .nt-btn,
-.nt-card.nt-on:focus-within .nt-btn{transform:scale(1);}
+/* O detalhe do canto fica nos QUATRO quadrantes, sempre.
+   Antes ele nascia em scale(0) e so crescia com nt-on E :hover ao mesmo
+   tempo; alem disso so o cartao 03 tinha o elemento no markup, entao era o
+   unico que conseguia aparecer. Agora os quatro tem o elemento e os quatro
+   ficam visiveis: nos cartoes claros o quadrado e o proprio fundo com o fio
+   de 1px em volta, no cartao aceso ele vira o quadrado claro sobre o azul.
+   O que reage ao cursor e a seta, nao o quadrado. */
+.nt-btn svg{transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.nt-card:hover .nt-btn svg,
+.nt-card:focus-within .nt-btn svg{transform:translateX(4px)}
 
 /* ============ Mobile <=880px ============ */
 @media (max-width:880px){
@@ -1541,6 +1549,7 @@ body>*{position:relative;z-index:1}
 
   <div class="nt-grade">
     <article class="nt-card" data-nt-camada="0">
+      <div class="nt-btn" aria-hidden="true"><svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><path d="M0 8h19M13 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1"/></svg></div>
       <span class="nt-num">01</span>
       <div class="nt-baixo">
         <span class="nt-cat">Consultoria</span>
@@ -1550,6 +1559,7 @@ body>*{position:relative;z-index:1}
     </article>
 
     <article class="nt-card" data-nt-camada="1">
+      <div class="nt-btn" aria-hidden="true"><svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><path d="M0 8h19M13 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1"/></svg></div>
       <span class="nt-num">02</span>
       <div class="nt-baixo">
         <span class="nt-cat">Normas</span>
@@ -1569,6 +1579,7 @@ body>*{position:relative;z-index:1}
     </article>
 
     <article class="nt-card" data-nt-camada="3">
+      <div class="nt-btn" aria-hidden="true"><svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><path d="M0 8h19M13 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1"/></svg></div>
       <span class="nt-num">04</span>
       <div class="nt-baixo">
         <span class="nt-cat">Compliance</span>
