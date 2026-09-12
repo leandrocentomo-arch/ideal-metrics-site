@@ -70,6 +70,14 @@ body>*{position:relative;z-index:1}
 /* o logo so APARECE: sem giro, sem deslocamento, sem circulo */
 .abertura img{width:min(240px,50vw);position:relative;opacity:0;
   transition:opacity .7s ease .55s}
+/* tique perpendicular na ponta onde cada traco para (12/09/2026) */
+.abertura .l-v::after,.abertura .l-h::after{content:'';position:absolute;display:block;background:inherit}
+.abertura .l-v::after{left:50%;transform:translateX(-50%);width:9px;height:1px}
+.abertura .l-h::after{top:50%;transform:translateY(-50%);width:1px;height:9px}
+.abertura .l-v1::after{bottom:0}
+.abertura .l-v2::after{top:0}
+.abertura .l-h1::after{right:0}
+.abertura .l-h2::after{left:0}
 .abertura.arma .l-v{transform:scaleY(1)}
 .abertura.arma .l-h{transform:scaleX(1)}
 .abertura.arma img{opacity:1}
