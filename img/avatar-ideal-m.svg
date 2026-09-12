@@ -1,0 +1,1098 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 86.03 86.03">
+  <defs>
+    <linearGradient id="Gradient_prata" data-name="Gradient prata" x1="13.52" y1="8.94" x2="97.98" y2="71.99" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a9aaaa"/>
+      <stop offset=".2" stop-color="#d1d2d3"/>
+      <stop offset=".5" stop-color="#fff"/>
+      <stop offset=".8" stop-color="#d1d2d3"/>
+      <stop offset="1" stop-color="#a9aaaa"/>
+    </linearGradient>
+    <linearGradient id="Gradient_prata-2" data-name="Gradient prata" x1="13.57" y1="8.88" x2="98.03" y2="71.92" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-3" data-name="Gradient prata" x1="13.61" y1="8.82" x2="98.07" y2="71.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-4" data-name="Gradient prata" x1="13.45" y1="9.03" x2="97.92" y2="72.07" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-5" data-name="Gradient prata" x1="9.16" y1="14.78" x2="93.63" y2="77.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-6" data-name="Gradient prata" x1="9.06" y1="14.92" x2="93.52" y2="77.96" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-7" data-name="Gradient prata" x1="8.94" y1="15.08" x2="93.4" y2="78.12" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-8" data-name="Gradient prata" x1="8.77" y1="15.31" x2="93.23" y2="78.35" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-9" data-name="Gradient prata" x1="8.53" y1="15.62" x2="93" y2="78.67" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-10" data-name="Gradient prata" x1="8.19" y1="16.08" x2="92.66" y2="79.12" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-11" data-name="Gradient prata" x1="8.11" y1="16.19" x2="92.58" y2="79.23" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-12" data-name="Gradient prata" x1="8.22" y1="16.04" x2="92.69" y2="79.08" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-13" data-name="Gradient prata" x1="8.3" y1="15.93" x2="92.77" y2="78.97" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-14" data-name="Gradient prata" x1="11.27" y1="11.95" x2="95.74" y2="74.99" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-15" data-name="Gradient prata" x1="8.4" y1="15.8" x2="92.87" y2="78.84" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-16" data-name="Gradient prata" x1="8.52" y1="15.64" x2="92.99" y2="78.68" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-17" data-name="Gradient prata" x1="8.74" y1="15.35" x2="93.2" y2="78.39" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-18" data-name="Gradient prata" x1="9.51" y1="14.32" x2="93.97" y2="77.36" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-19" data-name="Gradient prata" x1="10.13" y1="13.49" x2="94.59" y2="76.53" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-20" data-name="Gradient prata" x1="10.55" y1="12.92" x2="95.02" y2="75.96" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-21" data-name="Gradient prata" x1="10.88" y1="12.48" x2="95.34" y2="75.52" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-22" data-name="Gradient prata" x1="11.27" y1="11.95" x2="95.74" y2="74.99" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-23" data-name="Gradient prata" x1="11.33" y1="11.87" x2="95.8" y2="74.91" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-24" data-name="Gradient prata" x1="11.31" y1="11.9" x2="95.77" y2="74.95" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-25" data-name="Gradient prata" x1="11.98" y1="11.01" x2="96.44" y2="74.05" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-26" data-name="Gradient prata" x1="11.41" y1="11.77" x2="95.87" y2="74.81" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-27" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-28" data-name="Gradient prata" x1="12.73" y1="10" x2="97.2" y2="73.04" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-29" data-name="Gradient prata" x1="11.45" y1="11.71" x2="67.46" y2="53.52" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-30" data-name="Gradient prata" x1="12.92" y1="9.74" x2="97.39" y2="72.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-31" data-name="Gradient prata" x1="11.47" y1="11.68" x2="95.94" y2="74.73" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-32" data-name="Gradient prata" x1="12.88" y1="9.8" x2="97.34" y2="72.84" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-33" data-name="Gradient prata" x1="11.47" y1="11.69" x2="95.94" y2="74.73" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-34" data-name="Gradient prata" x1="11.47" y1="11.68" x2="95.94" y2="74.73" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-35" data-name="Gradient prata" x1="11.44" y1="11.72" x2="95.91" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-36" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-37" data-name="Gradient prata" x1="11.44" y1="11.73" x2="51.85" y2="41.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-38" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-39" data-name="Gradient prata" x1="11.43" y1="11.73" x2="63.38" y2="50.51" gradientTransform="translate(29.99 -19.47) rotate(35.51)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-40" data-name="Gradient prata" x1="11.43" y1="11.74" x2="60.49" y2="48.35" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-41" data-name="Gradient prata" x1="11.43" y1="11.74" x2="76.85" y2="60.56" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-42" data-name="Gradient prata" x1="11.43" y1="11.74" x2="47.01" y2="38.29" gradientTransform="translate(25.57 -18.08) rotate(30.98)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-43" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.89" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-44" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-45" data-name="Gradient prata" x1="11.46" y1="11.69" x2="95.93" y2="74.74" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-46" data-name="Gradient prata" x1="11.44" y1="11.73" x2="87.4" y2="68.43" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-47" data-name="Gradient prata" x1="15.48" y1="6.31" x2="99.95" y2="69.36" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-48" data-name="Gradient prata" x1="15.63" y1="6.12" x2="100.09" y2="69.16" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-49" data-name="Gradient prata" x1="15.86" y1="5.8" x2="100.33" y2="68.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-50" data-name="Gradient prata" x1="16.05" y1="5.55" x2="100.52" y2="68.59" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-51" data-name="Gradient prata" x1="16.22" y1="5.32" x2="100.69" y2="68.36" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-52" data-name="Gradient prata" x1="16.36" y1="5.13" x2="100.83" y2="68.18" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-53" data-name="Gradient prata" x1="13.35" y1="9.16" x2="97.82" y2="72.21" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-54" data-name="Gradient prata" x1="13.46" y1="9.02" x2="97.92" y2="72.07" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-55" data-name="Gradient prata" x1="16.47" y1="4.99" x2="100.93" y2="68.04" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-56" data-name="Gradient prata" x1="15.14" y1="6.77" x2="99.6" y2="69.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-57" data-name="Gradient prata" x1="15.91" y1="5.74" x2="100.38" y2="68.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-58" data-name="Gradient prata" x1="16.98" y1="4.31" x2="101.44" y2="67.35" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-59" data-name="Gradient prata" x1="17.33" y1="3.84" x2="101.79" y2="66.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-60" data-name="Gradient prata" x1="17.94" y1="3.01" x2="102.41" y2="66.06" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-61" data-name="Gradient prata" x1="9.26" y1="14.65" x2="93.72" y2="77.69" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-62" data-name="Gradient prata" x1="9.16" y1="14.78" x2="93.63" y2="77.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-63" data-name="Gradient prata" x1="9.06" y1="14.92" x2="93.52" y2="77.96" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-64" data-name="Gradient prata" x1="8.92" y1="15.11" x2="93.38" y2="78.15" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-65" data-name="Gradient prata" x1="8.71" y1="15.39" x2="93.18" y2="78.43" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-66" data-name="Gradient prata" x1="11.19" y1="12.07" x2="45.53" y2="37.7" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-67" data-name="Gradient prata" x1="39.16" y1="32.92" x2="51.34" y2="42.01" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-68" data-name="Gradient prata" x1="8.42" y1="15.77" x2="92.89" y2="78.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-69" data-name="Gradient prata" x1="11.2" y1="12.05" x2="94.08" y2="73.91" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-70" data-name="Gradient prata" x1="11.2" y1="12.05" x2="95.67" y2="75.09" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-71" data-name="Gradient prata" x1="8.37" y1="15.84" x2="92.84" y2="78.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-72" data-name="Gradient prata" x1="11.22" y1="12.03" x2="95.68" y2="75.07" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-73" data-name="Gradient prata" x1="11.23" y1="12.01" x2="95.7" y2="75.05" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-74" data-name="Gradient prata" x1="11.29" y1="11.94" x2="69.58" y2="55.44" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-75" data-name="Gradient prata" x1="11.29" y1="11.93" x2="69.55" y2="55.41" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-76" data-name="Gradient prata" x1="8.45" y1="15.73" x2="92.92" y2="78.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-77" data-name="Gradient prata" x1="11.17" y1="12.09" x2="95.63" y2="75.13" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-78" data-name="Gradient prata" x1="11.05" y1="12.26" x2="95.51" y2="75.3" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-79" data-name="Gradient prata" x1="11.25" y1="11.99" x2="95.71" y2="75.03" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-80" data-name="Gradient prata" x1="11.29" y1="11.93" x2="95.76" y2="74.97" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-81" data-name="Gradient prata" x1="11.31" y1="11.9" x2="85.81" y2="67.5" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-82" data-name="Gradient prata" x1="39.56" y1="33" x2="51.08" y2="41.59" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-83" data-name="Gradient prata" x1="8.53" y1="15.63" x2="92.99" y2="78.67" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-84" data-name="Gradient prata" x1="10.98" y1="12.35" x2="95.44" y2="75.39" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-85" data-name="Gradient prata" x1="10.97" y1="12.36" x2="95.43" y2="75.4" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-86" data-name="Gradient prata" x1="11.21" y1="12.04" x2="95.67" y2="75.08" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-87" data-name="Gradient prata" x1="11.32" y1="11.89" x2="95.78" y2="74.93" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-88" data-name="Gradient prata" x1="11.3" y1="11.91" x2="95.77" y2="74.96" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-89" data-name="Gradient prata" x1="11.32" y1="11.89" x2="51.04" y2="41.54" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-90" data-name="Gradient prata" x1="8.67" y1="15.44" x2="93.14" y2="78.48" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-91" data-name="Gradient prata" x1="10.98" y1="12.35" x2="95.44" y2="75.39" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-92" data-name="Gradient prata" x1="10.99" y1="12.33" x2="95.45" y2="75.38" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-93" data-name="Gradient prata" x1="11.22" y1="12.03" x2="95.68" y2="75.07" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-94" data-name="Gradient prata" x1="11.32" y1="11.89" x2="89.7" y2="70.4" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-95" data-name="Gradient prata" x1="11.31" y1="11.9" x2="95.78" y2="74.94" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-96" data-name="Gradient prata" x1="11.33" y1="11.88" x2="70.34" y2="55.92" gradientTransform="translate(12.35 -11.27) rotate(16.39)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-97" data-name="Gradient prata" x1="11.26" y1="11.96" x2="95.73" y2="75.01" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-98" data-name="Gradient prata" x1="11.29" y1="11.93" x2="95.75" y2="74.98" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-99" data-name="Gradient prata" x1="11.29" y1="11.93" x2="95.75" y2="74.97" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-100" data-name="Gradient prata" x1="11.31" y1="11.9" x2="95.77" y2="74.95" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-101" data-name="Gradient prata" x1="11.33" y1="11.87" x2="95.8" y2="74.92" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-102" data-name="Gradient prata" x1="11.34" y1="11.86" x2="64.26" y2="51.36" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-103" data-name="Gradient prata" x1="8.82" y1="15.24" x2="93.29" y2="78.28" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-104" data-name="Gradient prata" x1="11.01" y1="12.31" x2="95.47" y2="75.35" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-105" data-name="Gradient prata" x1="11.02" y1="12.3" x2="95.48" y2="75.34" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-106" data-name="Gradient prata" x1="11.23" y1="12.01" x2="95.69" y2="75.05" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-107" data-name="Gradient prata" x1="11.33" y1="11.88" x2="95.79" y2="74.92" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-108" data-name="Gradient prata" x1="11.27" y1="11.96" x2="95.73" y2="75" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-109" data-name="Gradient prata" x1="11.28" y1="11.94" x2="95.75" y2="74.98" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-110" data-name="Gradient prata" x1="11.29" y1="11.92" x2="95.76" y2="74.97" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-111" data-name="Gradient prata" x1="11.31" y1="11.9" x2="95.78" y2="74.94" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-112" data-name="Gradient prata" x1="11.33" y1="11.87" x2="54.92" y2="44.4" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-113" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-114" data-name="Gradient prata" x1="11.34" y1="11.86" x2="85.79" y2="67.42" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-115" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-116" data-name="Gradient prata" x1="11.35" y1="11.85" x2="62.52" y2="50.04" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-117" data-name="Gradient prata" x1="11.34" y1="11.87" x2="92.35" y2="72.34" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-118" data-name="Gradient prata" x1="11.34" y1="11.86" x2="88.5" y2="69.44" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-119" data-name="Gradient prata" x1="9.35" y1="14.53" x2="93.81" y2="77.57" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-120" data-name="Gradient prata" x1="11.05" y1="12.25" x2="95.52" y2="75.29" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-121" data-name="Gradient prata" x1="11.09" y1="12.19" x2="95.56" y2="75.23" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-122" data-name="Gradient prata" x1="11.25" y1="11.98" x2="95.72" y2="75.02" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-123" data-name="Gradient prata" x1="11.33" y1="11.87" x2="70.3" y2="55.89" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-124" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.8" y2="74.91" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-125" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-126" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-127" data-name="Gradient prata" x1="11.29" y1="11.93" x2="95.75" y2="74.98" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-128" data-name="Gradient prata" x1="11.31" y1="11.9" x2="95.77" y2="74.95" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-129" data-name="Gradient prata" x1="11.31" y1="11.9" x2="95.78" y2="74.94" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-130" data-name="Gradient prata" x1="11.32" y1="11.89" x2="95.78" y2="74.93" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-131" data-name="Gradient prata" x1="11.34" y1="11.87" x2="47.11" y2="38.57" gradientTransform="translate(23.78 -17.32) rotate(29.06)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-132" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-133" data-name="Gradient prata" x1="11.35" y1="11.85" x2="95.81" y2="74.9" gradientTransform="translate(16.08 -13.62) rotate(20.69)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-134" data-name="Gradient prata" x1="11.35" y1="11.85" x2="95.82" y2="74.89" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-135" data-name="Gradient prata" x1="11.35" y1="11.84" x2="57.64" y2="46.39" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-136" data-name="Gradient prata" x1="11.36" y1="11.84" x2="73.09" y2="57.92" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-137" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.82" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-138" data-name="Gradient prata" x1="11.34" y1="11.87" x2="46.07" y2="37.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-139" data-name="Gradient prata" x1="11.35" y1="11.85" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-140" data-name="Gradient prata" x1="37.63" y1="31.46" x2="53.08" y2="42.99" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-141" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.82" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-142" data-name="Gradient prata" x1="11.35" y1="11.84" x2="42.25" y2="34.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-143" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.15" y2="74.37" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-144" data-name="Gradient prata" x1="10" y1="13.66" x2="94.46" y2="76.7" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-145" data-name="Gradient prata" x1="11.14" y1="12.13" x2="95.61" y2="75.17" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-146" data-name="Gradient prata" x1="11.18" y1="12.08" x2="95.65" y2="75.12" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-147" data-name="Gradient prata" x1="11.28" y1="11.94" x2="95.75" y2="74.98" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-148" data-name="Gradient prata" x1="11.33" y1="11.88" x2="95.79" y2="74.92" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-149" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-150" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-151" data-name="Gradient prata" x1="11.31" y1="11.9" x2="95.78" y2="74.95" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-152" data-name="Gradient prata" x1="11.32" y1="11.89" x2="95.79" y2="74.93" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-153" data-name="Gradient prata" x1="11.33" y1="11.88" x2="95.79" y2="74.92" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-154" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-155" data-name="Gradient prata" x1="11.35" y1="11.85" x2="95.82" y2="74.89" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-156" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.82" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-157" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.82" y2="74.88" gradientTransform="translate(9.85 -9.49) rotate(13.4)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-158" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-159" data-name="Gradient prata" x1="11.36" y1="11.83" x2="57.65" y2="46.38" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-160" data-name="Gradient prata" x1="11.35" y1="11.85" x2="95.82" y2="74.89" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-161" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.82" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-162" data-name="Gradient prata" x1="11.36" y1="11.83" x2="69.24" y2="55.03" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-163" data-name="Gradient prata" x1="11.37" y1="11.83" x2="83.67" y2="65.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-164" data-name="Gradient prata" x1="11.37" y1="11.83" x2="75.99" y2="60.06" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-165" data-name="Gradient prata" x1="11.37" y1="11.83" x2="83.67" y2="65.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-166" data-name="Gradient prata" x1="11.36" y1="11.83" x2="37.35" y2="31.23" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-167" data-name="Gradient prata" x1="10.45" y1="13.05" x2="94.92" y2="76.1" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-168" data-name="Gradient prata" x1="11.21" y1="12.04" x2="95.67" y2="75.08" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-169" data-name="Gradient prata" x1="11.23" y1="12.01" x2="95.7" y2="75.05" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-170" data-name="Gradient prata" x1="11.3" y1="11.91" x2="95.77" y2="74.95" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-171" data-name="Gradient prata" x1="11.33" y1="11.87" x2="95.8" y2="74.91" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-172" data-name="Gradient prata" x1="11.34" y1="11.87" x2="95.8" y2="74.91" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-173" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.91" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-174" data-name="Gradient prata" x1="11.35" y1="11.85" x2="95.81" y2="74.89" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-175" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-176" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-177" data-name="Gradient prata" x1="11.33" y1="11.87" x2="95.8" y2="74.91" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-178" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-179" data-name="Gradient prata" x1="11.35" y1="11.84" x2="69.19" y2="55.01" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-180" data-name="Gradient prata" x1="11.35" y1="11.85" x2="95.81" y2="74.89" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-181" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-182" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-183" data-name="Gradient prata" x1="11.37" y1="11.83" x2="95.16" y2="74.37" gradientTransform="translate(32.4 -20.01) rotate(37.9)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-184" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-185" data-name="Gradient prata" x1="11.36" y1="11.83" x2="37.34" y2="31.22" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-186" data-name="Gradient prata" x1="11.37" y1="11.83" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-187" data-name="Gradient prata" x1="11.37" y1="11.83" x2="83.63" y2="65.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-188" data-name="Gradient prata" x1="10.79" y1="12.59" x2="95.26" y2="75.64" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-189" data-name="Gradient prata" x1="11.26" y1="11.97" x2="95.72" y2="75.01" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-190" data-name="Gradient prata" x1="11.28" y1="11.94" x2="95.74" y2="74.99" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-191" data-name="Gradient prata" x1="11.32" y1="11.89" x2="95.78" y2="74.94" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-192" data-name="Gradient prata" x1="11.33" y1="11.87" x2="95.8" y2="74.91" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-193" data-name="Gradient prata" x1="11.33" y1="11.87" x2="95.8" y2="74.92" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-194" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.8" y2="74.91" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-195" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.82" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-196" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-197" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-198" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-199" data-name="Gradient prata" x1="11.35" y1="11.85" x2="95.82" y2="74.89" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-200" data-name="Gradient prata" x1="11.35" y1="11.84" x2="95.82" y2="74.89" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-201" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.82" y2="74.88" gradientTransform="translate(39.5 -21.12) rotate(44.97)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-202" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-203" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-204" data-name="Gradient prata" x1="11.36" y1="11.83" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-205" data-name="Gradient prata" x1="11.01" y1="12.3" x2="95.48" y2="75.35" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-206" data-name="Gradient prata" x1="11.26" y1="11.97" x2="95.72" y2="75.01" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-207" data-name="Gradient prata" x1="11.32" y1="11.89" x2="95.79" y2="74.93" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-208" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.82" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-209" data-name="Gradient prata" x1="11.36" y1="11.84" x2="95.83" y2="74.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-210" data-name="Gradient prata" x1="11.16" y1="12.11" x2="95.62" y2="75.15" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-211" data-name="Gradient prata" x1="11.34" y1="11.86" x2="95.81" y2="74.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-212" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-213" data-name="Gradient prata" x1="11.38" y1="11.8" x2="95.85" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-214" data-name="Gradient prata" x1="11.37" y1="11.83" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-215" data-name="Gradient prata" x1="11.38" y1="11.8" x2="95.85" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-216" data-name="Gradient prata" x1="11.37" y1="11.82" x2="41.27" y2="34.14" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-217" data-name="Gradient prata" x1="11.37" y1="11.83" x2="71.11" y2="56.41" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-218" data-name="Gradient prata" x1="11.37" y1="11.82" x2="86.53" y2="67.92" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-219" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-220" data-name="Gradient prata" x1="11.37" y1="11.82" x2="82.62" y2="65" gradientTransform="translate(32.37 -20) rotate(37.87)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-221" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-222" data-name="Gradient prata" x1="11.37" y1="11.82" x2="82.59" y2="64.98" gradientTransform="translate(76.63 -12.42) rotate(82.89)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-223" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-224" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-225" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-226" data-name="Gradient prata" x1="11.38" y1="11.81" x2="64.28" y2="51.3" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-227" data-name="Gradient prata" x1="11.37" y1="11.82" x2="72.12" y2="57.16" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-228" data-name="Gradient prata" x1="36.23" y1="30.37" x2="54.52" y2="44.03" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-229" data-name="Gradient prata" x1="11.37" y1="11.83" x2="95.83" y2="74.87" gradientTransform="translate(67.82 -16.89) rotate(73.3)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-230" data-name="Gradient prata" x1="11.37" y1="11.83" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-231" data-name="Gradient prata" x1="42.51" y1="35.08" x2="48.1" y2="39.24" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-232" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-233" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" gradientTransform="translate(10.35 -9.87) rotate(14.01)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-234" data-name="Gradient prata" x1="11.37" y1="11.83" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-235" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-236" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-237" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-238" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-239" data-name="Gradient prata" x1="11.37" y1="11.83" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-240" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-241" data-name="Gradient prata" x1="11.38" y1="11.81" x2="95.85" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-242" data-name="Gradient prata" x1="11.38" y1="11.81" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-243" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-244" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.83" y2="74.87" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-245" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.83" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-246" data-name="Gradient prata" x1="11.37" y1="11.82" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-247" data-name="Gradient prata" x1="11.38" y1="11.81" x2="55.68" y2="44.88" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-248" data-name="Gradient prata" x1="12.24" y1="10.65" x2="96.71" y2="73.7" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-249" data-name="Gradient prata" x1="11.55" y1="11.58" x2="96.01" y2="74.62" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-250" data-name="Gradient prata" x1="11.41" y1="11.77" x2="95.88" y2="74.81" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-251" data-name="Gradient prata" x1="11.62" y1="11.49" x2="96.08" y2="74.53" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-252" data-name="Gradient prata" x1="11.45" y1="11.72" x2="95.91" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-253" data-name="Gradient prata" x1="11.42" y1="11.76" x2="95.88" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-254" data-name="Gradient prata" x1="11.41" y1="11.76" x2="95.88" y2="74.81" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-255" data-name="Gradient prata" x1="11.4" y1="11.78" x2="95.87" y2="74.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-256" data-name="Gradient prata" x1="11.4" y1="11.78" x2="95.86" y2="74.83" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-257" data-name="Gradient prata" x1="11.4" y1="11.78" x2="95.87" y2="74.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-258" data-name="Gradient prata" x1="11.38" y1="11.81" x2="48.86" y2="39.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-259" data-name="Gradient prata" x1="11.38" y1="11.81" x2="95.84" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-260" data-name="Gradient prata" x1="11.38" y1="11.81" x2="95.84" y2="74.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-261" data-name="Gradient prata" x1="42.92" y1="35.36" x2="47.81" y2="39.01" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-262" data-name="Gradient prata" x1="11.38" y1="11.81" x2="64.28" y2="51.29" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-263" data-name="Gradient prata" x1="11.38" y1="11.81" x2="83.65" y2="65.76" gradientTransform="translate(39.61 -21.19) rotate(45.03)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-264" data-name="Gradient prata" x1="11.38" y1="11.81" x2="68.21" y2="54.23" gradientTransform="translate(25.56 -18.03) rotate(30.92)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-265" data-name="Gradient prata" x1="11.38" y1="11.81" x2="41.24" y2="34.1" gradientTransform="translate(66.27 -17.63) rotate(71.52)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-266" data-name="Gradient prata" x1="11.38" y1="11.81" x2="41.27" y2="34.12" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-267" data-name="Gradient prata" x1="42.93" y1="35.36" x2="47.83" y2="39.02" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-268" data-name="Gradient prata" x1="11.38" y1="11.8" x2="95.85" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-269" data-name="Gradient prata" x1="11.38" y1="11.8" x2="95.85" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-270" data-name="Gradient prata" x1="11.38" y1="11.81" x2="95.85" y2="74.85" gradientTransform="translate(63 -18.74) rotate(68.2)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-271" data-name="Gradient prata" x1="11.39" y1="11.8" x2="95.85" y2="74.84" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-272" data-name="Gradient prata" x1="11.39" y1="11.8" x2="95.85" y2="74.84" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-273" data-name="Gradient prata" x1="11.39" y1="11.8" x2="95.85" y2="74.84" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-274" data-name="Gradient prata" x1="11.38" y1="11.81" x2="95.84" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-275" data-name="Gradient prata" x1="11.38" y1="11.81" x2="95.84" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-276" data-name="Gradient prata" x1="11.38" y1="11.8" x2="95.85" y2="74.85" gradientTransform="translate(72.04 -15.06) rotate(77.73)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-277" data-name="Gradient prata" x1="11.38" y1="11.8" x2="95.85" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-278" data-name="Gradient prata" x1="11.38" y1="11.81" x2="95.85" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-279" data-name="Gradient prata" x1="11.38" y1="11.81" x2="40.25" y2="33.36" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-280" data-name="Gradient prata" x1="11.38" y1="11.81" x2="95.85" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-281" data-name="Gradient prata" x1="11.38" y1="11.81" x2="95.85" y2="74.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-282" data-name="Gradient prata" x1="11.38" y1="11.8" x2="95.85" y2="74.85" gradientTransform="translate(32.35 -20.02) rotate(37.84)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-283" data-name="Gradient prata" x1="11.38" y1="11.81" x2="56.72" y2="45.64" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-284" data-name="Gradient prata" x1="12.6" y1="10.17" x2="97.07" y2="73.21" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-285" data-name="Gradient prata" x1="11.68" y1="11.41" x2="96.14" y2="74.45" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-286" data-name="Gradient prata" x1="11.45" y1="11.72" x2="95.91" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-287" data-name="Gradient prata" x1="11.67" y1="11.42" x2="96.14" y2="74.46" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-288" data-name="Gradient prata" x1="11.5" y1="11.65" x2="95.96" y2="74.7" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-289" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-290" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-291" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-292" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-293" data-name="Gradient prata" x1="11.42" y1="11.75" x2="95.89" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-294" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-295" data-name="Gradient prata" x1="11.42" y1="11.75" x2="95.89" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-296" data-name="Gradient prata" x1="11.42" y1="11.75" x2="95.89" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-297" data-name="Gradient prata" x1="11.4" y1="11.78" x2="95.87" y2="74.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-298" data-name="Gradient prata" x1="11.4" y1="11.78" x2="95.87" y2="74.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-299" data-name="Gradient prata" x1="11.39" y1="11.79" x2="95.86" y2="74.83" gradientTransform="translate(61.37 -19.28) rotate(66.5)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-300" data-name="Gradient prata" x1="11.39" y1="11.79" x2="95.86" y2="74.84" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-301" data-name="Gradient prata" x1="11.39" y1="11.8" x2="95.85" y2="74.84" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-302" data-name="Gradient prata" x1="11.39" y1="11.79" x2="95.86" y2="74.83" gradientTransform="translate(57.14 -20.31) rotate(62.24)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-303" data-name="Gradient prata" x1="11.39" y1="11.79" x2="95.86" y2="74.83" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-304" data-name="Gradient prata" x1="11.39" y1="11.79" x2="82.62" y2="64.96" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-305" data-name="Gradient prata" x1="11.39" y1="11.8" x2="82.65" y2="64.98" gradientTransform="translate(14.1 -12.45) rotate(18.45)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-306" data-name="Gradient prata" x1="11.39" y1="11.8" x2="82.62" y2="64.96" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-307" data-name="Gradient prata" x1="11.39" y1="11.8" x2="59.58" y2="47.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-308" data-name="Gradient prata" x1="34.36" y1="28.95" x2="56.42" y2="45.41" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-309" data-name="Gradient prata" x1="12.66" y1="10.09" x2="97.13" y2="73.13" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-310" data-name="Gradient prata" x1="11.67" y1="11.42" x2="96.14" y2="74.46" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-311" data-name="Gradient prata" x1="11.46" y1="11.7" x2="95.93" y2="74.74" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-312" data-name="Gradient prata" x1="11.64" y1="11.46" x2="96.11" y2="74.5" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-313" data-name="Gradient prata" x1="11.5" y1="11.64" x2="95.97" y2="74.69" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-314" data-name="Gradient prata" x1="11.45" y1="11.71" x2="95.92" y2="74.75" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-315" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-316" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-317" data-name="Gradient prata" x1="11.45" y1="11.72" x2="95.91" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-318" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-319" data-name="Gradient prata" x1="11.44" y1="11.72" x2="95.91" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-320" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-321" data-name="Gradient prata" x1="11.43" y1="11.75" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-322" data-name="Gradient prata" x1="11.42" y1="11.76" x2="95.88" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-323" data-name="Gradient prata" x1="11.4" y1="11.78" x2="95.87" y2="74.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-324" data-name="Gradient prata" x1="11.39" y1="11.79" x2="82.64" y2="64.97" gradientTransform="translate(33.19 -20.22) rotate(38.68)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-325" data-name="Gradient prata" x1="11.4" y1="11.78" x2="95.87" y2="74.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-326" data-name="Gradient prata" x1="11.6" y1="11.52" x2="96.06" y2="74.56" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-327" data-name="Gradient prata" x1="11.46" y1="11.71" x2="95.92" y2="74.75" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-328" data-name="Gradient prata" x1="11.44" y1="11.72" x2="95.91" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-329" data-name="Gradient prata" x1="11.53" y1="11.61" x2="95.99" y2="74.65" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-330" data-name="Gradient prata" x1="11.48" y1="11.67" x2="95.95" y2="74.71" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-331" data-name="Gradient prata" x1="11.45" y1="11.72" x2="95.91" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-332" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-333" data-name="Gradient prata" x1="11.44" y1="11.73" x2="70.18" y2="55.58" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-334" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-335" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-336" data-name="Gradient prata" x1="11.45" y1="11.72" x2="95.91" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-337" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.91" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-338" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-339" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-340" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-341" data-name="Gradient prata" x1="11.43" y1="11.74" x2="64.43" y2="51.29" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-342" data-name="Gradient prata" x1="11.42" y1="11.75" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-343" data-name="Gradient prata" x1="11.42" y1="11.76" x2="74.87" y2="59.12" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-344" data-name="Gradient prata" x1="11.42" y1="11.75" x2="95.89" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-345" data-name="Gradient prata" x1="11.42" y1="11.76" x2="95.88" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-346" data-name="Gradient prata" x1="11.42" y1="11.76" x2="95.88" y2="74.8" gradientTransform="translate(14.07 -12.45) rotate(18.44)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-347" data-name="Gradient prata" x1="11.42" y1="11.76" x2="95.88" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-348" data-name="Gradient prata" x1="11.41" y1="11.77" x2="95.88" y2="74.81" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-349" data-name="Gradient prata" x1="11.41" y1="11.77" x2="95.87" y2="74.81" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-350" data-name="Gradient prata" x1="11.49" y1="11.66" x2="95.96" y2="74.7" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-351" data-name="Gradient prata" x1="11.45" y1="11.72" x2="95.91" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-352" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.91" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-353" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-354" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.78" gradientTransform="translate(16.96 -14.18) rotate(21.75)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-355" data-name="Gradient prata" x1="11.43" y1="11.75" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-356" data-name="Gradient prata" x1="11.48" y1="11.67" x2="95.95" y2="74.71" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-357" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-358" data-name="Gradient prata" x1="11.44" y1="11.73" x2="65.32" y2="51.95" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-359" data-name="Gradient prata" x1="11.43" y1="11.74" x2="91.33" y2="71.37" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-360" data-name="Gradient prata" x1="11.43" y1="11.74" x2="47.04" y2="38.31" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-361" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-362" data-name="Gradient prata" x1="11.45" y1="11.72" x2="95.91" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-363" data-name="Gradient prata" x1="11.44" y1="11.72" x2="95.91" y2="74.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-364" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-365" data-name="Gradient prata" x1="11.44" y1="11.73" x2="73.95" y2="58.4" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-366" data-name="Gradient prata" x1="11.44" y1="11.73" x2="92.31" y2="72.1" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-367" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-368" data-name="Gradient prata" x1="11.42" y1="11.75" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-369" data-name="Gradient prata" x1="11.41" y1="11.76" x2="67.22" y2="53.42" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-370" data-name="Gradient prata" x1="11.41" y1="11.76" x2="40.27" y2="33.3" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-371" data-name="Gradient prata" x1="11.42" y1="11.76" x2="95.88" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-372" data-name="Gradient prata" x1="11.41" y1="11.76" x2="94.16" y2="73.53" gradientTransform="translate(49.22 -21.4) rotate(54.45)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-373" data-name="Gradient prata" x1="11.41" y1="11.76" x2="95.88" y2="74.81" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-374" data-name="Gradient prata" x1="11.41" y1="11.77" x2="95.88" y2="74.81" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-375" data-name="Gradient prata" x1="11.42" y1="11.75" x2="95.89" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-376" data-name="Gradient prata" x1="11.42" y1="11.76" x2="95.88" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-377" data-name="Gradient prata" x1="11.42" y1="11.76" x2="70.97" y2="56.21" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-378" data-name="Gradient prata" x1="11.41" y1="11.76" x2="36.42" y2="30.43" gradientTransform="translate(70.4 -15.93) rotate(75.95)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-379" data-name="Gradient prata" x1="11.42" y1="11.76" x2="63.36" y2="50.53" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-380" data-name="Gradient prata" x1="11.41" y1="11.76" x2="51.84" y2="41.94" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-381" data-name="Gradient prata" x1="11.41" y1="11.77" x2="95.88" y2="74.81" gradientTransform="translate(75.75 -13.07) rotate(81.86)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-382" data-name="Gradient prata" x1="11.49" y1="11.66" x2="95.95" y2="74.71" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-383" data-name="Gradient prata" x1="11.43" y1="11.74" x2="62.39" y2="49.77" gradientTransform="translate(8.16 -8.19) rotate(11.32)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-384" data-name="Gradient prata" x1="11.43" y1="11.74" x2="47.01" y2="38.29" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-385" data-name="Gradient prata" x1="11.43" y1="11.74" x2="67.23" y2="53.39" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-386" data-name="Gradient prata" x1="11.43" y1="11.74" x2="67.23" y2="53.39" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-387" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-388" data-name="Gradient prata" x1="11.49" y1="11.66" x2="95.95" y2="74.71" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-389" data-name="Gradient prata" x1="11.43" y1="11.74" x2="66.26" y2="52.65" gradientTransform="translate(18.97 -15.24) rotate(23.95)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-390" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" gradientTransform="translate(14.06 -12.46) rotate(18.43)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-391" data-name="Gradient prata" x1="11.43" y1="11.75" x2="74.88" y2="59.11" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-392" data-name="Gradient prata" x1="11.45" y1="11.72" x2="95.91" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-393" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" gradientTransform="translate(21.4 -16.4) rotate(26.59)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-394" data-name="Gradient prata" x1="11.43" y1="11.74" x2="78.82" y2="62.03" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-395" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-396" data-name="Gradient prata" x1="11.43" y1="11.75" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-397" data-name="Gradient prata" x1="11.42" y1="11.75" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-398" data-name="Gradient prata" x1="11.42" y1="11.76" x2="95.88" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-399" data-name="Gradient prata" x1="11.42" y1="11.76" x2="63.29" y2="50.47" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-400" data-name="Gradient prata" x1="11.42" y1="11.75" x2="95.89" y2="74.79" gradientTransform="translate(8.77 -8.68) rotate(12.08)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-401" data-name="Gradient prata" x1="11.42" y1="11.76" x2="95.88" y2="74.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-402" data-name="Gradient prata" x1="11.42" y1="11.75" x2="59.46" y2="47.61" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-403" data-name="Gradient prata" x1="11.42" y1="11.76" x2="95.88" y2="74.8" gradientTransform="translate(52.85 -21.06) rotate(58.01)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-404" data-name="Gradient prata" x1="11.41" y1="11.76" x2="55.69" y2="44.81" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-405" data-name="Gradient prata" x1="11.41" y1="11.76" x2="67.21" y2="53.41" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-406" data-name="Gradient prata" x1="12.22" y1="10.68" x2="96.69" y2="73.72" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-407" data-name="Gradient prata" x1="11.5" y1="11.65" x2="95.96" y2="74.7" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-408" data-name="Gradient prata" x1="11.44" y1="11.73" x2="75.87" y2="59.83" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-409" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.9" y2="74.78" gradientTransform="translate(14.07 -12.46) rotate(18.43)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-410" data-name="Gradient prata" x1="11.43" y1="11.75" x2="44.25" y2="36.25" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-411" data-name="Gradient prata" x1="11.5" y1="11.65" x2="95.97" y2="74.69" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-412" data-name="Gradient prata" x1="11.45" y1="11.71" x2="95.92" y2="74.75" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-413" data-name="Gradient prata" x1="11.43" y1="11.74" x2="87.4" y2="68.44" gradientTransform="translate(2.76 -3.14) rotate(4.09)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-414" data-name="Gradient prata" x1="36.73" y1="30.63" x2="54.11" y2="43.6" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-415" data-name="Gradient prata" x1="11.45" y1="11.72" x2="95.91" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-416" data-name="Gradient prata" x1="11.44" y1="11.73" x2="89.3" y2="69.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-417" data-name="Gradient prata" x1="11.44" y1="11.73" x2="82.56" y2="64.81" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-418" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-419" data-name="Gradient prata" x1="11.43" y1="11.74" x2="95.89" y2="74.79" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-420" data-name="Gradient prata" x1="11.42" y1="11.75" x2="95.89" y2="74.79" gradientTransform="translate(26.02 -18.24) rotate(31.42)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-421" data-name="Gradient prata" x1="11.42" y1="11.75" x2="90.3" y2="70.63" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-422" data-name="Gradient prata" x1="11.42" y1="11.76" x2="86.33" y2="67.67" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-423" data-name="Gradient prata" x1="11.42" y1="11.75" x2="47.95" y2="39.02" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-424" data-name="Gradient prata" x1="11.42" y1="11.76" x2="86.33" y2="67.67" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-425" data-name="Gradient prata" x1="12.31" y1="10.56" x2="96.77" y2="73.61" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-426" data-name="Gradient prata" x1="11.51" y1="11.63" x2="95.98" y2="74.68" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-427" data-name="Gradient prata" x1="11.57" y1="11.56" x2="96.03" y2="74.6" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-428" data-name="Gradient prata" x1="11.47" y1="11.68" x2="95.94" y2="74.73" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-429" data-name="Gradient prata" x1="11.44" y1="11.73" x2="78.65" y2="61.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-430" data-name="Gradient prata" x1="11.43" y1="11.74" x2="41.15" y2="33.92" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-431" data-name="Gradient prata" x1="11.43" y1="11.75" x2="70.98" y2="56.2" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-432" data-name="Gradient prata" x1="11.42" y1="11.75" x2="36.43" y2="30.42" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-433" data-name="Gradient prata" x1="11.62" y1="11.49" x2="96.08" y2="74.53" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-434" data-name="Gradient prata" x1="11.63" y1="11.47" x2="96.1" y2="74.51" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-435" data-name="Gradient prata" x1="11.5" y1="11.64" x2="95.97" y2="74.69" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-436" data-name="Gradient prata" x1="11.44" y1="11.73" x2="64.31" y2="51.2" gradientTransform="translate(5.71 -6.06) rotate(8.14)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-437" data-name="Gradient prata" x1="11.44" y1="11.72" x2="48.78" y2="39.59" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-438" data-name="Gradient prata" x1="40.55" y1="33.47" x2="50.33" y2="40.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-439" data-name="Gradient prata" x1="38.7" y1="32.09" x2="52.17" y2="42.15" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-440" data-name="Gradient prata" x1="11.46" y1="11.71" x2="95.92" y2="74.75" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-441" data-name="Gradient prata" x1="11.45" y1="11.72" x2="95.91" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-442" data-name="Gradient prata" x1="11.44" y1="11.73" x2="95.9" y2="74.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-443" data-name="Gradient prata" x1="11.43" y1="11.74" x2="47.92" y2="38.98" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-444" data-name="Gradient prata" x1="11.43" y1="11.74" x2="36.4" y2="30.38" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-445" data-name="Gradient prata" x1="11.43" y1="11.74" x2="59.44" y2="47.58" gradientTransform="translate(39.61 -21.26) rotate(45.05)" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-446" data-name="Gradient prata" x1="44.46" y1="36.4" x2="46.4" y2="37.85" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-447" data-name="Gradient prata" x1="44.47" y1="36.4" x2="46.4" y2="37.84" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-448" data-name="Gradient prata" x1="11.65" y1="11.45" x2="96.11" y2="74.49" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-449" data-name="Gradient prata" x1="11.65" y1="11.44" x2="96.12" y2="74.48" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-450" data-name="Gradient prata" x1="11.51" y1="11.63" x2="95.98" y2="74.67" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-451" data-name="Gradient prata" x1="11.45" y1="11.72" x2="67.15" y2="53.3" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-452" data-name="Gradient prata" x1="11.45" y1="11.72" x2="70.77" y2="55.99" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-453" data-name="Gradient prata" x1="11.48" y1="11.68" x2="95.94" y2="74.72" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-454" data-name="Gradient prata" x1="11.46" y1="11.7" x2="95.93" y2="74.74" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-455" data-name="Gradient prata" x1="11.45" y1="11.71" x2="95.92" y2="74.76" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-456" data-name="Gradient prata" x1="11.44" y1="11.73" x2="78.79" y2="62.01" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-457" data-name="Gradient prata" x1="11.43" y1="11.74" x2="55.75" y2="44.82" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-458" data-name="Gradient prata" x1="15.65" y1="6.08" x2="100.12" y2="69.13" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-459" data-name="Gradient prata" x1="11.66" y1="11.44" x2="96.12" y2="74.48" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-460" data-name="Gradient prata" x1="11.67" y1="11.42" x2="96.13" y2="74.47" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-461" data-name="Gradient prata" x1="11.53" y1="11.61" x2="95.99" y2="74.66" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-462" data-name="Gradient prata" x1="11.47" y1="11.69" x2="64.01" y2="50.91" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-463" data-name="Gradient prata" x1="11.49" y1="11.67" x2="95.95" y2="74.71" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-464" data-name="Gradient prata" x1="11.47" y1="11.69" x2="95.93" y2="74.73" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-465" data-name="Gradient prata" x1="11.47" y1="11.69" x2="95.93" y2="74.73" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-466" data-name="Gradient prata" x1="11.46" y1="11.7" x2="95.92" y2="74.75" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-467" data-name="Gradient prata" x1="15.82" y1="5.86" x2="100.29" y2="68.9" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-468" data-name="Gradient prata" x1="11.68" y1="11.41" x2="96.14" y2="74.45" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-469" data-name="Gradient prata" x1="11.69" y1="11.39" x2="96.16" y2="74.43" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-470" data-name="Gradient prata" x1="11.54" y1="11.59" x2="96.01" y2="74.63" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-471" data-name="Gradient prata" x1="11.49" y1="11.66" x2="38.04" y2="31.48" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-472" data-name="Gradient prata" x1="11.48" y1="11.67" x2="42.18" y2="34.59" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-473" data-name="Gradient prata" x1="11.48" y1="11.67" x2="95.95" y2="74.72" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-474" data-name="Gradient prata" x1="11.47" y1="11.69" x2="90.14" y2="70.4" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-475" data-name="Gradient prata" x1="15.97" y1="5.66" x2="100.43" y2="68.71" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-476" data-name="Gradient prata" x1="11.7" y1="11.37" x2="96.17" y2="74.42" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-477" data-name="Gradient prata" x1="11.74" y1="11.32" x2="96.21" y2="74.36" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-478" data-name="Gradient prata" x1="11.57" y1="11.55" x2="96.04" y2="74.6" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-479" data-name="Gradient prata" x1="36.04" y1="29.96" x2="54.98" y2="44.1" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-480" data-name="Gradient prata" x1="16.09" y1="5.5" x2="100.56" y2="68.54" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-481" data-name="Gradient prata" x1="13.35" y1="9.18" x2="97.81" y2="72.22" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-482" data-name="Gradient prata" x1="11.74" y1="11.32" x2="96.21" y2="74.36" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-483" data-name="Gradient prata" x1="11.78" y1="11.28" x2="96.24" y2="74.32" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-484" data-name="Gradient prata" x1="11.61" y1="11.5" x2="96.08" y2="74.54" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-485" data-name="Gradient prata" x1="13.43" y1="9.07" x2="97.89" y2="72.11" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-486" data-name="Gradient prata" x1="16.16" y1="5.4" x2="100.63" y2="68.44" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-487" data-name="Gradient prata" x1="11.81" y1="11.23" x2="96.28" y2="74.27" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-488" data-name="Gradient prata" x1="11.86" y1="11.17" x2="96.32" y2="74.21" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-489" data-name="Gradient prata" x1="11.67" y1="11.42" x2="42.33" y2="34.3" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-490" data-name="Gradient prata" x1="14.59" y1="7.5" x2="99.06" y2="70.55" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-491" data-name="Gradient prata" x1="11.95" y1="11.05" x2="96.41" y2="74.09" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-492" data-name="Gradient prata" x1="12.02" y1="10.95" x2="96.48" y2="74" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-493" data-name="Gradient prata" x1="15.06" y1="6.87" x2="99.53" y2="69.92" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-494" data-name="Gradient prata" x1="12.79" y1="9.92" x2="97.25" y2="72.96" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-495" data-name="Gradient prata" x1="16.12" y1="5.46" x2="100.58" y2="68.5" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-496" data-name="Gradient prata" x1="16.69" y1="4.69" x2="101.16" y2="67.73" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-497" data-name="Gradient prata" x1="17.07" y1="4.19" x2="101.53" y2="67.23" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-498" data-name="Gradient prata" x1="17.86" y1="3.12" x2="102.33" y2="66.17" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-499" data-name="Gradient prata" x1="10.37" y1="13.17" x2="94.83" y2="76.21" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-500" data-name="Gradient prata" x1="19.03" y1="1.56" x2="103.5" y2="64.6" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-501" data-name="Gradient prata" x1="14.83" y1="7.19" x2="99.29" y2="70.23" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-502" data-name="Gradient prata" x1="14.83" y1="7.19" x2="99.29" y2="70.23" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-503" data-name="Gradient prata" x1="12.54" y1="10.25" x2="97.01" y2="73.29" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-504" data-name="Gradient prata" x1="12.61" y1="10.16" x2="97.08" y2="73.2" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-505" data-name="Gradient prata" x1="12.87" y1="9.81" x2="97.33" y2="72.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-506" data-name="Gradient prata" x1="13.4" y1="9.11" x2="97.86" y2="72.15" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-507" data-name="Gradient prata" x1="12.67" y1="10.09" x2="97.13" y2="73.13" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-508" data-name="Gradient prata" x1="13.21" y1="9.35" x2="97.68" y2="72.4" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-509" data-name="Gradient prata" x1="13.05" y1="9.57" x2="97.52" y2="72.61" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-510" data-name="Gradient prata" x1="13.32" y1="9.2" x2="97.79" y2="72.25" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-511" data-name="Gradient prata" x1="12.76" y1="9.96" x2="97.23" y2="73" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-512" data-name="Gradient prata" x1="12.5" y1="10.31" x2="96.96" y2="73.36" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-513" data-name="Gradient prata" x1="12.06" y1="10.89" x2="96.53" y2="73.93" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-514" data-name="Gradient prata" x1="12.12" y1="10.82" x2="96.58" y2="73.86" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-515" data-name="Gradient prata" x1="12.18" y1="10.74" x2="96.65" y2="73.78" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-516" data-name="Gradient prata" x1="12.24" y1="10.65" x2="96.71" y2="73.7" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-517" data-name="Gradient prata" x1="12.32" y1="10.54" x2="96.79" y2="73.59" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-518" data-name="Gradient prata" x1="12.43" y1="10.41" x2="96.89" y2="73.45" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-519" data-name="Gradient prata" x1="12.56" y1="10.23" x2="97.03" y2="73.27" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-520" data-name="Gradient prata" x1="12.78" y1="9.93" x2="97.24" y2="72.98" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-521" data-name="Gradient prata" x1="13.07" y1="9.54" x2="97.54" y2="72.58" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-522" data-name="Gradient prata" x1="13.23" y1="9.33" x2="97.7" y2="72.37" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-523" data-name="Gradient prata" x1="12.14" y1="10.8" x2="96.6" y2="73.84" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-524" data-name="Gradient prata" x1="12.1" y1="10.85" x2="96.56" y2="73.89" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-525" data-name="Gradient prata" x1="12.16" y1="10.76" x2="96.63" y2="73.8" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-526" data-name="Gradient prata" x1="12.41" y1="10.43" x2="96.87" y2="73.48" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-527" data-name="Gradient prata" x1="12.52" y1="10.28" x2="96.99" y2="73.32" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-528" data-name="Gradient prata" x1="12.69" y1="10.05" x2="97.16" y2="73.09" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-529" data-name="Gradient prata" x1="13" y1="9.64" x2="97.46" y2="72.68" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-530" data-name="Gradient prata" x1="13.22" y1="9.34" x2="97.68" y2="72.39" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-531" data-name="Gradient prata" x1="2.3" y1="21.71" x2="80.6" y2="80.15" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-532" data-name="Gradient prata" x1="5.57" y1="17.34" x2="83.86" y2="75.77" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-533" data-name="Gradient prata" x1="-12.11" y1="41.02" x2="66.19" y2="99.46" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-534" data-name="Gradient prata" x1="-9.04" y1="36.91" x2="69.25" y2="95.35" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-535" data-name="Gradient prata" x1="-8.07" y1="35.61" x2="70.22" y2="94.05" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-536" data-name="Gradient prata" x1="1.37" y1="22.96" x2="79.66" y2="81.4" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-537" data-name="Gradient prata" x1="-2.27" y1="27.83" x2="76.03" y2="86.27" xlink:href="#Gradient_prata"/>
+    <linearGradient id="Gradient_prata-538" data-name="Gradient prata" x1="-5.64" y1="32.35" x2="72.66" y2="90.79" xlink:href="#Gradient_prata"/>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <circle cx="43.02" cy="43.02" r="43.02" fill="#369"/>
+    <g>
+      <path d="M49.05,32.33l-.98,1.29-2.07,2.79,2.5-3.18.7-.86c-.05-.01-.11-.03-.16-.04Z" fill="url(#Gradient_prata)"/>
+      <path d="M49.55,32.48s-.05-.02-.08-.03l-.8.91-2.6,3.07,2.54-2.83,1.01-1.09s-.05-.02-.07-.03Z" fill="url(#Gradient_prata-2)"/>
+      <path d="M49.85,32.61s-.06-.03-.09-.04l-1.08,1.13-2.52,2.7,3.13-3.16.61-.6s-.04-.02-.06-.03Z" fill="url(#Gradient_prata-3)"/>
+      <path d="M48.72,32.29l-.73,1.05-2.06,3.1,2.02-2.87.92-1.26c-.06-.01-.1-.01-.16-.02Z" fill="url(#Gradient_prata-4)"/>
+      <polygon points="44.49 44.38 44.64 44.4 45.09 40.35 45.28 38.66 45.27 38.58 45.26 38.5 45.02 40.34 44.49 44.38" fill="url(#Gradient_prata-5)"/>
+      <polyline points="45.21 38.13 44.67 40.36 43.68 44.53 43.83 44.58 44.75 40.38 45.23 38.2" fill="url(#Gradient_prata-6)"/>
+      <polygon points="42.77 44.64 42.93 44.72 44.38 40.4 45.21 37.92 45.21 37.84 44.3 40.36 42.77 44.64" fill="url(#Gradient_prata-7)"/>
+      <polygon points="41.75 44.79 41.9 44.89 43.95 40.44 45.2 37.73 45.2 37.69 45.21 37.65 43.88 40.39 41.75 44.79" fill="url(#Gradient_prata-8)"/>
+      <polygon points="43.37 40.45 40.49 45 40.65 45.15 43.44 40.52 45.23 37.55 45.25 37.48 45.24 37.5 43.37 40.45" fill="url(#Gradient_prata-9)"/>
+      <polygon points="42.72 40.53 38.89 45.27 39.06 45.47 42.8 40.63 45.23 37.48 45.26 37.44 45.27 37.4 45.18 37.5 42.72 40.53" fill="url(#Gradient_prata-10)"/>
+      <polygon points="42.21 40.32 37.66 44.73 37.81 44.96 42.28 40.42 45.14 37.52 45.29 37.36 45.3 37.34 45.12 37.49 42.21 40.32" fill="url(#Gradient_prata-11)"/>
+      <polygon points="41.85 39.89 36.88 43.64 37 43.9 41.91 40.01 45.14 37.45 45.29 37.33 45.23 37.36 45.01 37.51 41.85 39.89" fill="url(#Gradient_prata-12)"/>
+      <polygon points="44.28 37.82 41.43 39.39 35.99 42.4 36.19 42.94 41.53 39.64 44.54 37.79 45.25 37.32 44.28 37.82" fill="url(#Gradient_prata-13)"/>
+      <polygon points="45.32 37.3 45.23 37.36 45.29 37.33 45.32 37.3" fill="url(#Gradient_prata-14)"/>
+      <polygon points="44.11 37.69 41 38.91 35.11 41.21 35.27 41.78 41.08 39.18 44.19 37.79 45.18 37.31 44.11 37.69" fill="url(#Gradient_prata-15)"/>
+      <polygon points="44.05 37.51 40.51 38.36 34.12 39.89 34.23 40.52 40.57 38.66 44.08 37.63 45.15 37.28 44.05 37.51" fill="url(#Gradient_prata-16)"/>
+      <polygon points="43.96 37.32 40.05 37.7 33.32 38.35 33.39 39.03 40.07 38.03 43.95 37.45 45.15 37.24 43.96 37.32" fill="url(#Gradient_prata-17)"/>
+      <polygon points="44.15 37.12 40.76 36.98 35.3 36.74 35.29 37.31 40.76 37.27 44.05 37.24 45.18 37.2 44.15 37.12" fill="url(#Gradient_prata-18)"/>
+      <polygon points="44.28 36.97 41.51 36.46 37.15 35.66 37.09 36.12 41.49 36.7 44.25 37.07 45.21 37.17 44.28 36.97" fill="url(#Gradient_prata-19)"/>
+      <polygon points="45.07 37.08 44.47 36.87 42.06 36.07 38.43 34.87 38.35 35.26 42.01 36.27 44.36 36.93 45.12 37.11 45.07 37.08" fill="url(#Gradient_prata-20)"/>
+      <polygon points="44.38 36.67 42.49 35.75 39.4 34.25 39.29 34.58 42.43 35.93 44.56 36.84 44.9 36.98 44.38 36.67" fill="url(#Gradient_prata-21)"/>
+      <polygon points="44.29 36.64 44.38 36.68 44.58 36.77 44.29 36.64" fill="url(#Gradient_prata-22)"/>
+      <polygon points="45.07 37.08 45.12 37.12 45.24 37.14 45.07 37.08" fill="url(#Gradient_prata-23)"/>
+      <polygon points="45.2 37.1 45.17 37.07 44.58 36.78 44.38 36.69 44.9 36.98 45.2 37.1" fill="url(#Gradient_prata-24)"/>
+      <polygon points="44.86 36.72 42.63 34.71 35.34 28.42 25.21 19.7 24.51 20.84 34.95 29.05 42.33 34.84 44.82 36.7 44.86 36.72" fill="url(#Gradient_prata-25)"/>
+      <polygon points="44.81 36.71 44.87 36.74 44.85 36.73 44.81 36.71" fill="url(#Gradient_prata-26)"/>
+      <polygon points="45.23 37.11 45.16 37.08 45.2 37.1 45.25 37.12 45.23 37.11" fill="url(#Gradient_prata-27)"/>
+      <polygon points="45.03 36.77 43.44 34.93 37.84 28.77 30.22 20.38 29.55 21.25 37.47 29.25 43.01 34.83 45.03 36.77 45.03 36.77" fill="url(#Gradient_prata-28)"/>
+      <polygon points="45.03 36.77 45.02 36.78 45.04 36.77 45.03 36.77" fill="url(#Gradient_prata-29)"/>
+      <polyline points="35.9 23.89 35.41 24.39 40.43 30.83 43.9 35.29 45.05 36.71 45.15 36.81 44.23 35.45 40.72 30.53" fill="url(#Gradient_prata-30)"/>
+      <polygon points="45.15 36.81 45.05 36.72 45.2 36.88 45.15 36.81" fill="url(#Gradient_prata-31)"/>
+      <polygon points="42.4 32.26 44.5 35.72 45.22 36.83 45.28 36.93 44.81 36.02 42.63 32.08 39.79 26.95 39.77 26.93 39.36 27.25 42.4 32.26" fill="url(#Gradient_prata-32)"/>
+      <polygon points="45.28 36.93 45.21 36.83 45.32 36.99 45.28 36.93" fill="url(#Gradient_prata-33)"/>
+      <polygon points="45.37 37.05 45.35 37 45.25 36.83 45.35 37.03 45.37 37.05" fill="url(#Gradient_prata-34)"/>
+      <polygon points="45.38 37.05 45.37 37.05 45.35 37.03 45.36 37.04 45.38 37.05" fill="url(#Gradient_prata-35)"/>
+      <polygon points="45.38 37.06 45.36 37.04 45.38 37.06 45.38 37.06 45.38 37.06" fill="url(#Gradient_prata-36)"/>
+      <polygon points="45.38 37.07 45.38 37.07 45.37 37.07 45.38 37.07" fill="url(#Gradient_prata-37)"/>
+      <polygon points="45.39 37.1 45.38 37.07 45.37 37.07 45.39 37.1" fill="url(#Gradient_prata-38)"/>
+      <rect x="45.4" y="37.08" width="0" height="0" transform="translate(-13.1 33.27) rotate(-35.51)" fill="url(#Gradient_prata-39)"/>
+      <polygon points="45.4 37.09 45.4 37.09 45.4 37.08 45.4 37.09" fill="url(#Gradient_prata-40)"/>
+      <polygon points="45.4 37.08 45.4 37.08 45.4 37.09 45.4 37.09 45.4 37.09 45.4 37.08" fill="url(#Gradient_prata-41)"/>
+      <rect x="45.4" y="37.09" width="0" height="0" transform="translate(-12.62 28.66) rotate(-30.98)" fill="url(#Gradient_prata-42)"/>
+      <polygon points="45.41 37.11 45.4 37.09 45.4 37.09 45.41 37.11" fill="url(#Gradient_prata-43)"/>
+      <path d="M45.42,37.12v-.02s0,.02,0,.02Z" fill="url(#Gradient_prata-44)"/>
+      <polygon points="45.43 37.1 45.42 36.98 45.42 37.06 45.42 37.1 45.43 37.1" fill="url(#Gradient_prata-45)"/>
+      <polygon points="45.43 37.1 45.42 37.1 45.43 37.11 45.43 37.1" fill="url(#Gradient_prata-46)"/>
+      <polygon points="46.59 29.48 46.57 29.73 46.83 29.76 46.86 29.52 46.59 29.48" fill="url(#Gradient_prata-47)"/>
+      <polyline points="47.28 29.85 47.35 29.53 47.08 29.46 47.02 29.8" fill="url(#Gradient_prata-48)"/>
+      <polyline points="48.04 30.2 48.23 29.55 47.96 29.43 47.8 30.05" fill="url(#Gradient_prata-49)"/>
+      <polyline points="48.72 30.67 49.19 29.54 48.91 29.38 48.5 30.49" fill="url(#Gradient_prata-50)"/>
+      <path d="M49.24,31.11s.08.08.12.12l.91-1.68-.27-.22-.84,1.68s.06.06.09.09Z" fill="url(#Gradient_prata-51)"/>
+      <path d="M49.91,31.9l1.61-2.2-.27-.27-1.49,2.22c.06.1.11.16.16.26Z" fill="url(#Gradient_prata-52)"/>
+      <path d="M49.21,32.37l-.68.83-2.49,3.18-.4.55.04-.03.43-.51,2.56-3.04.79-.91c-.05-.02-.22-.07-.26-.08Z" fill="url(#Gradient_prata-53)"/>
+      <path d="M49.99,32.68s-.06-.03-.09-.05l-.61.6-3.08,3.13-.39.44.21-.15h0s.24-.22.24-.22l3.18-3.01.68-.66" fill="url(#Gradient_prata-54)"/>
+      <polygon points="52.74 29.53 50.11 32.4 50.2 32.7 53 29.88 52.74 29.53" fill="url(#Gradient_prata-55)"/>
+      <polygon points="54.89 30.09 54.64 29.65 50.02 33.43 46.34 36.44 46.2 36.56 46.64 36.32 46.69 36.29 50.16 33.67 54.89 30.09" fill="url(#Gradient_prata-56)"/>
+      <polygon points="57.61 30.46 57.25 29.64 51.33 33.41 47.91 35.58 47.21 36.05 47.89 35.73 48.39 35.44 48.67 35.22 49.05 35.25 51.53 33.86 57.61 30.46" fill="url(#Gradient_prata-57)"/>
+      <polygon points="60.92 31.16 60.58 30.1 52.98 33.63 49.43 35.28 49.49 35.32 49.88 35.34 49.91 35.37 50.19 35.38 53.17 34.21 60.92 31.16" fill="url(#Gradient_prata-58)"/>
+      <polygon points="63.64 32.82 63.39 31.58 54.4 34.36 50.82 35.47 51.04 35.48 51.08 35.51 51.43 35.53 51.46 35.56 51.81 35.58 51.85 35.61 52.2 35.62 52.2 35.62 54.54 35.05 63.64 32.82" fill="url(#Gradient_prata-59)"/>
+      <polygon points="67.16 33.56 56.29 35.34 53.57 35.79 53.66 35.79 53.7 35.83 54.01 35.84 54.04 35.88 54.37 35.88 54.4 35.92 54.72 35.93 54.75 35.97 55.07 35.98 55.11 36.01 55.43 36.03 55.47 36.06 56.44 36.17 67.31 35.06 67.16 33.56" fill="url(#Gradient_prata-60)"/>
+      <polygon points="44.2 43.97 44.3 44 44.93 40.2 45.25 38.35 45.24 38.27 44.89 40.19 44.2 43.97" fill="url(#Gradient_prata-61)"/>
+      <polygon points="43.43 44.05 43.52 44.08 44.6 40.2 45.21 38.04 45.21 37.98 44.56 40.18 43.43 44.05" fill="url(#Gradient_prata-62)"/>
+      <polygon points="42.58 44.09 42.67 44.14 44.25 40.18 45.21 37.8 45.21 37.76 44.2 40.16 42.58 44.09" fill="url(#Gradient_prata-63)"/>
+      <polygon points="41.61 44.14 41.7 44.22 43.86 40.17 45.22 37.62 45.23 37.56 43.81 40.14 41.61 44.14" fill="url(#Gradient_prata-64)"/>
+      <polygon points="43.32 40.16 40.42 44.25 40.52 44.35 43.37 40.21 45.24 37.5 45.25 37.48 45.26 37.45 45.23 37.48 43.32 40.16" fill="url(#Gradient_prata-65)"/>
+      <polygon points="45.25 37.48 45.25 37.48 45.24 37.5 45.25 37.48" fill="url(#Gradient_prata-66)"/>
+      <polygon points="45.26 37.45 45.26 37.44 45.23 37.48 45.26 37.45" fill="url(#Gradient_prata-67)"/>
+      <polygon points="42.71 40.2 38.92 44.38 39.02 44.51 42.76 40.26 45.18 37.5 45.27 37.39 45.28 37.39 45.14 37.52 42.71 40.2" fill="url(#Gradient_prata-68)"/>
+      <polygon points="45.27 37.4 45.27 37.39 45.18 37.5 45.27 37.4" fill="url(#Gradient_prata-69)"/>
+      <polygon points="45.28 37.39 45.28 37.38 45.29 37.36 45.14 37.52 45.28 37.39" fill="url(#Gradient_prata-70)"/>
+      <polygon points="37.81 43.78 37.89 43.93 42.27 40.03 45.12 37.49 45.28 37.34 45.14 37.45 42.24 39.96 37.81 43.78" fill="url(#Gradient_prata-71)"/>
+      <polygon points="45.12 37.49 45.3 37.34 45.31 37.32 45.28 37.34 45.12 37.49" fill="url(#Gradient_prata-72)"/>
+      <polygon points="45.14 37.45 45.28 37.34 45.32 37.3 45.29 37.33 45.14 37.45" fill="url(#Gradient_prata-73)"/>
+      <polygon points="45.31 37.32 45.32 37.3 45.28 37.34 45.31 37.32" fill="url(#Gradient_prata-74)"/>
+      <polygon points="45.29 37.33 45.32 37.3 45.32 37.3 45.32 37.3 45.29 37.33" fill="url(#Gradient_prata-75)"/>
+      <polygon points="41.9 39.52 37.12 42.68 37.22 42.9 41.96 39.62 45.01 37.51 45.13 37.42 44.54 37.79 41.9 39.52" fill="url(#Gradient_prata-76)"/>
+      <polygon points="45.23 37.36 45.13 37.42 45.01 37.51 45.23 37.36" fill="url(#Gradient_prata-77)"/>
+      <polygon points="44.54 37.79 45.13 37.42 45.3 37.29 45.25 37.32 44.54 37.79" fill="url(#Gradient_prata-78)"/>
+      <polygon points="45.13 37.42 45.23 37.36 45.32 37.3 45.32 37.29 45.33 37.28 45.3 37.29 45.13 37.42" fill="url(#Gradient_prata-79)"/>
+      <polygon points="45.32 37.28 45.25 37.32 45.3 37.29 45.32 37.28" fill="url(#Gradient_prata-80)"/>
+      <polygon points="45.3 37.29 45.33 37.28 45.33 37.27 45.32 37.28 45.3 37.29" fill="url(#Gradient_prata-81)"/>
+      <polygon points="45.32 37.3 45.32 37.29 45.32 37.3 45.32 37.3" fill="url(#Gradient_prata-82)"/>
+      <polygon points="44.19 37.79 41.55 39.06 36.39 41.53 36.5 41.85 41.6 39.21 44.28 37.82 44.93 37.46 44.19 37.79" fill="url(#Gradient_prata-83)"/>
+      <polygon points="44.28 37.82 45.25 37.32 44.93 37.46 44.28 37.82" fill="url(#Gradient_prata-84)"/>
+      <polygon points="45.22 37.3 45.18 37.31 44.19 37.79 44.93 37.46 45.22 37.3" fill="url(#Gradient_prata-85)"/>
+      <polygon points="44.93 37.46 45.25 37.32 45.34 37.26 45.29 37.27 45.22 37.3 44.93 37.46" fill="url(#Gradient_prata-86)"/>
+      <polygon points="45.34 37.26 45.34 37.26 45.34 37.25 45.29 37.27 45.34 37.26" fill="url(#Gradient_prata-87)"/>
+      <polygon points="45.25 37.32 45.25 37.32 45.32 37.28 45.34 37.26 45.34 37.26 45.34 37.26 45.25 37.32" fill="url(#Gradient_prata-88)"/>
+      <polygon points="45.33 37.27 45.34 37.26 45.32 37.28 45.33 37.27" fill="url(#Gradient_prata-89)"/>
+      <polygon points="44.08 37.63 41.16 38.58 35.63 40.37 35.72 40.7 41.19 38.74 44.11 37.69 44.89 37.39 44.08 37.63" fill="url(#Gradient_prata-90)"/>
+      <polygon points="45.22 37.29 44.89 37.39 44.11 37.69 45.18 37.31 45.22 37.29" fill="url(#Gradient_prata-91)"/>
+      <polygon points="45.2 37.27 45.15 37.28 44.08 37.63 44.89 37.39 45.2 37.27" fill="url(#Gradient_prata-92)"/>
+      <polygon points="45.24 37.26 45.2 37.27 44.89 37.39 45.22 37.29 45.28 37.26 45.3 37.25 45.24 37.26" fill="url(#Gradient_prata-93)"/>
+      <polygon points="45.28 37.26 45.31 37.25 45.3 37.25 45.28 37.26" fill="url(#Gradient_prata-94)"/>
+      <polygon points="45.3 37.25 45.32 37.24 45.24 37.26 45.3 37.25" fill="url(#Gradient_prata-95)"/>
+      <rect x="45.3" y="37.24" width=".02" height="0" transform="translate(-8.67 14.3) rotate(-16.39)" fill="url(#Gradient_prata-96)"/>
+      <polygon points="45.18 37.31 45.22 37.3 45.24 37.29 45.22 37.29 45.18 37.31" fill="url(#Gradient_prata-97)"/>
+      <polygon points="45.29 37.27 45.24 37.29 45.22 37.3 45.29 37.27" fill="url(#Gradient_prata-98)"/>
+      <polygon points="45.24 37.29 45.28 37.26 45.22 37.29 45.24 37.29" fill="url(#Gradient_prata-99)"/>
+      <polygon points="45.31 37.25 45.28 37.26 45.24 37.29 45.29 37.27 45.34 37.25 45.34 37.24 45.31 37.25" fill="url(#Gradient_prata-100)"/>
+      <polygon points="45.31 37.25 45.34 37.24 45.34 37.24 45.32 37.24 45.31 37.25" fill="url(#Gradient_prata-101)"/>
+      <polygon points="45.34 37.24 45.34 37.24 45.35 37.24 45.34 37.24 45.34 37.24" fill="url(#Gradient_prata-102)"/>
+      <polygon points="43.95 37.45 40.72 38.03 34.77 39.09 34.82 39.45 40.74 38.2 44.05 37.51 44.85 37.32 43.95 37.45" fill="url(#Gradient_prata-103)"/>
+      <polygon points="45.18 37.27 44.85 37.32 44.05 37.51 45.15 37.28 45.18 37.27" fill="url(#Gradient_prata-104)"/>
+      <polygon points="45.2 37.23 45.15 37.24 43.95 37.45 44.85 37.32 45.2 37.23" fill="url(#Gradient_prata-105)"/>
+      <polygon points="45.3 37.23 45.28 37.23 45.2 37.23 44.85 37.32 45.18 37.27 45.28 37.24 45.3 37.23" fill="url(#Gradient_prata-106)"/>
+      <polygon points="45.28 37.24 45.31 37.23 45.3 37.23 45.28 37.24" fill="url(#Gradient_prata-107)"/>
+      <polygon points="45.18 37.27 45.15 37.28 45.2 37.27 45.21 37.26 45.18 37.27" fill="url(#Gradient_prata-108)"/>
+      <polygon points="45.2 37.27 45.24 37.26 45.21 37.26 45.2 37.27" fill="url(#Gradient_prata-109)"/>
+      <polygon points="45.28 37.24 45.18 37.27 45.21 37.26 45.28 37.24" fill="url(#Gradient_prata-110)"/>
+      <polygon points="45.28 37.24 45.21 37.26 45.24 37.26 45.32 37.24 45.33 37.24 45.32 37.23 45.31 37.23 45.28 37.24" fill="url(#Gradient_prata-111)"/>
+      <polygon points="45.32 37.24 45.32 37.24 45.33 37.24 45.32 37.24" fill="url(#Gradient_prata-112)"/>
+      <polygon points="45.33 37.24 45.34 37.23 45.32 37.23 45.33 37.24" fill="url(#Gradient_prata-113)"/>
+      <polygon points="45.33 37.24 45.35 37.23 45.34 37.23 45.33 37.24" fill="url(#Gradient_prata-114)"/>
+      <polygon points="45.32 37.23 45.34 37.23 45.35 37.22 45.32 37.23 45.32 37.23" fill="url(#Gradient_prata-115)"/>
+      <rect x="45.35" y="37.22" width="0" height="0" fill="url(#Gradient_prata-116)"/>
+      <polygon points="45.34 37.24 45.33 37.24 45.32 37.24 45.34 37.24" fill="url(#Gradient_prata-117)"/>
+      <polygon points="45.33 37.24 45.34 37.24 45.35 37.24 45.35 37.23 45.33 37.24" fill="url(#Gradient_prata-118)"/>
+      <polygon points="44.05 37.24 40.94 37.36 35.55 37.55 35.57 37.89 40.95 37.52 43.96 37.32 44.85 37.23 44.05 37.24" fill="url(#Gradient_prata-119)"/>
+      <polygon points="45.2 37.23 44.85 37.23 43.96 37.32 45.15 37.24 45.2 37.23" fill="url(#Gradient_prata-120)"/>
+      <polygon points="45.2 37.2 45.18 37.2 44.05 37.24 44.85 37.23 45.2 37.2" fill="url(#Gradient_prata-121)"/>
+      <polygon points="45.29 37.21 45.28 37.2 45.2 37.2 44.85 37.23 45.2 37.23 45.27 37.22 45.29 37.21" fill="url(#Gradient_prata-122)"/>
+      <path d="M45.27,37.22h.02s-.02,0-.02,0Z" fill="url(#Gradient_prata-123)"/>
+      <polygon points="45.28 37.2 45.28 37.2 45.29 37.21 45.31 37.21 45.28 37.2" fill="url(#Gradient_prata-124)"/>
+      <polygon points="45.29 37.21 45.29 37.21 45.32 37.21 45.31 37.21 45.29 37.21" fill="url(#Gradient_prata-125)"/>
+      <polygon points="45.31 37.21 45.32 37.21 45.28 37.2 45.31 37.21" fill="url(#Gradient_prata-126)"/>
+      <polygon points="45.2 37.23 45.15 37.24 45.2 37.23 45.22 37.23 45.2 37.23" fill="url(#Gradient_prata-127)"/>
+      <polygon points="45.22 37.23 45.2 37.23 45.28 37.23 45.22 37.23" fill="url(#Gradient_prata-128)"/>
+      <polygon points="45.27 37.22 45.2 37.23 45.22 37.23 45.27 37.22" fill="url(#Gradient_prata-129)"/>
+      <polygon points="45.27 37.22 45.22 37.23 45.28 37.23 45.31 37.23 45.31 37.22 45.29 37.21 45.27 37.22" fill="url(#Gradient_prata-130)"/>
+      <rect x="45.31" y="37.22" width="0" height="0" transform="translate(-12.38 26.69) rotate(-29.06)" fill="url(#Gradient_prata-131)"/>
+      <polygon points="45.29 37.21 45.31 37.22 45.34 37.21 45.32 37.21 45.29 37.21" fill="url(#Gradient_prata-132)"/>
+      <rect x="45.31" y="37.22" width=".03" height="0" transform="translate(-10.23 18.42) rotate(-20.69)" fill="url(#Gradient_prata-133)"/>
+      <polygon points="45.32 37.21 45.34 37.21 45.34 37.21 45.32 37.21 45.32 37.21" fill="url(#Gradient_prata-134)"/>
+      <polygon points="45.35 37.22 45.35 37.21 45.34 37.21 45.35 37.22" fill="url(#Gradient_prata-135)"/>
+      <polygon points="45.35 37.21 45.34 37.21 45.34 37.21 45.35 37.21" fill="url(#Gradient_prata-136)"/>
+      <polygon points="45.34 37.21 45.34 37.21 45.35 37.21 45.36 37.21 45.35 37.21 45.34 37.21" fill="url(#Gradient_prata-137)"/>
+      <polygon points="45.32 37.23 45.32 37.22 45.31 37.23 45.32 37.23" fill="url(#Gradient_prata-138)"/>
+      <polygon points="45.32 37.23 45.35 37.22 45.36 37.22 45.35 37.22 45.32 37.22 45.32 37.23" fill="url(#Gradient_prata-139)"/>
+      <polygon points="45.35 37.22 45.35 37.22 45.36 37.22 45.35 37.22" fill="url(#Gradient_prata-140)"/>
+      <polygon points="45.35 37.22 45.35 37.22 45.36 37.22 45.36 37.22 45.35 37.21 45.35 37.22" fill="url(#Gradient_prata-141)"/>
+      <polygon points="45.35 37.22 45.36 37.22 45.36 37.22 45.35 37.22" fill="url(#Gradient_prata-142)"/>
+      <polygon points="45.36 37.21 45.35 37.21 45.36 37.22 45.37 37.21 45.36 37.21" fill="url(#Gradient_prata-143)"/>
+      <polygon points="44.25 37.07 41.65 36.8 37.36 36.36 37.35 36.64 41.64 36.95 44.15 37.12 44.92 37.15 44.25 37.07" fill="url(#Gradient_prata-144)"/>
+      <polygon points="45.22 37.2 44.92 37.15 44.15 37.13 45.18 37.2 45.22 37.2" fill="url(#Gradient_prata-145)"/>
+      <polygon points="45.22 37.17 45.21 37.17 44.25 37.07 44.92 37.15 45.22 37.17" fill="url(#Gradient_prata-146)"/>
+      <polygon points="45.26 37.19 45.22 37.17 44.92 37.16 45.22 37.2 45.23 37.2 45.26 37.19" fill="url(#Gradient_prata-147)"/>
+      <polygon points="45.26 37.19 45.23 37.2 45.26 37.2 45.26 37.19" fill="url(#Gradient_prata-148)"/>
+      <polygon points="45.22 37.17 45.26 37.19 45.31 37.19 45.22 37.17" fill="url(#Gradient_prata-149)"/>
+      <polygon points="45.32 37.19 45.32 37.19 45.31 37.19 45.26 37.19 45.26 37.2 45.32 37.19" fill="url(#Gradient_prata-150)"/>
+      <polygon points="45.22 37.2 45.18 37.2 45.2 37.2 45.22 37.2 45.22 37.2" fill="url(#Gradient_prata-151)"/>
+      <polygon points="45.28 37.2 45.22 37.2 45.2 37.2 45.28 37.2" fill="url(#Gradient_prata-152)"/>
+      <polygon points="45.23 37.2 45.22 37.2 45.28 37.2 45.26 37.2 45.23 37.2" fill="url(#Gradient_prata-153)"/>
+      <polygon points="45.26 37.2 45.28 37.2 45.32 37.21 45.33 37.2 45.32 37.19 45.26 37.2" fill="url(#Gradient_prata-154)"/>
+      <rect x="45.32" y="37.2" width="0" height=".02" fill="url(#Gradient_prata-155)"/>
+      <polygon points="45.32 37.19 45.33 37.2 45.35 37.2 45.32 37.19 45.32 37.19" fill="url(#Gradient_prata-156)"/>
+      <rect x="45.33" y="37.2" width=".02" height="0" transform="translate(-7.39 11.52) rotate(-13.4)" fill="url(#Gradient_prata-157)"/>
+      <polygon points="45.35 37.2 45.32 37.19 45.35 37.2 45.35 37.2" fill="url(#Gradient_prata-158)"/>
+      <polygon points="45.35 37.2 45.35 37.2 45.35 37.2 45.35 37.2" fill="url(#Gradient_prata-159)"/>
+      <polygon points="45.34 37.21 45.34 37.2 45.32 37.21 45.34 37.21" fill="url(#Gradient_prata-160)"/>
+      <polygon points="45.34 37.2 45.34 37.21 45.35 37.21 45.36 37.2 45.36 37.2 45.34 37.2" fill="url(#Gradient_prata-161)"/>
+      <polygon points="45.36 37.21 45.36 37.21 45.36 37.2 45.35 37.21 45.36 37.21" fill="url(#Gradient_prata-162)"/>
+      <polygon points="45.36 37.2 45.36 37.2 45.37 37.2 45.36 37.2" fill="url(#Gradient_prata-163)"/>
+      <polygon points="45.36 37.2 45.36 37.21 45.37 37.21 45.37 37.2 45.37 37.2 45.36 37.2" fill="url(#Gradient_prata-164)"/>
+      <polygon points="45.36 37.2 45.37 37.2 45.37 37.2 45.36 37.2 45.36 37.2" fill="url(#Gradient_prata-165)"/>
+      <path d="M45.37,37.21h0s0,0,0,0Z" fill="url(#Gradient_prata-166)"/>
+      <polygon points="44.36 36.93 42.15 36.38 38.57 35.51 38.53 35.74 42.12 36.51 44.28 36.97 44.98 37.1 44.36 36.93" fill="url(#Gradient_prata-167)"/>
+      <polygon points="45.22 37.17 45.2 37.16 44.98 37.1 44.28 36.98 45.21 37.17 45.22 37.17" fill="url(#Gradient_prata-168)"/>
+      <polygon points="45.15 37.13 45.12 37.11 44.36 36.93 44.98 37.1 45.15 37.13" fill="url(#Gradient_prata-169)"/>
+      <polygon points="44.98 37.1 45.2 37.16 45.15 37.13 44.98 37.1" fill="url(#Gradient_prata-170)"/>
+      <polygon points="45.25 37.17 45.2 37.16 45.22 37.17 45.24 37.17 45.25 37.17" fill="url(#Gradient_prata-171)"/>
+      <polygon points="45.24 37.14 45.12 37.12 45.15 37.13 45.25 37.15 45.24 37.14" fill="url(#Gradient_prata-172)"/>
+      <polygon points="45.29 37.17 45.27 37.15 45.25 37.15 45.15 37.13 45.2 37.16 45.25 37.17 45.29 37.17" fill="url(#Gradient_prata-173)"/>
+      <polygon points="45.3 37.17 45.29 37.17 45.25 37.17 45.25 37.17 45.3 37.17" fill="url(#Gradient_prata-174)"/>
+      <polygon points="45.33 37.17 45.27 37.15 45.29 37.17 45.33 37.17 45.33 37.17" fill="url(#Gradient_prata-175)"/>
+      <polygon points="45.34 37.18 45.34 37.18 45.33 37.17 45.29 37.17 45.3 37.18 45.34 37.18" fill="url(#Gradient_prata-176)"/>
+      <path d="M45.24,37.17h-.02s.02,0,.02,0Z" fill="url(#Gradient_prata-177)"/>
+      <polygon points="45.31 37.19 45.25 37.17 45.24 37.17 45.22 37.17 45.31 37.19" fill="url(#Gradient_prata-178)"/>
+      <polygon points="45.31 37.19 45.32 37.19 45.32 37.19 45.31 37.19" fill="url(#Gradient_prata-179)"/>
+      <polygon points="45.25 37.17 45.31 37.19 45.31 37.19 45.3 37.17 45.25 37.17" fill="url(#Gradient_prata-180)"/>
+      <polygon points="45.3 37.18 45.31 37.19 45.34 37.18 45.34 37.18 45.3 37.18" fill="url(#Gradient_prata-181)"/>
+      <polygon points="45.31 37.19 45.32 37.19 45.32 37.19 45.35 37.19 45.34 37.18 45.31 37.19" fill="url(#Gradient_prata-182)"/>
+      <rect x="45.34" y="37.18" width="0" height="0" transform="translate(-13.28 35.69) rotate(-37.9)" fill="url(#Gradient_prata-183)"/>
+      <polygon points="45.32 37.19 45.35 37.2 45.35 37.19 45.32 37.19" fill="url(#Gradient_prata-184)"/>
+      <path d="M45.35,37.2h0s0,0,0,0Z" fill="url(#Gradient_prata-185)"/>
+      <polygon points="45.35 37.19 45.35 37.2 45.36 37.2 45.35 37.19 45.35 37.19" fill="url(#Gradient_prata-186)"/>
+      <rect x="45.35" y="37.2" width="0" height="0" fill="url(#Gradient_prata-187)"/>
+      <polygon points="44.97 37.02 44.56 36.84 42.54 36.04 39.47 34.82 39.42 35.04 42.5 36.15 44.47 36.87 45 37.04 44.97 37.02" fill="url(#Gradient_prata-188)"/>
+      <polygon points="45 37.04 44.46 36.88 45.07 37.08 45 37.04" fill="url(#Gradient_prata-189)"/>
+      <polygon points="44.9 36.98 44.56 36.85 44.97 37.02 44.9 36.98" fill="url(#Gradient_prata-190)"/>
+      <polygon points="44.96 37.03 45 37.04 45.05 37.06 44.96 37.03" fill="url(#Gradient_prata-191)"/>
+      <polygon points="45.26 37.15 45.25 37.14 45.05 37.06 45 37.04 45.07 37.08 45.24 37.14 45.26 37.15" fill="url(#Gradient_prata-192)"/>
+      <polygon points="45.21 37.11 45.2 37.1 44.9 36.98 44.97 37.03 45.05 37.06 45.21 37.11" fill="url(#Gradient_prata-193)"/>
+      <polygon points="45.05 37.06 45.25 37.14 45.21 37.11 45.05 37.06" fill="url(#Gradient_prata-194)"/>
+      <polygon points="45.25 37.14 45.26 37.15 45.27 37.15 45.25 37.14" fill="url(#Gradient_prata-195)"/>
+      <polygon points="45.25 37.12 45.25 37.12 45.2 37.1 45.21 37.11 45.25 37.12" fill="url(#Gradient_prata-196)"/>
+      <polygon points="45.29 37.15 45.3 37.15 45.25 37.12 45.21 37.11 45.25 37.14 45.27 37.15 45.29 37.15" fill="url(#Gradient_prata-197)"/>
+      <polygon points="45.29 37.16 45.3 37.16 45.3 37.15 45.29 37.16" fill="url(#Gradient_prata-198)"/>
+      <polygon points="45.26 37.15 45.24 37.14 45.25 37.15 45.26 37.15 45.26 37.15" fill="url(#Gradient_prata-199)"/>
+      <polygon points="45.25 37.15 45.27 37.15 45.26 37.15 45.25 37.15" fill="url(#Gradient_prata-200)"/>
+      <rect x="45.26" y="37.15" width=".01" height="0" transform="translate(-13.01 42.86) rotate(-44.97)" fill="url(#Gradient_prata-201)"/>
+      <polygon points="45.27 37.15 45.26 37.15 45.27 37.15 45.33 37.17 45.27 37.15" fill="url(#Gradient_prata-202)"/>
+      <polygon points="45.27 37.15 45.27 37.15 45.29 37.15 45.27 37.15" fill="url(#Gradient_prata-203)"/>
+      <polygon points="45.27 37.15 45.33 37.17 45.33 37.17 45.3 37.16 45.29 37.15 45.27 37.15" fill="url(#Gradient_prata-204)"/>
+      <polygon points="39.8 34.04 39.72 34.24 42.63 35.76 44.29 36.64 42.5 35.56 39.8 34.04" fill="url(#Gradient_prata-205)"/>
+      <polygon points="45.1 37.02 45.01 36.95 42.67 35.6 42.5 35.5 44.29 36.6 44.58 36.76 45.1 37.02" fill="url(#Gradient_prata-206)"/>
+      <polygon points="44.58 36.78 45.17 37.07 45.1 37.02 44.58 36.78" fill="url(#Gradient_prata-207)"/>
+      <polygon points="45.13 37.04 45.01 36.97 45.01 36.96 45.1 37.02 45.13 37.04" fill="url(#Gradient_prata-208)"/>
+      <polygon points="45.13 37.04 45.09 37.03 45.16 37.07 45.23 37.11 45.13 37.04" fill="url(#Gradient_prata-209)"/>
+      <polygon points="42.32 34.86 35.2 29.55 24.95 21.92 24.57 22.63 34.99 29.94 41.71 34.66 43.98 36.15 42.32 34.86" fill="url(#Gradient_prata-210)"/>
+      <polygon points="41.72 34.62 45.01 36.96 43.98 36.13 41.72 34.62" fill="url(#Gradient_prata-211)"/>
+      <polygon points="44.82 36.7 42.32 34.72 43.98 36.1 44.82 36.7" fill="url(#Gradient_prata-212)"/>
+      <polygon points="45.24 37.08 45.11 36.95 44.87 36.74 44.82 36.7 43.98 36.15 45.01 36.96 45.01 36.96 45.24 37.08" fill="url(#Gradient_prata-213)"/>
+      <polygon points="45.23 37.11 45.25 37.12 45.27 37.13 45.23 37.11" fill="url(#Gradient_prata-214)"/>
+      <polygon points="45.1 36.96 45.24 37.08 45.27 37.1 45.1 36.96" fill="url(#Gradient_prata-215)"/>
+      <polygon points="45.37 37.2 45.37 37.2 45.37 37.2 45.37 37.2" fill="url(#Gradient_prata-216)"/>
+      <polygon points="45.33 37.17 45.33 37.17 45.34 37.18 45.33 37.17" fill="url(#Gradient_prata-217)"/>
+      <polygon points="45.34 37.18 45.34 37.18 45.33 37.17 45.34 37.18" fill="url(#Gradient_prata-218)"/>
+      <polygon points="45.34 37.18 45.35 37.18 45.33 37.17 45.34 37.18" fill="url(#Gradient_prata-219)"/>
+      <rect x="45.34" y="37.18" width="0" height="0" transform="translate(-13.28 35.66) rotate(-37.87)" fill="url(#Gradient_prata-220)"/>
+      <polygon points="45.34 37.18 45.35 37.19 45.36 37.19 45.35 37.18 45.34 37.18" fill="url(#Gradient_prata-221)"/>
+      <rect x="45.34" y="37.18" width="0" height="0" transform="translate(2.84 77.58) rotate(-82.89)" fill="url(#Gradient_prata-222)"/>
+      <polygon points="45.35 37.18 45.36 37.19 45.37 37.19 45.35 37.18 45.35 37.18" fill="url(#Gradient_prata-223)"/>
+      <polygon points="45.35 37.19 45.36 37.2 45.37 37.19 45.36 37.19 45.35 37.19" fill="url(#Gradient_prata-224)"/>
+      <polygon points="45.36 37.2 45.36 37.2 45.38 37.2 45.38 37.2 45.37 37.19 45.36 37.2" fill="url(#Gradient_prata-225)"/>
+      <polygon points="45.37 37.19 45.38 37.2 45.38 37.19 45.37 37.19" fill="url(#Gradient_prata-226)"/>
+      <polygon points="45.37 37.2 45.37 37.2 45.38 37.2 45.38 37.2 45.36 37.2 45.37 37.2" fill="url(#Gradient_prata-227)"/>
+      <polygon points="45.37 37.2 45.38 37.2 45.37 37.2 45.37 37.2" fill="url(#Gradient_prata-228)"/>
+      <rect x="45.26" y="37.11" width="0" height=".02" transform="translate(-3.3 69.81) rotate(-73.3)" fill="url(#Gradient_prata-229)"/>
+      <polygon points="45.32 37.16 45.3 37.14 45.27 37.13 45.25 37.13 45.3 37.15 45.32 37.16" fill="url(#Gradient_prata-230)"/>
+      <path d="M45.3,37.16h0s0,0,0,0Z" fill="url(#Gradient_prata-231)"/>
+      <polygon points="45.3 37.14 45.32 37.16 45.34 37.16 45.3 37.14" fill="url(#Gradient_prata-232)"/>
+      <rect x="45.33" y="37.15" width="0" height=".03" transform="translate(-7.65 12.08) rotate(-14.01)" fill="url(#Gradient_prata-233)"/>
+      <polygon points="45.3 37.16 45.33 37.18 45.33 37.18 45.32 37.16 45.3 37.16" fill="url(#Gradient_prata-234)"/>
+      <polygon points="45.32 37.16 45.33 37.18 45.35 37.18 45.35 37.17 45.32 37.16" fill="url(#Gradient_prata-235)"/>
+      <polygon points="45.33 37.17 45.33 37.17 45.35 37.18 45.36 37.18 45.36 37.19 45.36 37.17 45.33 37.17" fill="url(#Gradient_prata-236)"/>
+      <polygon points="45.36 37.19 45.35 37.18 45.35 37.18 45.36 37.19" fill="url(#Gradient_prata-237)"/>
+      <polygon points="45.35 37.18 45.37 37.19 45.36 37.18 45.36 37.18 45.35 37.18" fill="url(#Gradient_prata-238)"/>
+      <polygon points="45.24 37.08 45.01 36.97 45.13 37.04 45.25 37.09 45.24 37.08" fill="url(#Gradient_prata-239)"/>
+      <polygon points="45.27 37.13 45.29 37.13 45.29 37.13 45.25 37.09 45.13 37.04 45.23 37.11 45.27 37.13" fill="url(#Gradient_prata-240)"/>
+      <polygon points="45.29 37.11 45.27 37.1 45.24 37.08 45.25 37.1 45.29 37.11" fill="url(#Gradient_prata-241)"/>
+      <polygon points="45.29 37.12 45.25 37.1 45.29 37.13 45.32 37.15 45.29 37.12" fill="url(#Gradient_prata-242)"/>
+      <polygon points="45.33 37.15 45.32 37.15 45.29 37.13 45.33 37.15" fill="url(#Gradient_prata-243)"/>
+      <polygon points="45.29 37.13 45.27 37.13 45.27 37.13 45.29 37.13" fill="url(#Gradient_prata-244)"/>
+      <polygon points="45.3 37.14 45.29 37.13 45.29 37.13 45.27 37.13 45.3 37.14" fill="url(#Gradient_prata-245)"/>
+      <polygon points="45.3 37.14 45.34 37.16 45.34 37.16 45.33 37.15 45.29 37.13 45.3 37.14" fill="url(#Gradient_prata-246)"/>
+      <polygon points="45.35 37.17 45.34 37.16 45.34 37.16 45.35 37.17" fill="url(#Gradient_prata-247)"/>
+      <polygon points="43 34.84 37.65 29.7 29.84 22.21 29.46 22.75 37.44 30 42.63 34.72 44.33 36.19 43 34.84" fill="url(#Gradient_prata-248)"/>
+      <polygon points="44.93 36.77 44.33 36.11 42.62 34.5 44.86 36.71 44.93 36.77" fill="url(#Gradient_prata-249)"/>
+      <polygon points="44.92 36.77 44.85 36.73 44.87 36.75 44.96 36.8 44.92 36.77" fill="url(#Gradient_prata-250)"/>
+      <polygon points="45.03 36.77 43 34.57 44.33 36.09 45.03 36.77" fill="url(#Gradient_prata-251)"/>
+      <polygon points="45.04 36.77 45.03 36.77 44.33 36.19 44.93 36.77 45.17 36.93 45.04 36.77" fill="url(#Gradient_prata-252)"/>
+      <polygon points="45.23 37 45.22 36.99 45.17 36.93 44.92 36.78 44.96 36.81 45.23 37" fill="url(#Gradient_prata-253)"/>
+      <polygon points="45.24 37.01 45.21 36.99 45.23 37 45.24 37.01" fill="url(#Gradient_prata-254)"/>
+      <polygon points="44.87 36.75 45.11 36.95 44.96 36.81 44.87 36.75" fill="url(#Gradient_prata-255)"/>
+      <polygon points="45.34 37.13 45.23 37.01 44.96 36.81 45.1 36.96 45.27 37.1 45.34 37.13" fill="url(#Gradient_prata-256)"/>
+      <polygon points="45.34 37.13 45.36 37.15 45.36 37.15 45.23 37.01 45.23 37.01 45.34 37.13" fill="url(#Gradient_prata-257)"/>
+      <rect x="45.38" y="37.19" width="0" height="0" fill="url(#Gradient_prata-258)"/>
+      <polygon points="45.35 37.18 45.36 37.18 45.35 37.17 45.35 37.17 45.35 37.18" fill="url(#Gradient_prata-259)"/>
+      <polygon points="45.36 37.17 45.36 37.19 45.37 37.18 45.37 37.18 45.36 37.17 45.36 37.17" fill="url(#Gradient_prata-260)"/>
+      <path d="M45.36,37.19h0s0,0,0,0Z" fill="url(#Gradient_prata-261)"/>
+      <polygon points="45.37 37.18 45.38 37.18 45.37 37.18 45.37 37.18" fill="url(#Gradient_prata-262)"/>
+      <rect x="45.37" y="37.18" width="0" height="0" transform="translate(-13 43) rotate(-45.03)" fill="url(#Gradient_prata-263)"/>
+      <rect x="45.37" y="37.18" width="0" height="0" transform="translate(-12.66 28.6) rotate(-30.92)" fill="url(#Gradient_prata-264)"/>
+      <rect x="45.37" y="37.19" width="0" height="0" transform="translate(-4.28 68.44) rotate(-71.52)" fill="url(#Gradient_prata-265)"/>
+      <polygon points="45.38 37.19 45.38 37.19 45.38 37.19 45.38 37.19" fill="url(#Gradient_prata-266)"/>
+      <polygon points="45.38 37.19 45.38 37.19 45.38 37.19 45.38 37.19" fill="url(#Gradient_prata-267)"/>
+      <polygon points="45.27 37.1 45.29 37.12 45.34 37.13 45.27 37.1" fill="url(#Gradient_prata-268)"/>
+      <polygon points="45.32 37.15 45.35 37.15 45.34 37.13 45.28 37.12 45.32 37.15" fill="url(#Gradient_prata-269)"/>
+      <rect x="45.34" y="37.14" width="0" height=".03" transform="translate(-5.99 65.46) rotate(-68.2)" fill="url(#Gradient_prata-270)"/>
+      <path d="M45.34,37.13l.02.02-.02-.02Z" fill="url(#Gradient_prata-271)"/>
+      <polygon points="45.34 37.13 45.35 37.15 45.37 37.16 45.36 37.15 45.35 37.15 45.34 37.13" fill="url(#Gradient_prata-272)"/>
+      <polygon points="45.36 37.16 45.38 37.17 45.37 37.16 45.35 37.15 45.36 37.16" fill="url(#Gradient_prata-273)"/>
+      <polygon points="45.34 37.16 45.36 37.17 45.35 37.16 45.33 37.15 45.34 37.16" fill="url(#Gradient_prata-274)"/>
+      <polygon points="45.35 37.17 45.35 37.17 45.36 37.17 45.36 37.17 45.34 37.16 45.35 37.17" fill="url(#Gradient_prata-275)"/>
+      <rect x="45.36" y="37.16" width="0" height=".02" transform="translate(-.59 73.6) rotate(-77.73)" fill="url(#Gradient_prata-276)"/>
+      <polygon points="45.36 37.17 45.38 37.18 45.38 37.18 45.38 37.17 45.36 37.17 45.36 37.17" fill="url(#Gradient_prata-277)"/>
+      <polygon points="45.35 37.17 45.36 37.18 45.37 37.18 45.36 37.17 45.35 37.17" fill="url(#Gradient_prata-278)"/>
+      <polygon points="45.37 37.18 45.37 37.18 45.36 37.17 45.37 37.18" fill="url(#Gradient_prata-279)"/>
+      <polygon points="45.37 37.18 45.38 37.18 45.36 37.17 45.37 37.18" fill="url(#Gradient_prata-280)"/>
+      <polygon points="45.38 37.18 45.37 37.17 45.37 37.18 45.37 37.18 45.39 37.18 45.38 37.18 45.38 37.18" fill="url(#Gradient_prata-281)"/>
+      <rect x="45.38" y="37.18" width=".01" height="0" transform="translate(-13.27 35.66) rotate(-37.84)" fill="url(#Gradient_prata-282)"/>
+      <polygon points="45.38 37.19 45.39 37.18 45.38 37.18 45.38 37.19" fill="url(#Gradient_prata-283)"/>
+      <polygon points="43.89 35.3 40.53 31.19 35.56 25.1 35.25 25.45 40.36 31.37 43.43 34.94 44.66 36.29 43.89 35.3" fill="url(#Gradient_prata-284)"/>
+      <polygon points="45.09 36.82 44.66 36.19 43.44 34.64 45.03 36.76 45.09 36.82" fill="url(#Gradient_prata-285)"/>
+      <polygon points="45.11 36.84 45.09 36.82 45.02 36.78 45.03 36.78 45.11 36.84" fill="url(#Gradient_prata-286)"/>
+      <polygon points="45.05 36.71 43.91 35.11 44.67 36.22 45.05 36.71" fill="url(#Gradient_prata-287)"/>
+      <polygon points="45.09 36.82 45.26 36.96 45.2 36.89 45.05 36.71 44.66 36.29 45.09 36.82" fill="url(#Gradient_prata-288)"/>
+      <polygon points="45.26 36.99 45.29 37 45.26 36.97 45.08 36.83 45.1 36.85 45.26 36.99" fill="url(#Gradient_prata-289)"/>
+      <polygon points="45.28 37.01 45.26 36.99 45.3 37.02 45.28 37.01 45.28 37.01" fill="url(#Gradient_prata-290)"/>
+      <polygon points="45.3 37.03 45.3 37.03 45.28 37.01 45.3 37.03" fill="url(#Gradient_prata-291)"/>
+      <polygon points="45.03 36.78 45.17 36.93 45.18 36.93 45.1 36.85 45.03 36.78" fill="url(#Gradient_prata-292)"/>
+      <polygon points="45.22 36.99 45.18 36.94 45.17 36.94 45.22 36.99" fill="url(#Gradient_prata-293)"/>
+      <polygon points="45.18 36.94 45.26 36.99 45.1 36.85 45.18 36.94" fill="url(#Gradient_prata-294)"/>
+      <polygon points="45.18 36.94 45.21 36.99 45.24 37.01 45.33 37.07 45.3 37.03 45.26 36.99 45.18 36.94" fill="url(#Gradient_prata-295)"/>
+      <polygon points="45.3 37.03 45.33 37.07 45.34 37.08 45.3 37.03 45.3 37.03" fill="url(#Gradient_prata-296)"/>
+      <polygon points="45.36 37.15 45.38 37.15 45.33 37.07 45.23 37.01 45.36 37.15" fill="url(#Gradient_prata-297)"/>
+      <polygon points="45.38 37.15 45.39 37.16 45.34 37.08 45.33 37.07 45.38 37.15" fill="url(#Gradient_prata-298)"/>
+      <rect x="45.38" y="37.15" width="0" height=".02" transform="translate(-6.79 63.97) rotate(-66.5)" fill="url(#Gradient_prata-299)"/>
+      <polygon points="45.36 37.15 45.37 37.16 45.38 37.16 45.38 37.16 45.36 37.15" fill="url(#Gradient_prata-300)"/>
+      <polygon points="45.38 37.17 45.38 37.17 45.39 37.17 45.38 37.16 45.37 37.16 45.38 37.17" fill="url(#Gradient_prata-301)"/>
+      <rect x="45.39" y="37.16" width="0" height=".02" transform="translate(-8.64 60.02) rotate(-62.24)" fill="url(#Gradient_prata-302)"/>
+      <polygon points="45.38 37.16 45.39 37.17 45.4 37.18 45.4 37.17 45.4 37.17 45.38 37.16" fill="url(#Gradient_prata-303)"/>
+      <path d="M45.39,37.17h0s0,0,0,0Z" fill="url(#Gradient_prata-304)"/>
+      <rect x="45.38" y="37.17" width="0" height="0" transform="translate(-9.43 16.27) rotate(-18.45)" fill="url(#Gradient_prata-305)"/>
+      <polygon points="45.39 37.18 45.4 37.18 45.39 37.17 45.39 37.18" fill="url(#Gradient_prata-306)"/>
+      <polygon points="45.39 37.18 45.39 37.18 45.4 37.18 45.39 37.17 45.39 37.18" fill="url(#Gradient_prata-307)"/>
+      <polygon points="45.39 37.18 45.39 37.18 45.39 37.18 45.39 37.18" fill="url(#Gradient_prata-308)"/>
+      <polygon points="44.5 35.72 42.45 32.52 39.42 27.78 39.18 28 42.32 32.63 44.23 35.45 44.96 36.48 44.5 35.72" fill="url(#Gradient_prata-309)"/>
+      <polygon points="44.97 36.45 44.25 35.33 45.15 36.8 45.2 36.86 44.97 36.45" fill="url(#Gradient_prata-310)"/>
+      <polygon points="45.24 36.92 45.2 36.86 45.15 36.82 45.2 36.89 45.24 36.92" fill="url(#Gradient_prata-311)"/>
+      <polygon points="45.22 36.83 44.52 35.68 44.96 36.46 45.22 36.83" fill="url(#Gradient_prata-312)"/>
+      <polygon points="45.2 36.86 45.32 37 45.32 36.99 45.21 36.83 44.95 36.49 45.2 36.86" fill="url(#Gradient_prata-313)"/>
+      <polygon points="45.34 37.04 45.32 37 45.19 36.86 45.23 36.93 45.3 37 45.34 37.04" fill="url(#Gradient_prata-314)"/>
+      <polygon points="45.34 37.04 45.3 37 45.32 37.03 45.35 37.05 45.34 37.04" fill="url(#Gradient_prata-315)"/>
+      <polygon points="45.32 37.03 45.37 37.08 45.34 37.05 45.32 37.03" fill="url(#Gradient_prata-316)"/>
+      <polygon points="45.23 36.93 45.2 36.89 45.26 36.97 45.26 36.97 45.23 36.93" fill="url(#Gradient_prata-317)"/>
+      <polygon points="45.29 37 45.26 36.97 45.26 36.97 45.29 37" fill="url(#Gradient_prata-318)"/>
+      <polygon points="45.3 37 45.23 36.93 45.26 36.97 45.3 37" fill="url(#Gradient_prata-319)"/>
+      <polygon points="45.26 36.98 45.28 37.01 45.32 37.03 45.3 37 45.26 36.98" fill="url(#Gradient_prata-320)"/>
+      <polygon points="45.32 37.03 45.28 37.01 45.28 37.01 45.3 37.03 45.38 37.1 45.37 37.08 45.32 37.03" fill="url(#Gradient_prata-321)"/>
+      <polygon points="45.3 37.03 45.34 37.08 45.38 37.12 45.38 37.1 45.3 37.03" fill="url(#Gradient_prata-322)"/>
+      <polygon points="45.38 37.12 45.34 37.08 45.39 37.16 45.4 37.17 45.41 37.16 45.4 37.14 45.38 37.12" fill="url(#Gradient_prata-323)"/>
+      <rect x="45.39" y="37.16" width="0" height="0" transform="translate(-13.27 36.52) rotate(-38.68)" fill="url(#Gradient_prata-324)"/>
+      <polygon points="45.41 37.16 45.41 37.16 45.4 37.14 45.41 37.16" fill="url(#Gradient_prata-325)"/>
+      <polygon points="45.22 36.77 44.81 36.02 45.28 36.93 45.32 36.98 45.22 36.77" fill="url(#Gradient_prata-326)"/>
+      <polygon points="45.33 37 45.34 37.02 45.32 36.98 45.28 36.93 45.31 36.99 45.33 37" fill="url(#Gradient_prata-327)"/>
+      <polygon points="45.34 37.02 45.33 37 45.35 37.04 45.34 37.02" fill="url(#Gradient_prata-328)"/>
+      <polygon points="45.25 36.82 45.18 36.69 45.22 36.77 45.25 36.82" fill="url(#Gradient_prata-329)"/>
+      <polygon points="45.32 36.98 45.36 37.02 45.25 36.82 45.22 36.78 45.32 36.98" fill="url(#Gradient_prata-330)"/>
+      <polygon points="45.35 37.03 45.32 36.98 45.34 37.02 45.36 37.04 45.35 37.03" fill="url(#Gradient_prata-331)"/>
+      <polygon points="45.35 37.05 45.37 37.06 45.38 37.06 45.36 37.04 45.34 37.02 45.34 37.04 45.35 37.05" fill="url(#Gradient_prata-332)"/>
+      <path d="M45.37,37.07h0s0,0,0,0Z" fill="url(#Gradient_prata-333)"/>
+      <polygon points="45.35 37.05 45.36 37.06 45.37 37.06 45.35 37.05" fill="url(#Gradient_prata-334)"/>
+      <polygon points="45.37 37.07 45.37 37.06 45.36 37.06 45.4 37.11 45.39 37.1 45.37 37.07" fill="url(#Gradient_prata-335)"/>
+      <polygon points="45.31 36.99 45.32 37 45.33 37 45.31 36.99" fill="url(#Gradient_prata-336)"/>
+      <polygon points="45.36 37.05 45.35 37.04 45.33 37 45.32 37 45.34 37.04 45.36 37.05" fill="url(#Gradient_prata-337)"/>
+      <polygon points="45.34 37.04 45.35 37.05 45.36 37.05 45.35 37.05 45.34 37.04" fill="url(#Gradient_prata-338)"/>
+      <polygon points="45.37 37.08 45.38 37.09 45.35 37.06 45.34 37.05 45.37 37.08" fill="url(#Gradient_prata-339)"/>
+      <path d="M45.34,37.04h.01s-.01,0-.01,0Z" fill="url(#Gradient_prata-340)"/>
+      <polygon points="45.35 37.05 45.36 37.05 45.36 37.06 45.35 37.05" fill="url(#Gradient_prata-341)"/>
+      <polygon points="45.4 37.11 45.36 37.06 45.35 37.06 45.38 37.09 45.4 37.12 45.4 37.13 45.4 37.11" fill="url(#Gradient_prata-342)"/>
+      <polygon points="45.4 37.12 45.4 37.13 45.4 37.13 45.4 37.12" fill="url(#Gradient_prata-343)"/>
+      <polygon points="45.37 37.08 45.38 37.1 45.38 37.1 45.38 37.09 45.37 37.08" fill="url(#Gradient_prata-344)"/>
+      <polygon points="45.38 37.1 45.4 37.12 45.38 37.09 45.38 37.1" fill="url(#Gradient_prata-345)"/>
+      <rect x="45.38" y="37.1" width="0" height=".02" transform="translate(-9.41 16.26) rotate(-18.44)" fill="url(#Gradient_prata-346)"/>
+      <polygon points="45.4 37.12 45.38 37.1 45.39 37.12 45.4 37.13 45.4 37.13 45.4 37.12" fill="url(#Gradient_prata-347)"/>
+      <polygon points="45.4 37.14 45.39 37.12 45.38 37.12 45.4 37.14" fill="url(#Gradient_prata-348)"/>
+      <polygon points="45.39 37.12 45.4 37.14 45.41 37.16 45.41 37.16 45.4 37.13 45.39 37.12" fill="url(#Gradient_prata-349)"/>
+      <polygon points="45.36 37.01 45.25 36.76 45.35 37 45.38 37.04 45.36 37.01" fill="url(#Gradient_prata-350)"/>
+      <polygon points="45.38 37.06 45.38 37.06 45.38 37.04 45.35 37 45.37 37.05 45.38 37.06" fill="url(#Gradient_prata-351)"/>
+      <polygon points="45.38 37.06 45.37 37.05 45.38 37.06 45.38 37.06" fill="url(#Gradient_prata-352)"/>
+      <polygon points="45.38 37.06 45.38 37.07 45.38 37.07 45.38 37.06 45.37 37.06 45.38 37.06" fill="url(#Gradient_prata-353)"/>
+      <rect x="45.38" y="37.07" width="0" height="0" transform="translate(-10.5 19.45) rotate(-21.75)" fill="url(#Gradient_prata-354)"/>
+      <polygon points="45.39 37.1 45.4 37.12 45.39 37.08 45.38 37.07 45.39 37.1" fill="url(#Gradient_prata-355)"/>
+      <polygon points="45.38 37.06 45.4 37.08 45.29 36.8 45.36 37.01 45.38 37.06" fill="url(#Gradient_prata-356)"/>
+      <polygon points="45.4 37.08 45.4 37.08 45.38 37.06 45.39 37.07 45.4 37.08" fill="url(#Gradient_prata-357)"/>
+      <polygon points="45.39 37.08 45.39 37.08 45.4 37.08 45.39 37.08" fill="url(#Gradient_prata-358)"/>
+      <polygon points="45.39 37.08 45.4 37.08 45.4 37.09 45.4 37.08 45.4 37.08 45.39 37.08" fill="url(#Gradient_prata-359)"/>
+      <polygon points="45.4 37.09 45.4 37.09 45.4 37.08 45.4 37.09" fill="url(#Gradient_prata-360)"/>
+      <polygon points="45.4 37.09 45.4 37.09 45.41 37.12 45.41 37.11 45.4 37.09 45.4 37.09" fill="url(#Gradient_prata-361)"/>
+      <polygon points="45.36 37.01 45.38 37.04 45.38 37.06 45.36 37.01" fill="url(#Gradient_prata-362)"/>
+      <polygon points="45.38 37.06 45.37 37.04 45.38 37.06 45.39 37.07 45.38 37.06" fill="url(#Gradient_prata-363)"/>
+      <polygon points="45.39 37.08 45.39 37.08 45.39 37.08 45.38 37.07 45.39 37.08" fill="url(#Gradient_prata-364)"/>
+      <polygon points="45.39 37.08 45.39 37.08 45.4 37.08 45.39 37.08" fill="url(#Gradient_prata-365)"/>
+      <polygon points="45.38 37.07 45.38 37.07 45.39 37.08 45.38 37.07" fill="url(#Gradient_prata-366)"/>
+      <polygon points="45.39 37.08 45.38 37.07 45.39 37.08 45.4 37.09 45.4 37.08 45.39 37.08" fill="url(#Gradient_prata-367)"/>
+      <polygon points="45.39 37.08 45.4 37.12 45.41 37.13 45.41 37.14 45.41 37.12 45.4 37.09 45.39 37.08" fill="url(#Gradient_prata-368)"/>
+      <polygon points="45.41 37.13 45.41 37.14 45.41 37.14 45.41 37.13" fill="url(#Gradient_prata-369)"/>
+      <polygon points="45.41 37.14 45.41 37.14 45.41 37.14 45.41 37.14" fill="url(#Gradient_prata-370)"/>
+      <rect x="45.4" y="37.12" width="0" height=".02" fill="url(#Gradient_prata-371)"/>
+      <rect x="45.4" y="37.13" width="0" height="0" transform="translate(-11.2 52.49) rotate(-54.45)" fill="url(#Gradient_prata-372)"/>
+      <polygon points="45.41 37.14 45.41 37.13 45.41 37.15 45.41 37.14 45.41 37.14" fill="url(#Gradient_prata-373)"/>
+      <polygon points="45.41 37.13 45.41 37.15 45.41 37.15 45.41 37.13" fill="url(#Gradient_prata-374)"/>
+      <polygon points="45.4 37.11 45.4 37.12 45.39 37.1 45.4 37.11" fill="url(#Gradient_prata-375)"/>
+      <polygon points="45.4 37.12 45.4 37.11 45.4 37.13 45.4 37.13 45.4 37.12" fill="url(#Gradient_prata-376)"/>
+      <polygon points="45.4 37.13 45.4 37.13 45.4 37.12 45.4 37.13" fill="url(#Gradient_prata-377)"/>
+      <rect x="45.4" y="37.13" width="0" height="0" transform="translate(-1.64 72.16) rotate(-75.95)" fill="url(#Gradient_prata-378)"/>
+      <rect x="45.4" y="37.13" width="0" height="0" fill="url(#Gradient_prata-379)"/>
+      <polygon points="45.4 37.13 45.41 37.13 45.4 37.13 45.4 37.13" fill="url(#Gradient_prata-380)"/>
+      <rect x="45.4" y="37.14" width=".02" height="0" transform="translate(2.21 76.84) rotate(-81.86)" fill="url(#Gradient_prata-381)"/>
+      <polygon points="45.4 37.08 45.39 37.02 45.32 36.8 45.4 37.08 45.4 37.08" fill="url(#Gradient_prata-382)"/>
+      <rect x="45.4" y="37.08" width="0" height="0" transform="translate(-6.4 9.63) rotate(-11.32)" fill="url(#Gradient_prata-383)"/>
+      <polygon points="45.4 37.09 45.4 37.09 45.4 37.09 45.4 37.09 45.4 37.09 45.4 37.09" fill="url(#Gradient_prata-384)"/>
+      <polygon points="45.41 37.1 45.4 37.09 45.4 37.09 45.41 37.1" fill="url(#Gradient_prata-385)"/>
+      <rect x="45.4" y="37.09" width="0" height="0" fill="url(#Gradient_prata-386)"/>
+      <polygon points="45.41 37.11 45.41 37.12 45.41 37.1 45.4 37.09 45.41 37.11" fill="url(#Gradient_prata-387)"/>
+      <polygon points="45.41 37.09 45.41 37.09 45.34 36.82 45.39 37.02 45.41 37.09" fill="url(#Gradient_prata-388)"/>
+      <rect x="45.41" y="37.09" width="0" height="0" transform="translate(-11.15 21.63) rotate(-23.95)" fill="url(#Gradient_prata-389)"/>
+      <rect x="45.41" y="37.1" width="0" height=".02" transform="translate(-9.4 16.27) rotate(-18.43)" fill="url(#Gradient_prata-390)"/>
+      <polygon points="45.42 37.11 45.42 37.13 45.42 37.12 45.42 37.11" fill="url(#Gradient_prata-391)"/>
+      <polygon points="45.39 37.02 45.4 37.08 45.41 37.09 45.39 37.02" fill="url(#Gradient_prata-392)"/>
+      <rect x="45.4" y="37.09" width=".01" height="0" transform="translate(-11.8 24.24) rotate(-26.59)" fill="url(#Gradient_prata-393)"/>
+      <polygon points="45.4 37.09 45.4 37.09 45.41 37.1 45.4 37.09" fill="url(#Gradient_prata-394)"/>
+      <polygon points="45.41 37.1 45.4 37.09 45.41 37.1 45.41 37.1 45.41 37.12 45.41 37.1" fill="url(#Gradient_prata-395)"/>
+      <polygon points="45.41 37.12 45.41 37.1 45.42 37.13 45.41 37.12" fill="url(#Gradient_prata-396)"/>
+      <polygon points="45.42 37.13 45.41 37.1 45.41 37.1 45.41 37.12 45.42 37.13 45.42 37.14 45.42 37.13 45.42 37.13" fill="url(#Gradient_prata-397)"/>
+      <path d="M45.42,37.14v-.02s0,.02,0,.02Z" fill="url(#Gradient_prata-398)"/>
+      <polygon points="45.42 37.14 45.42 37.14 45.42 37.13 45.42 37.14" fill="url(#Gradient_prata-399)"/>
+      <rect x="45.41" y="37.11" width="0" height=".01" transform="translate(-6.76 10.32) rotate(-12.08)" fill="url(#Gradient_prata-400)"/>
+      <polygon points="45.41 37.14 45.41 37.12 45.41 37.11 45.41 37.14" fill="url(#Gradient_prata-401)"/>
+      <polygon points="45.41 37.13 45.41 37.12 45.41 37.12 45.41 37.13" fill="url(#Gradient_prata-402)"/>
+      <rect x="45.41" y="37.13" width=".02" height="0" transform="translate(-10.14 55.98) rotate(-58.01)" fill="url(#Gradient_prata-403)"/>
+      <polygon points="45.42 37.14 45.42 37.14 45.42 37.14 45.42 37.14" fill="url(#Gradient_prata-404)"/>
+      <rect x="45.42" y="37.14" width="0" height="0" fill="url(#Gradient_prata-405)"/>
+      <path d="M45.28,35.42l-.16-1.76s-.05,0-.08-.01l.19,1.79.14,1.35.03.24-.02-.23-.11-1.36Z" fill="url(#Gradient_prata-406)"/>
+      <polygon points="45.42 37.09 45.41 37.02 45.36 36.81 45.42 37.09 45.42 37.09" fill="url(#Gradient_prata-407)"/>
+      <polygon points="45.42 37.1 45.42 37.1 45.41 37.09 45.41 37.09 45.42 37.1 45.42 37.1" fill="url(#Gradient_prata-408)"/>
+      <rect x="45.42" y="37.1" width="0" height=".02" transform="translate(-9.4 16.27) rotate(-18.43)" fill="url(#Gradient_prata-409)"/>
+      <path d="M45.42,37.12h0s0,0,0,0Z" fill="url(#Gradient_prata-410)"/>
+      <polygon points="45.42 37.08 45.42 37.06 45.38 36.81 45.41 37.02 45.42 37.08" fill="url(#Gradient_prata-411)"/>
+      <polygon points="45.42 37.08 45.41 37.02 45.42 37.09 45.42 37.09 45.42 37.08" fill="url(#Gradient_prata-412)"/>
+      <rect x="45.42" y="37.09" width="0" height="0" transform="translate(-2.53 3.33) rotate(-4.09)" fill="url(#Gradient_prata-413)"/>
+      <path d="M45.42,37.12h0s0,0,0,0Z" fill="url(#Gradient_prata-414)"/>
+      <polygon points="45.42 37.1 45.42 37.06 45.42 37.08 45.42 37.1" fill="url(#Gradient_prata-415)"/>
+      <polygon points="45.42 37.1 45.42 37.1 45.43 37.11 45.42 37.1" fill="url(#Gradient_prata-416)"/>
+      <polygon points="45.42 37.1 45.42 37.08 45.42 37.09 45.42 37.1" fill="url(#Gradient_prata-417)"/>
+      <polygon points="45.42 37.09 45.42 37.11 45.43 37.11 45.42 37.1 45.42 37.09" fill="url(#Gradient_prata-418)"/>
+      <polygon points="45.43 37.12 45.42 37.11 45.42 37.12 45.43 37.13 45.43 37.12 45.43 37.12" fill="url(#Gradient_prata-419)"/>
+      <rect x="45.42" y="37.12" width="0" height=".01" transform="translate(-12.69 29.13) rotate(-31.42)" fill="url(#Gradient_prata-420)"/>
+      <polygon points="45.42 37.13 45.42 37.13 45.42 37.14 45.43 37.13 45.42 37.12 45.42 37.13" fill="url(#Gradient_prata-421)"/>
+      <polygon points="45.42 37.13 45.42 37.14 45.42 37.13 45.42 37.13" fill="url(#Gradient_prata-422)"/>
+      <path d="M45.42,37.13h0s0,0,0,0Z" fill="url(#Gradient_prata-423)"/>
+      <polygon points="45.42 37.13 45.42 37.13 45.42 37.14 45.42 37.14 45.42 37.13 45.42 37.13" fill="url(#Gradient_prata-424)"/>
+      <path d="M45.41,33.67v1.76s0,1.47,0,1.47v.05s.02-.45.02-.45l.02-1.08.03-1.77s-.05,0-.07.01Z" fill="url(#Gradient_prata-425)"/>
+      <polygon points="45.42 36.95 45.41 36.9 45.42 36.98 45.42 36.95" fill="url(#Gradient_prata-426)"/>
+      <polygon points="45.43 37.1 45.43 37.08 45.44 37.05 45.4 36.54 45.42 36.95 45.43 37.1" fill="url(#Gradient_prata-427)"/>
+      <polygon points="45.43 37.1 45.43 37.1 45.42 36.95 45.42 36.98 45.43 37.1 45.43 37.1" fill="url(#Gradient_prata-428)"/>
+      <polygon points="45.43 37.11 45.43 37.11 45.43 37.11 45.43 37.1 45.43 37.1 45.43 37.11" fill="url(#Gradient_prata-429)"/>
+      <path d="M45.43,37.12h0s0,0,0,0Z" fill="url(#Gradient_prata-430)"/>
+      <polygon points="45.43 37.12 45.43 37.12 45.43 37.13 45.43 37.13 45.43 37.12 45.43 37.12" fill="url(#Gradient_prata-431)"/>
+      <polygon points="45.43 37.13 45.43 37.13 45.43 37.13 45.43 37.13 45.43 37.13 45.43 37.13" fill="url(#Gradient_prata-432)"/>
+      <polygon points="45.45 36.84 45.46 36.42 45.44 37.05 45.44 37.06 45.45 36.84" fill="url(#Gradient_prata-433)"/>
+      <polygon points="45.46 37.01 45.49 36.41 45.45 36.84 45.45 37.04 45.46 37.01" fill="url(#Gradient_prata-434)"/>
+      <polygon points="45.45 36.84 45.44 37.06 45.44 37.11 45.44 37.11 45.45 37.09 45.45 37.04 45.45 36.84" fill="url(#Gradient_prata-435)"/>
+      <rect x="45.44" y="37.11" width="0" height="0" transform="translate(-4.8 6.81) rotate(-8.14)" fill="url(#Gradient_prata-436)"/>
+      <path d="M45.44,37.11v-.02s0,.02,0,.02Z" fill="url(#Gradient_prata-437)"/>
+      <path d="M45.44,37.12h0s0,0,0,0Z" fill="url(#Gradient_prata-438)"/>
+      <rect x="45.44" y="37.12" width="0" height="0" fill="url(#Gradient_prata-439)"/>
+      <polygon points="45.43 37.06 45.43 37.05 45.43 37.08 45.43 37.06" fill="url(#Gradient_prata-440)"/>
+      <polygon points="45.43 37.1 45.43 37.1 45.44 37.11 45.43 37.06 45.43 37.08 45.43 37.1" fill="url(#Gradient_prata-441)"/>
+      <polygon points="45.43 37.12 45.44 37.12 45.44 37.12 45.43 37.11 45.43 37.1 45.43 37.12" fill="url(#Gradient_prata-442)"/>
+      <rect x="45.43" y="37.12" width="0" height="0" fill="url(#Gradient_prata-443)"/>
+      <polygon points="45.43 37.12 45.43 37.13 45.43 37.13 45.43 37.12" fill="url(#Gradient_prata-444)"/>
+      <rect x="45.43" y="37.12" width="0" height="0" transform="translate(-12.94 43.05) rotate(-45.05)" fill="url(#Gradient_prata-445)"/>
+      <polygon points="45.43 37.13 45.43 37.13 45.43 37.13 45.43 37.13" fill="url(#Gradient_prata-446)"/>
+      <path d="M45.43,37.12h0s0,0,0,0Z" fill="url(#Gradient_prata-447)"/>
+      <polygon points="45.5 36.84 45.54 36.39 45.46 37.01 45.45 37.04 45.5 36.84" fill="url(#Gradient_prata-448)"/>
+      <polygon points="45.47 37.01 45.58 36.4 45.5 36.84 45.47 37.04 45.47 37.01" fill="url(#Gradient_prata-449)"/>
+      <polygon points="45.49 36.84 45.45 37.04 45.45 37.09 45.45 37.11 45.46 37.08 45.47 37.04 45.49 36.84" fill="url(#Gradient_prata-450)"/>
+      <polygon points="45.45 37.11 45.45 37.11 45.45 37.09 45.45 37.11" fill="url(#Gradient_prata-451)"/>
+      <polygon points="45.45 37.11 45.45 37.11 45.45 37.11 45.46 37.08 45.45 37.11" fill="url(#Gradient_prata-452)"/>
+      <polygon points="45.46 37.02 45.45 37.04 45.45 37.05 45.45 37.04 45.46 37.02" fill="url(#Gradient_prata-453)"/>
+      <polygon points="45.45 37.09 45.45 37.06 45.45 37.04 45.45 37.09" fill="url(#Gradient_prata-454)"/>
+      <polygon points="45.45 37.09 45.45 37.06 45.44 37.09 45.44 37.11 45.45 37.12 45.45 37.11 45.45 37.09" fill="url(#Gradient_prata-455)"/>
+      <polygon points="45.44 37.11 45.45 37.12 45.44 37.11 45.44 37.11" fill="url(#Gradient_prata-456)"/>
+      <rect x="45.44" y="37.11" width="0" height="0" fill="url(#Gradient_prata-457)"/>
+      <polygon points="47.48 29.82 47.46 29.91 47.62 29.97 47.64 29.87 47.48 29.82" fill="url(#Gradient_prata-458)"/>
+      <polygon points="45.48 37.01 45.47 37.04 45.53 36.84 45.63 36.43 45.48 37.01" fill="url(#Gradient_prata-459)"/>
+      <polygon points="45.66 36.42 45.54 36.84 45.48 37.05 45.5 37.02 45.66 36.42" fill="url(#Gradient_prata-460)"/>
+      <polygon points="45.48 37.05 45.53 36.84 45.47 37.04 45.46 37.09 45.47 37.09 45.48 37.06 45.48 37.05" fill="url(#Gradient_prata-461)"/>
+      <polygon points="45.47 37.09 45.47 37.08 45.48 37.06 45.47 37.09" fill="url(#Gradient_prata-462)"/>
+      <polygon points="45.47 37.04 45.47 37.05 45.47 37.04 45.47 37.02 45.47 37.04" fill="url(#Gradient_prata-463)"/>
+      <polygon points="45.46 37.08 45.47 37.05 45.47 37.04 45.46 37.08" fill="url(#Gradient_prata-464)"/>
+      <polygon points="45.47 37.05 45.46 37.09 45.47 37.04 45.47 37.05" fill="url(#Gradient_prata-465)"/>
+      <polygon points="45.46 37.08 45.45 37.11 45.46 37.09 45.47 37.05 45.46 37.08" fill="url(#Gradient_prata-466)"/>
+      <polygon points="48.33 29.89 48.19 30.29 48.33 30.4 48.49 29.97 48.33 29.89" fill="url(#Gradient_prata-467)"/>
+      <polygon points="45.5 37.02 45.49 37.03 45.58 36.84 45.72 36.43 45.5 37.02" fill="url(#Gradient_prata-468)"/>
+      <polygon points="45.77 36.41 45.58 36.84 45.51 37.04 45.52 37.02 45.77 36.41" fill="url(#Gradient_prata-469)"/>
+      <polygon points="45.49 37.03 45.48 37.07 45.51 37.04 45.58 36.84 45.49 37.03" fill="url(#Gradient_prata-470)"/>
+      <polygon points="45.48 37.05 45.48 37.05 45.49 37.04 45.5 37.02 45.48 37.05" fill="url(#Gradient_prata-471)"/>
+      <polygon points="45.48 37.06 45.48 37.05 45.48 37.05 45.48 37.06" fill="url(#Gradient_prata-472)"/>
+      <polygon points="45.48 37.05 45.48 37.07 45.49 37.04 45.48 37.05" fill="url(#Gradient_prata-473)"/>
+      <polygon points="45.48 37.06 45.47 37.08 45.48 37.07 45.48 37.05 45.48 37.06" fill="url(#Gradient_prata-474)"/>
+      <path d="M49.01,30.89l.39-.84-.16-.11-.36.82s.09.08.13.12Z" fill="url(#Gradient_prata-475)"/>
+      <polygon points="45.52 37.02 45.51 37.03 45.63 36.83 45.83 36.42 45.52 37.02" fill="url(#Gradient_prata-476)"/>
+      <polygon points="45.64 36.83 45.55 36.99 45.57 36.99 45.9 36.37 45.64 36.83" fill="url(#Gradient_prata-477)"/>
+      <polygon points="45.51 37.03 45.51 37.03 45.53 37.01 45.55 36.99 45.63 36.83 45.51 37.03" fill="url(#Gradient_prata-478)"/>
+      <polygon points="45.52 37.02 45.51 37.04 45.51 37.03 45.52 37.02" fill="url(#Gradient_prata-479)"/>
+      <path d="M50.28,30.04l-.77,1.33s.09.1.12.13l.8-1.32-.15-.14Z" fill="url(#Gradient_prata-480)"/>
+      <path d="M48.89,32.31l-.9,1.24-2.01,2.87-.27.4.34-.43,2.03-2.76.98-1.29s-.15-.02-.16-.02Z" fill="url(#Gradient_prata-481)"/>
+      <polygon points="45.94 36.44 45.57 36.98 45.58 36.97 45.7 36.82 45.94 36.44" fill="url(#Gradient_prata-482)"/>
+      <polygon points="45.7 36.82 45.62 36.95 45.64 36.93 46 36.41 45.7 36.82" fill="url(#Gradient_prata-483)"/>
+      <polygon points="45.58 36.97 45.62 36.95 45.7 36.82 45.58 36.97" fill="url(#Gradient_prata-484)"/>
+      <path d="M49.61,32.5l-.99,1.08-2.52,2.81-.34.43.43-.46,2.5-2.67,1.07-1.12c-.05-.02-.1-.04-.15-.06Z" fill="url(#Gradient_prata-485)"/>
+      <polygon points="51.44 30.2 49.99 32.07 50.07 32.23 51.59 30.37 51.44 30.2" fill="url(#Gradient_prata-486)"/>
+      <polygon points="46.09 36.42 45.68 36.9 45.72 36.87 45.77 36.83 46.09 36.42" fill="url(#Gradient_prata-487)"/>
+      <polygon points="45.77 36.82 45.74 36.86 45.81 36.81 46.18 36.39 45.77 36.82" fill="url(#Gradient_prata-488)"/>
+      <polygon points="45.73 36.87 45.74 36.86 45.76 36.83 45.73 36.87" fill="url(#Gradient_prata-489)"/>
+      <polygon points="49.23 33.92 53 30.62 52.86 30.41 49.14 33.8 46.24 36.45 46.05 36.64 46.18 36.56 46.35 36.43 49.23 33.92" fill="url(#Gradient_prata-490)"/>
+      <polygon points="46.02 36.65 46.05 36.64 46.23 36.46 46.02 36.65" fill="url(#Gradient_prata-491)"/>
+      <polygon points="46.17 36.58 46.2 36.56 46.34 36.44 46.17 36.58" fill="url(#Gradient_prata-492)"/>
+      <polygon points="50.13 34.1 54.83 30.97 54.65 30.64 50.03 33.92 46.71 36.28 47.09 36.11 47.91 35.59 50.13 34.1" fill="url(#Gradient_prata-493)"/>
+      <polygon points="47.09 36.11 47.21 36.04 47.91 35.55 47.09 36.11" fill="url(#Gradient_prata-494)"/>
+      <polygon points="57.39 31.4 57.19 30.89 51.29 34.03 49.04 35.23 49.06 35.26 49.42 35.27 51.4 34.31 57.39 31.4" fill="url(#Gradient_prata-495)"/>
+      <polygon points="60.53 32.24 60.36 31.61 52.88 34.39 50.22 35.39 50.26 35.4 50.3 35.42 50.65 35.44 50.69 35.47 50.78 35.47 52.98 34.75 60.53 32.24" fill="url(#Gradient_prata-496)"/>
+      <polygon points="63.09 33.99 62.97 33.24 54.19 35.21 52.24 35.64 52.24 35.65 52.56 35.66 52.6 35.7 52.95 35.71 52.98 35.74 53.3 35.75 53.34 35.78 53.35 35.78 54.25 35.62 63.09 33.99" fill="url(#Gradient_prata-497)"/>
+      <polygon points="66.49 35.44 56.89 36.23 57.14 36.28 57.45 36.29 57.49 36.33 58.44 36.43 58.47 36.46 58.75 36.47 58.79 36.5 59.07 36.52 59.42 36.59 59.74 36.61 59.77 36.63 66.53 36.34 66.49 35.44" fill="url(#Gradient_prata-498)"/>
+      <polyline points="39.33 33.66 42.51 35.55 42.68 35.65 45.01 36.96 41.71 34.64 31.55 27.92 18.72 19.43 17.96 20.91" fill="url(#Gradient_prata-499)"/>
+      <polyline points="71.29 38.18 71.29 36.51 60.77 36.76" fill="url(#Gradient_prata-500)"/>
+      <g>
+        <path d="M46.42,31.25c.25,0,.47-.21.47-.48s-.2-.48-.47-.48-.47.21-.47.48.21.48.47.48ZM46.42,30.34c.23,0,.43.19.43.44s-.19.44-.43.44-.43-.19-.43-.44.19-.44.43-.44Z" fill="url(#Gradient_prata-501)"/>
+        <path d="M46.42,31.08c.17,0,.31-.14.31-.31s-.14-.31-.31-.31-.31.14-.31.31.14.31.31.31Z" fill="url(#Gradient_prata-502)"/>
+      </g>
+      <path d="M45.78,33.59l-.29,2.8.37-2.83s-.05.02-.08.02Z" fill="url(#Gradient_prata-503)"/>
+      <path d="M45.98,33.52l-.43,2.86.51-2.89s-.05.02-.08.03Z" fill="url(#Gradient_prata-504)"/>
+      <path d="M46.64,33.12l-.14.42-.83,2.87,1.01-3.13.1-.26s-.09.07-.13.1Z" fill="url(#Gradient_prata-505)"/>
+      <path d="M48.39,32.24s-.06,0-.09,0l-.8,1.35-1.6,2.8,1.93-3.16.62-.97s-.04,0-.06,0Z" fill="url(#Gradient_prata-506)"/>
+      <path d="M46.23,33.4l-.65,2.98c.22-.99.44-1.99.65-2.98h0Z" fill="url(#Gradient_prata-507)"/>
+      <path d="M47.48,32.43l-.49,1.12-1.21,2.85,1.45-3.16.44-.92s-.15.09-.18.11Z" fill="url(#Gradient_prata-508)"/>
+      <path d="M47.12,32.75s-.03.03-.05.04l-.22.55-1.12,3.08,1.14-2.89.39-.9s-.09.08-.14.12Z" fill="url(#Gradient_prata-509)"/>
+      <path d="M47.96,32.25l-.57,1.06-1.56,3.09,1.55-2.88.73-1.29c-.05,0-.1,0-.16.01Z" fill="url(#Gradient_prata-510)"/>
+      <path d="M46.39,33.3l-.76,3.11.8-2.96.07-.23s-.08.06-.12.08Z" fill="url(#Gradient_prata-511)"/>
+      <path d="M45.66,33.62s0,0-.01,0h0s-.18,2.79-.18,2.79l.25-2.8s-.03,0-.05.01Z" fill="url(#Gradient_prata-512)"/>
+      <path d="M44.39,34.61l-.48-1.21s-.03-.04-.04-.06h0c-.08-.05-.15-.11-.22-.16l.66,1.49.88,2.01.07.15.1.19-.1-.26-.86-2.14h0s0,0,0,0h0Z" fill="url(#Gradient_prata-513)"/>
+      <path d="M44.88,35.11l-.41-1.57s-.1-.04-.15-.06l.48,1.66.48,1.64.1.31-.07-.31-.43-1.67h0s0,0,0,0h0s0,0,0,0Z" fill="url(#Gradient_prata-514)"/>
+      <path d="M45.37,36.78l-.22-1.53h0s-.24-1.64-.24-1.64c-.04,0-.08,0-.12-.01l.29,1.67.26,1.53.06.3-.04-.31Z" fill="url(#Gradient_prata-515)"/>
+      <path d="M45.42,36.89h0s-.05-1.55-.05-1.55l-.05-1.67s-.08,0-.11,0l.1,1.68.09,1.44.03.28v-.18s0,0,0,0h0Z" fill="url(#Gradient_prata-516)"/>
+      <path d="M45.65,33.63s-.08.01-.12.02l-.1,2.86v.55s.06-.68.06-.68l.18-2.75h0s0,0-.01,0Z" fill="url(#Gradient_prata-517)"/>
+      <path d="M45.86,33.57l-.35,2.8-.06.65.12-.66.44-2.84s-.1.04-.15.05Z" fill="url(#Gradient_prata-518)"/>
+      <path d="M46.23,33.4l-.64,2.99-.12.63.17-.61.79-3.13c-.06.04-.13.09-.19.13Z" fill="url(#Gradient_prata-519)"/>
+      <path d="M46.77,33.03l-.08.26-1.03,3.13-.18.61.24-.6,1.12-3.07.2-.54c-.09.07-.18.14-.27.21Z" fill="url(#Gradient_prata-520)"/>
+      <path d="M47.88,32.26c-.08.01-.15.03-.22.05l-.43.92-1.47,3.17-.27.62.34-.62,1.55-3.08.54-1.07s-.03,0-.04,0Z" fill="url(#Gradient_prata-521)"/>
+      <path d="M48.46,32.25l-.61.95-1.92,3.15-.37.63h0s.4-.57.4-.57l2.03-3.1.71-1.03c-.2-.03-.19-.03-.25-.04Z" fill="url(#Gradient_prata-522)"/>
+      <path d="M44.28,34.88l-.88-1.78c-.13-.15-.24-.32-.33-.5,0,.02.02.04.02.07,0-.02-.02-.04-.04-.07l-.04.03,1.2,2.29.57,1.1.42.76-.04-.09-.89-1.81h0s0,0,0,0Z" fill="url(#Gradient_prata-523)"/>
+      <path d="M44.78,35.26l-.59-1.8s-.07-.04-.11-.06l.66,1.89.51,1.45.1.28-.07-.23-.5-1.52h0s0,0,0,0h0s0,0,0,0Z" fill="url(#Gradient_prata-524)"/>
+      <path d="M45.05,35.36l-.36-1.8s-.06-.02-.08-.02l.4,1.83.32,1.41.06.24-.04-.22-.3-1.44h0Z" fill="url(#Gradient_prata-525)"/>
+      <path d="M45.7,33.61l-.24,2.77-.03.46.06-.47.3-2.78s-.06.02-.09.02Z" fill="url(#Gradient_prata-526)"/>
+      <path d="M46.15,33.45s-.05.03-.08.04l-.51,2.88-.07.47.11-.47.58-2.93s-.01,0-.02.01Z" fill="url(#Gradient_prata-527)"/>
+      <path d="M46.63,33.13s-.07.05-.11.08l-.07.28-.81,2.93-.11.43.14-.44.86-2.89.12-.41s-.01.01-.02.02Z" fill="url(#Gradient_prata-528)"/>
+      <path d="M47.33,32.55s-.07.06-.1.09l-.35.86-1.17,2.91-.15.42.2-.44,1.22-2.84.47-1.1s-.07.06-.11.09Z" fill="url(#Gradient_prata-529)"/>
+      <path d="M48.13,32.24l-.72,1.28-1.55,2.88-.22.43.29-.47,1.57-2.78.79-1.34c-.05,0-.11,0-.16,0Z" fill="url(#Gradient_prata-530)"/>
+    </g>
+    <g>
+      <rect x="54.09" y="59.31" width="1.71" height="3.39" fill="url(#Gradient_prata-531)"/>
+      <path d="M57.21,56.43v.75h.06c.29.07.5.14.62.22.11.07.2.17.25.29.06.12.09.29.11.5.01.22.02.55.02,1.01v3.79c0,.58-.02.98-.06,1.2-.04.21-.11.37-.22.49-.11.12-.31.22-.6.29h-.05v.76h4.7v-.74h-.06c-.27-.08-.46-.17-.56-.29-.1-.12-.17-.29-.21-.51-.03-.23-.05-.63-.05-1.2v-3.57c0-.27.08-.53.25-.77.17-.24.38-.43.62-.57.24-.13.48-.2.7-.2.17,0,.31.02.42.06.11.04.2.1.28.17.08.07.15.17.21.29.06.12.11.27.15.43.04.17.06.39.08.67.01.28.02.63.02,1.03v2.47c0,.58-.02.99-.06,1.21-.04.21-.1.38-.21.49-.1.12-.29.21-.56.27h-.06v.76h4.67v-.74h-.05c-.22-.07-.39-.14-.49-.23-.1-.08-.17-.18-.22-.31-.05-.13-.08-.3-.09-.51-.01-.22-.02-.54-.02-.96v-3.01c0-.36.01-.62.03-.77.02-.15.06-.29.12-.41s.13-.23.23-.33.22-.2.35-.3c.13-.1.27-.17.41-.22.13-.05.28-.07.43-.07.23,0,.41.04.55.12.14.08.26.21.36.4.1.19.17.45.21.79.04.34.06.79.06,1.35v2.47c0,.58-.02.98-.06,1.21-.04.21-.11.38-.21.5-.1.12-.28.21-.55.27h-.06v.76h4.73v-.74h-.06c-.16-.06-.31-.11-.42-.17-.11-.06-.2-.13-.25-.2-.06-.08-.11-.19-.14-.32-.04-.14-.06-.32-.07-.55-.01-.24-.01-.49-.01-.76v-3.37c0-.57-.05-1.07-.15-1.48-.1-.42-.26-.77-.48-1.05s-.51-.49-.85-.62c-.34-.13-.77-.2-1.29-.2s-1.03.12-1.51.36c-.46.23-1,.62-1.61,1.16-.13-.33-.3-.6-.5-.81-.22-.23-.5-.41-.81-.53-.32-.12-.72-.18-1.19-.18s-.98.11-1.45.33c-.46.21-.75.29-1.32.81h-.1v-.98" fill="url(#Gradient_prata-532)"/>
+      <g>
+        <path d="M17.1,64.84c-.1-.05-.18-.11-.23-.17-.05-.06-.1-.13-.13-.2s-.06-.16-.08-.26-.03-.24-.04-.42c-.01-.19-.01-.45-.01-.79v-6.69h-3.98v.91h.06c.21.05.39.1.52.16.12.05.22.13.29.23.07.1.12.24.15.41.03.18.04.42.04.71v4.28c0,.58-.02.98-.06,1.19-.04.21-.11.37-.22.49-.11.12-.31.21-.61.29l-.06.02v.74h4.82v-.74h-.06c-.17-.05-.31-.1-.41-.15Z" fill="url(#Gradient_prata-533)"/>
+        <rect x="13.84" y="54.14" width="2.77" height="1.76" fill="url(#Gradient_prata-534)"/>
+      </g>
+      <path d="M21.36,65.73c.45,0,1.23-.17,1.73-.41.47-.23.62-.33,1.05-.74l.02,1.16h3.69v-.8c-.27-.06-.54-.26-.65-.35-.1-.08-.18-.18-.22-.28-.05-.11-.08-.27-.09-.46-.01-.2-.02-.54-.02-.99v-10.22h-3.87v.8l.09.02c.36.07.52.14.58.19.1.07.17.16.22.28.05.13.09.32.1.57.02.26.03.72.03,1.35v.67c-.3-.08-.56-.13-.78-.16-.26-.03-.53-.05-.8-.05-.94,0-1.75.19-2.42.55-.67.37-1.19.92-1.53,1.64-.34.71-.51,1.6-.51,2.63,0,1.52.28,2.68.84,3.45.57.78,1.43,1.17,2.56,1.17ZM20.93,60.69c0-.67.07-1.27.2-1.76.13-.48.32-.85.58-1.1.25-.25.54-.37.89-.37.48,0,.82.16,1.05.48.23.33.35.85.35,1.56v2.99c0,.32-.08.61-.24.85-.16.25-.37.43-.6.55-.24.12-.48.18-.73.18-.51,0-.87-.26-1.11-.8-.25-.56-.38-1.43-.38-2.59h0Z" fill="url(#Gradient_prata-535)"/>
+      <path d="M48.74,53.93c.06.08.09.2.12.35.03.16.04.36.05.6,0,.24.01.62.01,1.13v7.01c0,.38,0,.67-.02.88-.01.19-.04.35-.07.45-.04.1-.08.19-.13.26-.05.06-.12.12-.2.17-.09.05-.23.1-.4.14l-.09.02v.8h4.66v-.8l-.09-.02c-.28-.07-.48-.16-.57-.28-.1-.11-.16-.26-.19-.46-.03-.21-.05-.6-.05-1.16v-10.39h-3.87v.8c.24.03.51.18.62.27.09.07.17.15.22.23Z" fill="url(#Gradient_prata-536)"/>
+      <path d="M39.54,61.19c-.91.53-1.37,1.26-1.37,2.19,0,.46.1.87.31,1.22.21.35.52.63.92.83h0s0,0,0,0c.4.19.87.29,1.4.29s1.3-.11,1.78-.33c.46-.21.69-.37,1.18-.83v1.16h3.52v-.8c-.22-.03-.49-.2-.57-.26-.07-.05-.12-.12-.17-.17s-.09-.12-.12-.21c-.03-.09-.06-.24-.08-.45-.02-.21-.03-.52-.03-.91v-3.51c0-.78-.11-1.4-.34-1.85-.23-.45-.58-.79-1.04-.99-.45-.2-1.05-.3-1.79-.3-.29,0-.58.02-.86.06-.28.04-.61.1-.98.19-.36.09-.73.2-1.1.33-.37.13-.84.32-1.39.57l-.07.03v2.12h1.93v-.38c.08-.46.2-.82.35-1.07.15-.25.32-.42.5-.5.19-.09.41-.13.67-.13s.48.06.66.17c.18.11.33.31.44.58.12.29.18.7.18,1.25v.75c-1.73.14-3.05.46-3.91.97ZM43.47,61.34v1.37c0,.25-.07.49-.2.72-.13.23-.32.41-.55.55-.23.14-.48.21-.73.21-.33,0-.59-.09-.78-.26-.18-.17-.27-.42-.27-.76,0-.59.2-1.02.63-1.33h0c.41-.3,1.05-.46,1.9-.5Z" fill="url(#Gradient_prata-537)"/>
+      <path d="M37.23,61.15v-.12c0-.71-.08-1.33-.2-1.83-.12-.49-.31-.94-.56-1.32-.21-.33-.48-.61-.8-.84-.32-.23-.71-.41-1.16-.54h0s0,0,0,0c-.44-.13-.96-.19-1.55-.19h0s-.03,0-.04,0c-.1,0-.21,0-.31,0-.1,0-.2.01-.29.02-.01,0-.03,0-.05,0-.67.07-1.28.24-1.82.52-.72.37-1.29.92-1.68,1.64-.39.72-.59,1.57-.59,2.56,0,1.24.26,2.25.77,3,.12.18.25.35.4.5.76.78,1.91,1.18,3.41,1.18.53,0,1.03-.06,1.49-.17.32-.06.63-.15.89-.26.3-.13.59-.31.9-.53.32-.22.57-.48.85-.81.02-.02.04-.05.06-.07l.04-.04.03-.03v-1.06h-.01s-2.04-.01-2.04-.01v.46c-.02.33-.31.63-.63.72-.29.08-.76.17-1.09.17-.13,0-.24,0-.35-.01-.48-.1-.87-.33-1.14-.68-.14-.18-.26-.41-.35-.67-.12-.45-.18-1-.2-1.58h.01s6.03-.01,6.03-.01ZM32.81,57.43c.47,0,.82.21,1.04.64.18.36.3.89.35,1.57h-2.97c.08-.65.24-1.17.47-1.54.28-.45.64-.67,1.11-.67Z" fill="url(#Gradient_prata-538)"/>
+    </g>
+  </g>
+</svg>
