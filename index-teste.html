@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ideal Metrics</title>
+<title>Ideal Metrics — Integração e Sustentabilidade</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -751,7 +751,6 @@ body>*{position:relative;z-index:1}
   margin-top:50px;
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  /* sao seis posts nesta pagina: a terceira linha fecha igual as outras */
   column-gap:0;   /* o modelo encosta os cartoes: a separacao e o fio de 1px */
 }
 .nt-card{
@@ -770,13 +769,8 @@ body>*{position:relative;z-index:1}
 }
 /* Linha inferior (3-4): fios horizontais de 1px em cima e embaixo */
 .nt-card:nth-child(3),
-.nt-card:nth-child(4),
-.nt-card:nth-child(5),
-.nt-card:nth-child(6){
+.nt-card:nth-child(4){
   border-top:1px solid rgba(20,48,76,.2);
-}
-.nt-card:nth-child(5),
-.nt-card:nth-child(6){
   border-bottom:1px solid rgba(20,48,76,.2);
 }
 /* Separador vertical de 1px centrado no gap de 15px */
@@ -1085,68 +1079,6 @@ body>*{position:relative;z-index:1}
 @media(prefers-reduced-motion:reduce){
   .df-foto,.sv-foto img,.nt-layer{transition:none}}
 
-/* ===== setores de atuacao =====
-   Mesmo idioma do df-: rotulo mono em cima, titulo pequeno, cartoes com a
-   foto no quadro e o texto mono embaixo. Tres colunas em cima de 1100px,
-   duas ate 780px, uma abaixo disso. */
-.st-sec{padding:140px var(--lado) 20px}
-.st-topo{border-top:1px solid rgba(20,48,76,.2);padding-top:12px;margin-bottom:34px}
-.st-rotulo{display:flex;justify-content:space-between;font-family:var(--mono);
-  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
-.st-titulo{margin:0;font-family:var(--mono);font-weight:500;font-size:11px;line-height:1.45;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
-.st-lead{margin:10px 0 44px;font-family:var(--sans);font-weight:500;font-size:22px;
-  line-height:1.35;letter-spacing:-.005em;color:var(--azul);max-width:34ch}
-.st-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 30px}
-.st-card{display:flex;flex-direction:column;gap:12px}
-.st-cab{display:flex;justify-content:space-between;align-items:baseline;
-  border-bottom:1px solid var(--fio);padding-bottom:7px;
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--azul-escuro)}
-.st-quadro{overflow:hidden;background:var(--liga-claro)}
-.st-foto{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;
-  transition:transform .6s cubic-bezier(.4,0,.2,1)}
-.st-card:hover .st-foto{transform:scale(1.04)}
-.st-nome{margin:2px 0 0;font-family:var(--sans);font-weight:500;font-size:19px;
-  line-height:1.15;letter-spacing:-.01em;color:var(--azul)}
-.st-mono{margin:0;font-family:var(--mono);font-size:11px;line-height:1.5;
-  letter-spacing:.02em;color:var(--azul-escuro)}
-@media (max-width:1100px){.st-grade{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:780px){
-  .st-sec{padding-top:80px}
-  .st-grade{grid-template-columns:1fr;gap:34px}
-  .st-lead{font-size:18px;margin-bottom:30px}
-}
-
-/* ===== newsletter e contato ===== */
-.nl-sec{padding:128px var(--lado) 40px}
-.nl-topo{border-top:1px solid rgba(20,48,76,.2);padding-top:12px;margin-bottom:34px}
-.nl-rotulo{display:flex;justify-content:space-between;font-family:var(--mono);
-  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
-.nl-grade{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:60px}
-.nl-bloco h3{margin:0 0 14px;font-family:var(--mono);font-weight:500;font-size:11px;
-  line-height:1.4;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
-.nl-frase{margin:0 0 24px;font-family:var(--sans);font-weight:500;font-size:22px;
-  line-height:1.35;letter-spacing:-.005em;color:var(--azul);max-width:30ch}
-.nl-form{display:flex;gap:0;border-bottom:1px solid rgba(20,48,76,.2);max-width:420px}
-.nl-form input{flex:1;min-width:0;border:0;background:transparent;padding:10px 0;
-  font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--azul);outline:none}
-.nl-form input::placeholder{color:var(--azul-escuro);opacity:.7}
-.nl-form button{border:0;background:transparent;cursor:pointer;padding:10px 0 10px 16px;
-  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--azul);transition:opacity .25s}
-.nl-form button:hover{opacity:.6}
-.nl-lista{list-style:none;margin:0;padding:0}
-.nl-lista li{border-bottom:1px solid var(--fio)}
-.nl-lista a{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
-  padding:14px 0;font-family:var(--mono);font-size:12px;letter-spacing:.06em;
-  color:var(--azul);transition:padding-left .3s cubic-bezier(.4,0,.2,1)}
-.nl-lista a:hover{padding-left:8px}
-.nl-lista .nl-rot{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--azul-escuro)}
-@media (max-width:780px){.nl-grade{grid-template-columns:1fr;gap:44px}
-  .nl-sec{padding-top:70px}.nl-frase{font-size:18px}}
-
 /* ===== barra de topo =====
    Papel, fio de 1px embaixo, logotipo na esquerda e navegacao em mono na
    direita. E a mesma metrica dos rotulos de secao: 10,5px, entreletra
@@ -1317,11 +1249,6 @@ body>*{position:relative;z-index:1}
 .ft-legal{display:flex;align-items:center;gap:14px}
 .ft-mono{height:34px;width:auto;flex:none;display:block;border-radius:2px}
 @media (max-width:880px){.ft-mono{height:28px}}
-
-/* o selo ocupa o vao que sobrava a esquerda dos paragrafos mono */
-.ia-selo{grid-column:1 / 4;align-self:end;width:min(178px,100%);height:auto;
-  margin-top:56px;display:block}
-@media (max-width:780px){.ia-selo{grid-column:1 / -1;width:132px;margin-top:36px}}
 </style>
 </head>
 <body class="carga">
@@ -1533,34 +1460,6 @@ body>*{position:relative;z-index:1}
           </div>
         </div>
       </div>
-      <div class="sv-item">
-        <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="sv-btn-6" aria-expanded="false" aria-controls="sv-panel-6"><span>Apoio técnico</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
-        <div class="sv-panel" id="sv-panel-6" role="region" aria-labelledby="sv-btn-6">
-          <div class="sv-panel-inner">
-            <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/industria-azul-01.webp" alt="" loading="lazy"></figure>
-              <div class="sv-texto">
-              <p class="sv-desc">Avaliações e emissão de laudos para atendimento às Normas Regulamentadoras do trabalho.</p>
-              <a class="sv-more" href="servicos.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="sv-item">
-        <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="sv-btn-7" aria-expanded="false" aria-controls="sv-panel-7"><span>Segurança de alimentos</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
-        <div class="sv-panel" id="sv-panel-7" role="region" aria-labelledby="sv-btn-7">
-          <div class="sv-panel-inner">
-            <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/energia-azul-01.webp" alt="" loading="lazy"></figure>
-              <div class="sv-texto">
-              <p class="sv-desc">Consultoria para as normas e os padrões da gestão de segurança de alimentos, do APPCC à certificação.</p>
-              <a class="sv-more" href="servicos.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
     </div>
     <a class="sv-all" href="servicos.html"><span class="sv-all-base js-scramble">Ver todos os serviços</span><span class="sv-all-hover" aria-hidden="true">Ver todos os serviços</span></a>
@@ -1684,57 +1583,10 @@ body>*{position:relative;z-index:1}
 </section>
 
 <!-- ===== clientes ===== -->
-  <!-- ===== setores de atuacao ===== -->
-  <section class="st-sec" id="setores" aria-labelledby="st-titulo">
-    <div class="st-topo">
-      <div class="st-rotulo"><span>Abrangência</span><span>[IM.5]</span></div>
-    </div>
-    <h2 class="st-titulo" id="st-titulo">Setores de atuação</h2>
-    <p class="st-lead">Atendemos os mais diversos segmentos produtivos.</p>
-    <div class="st-grade">
-      <article class="st-card">
-        <header class="st-cab"><span class="st-num">01</span><span class="st-cat">Manufatura</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/industria-azul-01.webp" alt="Indústria em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Indústria</h3>
-        <p class="st-mono">Manufatura, metalurgia, plásticos e automotivo.</p>
-      </article>
-      <article class="st-card">
-        <header class="st-cab"><span class="st-num">02</span><span class="st-cat">Suprimentos</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/logistica-azul-01.webp" alt="Logística em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Logística</h3>
-        <p class="st-mono">Transporte, armazenagem e cadeia de suprimentos.</p>
-      </article>
-      <article class="st-card">
-        <header class="st-cab"><span class="st-num">03</span><span class="st-cat">Alimentício</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/alimentos-azul-01.webp" alt="Alimentos em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Alimentos</h3>
-        <p class="st-mono">Processamento, distribuição e food service.</p>
-      </article>
-      <article class="st-card">
-        <header class="st-cab"><span class="st-num">04</span><span class="st-cat">Hospitalar</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/saude-azul-01.webp" alt="Saúde em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Saúde</h3>
-        <p class="st-mono">Hospitais, laboratórios e dispositivos médicos.</p>
-      </article>
-      <article class="st-card">
-        <header class="st-cab"><span class="st-num">05</span><span class="st-cat">Digital</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/tecnologia-azul-01.webp" alt="Tecnologia em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Tecnologia</h3>
-        <p class="st-mono">Software, TI e serviços digitais.</p>
-      </article>
-      <article class="st-card">
-        <header class="st-cab"><span class="st-num">06</span><span class="st-cat">Energético</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/energia-azul-01.webp" alt="Energia em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Energia</h3>
-        <p class="st-mono">Petróleo, gás, renováveis e utilities.</p>
-      </article>
-    </div>
-  </section>
-
 <section class="cl-sec" id="clientes" aria-labelledby="cl-titulo-el">
   <div class="cl-topo">
     <div><span>Clientes</span></div>
-    <div aria-hidden="true">[IM.6]</div>
+    <div aria-hidden="true">[IM.5]</div>
   </div>
   <div class="cl-miolo">
     <h2 class="cl-titulo" id="cl-titulo-el">Empresas que confiam</h2>
@@ -1762,7 +1614,7 @@ body>*{position:relative;z-index:1}
 <!-- ===== noticias ===== -->
 <section class="nt-sec" aria-labelledby="nt-rotulo-txt">
   <div class="nt-head">
-    <div class="nt-rotulo"><span id="nt-rotulo-txt">Conteúdo de destaque</span><span class="nt-idx">[IM.7]</span></div>
+    <div class="nt-rotulo"><span id="nt-rotulo-txt">Conteúdo de destaque</span><span class="nt-idx">[IM.6]</span></div>
     <a class="nt-vertodo" href="blog.html">[<span class="nt-vertodo-meio"><span class="nt-vertodo-txt">Ver todo o conteúdo</span><span class="nt-seta" aria-hidden="true"><svg width="15" height="10" viewBox="0 0 15 10" xmlns="http://www.w3.org/2000/svg"><path d="M0 5h13M9 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg><svg width="15" height="10" viewBox="0 0 15 10" xmlns="http://www.w3.org/2000/svg"><path d="M0 5h13M9 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg></span></span>]</a>
   </div>
 
@@ -1813,53 +1665,8 @@ body>*{position:relative;z-index:1}
       </div>
       <a class="nt-card-link" href="blog.html" aria-label="Ler no blog: NBR ISO 37301:2021: elevando padrões de compliance"></a>
     </article>
-    <article class="nt-card" data-nt-camada="0">
-      <div class="nt-btn" aria-hidden="true"><svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><path d="M0 8h19M13 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1"/></svg></div>
-      <span class="nt-num">05</span>
-      <div class="nt-baixo">
-        <span class="nt-cat">Inspeções</span>
-        <h3 class="nt-manchete">A importância da conformidade com os selos de certificação</h3>
-      </div>
-      <a class="nt-card-link" href="blog.html" aria-label="Ler no blog: A importância da conformidade com os selos de certificação"></a>
-    </article>
-    <article class="nt-card" data-nt-camada="1">
-      <div class="nt-btn" aria-hidden="true"><svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><path d="M0 8h19M13 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1"/></svg></div>
-      <span class="nt-num">06</span>
-      <div class="nt-baixo">
-        <span class="nt-cat">Inspeções</span>
-        <h3 class="nt-manchete">Inspeções de fábricas</h3>
-      </div>
-      <a class="nt-card-link" href="blog.html" aria-label="Ler no blog: Inspeções de fábricas"></a>
-    </article>
   </div>
 </section>
-
-  <!-- ===== newsletter e contato ===== -->
-  <section class="nl-sec" aria-labelledby="nl-h">
-    <div class="nl-topo">
-      <div class="nl-rotulo"><span id="nl-h">Contato</span><span>[IM.8]</span></div>
-    </div>
-    <div class="nl-grade">
-      <div class="nl-bloco">
-        <h3>Assine nossa newsletter</h3>
-        <p class="nl-frase">Norma nova, prazo de transição e o que muda na prática, quando sai.</p>
-        <form class="nl-form" action="contato.html" method="get">
-          <label class="so-leitor" for="nl-email">E-mail</label>
-          <input id="nl-email" name="email" type="email" placeholder="E-mail" required>
-          <button type="submit" class="js-scramble">Enviar</button>
-        </form>
-      </div>
-      <div class="nl-bloco">
-        <h3>Entre em contato</h3>
-        <p class="nl-frase">Propostas e atendimento.</p>
-        <ul class="nl-lista">
-          <li><a href="https://wa.me/5511954684086" target="_blank" rel="noopener"><span>WhatsApp</span><span class="nl-rot">contate-nos</span></a></li>
-          <li><a href="mailto:info@cqt-br.com"><span>info@cqt-br.com</span><span class="nl-rot">e-mail</span></a></li>
-          <li><a href="https://www.linkedin.com/company/cqt-br/" target="_blank" rel="noopener"><span>LinkedIn</span><span class="nl-rot">Ideal Metrics</span></a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
 
 <!-- ===== rodape ===== -->
 <footer class="ft-root js-ft-root" aria-label="Rodapé Ideal Metrics">
@@ -2130,25 +1937,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   document.querySelectorAll('.nt-card').forEach(function(c){
     c.addEventListener('mouseenter', function(){ midia.classList.add('nt-zoom'); });
     c.addEventListener('mouseleave', function(){ midia.classList.remove('nt-zoom'); });
-  });
-})();
-</script>
-<script>
-/* acordeao de Servicos: nao havia script (10/09/2026) */
-(function(){
-  var itens = [].slice.call(document.querySelectorAll('.sv-item'));
-  if (!itens.length) return;
-  function abre(item, sim){
-    item.classList.toggle('sv-open', sim);
-    var b = item.querySelector('.sv-item-title'); if (b) b.setAttribute('aria-expanded', sim ? 'true' : 'false');
-  }
-  itens.forEach(function(item){
-    var b = item.querySelector('.sv-item-title'); if (!b) return;
-    b.addEventListener('click', function(){
-      var aberto = item.classList.contains('sv-open');
-      itens.forEach(function(o){ if (o !== item) abre(o, false); });
-      abre(item, !aberto);
-    });
   });
 })();
 </script>
