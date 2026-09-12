@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 486.88 486.88">
-  <defs>
-    <linearGradient id="linear-gradient" x1="-342.32" y1="-1456" x2="-79.74" y2="-1771.55" gradientTransform="translate(539.04 -1269.4691) scale(1 -1)" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#35608a"/>
-      <stop offset=".2" stop-color="#658daf"/>
-      <stop offset=".5" stop-color="#9dc0d6"/>
-      <stop offset=".8" stop-color="#658daf"/>
-      <stop offset="1" stop-color="#35608a"/>
-    </linearGradient>
-  </defs>
+<svg class="fav" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 486.88 486.88"><style>.fav *[fill="#14304c"]{stroke:#14304c;stroke-width:1.8;stroke-linejoin:round}@media (prefers-color-scheme:dark){.fav *[fill="#14304c"]{fill:#f7fafe;stroke:#f7fafe}}</style>
   <g id="Layer_1-2" data-name="Layer 1">
-    <path d="M245.58,240.39c-.64-.44-1.25-.7-1.83-.77s-1.14.05-1.68.34c-.54.3-1.07.84-1.61,1.61-.43.62-.76,1.13-1,1.54l6.03,4.17.8-1.17c.42-.6.71-1.12.89-1.55.17-.43.25-.88.23-1.37-.02-.48-.17-.96-.46-1.45-.29-.48-.75-.93-1.36-1.36h0Z" fill="url(#linear-gradient)"/>
-    <rect width="486.88" height="486.88" fill="none"/>
+    
     <g>
       <path d="M282.53,242.39l-8.67,11.4-18.24,24.63,22.12-28.11,6.23-7.59c-.48-.12-.95-.24-1.43-.34Z" fill="#14304c"/>
       <path d="M286.92,243.68c-.24-.09-.47-.18-.71-.27l-7.03,8.04-22.98,27.1,22.44-24.97,8.88-9.66c-.2-.08-.4-.16-.6-.24Z" fill="#14304c"/>
