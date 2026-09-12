@@ -50,7 +50,7 @@ body>*{position:relative;z-index:1}
 /* ---- loader do modelo: linhas que cruzam, círculo, logo, e sobe ---- */
 .abertura{position:fixed;inset:0;z-index:3000;background:var(--fundo);
   display:flex;align-items:center;justify-content:center;overflow:hidden;
-  transition:transform .8s cubic-bezier(.76,0,.24,1)}
+  transition:opacity .9s ease}
 /* os tracos vem das bordas e PARAM antes do logo: a folga sai da largura
    real do logo (--logo-l) e da razao 2,527 do lockup prata, mais uma respiracao */
 .abertura{--logo-l:min(240px,50vw);
@@ -81,7 +81,7 @@ body>*{position:relative;z-index:1}
 .abertura.arma .l-v{transform:scaleY(1)}
 .abertura.arma .l-h{transform:scaleX(1)}
 .abertura.arma img{opacity:1}
-.pronta .abertura{transform:translateY(-101%)}
+.pronta .abertura{opacity:0;pointer-events:none}
 .abertura.fora{display:none}
 
 /* ---- placa fixa do logo + aba MENU ---- */
