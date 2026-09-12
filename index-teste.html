@@ -20,8 +20,8 @@
      #315275  a cor cheia da liga, e o que era o --azul-escuro
      #336699  o azul do corpo da liga
      #9FC5F0  o claro
-     #F7FAFE  o papel, e o que era o --mercurio                     */
-  --azul:#14304C;--azul-escuro:#315275;--mercurio:#F7FAFE;--branco:#FFFFFF;
+     #FAF9F5  o papel, e o que era o --mercurio                     */
+  --azul:#14304C;--azul-escuro:#315275;--mercurio:#FAF9F5;--branco:#FFFFFF;
   --liga-corpo:#336699;--liga-claro:#9FC5F0;--perola:#F2F1F5;
   --fio:rgba(20,48,76,.2);--sans:'IBM Plex Sans Condensed', sans-serif;--mono:'IBM Plex Mono', monospace;
   --lado:clamp(28px,4vw,64px);
@@ -90,13 +90,13 @@ body>*{position:relative;z-index:1}
   overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 @media (max-width:880px){.placa{top:18px}.placa img{height:34px}}
 .aba-menu{position:fixed;top:15px;right:var(--lado);z-index:900;
-  background:rgba(247,250,254,.78);-webkit-backdrop-filter:blur(7px);
+  background:rgba(250,249,245,.78);-webkit-backdrop-filter:blur(7px);
   backdrop-filter:blur(7px);color:var(--azul);
   border:1px solid rgba(20,48,76,.16);cursor:pointer;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;padding:12px 20px;
   transition:background .45s cubic-bezier(.4,0,.2,1),border-color .45s cubic-bezier(.4,0,.2,1)}
-.aba-menu:hover{background:rgba(247,250,254,.94);border-color:rgba(20,48,76,.3)}
+.aba-menu:hover{background:rgba(250,249,245,.94);border-color:rgba(20,48,76,.3)}
 .veu-menu{position:fixed;inset:0;z-index:950;background:var(--fundo);
   color:var(--mercurio);display:flex;flex-direction:column;justify-content:flex-start;
   padding:132px var(--lado) 0;gap:0;transform:translateY(-101%);
@@ -106,14 +106,14 @@ body>*{position:relative;z-index:1}
 /* cada item: indice mono a esquerda, nome a direita, fio embaixo. E o
    mesmo idioma dos rotulos de secao, na escala dos titulos. */
 .veu-menu a{counter-increment:vm;display:flex;align-items:baseline;gap:22px;
-  padding:15px 0;border-bottom:1px solid rgba(247,250,254,.20);
+  padding:15px 0;border-bottom:1px solid rgba(250,249,245,.20);
   font-family:var(--sans);font-weight:500;
   font-size:clamp(22px,2.4vw,34px);line-height:1.2;letter-spacing:-.012em;
   transition:padding-left .35s cubic-bezier(.4,0,.2,1),color .35s}
 .veu-menu a::before{content:"[ " counter(vm,decimal-leading-zero) " ]";
   font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;
-  color:rgba(247,250,254,.55);flex:none;min-width:64px}
-.veu-menu a:first-of-type{border-top:1px solid rgba(247,250,254,.20)}
+  color:rgba(250,249,245,.55);flex:none;min-width:64px}
+.veu-menu a:first-of-type{border-top:1px solid rgba(250,249,245,.20)}
 .veu-menu a:hover{color:var(--branco);padding-left:10px}
 @media (max-width:880px){
   .veu-menu{padding-top:104px}
@@ -1079,7 +1079,7 @@ body>*{position:relative;z-index:1}
 
 .barra{position:fixed;top:26px;left:0;right:0;z-index:900;height:76px;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 var(--lado);background:rgba(247,250,254,.78);
+  padding:0 var(--lado);background:rgba(250,249,245,.78);
   -webkit-backdrop-filter:blur(20px) saturate(150%);
   backdrop-filter:blur(20px) saturate(150%);
   border-bottom:1px solid rgba(20,48,76,.16)}
@@ -1163,17 +1163,17 @@ body>*{position:relative;z-index:1}
    que estao no acordeao e nos setores. */
 .qc-col::before{content:"";position:absolute;inset:0;z-index:1;
   background:linear-gradient(to bottom,
-    rgba(247,250,254,.90) 0%,
-    rgba(247,250,254,.34) 26%,
-    rgba(247,250,254,.20) 52%,
-    rgba(247,250,254,.92) 100%);
+    rgba(250,249,245,.90) 0%,
+    rgba(250,249,245,.34) 26%,
+    rgba(250,249,245,.20) 52%,
+    rgba(250,249,245,.92) 100%);
   transition:background .5s cubic-bezier(.4,0,.2,1)}
 .qc-col:hover::before{
   background:linear-gradient(to bottom,
-    rgba(247,250,254,.84) 0%,
-    rgba(247,250,254,.20) 26%,
-    rgba(247,250,254,.08) 52%,
-    rgba(247,250,254,.88) 100%)}
+    rgba(250,249,245,.84) 0%,
+    rgba(250,249,245,.20) 26%,
+    rgba(250,249,245,.08) 52%,
+    rgba(250,249,245,.88) 100%)}
 .qc-conteudo{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
   justify-content:space-between;padding:58px 30px 54px;color:var(--azul)}
 .qc-indice{display:block;margin-bottom:14px;font-family:var(--mono);font-weight:500;

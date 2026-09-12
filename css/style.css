@@ -37,14 +37,14 @@ img { max-width: 100%; display: block; }
   --color-text: #14304C;   /* era #14304C (cinza-escuro); titulos em preto a pedido */
   --color-text-light: #315275;
   --color-bg: #FFFFFF;
-  --color-bg-alt: #F7FAFE;
+  --color-bg-alt: #FAF9F5;
   --color-white: #FFFFFF;
 
   /* O vocabulario da home, para que o CSS portado de la funcione aqui sem
      reescrita. Sao os mesmos valores, com os nomes que a home usa. */
   --azul: #14304C;
   --azul-escuro: #315275;
-  --mercurio: #F7FAFE;
+  --mercurio: #FAF9F5;
   --branco: #FFFFFF;
   --liga-corpo: #336699;
   --liga-claro: #9FC5F0;
