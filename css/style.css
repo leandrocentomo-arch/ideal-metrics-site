@@ -1007,7 +1007,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ===== marcas oficiais =====
-   O monograma tem placa #F7FAFE no proprio arquivo, entao sobre o rodape
+   O monograma tem placa #FAF9F5 no proprio arquivo, entao sobre o rodape
    azul ele le como um carimbo claro, e e assim que deve aparecer. */
 .ft-legal{display:flex;align-items:center;gap:14px}
 .ft-mono{height:34px;width:auto;flex:none;display:block;border-radius:2px}
