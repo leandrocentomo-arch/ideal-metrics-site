@@ -1268,11 +1268,16 @@ body>*{position:relative;z-index:1}
    14/09/2026: entra uma camada de coluna inteira, que CLAREIA em cima e
    ESCURECE embaixo. Na aresta de cima o creme e CHEIO: a primeira linha de
    pixel e exatamente #FAF9F5, a mesma cor do fundo da secao, entao nao existe
-   costura entre pagina e foto. Dai cai a 70% aos 12%, 44% aos 28%, 20% aos
-   42% e zero aos 60% da altura; a tinta so entra depois, do zero aos 64%, e
-   chega a 34% na base. A rampa clara e longa de proposito: pega o indice, o
-   titulo e a lista, e o escuro fica reservado ao pe, onde ele serve de cama
-   para o vidro do texto e do botao. O objetivo do pe escuro e dar cama para
+   costura entre pagina e foto. Dai o creme cai devagar, passando por .76, .56,
+   .38, .24, .13, .06 e .02, e morre aos 72%; a tinta nasce EXATAMENTE nos
+   mesmos 72% e sobe por .04, .11 e .21 ate 34% na base.
+   As duas paradas a zero no MESMO ponto nao sao detalhe: com a faixa morta que
+   havia antes (creme acabando aos 60%, tinta entrando aos 64%) o olho lia uma
+   linha ali, porque eram 4% de altura sem nada acontecendo entre duas rampas
+   ativas. E as duas pontas chegam quase paradas de proposito: rampa ingreme
+   encostando em rampa ingreme faz um joelho visivel, mesmo sem faixa morta.
+   A rampa clara e longa: pega o indice, o titulo e a lista, e o escuro fica
+   reservado ao pe, onde serve de cama para o vidro do texto e do botao. O objetivo do pe escuro e dar cama para
    o vidro do texto e do botao.
    Fica no z-index 1, entre a foto (0) e o conteudo (2). Duas consequencias:
    o escrito nao escurece junto, e, como a camada e pintada ANTES, ela entra no
@@ -1284,10 +1289,13 @@ body>*{position:relative;z-index:1}
    a zero de cada lado, cada metade morre na propria cor e o meio fica limpo. */
 .qc-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(to bottom,
-    rgba(250,249,245,1) 0%, rgba(250,249,245,.70) 12%,
-    rgba(250,249,245,.44) 28%, rgba(250,249,245,.20) 42%,
-    rgba(250,249,245,.06) 52%, rgba(250,249,245,0) 60%,
-    rgba(20,48,76,0) 64%, rgba(20,48,76,.14) 78%, rgba(20,48,76,.34) 100%)}
+    rgba(250,249,245,1) 0%, rgba(250,249,245,.76) 9%,
+    rgba(250,249,245,.56) 19%, rgba(250,249,245,.38) 30%,
+    rgba(250,249,245,.24) 40%, rgba(250,249,245,.13) 50%,
+    rgba(250,249,245,.06) 59%, rgba(250,249,245,.02) 66%,
+    rgba(250,249,245,0) 72%, rgba(20,48,76,0) 72%,
+    rgba(20,48,76,.04) 79%, rgba(20,48,76,.11) 86%,
+    rgba(20,48,76,.21) 93%, rgba(20,48,76,.34) 100%)}
 /* 12/09/2026: saiu a tarja escura atras das linhas escritas (lista e rodape).
    14/09/2026: ela volta, em creme #FAF9F5 a 60% (40% de transparência) na lista e no rodapé,
    e a 70% (30% de transparência) no fundo do botão. O grifo e por LINHA ESCRITA,
