@@ -1261,9 +1261,12 @@ body>*{position:relative;z-index:1}
 /* 12/09/2026: o veu saiu inteiro. As quatro fotos ficam so no efeito Bayer
    original, sem nenhuma camada de papel por cima, no repouso e no hover.
    O historico das seis voltas de esbranquicamento fica no git. */
-/* 12/09/2026: saiu tambem a tarja atras das linhas escritas (lista e rodape).
-   Os <span> continuam na marcacao, sem pintura: a letra cai direto sobre a
-   foto, na cor de tinta que a coluna ja define. */
+/* 12/09/2026: saiu a tarja escura atras das linhas escritas (lista e rodape).
+   14/09/2026: ela volta, em creme #FAF9F5, o mesmo do fundo do site. A lista
+   ganha UMA placa, de largura fit-content, para a bolinha ficar dentro dela e
+   para a placa nao virar faixa de coluna inteira; o rodape pinta o proprio
+   <span>, com box-decoration-break:clone, porque a frase quebra em duas linhas
+   em tres das quatro colunas. O botao acompanha: fundo creme no repouso. */
 .qc-conteudo{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
   justify-content:space-between;padding:58px 30px 76px;color:var(--azul)}
 .qc-indice{display:block;margin-bottom:14px;font-family:var(--mono);font-weight:500;
@@ -1280,10 +1283,12 @@ body>*{position:relative;z-index:1}
   opacity:.18;white-space:nowrap;pointer-events:none;z-index:2;
   transition:opacity .5s cubic-bezier(.4,0,.2,1)}
 .qc-col:hover .qc-vertical{opacity:.34}
-.qc-lista{list-style:none;margin:0 0 18px;padding:0;
+.qc-lista{list-style:none;margin:0 0 18px;padding:10px 14px;
+  width:fit-content;max-width:100%;background:var(--mercurio);
   opacity:0;transform:translateY(8px);
   transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1)}
 .qc-col:hover .qc-lista,.qc-col:focus-within .qc-lista{opacity:1;transform:none}
+.qc-lista li:last-child{margin-bottom:0}
 .qc-lista li{display:block;margin-bottom:7px;
   font-family:var(--mono);font-size:10.5px;line-height:1.4;letter-spacing:.06em;
   color:var(--azul-escuro)}
@@ -1292,7 +1297,7 @@ body>*{position:relative;z-index:1}
 .qc-cta{display:inline-block;width:fit-content;border:1px solid rgba(20,48,76,.42);
   border-radius:3px;padding:9px 20px;font-family:var(--mono);font-size:10.5px;
   font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--azul);
-  background:transparent;
+  background:var(--mercurio);
   transition:background .45s cubic-bezier(.4,0,.2,1),color .45s cubic-bezier(.4,0,.2,1),
              border-color .45s cubic-bezier(.4,0,.2,1)}
 .qc-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
@@ -1300,6 +1305,8 @@ body>*{position:relative;z-index:1}
   display:block;
   font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
+.qc-rodape span{background:var(--mercurio);padding:3px 8px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
 .qc-rodape svg{display:inline-block;vertical-align:-2px;margin-right:4px;width:12px;height:12px;fill:none;stroke:currentColor;
   stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 @media (prefers-reduced-motion:reduce){
