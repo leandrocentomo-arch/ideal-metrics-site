@@ -1196,10 +1196,11 @@ body>*{position:relative;z-index:1}
    pagina enquanto o contorno aparece. Chapado de proposito, alias: o pedaco de
    baixo da caixa fica sobre a foto, e com fundo aberto a trama Bayer passaria
    por tras do logo.
-   O FIO E O `var(--fio)` DA CASA, nao um valor proprio: rgba(20,48,76,.2)
-   aparece 22 vezes neste arquivo, 12 pela variavel e 10 escrita a mao, e todas
-   as linhas do site tem 1px. Usando o token, a caixa acompanha se o fio da casa
-   mudar um dia. Quem alinha ao grid passa a ser a placa, que nasce em
+   14/09, fim da tarde: SAIU O CONTORNO. A caixa ficou sem linha nenhuma, so o
+   bloco de creme de canto vivo. Dentro do cabecalho ele desaparece, porque a
+   barra ja e creme; o que se ve e o pedaco que desce sobre a foto, um retangulo
+   de papel recortado na imagem. O hover, que estava na linha, voltou para o
+   fundo: creme -> branco. Quem alinha ao grid passa a ser a placa, que nasce em
    --lado como o resto da pagina; o logo fica 22px para dentro dela.
    A ancora vertical e `align-self:flex-start` com `margin-top:-26px`, que e
    exatamente o `top` da barra: a aresta de cima cai em y=0. A altura faz o
@@ -1211,12 +1212,12 @@ body>*{position:relative;z-index:1}
    para 980, para a ordem continuar abertura > menu > barra > tarja. */
 .barra-marca{display:flex;align-items:center;position:relative;z-index:1;
   align-self:flex-start;margin-top:-26px;
-  padding:24px 18px 28px;border:1px solid var(--fio);border-radius:0;
+  padding:24px 18px 28px;border-radius:0;
   /* creme puro, a MESMA cor da pagina. NAO usar var(--papel): essa variavel nao
      existe neste site, o #F7FAFE foi aposentado em 12/09. */
   background:var(--mercurio);
-  transition:border-color .45s cubic-bezier(.4,0,.2,1)}
-.barra-marca:hover{border-color:rgba(20,48,76,.55)}
+  transition:background .45s cubic-bezier(.4,0,.2,1)}
+.barra-marca:hover{background:var(--branco)}
 .barra-marca img{height:51px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca img{height:41px}
