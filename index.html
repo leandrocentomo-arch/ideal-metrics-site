@@ -48,9 +48,17 @@ body::before{content:"";position:fixed;inset:0 var(--lado);z-index:0;pointer-eve
 body>*{position:relative;z-index:1}
 
 /* ---- loader do modelo: linhas que cruzam, círculo, logo, e sobe ---- */
-.abertura{position:fixed;inset:0;z-index:3000;background:var(--fundo);
+.abertura{position:fixed;inset:0;z-index:3000;
+  background:rgba(51,102,153,.8);
+  -webkit-backdrop-filter:blur(30px) saturate(150%);
+  backdrop-filter:blur(30px) saturate(150%);
+  box-shadow:inset 0 -1px 0 rgba(255,255,255,.35);
   display:flex;align-items:center;justify-content:center;overflow:hidden;
   transition:transform .8s cubic-bezier(.76,0,.24,1)}
+/* sem desfoque nao ha vidro: ali a tinta fecha, senao a home apareceria nitida
+   por tras da abertura. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .abertura{background:var(--fundo)} }
 /* os tracos vem das bordas e PARAM antes do logo: a folga sai da largura
    real do logo (--logo-l) e da razao 2,527 do lockup prata, mais uma respiracao */
 .abertura{--logo-l:min(240px,50vw);
