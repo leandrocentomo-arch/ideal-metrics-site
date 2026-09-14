@@ -1262,7 +1262,11 @@ body>*{position:relative;z-index:1}
    e a 70% (30% de transparência) no fundo do botão. O grifo e por LINHA ESCRITA,
    nao uma caixa em volta do bloco: quem pinta e o <span> de cada linha, com
    box-decoration-break:clone para a frase que quebra em duas. A bolinha da
-   lista fica fora do grifo de proposito, ela nao e texto. O botao acompanha:
+   lista fica fora do grifo de proposito, ela nao e texto. Os tres sao de VIDRO,
+   na receita do botao «Contato» da barra: o desfoque do que esta atras mais o
+   brilho de 1px na aresta de cima, sem sombra. O desfoque do texto e menor que
+   o do botao, 10 contra 14 px, porque a tarja da linha tem metade da altura.
+   O botao acompanha:
    fundo creme a 50% no repouso, azul no hover. */
 .qc-conteudo{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
   justify-content:space-between;padding:58px 30px 76px;color:var(--azul)}
@@ -1288,6 +1292,9 @@ body>*{position:relative;z-index:1}
   font-family:var(--mono);font-size:10.5px;line-height:1.4;letter-spacing:.06em;
   color:var(--azul-escuro)}
 .qc-lista li span{background:rgba(250,249,245,.6);padding:2px 7px;
+  -webkit-backdrop-filter:blur(10px) saturate(170%);
+  backdrop-filter:blur(10px) saturate(170%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -1px 0 rgba(20,48,76,.05);
   -webkit-box-decoration-break:clone;box-decoration-break:clone}
 .qc-lista li::before{content:"";display:inline-block;vertical-align:middle;margin-right:10px;width:4px;height:4px;border-radius:50%;
   background:#336699;flex:none}
@@ -1307,7 +1314,7 @@ body>*{position:relative;z-index:1}
 /* navegador sem backdrop-filter nao pode ficar com um botao translucido sem
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .qc-cta{background:rgba(250,249,245,.92)} }
+  .qc-cta,.qc-lista li span,.qc-rodape span{background:rgba(250,249,245,.92)} }
 .qc-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
 .qc-rodape{position:absolute;left:30px;right:30px;bottom:16px;z-index:2;margin:0;line-height:1.95;
@@ -1315,6 +1322,9 @@ body>*{position:relative;z-index:1}
   font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
 .qc-rodape span{background:rgba(250,249,245,.6);padding:3px 8px;
+  -webkit-backdrop-filter:blur(10px) saturate(170%);
+  backdrop-filter:blur(10px) saturate(170%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -1px 0 rgba(20,48,76,.05);
   -webkit-box-decoration-break:clone;box-decoration-break:clone}
 .qc-rodape svg{display:inline-block;vertical-align:-2px;margin-right:4px;width:12px;height:12px;fill:none;stroke:currentColor;
   stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
