@@ -1262,7 +1262,8 @@ body>*{position:relative;z-index:1}
    original, sem nenhuma camada de papel por cima, no repouso e no hover.
    O historico das seis voltas de esbranquicamento fica no git. */
 /* 12/09/2026: saiu a tarja escura atras das linhas escritas (lista e rodape).
-   14/09/2026: ela volta, em creme #FAF9F5 a 60% (40% de transparência). O grifo e por LINHA ESCRITA,
+   14/09/2026: ela volta, em creme #FAF9F5 a 60% (40% de transparência) na lista e no rodapé,
+   e a 70% (30% de transparência) no fundo do botão. O grifo e por LINHA ESCRITA,
    nao uma caixa em volta do bloco: quem pinta e o <span> de cada linha, com
    box-decoration-break:clone para a frase que quebra em duas. A bolinha da
    lista fica fora do grifo de proposito, ela nao e texto. O botao acompanha:
@@ -1297,7 +1298,7 @@ body>*{position:relative;z-index:1}
 .qc-cta{display:inline-block;width:fit-content;border:1px solid rgba(20,48,76,.42);
   border-radius:3px;padding:9px 20px;font-family:var(--mono);font-size:10.5px;
   font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--azul);
-  background:rgba(250,249,245,.6);
+  background:rgba(250,249,245,.7);
   transition:background .45s cubic-bezier(.4,0,.2,1),color .45s cubic-bezier(.4,0,.2,1),
              border-color .45s cubic-bezier(.4,0,.2,1)}
 .qc-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
