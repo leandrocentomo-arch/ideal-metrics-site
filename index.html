@@ -1266,9 +1266,9 @@ body>*{position:relative;z-index:1}
    Bayer original, sem nenhuma camada clara por cima. O historico das seis
    voltas de esbranquicamento fica no git.
    14/09/2026: entra uma camada de coluna inteira, que CLAREIA em cima e
-   ESCURECE embaixo. Na aresta de cima o creme sai em 92%, praticamente a cor da
-   pagina: a secao toda tem fundo --mercurio e a tira comecava nele com uma
-   costura dura, que agora some. Dai cai a 70% aos 12%, 44% aos 28%, 20% aos
+   ESCURECE embaixo. Na aresta de cima o creme e CHEIO: a primeira linha de
+   pixel e exatamente #FAF9F5, a mesma cor do fundo da secao, entao nao existe
+   costura entre pagina e foto. Dai cai a 70% aos 12%, 44% aos 28%, 20% aos
    42% e zero aos 60% da altura; a tinta so entra depois, do zero aos 64%, e
    chega a 34% na base. A rampa clara e longa de proposito: pega o indice, o
    titulo e a lista, e o escuro fica reservado ao pe, onde ele serve de cama
@@ -1284,7 +1284,7 @@ body>*{position:relative;z-index:1}
    a zero de cada lado, cada metade morre na propria cor e o meio fica limpo. */
 .qc-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(to bottom,
-    rgba(250,249,245,.92) 0%, rgba(250,249,245,.70) 12%,
+    rgba(250,249,245,1) 0%, rgba(250,249,245,.70) 12%,
     rgba(250,249,245,.44) 28%, rgba(250,249,245,.20) 42%,
     rgba(250,249,245,.06) 52%, rgba(250,249,245,0) 60%,
     rgba(20,48,76,0) 64%, rgba(20,48,76,.14) 78%, rgba(20,48,76,.34) 100%)}
