@@ -1186,9 +1186,24 @@ body>*{position:relative;z-index:1}
   .barra{background:var(--mercurio)} }
 /* A marca fica solta sobre a barra, sem fundo nenhum. Rolando, ela
    recolhe de 52 para 42px, junto com a barra que fica mais discreta. */
-.barra-marca{display:flex;align-items:center;
-  transition:opacity .45s cubic-bezier(.4,0,.2,1)}
-.barra-marca:hover{opacity:.72}
+/* 14/09/2026: a marca ganha placa de vidro e VAZA o cabecalho. Quem alinha ao
+   grid passa a ser a placa, que nasce em --lado como o resto da pagina; o logo
+   fica 20px para dentro dela. A placa e mais alta que a barra (78 contra 76) e
+   ainda desce 12px, entao cruza o fio de baixo e sobra 13px para fora. E ai que
+   o vidro aparece: dentro da barra o desfoque quase nao rende, porque o fundo
+   ali ja e a propria barra, tambem desfocada; fora dela ha a pagina para
+   borrar. */
+.barra-marca{display:flex;align-items:center;position:relative;z-index:1;
+  padding:16px 20px 18px;border-radius:3px;
+  background:rgba(250,249,245,.7);
+  -webkit-backdrop-filter:blur(14px) saturate(170%);
+  backdrop-filter:blur(14px) saturate(170%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(20,48,76,.05);
+  transform:translateY(12px);
+  transition:background .45s cubic-bezier(.4,0,.2,1)}
+.barra-marca:hover{background:rgba(250,249,245,.88)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .barra-marca{background:rgba(250,249,245,.94)} }
 .barra-marca img{height:44px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca img{height:36px}
