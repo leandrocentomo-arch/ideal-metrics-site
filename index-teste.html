@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ideal Metrics</title>
+<title>Ideal Metrics · teste de abertura</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -1450,6 +1450,117 @@ body>*{position:relative;z-index:1}
 .ia-selo{grid-column:1 / 4;align-self:end;width:min(178px,100%);height:auto;
   margin-top:56px;display:block}
 @media (max-width:780px){.ia-selo{grid-column:1 / -1;width:132px;margin-top:36px}}
+
+/* ===== TESTE: a abertura no desenho do index-antigo =====
+   La a peca e a `.services-hero`: UMA foto ancorada a direita, com 70% da
+   largura e `contain`, e por cima quatro colunas que sao VEUS TRANSLUCIDOS,
+   cada uma com o seu degrade, mais uma demao que escurece de cima para baixo.
+   O escrito e branco, com titulo em duas linhas, barra de acento, palavra
+   vertical, lista que so aparece no hover, botao de contorno e um rodape
+   pequeno com seta.
+   O que muda aqui e a TINTA: no antigo os veus eram azuis de fora da paleta
+   (rgba(50,90,150), rgba(125,175,232)...). Aqui as quatro paradas vem da liga
+   da casa, #14304C -> #315275 -> #336699 -> #A3B5C8, com os MESMOS alfas do
+   antigo, entao a graduacao escuro-para-claro entre as colunas e a mesma e a
+   cor passa a ser a da marca. O acento e as bolinhas, que la eram vermelhos,
+   viram creme. ===== */
+.sh-tira{display:flex;width:100%;height:min(560px,40vw);overflow:hidden;
+  position:relative;background:var(--mercurio)}
+.sh-foto{position:absolute;top:0;right:0;height:100%;width:auto;max-width:76%;
+  object-fit:cover;object-position:right center;z-index:0;pointer-events:none;
+  /* a aresta esquerda DISSOLVE. No antigo o arquivo era um PNG ja recortado e
+     acabava em nada; aqui e um WebP retangular, e a linha reta no meio da tira
+     aparece por baixo dos veus como um degrau de tom. 18% de rampa resolve. */
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 18%)}
+.sh-col{position:relative;flex:1;overflow:hidden;min-width:0;z-index:1;
+  border-right:1px solid rgba(250,249,245,.14);
+  transition:flex .5s cubic-bezier(.4,0,.2,1);
+  animation:qcEntra .7s cubic-bezier(.25,.46,.45,.94) both}
+.sh-col:last-child{border-right:none}
+.sh-col:nth-child(2){animation-delay:.10s}
+.sh-col:nth-child(3){animation-delay:.25s}
+.sh-col:nth-child(4){animation-delay:.40s}
+.sh-col:nth-child(5){animation-delay:.55s}
+.sh-col:hover{flex:1.55}
+.sh-col--carbono{background:linear-gradient(160deg,rgba(20,48,76,.52) 0%,rgba(49,82,117,.46) 100%)}
+.sh-col--iso    {background:linear-gradient(160deg,rgba(49,82,117,.46) 0%,rgba(51,102,153,.40) 100%)}
+.sh-col--sedex  {background:linear-gradient(160deg,rgba(51,102,153,.40) 0%,rgba(122,157,193,.34) 100%)}
+.sh-col--esg    {background:linear-gradient(160deg,rgba(122,157,193,.34) 0%,rgba(163,181,200,.28) 100%)}
+/* a demao que escurece do alto para a base, como no antigo */
+.sh-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(20,48,76,.12) 0%,rgba(20,48,76,.55) 100%);
+  transition:background .5s}
+.sh-col:hover::before{background:linear-gradient(to bottom,rgba(20,48,76,.04) 0%,rgba(20,48,76,.42) 100%)}
+.sh-conteudo{position:relative;z-index:2;height:100%;width:100%;display:flex;
+  flex-direction:column;justify-content:space-between;padding:36px 32px;
+  color:var(--mercurio)}
+/* o bloco do titulo vem do index oficial: a NUMERACAO por cima e o corpo do
+   titulo no mesmo clamp de la (17 / 1,62vw / 23), com a mesma entrelinha de
+   1,06 e os mesmos 9px de respiro. Muda so a cor, que aqui esta sobre veu azul
+   e nao sobre foto clara. A barra de acento continua a do antigo. */
+.sh-indice{display:block;margin-bottom:9px;font-family:var(--mono);font-weight:500;
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(250,249,245,.72)}
+.sh-titulo{margin:0 0 9px;font-family:var(--sans);font-weight:700;
+  font-size:clamp(17px,1.62vw,23px);line-height:1.06;letter-spacing:-.012em}
+.sh-titulo strong{font-weight:inherit}
+.sh-acento{width:40px;height:3px;background:var(--mercurio);margin-bottom:16px}
+.sh-vertical{position:absolute;right:28px;top:50%;
+  transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;
+  font-family:var(--sans);font-size:34px;font-weight:700;text-transform:uppercase;
+  letter-spacing:-.04em;opacity:.2;white-space:nowrap;color:var(--mercurio);
+  pointer-events:none;z-index:2;transition:opacity .5s}
+.sh-col:hover .sh-vertical{opacity:.35}
+.sh-lista{list-style:none;margin:0 0 16px;padding:0;opacity:0;transform:translateY(8px);
+  transition:opacity .5s,transform .5s}
+.sh-col:hover .sh-lista,.sh-col:focus-within .sh-lista{opacity:1;transform:none}
+.sh-lista li{display:flex;align-items:center;gap:10px;margin-bottom:8px;
+  font-family:var(--sans);font-size:13px;font-weight:400;color:rgba(250,249,245,.9)}
+.sh-lista li::before{content:"";width:5px;height:5px;border-radius:50%;
+  background:var(--mercurio);flex:none}
+.sh-cta{display:inline-block;width:fit-content;border:1px solid rgba(250,249,245,.4);
+  border-radius:3px;padding:8px 24px;font-family:var(--sans);font-size:11px;
+  font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--mercurio);
+  background:transparent;transition:background .3s,color .3s,border-color .3s}
+.sh-cta:hover{background:var(--mercurio);color:var(--azul);border-color:var(--mercurio)}
+.sh-rodape{position:absolute;bottom:16px;left:32px;z-index:2;display:flex;
+  align-items:center;gap:6px;max-width:calc(100% - 56px);
+  font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:.5px;
+  color:rgba(250,249,245,.55)}
+.sh-rodape svg{width:12px;height:12px;flex:none;fill:none;stroke:currentColor;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media (prefers-reduced-motion:reduce){
+  .sh-col{animation:none}.sh-lista{opacity:1;transform:none}
+  .sh-col,.sh-col::before,.sh-vertical,.sh-lista{transition:none}
+}
+@media (max-width:880px){
+  .sh-tira{flex-direction:column;height:auto}
+  .sh-foto{position:relative;width:100%;max-width:none;height:230px;object-position:right center}
+  .sh-col{min-height:300px;border-right:none;border-bottom:1px solid rgba(250,249,245,.14)}
+  .sh-col:hover{flex:1}
+  .sh-vertical{display:none}
+  .sh-lista{opacity:1;transform:none}
+  .sh-conteudo{padding:30px 22px 52px}
+  .sh-rodape{left:22px}
+}
+
+/* ===== TESTE: o letreiro, em fundo BEM CLARO =====
+   No antigo ele era uma tarja cheia de #336699 com letra branca. Aqui o fundo e
+   o creme da pagina e quem desenha a peca sao os fios: um em cima, um embaixo e
+   um entre cada servico, todos no --fio de 1px da casa. A letra volta para a
+   tinta. Para no hover, como no antigo, e respeita `prefers-reduced-motion`. */
+.qc-letreiro{overflow:hidden;background:var(--mercurio);
+  border-top:1px solid var(--fio);border-bottom:1px solid var(--fio)}
+.qc-letreiro-fita{display:flex;width:max-content;animation:qcLetreiro 48s linear infinite}
+.qc-letreiro:hover .qc-letreiro-fita{animation-play-state:paused}
+.qc-letreiro-fita span{padding:11px 30px;white-space:nowrap;
+  font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--azul-escuro);
+  border-right:1px solid var(--fio)}
+@keyframes qcLetreiro{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){ .qc-letreiro-fita{animation:none} }
+@media (max-width:880px){ .qc-letreiro-fita span{padding:9px 20px;font-size:9.5px} }
 </style>
 </head>
 <body class="carga">
@@ -1490,71 +1601,71 @@ body>*{position:relative;z-index:1}
   <!-- ===== quatro colunas (a abertura do index.html, na lingua desta pagina) ===== -->
   <section class="qc-sec" id="quatro-colunas" aria-labelledby="qc-titulo-sec">
     
-    <div class="qc-tira">
-      <article class="qc-col qc-col--carbono">
-        <img class="qc-bg" src="img/energia-bayer-qc.webp" alt="" loading="lazy">
-        <div class="qc-conteudo">
+    <div class="sh-tira">
+      <img class="sh-foto" src="img/auditoria-bayer-hero.webp" alt="" loading="lazy">
+      <article class="sh-col sh-col--carbono">
+        <div class="sh-conteudo">
           <div>
-            <span class="qc-indice">[ 01 ]</span>
-            <h3 class="qc-titulo">Gestão<br>de Carbono</h3>
-            <div class="qc-fio" aria-hidden="true"></div>
+            <span class="sh-indice">[ 01 ]</span>
+            <h3 class="sh-titulo">Gestão<br><strong>de Carbono</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
           </div>
-          <span class="qc-vertical" aria-hidden="true">Emissões</span>
+          <span class="sh-vertical" aria-hidden="true">Emissões</span>
           <div>
-            <ul class="qc-lista"><li><span>Inventário de GEE</span></li><li><span>Carbono neutro</span></li><li><span>Créditos de carbono</span></li></ul>
-            <a class="qc-cta js-scramble" href="gestao-carbono.html">Saiba mais</a>
-          </div>
-        </div>
-        <p class="qc-rodape"><span>Reduz as emissões da sua operação</span></p>
-      </article>
-      <article class="qc-col qc-col--iso">
-        <img class="qc-bg" src="img/industria-bayer-qc.webp" alt="" loading="lazy">
-        <div class="qc-conteudo">
-          <div>
-            <span class="qc-indice">[ 02 ]</span>
-            <h3 class="qc-titulo">ISO<br>Certificação</h3>
-            <div class="qc-fio" aria-hidden="true"></div>
-          </div>
-          <span class="qc-vertical" aria-hidden="true">Normas</span>
-          <div>
-            <ul class="qc-lista"><li><span>ISO 9001: gestão da qualidade</span></li><li><span>ISO 14001: ambiental</span></li><li><span>ISO 45001: saúde e segurança</span></li></ul>
-            <a class="qc-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
+            <ul class="sh-lista"><li>Inventário de GEE</li><li>Carbono neutro</li><li>Créditos de carbono</li></ul>
+            <a class="sh-cta js-scramble" href="gestao-carbono.html">Saiba mais</a>
           </div>
         </div>
-        <p class="qc-rodape"><span>Busca certificação para a sua organização</span></p>
+        <div class="sh-rodape"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>Reduz as emissões da sua operação</div>
       </article>
-      <article class="qc-col qc-col--sedex">
-        <img class="qc-bg" src="img/logistica-bayer-qc.webp" alt="" loading="lazy">
-        <div class="qc-conteudo">
+      <article class="sh-col sh-col--iso">
+        <div class="sh-conteudo">
           <div>
-            <span class="qc-indice">[ 03 ]</span>
-            <h3 class="qc-titulo">SEDEX<br>SMETA</h3>
-            <div class="qc-fio" aria-hidden="true"></div>
+            <span class="sh-indice">[ 02 ]</span>
+            <h3 class="sh-titulo">ISO<br><strong>Certificação</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
           </div>
-          <span class="qc-vertical" aria-hidden="true">Ética</span>
+          <span class="sh-vertical" aria-hidden="true">Normas</span>
           <div>
-            <ul class="qc-lista"><li><span>Direitos trabalhistas</span></li><li><span>Saúde e segurança</span></li><li><span>Ética e meio ambiente</span></li></ul>
-            <a class="qc-cta js-scramble" href="sedex-smeta.html">Saiba mais</a>
+            <ul class="sh-lista"><li>ISO 9001: gestão da qualidade</li><li>ISO 14001: ambiental</li><li>ISO 45001: saúde e segurança</li></ul>
+            <a class="sh-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
           </div>
         </div>
-        <p class="qc-rodape"><span>Atende às exigências dos seus clientes</span></p>
+        <div class="sh-rodape"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>Busca certificação para a sua organização</div>
       </article>
-      <article class="qc-col qc-col--esg">
-        <img class="qc-bg" src="img/alimentos-bayer-qc.webp" alt="" loading="lazy">
-        <div class="qc-conteudo">
+      <article class="sh-col sh-col--sedex">
+        <div class="sh-conteudo">
           <div>
-            <span class="qc-indice">[ 04 ]</span>
-            <h3 class="qc-titulo">ESG<br>Sustentabilidade</h3>
-            <div class="qc-fio" aria-hidden="true"></div>
+            <span class="sh-indice">[ 03 ]</span>
+            <h3 class="sh-titulo">SEDEX<br><strong>SMETA</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
           </div>
-          <span class="qc-vertical" aria-hidden="true">Padrões</span>
+          <span class="sh-vertical" aria-hidden="true">Ética</span>
           <div>
-            <ul class="qc-lista"><li><span>Padrões de mercado</span></li><li><span>Relato e indicadores</span></li><li><span>Cadeia de fornecedores</span></li></ul>
-            <a class="qc-cta js-scramble" href="esg.html">Saiba mais</a>
+            <ul class="sh-lista"><li>Direitos trabalhistas</li><li>Saúde e segurança</li><li>Ética e meio ambiente</li></ul>
+            <a class="sh-cta js-scramble" href="sedex-smeta.html">Saiba mais</a>
           </div>
         </div>
-        <p class="qc-rodape"><span>Comprova a sua prática de sustentabilidade</span></p>
+        <div class="sh-rodape"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>Atende às exigências dos seus clientes</div>
       </article>
+      <article class="sh-col sh-col--esg">
+        <div class="sh-conteudo">
+          <div>
+            <span class="sh-indice">[ 04 ]</span>
+            <h3 class="sh-titulo">ESG<br><strong>Sustentabilidade</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
+          </div>
+          <span class="sh-vertical" aria-hidden="true">Padrões</span>
+          <div>
+            <ul class="sh-lista"><li>Padrões de mercado</li><li>Relato e indicadores</li><li>Cadeia de fornecedores</li></ul>
+            <a class="sh-cta js-scramble" href="esg.html">Saiba mais</a>
+          </div>
+        </div>
+        <div class="sh-rodape"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>Comprova a sua prática de sustentabilidade</div>
+      </article>
+    </div>
+    <div class="qc-letreiro" aria-label="Serviços que prestamos">
+      <div class="qc-letreiro-fita"><span>Implantação ISO 9001</span><span>Implantação ISO 14001</span><span>Implantação ISO 45001</span><span>Preparação SEDEX/SMETA</span><span>Inventário de GEE</span><span>Pegada de carbono</span><span>Descarbonização</span><span>Neutralização de carbono</span><span>Estruturação ESG</span><span>Atendimento a NRs</span><span>Inspeções pré-embarque</span><span>Segurança de alimentos</span><span>Auditoria interna</span><span>Padrões de mercado</span><span>Implantação ISO 9001</span><span>Implantação ISO 14001</span><span>Implantação ISO 45001</span><span>Preparação SEDEX/SMETA</span><span>Inventário de GEE</span><span>Pegada de carbono</span><span>Descarbonização</span><span>Neutralização de carbono</span><span>Estruturação ESG</span><span>Atendimento a NRs</span><span>Inspeções pré-embarque</span><span>Segurança de alimentos</span><span>Auditoria interna</span><span>Padrões de mercado</span></div>
     </div>
 <div class="qc-abre">
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>

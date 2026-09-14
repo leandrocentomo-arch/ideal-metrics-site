@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ideal Metrics</title>
+<title>Ideal Metrics · teste de abertura, modelo claro</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -1450,6 +1450,61 @@ body>*{position:relative;z-index:1}
 .ia-selo{grid-column:1 / 4;align-self:end;width:min(178px,100%);height:auto;
   margin-top:56px;display:block}
 @media (max-width:780px){.ia-selo{grid-column:1 / -1;width:132px;margin-top:36px}}
+
+/* ===== TESTE: a tira com UMA foto so, no desenho do index-antigo =====
+   La a `.services-hero` punha a imagem num ::before de 70% de largura, ancorado
+   a direita, `background-size:contain`, e as quatro colunas passavam por cima
+   como veus translucidos. Aqui e a mesma composicao com as pecas desta casa: a
+   foto e um <img> da TIRA (nao da coluna), as colunas ficam transparentes e o
+   degrade empilhado de creme e tinta, que ja existia, continua sendo o veu.
+   As colunas continuam abrindo no hover; a foto nao se mexe, porque pertence a
+   tira, e era assim no antigo. */
+.qc-tira--unica{background:var(--mercurio)}
+/* `height:100%` com `width:auto` e NAO `width:70%` com `object-fit:contain`:
+   com o contain a caixa do <img> continua com 70% da tira e a imagem desenhada
+   fica so no pedaco direito dela, entao a mascara, que se mede na CAIXA, caia
+   toda no vazio a esquerda e nao apagava nada. Assim a caixa tem o tamanho da
+   imagem e a rampa cai onde deve. O `max-width` segura o caso em que a tira
+   fica muito baixa e larga. */
+.qc-foto-unica{position:absolute;top:0;right:0;height:100%;width:auto;max-width:76%;z-index:0;
+  object-fit:cover;object-position:right center;pointer-events:none;
+  /* a aresta esquerda da foto DISSOLVE. Com `contain` a imagem acaba numa linha
+     reta no meio da tira e, creme de um lado e trama do outro, aquilo le como
+     retangulo colado. A mascara apaga os primeiros 26% e devolve a foto por
+     rampa, entao ela nasce de dentro do papel. No antigo o arquivo era um PNG
+     ja recortado e o problema nao existia. */
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 26%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 26%)}
+.qc-tira--unica .qc-col .qc-bg{display:none}
+/* a faixa de cima do degrade some: sobre a foto unica ela criava uma aresta
+   creme repetida quatro vezes, uma por coluna. Fica so a tinta da base, que e
+   continua o bastante para as quatro lerem como um veu so. */
+.qc-tira--unica .qc-col::before{
+  background:linear-gradient(to bottom, rgba(250,249,245,.55) 0%, rgba(250,249,245,.30) 22%,
+    rgba(250,249,245,0) 46%),
+    linear-gradient(to bottom, rgba(20,48,76,0) 30%, rgba(20,48,76,.10) 62%,
+      rgba(20,48,76,.26) 84%, rgba(20,48,76,.42) 100%)}
+@media (max-width:880px){
+  .qc-foto-unica{position:relative;width:100%;height:240px;object-fit:cover;order:-1}
+}
+
+/* ===== TESTE: o letreiro, em fundo BEM CLARO =====
+   No antigo ele era uma tarja cheia de #336699 com letra branca. Aqui o fundo e
+   o creme da pagina e quem desenha a peca sao os fios: um em cima, um embaixo e
+   um entre cada servico, todos no --fio de 1px da casa. A letra volta para a
+   tinta. Para no hover, como no antigo, e respeita `prefers-reduced-motion`. */
+.qc-letreiro{overflow:hidden;background:var(--mercurio);
+  border-top:1px solid var(--fio);border-bottom:1px solid var(--fio)}
+.qc-letreiro-fita{display:flex;width:max-content;
+  animation:qcLetreiro 48s linear infinite}
+.qc-letreiro:hover .qc-letreiro-fita{animation-play-state:paused}
+.qc-letreiro-fita span{padding:11px 30px;white-space:nowrap;
+  font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--azul-escuro);
+  border-right:1px solid var(--fio)}
+@keyframes qcLetreiro{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){ .qc-letreiro-fita{animation:none} }
+@media (max-width:880px){ .qc-letreiro-fita span{padding:9px 20px;font-size:9.5px} }
 </style>
 </head>
 <body class="carga">
@@ -1490,9 +1545,9 @@ body>*{position:relative;z-index:1}
   <!-- ===== quatro colunas (a abertura do index.html, na lingua desta pagina) ===== -->
   <section class="qc-sec" id="quatro-colunas" aria-labelledby="qc-titulo-sec">
     
-    <div class="qc-tira">
+    <div class="qc-tira qc-tira--unica">
+      <img class="qc-foto-unica" src="img/auditoria-bayer-hero.webp" alt="" loading="lazy">
       <article class="qc-col qc-col--carbono">
-        <img class="qc-bg" src="img/energia-bayer-qc.webp" alt="" loading="lazy">
         <div class="qc-conteudo">
           <div>
             <span class="qc-indice">[ 01 ]</span>
@@ -1508,7 +1563,6 @@ body>*{position:relative;z-index:1}
         <p class="qc-rodape"><span>Reduz as emissões da sua operação</span></p>
       </article>
       <article class="qc-col qc-col--iso">
-        <img class="qc-bg" src="img/industria-bayer-qc.webp" alt="" loading="lazy">
         <div class="qc-conteudo">
           <div>
             <span class="qc-indice">[ 02 ]</span>
@@ -1524,7 +1578,6 @@ body>*{position:relative;z-index:1}
         <p class="qc-rodape"><span>Busca certificação para a sua organização</span></p>
       </article>
       <article class="qc-col qc-col--sedex">
-        <img class="qc-bg" src="img/logistica-bayer-qc.webp" alt="" loading="lazy">
         <div class="qc-conteudo">
           <div>
             <span class="qc-indice">[ 03 ]</span>
@@ -1540,7 +1593,6 @@ body>*{position:relative;z-index:1}
         <p class="qc-rodape"><span>Atende às exigências dos seus clientes</span></p>
       </article>
       <article class="qc-col qc-col--esg">
-        <img class="qc-bg" src="img/alimentos-bayer-qc.webp" alt="" loading="lazy">
         <div class="qc-conteudo">
           <div>
             <span class="qc-indice">[ 04 ]</span>
@@ -1555,6 +1607,9 @@ body>*{position:relative;z-index:1}
         </div>
         <p class="qc-rodape"><span>Comprova a sua prática de sustentabilidade</span></p>
       </article>
+    </div>
+    <div class="qc-letreiro" aria-label="Serviços que prestamos">
+      <div class="qc-letreiro-fita"><span>Implantação ISO 9001</span><span>Implantação ISO 14001</span><span>Implantação ISO 45001</span><span>Preparação SEDEX/SMETA</span><span>Inventário de GEE</span><span>Pegada de carbono</span><span>Descarbonização</span><span>Neutralização de carbono</span><span>Estruturação ESG</span><span>Atendimento a NRs</span><span>Inspeções pré-embarque</span><span>Segurança de alimentos</span><span>Auditoria interna</span><span>Padrões de mercado</span><span>Implantação ISO 9001</span><span>Implantação ISO 14001</span><span>Implantação ISO 45001</span><span>Preparação SEDEX/SMETA</span><span>Inventário de GEE</span><span>Pegada de carbono</span><span>Descarbonização</span><span>Neutralização de carbono</span><span>Estruturação ESG</span><span>Atendimento a NRs</span><span>Inspeções pré-embarque</span><span>Segurança de alimentos</span><span>Auditoria interna</span><span>Padrões de mercado</span></div>
     </div>
 <div class="qc-abre">
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
