@@ -1483,28 +1483,20 @@ body>*{position:relative;z-index:1}
 .sh-col:nth-child(4){animation-delay:.40s}
 .sh-col:nth-child(5){animation-delay:.55s}
 .sh-col:hover{flex:1.55}
-/* O VEU DOS QUATRO CARDS E O VIDRO DA TELA DE ABERTURA. La (`.abertura`) sao
-   rgba(51,102,153,.8) com `saturate(150%)` e um brilho de 1px na aresta de
-   BAIXO. Aqui o alfa cai para 0,46, que e o «um pouco mais claro» pedido, e os
-   quatro cards ficam IGUAIS entre si: e um vidro so cobrindo a secao, e nao
-   quatro tons graduados como era no antigo.
-   O QUE NAO VEIO FOI O `blur(30px)`, e de proposito. Na abertura ele desfoca a
-   home, que e desenho e texto; aqui ele desfocaria a FOTO, e a foto e uma trama
-   Bayer de ponto de 1px: qualquer desfoque, mesmo de 1px, derrete o ponto e a
-   textura da marca some. Fica o que define o vidro sem tocar no que esta atras:
-   a tinta translucida, o `saturate` e o brilho na aresta.
-   Sobra so uma demao muito fraca de tinta na base, para o botao e o rodape
-   pequeno continuarem legiveis sobre a parte clara da foto. */
-.sh-col{background:rgba(51,102,153,.46);
-  -webkit-backdrop-filter:saturate(150%);backdrop-filter:saturate(150%);
-  box-shadow:inset 0 -1px 0 rgba(255,255,255,.35)}
-.sh-col:hover{background:rgba(51,102,153,.34)}
+/* O veu de cada coluna, como no index-antigo: quatro degrades, do escuro para
+   o claro entre as colunas, mais uma demao que escurece do alto para a base.
+   A tinta e a da casa (#14304C -> #315275 -> #336699 -> #A3B5C8) com os mesmos
+   alfas do antigo.
+   O vidro azul chapado da `.abertura` foi testado aqui e recusado: com um tom
+   so, a secao inteira ficava azulada demais. */
+.sh-col--carbono{background:linear-gradient(160deg,rgba(20,48,76,.52) 0%,rgba(49,82,117,.46) 100%)}
+.sh-col--iso    {background:linear-gradient(160deg,rgba(49,82,117,.46) 0%,rgba(51,102,153,.40) 100%)}
+.sh-col--sedex  {background:linear-gradient(160deg,rgba(51,102,153,.40) 0%,rgba(122,157,193,.34) 100%)}
+.sh-col--esg    {background:linear-gradient(160deg,rgba(122,157,193,.34) 0%,rgba(163,181,200,.28) 100%)}
 .sh-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(to bottom,rgba(20,48,76,0) 34%,rgba(20,48,76,.10) 66%,
-    rgba(20,48,76,.24) 100%);
+  background:linear-gradient(to bottom,rgba(20,48,76,.12) 0%,rgba(20,48,76,.55) 100%);
   transition:background .5s}
-.sh-col:hover::before{background:linear-gradient(to bottom,rgba(20,48,76,0) 40%,
-  rgba(20,48,76,.06) 70%,rgba(20,48,76,.16) 100%)}
+.sh-col:hover::before{background:linear-gradient(to bottom,rgba(20,48,76,.04) 0%,rgba(20,48,76,.42) 100%)}
 /* o alto desceu de 36 para 64: a caixa do logo agora atravessa a linha do menu
    e cai 12px dentro da tira, e com 36 o indice da primeira coluna comecava
    quase encostado nela. Em baixo os 36 ficam, porque quem fecha aquele lado e o
