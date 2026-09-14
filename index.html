@@ -1178,12 +1178,12 @@ body>*{position:relative;z-index:1}
 
 .barra{position:fixed;top:26px;left:0;right:0;z-index:960;height:66px;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 var(--lado);background:rgba(250,249,245,.78);
-  -webkit-backdrop-filter:blur(20px) saturate(150%);
-  backdrop-filter:blur(20px) saturate(150%);
-  border-bottom:1px solid rgba(20,48,76,.16)}
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .barra{background:var(--mercurio)} }
+  padding:0 var(--lado);background:#14304C;
+  border-bottom:1px solid rgba(250,249,245,.18)}
+/* 14/09/2026: o cabecalho virou escuro. O desfoque saiu junto com o @supports
+   que o acompanhava: barra opaca nao tem o que borrar, e o fallback devolveria
+   uma barra CREME em quem nao tem backdrop-filter, ou seja, texto creme sobre
+   fundo creme. */
 /* A marca fica solta sobre a barra, sem fundo nenhum. Rolando, ela
    recolhe de 52 para 42px, junto com a barra que fica mais discreta. */
 /* 14/09/2026: a marca ganha uma CAIXA CONTORNADA, de canto vivo, que encosta
@@ -1215,9 +1215,12 @@ body>*{position:relative;z-index:1}
   padding:24px 18px 28px;border-radius:0;
   /* creme puro, a MESMA cor da pagina. NAO usar var(--papel): essa variavel nao
      existe neste site, o #F7FAFE foi aposentado em 12/09. */
-  background:var(--mercurio);
+  /* a MESMA tinta da barra, no literal: se fosse outro token apareceria uma
+     emenda vertical onde a placa encontra a barra. A placa cruza a tarja creme,
+     atravessa o cabecalho e desce sobre a foto, numa coluna so. */
+  background:#14304C;
   transition:background .45s cubic-bezier(.4,0,.2,1)}
-.barra-marca:hover{background:var(--branco)}
+.barra-marca:hover{background:#0F2439}
 .barra-marca img{height:51px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca img{height:41px}
@@ -1225,28 +1228,31 @@ body>*{position:relative;z-index:1}
   overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .barra-nav{display:flex;align-items:center;gap:30px}
 .barra-nav a{font-family:var(--mono);font-weight:500;font-size:10.5px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro);
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(250,249,245,.82);
   border-bottom:1px solid transparent;padding-bottom:2px;
   transition:color .3s,border-color .3s}
-.barra-nav a:hover{color:var(--azul);border-bottom-color:var(--azul)}
+.barra-nav a:hover{color:var(--mercurio);border-bottom-color:var(--mercurio)}
 /* Contato e o unico botao de vidro da barra: fundo quase branco, o
    desfoque da propria barra por tras, e um brilho de 1px na aresta de
    cima, que e o que faz a peca ler como vidro e nao como caixa. Sem
-   sombra, que e regra da casa. */
-.barra-nav a.vidro{padding:9px 20px;border:1px solid rgba(20,48,76,.16);
-  border-radius:3px;background:rgba(255,255,255,.55);
+   sombra, que e regra da casa. Com a barra escura ele continua de vidro, so
+   que invertido: creme a 10% no lugar do branco a 55%, e o brilho da aresta
+   cai de 0,95 para 0,14 -- em 0,95 sobre tinta ele viraria um filete branco,
+   nao um reflexo. */
+.barra-nav a.vidro{padding:9px 20px;border:1px solid rgba(250,249,245,.38);
+  border-radius:3px;background:rgba(250,249,245,.10);
   -webkit-backdrop-filter:blur(14px) saturate(170%);
   backdrop-filter:blur(14px) saturate(170%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(20,48,76,.05);
-  color:var(--azul);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14);
+  color:var(--mercurio);
   transition:background .35s,border-color .35s,color .35s}
-.barra-nav a.vidro:hover{background:rgba(255,255,255,.86);
-  border-color:rgba(20,48,76,.30);color:var(--azul)}
-.barra-menu{background:none;border:1px solid rgba(20,48,76,.28);border-radius:3px;
+.barra-nav a.vidro:hover{background:rgba(250,249,245,.20);
+  border-color:rgba(250,249,245,.62);color:var(--mercurio)}
+.barra-menu{background:none;border:1px solid rgba(250,249,245,.38);border-radius:3px;
   cursor:pointer;font-family:var(--mono);font-weight:500;font-size:10.5px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--azul);padding:9px 18px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--mercurio);padding:9px 18px;
   transition:background .35s,border-color .35s,color .35s}
-.barra-menu:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
+.barra-menu:hover{background:var(--mercurio);color:var(--azul);border-color:var(--mercurio)}
 @media (max-width:1100px){ .barra-nav{display:none} }
 @media (min-width:1101px){ .barra-menu{display:none} }
 @media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca img{height:41px}
@@ -1443,7 +1449,7 @@ body>*{position:relative;z-index:1}
 </div>
 <header class="barra">
   <a class="barra-marca" href="index.html" aria-label="Ideal Metrics, ir para a página inicial">
-    <img src="img/logo-ideal-m.svg" alt=""><span>Ideal Metrics</span></a>
+    <img src="img/logo-ideal-m-prata.svg" alt=""><span>Ideal Metrics</span></a>
   <nav class="barra-nav" aria-label="Navegação principal">
     <a href="servicos.html">Serviços</a>
     <a href="como-trabalhamos.html">Como trabalhamos</a>
