@@ -1190,13 +1190,16 @@ body>*{position:relative;z-index:1}
    no topo da pagina e vaza o cabecalho embaixo. Ela ja foi de vidro; o vidro
    saiu inteiro (desfoque, saturate, demao de azul, brilho de 1px na aresta e o
    raio de 3px), porque sem desfoque o brilho da aresta nao descreve nada: ele
-   existia para fingir a luz pegando numa chapa translucida. Ficam o fio de 1px no azul
-   CHEIO da marca, a mesma tinta do logo, e o fundo no creme puro da pagina: sao
-   as duas metades da mesma ideia suica, a caixa nao existe como superficie,
-   existe como LINHA, entao o fundo tem de sumir dentro da pagina enquanto o
-   contorno aparece. Chapado de proposito, alias: o pedaco de baixo da caixa
-   fica sobre a foto, e com fundo aberto a trama Bayer passaria por tras do
-   logo. Com o fio no maximo, o hover passou para o fundo, do creme ao branco. Quem alinha ao grid passa a ser a placa, que nasce em
+   existia para fingir a luz pegando numa chapa translucida. Ficam o fio e o fundo no creme
+   puro da pagina: sao as duas metades da mesma ideia suica, a caixa nao existe
+   como superficie, existe como LINHA, entao o fundo tem de sumir dentro da
+   pagina enquanto o contorno aparece. Chapado de proposito, alias: o pedaco de
+   baixo da caixa fica sobre a foto, e com fundo aberto a trama Bayer passaria
+   por tras do logo.
+   O FIO E O `var(--fio)` DA CASA, nao um valor proprio: rgba(20,48,76,.2)
+   aparece 22 vezes neste arquivo, 12 pela variavel e 10 escrita a mao, e todas
+   as linhas do site tem 1px. Usando o token, a caixa acompanha se o fio da casa
+   mudar um dia. Quem alinha ao grid passa a ser a placa, que nasce em
    --lado como o resto da pagina; o logo fica 22px para dentro dela.
    A ancora vertical e `align-self:flex-start` com `margin-top:-26px`, que e
    exatamente o `top` da barra: a aresta de cima cai em y=0. A altura faz o
@@ -1208,12 +1211,12 @@ body>*{position:relative;z-index:1}
    para 980, para a ordem continuar abertura > menu > barra > tarja. */
 .barra-marca{display:flex;align-items:center;position:relative;z-index:1;
   align-self:flex-start;margin-top:-26px;
-  padding:24px 18px 28px;border:1px solid var(--azul);border-radius:0;
+  padding:24px 18px 28px;border:1px solid var(--fio);border-radius:0;
   /* creme puro, a MESMA cor da pagina. NAO usar var(--papel): essa variavel nao
      existe neste site, o #F7FAFE foi aposentado em 12/09. */
   background:var(--mercurio);
-  transition:background .45s cubic-bezier(.4,0,.2,1)}
-.barra-marca:hover{background:var(--branco)}
+  transition:border-color .45s cubic-bezier(.4,0,.2,1)}
+.barra-marca:hover{border-color:rgba(20,48,76,.55)}
 .barra-marca img{height:51px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca img{height:41px}
