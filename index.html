@@ -1214,8 +1214,10 @@ body>*{position:relative;z-index:1}
   /* -18 e nao -26: a caixa desencosta do topo e sobra uma fresta de 8px
      (a barra comeca em 26). */
   align-self:flex-start;margin-top:-18px;
-  /* padding de cima IGUAL ao de baixo, e menor: caixa mais justa no logo */
-  padding:15px 16px;border-radius:0;
+  /* padding de cima IGUAL ao de baixo. 20 e nao 15: com a fresta de 8 no topo,
+     a placa precisa de 91 de altura para a base passar dos 92 da barra e
+     atravessar o fio do menu. */
+  padding:20px 16px;border-radius:0;
   /* creme puro, a MESMA cor da pagina. NAO usar var(--papel): essa variavel nao
      existe neste site, o #F7FAFE foi aposentado em 12/09. */
   /* VIDRO NA LIGA FRIA. As 13 paradas sao as do 1Asset 152.svg, de #315275 a
@@ -1224,53 +1226,16 @@ body>*{position:relative;z-index:1}
      vidro se reconhece pelo que se ve ATRAVES, e era isso que faltava quando
      ela era tinta a 72%. O alfa de 0,58 e o ponto em que o desfoque aparece
      sem o logo perder o fundo. */
-  background:linear-gradient(135deg,
-    rgba(29,58,88,0.8) 0%,
-    rgba(41,69,98,0.8) 10%,
-    rgba(50,77,104,0.8) 18%,
-    rgba(53,80,106,0.8) 22%,
-    rgba(59,84,110,0.8) 30%,
-    rgba(62,87,112,0.8) 39%,
-    rgba(63,88,113,0.8) 50%,
-    rgba(62,87,112,0.8) 62%,
-    rgba(59,84,110,0.8) 71%,
-    rgba(54,80,107,0.8) 79%,
-    rgba(47,74,102,0.8) 87%,
-    rgba(38,66,95,0.8) 94%,
-    rgba(29,58,88,0.8) 100%);
+  /* o MESMO vidro azul da tela de abertura: rgba(51,102,153,.8) com desfoque.
+     A placa e a abertura passam a ser a mesma peca, vista em dois momentos. */
+  background:rgba(51,102,153,.8);
   -webkit-backdrop-filter:blur(14px) saturate(150%);
   backdrop-filter:blur(14px) saturate(150%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
   transition:background .45s cubic-bezier(.4,0,.2,1)}
-.barra-marca:hover{background:linear-gradient(135deg,
-    rgba(29,58,88,0.9) 0%,
-    rgba(41,69,98,0.9) 10%,
-    rgba(50,77,104,0.9) 18%,
-    rgba(53,80,106,0.9) 22%,
-    rgba(59,84,110,0.9) 30%,
-    rgba(62,87,112,0.9) 39%,
-    rgba(63,88,113,0.9) 50%,
-    rgba(62,87,112,0.9) 62%,
-    rgba(59,84,110,0.9) 71%,
-    rgba(54,80,107,0.9) 79%,
-    rgba(47,74,102,0.9) 87%,
-    rgba(38,66,95,0.9) 94%,
-    rgba(29,58,88,0.9) 100%)}
+.barra-marca:hover{background:rgba(51,102,153,.92)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .barra-marca{background:linear-gradient(135deg,
-    rgba(29,58,88,0.96) 0%,
-    rgba(41,69,98,0.96) 10%,
-    rgba(50,77,104,0.96) 18%,
-    rgba(53,80,106,0.96) 22%,
-    rgba(59,84,110,0.96) 30%,
-    rgba(62,87,112,0.96) 39%,
-    rgba(63,88,113,0.96) 50%,
-    rgba(62,87,112,0.96) 62%,
-    rgba(59,84,110,0.96) 71%,
-    rgba(54,80,107,0.96) 79%,
-    rgba(47,74,102,0.96) 87%,
-    rgba(38,66,95,0.96) 94%,
-    rgba(29,58,88,0.96) 100%)} }
+  .barra-marca{background:rgba(51,102,153,.95)} }
 .barra-marca img{height:51px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca img{height:41px}
@@ -1305,7 +1270,7 @@ body>*{position:relative;z-index:1}
 @media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca img{height:41px}
   /* a barra comeca em 22 aqui: a ancora da placa acompanha, senao ela passa
      do topo da tela e a aresta de cima e cortada */
-  .barra-marca{margin-top:-14px;padding:13px 13px} }
+  .barra-marca{margin-top:-14px;padding:17px 13px} }
 
 /* ===== quatro colunas =====
    Vem da abertura do index.html, com os efeitos que o Leandro gosta: a
