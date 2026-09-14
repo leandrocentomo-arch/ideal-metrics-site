@@ -1195,15 +1195,15 @@ body>*{position:relative;z-index:1}
    `.barra-nav a.vidro`), e e o que faz a peca ler como superficie e nao como
    recorte. Sem sombra, que e regra da casa.
    ANCORA: `margin-top:-26px` e exatamente o `top` da barra, entao a aresta de
-   cima cai em y=0, encostada no topo da pagina. A caixa tem 96 de marca mais 16
-   de respiro, 112 no total, e a base cai em 112 contra 92 da barra: sao 20px de
+   cima cai em y=0, encostada no topo da pagina. A caixa tem 90 de marca mais 14
+   de respiro, 104 no total, e a base cai em 104 contra 92 da barra: sao 12px de
    caixa sobre a foto, que e onde o vidro tem o que desfocar. A primeira versao
    saiu com 148 e ficou grande demais. */
 .barra-marca{display:flex;align-items:center;position:relative;z-index:1;
   align-self:flex-start;margin-top:-26px;
   /* 8 e nao 14: a CAIXA fica do mesmo tamanho e quem cresce e a marca.
      96 + 16 = 112 de altura, o mesmo de antes. */
-  padding:8px;border-radius:3px;border:1px solid var(--fio);
+  padding:7px;border-radius:3px;border:1px solid var(--fio);
   background:rgba(250,249,245,.62);
   -webkit-backdrop-filter:blur(14px) saturate(160%);
   backdrop-filter:blur(14px) saturate(160%);
@@ -1214,9 +1214,9 @@ body>*{position:relative;z-index:1}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .barra-marca{background:var(--mercurio)} }
 .barra-marca:hover{background:rgba(255,255,255,.72)}
-.barra-marca .marca-frente{height:96px;width:auto;display:block;
+.barra-marca .marca-frente{height:90px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
-.barra.rolou .barra-marca .marca-frente{height:84px}
+.barra.rolou .barra-marca .marca-frente{height:79px}
 .barra-marca span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
   overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .barra-nav{display:flex;align-items:center;gap:30px}
@@ -1245,10 +1245,10 @@ body>*{position:relative;z-index:1}
 .barra-menu:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
 @media (max-width:1100px){ .barra-nav{display:none} }
 @media (min-width:1101px){ .barra-menu{display:none} }
-@media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca .marca-frente{height:82px}
+@media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca .marca-frente{height:77px}
   /* a barra comeca em 22 aqui: a ancora da placa acompanha, senao ela passa
      do topo da tela e a aresta de cima e cortada */
-  .barra-marca{margin-top:-22px;padding:7px} }
+  .barra-marca{margin-top:-22px;padding:6px} }
 
 /* ===== quatro colunas =====
    Vem da abertura do index.html, com os efeitos que o Leandro gosta: a
