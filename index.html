@@ -1266,10 +1266,12 @@ body>*{position:relative;z-index:1}
    Bayer original, sem nenhuma camada clara por cima. O historico das seis
    voltas de esbranquicamento fica no git.
    14/09/2026: entra uma camada de coluna inteira, que CLAREIA em cima e
-   ESCURECE embaixo. Creme 62% no topo, caindo a 30% aos 20% e a zero aos 44%
-   da altura, nada no meio, e tinta subindo a 34% na base. A queda do creme e
-   longa de proposito: ele cobre a faixa do indice e do titulo, que e onde
-   serve, e some antes do meio da foto. O objetivo do pe escuro e dar cama para
+   ESCURECE embaixo. Na aresta de cima o creme sai em 92%, praticamente a cor da
+   pagina: a secao toda tem fundo --mercurio e a tira comecava nele com uma
+   costura dura, que agora some. Dai cai a 62% aos 7%, 30% aos 20% e zero aos
+   44% da altura; nada no meio; e tinta subindo a 34% na base. A queda e longa
+   de proposito: o creme cobre a faixa do indice e do titulo, que e onde serve,
+   e some antes do meio da foto. O objetivo do pe escuro e dar cama para
    o vidro do texto e do botao.
    Fica no z-index 1, entre a foto (0) e o conteudo (2). Duas consequencias:
    o escrito nao escurece junto, e, como a camada e pintada ANTES, ela entra no
@@ -1281,7 +1283,8 @@ body>*{position:relative;z-index:1}
    a zero de cada lado, cada metade morre na propria cor e o meio fica limpo. */
 .qc-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(to bottom,
-    rgba(250,249,245,.62) 0%, rgba(250,249,245,.30) 20%, rgba(250,249,245,.08) 34%,
+    rgba(250,249,245,.92) 0%, rgba(250,249,245,.62) 7%,
+    rgba(250,249,245,.30) 20%, rgba(250,249,245,.08) 34%,
     rgba(250,249,245,0) 44%,
     rgba(20,48,76,0) 50%, rgba(20,48,76,.16) 72%, rgba(20,48,76,.34) 100%)}
 /* 12/09/2026: saiu a tarja escura atras das linhas escritas (lista e rodape).
