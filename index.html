@@ -1199,6 +1199,14 @@ body>*{position:relative;z-index:1}
    2px e o recorte nao aparecia.
    O cartao e opaco, entao nao ha estado de vidro ao rolar: o que ha e o
    recolhimento de 104 para 92, junto com a barra. */
+/* A CHAPA DO CARTAO NO TOPO E #EDF1F6, NAO #FAF9F5. Com o creme do arquivo o
+   cartao sumia dentro do cabecalho, que e creme tambem: so se via o pedaco de
+   20px que desce sobre a foto, e navegando a pagina a marca nao tinha caixa
+   nenhuma. #EDF1F6 e um degrau claro do mesmo azul da rampa (a ancora e
+   #D3E2F2), entao separa do creme sem sair da paleta e continua lendo como
+   placa clara sobre a foto. O arquivo e `monograma-ideal-m-topo.svg`, copia do
+   oficial com UMA mudanca, o `fill` do <rect> de fundo; o oficial
+   (`monograma-ideal-m.svg`) nao foi tocado e segue no rodape e no antigo. */
 .barra-marca{display:flex;align-items:center;position:relative;z-index:1;
   align-self:flex-start;margin-top:-18px}
 .barra-marca .marca-frente{height:104px;width:auto;display:block;
@@ -1332,7 +1340,7 @@ body>*{position:relative;z-index:1}
    sombra para dentro. O botao segue a mesma caixa, e o hover azul nao muda. */
 .qc-conteudo{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
   justify-content:space-between;padding:58px 30px 76px;color:var(--azul)}
-.qc-indice{display:block;margin-bottom:14px;font-family:var(--mono);font-weight:500;
+.qc-indice{display:block;margin-bottom:9px;font-family:var(--mono);font-weight:500;
   font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
 /* 14/09/2026: os quatro titulos quebram em DUAS LINHAS, com <br> no proprio
@@ -1340,8 +1348,12 @@ body>*{position:relative;z-index:1}
    que descreve na segunda: ISO/Certificacao, Gestao/de Carbono, SEDEX/SMETA,
    ESG/Sustentabilidade. E <br> e nao quebra automatica porque o ponto e
    escolhido: por largura, «de Carbono» quebraria depois do «de». */
-.qc-titulo{margin:0 0 14px;font-family:var(--sans);font-weight:700;
-  font-size:clamp(19px,1.8vw,26px);line-height:1.12;letter-spacing:-.012em;
+/* 14/09, noite: o titulo encolhe ~10% (26 para 23 no teto, 19 para 17 no piso)
+   e fecha o respiro dos dois lados: o de cima e o `margin-bottom` do indice e o
+   de baixo e o do proprio titulo, ambos de 14 para 9. A entrelinha tambem fecha,
+   de 1,12 para 1,06, que e o espaco ENTRE as duas linhas do titulo. */
+.qc-titulo{margin:0 0 9px;font-family:var(--sans);font-weight:700;
+  font-size:clamp(17px,1.62vw,23px);line-height:1.06;letter-spacing:-.012em;
   text-wrap:pretty}
 .qc-fio{width:40px;height:1.5px;background:var(--azul)}
 .qc-vertical{position:absolute;right:24px;top:50%;
@@ -1448,7 +1460,7 @@ body>*{position:relative;z-index:1}
 </div>
 <header class="barra">
   <a class="barra-marca" href="index.html" aria-label="Ideal Metrics, ir para a página inicial">
-    <img class="marca-frente" src="img/monograma-ideal-m.svg" alt=""><span>Ideal Metrics</span></a>
+    <img class="marca-frente" src="img/monograma-ideal-m-topo.svg" alt=""><span>Ideal Metrics</span></a>
   <nav class="barra-nav" aria-label="Navegação principal">
     <a href="servicos.html">Serviços</a>
     <a href="como-trabalhamos.html">Como trabalhamos</a>
