@@ -1184,97 +1184,26 @@ body>*{position:relative;z-index:1}
   border-bottom:1px solid rgba(20,48,76,.16)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .barra{background:var(--mercurio)} }
-/* A marca fica solta sobre a barra, sem fundo nenhum. Rolando, ela
-   recolhe de 52 para 42px, junto com a barra que fica mais discreta. */
-/* 14/09/2026: a marca ganha uma CAIXA CONTORNADA, de canto vivo, que encosta
-   no topo da pagina e vaza o cabecalho embaixo. Ela ja foi de vidro; o vidro
-   saiu inteiro (desfoque, saturate, demao de azul, brilho de 1px na aresta e o
-   raio de 3px), porque sem desfoque o brilho da aresta nao descreve nada: ele
-   existia para fingir a luz pegando numa chapa translucida. Ficam o fio e o fundo no creme
-   puro da pagina: sao as duas metades da mesma ideia suica, a caixa nao existe
-   como superficie, existe como LINHA, entao o fundo tem de sumir dentro da
-   pagina enquanto o contorno aparece. Chapado de proposito, alias: o pedaco de
-   baixo da caixa fica sobre a foto, e com fundo aberto a trama Bayer passaria
-   por tras do logo.
-   14/09, fim da tarde: SAIU O CONTORNO. A caixa ficou sem linha nenhuma, so o
-   bloco de creme de canto vivo. Dentro do cabecalho ele desaparece, porque a
-   barra ja e creme; o que se ve e o pedaco que desce sobre a foto, um retangulo
-   de papel recortado na imagem. O hover, que estava na linha, voltou para o
-   fundo: creme -> branco. Quem alinha ao grid passa a ser a placa, que nasce em
-   --lado como o resto da pagina; o logo fica 22px para dentro dela.
-   A ancora vertical e `align-self:flex-start` com `margin-top:-26px`, que e
-   exatamente o `top` da barra: a aresta de cima cai em y=0. A altura faz o
-   resto: 25+51+29 = 105 contra 102 de barra, entao sobram 3px embaixo (em
-   14/09 a placa encolheu 15%, de 124 para 105; antes sobravam 22px, e o
-   numero que devolve a sobra e o padding de baixo).
-   Isso so funciona porque a barra subiu de 900 para 960 na pilha: a tarja esta
-   em 950 e escondia tudo o que passasse do topo dela. O veu do menu subiu junto
-   para 980, para a ordem continuar abertura > menu > barra > tarja. */
+/* A MARCA E O PROPRIO MONOGRAMA, sem nada em volta.
+   14/09/2026, noite: a placa acabou. Quem faz a caixa agora e o arquivo, que ja
+   traz chapa creme no proprio SVG; e o desenho do `index-antigo.html`, onde o
+   cartao desce sozinho do cabecalho e cai sobre a foto, sem fundo em volta, sem
+   fio e sem eco espelhado. Toda a historia da caixa (vidro, contorno, azul,
+   liga fria, creme chapado com vidro ao rolar) esta no git.
+   Sobrou a ancora, que nao mudou: `align-self:flex-start` com `margin-top:-18px`
+   poe a aresta de cima em y=8, que e a fresta do topo.
+   A altura e 104 e nao 86 por causa da PROPORCAO do antigo: la o cartao tinha
+   76 contra 48 de cabecalho, 1,58 vezes, e era isso que fazia ele descer sobre
+   a foto em vez de so encostar na linha. 1,58 x 66 dao 104, e a base cai em 112
+   contra 92 da barra: 20px de cartao sobre a imagem. Com 86 a travessia era de
+   2px e o recorte nao aparecia.
+   O cartao e opaco, entao nao ha estado de vidro ao rolar: o que ha e o
+   recolhimento de 104 para 92, junto com a barra. */
 .barra-marca{display:flex;align-items:center;position:relative;z-index:1;
-  /* -18 e nao -26: a caixa desencosta do topo e sobra uma fresta de 8px
-     (a barra comeca em 26). */
-  align-self:flex-start;margin-top:-18px;
-  /* padding de cima IGUAL ao de baixo. 20 e nao 15: com a fresta de 8 no topo,
-     a placa precisa de 91 de altura para a base passar dos 92 da barra e
-     atravessar o fio do menu. */
-  /* 14/09, noite: o lado abriu de 16 para 46 porque o monograma e estreito
-     (43px contra 117 do lockup) e o eco espelhado precisa de pista dos dois
-     lados. A placa fica com a mesma largura de antes; o de cima e o de baixo
-     caiu de 20 para 14 para o monograma de 58 caber nos mesmos 86 de altura. */
-  padding:14px 46px;border-radius:0;
-  /* creme puro, a MESMA cor da pagina. NAO usar var(--papel): essa variavel nao
-     existe neste site, o #F7FAFE foi aposentado em 12/09. */
-  /* VIDRO NA LIGA FRIA. As 13 paradas sao as do 1Asset 152.svg, de #315275 a
-     #a3b5c8 e de volta, com o ponto alto em 0,5; o angulo de 135 graus e a
-     diagonal do eixo do arquivo. Em rgba para a placa continuar translucida:
-     vidro se reconhece pelo que se ve ATRAVES, e era isso que faltava quando
-     ela era tinta a 72%. O alfa de 0,58 e o ponto em que o desfoque aparece
-     sem o logo perder o fundo. */
-  /* CREME CHAPADO no topo da pagina: parada ali, nao ha o que ver atraves, e
-     transparencia sem nada atras so suja a leitura. O vidro aparece quando a
-     pagina ROLA, no estado `.rolou`, que e quando o conteudo comeca a passar
-     por baixo dela. */
-  background:var(--mercurio);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(20,48,76,.06);
-  transition:background .45s cubic-bezier(.4,0,.2,1),
-             -webkit-backdrop-filter .45s cubic-bezier(.4,0,.2,1)}
-.barra.rolou .barra-marca{background:rgba(250,249,245,.72);
-  -webkit-backdrop-filter:blur(14px) saturate(160%);
-  backdrop-filter:blur(14px) saturate(160%)}
-.barra-marca:hover{background:var(--branco)}
-/* Sem filtro: o 157 e liga fria, com as pontas em #315275, que sobre creme da
-   7,68:1 sozinho. O brightness que existia aqui era para o prata, que e claro
-   demais para fundo claro. */
-/* 14/09/2026, noite: sai o lockup deitado e entra o MONOGRAMA, a placa
-   retrato com o passaro sobre «ideal·m». Atras dele, o PASSARO sozinho
-   (`passaro-ideal-m.svg`, sem chapa), ESPELHADO no eixo vertical, a 190px de
-   largura contra 136 da placa: sai pelos dois lados e e cortado pelo
-   `overflow:hidden`, entao le como eco e nao como segunda marca. O passaro e
-   nao o monograma inteiro porque o monograma espelhado devolve «ideal·m» ao
-   contrario, e texto invertido le como defeito. A chapa creme do monograma da
-   frente passa por cima do eco: e o carimbo sobre a marca d'agua. */
-.barra-marca{justify-content:center;overflow:hidden}
-.barra-marca .marca-eco{position:absolute;top:50%;left:50%;
-  width:190px;height:auto;pointer-events:none;
-  transform:translate(-50%,-50%) scaleX(-1);
-  opacity:.24;
-  /* A mascara e um ANEL, e apaga o eco nas DUAS pontas. Por dentro, porque a
-     chapa creme do monograma da frente corta os tracos em linha reta e, creme
-     sobre creme, o corte nao se ve: o que se ve e o passaro sumindo num
-     retangulo invisivel, que le como erro de recorte. Por fora, porque a
-     propria placa corta no `overflow` e o mesmo problema volta na beirada
-     direita. Com o anel, o traco nasce e morre por transparencia e nao encosta
-     em aresta nenhuma. Os numeros: elipse de 50% x 62% do eco, buraco ate 32%,
-     cheio em 52%, apagado em 78% -- 78% de 95px sao 74, e a placa corta em 68,
-     entao o traco ja acabou antes de chegar la. */
-  -webkit-mask-image:radial-gradient(ellipse 50% 62% at 50% 50%,transparent 32%,#000 52%,transparent 78%);
-  mask-image:radial-gradient(ellipse 50% 62% at 50% 50%,transparent 32%,#000 52%,transparent 78%);
-  transition:opacity .45s cubic-bezier(.4,0,.2,1),width .45s cubic-bezier(.4,0,.2,1)}
-.barra-marca:hover .marca-eco{opacity:.34}
-.barra-marca .marca-frente{position:relative;z-index:1;height:58px;width:auto;display:block;
+  align-self:flex-start;margin-top:-18px}
+.barra-marca .marca-frente{height:104px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
-.barra.rolou .barra-marca .marca-frente{height:52px}
-.barra.rolou .barra-marca .marca-eco{width:170px}
+.barra.rolou .barra-marca .marca-frente{height:92px}
 .barra-marca span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
   overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .barra-nav{display:flex;align-items:center;gap:30px}
@@ -1303,10 +1232,10 @@ body>*{position:relative;z-index:1}
 .barra-menu:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
 @media (max-width:1100px){ .barra-nav{display:none} }
 @media (min-width:1101px){ .barra-menu{display:none} }
-@media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca .marca-frente{height:50px}
+@media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca .marca-frente{height:88px}
   /* a barra comeca em 22 aqui: a ancora da placa acompanha, senao ela passa
      do topo da tela e a aresta de cima e cortada */
-  .barra-marca{margin-top:-14px;padding:13px 34px} }
+  .barra-marca{margin-top:-14px} }
 
 /* ===== quatro colunas =====
    Vem da abertura do index.html, com os efeitos que o Leandro gosta: a
@@ -1519,7 +1448,6 @@ body>*{position:relative;z-index:1}
 </div>
 <header class="barra">
   <a class="barra-marca" href="index.html" aria-label="Ideal Metrics, ir para a página inicial">
-    <img class="marca-eco" src="img/passaro-ideal-m.svg" alt="" aria-hidden="true">
     <img class="marca-frente" src="img/monograma-ideal-m.svg" alt=""><span>Ideal Metrics</span></a>
   <nav class="barra-nav" aria-label="Navegação principal">
     <a href="servicos.html">Serviços</a>
