@@ -1301,35 +1301,35 @@ body>*{position:relative;z-index:1}
 /* 12/09/2026: o veu de PAPEL saiu inteiro. As quatro fotos ficam no efeito
    Bayer original, sem nenhuma camada clara por cima. O historico das seis
    voltas de esbranquicamento fica no git.
+
    14/09/2026: entra uma camada de coluna inteira, que CLAREIA em cima e
-   ESCURECE embaixo. Na aresta de cima o creme e CHEIO: a primeira linha de
-   pixel e exatamente #FAF9F5, a mesma cor do fundo da secao, entao nao existe
-   costura entre pagina e foto. Dai o creme cai devagar, passando por .76, .56,
-   .38, .24, .13, .06 e .02, e morre aos 72%; a tinta nasce EXATAMENTE nos
-   mesmos 72% e sobe por .04, .11 e .21 ate 34% na base.
-   As duas paradas a zero no MESMO ponto nao sao detalhe: com a faixa morta que
-   havia antes (creme acabando aos 60%, tinta entrando aos 64%) o olho lia uma
-   linha ali, porque eram 4% de altura sem nada acontecendo entre duas rampas
-   ativas. E as duas pontas chegam quase paradas de proposito: rampa ingreme
-   encostando em rampa ingreme faz um joelho visivel, mesmo sem faixa morta.
-   A rampa clara e longa: pega o indice, o titulo e a lista, e o escuro fica
-   reservado ao pe, onde serve de cama para o vidro do texto e do botao. O objetivo do pe escuro e dar cama para
-   o vidro do texto e do botao.
-   Fica no z-index 1, entre a foto (0) e o conteudo (2). Duas consequencias:
-   o escrito nao escurece junto, e, como a camada e pintada ANTES, ela entra no
-   BACKDROP do vidro: o desfoque borra a foto ja tratada, e e isso que faz a
-   peca de vidro aparecer mais.
-   As duas paradas transparentes no meio (creme a 0 em 40%, tinta a 0 em 46%)
-   nao sao enfeite: navegador que interpole em alfa NAO premultiplicado iria de
-   creme para tinta atravessando um cinza sujo na faixa central. Com uma parada
-   a zero de cada lado, cada metade morre na propria cor e o meio fica limpo. */
+   ESCURECE embaixo. Ela fica no z-index 1, entre a foto (0) e o conteudo (2),
+   e dai vem duas consequencias que interessam: o escrito nao escurece junto, e,
+   como a camada e pintada ANTES, ela entra no BACKDROP do vidro, entao o
+   desfoque do texto e do botao borra a foto ja tratada. E isso que faz a peca
+   de vidro aparecer, nao mexer na opacidade do creme.
+
+   SAO DUAS CAMADAS EMPILHADAS, nao um degrade so, e a razao e essa: num degrade
+   unico o creme e a tinta tem de se encontrar num ponto, e ponto de encontro
+   sempre da sinal. Duas versoes anteriores provaram isso, primeiro com uma
+   faixa morta entre as rampas, depois com um joelho onde elas se tocavam.
+   Empilhadas nao ha encontro nenhum: a tinta desce por cima do creme, as duas
+   rampas sao longas e fracas e se cruzam no meio do card sem produzir aresta.
+
+   Numeros de hoje: creme de .74 na aresta de cima a zero aos 80% da altura;
+   tinta do zero aos 6% a .58 na base. O creme NAO comeca em 100% de proposito,
+   foi a chapa opaca no alto que criou a borda visivel, e a queda inicial e
+   macia (.74 para .60 nos primeiros 12%) porque rampa ingreme na aresta e o
+   que o olho acha primeiro. Forca se ganha subindo o patamar das PONTAS,
+   nunca fechando a aresta nem encurtando a travessia. */
 .qc-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
-    linear-gradient(to bottom, rgba(20,48,76,0) 6%, rgba(20,48,76,.05) 34%,
-      rgba(20,48,76,.13) 58%, rgba(20,48,76,.26) 80%, rgba(20,48,76,.44) 100%),
-    linear-gradient(to bottom, rgba(250,249,245,.58) 0%, rgba(250,249,245,.44) 12%,
-      rgba(250,249,245,.30) 24%, rgba(250,249,245,.18) 38%, rgba(250,249,245,.09) 52%,
-      rgba(250,249,245,.03) 66%, rgba(250,249,245,0) 80%)}
+    linear-gradient(to bottom, rgba(20,48,76,0) 6%, rgba(20,48,76,.07) 34%,
+      rgba(20,48,76,.19) 58%, rgba(20,48,76,.36) 80%, rgba(20,48,76,.58) 100%),
+    linear-gradient(to bottom, rgba(250,249,245,.74) 0%, rgba(250,249,245,.60) 12%,
+      rgba(250,249,245,.42) 24%, rgba(250,249,245,.26) 38%, rgba(250,249,245,.13) 52%,
+      rgba(250,249,245,.05) 66%, rgba(250,249,245,0) 80%)}
+
 /* 12/09/2026: saiu a tarja escura atras das linhas escritas (lista e rodape).
    14/09/2026: ela volta, em creme #FAF9F5 a 60% (40% de transparência) na lista e no rodapé,
    e a 70% (30% de transparência) no fundo do botão. O grifo e por LINHA ESCRITA,
