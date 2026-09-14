@@ -1165,7 +1165,11 @@ body>*{position:relative;z-index:1}
 .tarja{position:fixed;top:0;left:0;right:0;z-index:950;height:26px;
   display:flex;align-items:center;justify-content:flex-end;
   padding:0 var(--lado);background:var(--mercurio);
-  border-bottom:1px solid rgba(20,48,76,.12)}
+  /* 3px e nao 1: esta e a PRIMEIRA LINHA da pagina, e ela virou tambem a
+     aresta de cima da caixa do logo (ver `.barra-marca`). Com
+     `box-sizing:border-box` os 26 de altura ja contam o fio, entao ele
+     ocupa de 23 a 26 e a barra, que comeca em 26, encosta nele sem folga. */
+  border-bottom:3px solid rgba(20,48,76,.2)}
 .tarja-lado{display:flex;align-items:center;height:100%}
 .tarja span{display:flex;align-items:center;height:100%;padding:0 14px;
   font-family:var(--mono);font-weight:500;font-size:10px;white-space:nowrap;
@@ -1200,10 +1204,14 @@ body>*{position:relative;z-index:1}
    caixa sobre a foto, que e onde o vidro tem o que desfocar. A primeira versao
    saiu com 148 e ficou grande demais. */
 .barra-marca{display:flex;align-items:center;position:relative;z-index:1;
-  align-self:flex-start;margin-top:-26px;
+  /* margin-top:0 e nao -26: a aresta de cima da caixa cai em y=26, que e
+     exatamente onde termina o fio grosso da tarja. Os dois viram UMA coisa,
+     e por isso a caixa nao tem `border-top`: quem fecha o alto dela e a
+     primeira linha da pagina. */
+  align-self:flex-start;margin-top:0;
   /* 8 e nao 14: a CAIXA fica do mesmo tamanho e quem cresce e a marca.
      96 + 16 = 112 de altura, o mesmo de antes. */
-  padding:4.3px;border-radius:3px;border:1px solid var(--fio);
+  padding:4.3px;border-radius:0 0 3px 3px;border:1px solid var(--fio);border-top:none;
   background:rgba(250,249,245,.62);
   -webkit-backdrop-filter:blur(14px) saturate(160%);
   backdrop-filter:blur(14px) saturate(160%);
@@ -1248,7 +1256,7 @@ body>*{position:relative;z-index:1}
 @media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca .marca-frente{height:81.6px}
   /* a barra comeca em 22 aqui: a ancora da placa acompanha, senao ela passa
      do topo da tela e a aresta de cima e cortada */
-  .barra-marca{margin-top:-22px;padding:3.7px} }
+  .barra-marca{margin-top:0;padding:3.7px} }
 
 /* ===== quatro colunas =====
    Vem da abertura do index.html, com os efeitos que o Leandro gosta: a
