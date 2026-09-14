@@ -1291,13 +1291,25 @@ body>*{position:relative;z-index:1}
   -webkit-box-decoration-break:clone;box-decoration-break:clone}
 .qc-lista li::before{content:"";display:inline-block;vertical-align:middle;margin-right:10px;width:4px;height:4px;border-radius:50%;
   background:#336699;flex:none}
+/* vidro, na receita do botao «Contato» da barra: o desfoque do que esta atras
+   mais o brilho de 1px na aresta de cima, que e o que faz a peca ler como vidro
+   e nao como caixa. Sem sombra, que e regra da casa. Aqui o que esta atras e a
+   foto em trama Bayer, entao o desfoque borra o ponto e a peca ganha volume. */
 .qc-cta{display:inline-block;width:fit-content;border:1px solid rgba(20,48,76,.42);
   border-radius:3px;padding:9px 20px;font-family:var(--mono);font-size:10.5px;
   font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--azul);
   background:rgba(250,249,245,.7);
+  -webkit-backdrop-filter:blur(14px) saturate(170%);
+  backdrop-filter:blur(14px) saturate(170%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(20,48,76,.05);
   transition:background .45s cubic-bezier(.4,0,.2,1),color .45s cubic-bezier(.4,0,.2,1),
              border-color .45s cubic-bezier(.4,0,.2,1)}
-.qc-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
+/* navegador sem backdrop-filter nao pode ficar com um botao translucido sem
+   desfoque por tras: ali o creme fecha. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .qc-cta{background:rgba(250,249,245,.92)} }
+.qc-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
 .qc-rodape{position:absolute;left:30px;right:30px;bottom:16px;z-index:2;margin:0;line-height:1.95;
   display:block;
   font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
