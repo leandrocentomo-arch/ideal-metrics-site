@@ -55,8 +55,7 @@ body>*{position:relative;z-index:1}
    real do logo (--logo-l) e da razao 2,527 do lockup prata, mais uma respiracao */
 .abertura{--logo-l:min(240px,50vw);
   --folga-h:calc(var(--logo-l)/2 + 34px);
-  --folga-v:calc(var(--logo-l)/2.54358/2 + 28px);
-  --viagem:min(20vw,240px)}
+  --folga-v:calc(var(--logo-l)/2.54358/2 + 28px)}
 .abertura .l-v,.abertura .l-h{position:absolute;background:rgba(232,230,224,.8)}
 .abertura .l-v{left:50%;width:1px;height:calc(50% - var(--folga-v));transform:scaleY(0)}
 .abertura .l-v1{top:0;transform-origin:top;
@@ -65,12 +64,12 @@ body>*{position:relative;z-index:1}
   transition:transform .9s cubic-bezier(.76,0,.24,1) .1s}
 .abertura .l-h{top:50%;height:1px;width:calc(50% - var(--folga-h));transform:scaleX(0)}
 .abertura .l-h1{left:0;transform-origin:left;
-  transition:transform .9s cubic-bezier(.76,0,.24,1) .25s, width .9s cubic-bezier(.76,0,.24,1)}
+  transition:transform .9s cubic-bezier(.76,0,.24,1) .25s}
 .abertura .l-h2{right:0;transform-origin:right;
-  transition:transform .9s cubic-bezier(.76,0,.24,1) .25s, width .9s cubic-bezier(.76,0,.24,1)}
+  transition:transform .9s cubic-bezier(.76,0,.24,1) .25s}
 /* o logo so APARECE: sem giro, sem deslocamento, sem circulo */
 .abertura img{width:min(240px,50vw);position:relative;opacity:0;
-  transition:opacity .7s ease .55s, transform .9s cubic-bezier(.76,0,.24,1)}
+  transition:opacity .7s ease .55s}
 /* tique perpendicular na ponta onde cada traco para (12/09/2026) */
 .abertura .l-v::after,.abertura .l-h::after{content:'';position:absolute;display:block;background:inherit}
 .abertura .l-v::after{left:50%;transform:translateX(-50%);width:9px;height:1px}
@@ -82,12 +81,9 @@ body>*{position:relative;z-index:1}
 .abertura.arma .l-v{transform:scaleY(1)}
 .abertura.arma .l-h{transform:scaleX(1)}
 .abertura.arma img{opacity:1}
-/* a viagem: o traco da direita cresce e empurra, o da esquerda recua cedendo
-   o caminho, e a cruz vertical acompanha o logo (12/09/2026) */
-.abertura.anda img{transform:translateX(calc(-1 * var(--viagem)))}
-.abertura.anda .l-v{transform:translateX(calc(-1 * var(--viagem))) scaleY(1)}
-.abertura.anda .l-h1{width:max(0px, calc(50% - var(--folga-h) - var(--viagem)))}
-.abertura.anda .l-h2{width:calc(50% - var(--folga-h) + var(--viagem))}
+/* 14/09/2026: saiu a viagem do logo para a esquerda, e com ela a fase `anda`
+   inteira: o empurrao do traco da direita, o recuo do da esquerda e a cruz
+   vertical que acompanhava. O logo so aparece no centro e fica. */
 .pronta .abertura{transform:translateY(-101%);pointer-events:none}
 .abertura.fora{display:none}
 
@@ -1911,8 +1907,6 @@ body>*{position:relative;z-index:1}
 window.addEventListener('load', function(){
   var ab = document.getElementById('abertura');
   ab.classList.add('arma');
-  // 1,25s: os tracos ja chegaram e o logo ja apareceu; comeca a viagem
-  setTimeout(function(){ ab.classList.add('anda'); }, 1250);
   setTimeout(function(){
     document.body.classList.remove('carga');
     document.body.classList.add('pronta');window.dispatchEvent(new Event('im:pronta'));
