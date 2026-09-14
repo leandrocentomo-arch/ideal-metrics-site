@@ -1358,11 +1358,12 @@ body>*{position:relative;z-index:1}
    e a 70% (30% de transparência) no fundo do botão. O grifo e por LINHA ESCRITA,
    nao uma caixa em volta do bloco: quem pinta e o <span> de cada linha, com
    box-decoration-break:clone para a frase que quebra em duas. A bolinha da
-   lista fica fora do grifo de proposito, ela nao e texto. Os tres sao de VIDRO,
-   na receita do botao «Contato» da barra: o desfoque do que esta atras mais o
-   brilho de 1px na aresta de cima, sem sombra. O desfoque do texto e menor que
-   o do botao, 10 contra 14 px, porque a tarja da linha tem metade da altura.
-   O botao acompanha: creme a 70% no repouso, azul no hover. */
+   lista fica fora da caixa de proposito, ela nao e texto.
+   14/09, fim do dia: deixou de ser GRIFO e virou CAIXA. Grifo acompanha o
+   texto, caixa nao: os <span> passaram de inline com box-decoration-break para
+   BLOCO, entao as tres tem a mesma largura, comecam na esquerda e terminam no
+   mesmo ponto, com o texto quebrando dentro. Creme chapado, canto de 3px e
+   sombra para dentro. O botao segue a mesma caixa, e o hover azul nao muda. */
 .qc-conteudo{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
   justify-content:space-between;padding:58px 30px 76px;color:var(--azul)}
 .qc-indice{display:block;margin-bottom:14px;font-family:var(--mono);font-weight:500;
@@ -1388,16 +1389,20 @@ body>*{position:relative;z-index:1}
   opacity:0;transform:translateY(8px);
   transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1)}
 .qc-col:hover .qc-lista,.qc-col:focus-within .qc-lista{opacity:1;transform:none}
-.qc-lista li{display:block;margin-bottom:7px;
+/* flex por causa da caixa: com o <span> em bloco, a bolinha (::before) cairia
+   numa linha sozinha. Aqui ela fica na coluna da esquerda e a caixa no resto. */
+.qc-lista li{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;
   font-family:var(--mono);font-size:10.5px;line-height:1.4;letter-spacing:.06em;
   color:var(--azul-escuro)}
-/* O grifo vira CAIXA: creme chapado, canto de 3px e sombra para DENTRO. Com
-   box-decoration-break:clone o raio e a sombra saem em cada fragmento da frase
-   que quebra em duas linhas, em vez de uma caixa so esticada. */
-.qc-lista li span{background:var(--mercurio);padding:2px 8px;border-radius:3px;
-  box-shadow:inset 0 1px 3px rgba(20,48,76,.30),inset 0 -1px 0 rgba(255,255,255,.7);
-  -webkit-box-decoration-break:clone;box-decoration-break:clone}
-.qc-lista li::before{content:"";display:inline-block;vertical-align:middle;margin-right:10px;width:4px;height:4px;border-radius:50%;
+/* CAIXA, nao grifo: bloco de largura cheia, entao as tres ficam iguais, comecam
+   na esquerda e terminam no mesmo ponto, com o texto quebrando dentro. Creme
+   chapado, canto de 3px e sombra para DENTRO. */
+.qc-lista li span{flex:1;display:block;background:var(--mercurio);
+  padding:5px 9px;border-radius:3px;
+  box-shadow:inset 0 1px 3px rgba(20,48,76,.30),inset 0 -1px 0 rgba(255,255,255,.7)}
+/* margin-top alinha a bolinha com a PRIMEIRA linha do texto, nao com o centro
+   da caixa: e o que importa quando a frase quebra em duas. */
+.qc-lista li::before{content:"";display:block;margin-top:9px;width:4px;height:4px;border-radius:50%;
   background:#336699;flex:none}
 /* 14/09, fim do dia: o botao deixa de ser vidro e vira CREME CHAPADO. O
    desfoque e o brilho de aresta sairam; ficam o creme, o fio e o canto de 3px.
@@ -1416,9 +1421,10 @@ body>*{position:relative;z-index:1}
   display:block;
   font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
-.qc-rodape span{background:var(--mercurio);padding:3px 9px;border-radius:3px;
-  box-shadow:inset 0 1px 3px rgba(20,48,76,.30),inset 0 -1px 0 rgba(255,255,255,.7);
-  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+/* a mesma caixa no rodape: bloco, entao tem a largura da coluna e nao a da
+   frase, igual as da lista. */
+.qc-rodape span{display:block;background:var(--mercurio);padding:5px 9px;border-radius:3px;
+  box-shadow:inset 0 1px 3px rgba(20,48,76,.30),inset 0 -1px 0 rgba(255,255,255,.7)}
 .qc-rodape svg{display:inline-block;vertical-align:-2px;margin-right:4px;width:12px;height:12px;fill:none;stroke:currentColor;
   stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 @media (prefers-reduced-motion:reduce){
