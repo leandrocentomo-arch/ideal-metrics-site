@@ -1217,7 +1217,11 @@ body>*{position:relative;z-index:1}
   /* padding de cima IGUAL ao de baixo. 20 e nao 15: com a fresta de 8 no topo,
      a placa precisa de 91 de altura para a base passar dos 92 da barra e
      atravessar o fio do menu. */
-  padding:20px 16px;border-radius:0;
+  /* 14/09, noite: o lado abriu de 16 para 46 porque o monograma e estreito
+     (43px contra 117 do lockup) e o eco espelhado precisa de pista dos dois
+     lados. A placa fica com a mesma largura de antes; o de cima e o de baixo
+     caiu de 20 para 14 para o monograma de 58 caber nos mesmos 86 de altura. */
+  padding:14px 46px;border-radius:0;
   /* creme puro, a MESMA cor da pagina. NAO usar var(--papel): essa variavel nao
      existe neste site, o #F7FAFE foi aposentado em 12/09. */
   /* VIDRO NA LIGA FRIA. As 13 paradas sao as do 1Asset 152.svg, de #315275 a
@@ -1241,9 +1245,36 @@ body>*{position:relative;z-index:1}
 /* Sem filtro: o 157 e liga fria, com as pontas em #315275, que sobre creme da
    7,68:1 sozinho. O brightness que existia aqui era para o prata, que e claro
    demais para fundo claro. */
-.barra-marca img{height:46px;width:auto;display:block;
+/* 14/09/2026, noite: sai o lockup deitado e entra o MONOGRAMA, a placa
+   retrato com o passaro sobre «ideal·m». Atras dele, o PASSARO sozinho
+   (`passaro-ideal-m.svg`, sem chapa), ESPELHADO no eixo vertical, a 190px de
+   largura contra 136 da placa: sai pelos dois lados e e cortado pelo
+   `overflow:hidden`, entao le como eco e nao como segunda marca. O passaro e
+   nao o monograma inteiro porque o monograma espelhado devolve «ideal·m» ao
+   contrario, e texto invertido le como defeito. A chapa creme do monograma da
+   frente passa por cima do eco: e o carimbo sobre a marca d'agua. */
+.barra-marca{justify-content:center;overflow:hidden}
+.barra-marca .marca-eco{position:absolute;top:50%;left:50%;
+  width:190px;height:auto;pointer-events:none;
+  transform:translate(-50%,-50%) scaleX(-1);
+  opacity:.24;
+  /* A mascara e um ANEL, e apaga o eco nas DUAS pontas. Por dentro, porque a
+     chapa creme do monograma da frente corta os tracos em linha reta e, creme
+     sobre creme, o corte nao se ve: o que se ve e o passaro sumindo num
+     retangulo invisivel, que le como erro de recorte. Por fora, porque a
+     propria placa corta no `overflow` e o mesmo problema volta na beirada
+     direita. Com o anel, o traco nasce e morre por transparencia e nao encosta
+     em aresta nenhuma. Os numeros: elipse de 50% x 62% do eco, buraco ate 32%,
+     cheio em 52%, apagado em 78% -- 78% de 95px sao 74, e a placa corta em 68,
+     entao o traco ja acabou antes de chegar la. */
+  -webkit-mask-image:radial-gradient(ellipse 50% 62% at 50% 50%,transparent 32%,#000 52%,transparent 78%);
+  mask-image:radial-gradient(ellipse 50% 62% at 50% 50%,transparent 32%,#000 52%,transparent 78%);
+  transition:opacity .45s cubic-bezier(.4,0,.2,1),width .45s cubic-bezier(.4,0,.2,1)}
+.barra-marca:hover .marca-eco{opacity:.34}
+.barra-marca .marca-frente{position:relative;z-index:1;height:58px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
-.barra.rolou .barra-marca img{height:41px}
+.barra.rolou .barra-marca .marca-frente{height:52px}
+.barra.rolou .barra-marca .marca-eco{width:170px}
 .barra-marca span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
   overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .barra-nav{display:flex;align-items:center;gap:30px}
@@ -1272,10 +1303,10 @@ body>*{position:relative;z-index:1}
 .barra-menu:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
 @media (max-width:1100px){ .barra-nav{display:none} }
 @media (min-width:1101px){ .barra-menu{display:none} }
-@media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca img{height:41px}
+@media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca .marca-frente{height:50px}
   /* a barra comeca em 22 aqui: a ancora da placa acompanha, senao ela passa
      do topo da tela e a aresta de cima e cortada */
-  .barra-marca{margin-top:-14px;padding:19px 13px} }
+  .barra-marca{margin-top:-14px;padding:13px 34px} }
 
 /* ===== quatro colunas =====
    Vem da abertura do index.html, com os efeitos que o Leandro gosta: a
@@ -1321,6 +1352,12 @@ body>*{position:relative;z-index:1}
    chamine anda para dentro. O arquivo foi gerado nessa escala (840 px de altura para 672 css x 1,25):
    a trama continua em 1 px de tela. */
 .qc-col:hover .qc-bg{transform:scale(1.035)}
+/* 14/09/2026, noite: Gestao de Carbono passa para a primeira vaga e a ISO para
+   a segunda; os indices sao POSICAO na tira, entao [01] e [02] trocaram junto.
+   A foto da ISO entra ESPELHADA no eixo vertical. O hover precisa repetir o
+   scaleX(-1): `transform` nao acumula, e o zoom sozinho desfaria o espelho. */
+.qc-col--iso .qc-bg{transform:scaleX(-1)}
+.qc-col--iso:hover .qc-bg{transform:scaleX(-1) scale(1.035)}
 /* 12/09/2026: o veu de PAPEL saiu inteiro. As quatro fotos ficam no efeito
    Bayer original, sem nenhuma camada clara por cima. O historico das seis
    voltas de esbranquicamento fica no git.
@@ -1389,21 +1426,20 @@ body>*{position:relative;z-index:1}
   opacity:0;transform:translateY(8px);
   transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1)}
 .qc-col:hover .qc-lista,.qc-col:focus-within .qc-lista{opacity:1;transform:none}
-/* flex por causa da caixa: com o <span> em bloco, a bolinha (::before) cairia
-   numa linha sozinha. Aqui ela fica na coluna da esquerda e a caixa no resto. */
-.qc-lista li{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;
-  font-family:var(--mono);font-size:10.5px;line-height:1.4;letter-spacing:.06em;
+/* 14/09, noite: a bolinha SAIU e a lista voltou a ser GRIFO. Sem bolinha nao ha
+   mais duas colunas, entao o <li> e bloco simples outra vez. */
+.qc-lista li{display:block;margin-bottom:5px;
+  font-family:var(--mono);font-size:10.5px;line-height:2.05;letter-spacing:.06em;
   color:var(--azul-escuro)}
-/* CAIXA, nao grifo: bloco de largura cheia, entao as tres ficam iguais, comecam
-   na esquerda e terminam no mesmo ponto, com o texto quebrando dentro. Creme
-   chapado, canto de 3px e sombra para DENTRO. */
-.qc-lista li span{flex:1;display:block;background:var(--mercurio);
-  padding:5px 9px;border-radius:3px;
-  box-shadow:inset 0 1px 3px rgba(20,48,76,.30),inset 0 -1px 0 rgba(255,255,255,.7)}
-/* margin-top alinha a bolinha com a PRIMEIRA linha do texto, nao com o centro
-   da caixa: e o que importa quando a frase quebra em duas. */
-.qc-lista li::before{content:"";display:block;margin-top:9px;width:4px;height:4px;border-radius:50%;
-  background:#336699;flex:none}
+/* GRIFO, nao caixa: o <span> e INLINE, entao a tinta creme acompanha o texto e
+   para onde a frase para. `box-decoration-break:clone` repete o grifo (padding,
+   canto e tudo) em cada pedaco da frase que quebra de linha; sem ele, a segunda
+   linha sairia sem o canto e sem o respiro lateral. Sem sombra para dentro: essa
+   era o que fazia a peca ler como caixa. O `line-height` subiu de 1,4 para 2,05
+   porque grifo com respiro de 3px em cima e embaixo encosta na linha seguinte. */
+.qc-lista li span{display:inline;background:var(--mercurio);
+  padding:3px 7px;border-radius:3px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
 /* 14/09, fim do dia: o botao deixa de ser vidro e vira CREME CHAPADO. O
    desfoque e o brilho de aresta sairam; ficam o creme, o fio e o canto de 3px.
    O hover azul nao muda. */
@@ -1417,14 +1453,27 @@ body>*{position:relative;z-index:1}
    desfoque por tras: ali o creme fecha. */
 .qc-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
-.qc-rodape{position:absolute;left:30px;right:30px;bottom:16px;z-index:2;margin:0;line-height:1.95;
+/* 14/09, noite: a caixa do rodape perde 30% de largura. A vaga era
+   `100% - 60px` (os dois 30 de margem); 70% dela e `70% - 42px`, que e o que
+   esta no `width`. O `right` sai, senao a largura vem dos dois lados e o calculo
+   nao vale. */
+.qc-rodape{position:absolute;left:30px;right:auto;width:calc(70% - 42px);
+  bottom:16px;z-index:2;margin:0;line-height:1.95;
   display:block;
   font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
-/* a mesma caixa no rodape: bloco, entao tem a largura da coluna e nao a da
-   frase, igual as da lista. */
-.qc-rodape span{display:block;background:var(--mercurio);padding:5px 9px;border-radius:3px;
+/* MESMA ALTURA nas quatro, que e a outra metade do pedido. Quem iguala e o
+   `min-height` de DUAS linhas (2 x 1,95em de entrelinha + os 10 de respiro),
+   nao o conteudo: com ele, a frase de uma linha ocupa a mesma altura da de
+   duas, e o `align-items:center` centra a curta na caixa. Vale nos dois
+   regimes, o estreito e o de coluna cheia abaixo de 1280. */
+.qc-rodape span{display:flex;align-items:center;min-height:calc(3.9em + 10px);
+  background:var(--mercurio);padding:5px 9px;border-radius:3px;
   box-shadow:inset 0 1px 3px rgba(20,48,76,.30),inset 0 -1px 0 rgba(255,255,255,.7)}
+/* abaixo de 1280 a coluna ja e estreita e tirar mais 30% picaria a frase em
+   quatro ou cinco linhas: ali a caixa volta a largura cheia. O `min-height`
+   continua valendo, entao as quatro seguem iguais. */
+@media (max-width:1280px){ .qc-rodape{right:30px;width:auto} }
 .qc-rodape svg{display:inline-block;vertical-align:-2px;margin-right:4px;width:12px;height:12px;fill:none;stroke:currentColor;
   stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 @media (prefers-reduced-motion:reduce){
@@ -1441,7 +1490,7 @@ body>*{position:relative;z-index:1}
   .qc-vertical{display:none}
   .qc-lista{opacity:1;transform:none}
   .qc-conteudo{padding:52px 22px 70px}
-  .qc-rodape{left:22px;right:22px}
+  .qc-rodape{left:22px;right:22px;width:auto}
 }
 
 /* ===== marcas oficiais =====
@@ -1470,7 +1519,8 @@ body>*{position:relative;z-index:1}
 </div>
 <header class="barra">
   <a class="barra-marca" href="index.html" aria-label="Ideal Metrics, ir para a página inicial">
-    <img src="img/logo-ideal-m.svg" alt=""><span>Ideal Metrics</span></a>
+    <img class="marca-eco" src="img/passaro-ideal-m.svg" alt="" aria-hidden="true">
+    <img class="marca-frente" src="img/monograma-ideal-m.svg" alt=""><span>Ideal Metrics</span></a>
   <nav class="barra-nav" aria-label="Navegação principal">
     <a href="servicos.html">Serviços</a>
     <a href="como-trabalhamos.html">Como trabalhamos</a>
@@ -1496,27 +1546,11 @@ body>*{position:relative;z-index:1}
   <section class="qc-sec" id="quatro-colunas" aria-labelledby="qc-titulo-sec">
     
     <div class="qc-tira">
-      <article class="qc-col qc-col--iso">
-        <img class="qc-bg" src="img/industria-bayer-qc.webp" alt="" loading="lazy">
-        <div class="qc-conteudo">
-          <div>
-            <span class="qc-indice">[ 01 ]</span>
-            <h3 class="qc-titulo">ISO<br>Certificação</h3>
-            <div class="qc-fio" aria-hidden="true"></div>
-          </div>
-          <span class="qc-vertical" aria-hidden="true">Normas</span>
-          <div>
-            <ul class="qc-lista"><li><span>ISO 9001: gestão da qualidade</span></li><li><span>ISO 14001: ambiental</span></li><li><span>ISO 45001: saúde e segurança</span></li></ul>
-            <a class="qc-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
-          </div>
-        </div>
-        <p class="qc-rodape"><span>Busca certificação para a sua organização</span></p>
-      </article>
       <article class="qc-col qc-col--carbono">
         <img class="qc-bg" src="img/energia-bayer-qc.webp" alt="" loading="lazy">
         <div class="qc-conteudo">
           <div>
-            <span class="qc-indice">[ 02 ]</span>
+            <span class="qc-indice">[ 01 ]</span>
             <h3 class="qc-titulo">Gestão<br>de Carbono</h3>
             <div class="qc-fio" aria-hidden="true"></div>
           </div>
@@ -1527,6 +1561,22 @@ body>*{position:relative;z-index:1}
           </div>
         </div>
         <p class="qc-rodape"><span>Reduz as emissões da sua operação</span></p>
+      </article>
+      <article class="qc-col qc-col--iso">
+        <img class="qc-bg" src="img/industria-bayer-qc.webp" alt="" loading="lazy">
+        <div class="qc-conteudo">
+          <div>
+            <span class="qc-indice">[ 02 ]</span>
+            <h3 class="qc-titulo">ISO<br>Certificação</h3>
+            <div class="qc-fio" aria-hidden="true"></div>
+          </div>
+          <span class="qc-vertical" aria-hidden="true">Normas</span>
+          <div>
+            <ul class="qc-lista"><li><span>ISO 9001: gestão da qualidade</span></li><li><span>ISO 14001: ambiental</span></li><li><span>ISO 45001: saúde e segurança</span></li></ul>
+            <a class="qc-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
+          </div>
+        </div>
+        <p class="qc-rodape"><span>Busca certificação para a sua organização</span></p>
       </article>
       <article class="qc-col qc-col--sedex">
         <img class="qc-bg" src="img/logistica-bayer-qc.webp" alt="" loading="lazy">
