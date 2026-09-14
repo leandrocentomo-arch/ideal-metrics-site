@@ -1265,15 +1265,22 @@ body>*{position:relative;z-index:1}
 /* 12/09/2026: o veu de PAPEL saiu inteiro. As quatro fotos ficam no efeito
    Bayer original, sem nenhuma camada clara por cima. O historico das seis
    voltas de esbranquicamento fica no git.
-   14/09/2026: entra o contrario, e so no pe da coluna: um degrade de tinta que
-   nasce em zero ate 45% da altura e chega a 34% no rodape. Nao e esbranquicar,
-   e dar cama para o vidro do texto e do botao. Fica no z-index 1, entre a foto
-   (0) e o conteudo (2): o escrito nao escurece junto, e como a camada e pintada
-   ANTES, ela entra no backdrop do vidro, entao o desfoque borra a foto ja
-   escurecida. E isso que faz a peca de vidro aparecer mais. */
+   14/09/2026: entra uma camada de coluna inteira, que CLAREIA em cima e
+   ESCURECE embaixo. Creme 40% no topo caindo a zero aos 40% da altura, nada no
+   meio, e tinta subindo a 34% na base. O objetivo do pe escuro e dar cama para
+   o vidro do texto e do botao.
+   Fica no z-index 1, entre a foto (0) e o conteudo (2). Duas consequencias:
+   o escrito nao escurece junto, e, como a camada e pintada ANTES, ela entra no
+   BACKDROP do vidro: o desfoque borra a foto ja tratada, e e isso que faz a
+   peca de vidro aparecer mais.
+   As duas paradas transparentes no meio (creme a 0 em 40%, tinta a 0 em 46%)
+   nao sao enfeite: navegador que interpole em alfa NAO premultiplicado iria de
+   creme para tinta atravessando um cinza sujo na faixa central. Com uma parada
+   a zero de cada lado, cada metade morre na propria cor e o meio fica limpo. */
 .qc-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(to bottom,
-    rgba(20,48,76,0) 45%, rgba(20,48,76,.16) 72%, rgba(20,48,76,.34) 100%)}
+    rgba(250,249,245,.40) 0%, rgba(250,249,245,.14) 24%, rgba(250,249,245,0) 40%,
+    rgba(20,48,76,0) 46%, rgba(20,48,76,.16) 72%, rgba(20,48,76,.34) 100%)}
 /* 12/09/2026: saiu a tarja escura atras das linhas escritas (lista e rodape).
    14/09/2026: ela volta, em creme #FAF9F5 a 60% (40% de transparência) na lista e no rodapé,
    e a 70% (30% de transparência) no fundo do botão. O grifo e por LINHA ESCRITA,
