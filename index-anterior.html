@@ -1174,23 +1174,30 @@ body>*{position:relative;z-index:1}
   .barra{background:var(--mercurio)} }
 /* A marca fica solta sobre a barra, sem fundo nenhum. Rolando, ela
    recolhe de 52 para 42px, junto com a barra que fica mais discreta. */
-/* 14/09/2026: a marca ganha placa de vidro, ENCOSTA NO TOPO da pagina e vaza
-   o cabecalho embaixo. A ancora vertical e `align-self:flex-start` com
+/* 14/09/2026: a marca ganha uma CAIXA CONTORNADA, de canto vivo, que encosta
+   no topo da pagina e vaza o cabecalho embaixo. Ela ja foi de vidro; o vidro
+   saiu inteiro (desfoque, saturate, demao de azul, brilho de 1px na aresta e o
+   raio de 3px), porque sem desfoque o brilho da aresta nao descreve nada: ele
+   existia para fingir a luz pegando numa chapa translucida. Ficam o fio de 1px
+   e o fundo CHAPADO: o creme da propria pagina com 5% do azul oficial por
+   cima, que e o «azulado» que ele pediu sem reintroduzir o #F7FAFE, cor que
+   saiu do site em 12/09. Chapado
+   de proposito: o pedaco de baixo da caixa fica sobre a foto, e com fundo
+   aberto a trama Bayer passaria por tras do logo. O hover fecha o fio, nao o
+   fundo: numa caixa contornada quem tem a voz e a linha. A ancora vertical e `align-self:flex-start` com
    `margin-top:-26px`, que e exatamente o `top` da barra: a aresta de cima cai
    em y=0. So funciona porque a barra subiu de 900 para 960 na pilha; a tarja
    esta em 950 e escondia tudo o que passasse do topo dela, e o veu do menu
    subiu para 980 para a ordem continuar abertura > menu > barra > tarja. */
 .barra-marca{display:flex;align-items:center;position:relative;z-index:1;
   align-self:flex-start;margin-top:-26px;
-  padding:25px 19px 29px;border-radius:3px;
-  background:linear-gradient(rgba(51,102,153,.12),rgba(51,102,153,.12)),rgba(247,250,254,.66);
-  -webkit-backdrop-filter:blur(14px) saturate(190%);
-  backdrop-filter:blur(14px) saturate(190%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),inset 0 -1px 0 rgba(20,48,76,.06);
-  transition:background .45s cubic-bezier(.4,0,.2,1)}
-.barra-marca:hover{background:linear-gradient(rgba(51,102,153,.07),rgba(51,102,153,.07)),rgba(247,250,254,.85)}
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .barra-marca{background:rgba(228,238,248,.95)} }
+  padding:24px 18px 28px;border:1px solid rgba(20,48,76,.28);border-radius:0;
+  /* creme da pagina com 5% do azul oficial por cima: chapado, combina com a
+     barra e ainda atende ao pedido de fundo azulado. NAO usar var(--papel):
+     essa variavel nao existe neste site, o #F7FAFE foi aposentado em 12/09. */
+  background:linear-gradient(rgba(51,102,153,.05),rgba(51,102,153,.05)),var(--mercurio);
+  transition:border-color .45s cubic-bezier(.4,0,.2,1)}
+.barra-marca:hover{border-color:rgba(20,48,76,.55)}
 .barra-marca img{height:51px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca img{height:41px}
