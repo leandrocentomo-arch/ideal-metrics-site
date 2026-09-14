@@ -1164,7 +1164,7 @@ body>*{position:relative;z-index:1}
   letter-spacing:.2em;text-transform:uppercase;color:#FFFFFF}
 @media (max-width:880px){ .tarja{height:22px} .tarja span{font-size:9px;letter-spacing:.16em} }
 
-.barra{position:fixed;top:26px;left:0;right:0;z-index:960;height:76px;
+.barra{position:fixed;top:26px;left:0;right:0;z-index:960;height:66px;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 var(--lado);background:rgba(250,249,245,.78);
   -webkit-backdrop-filter:blur(20px) saturate(150%);
@@ -1222,7 +1222,7 @@ body>*{position:relative;z-index:1}
 .barra-menu:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
 @media (max-width:1100px){ .barra-nav{display:none} }
 @media (min-width:1101px){ .barra-menu{display:none} }
-@media (max-width:880px){ .barra{top:22px;height:64px} .barra-marca img{height:41px}
+@media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca img{height:41px}
   .barra-marca{margin-top:-22px;padding:22px 15px 26px} }
 
 /* ===== quatro colunas =====
@@ -1233,8 +1233,10 @@ body>*{position:relative;z-index:1}
    A coluna nasce VISIVEL. A animacao de entrada move so a posicao, nunca
    a opacidade: animacao que nao roda ate o fim nao pode apagar a secao. */
 /* o topo da secao e exatamente a base da barra (top 26 + altura 76): a tira
-   encosta no fio do cabecalho, sem faixa de creme no meio */
-.qc-sec{padding:102px 0 110px;background:var(--mercurio)}
+   encosta no fio do cabecalho, sem faixa de creme no meio. 14/09, tarde: a
+   barra emagreceu de 76 para 66, entao este numero caiu de 102 para 92 e a
+   placa da marca passou a vazar 13px em vez de 3, sem crescer */
+.qc-sec{padding:92px 0 110px;background:var(--mercurio)}
 .qc-abre{padding:44px var(--lado) 0}
 .qc-abre .qc-rotulo{display:flex;justify-content:space-between;
   border-top:1px solid rgba(20,48,76,.2);padding-top:12px;
@@ -1321,7 +1323,7 @@ body>*{position:relative;z-index:1}
   .qc-col,.qc-bg,.qc-col::before,.qc-vertical,.qc-lista{transition:none}
 }
 @media (max-width:880px){
-  .qc-sec{padding:86px 0 76px}   /* aqui a barra e 22+64 */
+  .qc-sec{padding:78px 0 76px}   /* aqui a barra e 22+56 */
   .qc-tira{flex-direction:column;height:auto}
   .qc-col{min-height:300px;border-right:none;
     border-bottom:1px solid rgba(20,48,76,.16)}
