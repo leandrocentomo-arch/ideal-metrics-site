@@ -1199,17 +1199,59 @@ body>*{position:relative;z-index:1}
   padding:26px 18px;border-radius:0;
   /* creme puro, a MESMA cor da pagina. NAO usar var(--papel): essa variavel nao
      existe neste site, o #F7FAFE foi aposentado em 12/09. */
-  /* VIDRO ESCURO. Agora ela tem o que borrar de verdade: em cima a tarja creme,
-     no meio a barra, embaixo a foto. O brilho da aresta fica em 0,14 porque
-     sobre escuro os 0,95 do vidro claro virariam um filete branco. */
-  background:rgba(20,48,76,.72);
-  -webkit-backdrop-filter:blur(14px) saturate(140%);
-  backdrop-filter:blur(14px) saturate(140%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.14);
+  /* VIDRO NA LIGA FRIA. As 13 paradas sao as do 1Asset 152.svg, de #315275 a
+     #a3b5c8 e de volta, com o ponto alto em 0,5; o angulo de 135 graus e a
+     diagonal do eixo do arquivo. Em rgba para a placa continuar translucida:
+     vidro se reconhece pelo que se ve ATRAVES, e era isso que faltava quando
+     ela era tinta a 72%. O alfa de 0,58 e o ponto em que o desfoque aparece
+     sem o logo perder o fundo. */
+  background:linear-gradient(135deg,
+    rgba(49,82,117,0.58) 0%,
+    rgba(91,118,148,0.58) 10%,
+    rgba(121,145,170,0.58) 18%,
+    rgba(131,153,177,0.58) 22%,
+    rgba(149,169,190,0.58) 30%,
+    rgba(159,178,197,0.58) 39%,
+    rgba(163,181,200,0.58) 50%,
+    rgba(159,178,197,0.58) 62%,
+    rgba(150,169,190,0.58) 71%,
+    rgba(133,155,178,0.58) 79%,
+    rgba(109,134,161,0.58) 87%,
+    rgba(79,108,139,0.58) 94%,
+    rgba(49,82,117,0.58) 100%);
+  -webkit-backdrop-filter:blur(14px) saturate(150%);
+  backdrop-filter:blur(14px) saturate(150%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.34);
   transition:background .45s cubic-bezier(.4,0,.2,1)}
-.barra-marca:hover{background:rgba(20,48,76,.86)}
+.barra-marca:hover{background:linear-gradient(135deg,
+    rgba(49,82,117,0.74) 0%,
+    rgba(91,118,148,0.74) 10%,
+    rgba(121,145,170,0.74) 18%,
+    rgba(131,153,177,0.74) 22%,
+    rgba(149,169,190,0.74) 30%,
+    rgba(159,178,197,0.74) 39%,
+    rgba(163,181,200,0.74) 50%,
+    rgba(159,178,197,0.74) 62%,
+    rgba(150,169,190,0.74) 71%,
+    rgba(133,155,178,0.74) 79%,
+    rgba(109,134,161,0.74) 87%,
+    rgba(79,108,139,0.74) 94%,
+    rgba(49,82,117,0.74) 100%)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .barra-marca{background:rgba(20,48,76,.93)} }
+  .barra-marca{background:linear-gradient(135deg,
+    rgba(49,82,117,0.94) 0%,
+    rgba(91,118,148,0.94) 10%,
+    rgba(121,145,170,0.94) 18%,
+    rgba(131,153,177,0.94) 22%,
+    rgba(149,169,190,0.94) 30%,
+    rgba(159,178,197,0.94) 39%,
+    rgba(163,181,200,0.94) 50%,
+    rgba(159,178,197,0.94) 62%,
+    rgba(150,169,190,0.94) 71%,
+    rgba(133,155,178,0.94) 79%,
+    rgba(109,134,161,0.94) 87%,
+    rgba(79,108,139,0.94) 94%,
+    rgba(49,82,117,0.94) 100%)} }
 .barra-marca img{height:51px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca img{height:41px}
@@ -1377,7 +1419,7 @@ body>*{position:relative;z-index:1}
 <div class="tarja"><span>Ideal Metrics Ltda</span></div>
 <header class="barra">
   <a class="barra-marca" href="index.html" aria-label="Ideal Metrics, ir para a página inicial">
-    <img src="img/logo-ideal-m-prata.svg" alt=""><span>Ideal Metrics</span></a>
+    <img src="img/logo-ideal-m.svg" alt=""><span>Ideal Metrics</span></a>
   <nav class="barra-nav" aria-label="Navegação principal">
     <a href="servicos.html">Serviços</a>
     <a href="como-trabalhamos.html">Como trabalhamos</a>
