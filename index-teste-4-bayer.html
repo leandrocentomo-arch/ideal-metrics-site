@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ideal Metrics · teste, quatro fotos na trama Bayer</title>
+<title>Ideal Metrics · teste, quatro fotos na trama Bayer, placa clara</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -1491,6 +1491,11 @@ body>*{position:relative;z-index:1}
    esta vaga, entao o `cover` quase nao corta. */
 .sh-foto{position:absolute;inset:0;width:100%;height:100%;z-index:0;
   object-fit:cover;object-position:center;pointer-events:none;
+  /* +6% de brilho, SO NESTA PAGINA. Os arquivos sao os mesmos do index.html e
+     nao foram tocados; o `filter` vive no CSS daqui. `brightness` multiplica
+     cada canal e nao borra nada, entao o ponto de 1px da trama Bayer continua
+     de pe, que e o que um desfoque estragaria. */
+  filter:brightness(1.06);
   transition:transform .85s cubic-bezier(.23,1,.32,1);
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18%);
   mask-image:linear-gradient(90deg,transparent 0,#000 18%)}
@@ -1502,7 +1507,7 @@ body>*{position:relative;z-index:1}
    centro ela sai do corte. E o mesmo ajuste que o index faz na vaga `qc`. */
 .sh-col--carbono .sh-foto{object-position:right center}
 .sh-col{position:relative;flex:1;overflow:hidden;min-width:0;z-index:1;
-  border-right:1px solid rgba(250,249,245,.14);
+  border-right:1px solid rgba(20,48,76,.16);
   transition:flex .5s cubic-bezier(.4,0,.2,1);
   animation:qcEntra .7s cubic-bezier(.25,.46,.45,.94) both}
 .sh-col:last-child{border-right:none}
@@ -1527,117 +1532,89 @@ body>*{position:relative;z-index:1}
    44,106,175 | 122,157,193 -> 108,158,210 | 163,181,200 -> 150,180,218. As
    duas ultimas eram azuis acinzentados e eram elas que puxavam a secao para o
    neutro. */
-/* AS PLACAS CLAREARAM 12%. Pedido de 15/09; o numero nao e de gosto, e o teto:
-   os alfas dos quatro veus e os da demao foram todos multiplicados por 0,88, e
-   0,88 e o maior fator em que as dezesseis bandas (quatro colunas x titulo,
-   lista, botao e rodape) ainda fecham o piso. O gargalo e a lista do ESG, que
-   cai de 5,70 para 4,59:1 contra um piso de 4,5. Em 0,84 ela da 4,27 e
-   reprova. Medido compondo veu e demao sobre os pixels das proprias fotos, na
-   propria pagina, a 1920.
-   Os valores de antes, se for preciso voltar: veus .52/.46 | .46/.40 | .40/.34
-   | .34/.28; demao .56 .54 .26 .24 .52 .70 .74; cabeca do ESG .64 .62. */
-.sh-col--carbono{background:linear-gradient(160deg,rgba(17,52,95,0.46) 0%,rgba(42,88,142,0.40) 100%)}
-.sh-col--iso    {background:linear-gradient(160deg,rgba(42,88,142,0.40) 0%,rgba(44,106,175,0.35) 100%)}
-.sh-col--sedex  {background:linear-gradient(160deg,rgba(44,106,175,0.35) 0%,rgba(108,158,210,0.30) 100%)}
-.sh-col--esg    {background:linear-gradient(160deg,rgba(108,158,210,0.30) 0%,rgba(150,180,218,0.25) 100%)}
-/* O PE DA DEMAO ENGROSSA de .55 para .68, e o topo nao muda. Com a foto unica
-   do teste a metade esquerda da tira era papel e o escrito pequeno do rodape
-   caia sobre o veu; com quatro fotos ele cai sobre a IMAGEM, e nas passagens
-   claras (o capim do ESG, a chapa do contentor) sumia. Medido no render de
-   1920, rodape em creme cheio: com .55 a pior coluna dava 3,6:1 de media e com
-   .68 da 5,0:1, com o pior decil em 4,5:1, que e o piso de 4,5:1 para escrito
-   que informa. O hover acompanha na mesma proporcao (.42 -> .52). */
-/* A DEMAO TEM CABECA, JANELA E PE, e os tres numeros foram RESOLVIDOS, nao
-   escolhidos no olho. No teste ela era uma rampa so, de .12 no alto a .55 na
-   base, e bastava: a foto era uma so, ancorada a direita, e o escrito das duas
-   primeiras colunas caia sobre papel. Com quatro fotos ele cai sobre a IMAGEM
-   nas quatro, e o alto e o pe de cada foto sao justamente as partes mais
-   claras (o penacho do carbono, o capim do ESG, a chapa do contentor).
-   Metodo: amostrei o fundo real de cada banda nos dois renders de 1920,
-   desfiz o alfa que ja estava ali e resolvi o alfa que fecha o piso de cada
-   escrito. Piso do titulo e 3:1, e nao 4,5:1, porque 23px em peso 700 conta
-   como texto grande; o resto e 4,5:1. O alfa preciso, na pior das oito
-   colunas: titulo .52 aos 16% da altura, lista .67 aos 73%, botao .66 aos 87%,
-   rodape .64 aos 94%. As paradas abaixo cobrem os quatro com folga.
-   A forma e a das duas rampas empilhadas do index, so que invertida: tinta em
-   CIMA (indice e titulo), uma JANELA no meio (30% a 60%, onde esta o assunto
-   da foto: o tanque, a torre, o contentor, a bancada) e tinta de novo EMBAIXO
-   (lista, botao e rodape). Ponto de encontro nao aparece porque as duas pontas
-   sao da mesma tinta e a travessia e longa.
-   O HOVER ABRE SO A JANELA. No teste ele clareava a rampa inteira, e aqui isso
-   quebrava duas coisas de uma vez: derrubava a lista, que nesta peca so existe
-   NO hover (clarear o fundo no instante em que o escrito aparece), e derrubava
-   o titulo de 3,2 para 2,2:1. Entao a cabeca e o pe do hover sao os MESMOS do
-   repouso, e o que muda e so a janela do meio, de .26/.24 para .14. O hover
-   passa a significar uma coisa so: abre a foto. */
+/* ===== A TIRA INVERTIDA: escrito em TINTA sobre placa CLARA =====
+   A versao anterior era o contrario, creme sobre placa azul, e ela pedia tinta
+   por toda parte: para o creme ler sobre a foto, a demao tinha de fechar .49 no
+   alto e .65 no pe, e era isso que deixava a peca escura. Invertendo o escrito,
+   a conta muda de dono: quem precisa de ajuda agora nao e o claro sobre a foto
+   clara, e a TINTA sobre as manchas ESCURAS da foto (o casco do navio, o painel
+   do contentor).
+   Com isso o criterio tambem muda. Na direcao anterior o que importava era a
+   MEDIA da banda; aqui importa o PIOR PONTO, porque uma mancha escura no meio
+   de uma linha apaga a palavra inteira mesmo com a media boa. Resolvi banda por
+   banda no pior decil, sobre os pixels das proprias fotos, a 1920:
+     titulo  16 a 25% da altura -> precisa de .22 de creme (SEDEX manda)
+     lista   73 a 76%           -> .46 (carbono manda)
+     botao   87 a 94%           -> .48 (carbono)
+     rodape  94 a 97%           -> .48 (carbono)
+   As paradas abaixo cobrem os quatro com folga. O alto ficou MUITO mais aberto
+   que antes (.30 contra .49), que e de onde vem a impressao de peca clara: a
+   foto respira na metade de cima e o creme so fecha embaixo, onde mora o
+   escrito miudo.
+   A JANELA continua no meio (.14 aos 40 e 54%) e o hover continua abrindo so
+   ela, agora para .06: o hover significa uma coisa so, mostrar a foto.
+   Os veus por coluna deixam de ser azuis e passam a ser as cinco paradas
+   CLARAS da liga, na mesma graduacao de antes, da esquerda para a direita.
+   Eles agora respondem pela COR da placa; quem responde pela cobertura e a
+   demao de creme. ===== */
+.sh-col--carbono{background:linear-gradient(160deg,rgba(250,249,245,.22) 0%,rgba(238,243,249,.19) 100%)}
+.sh-col--iso    {background:linear-gradient(160deg,rgba(238,243,249,.19) 0%,rgba(223,233,244,.17) 100%)}
+.sh-col--sedex  {background:linear-gradient(160deg,rgba(223,233,244,.17) 0%,rgba(206,223,241,.15) 100%)}
+.sh-col--esg    {background:linear-gradient(160deg,rgba(206,223,241,.15) 0%,rgba(189,212,236,.13) 100%)}
 .sh-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(to bottom,
-    rgba(17,52,95,0.49) 0%, rgba(17,52,95,0.48) 20%, rgba(17,52,95,0.23) 40%,
-    rgba(17,52,95,0.21) 54%, rgba(17,52,95,0.46) 64%, rgba(17,52,95,0.62) 72%,
-    rgba(17,52,95,0.65) 100%);
+    rgba(250,249,245,.30) 0%, rgba(250,249,245,.28) 20%, rgba(250,249,245,.14) 40%,
+    rgba(250,249,245,.14) 54%, rgba(250,249,245,.36) 64%, rgba(250,249,245,.54) 73%,
+    rgba(250,249,245,.58) 100%);
   transition:background .5s}
 .sh-col:hover::before{background:linear-gradient(to bottom,
-  rgba(17,52,95,0.49) 0%, rgba(17,52,95,0.48) 20%, rgba(17,52,95,0.12) 40%,
-  rgba(17,52,95,0.12) 54%, rgba(17,52,95,0.46) 64%, rgba(17,52,95,0.62) 72%,
-  rgba(17,52,95,0.65) 100%)}
-/* o alto desceu de 36 para 64: a caixa do logo agora atravessa a linha do menu
-   e cai 12px dentro da tira, e com 36 o indice da primeira coluna comecava
-   quase encostado nela. Em baixo os 36 ficam, porque quem fecha aquele lado e o
-   rodape pequeno, que e absoluto. */
-/* A CABECA DO ESG E MAIS PESADA, .64 contra .56 das outras tres. Os quatro
-   veus graduam do escuro a esquerda ao claro a direita, e essa graduacao veio
-   do antigo, onde a foto unica estava a DIREITA e ali precisava de menos veu.
-   Com quatro fotos a conta se inverte: o veu mais fraco caiu justamente na
-   coluna cuja foto e a mais clara (o capim do ESG), e os dois se somam.
-   Medido pelos pixels da propria foto, com .56 o titulo dava 3,44:1 de media e
-   3,00:1 no pior ponto, em cima do piso de 3:1, e no hover caia para 2,73. Com
-   .64 sobra folga. So a cabeca muda; a janela e o pe seguem os das outras. */
-.sh-col--esg::before{background:linear-gradient(to bottom,
-  rgba(17,52,95,0.56) 0%, rgba(17,52,95,0.55) 20%, rgba(17,52,95,0.23) 40%,
-  rgba(17,52,95,0.21) 54%, rgba(17,52,95,0.46) 64%, rgba(17,52,95,0.62) 72%,
-  rgba(17,52,95,0.65) 100%)}
-.sh-col--esg:hover::before{background:linear-gradient(to bottom,
-  rgba(17,52,95,0.56) 0%, rgba(17,52,95,0.55) 20%, rgba(17,52,95,0.12) 40%,
-  rgba(17,52,95,0.12) 54%, rgba(17,52,95,0.46) 64%, rgba(17,52,95,0.62) 72%,
-  rgba(17,52,95,0.65) 100%)}
+  rgba(250,249,245,.30) 0%, rgba(250,249,245,.28) 20%, rgba(250,249,245,.06) 40%,
+  rgba(250,249,245,.06) 54%, rgba(250,249,245,.36) 64%, rgba(250,249,245,.54) 73%,
+  rgba(250,249,245,.58) 100%)}
+/* o fio entre colunas era creme sobre placa escura; invertido, e tinta. */
 .sh-conteudo{position:relative;z-index:2;height:100%;width:100%;display:flex;
   flex-direction:column;justify-content:space-between;padding:64px 32px 36px;
-  color:var(--mercurio)}
+  /* TINTA, nao creme: e a inversao. */
+  color:var(--azul)}
 /* o bloco do titulo vem do index oficial: a NUMERACAO por cima e o corpo do
    titulo no mesmo clamp de la (17 / 1,62vw / 23), com a mesma entrelinha de
    1,06 e os mesmos 9px de respiro. Muda so a cor, que aqui esta sobre veu azul
    e nao sobre foto clara. A barra de acento continua a do antigo. */
 .sh-indice{display:block;margin-bottom:9px;font-family:var(--mono);font-weight:500;
   font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(250,249,245,.72)}
+  color:var(--azul-escuro)}
 .sh-titulo{margin:0 0 9px;font-family:var(--sans);font-weight:700;
   font-size:clamp(17px,1.62vw,23px);line-height:1.06;letter-spacing:-.012em}
 .sh-titulo strong{font-weight:inherit}
-.sh-acento{width:40px;height:3px;background:var(--mercurio);margin-bottom:16px}
+.sh-acento{width:40px;height:3px;background:var(--azul);margin-bottom:16px}
 .sh-vertical{position:absolute;right:28px;top:50%;
   transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;
   font-family:var(--sans);font-size:34px;font-weight:700;text-transform:uppercase;
-  letter-spacing:-.04em;opacity:.2;white-space:nowrap;color:var(--mercurio);
+  letter-spacing:-.04em;opacity:.18;white-space:nowrap;color:var(--azul);
   pointer-events:none;z-index:2;transition:opacity .5s}
 .sh-col:hover .sh-vertical{opacity:.35}
 .sh-lista{list-style:none;margin:0 0 16px;padding:0;opacity:0;transform:translateY(8px);
   transition:opacity .5s,transform .5s}
 .sh-col:hover .sh-lista,.sh-col:focus-within .sh-lista{opacity:1;transform:none}
 .sh-lista li{display:flex;align-items:center;gap:10px;margin-bottom:8px;
-  font-family:var(--sans);font-size:13px;font-weight:400;color:rgba(250,249,245,.9)}
+  font-family:var(--sans);font-size:13px;font-weight:400;color:var(--azul)}
 .sh-lista li::before{content:"";width:5px;height:5px;border-radius:50%;
-  background:var(--mercurio);flex:none}
-.sh-cta{display:inline-block;width:fit-content;border:1px solid rgba(250,249,245,.4);
+  background:#336699;flex:none}
+.sh-cta{display:inline-block;width:fit-content;border:1px solid rgba(20,48,76,.42);
   border-radius:3px;padding:8px 24px;font-family:var(--sans);font-size:11px;
-  font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--mercurio);
+  font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--azul);
   background:transparent;transition:background .3s,color .3s,border-color .3s}
-.sh-cta:hover{background:var(--mercurio);color:var(--azul);border-color:var(--mercurio)}
+.sh-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
 .sh-rodape{position:absolute;bottom:16px;left:32px;z-index:2;display:flex;
   align-items:center;gap:6px;max-width:calc(100% - 56px);
   font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:.5px;
-  /* creme CHEIO, e nao .55: o .55 do teste vivia sobre veu, aqui vive sobre
-     foto. So a mudanca de alfa vale 1,55 vez no contraste. */
-  color:var(--mercurio)}
+  /* TINTA CHEIA, e nao o --azul-escuro. O rodape pequeno foi o unico escrito a
+     reprovar depois da inversao: sobre o casco do navio, no carbono, o pior
+     ponto dava 4,08:1 contra um piso de 4,5. E o mesmo que aconteceu na versao
+     escura, quando ele estava em creme a 55% e teve de ir para o creme cheio:
+     este escrito nao aceita ser abafado por cima de foto. O abafamento aqui vem
+     do corpo de 10px e da entreletra, nao da cor. */
+  color:var(--azul)}
 .sh-rodape svg{width:12px;height:12px;flex:none;fill:none;stroke:currentColor;
   stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media (prefers-reduced-motion:reduce){
@@ -1651,7 +1628,7 @@ body>*{position:relative;z-index:1}
      nao serve mais, porque agora sao quatro fotos e nao uma. */
   .sh-foto{object-position:center}
   .sh-col--carbono .sh-foto{object-position:right center}
-  .sh-col{min-height:300px;border-right:none;border-bottom:1px solid rgba(250,249,245,.14)}
+  .sh-col{min-height:300px;border-right:none;border-bottom:1px solid rgba(20,48,76,.16)}
   .sh-col:hover{flex:1}
   .sh-vertical{display:none}
   .sh-lista{opacity:1;transform:none}

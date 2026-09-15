@@ -3,17 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel das placas &middot; tira de abertura</title>
+<title>Painel das placas &middot; tira de abertura, placa clara</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* ===== PAINEL DAS PLACAS =====
+/* ===== PAINEL DAS PLACAS, regime CLARO =====
    Para acertar a cor dos veus da tira de abertura sem ida e volta. O painel
-   monta a MESMA pilha da pagina: foto, veu da coluna, demao do ::before e o
-   escrito em creme. Cada controle escreve direto no CSS ao lado, e o contraste
-   e recalculado sobre os PIXELS DA PROPRIA FOTO, nao sobre uma cor media.
-   Piso do titulo e 3:1 (23px em peso 700 conta como texto grande); lista,
+   monta a MESMA pilha da pagina: foto, veu da coluna, demao de creme e o
+   escrito em tinta. Cada controle escreve direto no CSS ao lado.
+   15/09, tarde: a tira foi INVERTIDA (escrito em tinta sobre placa clara) e o
+   painel acompanhou. A demao passou de tinta para creme, os veus passaram das
+   cinco paradas escuras da liga para as cinco claras, e a MEDIDA deixou de ser
+   a media da banda e passou a ser o PIOR DECIL. A razao e concreta: com creme
+   sobre foto, quem derrubava a leitura era a foto clara demais, e isso a media
+   enxerga; com tinta sobre foto, quem derruba e uma mancha ESCURA no meio da
+   linha, e uma media boa convive com uma palavra apagada.
+   Piso do titulo e 3:1, porque 23px em peso 700 conta como texto grande; lista,
    botao e rodape sao 4,5:1. O botao no fim copia o bloco de CSS pronto. */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -26,30 +32,31 @@ body{background:var(--mercurio);color:var(--azul);font-family:var(--sans);font-s
 .cab{border-bottom:3px solid var(--fio);padding:18px 26px;display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
 .cab h1{font-size:19px;font-weight:700;letter-spacing:-.012em}
 .cab .sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
-.env{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:0;align-items:start}
+.env{display:grid;grid-template-columns:minmax(0,1fr) 380px;align-items:start}
 @media (max-width:1100px){.env{grid-template-columns:1fr}}
 
 /* ---- a tira, igual a da pagina ---- */
 .tira{display:flex;width:100%;height:min(560px,38vw);overflow:hidden;position:relative;background:var(--mercurio)}
-.col{position:relative;flex:1;overflow:hidden;min-width:0;z-index:1;border-right:1px solid rgba(250,249,245,.14)}
+.col{position:relative;flex:1;overflow:hidden;min-width:0;z-index:1;border-right:1px solid rgba(20,48,76,.16)}
 .col:last-child{border-right:none}
-.foto{position:absolute;inset:0;width:100%;height:100%;z-index:0;object-fit:cover;object-position:center;pointer-events:none;
+.foto{position:absolute;inset:0;width:100%;height:100%;z-index:0;object-fit:cover;object-position:center;
+  pointer-events:none;filter:brightness(1.06);
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18%);mask-image:linear-gradient(90deg,transparent 0,#000 18%)}
 .col--carbono .foto{object-position:right center}
 .col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none}
 .conteudo{position:relative;z-index:2;height:100%;width:100%;display:flex;flex-direction:column;
-  justify-content:space-between;padding:64px 30px 36px;color:var(--mercurio)}
+  justify-content:space-between;padding:64px 30px 36px;color:var(--azul)}
 .indice{display:block;margin-bottom:9px;font-family:var(--mono);font-weight:500;font-size:10.5px;
-  letter-spacing:.2em;text-transform:uppercase;color:rgba(250,249,245,.72)}
+  letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
 .titulo{margin:0 0 9px;font-weight:700;font-size:clamp(17px,1.62vw,23px);line-height:1.06;letter-spacing:-.012em}
-.acento{width:40px;height:3px;background:var(--mercurio);margin-bottom:16px}
+.acento{width:40px;height:3px;background:var(--azul);margin-bottom:16px}
 .lista{list-style:none}
-.lista li{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;color:rgba(250,249,245,.9)}
-.lista li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--mercurio);flex:none}
-.cta{display:inline-block;width:fit-content;margin-top:8px;border:1px solid rgba(250,249,245,.4);border-radius:3px;
-  padding:8px 24px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--mercurio)}
+.lista li{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;color:var(--azul)}
+.lista li::before{content:"";width:5px;height:5px;border-radius:50%;background:#336699;flex:none}
+.cta{display:inline-block;width:fit-content;margin-top:8px;border:1px solid rgba(20,48,76,.42);border-radius:3px;
+  padding:8px 24px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--azul)}
 .rod{position:absolute;bottom:16px;left:30px;z-index:2;font-size:10px;text-transform:uppercase;
-  letter-spacing:.5px;color:var(--mercurio);max-width:calc(100% - 56px)}
+  letter-spacing:.5px;color:var(--azul);max-width:calc(100% - 56px)}
 
 /* ---- controles ---- */
 .lado{border-left:1px solid var(--fio);padding:0 0 40px}
@@ -57,7 +64,7 @@ body{background:var(--mercurio);color:var(--azul);font-family:var(--sans);font-s
 .grupo{border-bottom:1px solid var(--fio2);padding:16px 22px}
 .grupo h2{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro);margin-bottom:12px}
-.lin{display:grid;grid-template-columns:78px 1fr 46px;align-items:center;gap:10px;margin-bottom:7px}
+.lin{display:grid;grid-template-columns:82px 1fr 46px;align-items:center;gap:10px;margin-bottom:7px}
 .lin label{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--azul-escuro)}
 .lin output{font-family:var(--mono);font-size:10.5px;text-align:right}
 input[type=range]{width:100%;accent-color:#336699;height:18px}
@@ -66,7 +73,6 @@ input[type=color]{width:100%;height:24px;border:1px solid var(--fio);border-radi
 .cores div{text-align:center}
 .cores span{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.04em;color:var(--azul-escuro);margin-top:3px}
 
-/* ---- leitura ---- */
 table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:10px}
 th,td{padding:4px 5px;text-align:right;border-bottom:1px solid var(--fio2);height:24px}
 th:first-child,td:first-child{text-align:left}
@@ -74,7 +80,7 @@ th{font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--azul
 td b{font-weight:500}
 .ok{color:var(--ok)}
 .nao{color:var(--nao);font-weight:600}
-.veredito{margin-top:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;padding:7px 9px;border-radius:3px}
+.veredito{margin-top:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;padding:7px 9px;border-radius:3px;line-height:1.45}
 .veredito.bom{background:rgba(46,125,91,.1);color:var(--ok)}
 .veredito.ruim{background:rgba(179,69,47,.1);color:var(--nao)}
 
@@ -84,7 +90,7 @@ button{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14
 button:hover{background:var(--branco)}
 button.forte{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
 pre{margin:0 22px;padding:12px;border:1px solid var(--fio);border-radius:3px;background:var(--branco);
-  font-family:var(--mono);font-size:9.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto}
+  font-family:var(--mono);font-size:9.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word;max-height:240px;overflow:auto}
 .nota{padding:12px 22px;font-size:12px;line-height:1.5;color:var(--azul-escuro)}
 </style>
 </head>
@@ -92,45 +98,50 @@ pre{margin:0 22px;padding:12px;border:1px solid var(--fio);border-radius:3px;bac
 
 <div class="cab">
   <h1>Painel das placas</h1>
-  <span class="sub">tira de abertura &middot; index-teste-4-bayer</span>
+  <span class="sub">tira de abertura &middot; index-teste-4-bayer &middot; escrito em tinta</span>
   <span class="sub" id="aviso"></span>
 </div>
 
 <div class="env">
   <div>
     <div class="tira" id="tira"></div>
-    <p class="nota">A pilha e a mesma da pagina: foto, veu da coluna, demao e o escrito em creme.
-      O contraste ao lado e medido sobre os pixels da propria foto, nao sobre uma cor media.
+    <p class="nota">A pilha e a mesma da pagina: foto, veu da coluna, dem&atilde;o de creme e o escrito em tinta.
+      O contraste ao lado e medido no <b>pior decil</b> sobre os pixels da pr&oacute;pria foto, e n&atilde;o na m&eacute;dia:
+      com o escrito em tinta, quem apaga a palavra e uma mancha escura no meio da linha, que a m&eacute;dia n&atilde;o enxerga.
       Passe o mouse numa coluna para ver o estado de hover.</p>
   </div>
 
   <div class="lado">
     <div class="grupo">
-      <h2>As cinco cores da liga</h2>
+      <h2>As cinco cores da placa</h2>
       <div class="cores" id="cores"></div>
     </div>
 
     <div class="grupo">
-      <h2>Forca das placas</h2>
-      <div class="lin"><label>todas</label><input type="range" id="k" min="60" max="130" value="100"><output id="k_v"></output></div>
-      <div class="lin"><label>01 carbono</label><input type="range" id="a0" min="10" max="90" value="46"><output id="a0_v"></output></div>
-      <div class="lin"><label>02 ISO</label><input type="range" id="a1" min="10" max="90" value="40"><output id="a1_v"></output></div>
-      <div class="lin"><label>03 SEDEX</label><input type="range" id="a2" min="10" max="90" value="35"><output id="a2_v"></output></div>
-      <div class="lin"><label>04 ESG</label><input type="range" id="a3" min="10" max="90" value="30"><output id="a3_v"></output></div>
-      <div class="lin"><label>queda</label><input type="range" id="q" min="0" max="20" value="6"><output id="q_v"></output></div>
+      <h2>For&ccedil;a das placas</h2>
+      <div class="lin"><label>todas</label><input type="range" id="k" min="40" max="160" value="100"><output id="k_v"></output></div>
+      <div class="lin"><label>01 carbono</label><input type="range" id="a0" min="0" max="70" value="22"><output id="a0_v"></output></div>
+      <div class="lin"><label>02 ISO</label><input type="range" id="a1" min="0" max="70" value="19"><output id="a1_v"></output></div>
+      <div class="lin"><label>03 SEDEX</label><input type="range" id="a2" min="0" max="70" value="17"><output id="a2_v"></output></div>
+      <div class="lin"><label>04 ESG</label><input type="range" id="a3" min="0" max="70" value="15"><output id="a3_v"></output></div>
+      <div class="lin"><label>queda</label><input type="range" id="q" min="0" max="20" value="3"><output id="q_v"></output></div>
     </div>
 
     <div class="grupo">
-      <h2>Demao: cabeca, janela e pe</h2>
-      <div class="lin"><label>cabeca</label><input type="range" id="cab" min="0" max="90" value="49"><output id="cab_v"></output></div>
-      <div class="lin"><label>cabeca ESG</label><input type="range" id="cabE" min="0" max="90" value="56"><output id="cabE_v"></output></div>
-      <div class="lin"><label>janela</label><input type="range" id="jan" min="0" max="70" value="23"><output id="jan_v"></output></div>
-      <div class="lin"><label>pe</label><input type="range" id="pe" min="20" max="95" value="65"><output id="pe_v"></output></div>
-      <div class="lin"><label>janela hover</label><input type="range" id="janH" min="0" max="70" value="12"><output id="janH_v"></output></div>
+      <h2>Dem&atilde;o de creme: cabe&ccedil;a, janela e p&eacute;</h2>
+      <div class="lin"><label>cabeca</label><input type="range" id="cab" min="0" max="90" value="30"><output id="cab_v"></output></div>
+      <div class="lin"><label>janela</label><input type="range" id="jan" min="0" max="70" value="14"><output id="jan_v"></output></div>
+      <div class="lin"><label>pe</label><input type="range" id="pe" min="10" max="95" value="58"><output id="pe_v"></output></div>
+      <div class="lin"><label>janela hover</label><input type="range" id="janH" min="0" max="70" value="6"><output id="janH_v"></output></div>
     </div>
 
     <div class="grupo">
-      <h2>Contraste medido</h2>
+      <h2>Brilho das fotos</h2>
+      <div class="lin"><label>brilho</label><input type="range" id="bri" min="100" max="130" value="106"><output id="bri_v"></output></div>
+    </div>
+
+    <div class="grupo">
+      <h2>Contraste no pior decil</h2>
       <table id="tab"></table>
       <div class="veredito" id="ver"></div>
     </div>
@@ -160,15 +171,14 @@ var VAGAS = [
    itens:['Padrões de mercado','Relato e indicadores','Cadeia de fornecedores'],
    rod:'Comprova a sua prática de sustentabilidade'}
 ];
-/* as cinco paradas da liga; cada veu usa a parada i e a i+1 */
-var CORES = ['#11345F','#2A588E','#2C6AAF','#6C9ED2','#96B4DA'];
-var ROT = ['tinta','liga 2','liga 3','claro 1','claro 2'];
-var INK = [17,52,95];                 /* a tinta da demao, fixa */
-var CREME = [250,249,245];
+/* as cinco paradas CLARAS; cada veu usa a parada i e a i+1 */
+var CORES = ['#FAF9F5','#EEF3F9','#DFE9F4','#CEDFF1','#BDD4EC'];
+var ROT = ['creme','gelo','gelo 2','liga 1','liga 2'];
+var DEM_COR = [250,249,245];   /* a demao e de creme */
+var TINTA = [20,48,76];        /* a cor do escrito */
 var PISO = {titulo:3.0, lista:4.5, botao:4.5, rodape:4.5};
-var HOJE = {k:100,a:[46,40,35,30],q:6,cab:49,cabE:56,jan:23,pe:65,janH:12};
+var HOJE = {k:100, a:[22,19,17,15], q:3, cab:30, jan:14, pe:58, janH:6, bri:106};
 
-/* ---------- utilidades de cor ---------- */
 function hex2rgb(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}
 function lin(v){v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)}
 function L(c){return 0.2126*lin(c[0])+0.7152*lin(c[1])+0.0722*lin(c[2])}
@@ -177,207 +187,202 @@ function mist(f,a,b){return [f[0]*a+b[0]*(1-a), f[1]*a+b[1]*(1-a), f[2]*a+b[2]*(
 function rgba(c,a){return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a.toFixed(2)+')'}
 function parar(s,t){for(var i=0;i<s.length-1;i++){var p0=s[i][0],v0=s[i][1],p1=s[i+1][0],v1=s[i+1][1];
   if(t>=p0&&t<=p1){var f=(p1===p0)?0:(t-p0)/(p1-p0);return v0+(v1-v0)*f}}return s[s.length-1][1]}
-var LC = L(CREME);
-
-/* ---------- estado ---------- */
-var E = JSON.parse(JSON.stringify(HOJE));
-function le(){
-  E.k = +$('k').value; E.q = +$('q').value;
-  E.a = [+$('a0').value,+$('a1').value,+$('a2').value,+$('a3').value];
-  E.cab = +$('cab').value; E.cabE = +$('cabE').value;
-  E.jan = +$('jan').value; E.pe = +$('pe').value; E.janH = +$('janH').value;
-}
-function poe(){
-  $('k').value=E.k; $('q').value=E.q;
-  for(var i=0;i<4;i++) $('a'+i).value=E.a[i];
-  $('cab').value=E.cab; $('cabE').value=E.cabE;
-  $('jan').value=E.jan; $('pe').value=E.pe; $('janH').value=E.janH;
-}
+var LT = L(TINTA);
 function $(id){return document.getElementById(id)}
 
-/* ---------- as rampas, derivadas do estado ---------- */
-function veu(i){
-  var k = E.k/100;
-  var a0 = Math.min(1, E.a[i]/100 * k);
-  var a1 = Math.min(1, (E.a[i]-E.q)/100 * k);
-  return {c0:hex2rgb(CORES[i]), c1:hex2rgb(CORES[i+1]), a0:a0, a1:Math.max(0,a1)};
+var E = JSON.parse(JSON.stringify(HOJE));
+var IDS = ['k','a0','a1','a2','a3','q','cab','jan','pe','janH','bri'];
+function le(){
+  E.k=+$('k').value; E.q=+$('q').value; E.bri=+$('bri').value;
+  E.a=[+$('a0').value,+$('a1').value,+$('a2').value,+$('a3').value];
+  E.cab=+$('cab').value; E.jan=+$('jan').value; E.pe=+$('pe').value; E.janH=+$('janH').value;
 }
-function demao(i, hover){
-  var k = E.k/100;
-  var cab = (i===3 ? E.cabE : E.cab)/100 * k;
-  var jan = (hover ? E.janH : E.jan)/100 * k;
-  var pe  = E.pe/100 * k;
-  var m = function(v){return Math.min(1, v)};
-  return [[0,m(cab)],[.20,m(cab*0.96)],[.40,m(jan*1.09)],[.54,m(jan)],
-          [.64,m(pe*0.71)],[.72,m(pe*0.95)],[1,m(pe)]];
+function poe(){
+  $('k').value=E.k; $('q').value=E.q; $('bri').value=E.bri;
+  for(var i=0;i<4;i++) $('a'+i).value=E.a[i];
+  $('cab').value=E.cab; $('jan').value=E.jan; $('pe').value=E.pe; $('janH').value=E.janH;
 }
 
-/* ---------- desenha a tira ---------- */
-var tira = $('tira');
-VAGAS.forEach(function(v,i){
-  var col = document.createElement('article');
-  col.className = 'col col--'+v.cls;
-  col.innerHTML =
-    '<img class="foto" src="'+v.foto+'" alt="" decoding="sync">'+
-    '<div class="conteudo"><div>'+
-      '<span class="indice">'+v.ind+'</span>'+
-      '<h3 class="titulo">'+v.t1+'<br>'+v.t2+'</h3>'+
-      '<div class="acento"></div></div>'+
-      '<div><ul class="lista">'+v.itens.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>'+
-      '<a class="cta">Saiba mais</a></div>'+
-    '</div><div class="rod">&rarr; '+v.rod+'</div>';
+function veu(i){
+  var k=E.k/100;
+  return {c0:hex2rgb(CORES[i]), c1:hex2rgb(CORES[i+1]),
+          a0:Math.min(1,E.a[i]/100*k), a1:Math.max(0,Math.min(1,(E.a[i]-E.q)/100*k))};
+}
+function demao(hover){
+  var k=E.k/100, m=function(v){return Math.min(1,v)};
+  var cab=E.cab/100*k, jan=(hover?E.janH:E.jan)/100*k, pe=E.pe/100*k;
+  return [[0,m(cab)],[.20,m(cab*0.93)],[.40,m(jan)],[.54,m(jan)],
+          [.64,m(pe*0.62)],[.73,m(pe*0.93)],[1,m(pe)]];
+}
+
+/* ---------- desenha ---------- */
+var tira=$('tira');
+VAGAS.forEach(function(v){
+  var col=document.createElement('article');
+  col.className='col col--'+v.cls;
+  col.innerHTML='<img class="foto" src="'+v.foto+'" alt="" decoding="sync">'+
+    '<div class="conteudo"><div><span class="indice">'+v.ind+'</span>'+
+    '<h3 class="titulo">'+v.t1+'<br>'+v.t2+'</h3><div class="acento"></div></div>'+
+    '<div><ul class="lista">'+v.itens.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>'+
+    '<a class="cta">Saiba mais</a></div></div><div class="rod">&rarr; '+v.rod+'</div>';
   tira.appendChild(col);
 });
-var COLS = [].slice.call(document.querySelectorAll('.col'));
-var folha = document.createElement('style'); document.head.appendChild(folha);
+var COLS=[].slice.call(document.querySelectorAll('.col'));
+var folha=document.createElement('style'); document.head.appendChild(folha);
 
 function pintaCSS(){
-  var r = [];
+  var r=[], d=demao(false), dh=demao(true);
   VAGAS.forEach(function(v,i){
-    var g = veu(i);
+    var g=veu(i);
     r.push('.col--'+v.cls+'{background:linear-gradient(160deg,'+rgba(g.c0,g.a0)+' 0%,'+rgba(g.c1,g.a1)+' 100%)}');
-    r.push('.col--'+v.cls+'::before{background:linear-gradient(to bottom,'+
-      demao(i,false).map(function(s){return rgba(INK,s[1])+' '+(s[0]*100).toFixed(0)+'%'}).join(',')+')}');
-    r.push('.col--'+v.cls+':hover::before{background:linear-gradient(to bottom,'+
-      demao(i,true).map(function(s){return rgba(INK,s[1])+' '+(s[0]*100).toFixed(0)+'%'}).join(',')+')}');
   });
-  folha.textContent = r.join('\n');
+  r.push('.col::before{background:linear-gradient(to bottom,'+
+    d.map(function(s){return rgba(DEM_COR,s[1])+' '+(s[0]*100).toFixed(0)+'%'}).join(',')+')}');
+  r.push('.col:hover::before{background:linear-gradient(to bottom,'+
+    dh.map(function(s){return rgba(DEM_COR,s[1])+' '+(s[0]*100).toFixed(0)+'%'}).join(',')+')}');
+  r.push('.foto{filter:brightness('+(E.bri/100).toFixed(2)+')}');
+  folha.textContent=r.join('\n');
   return r.join('\n');
 }
 
-/* ---------- amostra das fotos ---------- */
-var AM = [];      /* pixels de cada foto, ja recortados como a coluna recorta */
-var BAN = null;   /* faixas de escrito, em fracao da altura */
+var AM=[], BAN=null;
 function amostra(){
-  var cv = document.createElement('canvas'), cx = cv.getContext('2d',{willReadFrequently:true});
-  var rt = tira.getBoundingClientRect();
-  AM = [];
+  var cv=document.createElement('canvas'), cx=cv.getContext('2d',{willReadFrequently:true});
+  var rt=tira.getBoundingClientRect(); AM=[];
   COLS.forEach(function(col,i){
-    var img = col.querySelector('.foto'), rc = col.getBoundingClientRect();
+    var img=col.querySelector('.foto'), rc=col.getBoundingClientRect();
     if(!img.naturalWidth){ AM.push(null); return }
-    var esc = Math.max(rc.width/img.naturalWidth, rc.height/img.naturalHeight);
-    var cw = rc.width/esc, ch = rc.height/esc;
-    var ox = (VAGAS[i].cls==='carbono') ? (img.naturalWidth-cw) : ((img.naturalWidth-cw)/2);
-    var oy = (img.naturalHeight-ch)/2;
-    cv.width=100; cv.height=200;
-    cx.drawImage(img, ox,oy,cw,ch, 0,0,100,200);
-    AM.push(cx.getImageData(0,0,100,200).data);
+    var esc=Math.max(rc.width/img.naturalWidth, rc.height/img.naturalHeight);
+    var cw=rc.width/esc, ch=rc.height/esc;
+    var ox=(VAGAS[i].cls==='carbono')?(img.naturalWidth-cw):((img.naturalWidth-cw)/2);
+    var oy=(img.naturalHeight-ch)/2;
+    cv.width=60; cv.height=150; cx.drawImage(img, ox,oy,cw,ch, 0,0,60,150);
+    AM.push(cx.getImageData(0,0,60,150).data);
   });
-  var c1 = COLS[0];
-  var f = function(sel){ var r = c1.querySelector(sel).getBoundingClientRect();
-    return [(r.top-rt.top)/rt.height, (r.bottom-rt.top)/rt.height] };
-  BAN = {titulo:f('.titulo'), lista:f('.lista li'), botao:f('.cta'), rodape:f('.rod')};
+  var c1=COLS[0];
+  var f=function(sel){var r=c1.querySelector(sel).getBoundingClientRect();
+    return [(r.top-rt.top)/rt.height,(r.bottom-rt.top)/rt.height]};
+  BAN={titulo:f('.titulo'), lista:f('.lista li'), botao:f('.cta'), rodape:f('.rod')};
 }
 
-/* ---------- mede ---------- */
 function mede(){
   if(!AM.length || AM.some(function(x){return !x})) return null;
-  var saida = [], tudoOk = true;
+  var linhas=[], ok=true, d=demao(false), dh=demao(true), bb=E.bri/100;
   VAGAS.forEach(function(v,i){
-    var px = AM[i], g = veu(i), st = demao(i,false), stH = demao(i,true);
-    var linha = {vaga:v.ind, bandas:{}};
+    var px=AM[i], g=veu(i), lin={vaga:v.ind, bandas:{}};
     Object.keys(BAN).forEach(function(b){
-      var t0 = BAN[b][0], t1 = BAN[b][1];
-      var y0 = Math.max(0,Math.floor(t0*200)), y1 = Math.min(200,Math.ceil(t1*200));
-      var pior = 99;
-      [st,stH].forEach(function(rampa){
-        var soma=0,n=0;
+      var y0=Math.max(0,Math.floor(BAN[b][0]*150)), y1=Math.min(150,Math.ceil(BAN[b][1]*150));
+      var pior=99;
+      [d,dh].forEach(function(rampa){
+        var vs=[];
         for(var y=y0;y<y1;y++){
-          var t=(y+0.5)/200, ai=parar(rampa,t);
+          var t=(y+0.5)/150, ad=parar(rampa,t);
           var cv=[g.c0[0]+(g.c1[0]-g.c0[0])*t, g.c0[1]+(g.c1[1]-g.c0[1])*t, g.c0[2]+(g.c1[2]-g.c0[2])*t];
           var av=g.a0+(g.a1-g.a0)*t;
-          for(var x=0;x<100;x+=4){
-            var k=(y*100+x)*4, c=[px[k],px[k+1],px[k+2]];
-            c = mist(cv,av,c); c = mist(INK,ai,c);
-            soma += raz(LC, L(c)); n++;
+          for(var x=0;x<60;x+=2){
+            var k=(y*60+x)*4;
+            var c=[Math.min(255,px[k]*bb),Math.min(255,px[k+1]*bb),Math.min(255,px[k+2]*bb)];
+            c=mist(cv,av,c); c=mist(DEM_COR,ad,c);
+            vs.push(raz(LT,L(c)));
           }
         }
-        if(n && soma/n < pior) pior = soma/n;
+        vs.sort(function(a,b){return a-b});
+        var q=vs[Math.floor(vs.length*0.05)];
+        if(q<pior) pior=q;
       });
-      var ok = pior >= PISO[b];
-      if(!ok) tudoOk = false;
-      linha.bandas[b] = {v:pior, ok:ok};
+      var bom = pior>=PISO[b];
+      if(!bom) ok=false;
+      lin.bandas[b]={v:pior, ok:bom};
     });
-    saida.push(linha);
+    linhas.push(lin);
   });
-  return {linhas:saida, ok:tudoOk};
+  return {linhas:linhas, ok:ok};
 }
 
 function pintaTabela(){
-  var m = mede();
+  var m=mede();
   if(!m){ $('tab').innerHTML=''; $('ver').className='veredito'; $('ver').textContent='carregando as fotos...'; return }
-  var bs = ['titulo','lista','botao','rodape'];
-  var h = '<tr><th>vaga</th>'+bs.map(function(b){return '<th>'+b+'</th>'}).join('')+'</tr>';
+  var bs=['titulo','lista','botao','rodape'];
+  var h='<tr><th>vaga</th>'+bs.map(function(b){return '<th>'+b+'</th>'}).join('')+'</tr>';
   m.linhas.forEach(function(l){
-    h += '<tr><td>'+l.vaga+'</td>'+bs.map(function(b){
-      var d=l.bandas[b];
-      return '<td class="'+(d.ok?'ok':'nao')+'"><b>'+d.v.toFixed(2)+'</b></td>';
-    }).join('')+'</tr>';
+    h+='<tr><td>'+l.vaga+'</td>'+bs.map(function(b){var d=l.bandas[b];
+      return '<td class="'+(d.ok?'ok':'nao')+'"><b>'+d.v.toFixed(2)+'</b></td>'}).join('')+'</tr>';
   });
-  h += '<tr><td>piso</td>'+bs.map(function(b){return '<td>'+PISO[b].toFixed(1)+'</td>'}).join('')+'</tr>';
-  $('tab').innerHTML = h;
-  $('ver').className = 'veredito '+(m.ok?'bom':'ruim');
+  h+='<tr><td>piso</td>'+bs.map(function(b){return '<td>'+PISO[b].toFixed(1)+'</td>'}).join('')+'</tr>';
+  $('tab').innerHTML=h;
+  $('ver').className='veredito '+(m.ok?'bom':'ruim');
   $('ver').textContent = m.ok ? 'passa nas dezesseis bandas, no repouso e no hover'
                               : 'reprova: o numero em vermelho esta abaixo do piso';
 }
 
 function atualiza(){
   le();
-  $('k_v').textContent = E.k+'%';
-  for(var i=0;i<4;i++) $('a'+i+'_v').textContent = (E.a[i]/100).toFixed(2);
-  $('q_v').textContent = '-'+(E.q/100).toFixed(2);
-  $('cab_v').textContent = (E.cab/100).toFixed(2);
-  $('cabE_v').textContent = (E.cabE/100).toFixed(2);
-  $('jan_v').textContent = (E.jan/100).toFixed(2);
-  $('pe_v').textContent = (E.pe/100).toFixed(2);
-  $('janH_v').textContent = (E.janH/100).toFixed(2);
-  $('css').textContent = pintaCSS();
+  $('k_v').textContent=E.k+'%';
+  for(var i=0;i<4;i++) $('a'+i+'_v').textContent=(E.a[i]/100).toFixed(2);
+  $('q_v').textContent='-'+(E.q/100).toFixed(2);
+  $('cab_v').textContent=(E.cab/100).toFixed(2);
+  $('jan_v').textContent=(E.jan/100).toFixed(2);
+  $('pe_v').textContent=(E.pe/100).toFixed(2);
+  $('janH_v').textContent=(E.janH/100).toFixed(2);
+  $('bri_v').textContent=E.bri+'%';
+  $('css').textContent=pintaCSS();
   pintaTabela();
 }
 
-/* ---------- cores ---------- */
-var cx = $('cores');
+var cxCores=$('cores');
 CORES.forEach(function(c,i){
-  var d = document.createElement('div');
-  d.innerHTML = '<input type="color" value="'+c+'"><span>'+ROT[i]+'</span>';
-  d.querySelector('input').addEventListener('input', function(e){ CORES[i]=e.target.value; atualiza() });
-  cx.appendChild(d);
+  var d=document.createElement('div');
+  d.innerHTML='<input type="color" value="'+c+'"><span>'+ROT[i]+'</span>';
+  d.querySelector('input').addEventListener('input',function(e){CORES[i]=e.target.value;atualiza()});
+  cxCores.appendChild(d);
 });
+IDS.forEach(function(id){ $(id).addEventListener('input', atualiza) });
 
-/* ---------- eventos ---------- */
-['k','a0','a1','a2','a3','q','cab','cabE','jan','pe','janH'].forEach(function(id){
-  $(id).addEventListener('input', atualiza);
-});
+$('bHoje').addEventListener('click',function(){E=JSON.parse(JSON.stringify(HOJE));poe();atualiza();$('aviso').textContent=''});
 
-$('bHoje').addEventListener('click', function(){ E = JSON.parse(JSON.stringify(HOJE)); poe(); atualiza() });
-
-$('bMax').addEventListener('click', function(){
+$('bMax').addEventListener('click',function(){
   /* desce a forca de 1% em 1% ate a primeira banda reprovar, e volta um passo */
-  var base = +$('k').value, ultimo = base;
-  for(var k=base; k>=50; k--){
-    $('k').value = k; le();
-    var m = mede();
-    if(!m || !m.ok){ break }
-    ultimo = k;
+  var base=+$('k').value, ultimo=base;
+  for(var k=base;k>=40;k--){
+    $('k').value=k; le();
+    var m=mede();
+    if(!m || !m.ok) break;
+    ultimo=k;
   }
-  $('k').value = ultimo; atualiza();
-  $('aviso').textContent = 'limite em ' + ultimo + '%';
+  $('k').value=ultimo; atualiza();
+  $('aviso').textContent='limite em '+ultimo+'%';
 });
 
-$('bCss').addEventListener('click', function(){
-  var txt = $('css').textContent.replace(/\.col--/g, '.sh-col--');
+$('bCss').addEventListener('click',function(){
+  var txt=$('css').textContent.replace(/\.col--/g,'.sh-col--').replace(/\.col::before/g,'.sh-col::before')
+           .replace(/\.col:hover::before/g,'.sh-col:hover::before').replace(/\.foto\{/g,'.sh-foto{');
   navigator.clipboard.writeText(txt).then(function(){
-    $('bCss').textContent = 'copiado';
-    setTimeout(function(){ $('bCss').textContent = 'Copiar o CSS' }, 1400);
+    $('bCss').textContent='copiado';
+    setTimeout(function(){$('bCss').textContent='Copiar o CSS'},1400);
   });
 });
 
-/* ---------- partida ---------- */
 poe();
+/* PARTIDA POR TRES CAMINHOS, de proposito. O `decode()` sozinho ja falhou aqui:
+   se ele nao resolve (foto em cache, corrida com o layout), o painel nasce com
+   a tabela vazia e sem CSS, e nao ha erro no console para avisar. Entao: tenta
+   pelo decode, tenta de novo no `load` da janela, e ainda deixa um respiro de
+   400ms. `arrancar` e idempotente: so refaz a amostra se ela ainda nao existe
+   ou se veio furada. */
+var arrancou = false;
+function arrancar(forcar){
+  if(arrancou && !forcar) return;
+  amostra();
+  if(AM.length && !AM.some(function(x){return !x})) arrancou = true;
+  atualiza();
+}
 Promise.all([].slice.call(document.querySelectorAll('.foto')).map(function(i){
-  return i.decode().catch(function(){ return null });
-})).then(function(){ amostra(); atualiza() });
-window.addEventListener('resize', function(){ amostra(); pintaTabela() });
+  return i.decode().catch(function(){return null});
+})).then(function(){ arrancar() });
+window.addEventListener('load', function(){ arrancar() });
+setTimeout(function(){ arrancar() }, 400);
+setTimeout(function(){ arrancar() }, 1500);
+window.addEventListener('resize',function(){ arrancar(true) });
 </script>
 </body>
 </html>
