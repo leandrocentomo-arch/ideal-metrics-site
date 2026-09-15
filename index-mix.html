@@ -1300,20 +1300,34 @@ body>*{position:relative;z-index:1}
    unica com a aresta dissolvida, trama de 1px. O que ele recusou nao volta:
    vidro azul chapado sobre as quatro, blur sobre foto, grao grosso. */
 
-/* a FOLHA: creme opaco, uma so, e tudo deita sobre ela */
-.mx-tira{position:relative;display:flex;width:100%;height:min(560px,40vw);
+/* a FOLHA: creme opaco, uma so, e tudo deita sobre ela. Altura com PISO de
+   480: com `min(560px,40vw)` a tira caia a 360px em 900 de largura e a caixa
+   do rodape, que cresce para cima, cobria o botao. 1440 e 1920 seguem em
+   560, 1280 em 512, 1024 sobe de 409 para 480. */
+.mx-tira{position:relative;display:flex;width:100%;height:clamp(480px,40vw,560px);
   overflow:hidden;background:var(--mercurio)}
 
 /* a IMPRESSAO: uma foto so, da tira e nao da coluna, ancorada a direita.
-   `height:100%` com `width:auto` e nao `contain`: com o contain a caixa do
-   <img> ficava mais larga que a imagem e a mascara, que se mede na caixa,
-   caia no vazio (licao do teste-claro). Sem transform no hover: o scale
-   reamostra o ponto de 1px e da moire, entao a impressao fica parada e so as
-   colunas se mexem. A aresta esquerda dissolve em 26% (o teste usava 18 sob
-   veu forte; sobre acetato leve a linha reta do WebP aparece mais e precisa
-   de rampa maior). No markup ela leva width/height, eager e fetchpriority:
-   e o maior elemento acima da dobra e nao pode entrar em lazy. */
-.mx-foto{position:absolute;top:0;right:0;height:100%;width:auto;max-width:76%;
+   O arquivo e o recorte 2:1 da fonte crua (auditoria-bayer-hero-2x1.webp,
+   1400x700, gerado pelo tinge-hero-2x1.py na mesma receita das 23 vagas da
+   home): o 16:9 anterior, na altura da tira, media 996px em 1920 e nem
+   chegava a coluna 2; em 2:1 mede 1120 e comeca em x 800, dentro dela. Sem
+   min-width e sem scale: os dois reamostram o ponto de 1px. A largura e
+   consequencia da altura (`height:100%` + `width:auto`) e nao tem teto: o
+   `max-width:76%` que havia aqui nunca entrava em acao e saiu. Nao e
+   `contain`: com o contain a caixa do <img> ficava mais larga que a imagem e
+   a mascara, que se mede na caixa, caia no vazio (licao do teste-claro).
+   Sem transform no hover: o scale reamostra o ponto de 1px e da moire, entao
+   a impressao fica parada e so as colunas se mexem. A aresta esquerda
+   dissolve em 26% (o teste usava 18 sob veu forte; sobre acetato leve a
+   linha reta do WebP aparece mais e precisa de rampa maior).
+   TRAMA: o ponto de 1px so fica inteiro quando a foto cai 1:1 no pixel
+   fisico. Os 700px de altura cobrem a tira de 560 em DPR 1,25; em DPR 1 e
+   abaixo de 1400 de largura a trama reamostra, e isso e aceito (o index tem
+   o mesmo limite). Nao usar image-rendering:pixelated: em escala nao inteira
+   ele deixa os pontos desiguais. No markup ela leva width/height, eager e
+   fetchpriority: e o maior elemento acima da dobra e nao pode entrar em lazy. */
+.mx-foto{position:absolute;top:0;right:0;height:100%;width:auto;
   z-index:0;object-fit:cover;object-position:right center;pointer-events:none;
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 26%);
   mask-image:linear-gradient(90deg,transparent 0,#000 26%)}
@@ -1331,10 +1345,11 @@ body>*{position:relative;z-index:1}
 /* a COLUNA: transparente, sem foto propria. z-index 2 faz dela um contexto de
    empilhamento proprio, entao a luz da folha (z1) fica embaixo por z-index e
    nao por posicao no DOM. Hairline de tinta a .16 entre as colunas: sobre o
-   tablet ele some, e ali quem desenha a divisa e o degrau de densidade entre
-   um acetato e o seguinte, como duas laminas de gel encostadas. A entrada
-   escalonada move so a posicao, nunca a opacidade: animacao interrompida nao
-   pode apagar a secao. */
+   tablet ele quase some e a divisa fica implicita; aceito, porque ali a foto
+   e uma so e nao deve parecer recortada (o degrau de .04 de alfa entre um
+   acetato e o seguinte nao desenha nada sobre navy). A entrada escalonada
+   move so a posicao, nunca a opacidade: animacao interrompida nao pode apagar
+   a secao. */
 .mx-col{position:relative;flex:1;overflow:hidden;min-width:0;z-index:2;
   border-right:1px solid rgba(20,48,76,.16);
   transition:flex .5s cubic-bezier(.4,0,.2,1);
@@ -1349,25 +1364,30 @@ body>*{position:relative;z-index:1}
 @keyframes mxEntra{from{transform:translateY(16px)}to{transform:none}}
 .mx-col:hover{flex:1.55}
 
-/* o ACETATO: os quatro degrades a 160deg do teste, nas cinco paradas azuis de
-   14/09 (17,52,95 | 42,88,142 | 44,106,175 | 108,158,210 | 150,180,218),
-   graduados do escuro (esquerda, onde so ha papel) para o claro (direita, onde
-   esta a impressao). Os alfas caem para ~42% dos do teste (.22 a .10 contra
-   .52 a .28) porque aqui o escrito e tinta e nao creme: com .52 sobre papel o
-   titulo em #14304C ficava em 3,9:1; com .22 fica em 8,4:1 sobre o creme e em
-   ~5:1 sobre o tablet, a regiao mais escura da foto. Teto: .30 na coluna 1;
-   acima disso o tablet cai abaixo de 4,5:1. Se ler "azulado", a saida e
-   descer os oito alfas na mesma proporcao ate .14, nunca uma placa unica.
+/* o ACETATO: os quatro degrades a 160deg do teste, graduados do escuro
+   (esquerda, onde so ha papel) para o claro (direita, onde esta a impressao),
+   nas paradas azuis de 14/09 com UMA troca: a primeira, o navy 17,52,95, deu
+   lugar a liga 51,102,153, a cor do metal da marca. Com .22 de navy sobre
+   creme as colunas 1 e 2 mediam #C9D0D7 e #D2DAE2 (saturacao 15 e 22%): um
+   cinza-ardosia, nem papel nem veu. A liga a .34 sobre creme da #B6C7D6, com
+   o dobro da saturacao, e le como o veu azul que o Leandro pediu no teste.
+   Os oito alfas sobem juntos (.34/.30 | .30/.26 | .26/.22 | .22/.18) para a
+   escada nao quebrar entre uma coluna e a seguinte; seguem abaixo dos .52 a
+   .28 do teste porque o escrito aqui e tinta e nao creme. Contraste sobre a
+   coluna 1, a mais densa: titulo #14304C em 7,8:1, indice #315275 em 4,7:1
+   (piso AA de 4,5). TETO: .34 na coluna 1; acima disso o indice perde o AA.
+   Se ler "azulado", a saida e descer os oito na mesma proporcao ate .26,
+   nunca uma placa unica sobre as quatro (recusado em 14/09).
    Vive no ::before e nao no background da coluna para o hover animar
    OPACIDADE: trocar um degrade por outro nao interpola e pisca (era o que o
    teste fazia com transition:background). GUARDA-CORPO: o veu NUNCA anima
    por background; se um dia ganhar outro movimento, e opacidade ou transform. */
 .mx-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   opacity:1;transition:opacity .5s cubic-bezier(.4,0,.2,1)}
-.mx-col--carbono::before{background:linear-gradient(160deg,rgba(17,52,95,.22) 0%,rgba(42,88,142,.19) 100%)}
-.mx-col--iso::before    {background:linear-gradient(160deg,rgba(42,88,142,.19) 0%,rgba(44,106,175,.16) 100%)}
-.mx-col--sedex::before  {background:linear-gradient(160deg,rgba(44,106,175,.16) 0%,rgba(108,158,210,.13) 100%)}
-.mx-col--esg::before    {background:linear-gradient(160deg,rgba(108,158,210,.13) 0%,rgba(150,180,218,.10) 100%)}
+.mx-col--carbono::before{background:linear-gradient(160deg,rgba(51,102,153,.34) 0%,rgba(42,88,142,.30) 100%)}
+.mx-col--iso::before    {background:linear-gradient(160deg,rgba(42,88,142,.30) 0%,rgba(44,106,175,.26) 100%)}
+.mx-col--sedex::before  {background:linear-gradient(160deg,rgba(44,106,175,.26) 0%,rgba(108,158,210,.22) 100%)}
+.mx-col--esg::before    {background:linear-gradient(160deg,rgba(108,158,210,.22) 0%,rgba(150,180,218,.18) 100%)}
 /* no hover o acetato LEVANTA um pouco (opacidade, que anima na GPU). E o
    gesto menor do hover e o primeiro a cortar se a tira ficar agitada; a
    abertura da coluna e a lista que sobe ja estao aprovadas nas tres. */
@@ -1387,10 +1407,12 @@ body>*{position:relative;z-index:1}
    encostar nela; e indice e titulo so leem sem grifo porque caem na faixa
    CLARA da foto (alto da foto: luminancia media de 188 a 246; tablet: 144).
    Descer o conteudo empurra o titulo para o tablet, onde tinta pura fica
-   abaixo de 3:1. Ninguem "da mais ar" aqui sem reconferir isso. 76 embaixo
-   (index) e a vaga da caixa do rodape de duas linhas, que e absoluta. */
+   abaixo de 3:1. Ninguem "da mais ar" aqui sem reconferir isso. 82 embaixo e
+   a vaga da caixa do rodape de duas linhas, que e absoluta: 16 de bottom +
+   47 da caixa + 19 ate o botao, o mesmo passo que vai da lista ao botao (com
+   os 76 do index sobravam 13 e as duas pecas creme liam coladas). */
 .mx-conteudo{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
-  justify-content:space-between;padding:64px 30px 76px;color:var(--azul)}
+  justify-content:space-between;padding:64px 30px 82px;color:var(--azul)}
 .mx-indice{display:block;margin-bottom:9px;font-family:var(--mono);font-weight:500;
   font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
@@ -1408,12 +1430,24 @@ body>*{position:relative;z-index:1}
 /* palavra vertical em tinta a 18%: textura de impressao sobre papel tingido
    (creme a 20%, como no teste, e recorte, e so funciona sobre veu escuro).
    Nas colunas da esquerda, papel nu em tela larga, e ela que impede a coluna
-   de parecer vazia; sobre o tablet ela some, e ali quem enche e a foto. */
+   de parecer vazia; sobre o tablet ela some, e ali quem enche e a foto.
+   CONTRASTE: a .18 ela mede ~1,4:1, abaixo do 3:1 que a casa pede para texto
+   decorativo. E aria-hidden, nao carrega informacao e o .18 e o do index
+   oficial (.qc-vertical), entao fica FORA da regra de contraste, de
+   proposito e registrado aqui para ninguem reabrir a cada revisao. Se um dia
+   for para valer como texto, o valor que atende 3:1 na media sobre estes
+   fundos e .56 em repouso e .72 no hover, e isso muda o peso da tira nas
+   tres paginas: decisao do Leandro, nao de revisao.
+   z-index -1 (o index usa 2): dentro do .mx-conteudo, que e contexto de
+   empilhamento proprio, o negativo poe a palavra ABAIXO da lista e do titulo
+   e ainda acima do acetato da coluna. Com a lista sempre a vista, em 900 de
+   largura (e no hover, quando a coluna vizinha encolhe) o grifo cruza a
+   palavra: textura por baixo do papel, e nao tinta por cima dele. */
 .mx-vertical{position:absolute;right:24px;top:50%;
   transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;
   font-family:var(--sans);font-size:clamp(26px,3vw,40px);font-weight:700;
   text-transform:uppercase;letter-spacing:-.012em;color:var(--azul);
-  opacity:.18;white-space:nowrap;pointer-events:none;z-index:2;
+  opacity:.18;white-space:nowrap;pointer-events:none;z-index:-1;
   transition:opacity .5s cubic-bezier(.4,0,.2,1)}
 .mx-col:hover .mx-vertical{opacity:.34}
 /* so na coluna 4: conferido em 1280, 1440 e 1920, a palavra centrada a 50%
@@ -1421,25 +1455,31 @@ body>*{position:relative;z-index:1}
    97% da largura e 27 e 35% da altura da foto). A 56% ela desce 34px na tira
    de 560 e passa a ler abaixo do selo, sem cruzar a lista, que fica a esquerda. */
 .mx-col--esg .mx-vertical{top:56%}
-/* a lista so no hover e no foco, com GRIFO creme por linha: o <span> e inline
-   e `box-decoration-break:clone` repete o grifo em cada pedaco da frase que
+/* so na coluna 3: a 50% a palavra caia no tablet, que cruza a tira de ~43% a
+   ~78% da altura em qualquer largura (a foto tem sempre a altura da tira), e
+   sobre navy a tinta a .18 some: sobrava "CA" em cima e "E" embaixo. A 30% a
+   palavra (uns 130px a 40px de fonte) vai de 18% a 42% da tira, na faixa
+   clara das prateleiras (luminancia .72 a .79), acima da aresta do tablet;
+   nao cruza o titulo, que fica a esquerda. Conferido em 1280, 1440 e 1920. */
+.mx-col--sedex .mx-vertical{top:30%}
+/* a lista SEMPRE a vista, com GRIFO creme por linha: o <span> e inline e
+   `box-decoration-break:clone` repete o grifo em cada pedaco da frase que
    quebra. O grifo e papel colado sobre o acetato, e por isso le igual sobre
    papel nu (coluna 1) e sobre o tablet (coluna 4): a legibilidade nao depende
-   do que esta por baixo. A duracao e a mesma da abertura da coluna, de
-   proposito: dois tempos leem como dois eventos. Sem bolinha (saiu em 14/09). */
-.mx-lista{list-style:none;margin:0 0 18px;padding:0;
-  opacity:0;transform:translateY(8px);
-  transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1)}
-.mx-col:hover .mx-lista,.mx-col:focus-within .mx-lista{opacity:1;transform:none}
+   do que esta por baixo. O "so no hover" do index existia com uma foto por
+   coluna para segurar o olho em repouso; aqui as colunas 1 e 2 nao tem foto
+   e, sem a lista, sobravam 300px de acetato entre o fio e o botao (e quem
+   nao tem mouse nunca via a lista). Decisao de 15/09: fica aberta; o hover
+   segue com a abertura da coluna e o acetato que levanta. Se o Leandro quiser
+   o hover de volta, o caminho e uma foto atras de cada coluna, nao a lista
+   escondida. Sem bolinha (saiu em 14/09). */
+.mx-lista{list-style:none;margin:0 0 18px;padding:0}
 .mx-lista li{display:block;margin-bottom:5px;
   font-family:var(--mono);font-size:10.5px;line-height:2.05;letter-spacing:.06em;
   color:var(--azul-escuro)}
 .mx-lista li span{display:inline;background:var(--mercurio);
   padding:3px 7px;border-radius:3px;
   -webkit-box-decoration-break:clone;box-decoration-break:clone}
-/* num iPad em paisagem (1024px, sem hover, acima do corte de 880) a lista
-   nunca apareceria: onde nao ha hover ela fica sempre a vista. */
-@media (hover:none){ .mx-lista{opacity:1;transform:none} }
 /* botao creme chapado com fio: etiqueta de papel, a mesma peca do grifo e da
    caixa do rodape. O contorno vazado do teste seria uma janela sobre a trama,
    e janela sobre foto Bayer e o vidro que a regra da casa proibe. O fio fica
@@ -1458,8 +1498,12 @@ body>*{position:relative;z-index:1}
    `min-height` de duas linhas, que e o que iguala a altura nas quatro. E a
    unica peca com sombra, e ela e para dentro: papel com relevo, nao objeto
    flutuando. A tinta do pe e o que a faz ler como colada e nao como recorte.
-   Sem seta: quem manda ir e o botao logo acima; a caixa diz "fato". */
-.mx-rodape{position:absolute;left:30px;right:auto;width:calc(70% - 42px);
+   Sem seta: quem manda ir e o botao logo acima; a caixa diz "fato".
+   `min-width:196px`: no hover a coluna vizinha encolhe para 1/4,55 da tira e,
+   entre 1281 e ~1600, os 70% dela cabiam so 21 caracteres por linha; a frase
+   mais longa (42) ia a tres linhas e a caixa subia sobre o botao. 196 e o que
+   cabe "Busca certificacao para" (23 caracteres de 7,6px) numa linha. */
+.mx-rodape{position:absolute;left:30px;right:auto;width:calc(70% - 42px);min-width:196px;
   bottom:16px;z-index:2;margin:0;line-height:1.95;display:block;
   font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
@@ -1467,15 +1511,23 @@ body>*{position:relative;z-index:1}
   background:var(--mercurio);padding:5px 9px;border-radius:3px;
   box-shadow:inset 0 1px 3px rgba(20,48,76,.30),inset 0 -1px 0 rgba(255,255,255,.7)}
 /* abaixo de 1280 a coluna ja e estreita e tirar mais 30% picaria a frase em
-   quatro ou cinco linhas: ali a caixa volta a largura cheia. O `min-height`
-   continua valendo, entao as quatro seguem iguais. */
-@media (max-width:1280px){ .mx-rodape{right:30px;width:auto} }
+   quatro ou cinco linhas: ali a caixa volta a largura cheia. Mesmo cheia,
+   entre 881 e ~990 (e no hover ate ~1150) a frase mais longa cai em TRES
+   linhas: a caixa reserva as tres (5,85em = 3 x 1,95) para as quatro seguirem
+   iguais, e a vaga do conteudo reserva 96 = 16 de bottom + 66 da caixa + 14
+   ate o botao. Sem isso a caixa, que cresce para cima, cobria o botao "Saiba
+   mais" nas colunas 2, 3 e 4 numa janela pela metade da tela. */
+@media (max-width:1280px){
+  .mx-rodape{right:30px;width:auto;min-width:0}
+  .mx-rodape span{min-height:calc(5.85em + 10px)}
+  .mx-conteudo{padding-bottom:96px}
+}
 
 /* o LETREIRO e a borda de baixo da folha: papel impresso com regras, sem tarja
    de cor. Fio de 1px em cima, embaixo e entre cada servico, todos no --fio da
    casa; o de cima faz as vezes de aresta inferior da tira, que nao tem borda,
    entao os dois viram uma coisa so. Linear porque o movimento e continuo;
-   pausa no hover e no foco (se um dia um item virar link, ja funciona). A fita
+   pausa no hover e no foco (o proprio letreiro e focavel, ver abaixo). A fita
    tem duas metades iguais para o -50% fechar o laco sem salto; a segunda e
    aria-hidden para o leitor de tela nao ouvir tudo duas vezes. */
 .mx-letreiro{overflow:hidden;background:var(--mercurio);
@@ -1484,6 +1536,14 @@ body>*{position:relative;z-index:1}
 .mx-letreiro-fita>div{display:flex}
 .mx-letreiro:hover .mx-letreiro-fita,
 .mx-letreiro:focus-within .mx-letreiro-fita{animation-play-state:paused}
+/* o letreiro e focavel (tabindex="0" e role="marquee" no markup) para quem nao
+   tem mouse poder parar o movimento: WCAG 2.2.2 pede um mecanismo NA PAGINA
+   para pausar o que se move por mais de 5s, e prefers-reduced-motion e ajuste
+   do sistema, nao da pagina. Sem nada focavel dentro, o focus-within acima
+   nunca disparava. O role tambem faz o aria-label valer: em <div> sem papel
+   os leitores de tela o ignoram. Anel para dentro porque o letreiro encosta
+   na tira e no bloco seguinte. */
+.mx-letreiro:focus-visible{outline:2px solid var(--azul);outline-offset:-2px}
 .mx-letreiro-fita span{padding:11px 30px;white-space:nowrap;
   font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;color:var(--azul-escuro);
@@ -1492,34 +1552,40 @@ body>*{position:relative;z-index:1}
 
 @media (prefers-reduced-motion:reduce){
   .mx-col{animation:none}
-  .mx-lista{opacity:1;transform:none}
-  .mx-col,.mx-col::before,.mx-vertical,.mx-lista{transition:none}
+  .mx-col,.mx-col::before,.mx-vertical{transition:none}
   .mx-letreiro-fita{animation:none}
 }
 
 /* celular (ate 880): a tira empilha. A foto vira uma faixa de 240px no topo,
    SEM mascara: com a lateral dissolvida para o creme, a coluna seguinte, que
    ja nasce tingida, daria um degrau de tom; o corte reto no fio e limpo. A
-   lavagem da folha sai (nao ha foto atras das colunas) e os quatro acetatos
-   graduados de cima para baixo continuam lendo como uma peca so. Sem altura
+   lavagem da folha sai (nao ha foto atras das colunas) e a tinta do pe
+   tambem: repetida em cada coluna empilhada, ela dava quatro degraus de tom
+   nos hairlines (pe da coluna 1 em #9CA9B6, topo da coluna 2 em #D5DDE3); a
+   caixa do rodape ja assenta sozinha sobre o acetato. Assim os quatro
+   acetatos graduados de cima para baixo leem como uma peca so. Sem altura
    minima: os 300px do index existiam para a foto de cada coluna e sem ela
-   viravam rolagem vazia. A lista fica sempre a vista; a palavra vertical some;
-   os 52 do alto ficam porque a caixa do monograma continua sobre a tira. O
-   letreiro nao encolhe a letra: e o menor texto da pagina. */
+   viravam rolagem vazia. A palavra vertical some. 36 no alto: a caixa do
+   monograma pende sobre a faixa da foto (order:-1), nao sobre a coluna 1, e
+   os 52 do desktop sobravam. 82 embaixo, como no desktop: com 70 o botao
+   ficava a 7px da caixa. A caixa volta a duas linhas (a coluna tem 376px de
+   vaga e nenhuma frase passa de duas). O letreiro nao encolhe a letra: e o
+   menor texto da pagina. */
 @media (max-width:880px){
   .mx-tira{flex-direction:column;height:auto}
-  .mx-foto{position:relative;width:100%;max-width:none;height:240px;object-fit:cover;
+  .mx-foto{position:relative;width:100%;height:240px;object-fit:cover;
     object-position:right center;order:-1;-webkit-mask-image:none;mask-image:none}
   .mx-tira::after{display:none}
+  .mx-col::after{display:none}
   .mx-col{min-height:0;border-right:none;border-bottom:1px solid rgba(20,48,76,.16)}
   .mx-col:hover{flex:1}
   .mx-col:hover::before{opacity:1}
   .mx-vertical{display:none}
-  .mx-lista{opacity:1;transform:none}
   /* sem a altura fixa da tira o space-between nao abre nada: o gap devolve o
-     ar entre o bloco do titulo e o da lista, que ali esta sempre a vista */
-  .mx-conteudo{padding:52px 22px 70px;row-gap:24px}
-  .mx-rodape{left:22px;right:22px;width:auto}
+     ar entre o bloco do titulo e o da lista */
+  .mx-conteudo{padding:36px 22px 82px;row-gap:24px}
+  .mx-rodape{left:22px;right:22px;width:auto;min-width:0}
+  .mx-rodape span{min-height:calc(3.9em + 10px)}
   .mx-letreiro-fita span{padding:9px 20px}
 }
 
@@ -1574,8 +1640,12 @@ body>*{position:relative;z-index:1}
   <!-- ===== quatro colunas (a abertura do index.html, na lingua desta pagina) ===== -->
   <section class="qc-sec" id="quatro-colunas" aria-labelledby="qc-titulo-sec">
     
+    <!-- o h2 que da nome a secao vem ANTES dos quatro h3 da tira, escondido
+         (mesmo truque do .sv-sr em "Nossos Servicos"); o "Por onde comecar"
+         visivel, mais abaixo, e so desenho -->
+    <h2 class="sv-sr" id="qc-titulo-sec">Por onde começar</h2>
     <div class="mx-tira">
-      <img class="mx-foto" src="img/auditoria-bayer-hero.webp" alt="" width="1124" height="632" loading="eager" fetchpriority="high" decoding="async">
+      <img class="mx-foto" src="img/auditoria-bayer-hero-2x1.webp" alt="" width="1400" height="700" loading="eager" fetchpriority="high" decoding="async">
       <article class="mx-col mx-col--carbono">
         <div class="mx-conteudo">
           <div>
@@ -1637,7 +1707,7 @@ body>*{position:relative;z-index:1}
         <p class="mx-rodape"><span>Comprova a sua prática de sustentabilidade</span></p>
       </article>
     </div>
-    <div class="mx-letreiro" aria-label="Serviços que prestamos">
+    <div class="mx-letreiro" role="marquee" aria-label="Serviços que prestamos" tabindex="0">
       <div class="mx-letreiro-fita">
         <div><span>Implantação ISO 9001</span><span>Implantação ISO 14001</span><span>Implantação ISO 45001</span><span>Preparação SEDEX/SMETA</span><span>Inventário de GEE</span><span>Pegada de carbono</span><span>Descarbonização</span><span>Neutralização de carbono</span><span>Estruturação ESG</span><span>Atendimento a NRs</span><span>Inspeções pré-embarque</span><span>Segurança de alimentos</span><span>Auditoria interna</span><span>Padrões de mercado</span></div>
         <div aria-hidden="true"><span>Implantação ISO 9001</span><span>Implantação ISO 14001</span><span>Implantação ISO 45001</span><span>Preparação SEDEX/SMETA</span><span>Inventário de GEE</span><span>Pegada de carbono</span><span>Descarbonização</span><span>Neutralização de carbono</span><span>Estruturação ESG</span><span>Atendimento a NRs</span><span>Inspeções pré-embarque</span><span>Segurança de alimentos</span><span>Auditoria interna</span><span>Padrões de mercado</span></div>
@@ -1645,7 +1715,7 @@ body>*{position:relative;z-index:1}
     </div>
 <div class="qc-abre">
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
-      <h2 class="qc-titulo-sec" id="qc-titulo-sec">Por onde começar</h2>
+      <p class="qc-titulo-sec" aria-hidden="true">Por onde começar</p>
       <p class="qc-lead">Quatro frentes, e a sua organização costuma entrar por uma delas.</p>
     </div>
   </section>
