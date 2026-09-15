@@ -1527,10 +1527,19 @@ body>*{position:relative;z-index:1}
    44,106,175 | 122,157,193 -> 108,158,210 | 163,181,200 -> 150,180,218. As
    duas ultimas eram azuis acinzentados e eram elas que puxavam a secao para o
    neutro. */
-.sh-col--carbono{background:linear-gradient(160deg,rgba(17,52,95,.52) 0%,rgba(42,88,142,.46) 100%)}
-.sh-col--iso    {background:linear-gradient(160deg,rgba(42,88,142,.46) 0%,rgba(44,106,175,.40) 100%)}
-.sh-col--sedex  {background:linear-gradient(160deg,rgba(44,106,175,.40) 0%,rgba(108,158,210,.34) 100%)}
-.sh-col--esg    {background:linear-gradient(160deg,rgba(108,158,210,.34) 0%,rgba(150,180,218,.28) 100%)}
+/* AS PLACAS CLAREARAM 12%. Pedido de 15/09; o numero nao e de gosto, e o teto:
+   os alfas dos quatro veus e os da demao foram todos multiplicados por 0,88, e
+   0,88 e o maior fator em que as dezesseis bandas (quatro colunas x titulo,
+   lista, botao e rodape) ainda fecham o piso. O gargalo e a lista do ESG, que
+   cai de 5,70 para 4,59:1 contra um piso de 4,5. Em 0,84 ela da 4,27 e
+   reprova. Medido compondo veu e demao sobre os pixels das proprias fotos, na
+   propria pagina, a 1920.
+   Os valores de antes, se for preciso voltar: veus .52/.46 | .46/.40 | .40/.34
+   | .34/.28; demao .56 .54 .26 .24 .52 .70 .74; cabeca do ESG .64 .62. */
+.sh-col--carbono{background:linear-gradient(160deg,rgba(17,52,95,0.46) 0%,rgba(42,88,142,0.40) 100%)}
+.sh-col--iso    {background:linear-gradient(160deg,rgba(42,88,142,0.40) 0%,rgba(44,106,175,0.35) 100%)}
+.sh-col--sedex  {background:linear-gradient(160deg,rgba(44,106,175,0.35) 0%,rgba(108,158,210,0.30) 100%)}
+.sh-col--esg    {background:linear-gradient(160deg,rgba(108,158,210,0.30) 0%,rgba(150,180,218,0.25) 100%)}
 /* O PE DA DEMAO ENGROSSA de .55 para .68, e o topo nao muda. Com a foto unica
    do teste a metade esquerda da tira era papel e o escrito pequeno do rodape
    caia sobre o veu; com quatro fotos ele cai sobre a IMAGEM, e nas passagens
@@ -1563,14 +1572,14 @@ body>*{position:relative;z-index:1}
    passa a significar uma coisa so: abre a foto. */
 .sh-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(to bottom,
-    rgba(17,52,95,.56) 0%, rgba(17,52,95,.54) 20%, rgba(17,52,95,.26) 40%,
-    rgba(17,52,95,.24) 54%, rgba(17,52,95,.52) 64%, rgba(17,52,95,.70) 72%,
-    rgba(17,52,95,.74) 100%);
+    rgba(17,52,95,0.49) 0%, rgba(17,52,95,0.48) 20%, rgba(17,52,95,0.23) 40%,
+    rgba(17,52,95,0.21) 54%, rgba(17,52,95,0.46) 64%, rgba(17,52,95,0.62) 72%,
+    rgba(17,52,95,0.65) 100%);
   transition:background .5s}
 .sh-col:hover::before{background:linear-gradient(to bottom,
-  rgba(17,52,95,.56) 0%, rgba(17,52,95,.54) 20%, rgba(17,52,95,.14) 40%,
-  rgba(17,52,95,.14) 54%, rgba(17,52,95,.52) 64%, rgba(17,52,95,.70) 72%,
-  rgba(17,52,95,.74) 100%)}
+  rgba(17,52,95,0.49) 0%, rgba(17,52,95,0.48) 20%, rgba(17,52,95,0.12) 40%,
+  rgba(17,52,95,0.12) 54%, rgba(17,52,95,0.46) 64%, rgba(17,52,95,0.62) 72%,
+  rgba(17,52,95,0.65) 100%)}
 /* o alto desceu de 36 para 64: a caixa do logo agora atravessa a linha do menu
    e cai 12px dentro da tira, e com 36 o indice da primeira coluna comecava
    quase encostado nela. Em baixo os 36 ficam, porque quem fecha aquele lado e o
@@ -1584,13 +1593,13 @@ body>*{position:relative;z-index:1}
    3,00:1 no pior ponto, em cima do piso de 3:1, e no hover caia para 2,73. Com
    .64 sobra folga. So a cabeca muda; a janela e o pe seguem os das outras. */
 .sh-col--esg::before{background:linear-gradient(to bottom,
-  rgba(17,52,95,.64) 0%, rgba(17,52,95,.62) 20%, rgba(17,52,95,.26) 40%,
-  rgba(17,52,95,.24) 54%, rgba(17,52,95,.52) 64%, rgba(17,52,95,.70) 72%,
-  rgba(17,52,95,.74) 100%)}
+  rgba(17,52,95,0.56) 0%, rgba(17,52,95,0.55) 20%, rgba(17,52,95,0.23) 40%,
+  rgba(17,52,95,0.21) 54%, rgba(17,52,95,0.46) 64%, rgba(17,52,95,0.62) 72%,
+  rgba(17,52,95,0.65) 100%)}
 .sh-col--esg:hover::before{background:linear-gradient(to bottom,
-  rgba(17,52,95,.64) 0%, rgba(17,52,95,.62) 20%, rgba(17,52,95,.14) 40%,
-  rgba(17,52,95,.14) 54%, rgba(17,52,95,.52) 64%, rgba(17,52,95,.70) 72%,
-  rgba(17,52,95,.74) 100%)}
+  rgba(17,52,95,0.56) 0%, rgba(17,52,95,0.55) 20%, rgba(17,52,95,0.12) 40%,
+  rgba(17,52,95,0.12) 54%, rgba(17,52,95,0.46) 64%, rgba(17,52,95,0.62) 72%,
+  rgba(17,52,95,0.65) 100%)}
 .sh-conteudo{position:relative;z-index:2;height:100%;width:100%;display:flex;
   flex-direction:column;justify-content:space-between;padding:64px 32px 36px;
   color:var(--mercurio)}
