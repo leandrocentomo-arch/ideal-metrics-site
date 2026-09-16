@@ -1479,13 +1479,12 @@ body>*{position:relative;z-index:1}
    COLUNA: cada `article` tem a sua, chapada no `inset:0` com `cover`, e o
    `overflow:hidden` da coluna e quem a recorta. O veu (`background` da coluna)
    e a demao (`::before`) continuam por cima, no z 1, e o escrito no z 2.
-   A MASCARA E A MESMA DO TESTE, so muda o que ela mede: la os 18% eram da
-   largura da tira inteira, aqui sao da largura de cada coluna. O efeito e o
-   mesmo, e por coluna: a foto nasce do papel na aresta esquerda em vez de
-   comecar numa linha reta. A aresta direita nao precisa de rampa porque ali ja
-   ha o fio de 1px que separa as colunas.
-   O fundo creme da tira e o que aparece por baixo do pedaco apagado da
-   mascara, entao a primeira fatia de cada coluna e veu sobre papel.
+   SEM MASCARA NAS LATERAIS (16/09). A rampa de 18% na aresta esquerda veio do
+   teste, onde fazia sentido: la a foto era UMA, ancorada a direita, e sem rampa
+   ela comecaria numa linha reta no meio da tira. Aqui cada foto vive na sua
+   coluna, e a aresta esquerda de cada uma ja encosta no fio de 1px que separa as
+   colunas. A rampa so apagava um pedaco da foto de cada coluna, e o que se via
+   era a imagem esfumacada na borda. Agora a foto vai de fio a fio.
    AS FOTOS SAO AS DO index.html: `-bayer-qc`, trama Bayer 4x4 de ponto de 1px
    na rampa 14304C 336699 D3E2F2 FAF9F5. Sao retrato (633x788), feitas para
    esta vaga, entao o `cover` quase nao corta. */
@@ -1496,9 +1495,7 @@ body>*{position:relative;z-index:1}
      cada canal e nao borra nada, entao o ponto de 1px da trama Bayer continua
      de pe, que e o que um desfoque estragaria. */
   filter:brightness(1.06);
-  transition:transform .85s cubic-bezier(.23,1,.32,1);
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 18%)}
+  transition:transform .85s cubic-bezier(.23,1,.32,1)}
 /* o zoom de 3,5% no hover e o mesmo do index e do index-anterior; ele existe
    sempre que a foto vive DENTRO da coluna, e e o par do `flex:1.55` que abre a
    vaga. Com a foto unica do teste nao havia o que aproximar. */
