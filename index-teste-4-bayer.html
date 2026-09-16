@@ -1213,16 +1213,17 @@ body>*{position:relative;z-index:1}
   /* 8 e nao 14: a CAIXA fica do mesmo tamanho e quem cresce e a marca.
      96 + 16 = 112 de altura, o mesmo de antes. */
   padding:3.66px;border-radius:0 0 3px 3px;border:1px solid var(--fio);border-top:none;
-  background:rgba(250,249,245,.62);
-  -webkit-backdrop-filter:blur(14px) saturate(160%);
-  backdrop-filter:blur(14px) saturate(160%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+  /* 16/09: fundo CHAPADO #EFDD54, pedido nesta pagina de teste. O vidro saiu
+     junto: com cor opaca nao ha o que ver atraves e o desfoque so custaria
+     processamento. Tinta #14304C sobre #EFDD54 da 9,5:1. */
+  background:#EFDD54;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
   transition:background .45s cubic-bezier(.4,0,.2,1)}
 /* navegador sem backdrop-filter nao pode ficar com uma caixa translucida sem
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .barra-marca{background:var(--mercurio)} }
-.barra-marca:hover{background:rgba(255,255,255,.72)}
+  .barra-marca{background:#EFDD54} }
+.barra-marca:hover{background:#F3E57A}
 .barra-marca .marca-frente{height:81.1px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca .marca-frente{height:71.1px}
@@ -1276,6 +1277,18 @@ body>*{position:relative;z-index:1}
   border-top:1px solid rgba(20,48,76,.2);padding-top:12px;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;color:var(--azul-escuro)}
+/* 16/09: o LOGO OFICIAL entra na segunda secao, na mesma linha de «Por onde
+   comecar» e alinhado pelo TOPO. A linha e um flex com `align-items:flex-start`;
+   o respiro de 34px que antes era do titulo passa para a linha, e o titulo fica
+   com margem zero em cima, senao ele desceria 34px e o logo nao. O logo vai a
+   direita, embaixo do «[ IM.1 ]» do rotulo, e tem 46px de altura, a medida de
+   logo de secao que o site ja usa (.im-secao-logo). O arquivo e o lockup
+   oficial, logo-ideal-m.svg. */
+.qc-abre-linha{display:flex;justify-content:space-between;align-items:flex-start;
+  gap:40px;margin-top:34px;flex-wrap:wrap}
+.qc-abre-linha .qc-titulo-sec{margin-top:0}
+.qc-abre-logo{display:block;height:46px;width:auto;flex:none}
+@media (max-width:880px){ .qc-abre-logo{height:38px} }
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
   line-height:1.45;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
 .qc-lead{margin:10px 0 0;font-family:var(--sans);font-weight:700;
@@ -1500,6 +1513,12 @@ body>*{position:relative;z-index:1}
    sempre que a foto vive DENTRO da coluna, e e o par do `flex:1.55` que abre a
    vaga. Com a foto unica do teste nao havia o que aproximar. */
 .sh-col:hover .sh-foto{transform:scale(1.035)}
+/* 16/09: a foto da ISO entra ESPELHADA. O hover repete o scaleX(-1), porque
+   `transform` nao acumula: o zoom sozinho desfaria o espelho no instante do
+   hover. As duas regras vem DEPOIS da generica de cima, com a mesma
+   especificidade no hover, entao quem ganha e a ordem. */
+.sh-col--iso .sh-foto{transform:scaleX(-1)}
+.sh-col--iso:hover .sh-foto{transform:scaleX(-1) scale(1.035)}
 /* a chamine da foto de energia fica no terco direito do arquivo; alinhada ao
    centro ela sai do corte. E o mesmo ajuste que o index faz na vaga `qc`. */
 .sh-col--carbono .sh-foto{object-position:right center}
@@ -1561,13 +1580,16 @@ body>*{position:relative;z-index:1}
 .sh-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(to bottom,
     rgba(250,249,245,.30) 0%, rgba(250,249,245,.28) 20%, rgba(250,249,245,.14) 40%,
-    rgba(250,249,245,.14) 54%, rgba(250,249,245,.36) 64%, rgba(250,249,245,.54) 73%,
-    rgba(250,249,245,.58) 100%);
+    rgba(250,249,245,.14) 54%, rgba(250,249,245,.38) 64%, rgba(250,249,245,.60) 73%,
+    rgba(250,249,245,.68) 100%);
   transition:background .5s}
+/* 16/09: o PE de cada foto clareou um degrau, .54/.58 -> .60/.68 nas duas
+   ultimas paradas. So creme a mais, entao o contraste do escrito em tinta que
+   mora ali (lista, botao, rodape) so pode subir, nunca cair. */
 .sh-col:hover::before{background:linear-gradient(to bottom,
   rgba(250,249,245,.30) 0%, rgba(250,249,245,.28) 20%, rgba(250,249,245,.06) 40%,
-  rgba(250,249,245,.06) 54%, rgba(250,249,245,.36) 64%, rgba(250,249,245,.54) 73%,
-  rgba(250,249,245,.58) 100%)}
+  rgba(250,249,245,.06) 54%, rgba(250,249,245,.38) 64%, rgba(250,249,245,.60) 73%,
+  rgba(250,249,245,.68) 100%)}
 /* o fio entre colunas era creme sobre placa escura; invertido, e tinta. */
 .sh-conteudo{position:relative;z-index:2;height:100%;width:100%;display:flex;
   flex-direction:column;justify-content:space-between;padding:64px 32px 36px;
@@ -1583,7 +1605,9 @@ body>*{position:relative;z-index:1}
 .sh-titulo{margin:0 0 9px;font-family:var(--sans);font-weight:700;
   font-size:clamp(17px,1.62vw,23px);line-height:1.06;letter-spacing:-.012em}
 .sh-titulo strong{font-weight:inherit}
-.sh-acento{width:40px;height:3px;background:var(--azul);margin-bottom:16px}
+/* 1,5px e nao 3: a barra sob o titulo afina e passa a ter a espessura do fio
+   do index oficial (.qc-fio{height:1.5px}). */
+.sh-acento{width:40px;height:1.5px;background:var(--azul);margin-bottom:16px}
 .sh-vertical{position:absolute;right:28px;top:50%;
   transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;
   font-family:var(--sans);font-size:34px;font-weight:700;text-transform:uppercase;
@@ -1600,11 +1624,15 @@ body>*{position:relative;z-index:1}
 .sh-cta{display:inline-block;width:fit-content;border:1px solid rgba(20,48,76,.42);
   border-radius:3px;padding:8px 24px;font-family:var(--sans);font-size:11px;
   font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--azul);
-  background:transparent;transition:background .3s,color .3s,border-color .3s}
+  /* LIGEIRAMENTE creme, e nao chapado: .72 deixa a foto aparecer um pouco por
+     tras e ainda assim separa o botao do fundo. O hover segue o da casa. */
+  background:rgba(250,249,245,.72);transition:background .3s,color .3s,border-color .3s}
 .sh-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
 .sh-rodape{position:absolute;bottom:16px;left:32px;z-index:2;display:flex;
   align-items:center;gap:6px;max-width:calc(100% - 56px);
-  font-family:var(--sans);font-size:10px;text-transform:uppercase;letter-spacing:.5px;
+  font-family:var(--sans);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  /* 700 desde 16/09: o rodape pequeno passa a negrito. O peso esta carregado no
+     link do Google Fonts (300 a 700), entao nao ha negrito sintetico. */
   /* TINTA CHEIA, e nao o --azul-escuro. O rodape pequeno foi o unico escrito a
      reprovar depois da inversao: sobre o casco do navio, no carbono, o pior
      ponto dava 4,08:1 contra um piso de 4,5. E o mesmo que aconteceu na versao
@@ -1760,8 +1788,13 @@ body>*{position:relative;z-index:1}
     </div>
 <div class="qc-abre">
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
-      <h2 class="qc-titulo-sec" id="qc-titulo-sec">Por onde começar</h2>
-      <p class="qc-lead">Quatro frentes, e a sua organização costuma entrar por uma delas.</p>
+      <div class="qc-abre-linha">
+        <div>
+          <h2 class="qc-titulo-sec" id="qc-titulo-sec">Por onde começar</h2>
+          <p class="qc-lead">Quatro frentes, e a sua organização costuma entrar por uma delas.</p>
+        </div>
+        <img class="qc-abre-logo" src="img/logo-ideal-m.svg" alt="Ideal Metrics">
+      </div>
     </div>
   </section>
 
