@@ -1213,17 +1213,22 @@ body>*{position:relative;z-index:1}
   /* 8 e nao 14: a CAIXA fica do mesmo tamanho e quem cresce e a marca.
      96 + 16 = 112 de altura, o mesmo de antes. */
   padding:3.66px;border-radius:0 0 3px 3px;border:1px solid var(--fio);border-top:none;
-  /* 16/09: fundo CHAPADO #EFDD54, pedido nesta pagina de teste. O vidro saiu
-     junto: com cor opaca nao ha o que ver atraves e o desfoque so custaria
-     processamento. Tinta #14304C sobre #EFDD54 da 9,5:1. */
-  background:#EFDD54;
+  /* 16/09: fundo CHAPADO no VERMELHO DA MARCA, #EF4545, o mesmo token da
+     paleta do painel Spirit e da antiga tarja do index-anterior. (Antes, no
+     mesmo dia, foi #EFDD54; saiu.) O vidro nao volta: com cor opaca nao ha o
+     que ver atraves.
+     Leitura: tinta #14304C sobre #EF4545 da 3,51:1. Para marca, que e objeto
+     grafico, o piso e 3:1 (WCAG 1.4.11), entao passa; mas e pouco para o
+     «ideal.m» miudo do monograma, e esse e o primeiro lugar a olhar se ele
+     parecer apagado. */
+  background:#EF4545;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
   transition:background .45s cubic-bezier(.4,0,.2,1)}
 /* navegador sem backdrop-filter nao pode ficar com uma caixa translucida sem
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .barra-marca{background:#EFDD54} }
-.barra-marca:hover{background:#F3E57A}
+  .barra-marca{background:#EF4545} }
+.barra-marca:hover{background:#F26262}
 .barra-marca .marca-frente{height:81.1px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca .marca-frente{height:71.1px}
@@ -1282,8 +1287,12 @@ body>*{position:relative;z-index:1}
    o respiro de 34px que antes era do titulo passa para a linha, e o titulo fica
    com margem zero em cima, senao ele desceria 34px e o logo nao. O logo vai a
    direita, embaixo do «[ IM.1 ]» do rotulo, e tem 46px de altura, a medida de
-   logo de secao que o site ja usa (.im-secao-logo). O arquivo e o lockup
-   oficial, logo-ideal-m.svg. */
+   logo de secao que o site ja usa (.im-secao-logo).
+   O ARQUIVO E O LOCKUP OFICIAL ESCURO E COMPLETO: logo-ideal-m-escuro.svg, que
+   e o Asset 148 intocado (518,84 x 203,98, tinta chapada #14304C, zero
+   degrade). Nao e o logo-ideal-m.svg: esse nome guarda hoje o Asset 157, em
+   liga fria, e o logo-ideal-m-salvo.svg tem a mesma caixa do 148 mas com um
+   degrade aplicado por cima (md5 diferente do original). */
 .qc-abre-linha{display:flex;justify-content:space-between;align-items:flex-start;
   gap:40px;margin-top:34px;flex-wrap:wrap}
 .qc-abre-linha .qc-titulo-sec{margin-top:0}
@@ -1793,7 +1802,7 @@ body>*{position:relative;z-index:1}
           <h2 class="qc-titulo-sec" id="qc-titulo-sec">Por onde começar</h2>
           <p class="qc-lead">Quatro frentes, e a sua organização costuma entrar por uma delas.</p>
         </div>
-        <img class="qc-abre-logo" src="img/logo-ideal-m.svg" alt="Ideal Metrics">
+        <img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg" alt="Ideal Metrics">
       </div>
     </div>
   </section>
