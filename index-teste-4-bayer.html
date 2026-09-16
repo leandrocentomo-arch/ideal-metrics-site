@@ -1213,22 +1213,24 @@ body>*{position:relative;z-index:1}
   /* 8 e nao 14: a CAIXA fica do mesmo tamanho e quem cresce e a marca.
      96 + 16 = 112 de altura, o mesmo de antes. */
   padding:3.66px;border-radius:0 0 3px 3px;border:1px solid var(--fio);border-top:none;
-  /* 16/09: fundo CHAPADO no VERMELHO DA MARCA, #EF4545, o mesmo token da
-     paleta do painel Spirit e da antiga tarja do index-anterior. (Antes, no
-     mesmo dia, foi #EFDD54; saiu.) O vidro nao volta: com cor opaca nao ha o
-     que ver atraves.
-     Leitura: tinta #14304C sobre #EF4545 da 3,51:1. Para marca, que e objeto
-     grafico, o piso e 3:1 (WCAG 1.4.11), entao passa; mas e pouco para o
-     «ideal.m» miudo do monograma, e esse e o primeiro lugar a olhar se ele
-     parecer apagado. */
-  background:#EF4545;
+  /* 16/09: fundo CHAPADO no BEGE DA MARCA, #D9D3C7: o bege MAIS ESCURO que o
+     creme. Vem da rampa «Bege + azul» (14304C 336699 D9D3C7 F6F1E8), declarada
+     igual nos dois paineis da marca, o Spirit e o de tingimento (MK-51). O
+     #F6F1E8, a parada seguinte da mesma rampa, foi o primeiro a entrar e saiu:
+     ele e quase o creme do cabecalho (#FAF9F5) e a caixa sumia.
+     No mesmo dia a caixa tambem passou por #EFDD54 e por #EF4545.
+     Leitura: tinta #14304C sobre #D9D3C7 da 8,8:1, contra 3,51 do vermelho. O
+     vidro nao volta: com cor opaca nao ha o que ver atraves. */
+  background:#D9D3C7;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
   transition:background .45s cubic-bezier(.4,0,.2,1)}
 /* navegador sem backdrop-filter nao pode ficar com uma caixa translucida sem
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .barra-marca{background:#EF4545} }
-.barra-marca:hover{background:#F26262}
+  .barra-marca{background:#D9D3C7} }
+/* hover no #E3DCCF, o bege da rampa «Bege + azul vivo»: um degrau mais claro,
+   ainda da familia. */
+.barra-marca:hover{background:#E3DCCF}
 .barra-marca .marca-frente{height:81.1px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca .marca-frente{height:71.1px}
