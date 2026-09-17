@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ideal Metrics · teste, quatro fotos na trama Bayer, placa clara</title>
+<title>Ideal Metrics · modelo, caixas creme</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -1213,8 +1213,6 @@ body>*{position:relative;z-index:1}
   /* 8 e nao 14: a CAIXA fica do mesmo tamanho e quem cresce e a marca.
      96 + 16 = 112 de altura, o mesmo de antes. */
   padding:3.66px;border-radius:0 0 3px 3px;border:1px solid var(--fio);border-top:none;
-  /* VIDRO CREME, o mesmo do index.html. Em 16/09 a caixa passou por #EFDD54,
-     #EF4545 e #D9D3C7 e voltou para ca. */
   background:rgba(250,249,245,.62);
   -webkit-backdrop-filter:blur(14px) saturate(160%);
   backdrop-filter:blur(14px) saturate(160%);
@@ -1278,22 +1276,6 @@ body>*{position:relative;z-index:1}
   border-top:1px solid rgba(20,48,76,.2);padding-top:12px;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;color:var(--azul-escuro)}
-/* 16/09: o LOGO OFICIAL entra na segunda secao, na mesma linha de «Por onde
-   comecar» e alinhado pelo TOPO. A linha e um flex com `align-items:flex-start`;
-   o respiro de 34px que antes era do titulo passa para a linha, e o titulo fica
-   com margem zero em cima, senao ele desceria 34px e o logo nao. O logo vai a
-   direita, embaixo do «[ IM.1 ]» do rotulo, e tem 46px de altura, a medida de
-   logo de secao que o site ja usa (.im-secao-logo).
-   O ARQUIVO E O LOCKUP OFICIAL ESCURO E COMPLETO: logo-ideal-m-escuro.svg, que
-   e o Asset 148 intocado (518,84 x 203,98, tinta chapada #14304C, zero
-   degrade). Nao e o logo-ideal-m.svg: esse nome guarda hoje o Asset 157, em
-   liga fria, e o logo-ideal-m-salvo.svg tem a mesma caixa do 148 mas com um
-   degrade aplicado por cima (md5 diferente do original). */
-.qc-abre-linha{display:flex;justify-content:space-between;align-items:flex-start;
-  gap:40px;margin-top:34px;flex-wrap:wrap}
-.qc-abre-linha .qc-titulo-sec{margin-top:0}
-.qc-abre-logo{display:block;height:46px;width:auto;flex:none}
-@media (max-width:880px){ .qc-abre-logo{height:38px} }
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
   line-height:1.45;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
 .qc-lead{margin:10px 0 0;font-family:var(--sans);font-weight:700;
@@ -1477,231 +1459,9 @@ body>*{position:relative;z-index:1}
 .ia-selo{grid-column:1 / 4;align-self:end;width:min(178px,100%);height:auto;
   margin-top:56px;display:block}
 @media (max-width:780px){.ia-selo{grid-column:1 / -1;width:132px;margin-top:36px}}
-
-/* ===== TESTE: a abertura no desenho do index-antigo =====
-   La a peca e a `.services-hero`: UMA foto ancorada a direita, com 70% da
-   largura e `contain`, e por cima quatro colunas que sao VEUS TRANSLUCIDOS,
-   cada uma com o seu degrade, mais uma demao que escurece de cima para baixo.
-   O escrito e branco, com titulo em duas linhas, barra de acento, palavra
-   vertical, lista que so aparece no hover, botao de contorno e um rodape
-   pequeno com seta.
-   O que muda aqui e a TINTA: no antigo os veus eram azuis de fora da paleta
-   (rgba(50,90,150), rgba(125,175,232)...). Aqui as quatro paradas vem da liga
-   da casa, #14304C -> #315275 -> #336699 -> #A3B5C8, com os MESMOS alfas do
-   antigo, entao a graduacao escuro-para-claro entre as colunas e a mesma e a
-   cor passa a ser a da marca. O acento e as bolinhas, que la eram vermelhos,
-   viram creme. ===== */
-.sh-tira{display:flex;width:100%;height:min(560px,40vw);overflow:hidden;
-  position:relative;background:var(--mercurio)}
-/* QUATRO FOTOS no lugar de uma. A foto deixa de ser da TIRA e passa a ser da
-   COLUNA: cada `article` tem a sua, chapada no `inset:0` com `cover`, e o
-   `overflow:hidden` da coluna e quem a recorta. O veu (`background` da coluna)
-   e a demao (`::before`) continuam por cima, no z 1, e o escrito no z 2.
-   SEM MASCARA NAS LATERAIS (16/09). A rampa de 18% na aresta esquerda veio do
-   teste, onde fazia sentido: la a foto era UMA, ancorada a direita, e sem rampa
-   ela comecaria numa linha reta no meio da tira. Aqui cada foto vive na sua
-   coluna, e a aresta esquerda de cada uma ja encosta no fio de 1px que separa as
-   colunas. A rampa so apagava um pedaco da foto de cada coluna, e o que se via
-   era a imagem esfumacada na borda. Agora a foto vai de fio a fio.
-   AS FOTOS SAO AS DO index.html: `-bayer-qc`, trama Bayer 4x4 de ponto de 1px
-   na rampa 14304C 336699 D3E2F2 FAF9F5. Sao retrato (633x788), feitas para
-   esta vaga, entao o `cover` quase nao corta. */
-.sh-foto{position:absolute;inset:0;width:100%;height:100%;z-index:0;
-  object-fit:cover;object-position:center;pointer-events:none;
-  /* +6% de brilho COM TETO NO CREME, so nesta pagina.
-     O tom mais claro das quatro fotos ja e o creme exato do site, (250,249,245):
-     a rampa delas termina em #FAF9F5. O `brightness(1.06)` que estava aqui
-     multiplicava isso para (265,264,260), o navegador cortava em (255,255,255)
-     e o que devia ser papel virava BRANCO. Era esse o branco das quatro fotos.
-     O filtro #foto-creme (svg no topo do body) faz min(creme, 1,06 x) em cada
-     canal: o escuro e o meio sobem os mesmos 6%, e o claro para exatamente no
-     creme. Tabela de 129 pontos, erro de no maximo um nivel em 255, e
-     `color-interpolation-filters="sRGB"`, sem o qual o navegador aplicaria a
-     tabela em luz linear e a curva sairia torta. Os arquivos nao foram tocados
-     e nada borra, entao o ponto de 1px da trama continua de pe. */
-  filter:url(#foto-creme);
-  transition:transform .85s cubic-bezier(.23,1,.32,1)}
-/* o zoom de 3,5% no hover e o mesmo do index e do index-anterior; ele existe
-   sempre que a foto vive DENTRO da coluna, e e o par do `flex:1.55` que abre a
-   vaga. Com a foto unica do teste nao havia o que aproximar. */
-.sh-col:hover .sh-foto{transform:scale(1.035)}
-/* 16/09: a foto da ISO entra ESPELHADA. O hover repete o scaleX(-1), porque
-   `transform` nao acumula: o zoom sozinho desfaria o espelho no instante do
-   hover. As duas regras vem DEPOIS da generica de cima, com a mesma
-   especificidade no hover, entao quem ganha e a ordem. */
-.sh-col--iso .sh-foto{transform:scaleX(-1)}
-.sh-col--iso:hover .sh-foto{transform:scaleX(-1) scale(1.035)}
-/* a chamine da foto de energia fica no terco direito do arquivo; alinhada ao
-   centro ela sai do corte. E o mesmo ajuste que o index faz na vaga `qc`. */
-.sh-col--carbono .sh-foto{object-position:right center}
-.sh-col{position:relative;flex:1;overflow:hidden;min-width:0;z-index:1;
-  border-right:1px solid rgba(20,48,76,.16);
-  transition:flex .5s cubic-bezier(.4,0,.2,1);
-  animation:qcEntra .7s cubic-bezier(.25,.46,.45,.94) both}
-.sh-col:last-child{border-right:none}
-/* de 2..5 para 1..4: a foto saiu de dentro da tira e virou filha da coluna,
-   entao o primeiro `article` voltou a ser o primeiro filho. Com o 2..5 antigo
-   a coluna 1 herdava o atraso da 2 e a 4 entrava sem atraso nenhum. */
-.sh-col:nth-child(1){animation-delay:.10s}
-.sh-col:nth-child(2){animation-delay:.25s}
-.sh-col:nth-child(3){animation-delay:.40s}
-.sh-col:nth-child(4){animation-delay:.55s}
-.sh-col:hover{flex:1.55}
-/* O veu de cada coluna, como no index-antigo: quatro degrades, do escuro para
-   o claro entre as colunas, mais uma demao que escurece do alto para a base.
-   A tinta e a da casa (#14304C -> #315275 -> #336699 -> #A3B5C8) com os mesmos
-   alfas do antigo.
-   O vidro azul chapado da `.abertura` foi testado aqui e recusado: com um tom
-   so, a secao inteira ficava azulada demais. */
-/* 14/09, noite: as cinco paradas CAEM PARA O AZUL, mantendo a graduacao e os
-   alfas. Cada uma ganhou azul e perdeu vermelho com a LUMINANCIA quase parada
-   (Rec.709, diferenca de 1 a 4 em 255), entao o que muda e a cor e nao o peso
-   do veu: 20,48,76 -> 17,52,95 | 49,82,117 -> 42,88,142 | 51,102,153 ->
-   44,106,175 | 122,157,193 -> 108,158,210 | 163,181,200 -> 150,180,218. As
-   duas ultimas eram azuis acinzentados e eram elas que puxavam a secao para o
-   neutro. */
-/* ===== A TIRA INVERTIDA: escrito em TINTA sobre placa CLARA =====
-   A versao anterior era o contrario, creme sobre placa azul, e ela pedia tinta
-   por toda parte: para o creme ler sobre a foto, a demao tinha de fechar .49 no
-   alto e .65 no pe, e era isso que deixava a peca escura. Invertendo o escrito,
-   a conta muda de dono: quem precisa de ajuda agora nao e o claro sobre a foto
-   clara, e a TINTA sobre as manchas ESCURAS da foto (o casco do navio, o painel
-   do contentor).
-   Com isso o criterio tambem muda. Na direcao anterior o que importava era a
-   MEDIA da banda; aqui importa o PIOR PONTO, porque uma mancha escura no meio
-   de uma linha apaga a palavra inteira mesmo com a media boa. Resolvi banda por
-   banda no pior decil, sobre os pixels das proprias fotos, a 1920:
-     titulo  16 a 25% da altura -> precisa de .22 de creme (SEDEX manda)
-     lista   73 a 76%           -> .46 (carbono manda)
-     botao   87 a 94%           -> .48 (carbono)
-     rodape  94 a 97%           -> .48 (carbono)
-   As paradas abaixo cobrem os quatro com folga. O alto ficou MUITO mais aberto
-   que antes (.30 contra .49), que e de onde vem a impressao de peca clara: a
-   foto respira na metade de cima e o creme so fecha embaixo, onde mora o
-   escrito miudo.
-   A JANELA continua no meio (.14 aos 40 e 54%) e o hover continua abrindo so
-   ela, agora para .06: o hover significa uma coisa so, mostrar a foto.
-   Os veus por coluna deixam de ser azuis e passam a ser as cinco paradas
-   CLARAS da liga, na mesma graduacao de antes, da esquerda para a direita.
-   Eles agora respondem pela COR da placa; quem responde pela cobertura e a
-   demao de creme. ===== */
-.sh-col--carbono{background:linear-gradient(160deg,rgba(250,249,245,.22) 0%,rgba(238,243,249,.19) 100%)}
-.sh-col--iso    {background:linear-gradient(160deg,rgba(238,243,249,.19) 0%,rgba(223,233,244,.17) 100%)}
-.sh-col--sedex  {background:linear-gradient(160deg,rgba(223,233,244,.17) 0%,rgba(206,223,241,.15) 100%)}
-.sh-col--esg    {background:linear-gradient(160deg,rgba(206,223,241,.15) 0%,rgba(189,212,236,.13) 100%)}
-.sh-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(to bottom,
-    rgba(250,249,245,.30) 0%, rgba(250,249,245,.28) 20%, rgba(250,249,245,.14) 40%,
-    rgba(250,249,245,.14) 54%, rgba(250,249,245,.38) 64%, rgba(250,249,245,.60) 73%,
-    rgba(250,249,245,.68) 100%);
-  transition:background .5s}
-/* 16/09: o PE de cada foto clareou um degrau, .54/.58 -> .60/.68 nas duas
-   ultimas paradas. So creme a mais, entao o contraste do escrito em tinta que
-   mora ali (lista, botao, rodape) so pode subir, nunca cair. */
-.sh-col:hover::before{background:linear-gradient(to bottom,
-  rgba(250,249,245,.30) 0%, rgba(250,249,245,.28) 20%, rgba(250,249,245,.06) 40%,
-  rgba(250,249,245,.06) 54%, rgba(250,249,245,.38) 64%, rgba(250,249,245,.60) 73%,
-  rgba(250,249,245,.68) 100%)}
-/* o fio entre colunas era creme sobre placa escura; invertido, e tinta. */
-.sh-conteudo{position:relative;z-index:2;height:100%;width:100%;display:flex;
-  flex-direction:column;justify-content:space-between;padding:64px 32px 36px;
-  /* TINTA, nao creme: e a inversao. */
-  color:var(--azul)}
-/* o bloco do titulo vem do index oficial: a NUMERACAO por cima e o corpo do
-   titulo no mesmo clamp de la (17 / 1,62vw / 23), com a mesma entrelinha de
-   1,06 e os mesmos 9px de respiro. Muda so a cor, que aqui esta sobre veu azul
-   e nao sobre foto clara. A barra de acento continua a do antigo. */
-.sh-indice{display:block;margin-bottom:9px;font-family:var(--mono);font-weight:500;
-  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--azul-escuro)}
-.sh-titulo{margin:0 0 9px;font-family:var(--sans);font-weight:700;
-  font-size:clamp(17px,1.62vw,23px);line-height:1.06;letter-spacing:-.012em}
-.sh-titulo strong{font-weight:inherit}
-/* 1,5px e nao 3: a barra sob o titulo afina e passa a ter a espessura do fio
-   do index oficial (.qc-fio{height:1.5px}). */
-.sh-acento{width:40px;height:1.5px;background:var(--azul);margin-bottom:16px}
-.sh-vertical{position:absolute;right:28px;top:50%;
-  transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;
-  font-family:var(--sans);font-size:34px;font-weight:700;text-transform:uppercase;
-  letter-spacing:-.04em;opacity:.18;white-space:nowrap;color:var(--azul);
-  pointer-events:none;z-index:2;transition:opacity .5s}
-.sh-col:hover .sh-vertical{opacity:.35}
-.sh-lista{list-style:none;margin:0 0 16px;padding:0;opacity:0;transform:translateY(8px);
-  transition:opacity .5s,transform .5s}
-.sh-col:hover .sh-lista,.sh-col:focus-within .sh-lista{opacity:1;transform:none}
-.sh-lista li{display:flex;align-items:center;gap:10px;margin-bottom:8px;
-  font-family:var(--sans);font-size:13px;font-weight:400;color:var(--azul)}
-.sh-lista li::before{content:"";width:5px;height:5px;border-radius:50%;
-  background:#336699;flex:none}
-.sh-cta{display:inline-block;width:fit-content;border:1px solid rgba(20,48,76,.42);
-  border-radius:3px;padding:8px 24px;font-family:var(--sans);font-size:11px;
-  font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--azul);
-  /* LIGEIRAMENTE creme, e nao chapado: .72 deixa a foto aparecer um pouco por
-     tras e ainda assim separa o botao do fundo. O hover segue o da casa. */
-  background:rgba(250,249,245,.72);transition:background .3s,color .3s,border-color .3s}
-.sh-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
-.sh-rodape{position:absolute;bottom:16px;left:32px;z-index:2;display:flex;
-  align-items:center;gap:6px;max-width:calc(100% - 56px);
-  font-family:var(--sans);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
-  /* 700 desde 16/09: o rodape pequeno passa a negrito. O peso esta carregado no
-     link do Google Fonts (300 a 700), entao nao ha negrito sintetico. */
-  /* TINTA CHEIA, e nao o --azul-escuro. O rodape pequeno foi o unico escrito a
-     reprovar depois da inversao: sobre o casco do navio, no carbono, o pior
-     ponto dava 4,08:1 contra um piso de 4,5. E o mesmo que aconteceu na versao
-     escura, quando ele estava em creme a 55% e teve de ir para o creme cheio:
-     este escrito nao aceita ser abafado por cima de foto. O abafamento aqui vem
-     do corpo de 10px e da entreletra, nao da cor. */
-  color:var(--azul)}
-.sh-rodape svg{width:12px;height:12px;flex:none;fill:none;stroke:currentColor;
-  stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-@media (prefers-reduced-motion:reduce){
-  .sh-col{animation:none}.sh-lista{opacity:1;transform:none}
-  .sh-col,.sh-col::before,.sh-vertical,.sh-lista{transition:none}
-}
-@media (max-width:880px){
-  .sh-tira{flex-direction:column;height:auto}
-  /* no telefone a foto continua chapada na coluna: a coluna e que passa a ter
-     a largura toda e 300px de altura minima. A faixa solta de 230px do teste
-     nao serve mais, porque agora sao quatro fotos e nao uma. */
-  .sh-foto{object-position:center}
-  .sh-col--carbono .sh-foto{object-position:right center}
-  .sh-col{min-height:300px;border-right:none;border-bottom:1px solid rgba(20,48,76,.16)}
-  .sh-col:hover{flex:1}
-  .sh-vertical{display:none}
-  .sh-lista{opacity:1;transform:none}
-  .sh-conteudo{padding:52px 22px 52px}
-  .sh-rodape{left:22px}
-}
-
-/* ===== TESTE: o letreiro, em fundo BEM CLARO =====
-   No antigo ele era uma tarja cheia de #336699 com letra branca. Aqui o fundo e
-   o creme da pagina e quem desenha a peca sao os fios: um em cima, um embaixo e
-   um entre cada servico, todos no --fio de 1px da casa. A letra volta para a
-   tinta. Para no hover, como no antigo, e respeita `prefers-reduced-motion`. */
-.qc-letreiro{overflow:hidden;background:var(--mercurio);
-  border-top:1px solid var(--fio);border-bottom:1px solid var(--fio)}
-.qc-letreiro-fita{display:flex;width:max-content;animation:qcLetreiro 48s linear infinite}
-.qc-letreiro:hover .qc-letreiro-fita{animation-play-state:paused}
-.qc-letreiro-fita span{padding:11px 30px;white-space:nowrap;
-  font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--azul-escuro);
-  border-right:1px solid var(--fio)}
-@keyframes qcLetreiro{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){ .qc-letreiro-fita{animation:none} }
-@media (max-width:880px){ .qc-letreiro-fita span{padding:9px 20px;font-size:9.5px} }
 </style>
 </head>
 <body class="carga">
-<!-- filtro das quatro fotos: +6% de brilho com TETO no creme do site (ver .sh-foto) -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <filter id="foto-creme" color-interpolation-filters="sRGB">
-    <feComponentTransfer>
-      <feFuncR type="table" tableValues="0.0000 0.0083 0.0166 0.0248 0.0331 0.0414 0.0497 0.0580 0.0663 0.0745 0.0828 0.0911 0.0994 0.1077 0.1159 0.1242 0.1325 0.1408 0.1491 0.1573 0.1656 0.1739 0.1822 0.1905 0.1988 0.2070 0.2153 0.2236 0.2319 0.2402 0.2484 0.2567 0.2650 0.2733 0.2816 0.2898 0.2981 0.3064 0.3147 0.3230 0.3313 0.3395 0.3478 0.3561 0.3644 0.3727 0.3809 0.3892 0.3975 0.4058 0.4141 0.4223 0.4306 0.4389 0.4472 0.4555 0.4637 0.4720 0.4803 0.4886 0.4969 0.5052 0.5134 0.5217 0.5300 0.5383 0.5466 0.5548 0.5631 0.5714 0.5797 0.5880 0.5963 0.6045 0.6128 0.6211 0.6294 0.6377 0.6459 0.6542 0.6625 0.6708 0.6791 0.6873 0.6956 0.7039 0.7122 0.7205 0.7288 0.7370 0.7453 0.7536 0.7619 0.7702 0.7784 0.7867 0.7950 0.8033 0.8116 0.8198 0.8281 0.8364 0.8447 0.8530 0.8613 0.8695 0.8778 0.8861 0.8944 0.9027 0.9109 0.9192 0.9275 0.9358 0.9441 0.9523 0.9606 0.9689 0.9772 0.9804 0.9804 0.9804 0.9804 0.9804 0.9804 0.9804 0.9804 0.9804 0.9804"/>
-      <feFuncG type="table" tableValues="0.0000 0.0083 0.0166 0.0248 0.0331 0.0414 0.0497 0.0580 0.0663 0.0745 0.0828 0.0911 0.0994 0.1077 0.1159 0.1242 0.1325 0.1408 0.1491 0.1573 0.1656 0.1739 0.1822 0.1905 0.1988 0.2070 0.2153 0.2236 0.2319 0.2402 0.2484 0.2567 0.2650 0.2733 0.2816 0.2898 0.2981 0.3064 0.3147 0.3230 0.3313 0.3395 0.3478 0.3561 0.3644 0.3727 0.3809 0.3892 0.3975 0.4058 0.4141 0.4223 0.4306 0.4389 0.4472 0.4555 0.4637 0.4720 0.4803 0.4886 0.4969 0.5052 0.5134 0.5217 0.5300 0.5383 0.5466 0.5548 0.5631 0.5714 0.5797 0.5880 0.5963 0.6045 0.6128 0.6211 0.6294 0.6377 0.6459 0.6542 0.6625 0.6708 0.6791 0.6873 0.6956 0.7039 0.7122 0.7205 0.7288 0.7370 0.7453 0.7536 0.7619 0.7702 0.7784 0.7867 0.7950 0.8033 0.8116 0.8198 0.8281 0.8364 0.8447 0.8530 0.8613 0.8695 0.8778 0.8861 0.8944 0.9027 0.9109 0.9192 0.9275 0.9358 0.9441 0.9523 0.9606 0.9689 0.9765 0.9765 0.9765 0.9765 0.9765 0.9765 0.9765 0.9765 0.9765 0.9765 0.9765"/>
-      <feFuncB type="table" tableValues="0.0000 0.0083 0.0166 0.0248 0.0331 0.0414 0.0497 0.0580 0.0663 0.0745 0.0828 0.0911 0.0994 0.1077 0.1159 0.1242 0.1325 0.1408 0.1491 0.1573 0.1656 0.1739 0.1822 0.1905 0.1988 0.2070 0.2153 0.2236 0.2319 0.2402 0.2484 0.2567 0.2650 0.2733 0.2816 0.2898 0.2981 0.3064 0.3147 0.3230 0.3313 0.3395 0.3478 0.3561 0.3644 0.3727 0.3809 0.3892 0.3975 0.4058 0.4141 0.4223 0.4306 0.4389 0.4472 0.4555 0.4637 0.4720 0.4803 0.4886 0.4969 0.5052 0.5134 0.5217 0.5300 0.5383 0.5466 0.5548 0.5631 0.5714 0.5797 0.5880 0.5963 0.6045 0.6128 0.6211 0.6294 0.6377 0.6459 0.6542 0.6625 0.6708 0.6791 0.6873 0.6956 0.7039 0.7122 0.7205 0.7288 0.7370 0.7453 0.7536 0.7619 0.7702 0.7784 0.7867 0.7950 0.8033 0.8116 0.8198 0.8281 0.8364 0.8447 0.8530 0.8613 0.8695 0.8778 0.8861 0.8944 0.9027 0.9109 0.9192 0.9275 0.9358 0.9441 0.9523 0.9606 0.9608 0.9608 0.9608 0.9608 0.9608 0.9608 0.9608 0.9608 0.9608 0.9608 0.9608 0.9608"/>
-    </feComponentTransfer>
-  </filter>
-</svg>
 
 <div class="abertura" id="abertura">
   <span class="l-v l-v1"></span><span class="l-v l-v2"></span>
@@ -1739,84 +1499,76 @@ body>*{position:relative;z-index:1}
   <!-- ===== quatro colunas (a abertura do index.html, na lingua desta pagina) ===== -->
   <section class="qc-sec" id="quatro-colunas" aria-labelledby="qc-titulo-sec">
     
-    <div class="sh-tira">
-      <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/energia-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
-        <div class="sh-conteudo">
+    <div class="qc-tira">
+      <article class="qc-col qc-col--carbono">
+        <img class="qc-bg" src="img/energia-bayer-qc.webp" alt="" loading="lazy">
+        <div class="qc-conteudo">
           <div>
-            <span class="sh-indice">[ 01 ]</span>
-            <h3 class="sh-titulo">Gestão<br><strong>de Carbono</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
+            <span class="qc-indice">[ 01 ]</span>
+            <h3 class="qc-titulo">Gestão<br>de Carbono</h3>
+            <div class="qc-fio" aria-hidden="true"></div>
           </div>
-          <span class="sh-vertical" aria-hidden="true">Emissões</span>
+          <span class="qc-vertical" aria-hidden="true">Emissões</span>
           <div>
-            <ul class="sh-lista"><li>Inventário de GEE</li><li>Carbono neutro</li><li>Créditos de carbono</li></ul>
-            <a class="sh-cta js-scramble" href="gestao-carbono.html">Saiba mais</a>
-          </div>
-        </div>
-        <div class="sh-rodape"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>Reduz as emissões da sua operação</div>
-      </article>
-      <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/industria-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 02 ]</span>
-            <h3 class="sh-titulo">ISO<br><strong>Certificação</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Normas</span>
-          <div>
-            <ul class="sh-lista"><li>ISO 9001: gestão da qualidade</li><li>ISO 14001: ambiental</li><li>ISO 45001: saúde e segurança</li></ul>
-            <a class="sh-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
+            <ul class="qc-lista"><li><span>Inventário de GEE</span></li><li><span>Carbono neutro</span></li><li><span>Créditos de carbono</span></li></ul>
+            <a class="qc-cta js-scramble" href="gestao-carbono.html">Saiba mais</a>
           </div>
         </div>
-        <div class="sh-rodape"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>Busca certificação para a sua organização</div>
+        <p class="qc-rodape"><span>Reduz as emissões da sua operação</span></p>
       </article>
-      <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/logistica-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
-        <div class="sh-conteudo">
+      <article class="qc-col qc-col--iso">
+        <img class="qc-bg" src="img/industria-bayer-qc.webp" alt="" loading="lazy">
+        <div class="qc-conteudo">
           <div>
-            <span class="sh-indice">[ 03 ]</span>
-            <h3 class="sh-titulo">SEDEX<br><strong>SMETA</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
+            <span class="qc-indice">[ 02 ]</span>
+            <h3 class="qc-titulo">ISO<br>Certificação</h3>
+            <div class="qc-fio" aria-hidden="true"></div>
           </div>
-          <span class="sh-vertical" aria-hidden="true">Ética</span>
+          <span class="qc-vertical" aria-hidden="true">Normas</span>
           <div>
-            <ul class="sh-lista"><li>Direitos trabalhistas</li><li>Saúde e segurança</li><li>Ética e meio ambiente</li></ul>
-            <a class="sh-cta js-scramble" href="sedex-smeta.html">Saiba mais</a>
+            <ul class="qc-lista"><li><span>ISO 9001: gestão da qualidade</span></li><li><span>ISO 14001: ambiental</span></li><li><span>ISO 45001: saúde e segurança</span></li></ul>
+            <a class="qc-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
           </div>
         </div>
-        <div class="sh-rodape"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>Atende às exigências dos seus clientes</div>
+        <p class="qc-rodape"><span>Busca certificação para a sua organização</span></p>
       </article>
-      <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/alimentos-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
-        <div class="sh-conteudo">
+      <article class="qc-col qc-col--sedex">
+        <img class="qc-bg" src="img/logistica-bayer-qc.webp" alt="" loading="lazy">
+        <div class="qc-conteudo">
           <div>
-            <span class="sh-indice">[ 04 ]</span>
-            <h3 class="sh-titulo">ESG<br><strong>Sustentabilidade</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
+            <span class="qc-indice">[ 03 ]</span>
+            <h3 class="qc-titulo">SEDEX<br>SMETA</h3>
+            <div class="qc-fio" aria-hidden="true"></div>
           </div>
-          <span class="sh-vertical" aria-hidden="true">Padrões</span>
+          <span class="qc-vertical" aria-hidden="true">Ética</span>
           <div>
-            <ul class="sh-lista"><li>Padrões de mercado</li><li>Relato e indicadores</li><li>Cadeia de fornecedores</li></ul>
-            <a class="sh-cta js-scramble" href="esg.html">Saiba mais</a>
+            <ul class="qc-lista"><li><span>Direitos trabalhistas</span></li><li><span>Saúde e segurança</span></li><li><span>Ética e meio ambiente</span></li></ul>
+            <a class="qc-cta js-scramble" href="sedex-smeta.html">Saiba mais</a>
           </div>
         </div>
-        <div class="sh-rodape"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>Comprova a sua prática de sustentabilidade</div>
+        <p class="qc-rodape"><span>Atende às exigências dos seus clientes</span></p>
       </article>
-    </div>
-    <div class="qc-letreiro" aria-label="Serviços que prestamos">
-      <div class="qc-letreiro-fita"><span>Implantação ISO 9001</span><span>Implantação ISO 14001</span><span>Implantação ISO 45001</span><span>Preparação SEDEX/SMETA</span><span>Inventário de GEE</span><span>Pegada de carbono</span><span>Descarbonização</span><span>Neutralização de carbono</span><span>Estruturação ESG</span><span>Atendimento a NRs</span><span>Inspeções pré-embarque</span><span>Segurança de alimentos</span><span>Auditoria interna</span><span>Padrões de mercado</span><span>Implantação ISO 9001</span><span>Implantação ISO 14001</span><span>Implantação ISO 45001</span><span>Preparação SEDEX/SMETA</span><span>Inventário de GEE</span><span>Pegada de carbono</span><span>Descarbonização</span><span>Neutralização de carbono</span><span>Estruturação ESG</span><span>Atendimento a NRs</span><span>Inspeções pré-embarque</span><span>Segurança de alimentos</span><span>Auditoria interna</span><span>Padrões de mercado</span></div>
+      <article class="qc-col qc-col--esg">
+        <img class="qc-bg" src="img/alimentos-bayer-qc.webp" alt="" loading="lazy">
+        <div class="qc-conteudo">
+          <div>
+            <span class="qc-indice">[ 04 ]</span>
+            <h3 class="qc-titulo">ESG<br>Sustentabilidade</h3>
+            <div class="qc-fio" aria-hidden="true"></div>
+          </div>
+          <span class="qc-vertical" aria-hidden="true">Padrões</span>
+          <div>
+            <ul class="qc-lista"><li><span>Padrões de mercado</span></li><li><span>Relato e indicadores</span></li><li><span>Cadeia de fornecedores</span></li></ul>
+            <a class="qc-cta js-scramble" href="esg.html">Saiba mais</a>
+          </div>
+        </div>
+        <p class="qc-rodape"><span>Comprova a sua prática de sustentabilidade</span></p>
+      </article>
     </div>
 <div class="qc-abre">
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
-      <div class="qc-abre-linha">
-        <div>
-          <h2 class="qc-titulo-sec" id="qc-titulo-sec">Por onde começar</h2>
-          <p class="qc-lead">Quatro frentes, e a sua organização costuma entrar por uma delas.</p>
-        </div>
-        <img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg" alt="Ideal Metrics">
-      </div>
+      <h2 class="qc-titulo-sec" id="qc-titulo-sec">Por onde começar</h2>
+      <p class="qc-lead">Quatro frentes, e a sua organização costuma entrar por uma delas.</p>
     </div>
   </section>
 
