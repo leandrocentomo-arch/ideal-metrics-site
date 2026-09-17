@@ -1589,25 +1589,31 @@ body>*{position:relative;z-index:1}
 .sh-col--iso    {background:linear-gradient(160deg,rgba(238,243,249,.19) 0%,rgba(223,233,244,.17) 100%)}
 .sh-col--sedex  {background:linear-gradient(160deg,rgba(223,233,244,.17) 0%,rgba(206,223,241,.15) 100%)}
 .sh-col--esg    {background:linear-gradient(160deg,rgba(206,223,241,.15) 0%,rgba(189,212,236,.13) 100%)}
+/* 17/09, 2a volta: o escrito subiu todo para debaixo do titulo, entao o veu
+   inverteu de forma. Antes ele fechava para baixo (.38/.60/.68), porque lista,
+   botao e rodape moravam no pe da coluna. Agora o pe so tem o botao, que tem
+   fundo proprio, e o pedido foi explicito: a parte de baixo da foto sai sem
+   claridade nenhuma. Entao o veu segura do topo ate uns 55%, onde o escrito
+   acaba, e cai a zero aos 78%. Da metade para baixo a foto e a foto. */
 .sh-col::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(to bottom,
-    rgba(250,249,245,.30) 0%, rgba(250,249,245,.28) 20%, rgba(250,249,245,.14) 40%,
-    rgba(250,249,245,.14) 54%, rgba(250,249,245,.38) 64%, rgba(250,249,245,.60) 73%,
-    rgba(250,249,245,.68) 100%);
+    rgba(250,249,245,.38) 0%, rgba(250,249,245,.38) 25%, rgba(250,249,245,.36) 45%,
+    rgba(250,249,245,.18) 58%, rgba(250,249,245,.04) 70%, rgba(250,249,245,0) 80%,
+    rgba(250,249,245,0) 100%);
   transition:background .5s}
 /* 16/09: o PE de cada foto clareou um degrau, .54/.58 -> .60/.68 nas duas
    ultimas paradas. So creme a mais, entao o contraste do escrito em tinta que
    mora ali (lista, botao, rodape) so pode subir, nunca cair. */
-.sh-col:hover::before{background:linear-gradient(to bottom,
-  rgba(250,249,245,.30) 0%, rgba(250,249,245,.28) 20%, rgba(250,249,245,.06) 40%,
-  rgba(250,249,245,.06) 54%, rgba(250,249,245,.38) 64%, rgba(250,249,245,.60) 73%,
-  rgba(250,249,245,.68) 100%)}
+/* 17/09, 2a volta: o veu do hover SAIU. Ele existia para abrir a janela do meio
+   da foto enquanto o escrito morava no pe; agora o escrito esta justo naquela
+   faixa, e trocar de curva no hover daria um clarao de meio segundo em cima da
+   lista que acabava de aparecer. Uma curva so, nos dois estados. O hover
+   continua tendo o zoom da foto, a palavra vertical e a lista entrando. */
 /* o fio entre colunas era creme sobre placa escura; invertido, e tinta. */
 .sh-conteudo{position:relative;z-index:2;height:100%;width:100%;display:flex;
-  /* 17/09: o fundo abre de 36 para 54. O botao e a ultima peca do fluxo e sobe
-     junto, e a distancia ate o rodape pequeno (que e absoluto, a 16px da base)
-     vai de uns 13 para uns 31px. */
-  flex-direction:column;justify-content:space-between;padding:64px 32px 54px;
+  /* o pe voltou a 40: o rodape pequeno saiu de la, entao o botao nao precisa
+     mais guardar distancia dele. */
+  flex-direction:column;justify-content:space-between;padding:64px 32px 40px;
   /* TINTA, nao creme: e a inversao. */
   color:var(--azul)}
 /* o bloco do titulo vem do index oficial: a NUMERACAO por cima e o corpo do
@@ -1629,7 +1635,7 @@ body>*{position:relative;z-index:1}
   letter-spacing:-.04em;opacity:.18;white-space:nowrap;color:var(--azul);
   pointer-events:none;z-index:2;transition:opacity .5s}
 .sh-col:hover .sh-vertical{opacity:.35}
-.sh-lista{list-style:none;margin:0 0 16px;padding:0;opacity:0;transform:translateY(8px);
+.sh-lista{list-style:none;margin:0;padding:0;opacity:0;transform:translateY(8px);
   transition:opacity .5s,transform .5s}
 .sh-col:hover .sh-lista,.sh-col:focus-within .sh-lista{opacity:1;transform:none}
 .sh-lista li{display:flex;align-items:center;gap:10px;margin-bottom:8px;
@@ -1648,12 +1654,15 @@ body>*{position:relative;z-index:1}
 .sh-cta{display:inline-block;width:fit-content;border:1px solid rgba(20,48,76,.42);
   border-radius:3px;padding:8px 24px;font-family:var(--sans);font-size:11px;
   font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--azul);
-  /* LIGEIRAMENTE creme, e nao chapado: .72 deixa a foto aparecer um pouco por
-     tras e ainda assim separa o botao do fundo. O hover segue o da casa. */
-  background:rgba(250,249,245,.72);transition:background .3s,color .3s,border-color .3s}
+  /* .92 desde 17/09 (2a volta): o pedido foi menos transparencia. Com o veu
+     sumindo no pe da coluna, o botao passou a ser a unica peca clara ali e
+     precisa se sustentar sozinho contra a foto crua. */
+  background:rgba(250,249,245,.92);transition:background .3s,color .3s,border-color .3s}
 .sh-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
-.sh-rodape{position:absolute;bottom:16px;left:32px;z-index:2;display:flex;
-  align-items:center;max-width:calc(100% - 56px);
+/* 17/09, 2a volta: o rodape pequeno deixou de ser absoluto no pe da coluna e
+   passou a ser a primeira linha escrita debaixo do titulo, acima da lista do
+   hover. Ele fica sempre visivel; a lista e que entra e sai. */
+.sh-rodape{display:flex;align-items:center;margin:0 0 14px;max-width:100%;
   font-family:var(--sans);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
   /* 700 desde 16/09: o rodape pequeno passa a negrito. O peso esta carregado no
      link do Google Fonts (300 a 700), entao nao ha negrito sintetico. */
@@ -1680,8 +1689,8 @@ body>*{position:relative;z-index:1}
   .sh-col:hover{flex:1}
   .sh-vertical{display:none}
   .sh-lista{opacity:1;transform:none}
-  .sh-conteudo{padding:52px 22px 70px}   /* mesma abertura de 18px no telefone */
-  .sh-rodape{left:22px}
+  .sh-conteudo{padding:52px 22px 44px}
+
 }
 
 /* ===== TESTE: o letreiro, em fundo BEM CLARO =====
@@ -1758,14 +1767,14 @@ body>*{position:relative;z-index:1}
             <span class="sh-indice">[ 01 ]</span>
             <h3 class="sh-titulo">Gestão<br><strong>de Carbono</strong></h3>
             <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Reduz as emissões da sua operação</div>
+            <ul class="sh-lista"><li>Inventário de GEE</li><li>Carbono neutro</li><li>Créditos de carbono</li></ul>
           </div>
           <span class="sh-vertical" aria-hidden="true">Emissões</span>
           <div>
-            <ul class="sh-lista"><li>Inventário de GEE</li><li>Carbono neutro</li><li>Créditos de carbono</li></ul>
             <a class="sh-cta js-scramble" href="gestao-carbono.html">Saiba mais</a>
           </div>
         </div>
-        <div class="sh-rodape">Reduz as emissões da sua operação</div>
       </article>
       <article class="sh-col sh-col--iso">
         <img class="sh-foto" src="img/industria-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
@@ -1774,30 +1783,30 @@ body>*{position:relative;z-index:1}
             <span class="sh-indice">[ 02 ]</span>
             <h3 class="sh-titulo">ISO<br><strong>Certificação</strong></h3>
             <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Busca certificação para a sua organização</div>
+            <ul class="sh-lista"><li>ISO 9001: gestão da qualidade</li><li>ISO 14001: ambiental</li><li>ISO 45001: saúde e segurança</li></ul>
           </div>
           <span class="sh-vertical" aria-hidden="true">Normas</span>
           <div>
-            <ul class="sh-lista"><li>ISO 9001: gestão da qualidade</li><li>ISO 14001: ambiental</li><li>ISO 45001: saúde e segurança</li></ul>
             <a class="sh-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
           </div>
         </div>
-        <div class="sh-rodape">Busca certificação para a sua organização</div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/etica-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/inspecao-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
             <h3 class="sh-titulo">SEDEX<br><strong>SMETA</strong></h3>
             <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Atende às exigências dos seus clientes</div>
+            <ul class="sh-lista"><li>Direitos trabalhistas</li><li>Saúde e segurança</li><li>Ética e meio ambiente</li></ul>
           </div>
           <span class="sh-vertical" aria-hidden="true">Ética</span>
           <div>
-            <ul class="sh-lista"><li>Direitos trabalhistas</li><li>Saúde e segurança</li><li>Ética e meio ambiente</li></ul>
             <a class="sh-cta js-scramble" href="sedex-smeta.html">Saiba mais</a>
           </div>
         </div>
-        <div class="sh-rodape">Atende às exigências dos seus clientes</div>
       </article>
       <article class="sh-col sh-col--esg">
         <img class="sh-foto" src="img/alimentos-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
@@ -1806,14 +1815,14 @@ body>*{position:relative;z-index:1}
             <span class="sh-indice">[ 04 ]</span>
             <h3 class="sh-titulo">ESG<br><strong>Sustentabilidade</strong></h3>
             <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Comprova a sua prática de sustentabilidade</div>
+            <ul class="sh-lista"><li>Padrões de mercado</li><li>Relato e indicadores</li><li>Cadeia de fornecedores</li></ul>
           </div>
           <span class="sh-vertical" aria-hidden="true">Padrões</span>
           <div>
-            <ul class="sh-lista"><li>Padrões de mercado</li><li>Relato e indicadores</li><li>Cadeia de fornecedores</li></ul>
             <a class="sh-cta js-scramble" href="esg.html">Saiba mais</a>
           </div>
         </div>
-        <div class="sh-rodape">Comprova a sua prática de sustentabilidade</div>
       </article>
     </div>
     <div class="qc-letreiro" aria-label="Serviços que prestamos">
