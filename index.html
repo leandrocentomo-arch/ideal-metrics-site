@@ -3795,7 +3795,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       gl.uniform1f(uT.aspecto, asp); gl.uniform1f(uT.vel, v);
       var pinc = esc*(cfg.pincel || 1);
       gl.uniform1f(uT.raio, (.066 + v*.015)*pinc); gl.uniform1f(uT.borda, (.129 + v*.054)*pinc);
-      gl.uniform1f(uT.fica, Math.pow(1-.057, f60));
+      gl.uniform1f(uT.fica, Math.pow(1-.040, f60));
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       idx = prox;
 
@@ -3825,8 +3825,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       gl.uniform3f(uF.uC3, C[3][0]/255, C[3][1]/255, C[3][2]/255);
       gl.uniform3f(uF.uCreme, CR[0]/255, CR[1]/255, CR[2]/255);
       gl.uniform1f(uF.uGama, .86); gl.uniform1f(uF.uCtr, 1.55); gl.uniform1f(uF.uBrilho, .35);
-      gl.uniform1f(uF.uPix, Math.max(1, pix.v)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 3.8); gl.uniform1f(uF.uTrailMul, 1.27);
-      gl.uniform1f(uF.uBias, bias.v); gl.uniform1f(uF.uBiasReacao, .23); gl.uniform1f(uF.uRespiro, cfg.respiro == null ? .012 : cfg.respiro);
+      gl.uniform1f(uF.uPix, Math.max(1, pix.v)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 3.3); gl.uniform1f(uF.uTrailMul, 1.27);
+      gl.uniform1f(uF.uBias, bias.v); gl.uniform1f(uF.uBiasReacao, .13); gl.uniform1f(uF.uRespiro, cfg.respiro == null ? .012 : cfg.respiro);
       gl.uniform1f(uF.uRevela, cfg.revelaNaTrilha == null ? 0 : cfg.revelaNaTrilha);
 
       planos.forEach(function(pl){
@@ -3870,7 +3870,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       /* rampa 14304C 336699 D3E2F2 FAF9F5 com escuro 1,4 (a receita da vaga qc) e ja
          passada pelo min(creme, 1,06x) do filtro #foto-creme */
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
-      zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:.62});
+      zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
   })();
 
   /* ---------------- a folha do painel Demandas ---------------- */
