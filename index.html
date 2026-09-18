@@ -54,7 +54,12 @@ body>*{position:relative;z-index:1}
   backdrop-filter:blur(30px) saturate(150%);
   box-shadow:inset 0 -1px 0 rgba(255,255,255,.35);
   display:flex;align-items:center;justify-content:center;overflow:hidden;
-  transition:transform .8s cubic-bezier(.76,0,.24,1)}
+  /* 17/09: a saida deixou de ser um pan para cima e virou dissolucao. A chapa
+     abre 6% enquanto some, o que le como a tela se afastando em direcao a
+     pagina, e nao como uma cortina subindo. */
+  transition:opacity .85s cubic-bezier(.4,0,.2,1) .18s,
+             transform 1.15s cubic-bezier(.22,1,.36,1),
+             visibility 0s linear 1.15s}
 /* sem desfoque nao ha vidro: ali a tinta fecha, senao a home apareceria nitida
    por tras da abertura. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
@@ -76,8 +81,8 @@ body>*{position:relative;z-index:1}
 .abertura .l-h2{right:0;transform-origin:right;
   transition:transform .9s cubic-bezier(.76,0,.24,1) .25s}
 /* o logo so APARECE: sem giro, sem deslocamento, sem circulo */
-.abertura img{width:min(240px,50vw);position:relative;opacity:0;
-  transition:opacity .7s ease .55s}
+.abertura img{width:min(240px,50vw);position:relative;opacity:0;transform:scale(1);
+  transition:opacity .7s ease .55s,transform .7s ease .55s}
 /* tique perpendicular na ponta onde cada traco para (12/09/2026) */
 .abertura .l-v::after,.abertura .l-h::after{content:'';position:absolute;display:block;background:inherit}
 .abertura .l-v::after{left:50%;transform:translateX(-50%);width:9px;height:1px}
@@ -92,7 +97,14 @@ body>*{position:relative;z-index:1}
 /* 14/09/2026: saiu a viagem do logo para a esquerda, e com ela a fase `anda`
    inteira: o empurrao do traco da direita, o recuo do da esquerda e a cruz
    vertical que acompanhava. O logo so aparece no centro e fica. */
-.pronta .abertura{transform:translateY(-101%);pointer-events:none}
+/* A ordem da saida importa e e a de sempre, so que ao contrario: primeiro os
+   tracos recolhem para as bordas de onde vieram, depois o logo encolhe um
+   nada e some, e so entao a chapa se dissolve. Tres tempos em 1,15s. */
+.pronta .abertura{opacity:0;transform:scale(1.06);visibility:hidden;pointer-events:none}
+.pronta .abertura img{opacity:0;transform:scale(.94);
+  transition:opacity .45s ease,transform .8s cubic-bezier(.22,1,.36,1)}
+.pronta .abertura .l-v{transform:scaleY(0)}
+.pronta .abertura .l-h{transform:scaleX(0)}
 .abertura.fora{display:none}
 
 /* ---- placa fixa do logo + aba MENU ---- */
@@ -1213,10 +1225,12 @@ body>*{position:relative;z-index:1}
   /* 8 e nao 14: a CAIXA fica do mesmo tamanho e quem cresce e a marca.
      96 + 16 = 112 de altura, o mesmo de antes. */
   padding:3.66px;border-radius:0 0 3px 3px;border:1px solid var(--fio);border-top:none;
-  /* VIDRO CREME, o mesmo do index.html. Em 16/09 a caixa passou por #EFDD54,
-     #EF4545 e #D9D3C7 e voltou para ca. */
-  background:rgba(250,249,245,.62);
-  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  /* PRATA, 17/09: o material `prata` do painel Spirit, cinco paradas a 26 graus
+     (#A9AAAA #D1D2D3 #FFFFFF #D1D2D3 #A9AAAA). Chapa opaca, entao o vidro saiu
+     junto: `backdrop-filter` sobre uma chapa que nao deixa passar luz e custo
+     de composicao sem efeito. O monograma e tinta e fica sobre a faixa branca
+     do meio do degrade, que e onde o contraste e maior. */
+  background:linear-gradient(26deg,#A9AAAA 0%,#D1D2D3 25%,#FFFFFF 50%,#D1D2D3 75%,#A9AAAA 100%);
   backdrop-filter:blur(14px) saturate(160%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
   transition:background .45s cubic-bezier(.4,0,.2,1)}
@@ -1601,14 +1615,17 @@ body>*{position:relative;z-index:1}
     rgba(250,249,245,.18) 58%, rgba(250,249,245,.04) 70%, rgba(250,249,245,0) 80%,
     rgba(250,249,245,0) 100%);
   transition:background .5s}
-/* 17/09, 4a volta: no hover a foto CLAREIA 20%. E uma camada de creme chapado
-   por cima da foto (e por baixo do escrito), com opacidade de 0 a 0,5, e nao um
+/* 17/09, 5a volta: no hover a foto CLAREIA 45%. Em 20% o efeito existia na
+   conta e nao na tela: sobre uma foto que ja e 58 a 91% creme, 20% de creme a
+   mais so move a parte escura, e pouco. Em 45% um pixel de tinta (22,52,83) vai
+   para (125,141,156), que se ve de longe.
+   E uma camada de creme chapado por cima da foto (e por baixo do escrito), e nao um
    `filter:brightness`: brightness estoura o creme (250,249,245) para branco, que
    ja foi bug uma vez. Meio caminho ate o creme do site nunca passa do teto.
    Como e uma camada, funciona igual se a foto for <img> ou o canvas do fluido. */
 .sh-col::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:#FAF9F5;opacity:0;transition:opacity .5s}
-.sh-col:hover::after,.sh-col:focus-within::after{opacity:.2}
+  background:#FAF9F5;opacity:.12;transition:opacity .5s}
+.sh-col:hover::after,.sh-col:focus-within::after{opacity:.45}
 /* 16/09: o PE de cada foto clareou um degrau, .54/.58 -> .60/.68 nas duas
    ultimas paradas. So creme a mais, entao o contraste do escrito em tinta que
    mora ali (lista, botao, rodape) so pode subir, nunca cair. */
@@ -2670,7 +2687,10 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var texFoto = gl.createTexture(), fotoOk = false;
     var reduz = document.createElement('canvas'), larguraNaTex = 0, semCanvas = false;
     var carrega = new Image();
-    carrega.crossOrigin = 'anonymous';
+    /* SEM crossOrigin. As fotos sao do mesmo servidor, entao ele nao acrescenta
+       nada; e em `file://` ele faz a imagem nem carregar, e o efeito some sem
+       aviso. (Em file:// o WebGL tambem recusa a textura por seguranca: ali o
+       fluido nao roda de jeito nenhum, e a pagina cai na foto parada.) */
 
     function subirFoto(){
       if(!carrega.naturalWidth) return;
