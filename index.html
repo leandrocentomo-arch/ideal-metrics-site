@@ -1552,14 +1552,14 @@ body>*{position:relative;z-index:1}
   border-right:1px solid rgba(20,48,76,.16);
   transition:flex .5s cubic-bezier(.4,0,.2,1);
   animation:qcEntra .7s cubic-bezier(.25,.46,.45,.94) both}
-.sh-col:last-child{border-right:none}
+.sh-col:last-of-type{border-right:none}
 /* de 2..5 para 1..4: a foto saiu de dentro da tira e virou filha da coluna,
    entao o primeiro `article` voltou a ser o primeiro filho. Com o 2..5 antigo
    a coluna 1 herdava o atraso da 2 e a 4 entrava sem atraso nenhum. */
-.sh-col:nth-child(1){animation-delay:.10s}
-.sh-col:nth-child(2){animation-delay:.25s}
-.sh-col:nth-child(3){animation-delay:.40s}
-.sh-col:nth-child(4){animation-delay:.55s}
+.sh-col:nth-of-type(1){animation-delay:.10s}
+.sh-col:nth-of-type(2){animation-delay:.25s}
+.sh-col:nth-of-type(3){animation-delay:.40s}
+.sh-col:nth-of-type(4){animation-delay:.55s}
 .sh-col:hover{flex:1.55}
 /* O veu de cada coluna, como no index-antigo: quatro degrades, do escuro para
    o claro entre as colunas, mais uma demao que escurece do alto para a base.
@@ -1762,6 +1762,327 @@ body>*{position:relative;z-index:1}
 @keyframes qcLetreiro{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){ .qc-letreiro-fita{animation:none} }
 @media (max-width:880px){ .qc-letreiro-fita span{padding:9px 20px;font-size:9.5px} }
+
+/* ===== painel Demandas (18/09/2026): a secao logo abaixo de "Por onde comecar" ===== */
+/* ===== painel Demandas (prefixo dm-) =====
+   Releitura do painel "Services" de catalystbehavioral.com com a roupa da
+   casa. A GEOMETRIA e a do original, medida no site: painel de 680px com
+   cantos de 30, padding 40, coluna do titulo calc(100% - 416px) com teto de
+   518, lista de 416, pilula de 48 com raio 26, circulo da seta de 24 e svg de
+   9. O que muda e a pele: creme no lugar do cinza, tinta no lugar do preto,
+   IBM Plex no lugar da NB Akademie, e uma ilustracao redesenhada com as
+   etapas da implantacao.
+
+   TRES REGRAS DESTE BLOCO
+   1. A secao nasce VISIVEL. Todo estado oculto mora debaixo de `.dm-js`,
+      classe que so o script poe (e ele nao poe se faltar
+      IntersectionObserver ou se o visitante pediu movimento reduzido). Sem
+      JS, com JS quebrado ou em leitor, nada some.
+   2. Hover so dentro de @media (hover:hover). O que o mouse dispara, o
+      :focus-visible dispara igual, fora do portao, para o teclado.
+   3. Sem sombra. O original levanta a folha e as etiquetas com sombra em
+      quatro camadas; aqui quem separa e o contorno fino rgba(20,48,76,.10). */
+.dm-sec{
+  --dm-painel:#F0EFEA;                      /* o creme da casa escurecido 4% */
+  --dm-suave:cubic-bezier(.15,.9,.34,.95);  /* curva do hover no original */
+  --dm-entra:cubic-bezier(.165,.84,.44,1);  /* power3.out do GSAP, aproximada */
+  --dm-lh:50px;                             /* altura de linha do titulo = curso da subida */
+  /* o brief pede 120px de MARGEM. Vai como padding com fundo creme porque as
+     duas vizinhas (.qc-sec e .sv) tem fundo --mercurio e escondem a
+     grade-guia do body::before: com margem, a grade apareceria so nesta
+     faixa, entre duas secoes que nao a mostram. O respiro e o mesmo. */
+  padding:120px var(--lado);
+  background:var(--mercurio);
+}
+
+/* --- etiqueta "Demandas", no lugar do "Services" --- */
+/* display:table = bloco que encolhe ate o texto, sem depender de fit-content */
+.dm-etiqueta{display:table;position:relative;margin:0 0 10px;
+  /* o letter-spacing sobra depois da ultima letra: desconta a direita para
+     o texto ficar no centro optico da chapa */
+  padding:7px calc(12px - .2em) 7px 12px;
+  font-family:var(--mono);font-weight:500;font-size:11px;line-height:1;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--mercurio)}
+.dm-etiqueta-fundo{position:absolute;inset:0;border-radius:3px;
+  background:var(--azul);transform-origin:50% 50%}
+.dm-etiqueta-txt{position:relative;display:block}
+
+/* --- painel --- */
+.dm-painel{position:relative;display:flex;justify-content:space-between;
+  width:100%;max-width:1180px;height:680px;padding:40px;
+  border-radius:30px;overflow:hidden;background:var(--dm-painel);color:var(--azul)}
+.dm-texto{width:calc(100% - 416px);max-width:518px}
+.dm-titulo{margin:0;font-family:var(--sans);font-weight:500;
+  font-size:44px;line-height:var(--dm-lh);letter-spacing:-.015em;color:var(--azul);
+  text-wrap:balance;
+  /* a mascara da subida. No original e overflow:hidden; aqui e clip-path
+     porque (a) a descendente do Plex passa 1px da caixa com entrelinha de 50
+     e o overflow comia o pe do "ç" e do "g", e (b) o rotateY com perspectiva
+     alarga o lado que vem para a frente, e o overflow cortava a lateral no
+     comeco do movimento. O clip corta so em cima e embaixo. */
+  clip-path:inset(0 -80px -.14em -80px)}
+.dm-titulo .dm-sobe{display:block;transform-origin:50% 100%}
+
+/* --- lista --- */
+.dm-coluna{position:relative;z-index:1;width:416px;flex:none} /* z-index 1: a ilustracao passa POR BAIXO */
+.dm-sub{margin:0 0 24px;font-family:var(--sans);font-weight:400;font-size:20px;
+  line-height:30px;letter-spacing:-.02em;color:var(--azul);opacity:.45}
+.dm-lista{list-style:none;margin:0;padding:0}
+.dm-lista > li{margin:0 0 10px} /* margem, nao gap: passo de 58px, como no original */
+.dm-pilula{display:flex;justify-content:space-between;align-items:center;
+  height:48px;padding:0 12px 0 20px;border-radius:26px;
+  background:var(--branco);color:var(--azul);text-decoration:none;
+  font-family:var(--sans);font-weight:500;font-size:16px;line-height:1}
+.dm-txt{display:block;transition:transform .3s var(--dm-suave)}
+.dm-seta{flex:none;display:flex;align-items:center;justify-content:center;
+  width:24px;height:24px;margin-left:12px;border-radius:50%;overflow:hidden; /* o overflow e o que faz a seta SUMIR ao atravessar */
+  background:var(--dm-painel);transition:background-color .3s var(--dm-suave)}
+.dm-seta svg{display:block;width:9px;height:9px;overflow:visible}
+.dm-seta path{fill:none;stroke:var(--azul);stroke-width:1;transition:stroke .3s var(--dm-suave)}
+.dm-pilula:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+
+/* hover e foco: o fundo da pilula NAO muda. Mudam quatro coisas: o texto
+   anda 16px, o circulo vira tinta, o traco vira papel e a seta ATRAVESSA o
+   circulo (sai pela direita, volta pela esquerda; nao gira). Ao sair, texto
+   e cores voltam em .3s e a seta simplesmente perde a animacao: ela ja
+   tinha terminado em 0, entao nao ha pulo. */
+@keyframes dm-atravessa{
+  0%{transform:translateX(0)}
+  49%{transform:translateX(200%)}
+  50%{transform:translateX(-150%)}
+  100%{transform:translateX(0)}
+}
+@media (hover:hover){
+  .dm-pilula:hover .dm-txt{transform:translateX(16px)}
+  .dm-pilula:hover .dm-seta{background-color:var(--azul)}
+  .dm-pilula:hover .dm-seta path{stroke:var(--mercurio)}
+  .dm-pilula:hover .dm-seta svg{animation:dm-atravessa .4s forwards}
+}
+.dm-pilula:focus-visible .dm-txt{transform:translateX(16px)}
+.dm-pilula:focus-visible .dm-seta{background-color:var(--azul)}
+.dm-pilula:focus-visible .dm-seta path{stroke:var(--mercurio)}
+.dm-pilula:focus-visible .dm-seta svg{animation:dm-atravessa .4s forwards}
+
+/* --- ilustracao --- */
+/* ancorada embaixo a esquerda. Com o painel em 1180 ela aparece no tamanho
+   do desenho (1108 x 680); em painel mais estreito encolhe na proporcao, sem
+   descolar da base, e a parte direita passa por tras das pilulas. */
+.dm-arte{position:absolute;left:0;bottom:0;width:100%;max-width:1108px;pointer-events:none}
+.dm-svg{display:block;width:100%;height:auto}
+.dm-svg--curta{display:none}
+/* sonda: ponto invisivel na altura do topo das barras. E ela, e nao o painel,
+   que dispara o crescimento: quando o TOPO do painel cruza os 85% da tela as
+   barras ainda estao 450px abaixo da dobra e cresceriam sem ninguem ver. */
+.dm-sonda{position:absolute;left:0;top:66%;width:1px;height:1px}
+.dm-ponto{fill:var(--azul);fill-opacity:.35}
+.dm-fios path{fill:none;stroke:rgba(20,48,76,.16);stroke-width:1}
+.dm-marcas path{fill:none;stroke:var(--azul);stroke-width:1}
+/* non-scaling-stroke: na versao curta a folha entra reduzida a 61% e o
+   contorno continua com 1px de tela */
+.dm-folha{fill:var(--branco);stroke:rgba(20,48,76,.10);stroke-width:1;vector-effect:non-scaling-stroke}
+.dm-miolo rect{fill:rgba(20,48,76,.10)}
+.dm-miolo .dm-regua{fill:none;stroke:rgba(20,48,76,.10);stroke-width:1;vector-effect:non-scaling-stroke}
+.dm-miolo circle{fill:none;stroke:rgba(20,48,76,.10);stroke-width:10}
+.dm-miolo .dm-trilho{stroke-opacity:.45} /* o trilho da rosca: mesma tinta, mais fraca */
+.dm-tag rect{fill:var(--branco);stroke:rgba(20,48,76,.10);stroke-width:1}
+.dm-tag text{font-family:var(--sans);font-weight:500;font-size:10.5px;
+  letter-spacing:.01em;text-anchor:middle;fill:var(--azul-escuro)}
+/* fill-box: a barra escala a partir da PROPRIA base, esteja onde estiver */
+.dm-barra{transform-box:fill-box;transform-origin:50% 100%}
+
+/* --- entrada no scroll: tudo abaixo so vale com .dm-js na secao ---
+   A transicao e declarada so no estado .dm-on: esconder e instantaneo,
+   mostrar e animado. */
+.dm-js .dm-etiqueta-fundo{transform:scale(0)}
+.dm-js .dm-etiqueta-txt{opacity:0}
+.dm-js .dm-etiqueta.dm-on .dm-etiqueta-fundo{transform:scale(1);transition:transform .6s var(--dm-entra)}
+.dm-js .dm-etiqueta.dm-on .dm-etiqueta-txt{opacity:1;transition:opacity .4s cubic-bezier(.215,.61,.355,1) .4s}
+
+/* titulo: sobe UMA linha, com leve giro no eixo vertical. A perspectiva vai
+   dentro do transform (e nao no pai) para repetir o transformPerspective do
+   GSAP, e o destino repete a lista de funcoes para o navegador interpolar
+   funcao a funcao, sem cair na interpolacao por matriz. */
+.dm-js .dm-titulo .dm-sobe{opacity:0;will-change:transform,opacity;
+  transform:perspective(600px) translateY(var(--dm-lh)) rotateY(-8deg)}
+.dm-js .dm-titulo.dm-on .dm-sobe{opacity:1;
+  transform:perspective(600px) translateY(0) rotateY(0deg);
+  transition:transform 1.8s var(--dm-entra),opacity 1.8s var(--dm-entra)}
+
+/* pilulas: cada uma sobe 100% da propria altura, .1s depois da anterior.
+   O subtitulo cinza nao anima, como no original. --dm-i vem do script. */
+.dm-js .dm-lista > .dm-sobe{opacity:0;transform:translateY(100%);will-change:transform,opacity}
+.dm-js .dm-lista.dm-on > .dm-sobe{opacity:1;transform:translateY(0);
+  transition:transform 1.2s var(--dm-entra),opacity 1.2s var(--dm-entra);
+  transition-delay:calc(var(--dm-i,0) * .1s)}
+
+/* fim da entrada: o script marca .dm-fim no transitionend e a peca larga o
+   transform e o will-change (o texto volta a ser desenhado fora de camada).
+   Mesma especificidade das regras acima: vence por vir depois. */
+.dm-js .dm-on .dm-sobe.dm-fim{transform:none;transition:none;will-change:auto}
+
+/* ilustracao: fade de .6s. As barras e a rosca crescem UMA vez, em 1.2s,
+   quando a sonda entra na tela. E o unico movimento proprio do desenho. */
+.dm-js .dm-arte{opacity:0}
+.dm-js .dm-arte.dm-on{opacity:1;transition:opacity .6s var(--dm-suave)}
+.dm-js .dm-barra{transform:scaleY(0)}
+.dm-js .dm-rosca{stroke-dashoffset:72}
+.dm-js .dm-sonda.dm-on ~ .dm-svg .dm-barra{transform:scaleY(1);transition:transform 1.2s var(--dm-entra)}
+.dm-js .dm-sonda.dm-on ~ .dm-svg .dm-b2{transition-delay:.1s}
+.dm-js .dm-sonda.dm-on ~ .dm-svg .dm-b3{transition-delay:.2s}
+.dm-js .dm-sonda.dm-on ~ .dm-svg .dm-rosca{stroke-dashoffset:0;transition:stroke-dashoffset 1.2s var(--dm-entra) .3s}
+
+/* 1245px e onde a sobra entre as colunas chega a zero (o painel passa a
+   medir menos que 80 + 518 + 416): o titulo ganha um respiro para nao
+   encostar na chapa branca das pilulas */
+@media (max-width:1245px){ .dm-titulo{padding-right:24px} }
+@media (max-width:1100px){
+  .dm-sec{--dm-lh:42px}
+  .dm-titulo{font-size:36px;padding-right:10%}
+}
+@media (max-width:880px){
+  .dm-sec{--dm-lh:34px;padding-top:70px;padding-bottom:70px}
+  .dm-etiqueta{margin-bottom:5px}
+  .dm-painel{flex-direction:column;justify-content:flex-start;height:auto;
+    padding:20px 20px 0;border-radius:14px}
+  .dm-texto{width:100%;max-width:none;margin-bottom:40px}
+  .dm-titulo{font-size:28px;padding-right:0}
+  .dm-coluna{width:100%;margin-bottom:56px}
+  .dm-lista > li{margin-bottom:14px}
+  /* altura livre: no telefone o rotulo pode quebrar em duas linhas */
+  .dm-pilula{height:auto;padding:12px 12px 12px 16px;line-height:1.15}
+  /* a ilustracao sai do absoluto e vira o ultimo bloco, encostada na base
+     (o padding de baixo do painel e 0). So a folha e as etiquetas. */
+  .dm-arte{position:relative;left:auto;bottom:auto;max-width:none}
+  .dm-svg--larga{display:none}
+  .dm-svg--curta{display:block}
+  .dm-sonda{top:45%}
+}
+@media (prefers-reduced-motion:reduce){
+  .dm-txt,.dm-seta,.dm-seta path{transition:none}
+  .dm-pilula:hover .dm-txt,.dm-pilula:focus-visible .dm-txt{transform:none}
+  .dm-pilula:hover .dm-seta svg,.dm-pilula:focus-visible .dm-seta svg{animation:none}
+  /* rede de seguranca: o script ja nao esconde nada neste modo, mas se a
+     preferencia mudar com a pagina aberta o estado final tem de valer */
+  .dm-js .dm-etiqueta-fundo,.dm-js .dm-sobe,.dm-js .dm-barra{transform:none !important;transition:none !important}
+  .dm-js .dm-etiqueta-txt,.dm-js .dm-sobe,.dm-js .dm-arte{opacity:1 !important;transition:none !important}
+  .dm-js .dm-rosca{stroke-dashoffset:0 !important;transition:none !important}
+}
+
+/* ===== noticias em modo fluido (18/09/2026) ===== */
+/* ===== noticias: modo fluido (18/09/2026) =====
+   ACRESCENTAR NO FIM DO <style> DO INDEX. Nada aqui apaga regra antiga: tudo
+   sobrepoe por seletor mais especifico, e quase tudo so vale quando o JS poe
+   a classe .nt-fluido na .nt-grade (mouse de verdade E janela acima de 880px).
+   Sem JS, no telefone e no carrossel a secao continua como era.
+
+   De onde vem a fluidez (engenharia reversa da "Latest News" do modelo):
+   - UM fundo azul so, que se desloca de cartao em cartao. O olho segue um
+     objeto continuo, em vez de ver um cartao acender enquanto outro apaga.
+   - power4.out em 500ms: 67% do trajeto nos primeiros 100ms (resposta na
+     hora) e os ultimos 8% ocupam 300ms (assentamento longo).
+   - letra e fundo com a MESMA duracao e a MESMA curva, no mesmo quadro.
+   - a foto usa outra curva (power4.inOut, 800ms): a parte visivel da fusao
+     cai entre 240 e 560ms, ou seja, ela vira DEPOIS que o fundo chegou.
+   - nao existe volta: o estado fica no ultimo cartao visitado. */
+
+/* --- 1. o fundo unico --------------------------------------------------
+   Quem cria o elemento e o JS (um so, filho do cartao ativo). Fora do modo
+   fluido ele nem aparece. */
+.nt-bg{display:none}
+/* isolation na GRADE, nao no cartao. O fundo tem z-index:-1 e precisa ficar
+   embaixo do texto de TODOS os cartoes enquanto voa. Se cada cartao fosse um
+   contexto de empilhamento, o fundo (que ja e filho do cartao de destino)
+   passaria POR CIMA do texto dos cartoes que vem antes dele no DOM. Com o
+   contexto na grade, o -1 nao vaza para tras da secao e fica sob os seis. */
+.nt-grade.nt-fluido{isolation:isolate}
+.nt-grade.nt-fluido .nt-bg{
+  display:block;
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:var(--fundo);
+  pointer-events:none;           /* nunca rouba o mouseenter do cartao por onde passa */
+  transform-origin:0 0;          /* o FLIP monta translate + scale a partir do canto */
+  will-change:transform;
+}
+/* inset:0 mede a partir da caixa de PADDING. Os cartoes 3 a 6 tem fio em cima
+   e os 5 e 6 tambem embaixo: sem estes dois ajustes o fundo mudaria 1 ou 2px
+   de altura de uma linha para a outra e o fio ficaria de fora do azul. Assim o
+   fundo cobre a caixa de BORDA, que e igual nos seis, e o voo e translacao
+   pura (como no modelo: cartoes iguais, sem emenda). O fio continua pintado
+   por cima do azul, como ja era com o background do proprio cartao. */
+.nt-grade.nt-fluido .nt-card:nth-child(n+3) > .nt-bg{top:-1px}
+.nt-grade.nt-fluido .nt-card:nth-child(n+5) > .nt-bg{bottom:-1px}
+
+/* --- 2. o cartao para de pintar o proprio fundo; a letra acompanha o voo --
+   A segunda declaracao de transition e a curva power4.out EXATA. Navegador
+   que nao conhece linear() descarta essa linha e fica com a de cima, que e a
+   aproximacao usual (easeOutQuint). */
+.nt-grade.nt-fluido .nt-card,
+.nt-grade.nt-fluido .nt-card.nt-on{background:transparent}
+.nt-grade.nt-fluido .nt-card{
+  transition:color .5s cubic-bezier(0.22,1,0.36,1);
+  transition:color .5s linear(0, 0.4095 10%, 0.6723 20%, 0.8319 30%, 0.9222 40%, 0.9688 50%, 0.9898 60%, 0.9976 70%, 0.9997 80%, 1);
+}
+/* trava de arrumacao: o JS poe .nt-parado enquanto monta o estado inicial ou
+   troca de modo no resize, para a letra nao fazer fusao sozinha na carga.
+   Tem de vir DEPOIS da regra acima (mesma especificidade). */
+.nt-grade.nt-parado .nt-card{transition:none}
+
+/* --- 3. a foto -----------------------------------------------------------
+   Fusao de 800ms em power4.inOut. Sobrepoe a regra "efeito de mouse nas
+   fotos" (.nt-layer, opacity .45s). O zoom de 3% continua valendo SO para o
+   mouse em cima da propria moldura; o zoom disparado pelos cartoes (.nt-zoom)
+   saiu, porque competia com a fusao.
+   Esta regra e o caminho de reserva (navegador sem Web Animations): ali a
+   troca e so de classe e as duas camadas fundem juntas. */
+.nt-sec .nt-midia .nt-layer{
+  transition:opacity .8s cubic-bezier(0.83,0,0.17,1),transform .8s cubic-bezier(.23,1,.32,1);
+}
+/* Com Web Animations o JS governa a opacidade (fusao verdadeira: a camada de
+   baixo fica cheia enquanto a de cima entra ou sai, e o papel nunca aparece
+   no meio). Ai a transicao de opacity do CSS tem de sair da frente. */
+.nt-sec .nt-midia.nt-midia-js .nt-layer{
+  transition:transform .8s cubic-bezier(.23,1,.32,1);
+}
+
+/* --- 4. o quadrado da seta: um so, filho do fundo, viaja junto ------------
+   Os seis .nt-btn do markup so somem no modo fluido. O seletor com ">" pega
+   o botao do cartao e deixa em paz o do fundo (que e neto do cartao). */
+.nt-grade.nt-fluido .nt-card > .nt-btn{display:none}
+/* Quem move o botao e a seta e a Web Animations API. As transicoes antigas
+   (.4s) correriam por baixo a cada troca do transform inline. A escala de
+   repouso vem inline do JS, e por isso ganha de ".nt-card:hover .nt-btn svg"
+   (o passinho de 4px da seta nao existe no modo fluido). */
+.nt-grade.nt-fluido .nt-bg > .nt-btn,
+.nt-grade.nt-fluido .nt-bg > .nt-btn svg{transition:none}
+.nt-grade.nt-fluido .nt-bg > .nt-btn{transform-origin:top right}
+.nt-grade.nt-fluido .nt-bg > .nt-btn svg{transform-origin:50% 50%;will-change:transform}
+
+/* --- 5. movimento reduzido: estado final na hora ------------------------- */
+@media (prefers-reduced-motion:reduce){
+  .nt-grade.nt-fluido .nt-card{transition:none}
+  .nt-sec .nt-midia .nt-layer,
+  .nt-sec .nt-midia.nt-midia-js .nt-layer{transition:none}
+}
+/* ===== trama ao vivo (WebGL): o canvas da tira e o da moldura de noticias =====
+   O canvas entra ATRAS das colunas (z-index 0; as colunas sao z-index 1), entao o
+   veu ::before, a palavra vertical e o escrito continuam por cima dele como
+   estavam por cima da <img>. Com a trama ligada (`gl-on`, posta pelo JS):
+   - as <img> ja tramadas somem da vista mas ficam no fluxo, de reserva;
+   - o degrade de fundo de cada coluna sai: ele ficava escondido atras da foto
+     opaca, e com o canvas por baixo passaria a tingir a foto;
+   - a chapa ::after do hover sai, porque a chapa passou para dentro do shader
+     (la ela cede onde a trilha do mouse passa; aqui ela apagava a trilha). */
+.sh-gl,.nt-gl{position:absolute;inset:0;width:100%;height:100%;display:block;
+  pointer-events:none;background:var(--mercurio)}
+.sh-gl{z-index:0}
+.sh-tira.gl-on .sh-foto{visibility:hidden}
+.sh-tira.gl-on .sh-col{background:none}
+.sh-tira.gl-on .sh-col::after{display:none}
+.nt-midia{position:relative}
+.nt-gl{z-index:1}
+.nt-midia.gl-on .nt-layer{visibility:hidden}
 </style>
 </head>
 <body class="carga">
@@ -1814,7 +2135,7 @@ body>*{position:relative;z-index:1}
     
     <div class="sh-tira">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/energia-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/energia-bayer-qc.webp" data-lum="img/energia-lum-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
@@ -1830,7 +2151,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/industria-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/industria-bayer-qc.webp" data-lum="img/industria-lum-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -1846,7 +2167,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/etica-auditoria-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/etica-auditoria-bayer-qc.webp" data-lum="img/etica-auditoria-lum-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
@@ -1862,7 +2183,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/lago-industria-bayer-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/lago-industria-bayer-qc.webp" data-lum="img/lago-industria-lum-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>
@@ -1892,6 +2213,109 @@ body>*{position:relative;z-index:1}
       </div>
     </div>
   </section>
+
+<section class="dm-sec" id="demandas" aria-labelledby="dm-titulo">
+  <p class="dm-etiqueta" data-dm-entra><span class="dm-etiqueta-fundo" aria-hidden="true"></span><span class="dm-etiqueta-txt">Demandas</span></p>
+  <div class="dm-painel">
+    <div class="dm-texto">
+      <!-- os dois &nbsp; prendem "do diagnostico" e "a certificacao": com o text-wrap:balance o titulo quebra em tres frases inteiras, e sem ele o "a" nao fica pendurado no fim da linha -->
+      <h2 class="dm-titulo" id="dm-titulo" data-dm-entra><span class="dm-sobe">Um consultor dentro do seu processo, do&nbsp;diagnóstico à&nbsp;certificação</span></h2>
+    </div>
+    <div class="dm-coluna">
+      <p class="dm-sub">Demandas que atendemos com frequência</p>
+      <ul class="dm-lista" data-dm-entra>
+        <li class="dm-sobe"><a class="dm-pilula" href="implantacao-iso.html"><span class="dm-txt">Implantação de normas ISO</span><span class="dm-seta" aria-hidden="true"><svg viewBox="0 0 9 9" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></span></a></li>
+        <li class="dm-sobe"><a class="dm-pilula" href="suporte.html"><span class="dm-txt">Suporte pós-certificação</span><span class="dm-seta" aria-hidden="true"><svg viewBox="0 0 9 9" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></span></a></li>
+        <li class="dm-sobe"><a class="dm-pilula" href="carbono-inventario-gee.html"><span class="dm-txt">Inventário de GEE</span><span class="dm-seta" aria-hidden="true"><svg viewBox="0 0 9 9" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></span></a></li>
+        <li class="dm-sobe"><a class="dm-pilula" href="sedex-smeta.html"><span class="dm-txt">Preparação SEDEX SMETA</span><span class="dm-seta" aria-hidden="true"><svg viewBox="0 0 9 9" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></span></a></li>
+        <li class="dm-sobe"><a class="dm-pilula" href="esg.html"><span class="dm-txt">ESG e ABNT PR 2030</span><span class="dm-seta" aria-hidden="true"><svg viewBox="0 0 9 9" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></span></a></li>
+        <li class="dm-sobe"><a class="dm-pilula" href="padroes-mercado.html"><span class="dm-txt">Padrões de mercado</span><span class="dm-seta" aria-hidden="true"><svg viewBox="0 0 9 9" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></span></a></li>
+        <li class="dm-sobe"><a class="dm-pilula" href="inspecoes.html"><span class="dm-txt">Inspeções de qualidade</span><span class="dm-seta" aria-hidden="true"><svg viewBox="0 0 9 9" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></span></a></li>
+        <li class="dm-sobe"><a class="dm-pilula" href="nrs.html"><span class="dm-txt">Atendimento a NRs</span><span class="dm-seta" aria-hidden="true"><svg viewBox="0 0 9 9" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></span></a></li>
+        <li class="dm-sobe"><a class="dm-pilula" href="seguranca-alimentos.html"><span class="dm-txt">Segurança de alimentos</span><span class="dm-seta" aria-hidden="true"><svg viewBox="0 0 9 9" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></span></a></li>
+      </ul>
+    </div>
+
+    <!-- ilustracao: desenho proprio, na linguagem do original (grade de pontos,
+         folha cortada pela base, conectores de canto redondo, marcas e
+         etiquetas). O miolo da folha usa coordenadas LOCAIS (origem no canto
+         da folha) para o mesmo bloco servir as duas versoes: na larga entra
+         em translate(190 344); na curta, reduzido a 61%. A sonda vem ANTES
+         dos svg porque o CSS a usa como irma (~) para soltar as barras. -->
+    <div class="dm-arte" data-dm-entra aria-hidden="true">
+      <span class="dm-sonda" data-dm-entra></span>
+
+      <svg class="dm-svg dm-svg--larga" viewBox="0 0 1108 680" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <defs>
+          <pattern id="dm-pontos" x="4.5" y="228.5" width="18" height="18" patternUnits="userSpaceOnUse"><circle class="dm-ponto" cx="9" cy="9" r=".5"/></pattern>
+          <radialGradient id="dm-esmaece"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+          <mask id="dm-mascara" maskUnits="userSpaceOnUse" x="0" y="0" width="1108" height="680"><ellipse cx="340" cy="510" rx="440" ry="290" fill="url(#dm-esmaece)"/></mask>
+        </defs>
+        <g mask="url(#dm-mascara)"><rect x="4.5" y="228.5" width="792" height="450" fill="url(#dm-pontos)"/></g>
+        <g class="dm-fios">
+          <path d="M280.5 350V300.5A30 30 0 0 0 250.5 270.5H-8"/>
+          <path d="M196 520.5H90.5A30 30 0 0 0 60.5 550.5V720"/>
+          <path d="M484 416.5H660.5A30 30 0 0 1 690.5 446.5V720"/>
+          <path d="M484 505.5H570.5A30 30 0 0 1 600.5 535.5V720"/>
+        </g>
+        <g class="dm-marcas">
+          <path d="M184 270.5h8M280.5 314v8M132 520.5h8M60.5 566v8M60.5 650v8M644 416.5h8M690.5 498v8M690.5 624v8M528 505.5h8M600.5 558v8"/>
+        </g>
+        <g transform="translate(190 344)">
+          <rect class="dm-folha" x=".5" y=".5" width="299" height="389" rx="6"/>
+          <g class="dm-miolo">
+            <rect x="30" y="30" width="110" height="8" rx="2"/><rect x="30" y="44" width="72" height="8" rx="2"/>
+            <path class="dm-regua" d="M30 72.5H270"/>
+            <rect x="30" y="92" width="72" height="8" rx="2"/><rect x="172" y="92" width="59" height="8" rx="2"/>
+            <rect class="dm-barra dm-b1" x="30" y="164" width="30" height="40" rx="2"/>
+            <rect class="dm-barra dm-b2" x="66" y="142" width="30" height="62" rx="2"/>
+            <rect class="dm-barra dm-b3" x="102" y="118" width="30" height="86" rx="2"/>
+            <rect x="30" y="212" width="19" height="4" rx="2"/><rect x="55" y="212" width="40" height="4" rx="2"/>
+            <circle class="dm-trilho" cx="212" cy="161" r="34"/>
+            <circle class="dm-rosca" cx="212" cy="161" r="34" pathLength="100" stroke-dasharray="72 100" transform="rotate(-90 212 161)"/>
+            <rect x="201" y="158" width="22" height="6" rx="2"/>
+            <rect x="193" y="212" width="38" height="4" rx="2"/>
+            <rect x="30" y="246" width="72" height="8" rx="2"/><rect x="30" y="260" width="186" height="8" rx="2"/>
+            <rect x="30" y="274" width="125" height="8" rx="2"/><rect x="30" y="288" width="221" height="8" rx="2"/>
+            <rect x="30" y="314" width="8" height="8" rx="2"/><rect x="46" y="314" width="120" height="8" rx="2"/>
+            <rect x="30" y="328" width="8" height="8" rx="2"/><rect x="46" y="328" width="90" height="8" rx="2"/>
+          </g>
+        </g>
+        <g class="dm-tag"><rect x="88.5" y="257" width="74" height="27" rx="6"/><text x="125.5" y="274.2">Diagnóstico</text></g>
+        <g class="dm-tag"><rect x="20.5" y="598" width="80" height="27" rx="6"/><text x="60.5" y="615.2">Plano diretor</text></g>
+        <g class="dm-tag"><rect x="522.5" y="403" width="98" height="27" rx="6"/><text x="571.5" y="420.2">Auditoria interna</text></g>
+        <g class="dm-tag"><rect x="562.5" y="586" width="76" height="27" rx="6"/><text x="600.5" y="603.2">Certificação</text></g>
+      </svg>
+
+      <svg class="dm-svg dm-svg--curta" viewBox="0 0 320 272" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <g transform="translate(76 48) scale(.6067)">
+          <rect class="dm-folha" x=".5" y=".5" width="299" height="389" rx="6"/>
+          <g class="dm-miolo">
+            <rect x="30" y="30" width="110" height="8" rx="2"/><rect x="30" y="44" width="72" height="8" rx="2"/>
+            <path class="dm-regua" d="M30 72.5H270"/>
+            <rect x="30" y="92" width="72" height="8" rx="2"/><rect x="172" y="92" width="59" height="8" rx="2"/>
+            <rect class="dm-barra dm-b1" x="30" y="164" width="30" height="40" rx="2"/>
+            <rect class="dm-barra dm-b2" x="66" y="142" width="30" height="62" rx="2"/>
+            <rect class="dm-barra dm-b3" x="102" y="118" width="30" height="86" rx="2"/>
+            <rect x="30" y="212" width="19" height="4" rx="2"/><rect x="55" y="212" width="40" height="4" rx="2"/>
+            <circle class="dm-trilho" cx="212" cy="161" r="34"/>
+            <circle class="dm-rosca" cx="212" cy="161" r="34" pathLength="100" stroke-dasharray="72 100" transform="rotate(-90 212 161)"/>
+            <rect x="201" y="158" width="22" height="6" rx="2"/>
+            <rect x="193" y="212" width="38" height="4" rx="2"/>
+            <rect x="30" y="246" width="72" height="8" rx="2"/><rect x="30" y="260" width="186" height="8" rx="2"/>
+            <rect x="30" y="274" width="125" height="8" rx="2"/><rect x="30" y="288" width="221" height="8" rx="2"/>
+            <rect x="30" y="314" width="8" height="8" rx="2"/><rect x="46" y="314" width="120" height="8" rx="2"/>
+            <rect x="30" y="328" width="8" height="8" rx="2"/><rect x="46" y="328" width="90" height="8" rx="2"/>
+          </g>
+        </g>
+        <g class="dm-tag"><rect x="10.5" y="104.5" width="74" height="27" rx="6"/><text x="47.5" y="121.7">Diagnóstico</text></g>
+        <g class="dm-tag"><rect x="7.5" y="170.5" width="80" height="27" rx="6"/><text x="47.5" y="187.7">Plano diretor</text></g>
+        <g class="dm-tag"><rect x="216.5" y="58.5" width="98" height="27" rx="6"/><text x="265.5" y="75.7">Auditoria interna</text></g>
+        <g class="dm-tag"><rect x="238.5" y="196.5" width="76" height="27" rx="6"/><text x="276.5" y="213.7">Certificação</text></g>
+      </svg>
+    </div>
+  </div>
+</section>
 
 <section class="sv" id="servicos" aria-labelledby="sv-h2">
   <p class="sv-label">Serviços / [ IM.2 ]</p>
@@ -2227,10 +2651,10 @@ body>*{position:relative;z-index:1}
   </div>
 
   <div class="nt-midia" aria-hidden="true">
-    <div class="nt-layer nt-layer-ativa"><img src="img/tecnologia-bayer-nt.webp" alt="" loading="lazy"></div>
-    <div class="nt-layer"><img src="img/industria-bayer-nt.webp" alt="" loading="lazy"></div>
-    <div class="nt-layer"><img src="img/alimentos-bayer-nt.webp" alt="" loading="lazy"></div>
-    <div class="nt-layer"><img src="img/logistica-bayer-nt.webp" alt="" loading="lazy"></div>
+    <div class="nt-layer nt-layer-ativa"><img src="img/tecnologia-bayer-nt.webp" data-lum="img/tecnologia-lum-nt.webp" alt="" loading="lazy"></div>
+    <div class="nt-layer"><img src="img/industria-bayer-nt.webp" data-lum="img/industria-lum-nt.webp" alt="" loading="lazy"></div>
+    <div class="nt-layer"><img src="img/alimentos-bayer-nt.webp" data-lum="img/alimentos-lum-nt.webp" alt="" loading="lazy"></div>
+    <div class="nt-layer"><img src="img/logistica-bayer-nt.webp" data-lum="img/logistica-lum-nt.webp" alt="" loading="lazy"></div>
   </div>
 
   <div class="nt-grade">
@@ -2534,33 +2958,337 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   atualizar();
 })();
 
-// ===== noticias =====
+// ===== noticias (modo fluido) =====
+/* SUBSTITUI os dois blocos antigos da secao: a IIFE "// ===== noticias ====="
+   (a do mostrar(i)) e a IIFE "// zoom da foto da moldura quando o mouse passa
+   nos cartoes". Sem biblioteca: Web Animations API e JS simples.
+
+   O QUE MUDA NO COMPORTAMENTO
+   - o estado agora e o CARTAO (0 a 5), nao a camada. So o cartao sob o mouse
+     recebe .nt-on. A foto continua vindo de data-nt-camada (6 cartoes, 4 fotos).
+   - nao ha volta: ao sair da grade o estado fica no ultimo cartao visitado.
+     A saida so recolhe o quadrado da seta.
+   - focusin no link faz o mesmo que o mouseenter; focusout para fora da grade
+     faz o mesmo que o mouseleave.
+   - MODO FLUIDO = (hover:hover) E janela acima de 880px. Fora dele (telefone,
+     carrossel) nao ha FLIP: o cartao volta a pintar o proprio fundo pela regra
+     antiga .nt-card.nt-on e os seis .nt-btn do markup continuam a vista.
+   - prefers-reduced-motion: o fundo muda de cartao sem voo, a foto troca sem
+     fusao, o quadrado aparece e some sem escala animada.
+
+   EVENTO PUBLICO  "nt:camada"
+   Disparado em .nt-midia (e borbulha) toda vez que a foto visivel muda.
+     e.detail.de       indice da camada que sai   (0 a 3)
+     e.detail.para     indice da camada que entra (0 a 3)
+     e.detail.duracao  ms da fusao: 800, ou 0 com movimento reduzido
+   A curva da fusao e power4.inOut, ou seja cubic-bezier(0.83,0,0.17,1).
+   Nao dispara na carga: o estado inicial e a camada 0, e a camada corrente
+   fica sempre escrita em .nt-midia[data-nt-ativa] (e na classe
+   .nt-layer-ativa). Nao dispara quando o cartao muda mas a foto e a mesma
+   (do 01 para o 05, por exemplo). Numa interrupcao, o "de" e a ultima camada
+   PEDIDA, mesmo que a fusao anterior ainda estivesse no meio.
+   Uso, num modulo a parte (o canvas WebGL, por exemplo):
+     document.querySelector(".nt-midia").addEventListener("nt:camada", function(e){
+       fundir(e.detail.de, e.detail.para, e.detail.duracao);
+     });
+*/
 (function(){
+  var sec   = document.querySelector('.nt-sec');
   var grade = document.querySelector('.nt-grade');
   var midia = document.querySelector('.nt-midia');
   if (!grade || !midia) return;
   var camadas = Array.prototype.slice.call(midia.querySelectorAll('.nt-layer'));
   var cartoes = Array.prototype.slice.call(grade.querySelectorAll('.nt-card'));
-  function mostrar(i){
-    camadas.forEach(function(c, k){ c.classList.toggle('nt-layer-ativa', k === i); });
-    cartoes.forEach(function(c){
-      var k = parseInt(c.getAttribute('data-nt-camada'), 10);
-      c.classList.toggle('nt-on', k === i);
+  if (!camadas.length || !cartoes.length) return;
+
+  /* ---- os numeros do modelo, num lugar so ---- */
+  var T_FUNDO = 500, T_FOTO = 800, T_BTN = 500, T_SETA = 400, ATRASO_SETA = 100;
+  /* power4.out = 1-(1-t)^5, amostrada de 10 em 10%: e a curva EXATA do modelo */
+  var P4OUT_EXATA   = 'linear(0, 0.4095 10%, 0.6723 20%, 0.8319 30%, 0.9222 40%, 0.9688 50%, 0.9898 60%, 0.9976 70%, 0.9997 80%, 1)';
+  var P4OUT_RESERVA = 'cubic-bezier(0.22,1,0.36,1)';    /* navegador sem linear() */
+  var P4INOUT = 'cubic-bezier(0.83,0,0.17,1)';          /* a fusao da foto */
+  var P1INOUT = 'cubic-bezier(0.45,0,0.55,1)';          /* cada perna do pulso da seta */
+
+  var temWAAPI = typeof Element !== 'undefined' && typeof Element.prototype.animate === 'function';
+  var p4out = P4OUT_EXATA;
+  try {
+    if (!(window.CSS && CSS.supports && CSS.supports('transition-timing-function', P4OUT_EXATA))) p4out = P4OUT_RESERVA;
+  } catch (e) { p4out = P4OUT_RESERVA; }
+
+  function consulta(q){
+    return window.matchMedia ? window.matchMedia(q) : { matches:false };
+  }
+  var mqHover = consulta('(hover: hover)');
+  var mqLargo = consulta('(min-width: 881px)');
+  var mqCalmo = consulta('(prefers-reduced-motion: reduce)');
+  function fluido(){ return mqHover.matches && mqLargo.matches; }
+  function semMovimento(){ return mqCalmo.matches || !temWAAPI; }
+
+  /* element.animate com rede: se o navegador passar no CSS.supports e mesmo
+     assim recusar linear() aqui, troca para a curva de reserva e segue. */
+  function anima(el, quadros, op){
+    if (!temWAAPI) return null;
+    try { return el.animate(quadros, op); }
+    catch (e) {
+      if (op.easing !== P4OUT_EXATA) return null;
+      p4out = P4OUT_RESERVA;
+      op.easing = P4OUT_RESERVA;
+      try { return el.animate(quadros, op); } catch (e2) { return null; }
+    }
+  }
+  function solta(el){
+    if (el && el._ntA){ try { el._ntA.cancel(); } catch (e) {} el._ntA = null; }
+  }
+
+  /* ---- estado ---- */
+  var ativo  = 0;        /* indice do CARTAO aceso. Comeca no 0 e nunca volta sozinho */
+  var foto   = 0;        /* indice da CAMADA visivel */
+  var dentro = false;    /* o quadrado da seta esta aberto (mouse ou foco no bloco) */
+  var mouseDentro = false;
+
+  /* ---- o fundo unico e o quadrado unico: nascem aqui, nao no markup, para
+     o estado sem JS continuar identico ao de hoje ---- */
+  var bg = document.createElement('div');
+  bg.className = 'nt-bg';
+  bg.setAttribute('aria-hidden', 'true');
+  var molde = grade.querySelector('.nt-card > .nt-btn');
+  var btn;
+  if (molde) {
+    btn = molde.cloneNode(true);          /* a seta continua desenhada num lugar so */
+  } else {
+    btn = document.createElement('div');
+    btn.className = 'nt-btn';
+    btn.innerHTML = '<svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><path d="M0 8h19M13 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1"/></svg>';
+  }
+  btn.setAttribute('aria-hidden', 'true');
+  bg.appendChild(btn);
+  var seta = btn.querySelector('svg');
+
+  /* ================= 1. o fundo: FLIP manual =================
+     A ordem das cinco linhas e o que garante a interrupcao sem salto:
+     medir (o retangulo JA inclui o transform em voo), cancelar, mudar de pai,
+     medir de novo, animar do deslocamento ate "none". */
+  function poeFundo(cartao, voa){
+    var antes = null;
+    if (voa && bg.parentNode && !semMovimento()) antes = bg.getBoundingClientRect();
+    solta(bg);
+    if (bg.parentNode !== cartao) cartao.appendChild(bg);
+    if (!antes || !antes.width || !antes.height) return;
+    var depois = bg.getBoundingClientRect();
+    if (!depois.width || !depois.height) return;
+    var dx = antes.left - depois.left;
+    var dy = antes.top  - depois.top;
+    /* os seis fundos tem o mesmo tamanho, entao a escala e 1. Ela fica na conta
+       para o caso de um resize no meio do voo. */
+    var sx = antes.width  / depois.width;
+    var sy = antes.height / depois.height;
+    if (Math.abs(dx) < .5 && Math.abs(dy) < .5 && Math.abs(sx - 1) < .002 && Math.abs(sy - 1) < .002) return;
+    bg._ntA = anima(bg,
+      [{ transform:'translate(' + dx + 'px,' + dy + 'px) scale(' + sx + ',' + sy + ')' },
+       { transform:'none' }],
+      { duration:T_FUNDO, easing:p4out });
+  }
+
+  /* ================= 2. a letra =================
+     So classe: a transicao de color (500ms, mesma curva) esta no CSS e parte
+     do valor corrente quando e interrompida. */
+  function marca(i){
+    cartoes.forEach(function(c, k){ c.classList.toggle('nt-on', k === i); });
+  }
+
+  /* ================= 3. a foto =================
+     Fusao verdadeira com a pilha parada no lugar (camada 0 embaixo, 3 em cima):
+     - as camadas ACIMA da nova somem, partindo da opacidade corrente;
+     - a nova vai a 1: de uma vez se ja esta escondida atras de uma camada
+       cheia (ninguem ve), com fusao se esta descoberta;
+     - as de BAIXO ficam como estao ate a nova chegar, e so entao zeram.
+     Com isso sempre ha uma camada cheia no fundo da mistura e o papel nunca
+     aparece no meio da troca (duas camadas a 50% deixariam 25% de papel). */
+  function opac(el){
+    var v = parseFloat(window.getComputedStyle(el).opacity);
+    return isNaN(v) ? 0 : v;
+  }
+  function camadaVai(c, alvo, funde){
+    /* ja esta indo para esse alvo: deixa correr. Recomecar a curva inOut a cada
+       cartao atravessado prenderia a foto antiga na tela (o modelo tambem so
+       manda sair a camada que estava ativa, e nao mexe em quem ja esta saindo). */
+    if (funde && c._ntA && c._ntAlvo === alvo && c._ntA.playState === 'running') return c._ntA;
+    var de = opac(c);                     /* le ANTES de cancelar: e o valor em voo */
+    solta(c);
+    c._ntAlvo = alvo;
+    c.style.opacity = String(alvo);
+    if (!funde || semMovimento() || Math.abs(de - alvo) < .001) return null;
+    c._ntA = anima(c, [{ opacity:de }, { opacity:alvo }], { duration:T_FOTO, easing:P4INOUT });
+    return c._ntA;
+  }
+  function avisa(de, para){
+    var detalhe = { de:de, para:para, duracao: semMovimento() ? 0 : T_FOTO };
+    var ev;
+    try { ev = new CustomEvent('nt:camada', { detail:detalhe, bubbles:true }); }
+    catch (e) {
+      ev = document.createEvent('CustomEvent');
+      ev.initCustomEvent('nt:camada', true, false, detalhe);
+    }
+    midia.dispatchEvent(ev);
+  }
+  function trocaFoto(para){
+    if (para === foto || !camadas[para]) return;
+    var de = foto, k;
+    foto = para;
+    camadas.forEach(function(c, n){ c.classList.toggle('nt-layer-ativa', n === para); });
+    midia.setAttribute('data-nt-ativa', String(para));
+    if (temWAAPI) {
+      var coberta = false;
+      for (k = para + 1; k < camadas.length; k++) if (opac(camadas[k]) > .999) coberta = true;
+      for (k = para + 1; k < camadas.length; k++) camadaVai(camadas[k], 0, true);
+      var a = camadaVai(camadas[para], 1, !coberta);
+      var limpa = function(){
+        if (foto !== para) return;        /* ja pediram outra: quem limpa e ela */
+        for (var n = 0; n < para; n++) camadaVai(camadas[n], 0, false);
+      };
+      if (a) a.onfinish = limpa; else limpa();
+    }
+    /* sem WAAPI a troca de classe acima basta: o CSS faz a fusao simples */
+    avisa(de, para);
+  }
+
+  /* ================= 4. o quadrado da seta =================
+     Filho do fundo: viaja junto. A escala de repouso fica inline e a animacao
+     corre por cima; ao terminar, vale o inline. Assim toda interrupcao parte
+     do valor que esta na tela. */
+  function escalaDe(el){
+    var m = window.getComputedStyle(el).transform;
+    if (!m || m === 'none') return 1;
+    var p = /matrix\(\s*([^,]+)/.exec(m);
+    var v = p ? parseFloat(p[1]) : 1;
+    return isNaN(v) ? 1 : v;
+  }
+  function escalaVai(el, alvo, ms, atraso){
+    var de = escalaDe(el);
+    solta(el);
+    el.style.transform = 'scale(' + alvo + ')';
+    if (semMovimento() || Math.abs(de - alvo) < .001) return;
+    /* fill backwards: durante o atraso da seta ela segura o valor de partida */
+    el._ntA = anima(el,
+      [{ transform:'scale(' + de + ')' }, { transform:'scale(' + alvo + ')' }],
+      { duration:ms, delay:atraso || 0, easing:p4out, fill:'backwards' });
+  }
+  function abre(){                         /* primeira entrada no bloco */
+    dentro = true;
+    escalaVai(btn, 1, T_BTN, 0);
+    if (seta) escalaVai(seta, 1, T_SETA, ATRASO_SETA);
+  }
+  function pulsa(){                        /* troca de cartao sem sair do bloco */
+    if (!seta || semMovimento()) return;
+    /* a trava do modelo: enquanto a seta ainda esta animando, nao reentra */
+    if (seta._ntA && seta._ntA.playState === 'running') return;
+    solta(seta);
+    seta.style.transform = 'scale(1)';
+    seta._ntA = anima(seta,
+      [{ transform:'scale(1)', easing:P1INOUT },
+       { transform:'scale(0)', easing:P1INOUT },
+       { transform:'scale(1)' }],
+      { duration:T_BTN, easing:p4out });
+  }
+  function recolhe(){                      /* saiu do bloco: so o quadrado recolhe */
+    if (!dentro) return;
+    dentro = false;
+    escalaVai(btn, 0, T_BTN, 0);
+    if (seta) escalaVai(seta, 0, T_SETA, 0);
+  }
+
+  /* ================= entrada e saida ================= */
+  function camadaDe(i){
+    var k = parseInt(cartoes[i].getAttribute('data-nt-camada'), 10);
+    return (!isNaN(k) && camadas[k]) ? k : foto;
+  }
+  function entra(i){
+    if (!mqHover.matches) return;          /* em (hover:none) o toque nao mexe em nada */
+    var mudou = i !== ativo;
+    if (mudou) {
+      ativo = i;
+      /* fundo, letra e foto saem do MESMO quadro; o encadeamento vem das curvas */
+      if (fluido()) poeFundo(cartoes[i], true);
+      marca(i);
+      trocaFoto(camadaDe(i));
+    }
+    if (!fluido()) return;
+    if (!dentro) abre();
+    else if (mudou) pulsa();
+  }
+  function focoVisivelDentro(){
+    var a = document.activeElement;
+    if (!a || a === document.body || !grade.contains(a)) return false;
+    try { return a.matches(':focus-visible'); } catch (e) { return true; }
+  }
+  cartoes.forEach(function(cartao, i){
+    cartao.addEventListener('mouseenter', function(){ entra(i); });
+    cartao.addEventListener('focusin',    function(){ entra(i); });
+  });
+  grade.addEventListener('mouseenter', function(){ mouseDentro = true; });
+  grade.addEventListener('mouseleave', function(){
+    mouseDentro = false;
+    if (focoVisivelDentro()) return;       /* o teclado ainda esta num cartao */
+    recolhe();
+  });
+  grade.addEventListener('focusout', function(e){
+    var prox = e.relatedTarget;
+    if (prox && grade.contains(prox)) return;   /* o foco foi para outro cartao */
+    if (mouseDentro) return;                    /* o mouse ainda esta no bloco */
+    recolhe();
+  });
+
+  /* ================= modo (carga e resize) ================= */
+  function aplicaModo(){
+    var f = fluido();
+    grade.classList.add('nt-parado');      /* sem fusao de letra enquanto arruma */
+    grade.classList.toggle('nt-fluido', f);
+    solta(bg); solta(btn); solta(seta);
+    dentro = false;
+    btn.style.transform = 'scale(0)';
+    if (seta) seta.style.transform = 'scale(0)';
+    if (f) poeFundo(cartoes[ativo], false);
+    marca(ativo);
+    void grade.offsetWidth;                /* fecha o estilo antes de soltar a trava */
+    grade.classList.remove('nt-parado');
+  }
+  function escuta(m){
+    if (!m) return;
+    if (m.addEventListener) m.addEventListener('change', aplicaModo);
+    else if (m.addListener) m.addListener(aplicaModo);
+  }
+
+  /* estado inicial: cartao 0 aceso, foto 0, quadrado recolhido */
+  if (temWAAPI) {
+    midia.classList.add('nt-midia-js');
+    camadas.forEach(function(c, n){ c.style.opacity = n === foto ? '1' : '0'; });
+  }
+  camadas.forEach(function(c, n){ c.classList.toggle('nt-layer-ativa', n === foto); });
+  midia.setAttribute('data-nt-ativa', String(foto));
+  aplicaModo();
+  escuta(mqHover); escuta(mqLargo); escuta(mqCalmo);
+
+  /* ================= fotos prontas antes do primeiro hover =================
+     O markup continua com loading="lazy" (a secao fica longe do topo). Quando
+     ela chega a um viewport e meio de distancia, as quatro fotos passam para
+     eager e sao decodificadas: a primeira fusao nao espera rede nem decode. */
+  function precarrega(){
+    camadas.forEach(function(c){
+      var im = c.querySelector('img');
+      if (!im) return;
+      im.setAttribute('loading', 'eager');
+      if (im.decode) im.decode().catch(function(){});
     });
   }
-  mostrar(0);   /* a secao abre com o quadrante da foto aceso */
-  if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
-    cartoes.forEach(function(cartao){
-      cartao.addEventListener('mouseenter', function(){
-        var i = parseInt(cartao.getAttribute('data-nt-camada'), 10);
-        if (!isNaN(i) && camadas[i]) mostrar(i);
-      });
-      cartao.addEventListener('focusin', function(){
-        var i = parseInt(cartao.getAttribute('data-nt-camada'), 10);
-        if (!isNaN(i) && camadas[i]) mostrar(i);
-      });
-    });
-    grade.addEventListener('mouseleave', function(){ mostrar(0); });
+  if ('IntersectionObserver' in window) {
+    var vigia = new IntersectionObserver(function(entradas){
+      for (var n = 0; n < entradas.length; n++) {
+        if (entradas[n].isIntersecting) { vigia.disconnect(); precarrega(); return; }
+      }
+    }, { rootMargin:'150% 0px 150% 0px' });
+    vigia.observe(sec || midia);
+  } else {
+    precarrega();
   }
 })();
 
@@ -2581,13 +3309,77 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   });
 })();
 
-// zoom da foto da moldura quando o mouse passa nos cartoes
+</script>
+
+<script>
+// ===== painel Demandas: entrada no scroll =====
+// Sem biblioteca. O original usa GSAP + ScrollTrigger com start "top 85%",
+// sem scrub, uma vez so. O equivalente e um IntersectionObserver com a base
+// da raiz recolhida em 15% e unobserve no primeiro disparo. O movimento em si
+// e todo CSS: o script so poe classes.
 (function(){
-  var midia = document.querySelector('.nt-midia');
-  if(!midia) return;
-  document.querySelectorAll('.nt-card').forEach(function(c){
-    c.addEventListener('mouseenter', function(){ midia.classList.add('nt-zoom'); });
-    c.addEventListener('mouseleave', function(){ midia.classList.remove('nt-zoom'); });
+  var sec = document.getElementById('demandas');
+  if(!sec) return;
+  // os dois portoes. Saindo aqui, .dm-js nunca entra e NADA e escondido.
+  if(!('IntersectionObserver' in window)) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // indice de cada pilula, para o atraso de .1s em cascata
+  [].forEach.call(sec.querySelectorAll('.dm-lista > .dm-sobe'), function(li, i){
+    li.style.setProperty('--dm-i', i);
+  });
+
+  sec.classList.add('dm-js');
+
+  var vivo = false; // o observer ja falou pelo menos uma vez?
+  var io = new IntersectionObserver(function(es){
+    vivo = true;
+    es.forEach(function(e){
+      // bottom < 0: a pagina abriu ja rolada para baixo (ancora, voltar do
+      // navegador) e a peca ficou ACIMA da tela. O ScrollTrigger trataria
+      // como "ja passou"; aqui tambem, senao ela ficaria oculta ate alguem
+      // voltar rolando.
+      if(e.isIntersecting || e.boundingClientRect.bottom < 0){
+        e.target.classList.add('dm-on');
+        io.unobserve(e.target);
+      }
+    });
+  }, {rootMargin:'0px 0px -15% 0px', threshold:0});
+
+  // cada peca tem o proprio gatilho (etiqueta, titulo, lista, ilustracao e
+  // sonda das barras). No telefone o painel e uma coluna alta: com gatilho
+  // unico a lista animaria fora da tela.
+  [].forEach.call(sec.querySelectorAll('[data-dm-entra]'), function(a){ io.observe(a); });
+
+  // rede de seguranca. Todo observer da um primeiro aviso logo depois do
+  // observe(), com a peca dentro ou fora da tela. Se em 1,5s de aba VISIVEL
+  // ele nao falou, o navegador nao esta entregando o observer e a secao
+  // ficaria apagada para sempre: devolve tudo ao estado visivel. Aba aberta em
+  // segundo plano nao conta tempo (ali o observer dorme de proposito).
+  function vigia(){
+    if(vivo) return;
+    if(document.visibilityState === 'hidden'){
+      document.addEventListener('visibilitychange', function volta(){
+        document.removeEventListener('visibilitychange', volta);
+        vigia();
+      });
+      return;
+    }
+    setTimeout(function(){
+      if(vivo) return;
+      if(document.visibilityState === 'hidden'){ vigia(); return; }
+      io.disconnect();
+      sec.classList.remove('dm-js');
+    }, 1500);
+  }
+  vigia();
+
+  // fim da subida: solta o transform e o will-change. O filtro por .dm-sobe
+  // deixa de fora o transitionend do texto da pilula no hover.
+  sec.addEventListener('transitionend', function(e){
+    if(e.propertyName === 'transform' && e.target.classList && e.target.classList.contains('dm-sobe')){
+      e.target.classList.add('dm-fim');
+    }
   });
 })();
 </script>
@@ -2613,233 +3405,427 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
 <script>
-/* ===== fluido sob o mouse nas colunas da tira =============================
-   Portado do `secoes-guardadas/heroi-tanques.html`, o mesmo mecanismo: uma
-   textura de rastro em ping-pong, em 256x144, que decai a cada quadro e recebe
-   um carimbo gaussiano de VELOCIDADE do mouse; um segundo passo desloca a
-   amostragem da foto por esse rastro. O rastro decai sozinho, entao a onda
-   continua um instante depois que o ponteiro sai.
+/* ===== trama Bayer AO VIVO, com trilha do mouse ==============================
+   O mecanismo e o de oci.madebybuzzworthy.com, lido no codigo deles (three.js la,
+   WebGL puro aqui): a foto entra como LUMINANCIA e o fragment shader faz o dither
+   ordenado por pixel de DISPOSITIVO. Uma segunda textura, a TRILHA, guarda por
+   onde o ponteiro passou: um segmento de reta carimbado entre a posicao anterior
+   e a atual, com forca proporcional a velocidade, decaindo a cada quadro. Onde a
+   trilha esta acesa o shader engrossa a celula da luminancia (ate 7,7x), troca a
+   matriz 4x4 pela 8x8 e desloca o limiar. A foto nao e deslocada nem desfocada:
+   ela e RE-TRAMADA. Os numeros da trilha sao os deles, reescalados da altura da
+   janela (900) para a altura da peca.
 
-   Tres coisas mudaram na travessia:
-   - a camada de nuvens do heroi (ruido de valor tingindo de #B8C5F0 e #1A2473)
-     nao veio: ela tinge fora da rampa de quatro cores da marca.
-   - o canvas nasce com a classe `sh-foto`, entao herda TODAS as regras da foto:
-     o filtro do creme, o espelho da coluna da ISO, o zoom do hover e a
-     transicao. Sem isso ele viraria uma foto sem tratamento por cima da tratada.
-   - o laco para quando o rastro ja decaiu (150 quadros sem mouse). Sao quatro
-     canvas na mesma pagina; deixar os quatro desenhando parados custa bateria
-     sem mudar um pixel.
+   Por que isto serve melhor a Ideal Metrics que o fluido que havia aqui: o fluido
+   deslocava uma foto JA tramada, e deslocar reamostra, o que borrava o ponto de
+   1 px justamente onde o efeito acontecia. Agora a trama nasce no shader: o ponto
+   sai cravado em 1 px de dispositivo em qualquer DPR e em qualquer largura de
+   coluna, com ou sem mouse. A receita e a MESMA da casa, conta por conta: gama
+   0,86, sigmoide de contraste 1,55, brilho +0,35, quatro niveis, limiar de Bayer
+   (m+0,5)/n2 e as quatro cores da rampa creme nos indices 0, 85, 170 e 255.
 
-   AVISO que vale registrar: deslocar reamostra, e reamostrar borra o ponto de
-   1 px da trama Bayer na regiao onde a onda passa. E o preco do efeito, e foi
-   uma escolha, nao um descuido. Fora da onda a trama continua intacta. */
+   HOVER DA TIRA: a chapa de creme que clareia a coluna (12% em repouso, 88% no
+   hover) mudou de lugar, do CSS para o shader. No CSS ela cobria a coluna inteira
+   com desfoque, e como trilha e chapa moram no mesmo gesto, a chapa apagava
+   exatamente o que o mouse acabava de desenhar. No shader a chapa cede ate 60%
+   onde a trilha passa: a coluna vira papel para se ler, e a foto reaparece,
+   re-tramada em celula grossa, no caminho do ponteiro.
+
+   Sem WebGL, em file:// (o navegador recusa foto local como textura), em ponteiro
+   grosso ou com prefers-reduced-motion, nada disto roda e ficam as <img> ja
+   tramadas e a chapa de vidro do CSS, que continuam no arquivo para isso. */
 (function(){
   if(!window.matchMedia('(pointer:fine)').matches) return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(location.protocol === 'file:') return;
 
-  var VERT = 'attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
-  var FRAG_RASTRO =
-    'precision highp float;varying vec2 v;uniform sampler2D t;' +
-    'uniform vec2 m;uniform vec2 vel;uniform float liga;' +
-    'void main(){' +
-    '  vec2 c = texture2D(t, v).rg - .5;' +
-    '  c *= .945;' +
-    '  float d = distance(v, m);' +
-    '  float b = exp(-d*d*140.0) * liga;' +
-    '  c += vel * b;' +
-    '  gl_FragColor = vec4(c + .5, 0., 1.);}';
-  var FRAG_VER =
-    'precision highp float;varying vec2 v;uniform sampler2D foto;uniform sampler2D t;' +
-    'uniform vec2 uvA;uniform vec2 uvB;' +
-    'void main(){' +
-    '  vec2 c = texture2D(t, v).rg - .5;' +
-    '  vec2 uv = uvA + v * uvB;' +
-    '  uv -= c * .30;' +      /* 18/09: era .18. Com a chapa por cima a onda
-                              precisa de mais curso para se ler. */
-    '  gl_FragColor = texture2D(foto, uv);}';
+  /* `#dv-direto` na URL pula a revelacao: serve para fotografar o estado final */
+  var DIRETO = /dv-direto/.test(location.hash);
 
-  function fluido(col){
-    var img = col.querySelector('.sh-foto');
-    if(!img) return;
+  var VERT = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+
+  var FRAG_TRILHA =
+    'precision highp float;' +
+    'uniform sampler2D t;uniform vec2 res;uniform vec2 pt;uniform vec2 ptAnt;uniform float aspecto;' +
+    'uniform float vel;uniform float raio;uniform float borda;uniform float fica;' +
+    'float segmento(vec2 p, vec2 a, vec2 b, float r, float bd){' +
+    '  p.x*=aspecto; a.x*=aspecto; b.x*=aspecto;' +
+    '  vec2 pa=p-a, ba=b-a; float d=dot(ba,ba);' +
+    '  float h = d>1e-9 ? clamp(dot(pa,ba)/d,0.,1.) : 0.;' +
+    '  return smoothstep(r+bd, r-bd, length(pa-ba*h));}' +
+    'void main(){' +
+    '  vec2 uv = gl_FragCoord.xy/res;' +
+    '  float c = texture2D(t, uv).r;' +
+    '  c += segmento(uv, ptAnt, pt, raio, borda) * vel;' +
+    '  c *= fica;' +
+    '  gl_FragColor = vec4(vec3(clamp(c,0.,1.)),1.);}';
+
+  var FRAG_FOTO =
+    'precision highp float;' +
+    'uniform sampler2D uLum;uniform sampler2D uTrilha;uniform sampler2D uB4;uniform sampler2D uB8;' +
+    'uniform vec2 uTela;uniform vec4 uCol;uniform vec2 uTex;uniform float uAx;uniform float uEspelha;uniform float uZoom;' +
+    'uniform float uTempo;uniform vec3 uC0;uniform vec3 uC1;uniform vec3 uC2;uniform vec3 uC3;uniform vec3 uCreme;' +
+    'uniform float uGama;uniform float uCtr;uniform float uBrilho;' +
+    'uniform float uPix;uniform float uPixMul;uniform float uTrailMul;uniform float uBias;uniform float uBiasReacao;' +
+    'uniform float uRespiro;uniform float uLava;uniform float uRevela;uniform float uOpac;' +
+    /* ruido de valor: bem mais barato que o Perlin 3D do OCI e, na amplitude em
+       que entra (3% do limiar), indistinguivel dele */
+    'float h(vec3 p){return fract(sin(dot(p, vec3(127.1,311.7,74.7)))*43758.5453);}' +
+    'float ru(vec3 p){vec3 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);' +
+    '  return mix(mix(mix(h(i),h(i+vec3(1,0,0)),f.x),mix(h(i+vec3(0,1,0)),h(i+vec3(1,1,0)),f.x),f.y),' +
+    '             mix(mix(h(i+vec3(0,0,1)),h(i+vec3(1,0,1)),f.x),mix(h(i+vec3(0,1,1)),h(i+vec3(1,1,1)),f.x),f.y),f.z);}' +
+    'float tom(float g){' +
+    '  float v = clamp(pow(max(g,0.), uGama), 1e-6, 1.-1e-6);' +
+    '  float a = pow(v,uCtr), b = pow(1.-v,uCtr);' +
+    '  return clamp(a/(a+b) + uBrilho, 0., 1.);}' +
+    'void main(){' +
+    '  vec2 frag = gl_FragCoord.xy;' +
+    '  float tr = clamp(texture2D(uTrilha, frag/uTela).r * uTrailMul, 0., 1.);' +
+    /* a celula da luminancia engrossa com a trilha, em px de DISPOSITIVO e
+       ancorada no canto da peca, para o quadriculado nao escorregar */
+    '  float px = mix(uPix, uPix*uPixMul, tr);' +
+    '  vec2 q = (floor((frag - uCol.xy)/px)+.5)*px;' +
+    '  vec2 p = q/uCol.zw;' +
+    '  if(uEspelha>.5) p.x = 1.-p.x;' +
+    '  p = (p-.5)/uZoom + .5;' +
+    /* object-fit: cover, com a ancora X da peca */
+    '  float aC = uCol.z/uCol.w, aT = uTex.x/uTex.y; vec2 sc = vec2(1.), of = vec2(0.);' +
+    '  if(aT>aC){ float s=aC/aT; sc.x=s; of.x=(1.-s)*uAx; } else { float s=aT/aC; sc.y=s; of.y=(1.-s)*.5; }' +
+    '  float v = tom(texture2D(uLum, clamp(p*sc+of, 0., 1.)).r);' +
+    /* limiar: 4x4 em repouso, 8x8 onde a trilha passa de meio, como no OCI */
+    '  float T = tr < .5 ? texture2D(uB4, (floor(frag)+.5)/4.).r : texture2D(uB8, (floor(frag)+.5)/8.).r;' +
+    '  float n = ru(vec3(frag/uTela.y*2.6, uTempo*.11)) - .5;' +
+    '  float bias = uBias + n*uRespiro + uBiasReacao*tr;' +
+    '  float k = clamp(floor((v - bias)*3. + T), 0., 3.);' +
+    '  vec3 c = k<.5 ? uC0 : (k<1.5 ? uC1 : (k<2.5 ? uC2 : uC3));' +
+    /* a chapa de creme do hover, que cede onde a trilha passa */
+    '  c = mix(c, uCreme, uLava*(1. - uRevela*tr));' +
+    '  gl_FragColor = vec4(c, uOpac);}';
+
+  /* curvas: as mesmas que o OCI usa no GSAP, em forma fechada */
+  var CURVA = {
+    p4out:   function(t){ return 1 - Math.pow(1-t, 5); },
+    p4inout: function(t){ return t < .5 ? 16*t*t*t*t*t : 1 - Math.pow(-2*t+2, 5)/2; },
+    suave:   function(t){ return t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2; }
+  };
+
+  function ditherVivo(cfg){
+    var raiz = cfg.raiz; if(!raiz) return null;
     var cv = document.createElement('canvas');
-    /* a mesma classe da foto: herda filtro do creme, espelho, zoom e transicao */
-    cv.className = img.className;
-    var gl = cv.getContext('webgl', {antialias:false, depth:false, stencil:false});
-    if(!gl) return;
+    cv.className = cfg.classeCanvas; cv.setAttribute('aria-hidden', 'true');
+    var gl = cv.getContext('webgl', {antialias:false, depth:false, stencil:false, alpha:false, premultipliedAlpha:false, powerPreference:'high-performance'});
+    if(!gl) return null;
 
     function shader(tipo, src){
-      var sh = gl.createShader(tipo);
-      gl.shaderSource(sh, src); gl.compileShader(sh);
-      return gl.getShaderParameter(sh, gl.COMPILE_STATUS) ? sh : null;
+      var s = gl.createShader(tipo); gl.shaderSource(s, src); gl.compileShader(s);
+      if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)){ console.warn('dither-vivo:', gl.getShaderInfoLog(s)); return null; }
+      return s;
     }
     function programa(fs){
-      var p = gl.createProgram();
-      var a = shader(gl.VERTEX_SHADER, VERT), b = shader(gl.FRAGMENT_SHADER, fs);
-      if(!a || !b) return null;
-      gl.attachShader(p, a); gl.attachShader(p, b); gl.linkProgram(p);
-      return gl.getProgramParameter(p, gl.LINK_STATUS) ? p : null;
+      var a = shader(gl.VERTEX_SHADER, VERT), b = shader(gl.FRAGMENT_SHADER, fs); if(!a||!b) return null;
+      var pr = gl.createProgram(); gl.attachShader(pr,a); gl.attachShader(pr,b);
+      gl.bindAttribLocation(pr, 0, 'p'); gl.linkProgram(pr);
+      return gl.getProgramParameter(pr, gl.LINK_STATUS) ? pr : null;
     }
-    var pR = programa(FRAG_RASTRO), pV = programa(FRAG_VER);
-    if(!pR || !pV) return;
+    var pT = programa(FRAG_TRILHA), pF = programa(FRAG_FOTO);
+    if(!pT || !pF) return null;
+    function uni(pr, nomes){ var o = {}; nomes.forEach(function(n){ o[n] = gl.getUniformLocation(pr, n); }); return o; }
+    var uT = uni(pT, ['t','res','pt','ptAnt','aspecto','vel','raio','borda','fica']);
+    var uF = uni(pF, ['uLum','uTrilha','uB4','uB8','uTela','uCol','uTex','uAx','uEspelha','uZoom','uTempo','uC0','uC1','uC2','uC3','uCreme',
+      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac']);
 
     var quad = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, quad);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
-    function liga(p){
-      var a = gl.getAttribLocation(p, 'p');
-      gl.enableVertexAttribArray(a);
-      gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+
+    /* matrizes de Bayer como texturas minusculas (WebGL1 nao tem array constante).
+       O limiar e (m+0,5)/n2, o mesmo do gerador em Python. */
+    function bayer(n){
+      var m = [[0]];
+      while(m.length < n){ var k = m.length, o = [], y, x;
+        for(y=0;y<2*k;y++) o.push(new Array(2*k));
+        for(y=0;y<k;y++) for(x=0;x<k;x++){ var v = m[y][x]*4;
+          o[y][x]=v; o[y][x+k]=v+2; o[y+k][x]=v+3; o[y+k][x+k]=v+1; }
+        m = o; }
+      var d = new Uint8Array(n*n), yy, xx;
+      for(yy=0;yy<n;yy++) for(xx=0;xx<n;xx++) d[yy*n+xx] = Math.round((m[yy][xx]+0.5)/(n*n)*255);
+      var tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx);
+      gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, n, n, 0, gl.LUMINANCE, gl.UNSIGNED_BYTE, d);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+      return tx;
     }
+    var txB4 = bayer(4), txB8 = bayer(8);
 
-    var SW = 256, SH = 144;
-    function alvoNovo(){
-      var tx = gl.createTexture();
-      gl.bindTexture(gl.TEXTURE_2D, tx);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, SW, SH, 0, gl.RGBA, gl.UNSIGNED_BYTE,
-        new Uint8Array(SW*SH*4).fill(127));
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      var fb = gl.createFramebuffer();
-      gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
-      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tx, 0);
-      return {tx: tx, fb: fb};
-    }
-    var rastro = [alvoNovo(), alvoNovo()], idx = 0;
-
-    var texFoto = gl.createTexture(), fotoOk = false;
-    var reduz = document.createElement('canvas'), larguraNaTex = 0, semCanvas = false;
-    var carrega = new Image();
-    /* SEM crossOrigin. As fotos sao do mesmo servidor, entao ele nao acrescenta
-       nada; e em `file://` ele faz a imagem nem carregar, e o efeito some sem
-       aviso. (Em file:// o WebGL tambem recusa a textura por seguranca: ali o
-       fluido nao roda de jeito nenhum, e a pagina cai na foto parada.) */
-
-    function subirFoto(){
-      if(!carrega.naturalWidth) return;
-      var r = col.getBoundingClientRect();
-      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      var s = Math.max((r.width * dpr) / carrega.naturalWidth,
-                       (r.height * dpr) / carrega.naturalHeight);
-      var alvo = s >= 1 ? carrega.naturalWidth
-                        : Math.max(2, Math.round(carrega.naturalWidth * s));
-      if(larguraNaTex && Math.abs(alvo - larguraNaTex) / larguraNaTex < 0.12) return;
-      gl.bindTexture(gl.TEXTURE_2D, texFoto);
-      var fonte = carrega;
-      /* reduzir no shader com LINEAR e sem mipmap serrilha a trama de 1 px e
-         vira xadrez; o canvas 2D reduz com filtro decente. O GPU so amplia. */
-      if(!semCanvas && alvo < carrega.naturalWidth){
-        reduz.width = alvo;
-        reduz.height = Math.max(2, Math.round(carrega.naturalHeight * alvo / carrega.naturalWidth));
-        var cx = reduz.getContext('2d');
-        cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
-        cx.drawImage(carrega, 0, 0, reduz.width, reduz.height);
-        fonte = reduz;
-      }
-      try{ gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, fonte); }
-      catch(e){
-        if(fonte !== carrega){
-          semCanvas = true;
-          try{ gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, carrega); }
-          catch(e2){ return false; }
-        } else { return false; }
-      }
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      larguraNaTex = alvo;
+    /* ---- os planos: cada foto e um retangulo do DOM com a sua luminancia ---- */
+    function anima(v){ return {v:v, de:v, para:v, t0:0, dur:0, curva:CURVA.suave}; }
+    function vai(a, para, dur, curva, agora){ if(a.para === para) return; a.de = a.v; a.para = para; a.t0 = agora; a.dur = dur; a.curva = curva; }
+    function anda(a, agora){
+      if(a.v === a.para) return false;
+      /* t preso em 0..1 nas DUAS pontas: o t0 vem de performance.now() dentro de um
+         evento, e o relogio do quadro pode estar alguns ms ATRAS dele. Sem o piso, t
+         sai negativo, a curva extrapola e o zoom vira numero absurdo por um quadro. */
+      var t = a.dur > 0 ? Math.max(0, Math.min(1, (agora - a.t0)/a.dur)) : 1;
+      a.v = t >= 1 ? a.para : a.de + (a.para - a.de)*a.curva(t);
       return true;
     }
-
-    carrega.onload = function(){
-      if(subirFoto() === false) return;
-      fotoOk = true; calmo = 0;
-      img.style.opacity = '0';
-      col.insertBefore(cv, col.firstChild);
-    };
-    carrega.src = img.currentSrc || img.src;
-
-    var mx = -1, my = -1, vx = 0, vy = 0, ativo = 0, calmo = 999;
-    col.addEventListener('mousemove', function(e){
-      var r = col.getBoundingClientRect();
-      var nx = (e.clientX - r.left) / r.width;
-      var ny = 1 - (e.clientY - r.top) / r.height;
-      if(mx >= 0){ vx = (nx - mx) * 4.2; vy = (ny - my) * 4.2; }
-      mx = nx; my = ny; ativo = 1; calmo = 0;
+    var planos = cfg.planos.map(function(pl, i){
+      return {el:pl.el, src:pl.lum, ax:pl.ax == null ? .5 : pl.ax, espelha:pl.espelha ? 1 : 0, tx:null, w:1, h:1,
+              zoom:anima(1), lava:anima(cfg.lavaRepouso || 0), opac:anima(cfg.empilhado ? (i === 0 ? 1 : 0) : 1)};
     });
-    col.addEventListener('mouseleave', function(){ ativo = 0; });
+    if(planos.some(function(pl){ return !pl.src || !pl.el; })) return null;
 
+    var pix = anima(20), bias = anima(-1), revelado = false;   /* a entrada: celula 20->1 e limiar -1->0 */
+    var ligado = false, prontas = 0;
+    planos.forEach(function(pl){
+      var im = new Image();
+      im.onload = function(){
+        var tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, gl.LUMINANCE, gl.UNSIGNED_BYTE, im); }
+        catch(e){ gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); return; }
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        pl.tx = tx; pl.w = im.naturalWidth; pl.h = im.naturalHeight;
+        if(++prontas === planos.length) liga();
+      };
+      im.src = pl.src;
+    });
+
+    /* ---- trilha em ping-pong, na resolucao CSS (1/dpr do canvas), como no OCI ---- */
+    var TW = 2, TH = 2, trilha = null, idx = 0;
+    function alvo(w, h){
+      var tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      var fb = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tx, 0);
+      gl.disable(gl.SCISSOR_TEST); gl.clearColor(0,0,0,1); gl.clear(gl.COLOR_BUFFER_BIT);
+      return {tx:tx, fb:fb};
+    }
+    function refazTrilha(){
+      if(trilha) trilha.forEach(function(a){ gl.deleteTexture(a.tx); gl.deleteFramebuffer(a.fb); });
+      TW = Math.max(2, Math.round(cv.width/dpr)); TH = Math.max(2, Math.round(cv.height/dpr));
+      trilha = [alvo(TW,TH), alvo(TW,TH)]; idx = 0;
+    }
+
+    var dpr = 1, R = null, calmo = 0;
+    function acorda(){ calmo = 0; }
     function mede(){
-      var r = col.getBoundingClientRect();
-      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      var w = Math.max(2, Math.round(r.width * dpr));
-      var h = Math.max(2, Math.round(r.height * dpr));
-      if(cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; if(fotoOk){ subirFoto(); calmo = 0; } }
-      return r;
-    }
-    window.addEventListener('resize', function(){ mede(); calmo = 0; });
-
-    var visivel = true;
-    new IntersectionObserver(function(es){
-      es.forEach(function(e){ visivel = e.isIntersecting; });
-    }).observe(col);
-
-    var uR = {t: gl.getUniformLocation(pR,'t'), m: gl.getUniformLocation(pR,'m'),
-              vel: gl.getUniformLocation(pR,'vel'), liga: gl.getUniformLocation(pR,'liga')};
-    var uV = {foto: gl.getUniformLocation(pV,'foto'), t: gl.getUniformLocation(pV,'t'),
-              uvA: gl.getUniformLocation(pV,'uvA'), uvB: gl.getUniformLocation(pV,'uvB')};
-
-    /* `object-position` e regra de <img> e nao chega ao canvas: a ancora do
-       cover entra aqui. A coluna do carbono ancora na direita, como no CSS. */
-    var ax = col.classList.contains('sh-col--carbono') ? 1 : 0.5;
-    function quadroCover(r){
-      var arC = r.width / r.height, arF = carrega.naturalWidth / carrega.naturalHeight;
-      var sx = 1, sy = 1;
-      if(arC > arF){ sy = arF / arC; } else { sx = arC / arF; }
-      return [ (1-sx)*ax, (1-sy)/2, sx, sy ];
+      R = raiz.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = Math.max(2, Math.round(R.width*dpr)), h = Math.max(2, Math.round(R.height*dpr));
+      if(cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; refazTrilha(); acorda(); }
     }
 
-    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    /* ---- ponteiro: ouvido na JANELA, como no OCI, para a trilha entrar pela borda
+       em vez de nascer no meio da peca ---- */
+    var alvoPt = [0,0], pt = [0,0], ptAnt = [0,0], temPt = false, perto = false, vel = 0, ultimoXY = null, dxy = 0;
+    window.addEventListener('pointermove', function(e){
+      if(e.pointerType && e.pointerType !== 'mouse') return;
+      if(!R) return;
+      var x = (e.clientX - R.left)/R.width, y = 1 - (e.clientY - R.top)/R.height;
+      var folga = .35;
+      perto = x > -folga && x < 1+folga && y > -folga && y < 1+folga;
+      if(ultimoXY) dxy += Math.sqrt(Math.pow((e.clientX-ultimoXY[0])/window.innerWidth, 2) + Math.pow((e.clientY-ultimoXY[1])/window.innerHeight, 2));
+      ultimoXY = [e.clientX, e.clientY];
+      alvoPt[0] = x; alvoPt[1] = y;
+      if(!temPt){ pt[0]=ptAnt[0]=x; pt[1]=ptAnt[1]=y; temPt = true; dxy = 0; }
+      if(perto) acorda();
+    }, {passive:true});
+    function some(){ temPt = false; ultimoXY = null; dxy = 0; }
+    document.documentElement.addEventListener('mouseleave', some);
+    window.addEventListener('blur', some);
+
+    planos.forEach(function(pl, i){
+      var g = cfg.empilhado ? raiz : pl.el;
+      if(cfg.empilhado && i > 0) return;
+      function entra(){ var t = performance.now();
+        (cfg.empilhado ? planos : [pl]).forEach(function(q){ vai(q.zoom, cfg.zoomHover || 1, 850, CURVA.p4out, t); if(cfg.lavaHover != null) vai(q.lava, cfg.lavaHover, 500, CURVA.suave, t); });
+        acorda(); }
+      function sai(){ var t = performance.now();
+        (cfg.empilhado ? planos : [pl]).forEach(function(q){ vai(q.zoom, 1, 850, CURVA.p4out, t); if(cfg.lavaHover != null) vai(q.lava, cfg.lavaRepouso || 0, 500, CURVA.suave, t); });
+        acorda(); }
+      g.addEventListener('mouseenter', entra); g.addEventListener('mouseleave', sai);
+      g.addEventListener('focusin', entra);    g.addEventListener('focusout', sai);
+    });
+    window.addEventListener('resize', function(){ if(ligado){ mede(); acorda(); } });
+
+    /* dois observadores, porque sao duas perguntas: "vale a pena desenhar?" (com
+       200px de folga, para a peca ja chegar desenhada) e "ja entrou o bastante
+       para revelar?" (o `start: top 85%` do OCI). */
+    var visivel = true, desenhou = false;
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ visivel = e.isIntersecting; if(visivel) acorda(); }); },
+        {rootMargin:'200px 0px 200px 0px'}).observe(raiz);
+      if(cfg.revelar === 'visivel'){
+        var obsR = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revela(); if(revelado) obsR.disconnect(); } }); },
+          {rootMargin:'0px 0px -15% 0px'});
+        obsR.observe(raiz);
+      }
+    }
+    document.addEventListener('visibilitychange', function(){ if(!document.hidden) acorda(); });
+
+    function seco(){ revelado = true; pix.v = pix.de = pix.para = 1; bias.v = bias.de = bias.para = 0; acorda(); }
+    function revela(){
+      if(revelado || !ligado) return; revelado = true;
+      var t = performance.now();
+      vai(pix, 1, 2000, CURVA.p4out, t); vai(bias, 0, 2000, CURVA.p4out, t); acorda();
+    }
+
+    function liga(){
+      if(ligado) return; ligado = true;
+      raiz.insertBefore(cv, raiz.firstChild);
+      raiz.classList.add('gl-on');
+      mede();
+      if(DIRETO) seco();
+      else if(cfg.revelar === 'pronta'){
+        /* a revelacao (celula 20->1, limiar -1->0 em 2s) e para quando a trama fica
+           pronta ATRAS do loader. Se ela chegar depois de a pagina ja estar a vista, a
+           troca e seca: <img> tramada por canvas tramado, sem apagar a foto para revelar. */
+        if(document.body.classList.contains('pronta')) seco();
+        else { window.addEventListener('im:pronta', revela, {once:true}); setTimeout(revela, 4200); }
+      } else if(cfg.revelar !== 'visivel') revela();
+      antes = performance.now();
+      requestAnimationFrame(passo);
+    }
+
+    var t0 = performance.now(), antes = t0;
+    var C = cfg.cores, CR = cfg.creme || [250,249,245];
     function passo(){
       requestAnimationFrame(passo);
-      if(!fotoOk || !visivel) return;
-      /* 150 quadros sem mouse e o rastro ja decaiu (0,945^150 = 0,0002) */
-      if(!ativo && ++calmo > 150) return;
-      var r = mede();
+      var agora = performance.now();     /* um relogio so, o mesmo dos eventos */
+      /* o primeiro quadro sai de qualquer jeito: canvas sem alfa nasce PRETO */
+      if(desenhou && (!visivel || document.hidden)){ antes = agora; return; }
+      /* sem mouse e sem animacao em curso o laco cai para 1 quadro em 6: o respiro
+         do limiar leva dezenas de segundos para dar a volta, 10 qps sobram. */
+      if(desenhou && ++calmo > 120 && (calmo % 6)){ return; }
+      var dt = Math.min(100, agora - antes); antes = agora;
+      var f60 = dt/16.667;
+      mede();
+
+      /* ponteiro e velocidade, nas contas do OCI: vel += (d - vel)*0,63 e satura em d = 1/32 da tela por quadro */
+      ptAnt[0] = pt[0]; ptAnt[1] = pt[1];
+      if(temPt){ pt[0] = alvoPt[0]; pt[1] = alvoPt[1]; }
+      var d = (temPt && perto) ? dxy/Math.max(f60, .25) : 0; dxy = 0;
+      vel += (d - vel)*(1 - Math.pow(1-.63, f60));
+      var v = Math.min(1, vel*32);
+      if(v > .004) acorda();
+
+      var mexeu = false;
+      if(anda(pix, agora)) mexeu = true;
+      if(anda(bias, agora)) mexeu = true;
+
+      /* 1. trilha. Raio e borda do OCI (0,066+0,015v e 0,129+0,054v da ALTURA DA JANELA de 900)
+            reescalados para a altura desta peca. */
+      var esc = 900/Math.max(200, R.height), asp = cv.width/cv.height;
       var prox = 1 - idx;
-      gl.useProgram(pR); liga(pR);
-      gl.bindFramebuffer(gl.FRAMEBUFFER, rastro[prox].fb);
-      gl.viewport(0, 0, SW, SH);
-      gl.activeTexture(gl.TEXTURE0);
-      gl.bindTexture(gl.TEXTURE_2D, rastro[idx].tx);
-      gl.uniform1i(uR.t, 0);
-      gl.uniform2f(uR.m, mx, my);
-      gl.uniform2f(uR.vel, Math.max(-.5, Math.min(.5, vx)), Math.max(-.5, Math.min(.5, vy)));
-      gl.uniform1f(uR.liga, ativo);
+      gl.useProgram(pT);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, trilha[prox].fb);
+      gl.viewport(0,0,TW,TH); gl.disable(gl.SCISSOR_TEST); gl.disable(gl.BLEND);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, trilha[idx].tx);
+      gl.uniform1i(uT.t, 0); gl.uniform2f(uT.res, TW, TH);
+      gl.uniform2f(uT.pt, pt[0], pt[1]); gl.uniform2f(uT.ptAnt, ptAnt[0], ptAnt[1]);
+      gl.uniform1f(uT.aspecto, asp); gl.uniform1f(uT.vel, v);
+      var pinc = esc*(cfg.pincel || 1);
+      gl.uniform1f(uT.raio, (.066 + v*.015)*pinc); gl.uniform1f(uT.borda, (.129 + v*.054)*pinc);
+      gl.uniform1f(uT.fica, Math.pow(1-.057, f60));
       gl.drawArrays(gl.TRIANGLES, 0, 3);
-      vx *= .82; vy *= .82;
       idx = prox;
 
-      var q = quadroCover(r);
-      gl.useProgram(pV); liga(pV);
+      /* 2. as fotos */
+      gl.useProgram(pF);
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-      gl.viewport(0, 0, cv.width, cv.height);
-      gl.activeTexture(gl.TEXTURE0);
-      gl.bindTexture(gl.TEXTURE_2D, texFoto);
-      gl.uniform1i(uV.foto, 0);
-      gl.activeTexture(gl.TEXTURE1);
-      gl.bindTexture(gl.TEXTURE_2D, rastro[idx].tx);
-      gl.uniform1i(uV.t, 1);
-      gl.uniform2f(uV.uvA, q[0], 1 - q[1] - q[3]);
-      gl.uniform2f(uV.uvB, q[2], q[3]);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      gl.viewport(0,0,cv.width,cv.height);
+      gl.disable(gl.SCISSOR_TEST);
+      gl.clearColor(CR[0]/255, CR[1]/255, CR[2]/255, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.enable(gl.SCISSOR_TEST);
+      if(cfg.empilhado){ gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); } else gl.disable(gl.BLEND);
+      gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, trilha[idx].tx); gl.uniform1i(uF.uTrilha, 1);
+      gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, txB4); gl.uniform1i(uF.uB4, 2);
+      gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, txB8); gl.uniform1i(uF.uB8, 3);
+      gl.uniform2f(uF.uTela, cv.width, cv.height);
+      gl.uniform1f(uF.uTempo, (agora - t0)/1000);
+      gl.uniform3f(uF.uC0, C[0][0]/255, C[0][1]/255, C[0][2]/255);
+      gl.uniform3f(uF.uC1, C[1][0]/255, C[1][1]/255, C[1][2]/255);
+      gl.uniform3f(uF.uC2, C[2][0]/255, C[2][1]/255, C[2][2]/255);
+      gl.uniform3f(uF.uC3, C[3][0]/255, C[3][1]/255, C[3][2]/255);
+      gl.uniform3f(uF.uCreme, CR[0]/255, CR[1]/255, CR[2]/255);
+      gl.uniform1f(uF.uGama, .86); gl.uniform1f(uF.uCtr, 1.55); gl.uniform1f(uF.uBrilho, .35);
+      gl.uniform1f(uF.uPix, Math.max(1, pix.v)); gl.uniform1f(uF.uPixMul, 7.7); gl.uniform1f(uF.uTrailMul, 1.02);
+      gl.uniform1f(uF.uBias, bias.v); gl.uniform1f(uF.uBiasReacao, .15); gl.uniform1f(uF.uRespiro, cfg.respiro == null ? .012 : cfg.respiro);
+      gl.uniform1f(uF.uRevela, cfg.revelaNaTrilha == null ? 0 : cfg.revelaNaTrilha);
+
+      planos.forEach(function(pl){
+        if(anda(pl.zoom, agora)) mexeu = true;
+        if(anda(pl.lava, agora)) mexeu = true;
+        if(anda(pl.opac, agora)) mexeu = true;
+        if(pl.opac.v < .002) return;
+        var r = pl.el.getBoundingClientRect();
+        var x0 = Math.round((r.left - R.left)*dpr), x1 = Math.round((r.right - R.left)*dpr);
+        var y1 = Math.round((r.top - R.top)*dpr), y2 = Math.round((r.bottom - R.top)*dpr);
+        var w = x1 - x0, h = y2 - y1, y = cv.height - y2;
+        if(w < 1 || h < 1) return;
+        gl.scissor(x0, y, w, h);
+        gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, pl.tx); gl.uniform1i(uF.uLum, 0);
+        gl.uniform4f(uF.uCol, x0, y, w, h); gl.uniform2f(uF.uTex, pl.w, pl.h);
+        gl.uniform1f(uF.uAx, pl.espelha ? 1 - pl.ax : pl.ax); gl.uniform1f(uF.uEspelha, pl.espelha);
+        gl.uniform1f(uF.uZoom, pl.zoom.v); gl.uniform1f(uF.uLava, pl.lava.v); gl.uniform1f(uF.uOpac, pl.opac.v);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+      });
+      if(mexeu) acorda();
+      desenhou = true;
     }
-    passo();
+
+    return {
+      /* fusao cruzada entre camadas empilhadas: 0,8 s em power4.inOut, como no OCI */
+      fundir: function(para){
+        var t = performance.now();
+        planos.forEach(function(pl, i){ vai(pl.opac, i === para ? 1 : 0, 800, CURVA.p4inout, t); });
+        acorda();
+      }
+    };
   }
 
-  [].forEach.call(document.querySelectorAll('.sh-col'), fluido);
+  /* ---------------- a tira: quatro colunas num canvas so ---------------- */
+  (function(){
+    var tira = document.querySelector('.sh-tira'); if(!tira) return;
+    var cols = [].slice.call(tira.querySelectorAll('.sh-col'));
+    var planos = cols.map(function(c){
+      var im = c.querySelector('img.sh-foto');
+      return {el:c, lum: im ? im.getAttribute('data-lum') : null,
+              ax: c.classList.contains('sh-col--carbono') ? 1 : .5, espelha: c.classList.contains('sh-col--iso')};
+    });
+    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'pronta',
+      /* rampa 14304C 336699 D3E2F2 FAF9F5 com escuro 1,4 (a receita da vaga qc) e ja
+         passada pelo min(creme, 1,06x) do filtro #foto-creme */
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
+      zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:.62});
+  })();
+
+  /* ---------------- a moldura de noticias: quatro camadas empilhadas ---------------- */
+  (function(){
+    var midia = document.querySelector('.nt-midia'); if(!midia) return;
+    var camadas = [].slice.call(midia.querySelectorAll('.nt-layer'));
+    var planos = camadas.map(function(c){ var im = c.querySelector('img'); return {el:midia, lum: im ? im.getAttribute('data-lum') : null}; });
+    var gl = ditherVivo({raiz:midia, planos:planos, classeCanvas:'nt-gl', revelar:'visivel', empilhado:true,
+      /* a vaga nt segue no escuro 0,85 e nao passa pelo #foto-creme */
+      cores:[[20.0,48.0,76.0],[27.3,60.7,94.1],[136.0,167.9,200.3],[250,249,245]],
+      zoomHover:1.03});
+    if(!gl) return;
+    /* quem manda trocar a foto e o script da secao, pelo evento que ele dispara */
+    midia.addEventListener('nt:camada', function(e){ if(e.detail && e.detail.para != null) gl.fundir(+e.detail.para); });
+  })();
 })();
 </script>
 </body>
