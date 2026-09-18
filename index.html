@@ -1615,7 +1615,12 @@ body>*{position:relative;z-index:1}
     rgba(250,249,245,.18) 58%, rgba(250,249,245,.04) 70%, rgba(250,249,245,0) 80%,
     rgba(250,249,245,0) 100%);
   transition:background .5s}
-/* 17/09, 8a volta: no hover a foto CLAREIA 84%. A escala foi 20 (nao se via),
+/* 18/09, 9a volta: no hover a foto CLAREIA 92%, e o PE da mascara subiu junto,
+   de 22% para 48%: antes so o alto ficava claro de verdade e a metade de baixo
+   seguia fotografica. Agora o pe recebe 0,92 x 0,48, uns 44% de clareamento,
+   contra os 18% de antes. Sobra foto o bastante para a onda do fluido se ler,
+   que foi o motivo de a mascara existir.
+   Historico do numero: 20 (nao se via), 45, 58, 72, 84, 92. A escala foi 20 (nao se via),
    45, 58, 72, 84. Aos 84% um pixel de tinta (22,52,83) chega a (213,217,219):
    a foto passa a ser marca d'agua atras do vidro, que com o blur de 7px e
    coerente. Deste ponto em diante quase nao ha o que clarear: em 100% a coluna
@@ -1641,12 +1646,12 @@ body>*{position:relative;z-index:1}
    `backdrop-filter` junto, que e o que faz isso funcionar. */
 .sh-col::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:#FAF9F5;opacity:.12;
-  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 48%,rgba(0,0,0,.30) 74%,rgba(0,0,0,.22) 100%);
-  mask-image:linear-gradient(to bottom,#000 0%,#000 48%,rgba(0,0,0,.30) 74%,rgba(0,0,0,.22) 100%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 52%,rgba(0,0,0,.55) 78%,rgba(0,0,0,.48) 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 52%,rgba(0,0,0,.55) 78%,rgba(0,0,0,.48) 100%);
   -webkit-backdrop-filter:blur(0px) saturate(100%);
   backdrop-filter:blur(0px) saturate(100%);
   transition:opacity .5s,backdrop-filter .5s,-webkit-backdrop-filter .5s}
-.sh-col:hover::after,.sh-col:focus-within::after{opacity:.84;
+.sh-col:hover::after,.sh-col:focus-within::after{opacity:.92;
   -webkit-backdrop-filter:blur(7px) saturate(140%);
   backdrop-filter:blur(7px) saturate(140%)}
 /* 16/09: o PE de cada foto clareou um degrau, .54/.58 -> .60/.68 nas duas
