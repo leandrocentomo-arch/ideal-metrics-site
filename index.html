@@ -1225,12 +1225,12 @@ body>*{position:relative;z-index:1}
   /* 8 e nao 14: a CAIXA fica do mesmo tamanho e quem cresce e a marca.
      96 + 16 = 112 de altura, o mesmo de antes. */
   padding:3.66px;border-radius:0 0 3px 3px;border:1px solid var(--fio);border-top:none;
-  /* PRATA, 17/09: o material `prata` do painel Spirit, cinco paradas a 26 graus
-     (#A9AAAA #D1D2D3 #FFFFFF #D1D2D3 #A9AAAA). Chapa opaca, entao o vidro saiu
-     junto: `backdrop-filter` sobre uma chapa que nao deixa passar luz e custo
-     de composicao sem efeito. O monograma e tinta e fica sobre a faixa branca
-     do meio do degrade, que e onde o contraste e maior. */
-  background:linear-gradient(26deg,#A9AAAA 0%,#D1D2D3 25%,#FFFFFF 50%,#D1D2D3 75%,#A9AAAA 100%);
+  /* PRATA DISCRETA, 17/09 (6a volta). O material `prata` do Spirit vai de
+     #A9AAAA a branco, uma amplitude de 0,41 a 1,00 de luminancia: sobre a faixa
+     de papel do topo aquilo virava uma medalha. Aqui fica o MESMO eixo de 26
+     graus e as mesmas cinco paradas, com a amplitude fechada para 0,79 a 1,00.
+     O brilho continua lendo como metal quando a pagina rola, sem gritar. */
+  background:linear-gradient(26deg,#E9EAEB 0%,#F4F5F5 25%,#FFFFFF 50%,#F1F2F3 75%,#E4E5E7 100%);
   backdrop-filter:blur(14px) saturate(160%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
   transition:background .45s cubic-bezier(.4,0,.2,1)}
@@ -1615,7 +1615,7 @@ body>*{position:relative;z-index:1}
     rgba(250,249,245,.18) 58%, rgba(250,249,245,.04) 70%, rgba(250,249,245,0) 80%,
     rgba(250,249,245,0) 100%);
   transition:background .5s}
-/* 17/09, 5a volta: no hover a foto CLAREIA 45%. Em 20% o efeito existia na
+/* 17/09, 6a volta: no hover a foto CLAREIA 58% (era 45%, e 30% a mais). Em 20% o efeito existia na
    conta e nao na tela: sobre uma foto que ja e 58 a 91% creme, 20% de creme a
    mais so move a parte escura, e pouco. Em 45% um pixel de tinta (22,52,83) vai
    para (125,141,156), que se ve de longe.
@@ -1625,7 +1625,7 @@ body>*{position:relative;z-index:1}
    Como e uma camada, funciona igual se a foto for <img> ou o canvas do fluido. */
 .sh-col::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:#FAF9F5;opacity:.12;transition:opacity .5s}
-.sh-col:hover::after,.sh-col:focus-within::after{opacity:.45}
+.sh-col:hover::after,.sh-col:focus-within::after{opacity:.58}
 /* 16/09: o PE de cada foto clareou um degrau, .54/.58 -> .60/.68 nas duas
    ultimas paradas. So creme a mais, entao o contraste do escrito em tinta que
    mora ali (lista, botao, rodape) so pode subir, nunca cair. */
