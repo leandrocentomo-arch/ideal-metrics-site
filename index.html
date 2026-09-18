@@ -1615,7 +1615,10 @@ body>*{position:relative;z-index:1}
     rgba(250,249,245,.18) 58%, rgba(250,249,245,.04) 70%, rgba(250,249,245,0) 80%,
     rgba(250,249,245,0) 100%);
   transition:background .5s}
-/* 17/09, 6a volta: no hover a foto CLAREIA 58% (era 45%, e 30% a mais). Em 20% o efeito existia na
+/* 17/09, 7a volta: no hover a foto CLAREIA 72%. A escala sobe assim: 20 (nao se
+   via), 45, 58, 72. Aos 72% um pixel de tinta (22,52,83) chega a (186,194,200),
+   entao a foto vira marca d'agua. O teto pratico e por volta de 0,80: dali para
+   cima nao sobra foto, so creme, e o hover deixa de mostrar alguma coisa. Em 20% o efeito existia na
    conta e nao na tela: sobre uma foto que ja e 58 a 91% creme, 20% de creme a
    mais so move a parte escura, e pouco. Em 45% um pixel de tinta (22,52,83) vai
    para (125,141,156), que se ve de longe.
@@ -1623,9 +1626,19 @@ body>*{position:relative;z-index:1}
    `filter:brightness`: brightness estoura o creme (250,249,245) para branco, que
    ja foi bug uma vez. Meio caminho ate o creme do site nunca passa do teto.
    Como e uma camada, funciona igual se a foto for <img> ou o canvas do fluido. */
+/* 17/09, 7a volta: a camada do hover virou VIDRO. O `blur(0px)` no estado
+   normal nao e enfeite: sem ele o navegador nao tem de onde interpolar e o
+   desfoque entra de estalo, em vez de acompanhar os 0,5s da opacidade.
+   O desfoque pega o que esta PINTADO ATRAS desta camada, que e a foto e o veu;
+   o escrito vive em z-index 2, acima, e nao borra. */
 .sh-col::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:#FAF9F5;opacity:.12;transition:opacity .5s}
-.sh-col:hover::after,.sh-col:focus-within::after{opacity:.58}
+  background:#FAF9F5;opacity:.12;
+  -webkit-backdrop-filter:blur(0px) saturate(100%);
+  backdrop-filter:blur(0px) saturate(100%);
+  transition:opacity .5s,backdrop-filter .5s,-webkit-backdrop-filter .5s}
+.sh-col:hover::after,.sh-col:focus-within::after{opacity:.72;
+  -webkit-backdrop-filter:blur(7px) saturate(140%);
+  backdrop-filter:blur(7px) saturate(140%)}
 /* 16/09: o PE de cada foto clareou um degrau, .54/.58 -> .60/.68 nas duas
    ultimas paradas. So creme a mais, entao o contraste do escrito em tinta que
    mora ali (lista, botao, rodape) so pode subir, nunca cair. */
