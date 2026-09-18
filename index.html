@@ -1838,8 +1838,11 @@ body>*{position:relative;z-index:1}
 
 /* --- lista --- */
 .dm-coluna{position:relative;z-index:1;width:340px;flex:none} /* z-index 1: a ilustracao passa POR BAIXO */
+/* --azul-escuro solido (8,1:1) no lugar de tinta a 45% de opacidade, que dava
+   2,53:1: reprovava o piso de 4,5 e ate o de 3 do texto grande. E a mesma cor
+   das legendas mono do site. */
 .dm-sub{margin:0 0 24px;font-family:var(--sans);font-weight:400;font-size:20px;
-  line-height:30px;letter-spacing:-.02em;color:var(--azul);opacity:.45}
+  line-height:30px;letter-spacing:-.02em;color:var(--azul-escuro)}
 .dm-lista{list-style:none;margin:0;padding:0}
 .dm-lista > li{margin:0 0 calc(var(--dm-passo)*.172)} /* 10 dos 58px do original, na mesma proporcao */
 .dm-pilula{display:flex;justify-content:space-between;align-items:center;
@@ -1935,6 +1938,8 @@ body>*{position:relative;z-index:1}
 /* pilulas: cada uma sobe 100% da propria altura, .1s depois da anterior.
    O subtitulo cinza nao anima, como no original. --dm-i vem do script. */
 .dm-js .dm-lista > .dm-sobe{opacity:0;transform:translateY(100%);will-change:transform,opacity}
+/* rede do CSS: vale mesmo se o observador nunca falar */
+.dm-js .dm-lista:focus-within > .dm-sobe{opacity:1;transform:none;transition:none}
 .dm-js .dm-lista.dm-on > .dm-sobe{opacity:1;transform:translateY(0);
   transition:transform 1.2s var(--dm-entra),opacity 1.2s var(--dm-entra);
   transition-delay:calc(var(--dm-i,0) * .1s)}
@@ -1953,6 +1958,12 @@ body>*{position:relative;z-index:1}
    medir menos que 80 + 518 + 416): o titulo ganha um respiro para nao
    encostar na chapa branca das pilulas */
 @media (max-width:1245px){ .dm-titulo{padding-right:24px} }
+/* as duas etiquetas da direita do desenho ficam atras da coluna das pilulas e
+   leem como texto cortado antes de 1560px: somem ali. */
+@media (max-width:1560px){ .dm-svg--larga .dm-tag--dir{display:none} }
+/* entre 881 e ~900px o titulo caia em 7 linhas e a etiqueta "Diagnostico"
+   pousava sobre a ultima. */
+@media (max-width:900px){ .dm-sec{--dm-lh:38px} .dm-titulo{font-size:32px;padding-right:0} }
 @media (max-width:1100px){
   .dm-sec{--dm-lh:36px}
   .dm-titulo{font-size:30px;padding-right:10%}
@@ -2287,8 +2298,8 @@ body>*{position:relative;z-index:1}
         </g>
         <g class="dm-tag"><rect x="88.5" y="257" width="74" height="27" rx="3"/><text x="125.5" y="274.2">Diagnóstico</text></g>
         <g class="dm-tag"><rect x="20.5" y="598" width="80" height="27" rx="3"/><text x="60.5" y="615.2">Plano diretor</text></g>
-        <g class="dm-tag"><rect x="522.5" y="403" width="98" height="27" rx="3"/><text x="571.5" y="420.2">Auditoria interna</text></g>
-        <g class="dm-tag"><rect x="562.5" y="586" width="76" height="27" rx="3"/><text x="600.5" y="603.2">Certificação</text></g>
+        <g class="dm-tag dm-tag--dir"><rect x="522.5" y="403" width="98" height="27" rx="3"/><text x="571.5" y="420.2">Auditoria interna</text></g>
+        <g class="dm-tag dm-tag--dir"><rect x="562.5" y="586" width="76" height="27" rx="3"/><text x="600.5" y="603.2">Certificação</text></g>
       </svg>
 
       <svg class="dm-svg dm-svg--curta" viewBox="0 0 320 272" xmlns="http://www.w3.org/2000/svg" focusable="false">
@@ -3003,9 +3014,11 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     return window.matchMedia ? window.matchMedia(q) : { matches:false };
   }
   var mqHover = consulta('(hover: hover)');
-  var mqLargo = consulta('(min-width: 881px)');
+  var mqEstreito = consulta('(max-width: 880px)');
   var mqCalmo = consulta('(prefers-reduced-motion: reduce)');
-  function fluido(){ return mqHover.matches && mqLargo.matches; }
+  /* a MESMA consulta do CSS, negada: com largura fracionaria (zoom do navegador)
+     min-width:881 e max-width:880 podiam falhar as duas ao mesmo tempo. */
+  function fluido(){ return mqHover.matches && !mqEstreito.matches; }
   function semMovimento(){ return mqCalmo.matches || !temWAAPI; }
 
   /* element.animate com rede: se o navegador passar no CSS.supports e mesmo
@@ -3250,7 +3263,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   camadas.forEach(function(c, n){ c.classList.toggle('nt-layer-ativa', n === foto); });
   midia.setAttribute('data-nt-ativa', String(foto));
   aplicaModo();
-  escuta(mqHover); escuta(mqLargo); escuta(mqCalmo);
+  escuta(mqHover); escuta(mqEstreito); escuta(mqCalmo);
 
   /* ================= fotos prontas antes do primeiro hover =================
      O markup continua com loading="lazy" (a secao fica longe do topo). Quando
@@ -3314,6 +3327,15 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   });
 
   sec.classList.add('dm-js');
+
+  /* O foco de teclado tambem revela. As nove pilulas sao links desde a carga, mas
+     com .dm-js ficavam em opacity:0 (o <li> inteiro, entao o contorno de
+     :focus-visible sumia junto) ate o observador falar. Com a lista logo abaixo
+     da linha de 85% da janela o navegador nao rola ao focar, e o Tab caia em
+     links invisiveis. */
+  sec.addEventListener('focusin', function(){
+    [].forEach.call(sec.querySelectorAll('[data-dm-entra]'), function(a){ a.classList.add('dm-on'); io.unobserve(a); });
+  }, {once:true});
 
   var vivo = false; // o observer ja falou pelo menos uma vez?
   var io = new IntersectionObserver(function(es){
@@ -3497,8 +3519,25 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var raiz = cfg.raiz; if(!raiz) return null;
     var cv = document.createElement('canvas');
     cv.className = cfg.classeCanvas; cv.setAttribute('aria-hidden', 'true');
-    var gl = cv.getContext('webgl', {antialias:false, depth:false, stencil:false, alpha:false, premultipliedAlpha:false, powerPreference:'high-performance'});
+    /* failIfMajorPerformanceCaveat: sem aceleracao de hardware o shader roda na CPU
+       e fica mais lento que a <img> que ele substitui. Melhor nem comecar. */
+    var op = {antialias:false, depth:false, stencil:false, alpha:false, premultipliedAlpha:false,
+              powerPreference:'high-performance', failIfMajorPerformanceCaveat:true};
+    var gl = cv.getContext('webgl', op) || cv.getContext('experimental-webgl', op);
     if(!gl) return null;
+
+    /* CONTEXTO PERDIDO (reset de driver, volta do sono, troca de GPU, limite de
+       contextos do navegador). Sem isto o canvas sumia da composicao, `gl-on`
+       continuava escondendo as <img> de reserva e o laco seguia desenhando num
+       contexto morto: a peca ficava so creme para sempre. Agora a peca volta
+       inteira ao caminho sem WebGL. */
+    var morto = false;
+    cv.addEventListener('webglcontextlost', function(e){
+      e.preventDefault();          /* sem isto o navegador nem tenta restaurar */
+      morto = true; ligado = false;
+      raiz.classList.remove('gl-on');
+      if(cv.parentNode) cv.parentNode.removeChild(cv);
+    });
 
     function shader(tipo, src){
       var s = gl.createShader(tipo); gl.shaderSource(s, src); gl.compileShader(s);
@@ -3565,7 +3604,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 
     var pix = anima(20), bias = anima(-1), revelado = false;   /* a entrada: celula 20->1 e limiar -1->0 */
     var ligado = false, prontas = 0;
-    planos.forEach(function(pl){
+    function carrega(){ planos.forEach(function(pl){
       var im = new Image();
       im.onload = function(){
         var tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx);
@@ -3581,7 +3620,16 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
         if(++prontas === planos.length) liga();
       };
       im.src = pl.src;
-    });
+    }); }
+    /* as luminancias da moldura de noticias pesam meio mega e ela fica a 7 mil px
+       do topo: so baixam quando a secao se aproxima, com a mesma folga de 150%
+       que o script das noticias ja usa para as fotos de reserva. */
+    if(cfg.revelar === 'visivel' && 'IntersectionObserver' in window){
+      var obsL = new IntersectionObserver(function(es){
+        if(es.some(function(e){ return e.isIntersecting; })){ obsL.disconnect(); carrega(); }
+      }, {rootMargin:'150% 0px 150% 0px'});
+      obsL.observe(raiz);
+    } else carrega();
 
     /* ---- trilha em ping-pong, na resolucao CSS (1/dpr do canvas), como no OCI ---- */
     var TW = 2, TH = 2, trilha = null, idx = 0;
@@ -3603,13 +3651,17 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       trilha = [alvo(TW,TH), alvo(TW,TH)]; idx = 0;
     }
 
-    var dpr = 1, R = null, calmo = 0;
-    function acorda(){ calmo = 0; }
+    var dpr = 1, R = null, calmo = 0, rodando = false;
+    /* o laco so existe enquanto ha o que desenhar. Antes ele reagendava o proximo
+       quadro na PRIMEIRA linha, entao as duas instancias acordavam a thread a cada
+       vsync durante a visita inteira, mesmo fora da tela. Agora dorme sem nenhum
+       rAF pendente (o canvas guarda o ultimo quadro) e acorda() o religa. */
+    function acorda(){ calmo = 0; if(ligado && !morto && !rodando){ rodando = true; antes = performance.now(); requestAnimationFrame(passo); } }
     function mede(){
       R = raiz.getBoundingClientRect();
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       var w = Math.max(2, Math.round(R.width*dpr)), h = Math.max(2, Math.round(R.height*dpr));
-      if(cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; refazTrilha(); acorda(); }
+      if(cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; refazTrilha(); desenhou = false; acorda(); }
     }
 
     /* ---- ponteiro: ouvido na JANELA, como no OCI, para a trilha entrar pela borda
@@ -3634,26 +3686,32 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     planos.forEach(function(pl, i){
       var g = cfg.empilhado ? raiz : pl.el;
       if(cfg.empilhado && i > 0) return;
-      function entra(){ var t = performance.now();
-        (cfg.empilhado ? planos : [pl]).forEach(function(q){ vai(q.zoom, cfg.zoomHover || 1, 850, CURVA.p4out, t); if(cfg.lavaHover != null) vai(q.lava, cfg.lavaHover, 500, CURVA.suave, t); });
+      /* UNIAO de mouse e foco, e nao "o ultimo evento manda". Como o CSS mostra a
+         lista tanto em :hover quanto em :focus-within, um focusout com o mouse
+         ainda dentro apagava a chapa de creme e deixava a lista de 13px sobre a
+         foto crua. Agora a chapa so cai quando os DOIS estados saem. */
+      var sobre = false, foco = false;
+      function aplica(){ var t = performance.now(), on = sobre || foco;
+        (cfg.empilhado ? planos : [pl]).forEach(function(q){
+          vai(q.zoom, on ? (cfg.zoomHover || 1) : 1, 850, CURVA.p4out, t);
+          if(cfg.lavaHover != null) vai(q.lava, on ? cfg.lavaHover : (cfg.lavaRepouso || 0), 500, CURVA.suave, t); });
         acorda(); }
-      function sai(){ var t = performance.now();
-        (cfg.empilhado ? planos : [pl]).forEach(function(q){ vai(q.zoom, 1, 850, CURVA.p4out, t); if(cfg.lavaHover != null) vai(q.lava, cfg.lavaRepouso || 0, 500, CURVA.suave, t); });
-        acorda(); }
-      g.addEventListener('mouseenter', entra); g.addEventListener('mouseleave', sai);
-      g.addEventListener('focusin', entra);    g.addEventListener('focusout', sai);
+      g.addEventListener('mouseenter', function(){ sobre = true; aplica(); });
+      g.addEventListener('mouseleave', function(){ sobre = false; aplica(); });
+      g.addEventListener('focusin',  function(){ foco = true; aplica(); });
+      g.addEventListener('focusout', function(e){ foco = !!(e.relatedTarget && g.contains(e.relatedTarget)); aplica(); });
     });
     window.addEventListener('resize', function(){ if(ligado){ mede(); acorda(); } });
 
     /* dois observadores, porque sao duas perguntas: "vale a pena desenhar?" (com
        200px de folga, para a peca ja chegar desenhada) e "ja entrou o bastante
        para revelar?" (o `start: top 85%` do OCI). */
-    var visivel = true, desenhou = false;
+    var visivel = true, desenhou = false, obsR = null;
     if('IntersectionObserver' in window){
       new IntersectionObserver(function(es){ es.forEach(function(e){ visivel = e.isIntersecting; if(visivel) acorda(); }); },
         {rootMargin:'200px 0px 200px 0px'}).observe(raiz);
       if(cfg.revelar === 'visivel'){
-        var obsR = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revela(); if(revelado) obsR.disconnect(); } }); },
+        obsR = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revela(); if(revelado) obsR.disconnect(); } }); },
           {rootMargin:'0px 0px -15% 0px'});
         obsR.observe(raiz);
       }
@@ -3673,27 +3731,34 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       raiz.classList.add('gl-on');
       mede();
       if(DIRETO) seco();
+      /* CORRIDA que deixava a moldura em branco: o observador de revelacao fala
+         uma vez, logo que e criado, e quase sempre ANTES de as luminancias
+         chegarem. Naquele instante revela() saia por `!ligado` e o observador so
+         voltaria a falar se a intersecao MUDASSE: com a secao ja na tela, nunca.
+         Ficava pix=20 e bias=-1, e nesse estado todo pixel cai na cor 3, creme
+         chapado, com as <img> de reserva escondidas pelo gl-on.
+         observe() de novo entrega a entrada inicial outra vez, agora com a
+         textura na mao. Sem IntersectionObserver, revela direto. */
+      else if(cfg.revelar === 'visivel'){ if(obsR){ obsR.unobserve(raiz); obsR.observe(raiz); } else revela(); }
       else if(cfg.revelar === 'pronta'){
         /* a revelacao (celula 20->1, limiar -1->0 em 2s) e para quando a trama fica
            pronta ATRAS do loader. Se ela chegar depois de a pagina ja estar a vista, a
            troca e seca: <img> tramada por canvas tramado, sem apagar a foto para revelar. */
         if(document.body.classList.contains('pronta')) seco();
         else { window.addEventListener('im:pronta', revela, {once:true}); setTimeout(revela, 4200); }
-      } else if(cfg.revelar !== 'visivel') revela();
-      antes = performance.now();
-      requestAnimationFrame(passo);
+      } else revela();
+      acorda();
     }
 
     var t0 = performance.now(), antes = t0;
     var C = cfg.cores, CR = cfg.creme || [250,249,245];
     function passo(){
-      requestAnimationFrame(passo);
       var agora = performance.now();     /* um relogio so, o mesmo dos eventos */
-      /* o primeiro quadro sai de qualquer jeito: canvas sem alfa nasce PRETO */
-      if(desenhou && (!visivel || document.hidden)){ antes = agora; return; }
-      /* sem mouse e sem animacao em curso o laco cai para 1 quadro em 6: o respiro
-         do limiar leva dezenas de segundos para dar a volta, 10 qps sobram. */
-      if(desenhou && ++calmo > 120 && (calmo % 6)){ return; }
+      /* dorme. O primeiro quadro sai de qualquer jeito: canvas sem alfa nasce PRETO. */
+      if(morto) { rodando = false; return; }
+      if(desenhou && (!visivel || document.hidden || calmo > 150)){ rodando = false; return; }
+      requestAnimationFrame(passo);
+      if(desenhou) ++calmo;
       var dt = Math.min(100, agora - antes); antes = agora;
       var f60 = dt/16.667;
       mede();
@@ -3709,6 +3774,12 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       var mexeu = false;
       if(anda(pix, agora)) mexeu = true;
       if(anda(bias, agora)) mexeu = true;
+      planos.forEach(function(pl){
+        if(anda(pl.zoom, agora)) mexeu = true;
+        if(anda(pl.lava, agora)) mexeu = true;
+        if(anda(pl.opac, agora)) mexeu = true;
+      });
+      var soma = cfg.empilhado ? (planos.reduce(function(a, q){ return a + Math.max(0, q.opac.v); }, 0) || 1) : 1;
 
       /* 1. trilha. Raio e borda do OCI (0,066+0,015v e 0,129+0,054v da ALTURA DA JANELA de 900)
             reescalados para a altura desta peca. */
@@ -3732,9 +3803,16 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
       gl.viewport(0,0,cv.width,cv.height);
       gl.disable(gl.SCISSOR_TEST);
-      gl.clearColor(CR[0]/255, CR[1]/255, CR[2]/255, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+      /* EMPILHADO: soma ponderada, e nao uma camada por cima da outra. Com
+         SRC_ALPHA/ONE_MINUS_SRC_ALPHA sobre um fundo creme, no meio da fusao o
+         pixel ficava e*B + (1-e)^2*A + e(1-e)*creme, ou seja um quarto de papel
+         vazando: a trama de quatro cores dissolvia num clarao a cada troca de
+         cartao. Somando com peso normalizado sobre preto, a soma dos alfas e
+         sempre 1 e a cor anda de A para B sem passar pelo papel. */
+      if(cfg.empilhado){ gl.clearColor(0,0,0,1); gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); }
+      else { gl.clearColor(CR[0]/255, CR[1]/255, CR[2]/255, 1); gl.clear(gl.COLOR_BUFFER_BIT); gl.disable(gl.BLEND); }
       gl.enable(gl.SCISSOR_TEST);
-      if(cfg.empilhado){ gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); } else gl.disable(gl.BLEND);
       gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, trilha[idx].tx); gl.uniform1i(uF.uTrilha, 1);
       gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, txB4); gl.uniform1i(uF.uB4, 2);
       gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, txB8); gl.uniform1i(uF.uB8, 3);
@@ -3751,9 +3829,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       gl.uniform1f(uF.uRevela, cfg.revelaNaTrilha == null ? 0 : cfg.revelaNaTrilha);
 
       planos.forEach(function(pl){
-        if(anda(pl.zoom, agora)) mexeu = true;
-        if(anda(pl.lava, agora)) mexeu = true;
-        if(anda(pl.opac, agora)) mexeu = true;
         if(pl.opac.v < .002) return;
         var r = pl.el.getBoundingClientRect();
         var x0 = Math.round((r.left - R.left)*dpr), x1 = Math.round((r.right - R.left)*dpr);
@@ -3764,7 +3839,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
         gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, pl.tx); gl.uniform1i(uF.uLum, 0);
         gl.uniform4f(uF.uCol, x0, y, w, h); gl.uniform2f(uF.uTex, pl.w, pl.h);
         gl.uniform1f(uF.uAx, pl.espelha ? 1 - pl.ax : pl.ax); gl.uniform1f(uF.uEspelha, pl.espelha);
-        gl.uniform1f(uF.uZoom, pl.zoom.v); gl.uniform1f(uF.uLava, pl.lava.v); gl.uniform1f(uF.uOpac, pl.opac.v);
+        gl.uniform1f(uF.uZoom, pl.zoom.v); gl.uniform1f(uF.uLava, pl.lava.v); gl.uniform1f(uF.uOpac, pl.opac.v/soma);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
       });
       if(mexeu) acorda();
