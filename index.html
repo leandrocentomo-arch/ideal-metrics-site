@@ -1601,6 +1601,14 @@ body>*{position:relative;z-index:1}
     rgba(250,249,245,.18) 58%, rgba(250,249,245,.04) 70%, rgba(250,249,245,0) 80%,
     rgba(250,249,245,0) 100%);
   transition:background .5s}
+/* 17/09, 4a volta: no hover a foto CLAREIA 20%. E uma camada de creme chapado
+   por cima da foto (e por baixo do escrito), com opacidade de 0 a 0,5, e nao um
+   `filter:brightness`: brightness estoura o creme (250,249,245) para branco, que
+   ja foi bug uma vez. Meio caminho ate o creme do site nunca passa do teto.
+   Como e uma camada, funciona igual se a foto for <img> ou o canvas do fluido. */
+.sh-col::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:#FAF9F5;opacity:0;transition:opacity .5s}
+.sh-col:hover::after,.sh-col:focus-within::after{opacity:.2}
 /* 16/09: o PE de cada foto clareou um degrau, .54/.58 -> .60/.68 nas duas
    ultimas paradas. So creme a mais, entao o contraste do escrito em tinta que
    mora ali (lista, botao, rodape) so pode subir, nunca cair. */
@@ -1649,19 +1657,13 @@ body>*{position:relative;z-index:1}
 /* 17/09: a BOLINHA vira TRACO. Desenhado, e nao digitado: 12px por 1,5px na cor
    do texto, a mesma espessura da barra sob o titulo, e o `align-items:center`
    do <li> ja o centra na linha. */
-.sh-lista li::before{content:"";width:12px;height:1.5px;border-radius:0;
+/* 17/09, 4a volta: o traco afina de 1,5px para 1px. Nao acompanha mais a barra
+   sob o titulo, que segue em 1,5px: aqui o corpo e 13px, la e 23px. */
+.sh-lista li::before{content:"";width:12px;height:1px;border-radius:0;
   background:currentColor;flex:none}
-/* 17/09, 3a volta: o escrito que abre no hover sai GRIFADO em bege, como
-   marca-texto. O bege da casa e #D9D3C7, a cor mais escura que o creme, e nao
-   o #F6F1E8 que eu ja usei errado uma vez. A faixa cobre os 64% de baixo da
-   linha, que e por onde um marca-texto real passa: cobrir a altura toda daria
-   etiqueta, nao grifo. `box-decoration-break:clone` existe para o item que
-   quebra em duas linhas sair com a faixa nas duas. */
-.sh-lista li span{
-  background-image:linear-gradient(to top,
-    rgba(217,211,199,.82) 0, rgba(217,211,199,.82) 64%, rgba(217,211,199,0) 64%);
-  box-decoration-break:clone;-webkit-box-decoration-break:clone;
-  padding:0 4px 1px;margin-left:-3px}
+/* 17/09, 4a volta: o grifo bege SAIU. Quem garante a leitura da lista agora e a
+   camada de creme do hover, que clareia a foto inteira 50%. O <span> continua no
+   HTML, inerte: devolver o grifo e so uma regra. */
 .sh-cta{display:inline-block;width:fit-content;border:1px solid rgba(20,48,76,.42);
   border-radius:3px;padding:8px 24px;font-family:var(--sans);font-size:11px;
   font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--azul);
@@ -2570,5 +2572,231 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
+<script>
+/* ===== fluido sob o mouse nas colunas da tira =============================
+   Portado do `secoes-guardadas/heroi-tanques.html`, o mesmo mecanismo: uma
+   textura de rastro em ping-pong, em 256x144, que decai a cada quadro e recebe
+   um carimbo gaussiano de VELOCIDADE do mouse; um segundo passo desloca a
+   amostragem da foto por esse rastro. O rastro decai sozinho, entao a onda
+   continua um instante depois que o ponteiro sai.
+
+   Tres coisas mudaram na travessia:
+   - a camada de nuvens do heroi (ruido de valor tingindo de #B8C5F0 e #1A2473)
+     nao veio: ela tinge fora da rampa de quatro cores da marca.
+   - o canvas nasce com a classe `sh-foto`, entao herda TODAS as regras da foto:
+     o filtro do creme, o espelho da coluna da ISO, o zoom do hover e a
+     transicao. Sem isso ele viraria uma foto sem tratamento por cima da tratada.
+   - o laco para quando o rastro ja decaiu (150 quadros sem mouse). Sao quatro
+     canvas na mesma pagina; deixar os quatro desenhando parados custa bateria
+     sem mudar um pixel.
+
+   AVISO que vale registrar: deslocar reamostra, e reamostrar borra o ponto de
+   1 px da trama Bayer na regiao onde a onda passa. E o preco do efeito, e foi
+   uma escolha, nao um descuido. Fora da onda a trama continua intacta. */
+(function(){
+  if(!window.matchMedia('(pointer:fine)').matches) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var VERT = 'attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
+  var FRAG_RASTRO =
+    'precision highp float;varying vec2 v;uniform sampler2D t;' +
+    'uniform vec2 m;uniform vec2 vel;uniform float liga;' +
+    'void main(){' +
+    '  vec2 c = texture2D(t, v).rg - .5;' +
+    '  c *= .945;' +
+    '  float d = distance(v, m);' +
+    '  float b = exp(-d*d*140.0) * liga;' +
+    '  c += vel * b;' +
+    '  gl_FragColor = vec4(c + .5, 0., 1.);}';
+  var FRAG_VER =
+    'precision highp float;varying vec2 v;uniform sampler2D foto;uniform sampler2D t;' +
+    'uniform vec2 uvA;uniform vec2 uvB;' +
+    'void main(){' +
+    '  vec2 c = texture2D(t, v).rg - .5;' +
+    '  vec2 uv = uvA + v * uvB;' +
+    '  uv -= c * .18;' +
+    '  gl_FragColor = texture2D(foto, uv);}';
+
+  function fluido(col){
+    var img = col.querySelector('.sh-foto');
+    if(!img) return;
+    var cv = document.createElement('canvas');
+    /* a mesma classe da foto: herda filtro do creme, espelho, zoom e transicao */
+    cv.className = img.className;
+    var gl = cv.getContext('webgl', {antialias:false, depth:false, stencil:false});
+    if(!gl) return;
+
+    function shader(tipo, src){
+      var sh = gl.createShader(tipo);
+      gl.shaderSource(sh, src); gl.compileShader(sh);
+      return gl.getShaderParameter(sh, gl.COMPILE_STATUS) ? sh : null;
+    }
+    function programa(fs){
+      var p = gl.createProgram();
+      var a = shader(gl.VERTEX_SHADER, VERT), b = shader(gl.FRAGMENT_SHADER, fs);
+      if(!a || !b) return null;
+      gl.attachShader(p, a); gl.attachShader(p, b); gl.linkProgram(p);
+      return gl.getProgramParameter(p, gl.LINK_STATUS) ? p : null;
+    }
+    var pR = programa(FRAG_RASTRO), pV = programa(FRAG_VER);
+    if(!pR || !pV) return;
+
+    var quad = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    function liga(p){
+      var a = gl.getAttribLocation(p, 'p');
+      gl.enableVertexAttribArray(a);
+      gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+    }
+
+    var SW = 256, SH = 144;
+    function alvoNovo(){
+      var tx = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, tx);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, SW, SH, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+        new Uint8Array(SW*SH*4).fill(127));
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      var fb = gl.createFramebuffer();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tx, 0);
+      return {tx: tx, fb: fb};
+    }
+    var rastro = [alvoNovo(), alvoNovo()], idx = 0;
+
+    var texFoto = gl.createTexture(), fotoOk = false;
+    var reduz = document.createElement('canvas'), larguraNaTex = 0, semCanvas = false;
+    var carrega = new Image();
+    carrega.crossOrigin = 'anonymous';
+
+    function subirFoto(){
+      if(!carrega.naturalWidth) return;
+      var r = col.getBoundingClientRect();
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      var s = Math.max((r.width * dpr) / carrega.naturalWidth,
+                       (r.height * dpr) / carrega.naturalHeight);
+      var alvo = s >= 1 ? carrega.naturalWidth
+                        : Math.max(2, Math.round(carrega.naturalWidth * s));
+      if(larguraNaTex && Math.abs(alvo - larguraNaTex) / larguraNaTex < 0.12) return;
+      gl.bindTexture(gl.TEXTURE_2D, texFoto);
+      var fonte = carrega;
+      /* reduzir no shader com LINEAR e sem mipmap serrilha a trama de 1 px e
+         vira xadrez; o canvas 2D reduz com filtro decente. O GPU so amplia. */
+      if(!semCanvas && alvo < carrega.naturalWidth){
+        reduz.width = alvo;
+        reduz.height = Math.max(2, Math.round(carrega.naturalHeight * alvo / carrega.naturalWidth));
+        var cx = reduz.getContext('2d');
+        cx.imageSmoothingEnabled = true; cx.imageSmoothingQuality = 'high';
+        cx.drawImage(carrega, 0, 0, reduz.width, reduz.height);
+        fonte = reduz;
+      }
+      try{ gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, fonte); }
+      catch(e){
+        if(fonte !== carrega){
+          semCanvas = true;
+          try{ gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, carrega); }
+          catch(e2){ return false; }
+        } else { return false; }
+      }
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      larguraNaTex = alvo;
+      return true;
+    }
+
+    carrega.onload = function(){
+      if(subirFoto() === false) return;
+      fotoOk = true; calmo = 0;
+      img.style.opacity = '0';
+      col.insertBefore(cv, col.firstChild);
+    };
+    carrega.src = img.currentSrc || img.src;
+
+    var mx = -1, my = -1, vx = 0, vy = 0, ativo = 0, calmo = 999;
+    col.addEventListener('mousemove', function(e){
+      var r = col.getBoundingClientRect();
+      var nx = (e.clientX - r.left) / r.width;
+      var ny = 1 - (e.clientY - r.top) / r.height;
+      if(mx >= 0){ vx = (nx - mx) * 4.2; vy = (ny - my) * 4.2; }
+      mx = nx; my = ny; ativo = 1; calmo = 0;
+    });
+    col.addEventListener('mouseleave', function(){ ativo = 0; });
+
+    function mede(){
+      var r = col.getBoundingClientRect();
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      var w = Math.max(2, Math.round(r.width * dpr));
+      var h = Math.max(2, Math.round(r.height * dpr));
+      if(cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; if(fotoOk){ subirFoto(); calmo = 0; } }
+      return r;
+    }
+    window.addEventListener('resize', function(){ mede(); calmo = 0; });
+
+    var visivel = true;
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ visivel = e.isIntersecting; });
+    }).observe(col);
+
+    var uR = {t: gl.getUniformLocation(pR,'t'), m: gl.getUniformLocation(pR,'m'),
+              vel: gl.getUniformLocation(pR,'vel'), liga: gl.getUniformLocation(pR,'liga')};
+    var uV = {foto: gl.getUniformLocation(pV,'foto'), t: gl.getUniformLocation(pV,'t'),
+              uvA: gl.getUniformLocation(pV,'uvA'), uvB: gl.getUniformLocation(pV,'uvB')};
+
+    /* `object-position` e regra de <img> e nao chega ao canvas: a ancora do
+       cover entra aqui. A coluna do carbono ancora na direita, como no CSS. */
+    var ax = col.classList.contains('sh-col--carbono') ? 1 : 0.5;
+    function quadroCover(r){
+      var arC = r.width / r.height, arF = carrega.naturalWidth / carrega.naturalHeight;
+      var sx = 1, sy = 1;
+      if(arC > arF){ sy = arF / arC; } else { sx = arC / arF; }
+      return [ (1-sx)*ax, (1-sy)/2, sx, sy ];
+    }
+
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    function passo(){
+      requestAnimationFrame(passo);
+      if(!fotoOk || !visivel) return;
+      /* 150 quadros sem mouse e o rastro ja decaiu (0,945^150 = 0,0002) */
+      if(!ativo && ++calmo > 150) return;
+      var r = mede();
+      var prox = 1 - idx;
+      gl.useProgram(pR); liga(pR);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, rastro[prox].fb);
+      gl.viewport(0, 0, SW, SH);
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_2D, rastro[idx].tx);
+      gl.uniform1i(uR.t, 0);
+      gl.uniform2f(uR.m, mx, my);
+      gl.uniform2f(uR.vel, Math.max(-.5, Math.min(.5, vx)), Math.max(-.5, Math.min(.5, vy)));
+      gl.uniform1f(uR.liga, ativo);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      vx *= .82; vy *= .82;
+      idx = prox;
+
+      var q = quadroCover(r);
+      gl.useProgram(pV); liga(pV);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      gl.viewport(0, 0, cv.width, cv.height);
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_2D, texFoto);
+      gl.uniform1i(uV.foto, 0);
+      gl.activeTexture(gl.TEXTURE1);
+      gl.bindTexture(gl.TEXTURE_2D, rastro[idx].tx);
+      gl.uniform1i(uV.t, 1);
+      gl.uniform2f(uV.uvA, q[0], 1 - q[1] - q[3]);
+      gl.uniform2f(uV.uvB, q[2], q[3]);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    passo();
+  }
+
+  [].forEach.call(document.querySelectorAll('.sh-col'), fluido);
+})();
+</script>
 </body>
 </html>
