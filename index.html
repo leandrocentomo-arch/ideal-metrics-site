@@ -57,9 +57,11 @@ body>*{position:relative;z-index:1}
   /* 17/09: a saida deixou de ser um pan para cima e virou dissolucao. A chapa
      abre 6% enquanto some, o que le como a tela se afastando em direcao a
      pagina, e nao como uma cortina subindo. */
-  transition:opacity .85s cubic-bezier(.4,0,.2,1) .18s,
-             transform 1.15s cubic-bezier(.22,1,.36,1),
-             visibility 0s linear 1.15s}
+  /* 18/09: a abertura inteira encurtou a pedido (3,45s -> 2,4s): arma em ~0,95s,
+     segura ate 1,5s e dissolve em 0,9s. */
+  transition:opacity .65s cubic-bezier(.4,0,.2,1) .12s,
+             transform .9s cubic-bezier(.22,1,.36,1),
+             visibility 0s linear .9s}
 /* sem desfoque nao ha vidro: ali a tinta fecha, senao a home apareceria nitida
    por tras da abertura. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
@@ -72,17 +74,17 @@ body>*{position:relative;z-index:1}
 .abertura .l-v,.abertura .l-h{position:absolute;background:rgba(232,230,224,.8)}
 .abertura .l-v{left:50%;width:1px;height:calc(50% - var(--folga-v));transform:scaleY(0)}
 .abertura .l-v1{top:0;transform-origin:top;
-  transition:transform .9s cubic-bezier(.76,0,.24,1) .1s}
+  transition:transform .7s cubic-bezier(.76,0,.24,1) .08s}
 .abertura .l-v2{bottom:0;transform-origin:bottom;
-  transition:transform .9s cubic-bezier(.76,0,.24,1) .1s}
+  transition:transform .7s cubic-bezier(.76,0,.24,1) .08s}
 .abertura .l-h{top:50%;height:1px;width:calc(50% - var(--folga-h));transform:scaleX(0)}
 .abertura .l-h1{left:0;transform-origin:left;
-  transition:transform .9s cubic-bezier(.76,0,.24,1) .25s}
+  transition:transform .7s cubic-bezier(.76,0,.24,1) .2s}
 .abertura .l-h2{right:0;transform-origin:right;
-  transition:transform .9s cubic-bezier(.76,0,.24,1) .25s}
+  transition:transform .7s cubic-bezier(.76,0,.24,1) .2s}
 /* o logo so APARECE: sem giro, sem deslocamento, sem circulo */
 .abertura img{width:min(240px,50vw);position:relative;opacity:0;transform:scale(1);
-  transition:opacity .7s ease .55s,transform .7s ease .55s}
+  transition:opacity .55s ease .4s,transform .55s ease .4s}
 /* tique perpendicular na ponta onde cada traco para (12/09/2026) */
 .abertura .l-v::after,.abertura .l-h::after{content:'';position:absolute;display:block;background:inherit}
 .abertura .l-v::after{left:50%;transform:translateX(-50%);width:9px;height:1px}
@@ -102,7 +104,7 @@ body>*{position:relative;z-index:1}
    nada e some, e so entao a chapa se dissolve. Tres tempos em 1,15s. */
 .pronta .abertura{opacity:0;transform:scale(1.06);visibility:hidden;pointer-events:none}
 .pronta .abertura img{opacity:0;transform:scale(.94);
-  transition:opacity .45s ease,transform .8s cubic-bezier(.22,1,.36,1)}
+  transition:opacity .35s ease,transform .65s cubic-bezier(.22,1,.36,1)}
 .pronta .abertura .l-v{transform:scaleY(0)}
 .pronta .abertura .l-h{transform:scaleX(0)}
 .abertura.fora{display:none}
@@ -1786,7 +1788,7 @@ body>*{position:relative;z-index:1}
   --dm-painel:#F0EFEA;                      /* o creme da casa escurecido 4% */
   --dm-suave:cubic-bezier(.15,.9,.34,.95);  /* curva do hover no original */
   --dm-entra:cubic-bezier(.165,.84,.44,1);  /* power3.out do GSAP, aproximada */
-  --dm-lh:50px;                             /* altura de linha do titulo = curso da subida */
+  --dm-lh:40px;                             /* altura de linha do titulo = curso da subida */
   /* o brief pede 120px de MARGEM. Vai como padding com fundo creme porque as
      duas vizinhas (.qc-sec e .sv) tem fundo --mercurio e escondem a
      grade-guia do body::before: com margem, a grade apareceria so nesta
@@ -1808,12 +1810,23 @@ body>*{position:relative;z-index:1}
 .dm-etiqueta-txt{position:relative;display:block}
 
 /* --- painel --- */
+/* 18/09, correcao do Leandro: na arquitetura visual da Ideal Metrics TODA curva
+   e de 3px. Eu tinha trazido do Catalyst os 30px do painel, os 26px da pilula e
+   o circulo da seta; a geometria e o movimento da referencia ficam, os raios nao.
+   E a peca inteira cabe em 3/4 da pagina: no maximo 75% da largura util e 75% da
+   altura da janela. Como sao nove pilulas numa altura que agora encolhe, o passo
+   delas sai de uma conta (--dm-passo) em vez dos 58px fixos do original. */
 .dm-painel{position:relative;display:flex;justify-content:space-between;
-  width:100%;max-width:1180px;height:680px;padding:40px;
-  border-radius:30px;overflow:hidden;background:var(--dm-painel);color:var(--azul)}
-.dm-texto{width:calc(100% - 416px);max-width:518px}
+  --dm-alt:clamp(520px,75svh,680px);
+  --dm-passo:clamp(45px,calc((var(--dm-alt) - 80px - 54px)/9),58px);
+  width:100%;max-width:min(1180px,75%);height:var(--dm-alt);padding:40px;
+  border-radius:3px;overflow:hidden;background:var(--dm-painel);color:var(--azul)}
+/* 18/09: a coluna da lista era 416px (o numero do Catalyst) e cobria a metade
+   direita do desenho. Em 340 as pilulas param antes das etiquetas "Auditoria
+   interna" e "Certificacao", e a coluna do titulo fica com a sobra. */
+.dm-texto{width:calc(100% - 340px);max-width:560px}
 .dm-titulo{margin:0;font-family:var(--sans);font-weight:500;
-  font-size:44px;line-height:var(--dm-lh);letter-spacing:-.015em;color:var(--azul);
+  font-size:34px;line-height:var(--dm-lh);letter-spacing:-.012em;color:var(--azul); /* 18/09: era 44/50, pedido do Leandro */
   text-wrap:balance;
   /* a mascara da subida. No original e overflow:hidden; aqui e clip-path
      porque (a) a descendente do Plex passa 1px da caixa com entrelinha de 50
@@ -1824,18 +1837,18 @@ body>*{position:relative;z-index:1}
 .dm-titulo .dm-sobe{display:block;transform-origin:50% 100%}
 
 /* --- lista --- */
-.dm-coluna{position:relative;z-index:1;width:416px;flex:none} /* z-index 1: a ilustracao passa POR BAIXO */
+.dm-coluna{position:relative;z-index:1;width:340px;flex:none} /* z-index 1: a ilustracao passa POR BAIXO */
 .dm-sub{margin:0 0 24px;font-family:var(--sans);font-weight:400;font-size:20px;
   line-height:30px;letter-spacing:-.02em;color:var(--azul);opacity:.45}
 .dm-lista{list-style:none;margin:0;padding:0}
-.dm-lista > li{margin:0 0 10px} /* margem, nao gap: passo de 58px, como no original */
+.dm-lista > li{margin:0 0 calc(var(--dm-passo)*.172)} /* 10 dos 58px do original, na mesma proporcao */
 .dm-pilula{display:flex;justify-content:space-between;align-items:center;
-  height:48px;padding:0 12px 0 20px;border-radius:26px;
-  background:var(--branco);color:var(--azul);text-decoration:none;
+  height:calc(var(--dm-passo)*.828);padding:0 12px 0 20px;border-radius:3px;
+  background:var(--mercurio);color:var(--azul);text-decoration:none; /* 18/09: o creme da pagina, nao branco */
   font-family:var(--sans);font-weight:500;font-size:16px;line-height:1}
 .dm-txt{display:block;transition:transform .3s var(--dm-suave)}
 .dm-seta{flex:none;display:flex;align-items:center;justify-content:center;
-  width:24px;height:24px;margin-left:12px;border-radius:50%;overflow:hidden; /* o overflow e o que faz a seta SUMIR ao atravessar */
+  width:24px;height:24px;margin-left:10px;border-radius:3px;overflow:hidden; /* o overflow e o que faz a seta SUMIR ao atravessar */
   background:var(--dm-painel);transition:background-color .3s var(--dm-suave)}
 .dm-seta svg{display:block;width:9px;height:9px;overflow:visible}
 .dm-seta path{fill:none;stroke:var(--azul);stroke-width:1;transition:stroke .3s var(--dm-suave)}
@@ -1867,8 +1880,19 @@ body>*{position:relative;z-index:1}
 /* ancorada embaixo a esquerda. Com o painel em 1180 ela aparece no tamanho
    do desenho (1108 x 680); em painel mais estreito encolhe na proporcao, sem
    descolar da base, e a parte direita passa por tras das pilulas. */
-.dm-arte{position:absolute;left:0;bottom:0;width:100%;max-width:1108px;pointer-events:none}
-.dm-svg{display:block;width:100%;height:auto}
+/* o desenho escala pela ALTURA do painel, e nao pela largura: desde que a altura
+   passou a encolher com a janela (75svh), escalar pela largura fazia o desenho
+   subir e a etiqueta "Diagnostico" entrar na terceira linha do titulo. Pela altura,
+   a faixa vazia do alto do desenho (ate y=257 de 680) acompanha o titulo sempre. */
+.dm-arte{position:absolute;left:0;bottom:0;height:100%;width:auto;aspect-ratio:1108/680;pointer-events:none}
+.dm-svg{display:block;width:100%;height:100%}
+/* a folha, em % da caixa do desenho: 190/1108, 344/680, 300/1108 e 390/680. Passa
+   da base de proposito (344+390 > 680): quem corta e o overflow do painel. */
+.dm-folha-foto{position:absolute;left:17.148%;top:50.588%;width:27.076%;height:57.353%;
+  border:1px solid rgba(20,48,76,.14);border-radius:3px;overflow:hidden;background:var(--mercurio)}
+.dm-folha-foto img,.dm-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.dm-folha-foto img{object-fit:cover;image-rendering:pixelated}
+.dm-folha-foto.gl-on img{visibility:hidden}
 .dm-svg--curta{display:none}
 /* sonda: ponto invisivel na altura do topo das barras. E ela, e nao o painel,
    que dispara o crescimento: quando o TOPO do painel cruza os 85% da tela as
@@ -1920,41 +1944,37 @@ body>*{position:relative;z-index:1}
    Mesma especificidade das regras acima: vence por vir depois. */
 .dm-js .dm-on .dm-sobe.dm-fim{transform:none;transition:none;will-change:auto}
 
-/* ilustracao: fade de .6s. As barras e a rosca crescem UMA vez, em 1.2s,
-   quando a sonda entra na tela. E o unico movimento proprio do desenho. */
+/* ilustracao: fade de .6s. O movimento proprio do desenho passou a ser o da trama
+   ao vivo na folha (celula 20->1 ao entrar na tela e a trilha do mouse). */
 .dm-js .dm-arte{opacity:0}
 .dm-js .dm-arte.dm-on{opacity:1;transition:opacity .6s var(--dm-suave)}
-.dm-js .dm-barra{transform:scaleY(0)}
-.dm-js .dm-rosca{stroke-dashoffset:72}
-.dm-js .dm-sonda.dm-on ~ .dm-svg .dm-barra{transform:scaleY(1);transition:transform 1.2s var(--dm-entra)}
-.dm-js .dm-sonda.dm-on ~ .dm-svg .dm-b2{transition-delay:.1s}
-.dm-js .dm-sonda.dm-on ~ .dm-svg .dm-b3{transition-delay:.2s}
-.dm-js .dm-sonda.dm-on ~ .dm-svg .dm-rosca{stroke-dashoffset:0;transition:stroke-dashoffset 1.2s var(--dm-entra) .3s}
 
 /* 1245px e onde a sobra entre as colunas chega a zero (o painel passa a
    medir menos que 80 + 518 + 416): o titulo ganha um respiro para nao
    encostar na chapa branca das pilulas */
 @media (max-width:1245px){ .dm-titulo{padding-right:24px} }
 @media (max-width:1100px){
-  .dm-sec{--dm-lh:42px}
-  .dm-titulo{font-size:36px;padding-right:10%}
+  .dm-sec{--dm-lh:36px}
+  .dm-titulo{font-size:30px;padding-right:10%}
 }
 @media (max-width:880px){
-  .dm-sec{--dm-lh:34px;padding-top:70px;padding-bottom:70px}
+  .dm-sec{--dm-lh:31px;padding-top:70px;padding-bottom:70px}
   .dm-etiqueta{margin-bottom:5px}
   .dm-painel{flex-direction:column;justify-content:flex-start;height:auto;
-    padding:20px 20px 0;border-radius:14px}
+    padding:20px 20px 0;border-radius:3px;max-width:none}
   .dm-texto{width:100%;max-width:none;margin-bottom:40px}
-  .dm-titulo{font-size:28px;padding-right:0}
+  .dm-titulo{font-size:26px;padding-right:0}
   .dm-coluna{width:100%;margin-bottom:56px}
   .dm-lista > li{margin-bottom:14px}
   /* altura livre: no telefone o rotulo pode quebrar em duas linhas */
   .dm-pilula{height:auto;padding:12px 12px 12px 16px;line-height:1.15}
   /* a ilustracao sai do absoluto e vira o ultimo bloco, encostada na base
      (o padding de baixo do painel e 0). So a folha e as etiquetas. */
-  .dm-arte{position:relative;left:auto;bottom:auto;max-width:none}
+  .dm-arte{position:relative;left:auto;bottom:auto;height:auto;width:100%;aspect-ratio:auto}
+  .dm-svg{height:auto}
   .dm-svg--larga{display:none}
   .dm-svg--curta{display:block}
+  .dm-folha-foto{left:23.75%;top:17.647%;width:56.875%;height:86.99%}
   .dm-sonda{top:45%}
 }
 @media (prefers-reduced-motion:reduce){
@@ -2244,6 +2264,10 @@ body>*{position:relative;z-index:1}
          dos svg porque o CSS a usa como irma (~) para soltar as barras. -->
     <div class="dm-arte" data-dm-entra aria-hidden="true">
       <span class="dm-sonda" data-dm-entra></span>
+      <!-- a FOLHA e foto, nao vetor: passou pela mesma trama Bayer das fotos da tira
+           (gera-folha.py). A <img> e a versao ja tramada, que vale em file://, no
+           telefone e sem WebGL; o data-lum e a luminancia que o shader trama ao vivo. -->
+      <div class="dm-folha-foto"><img src="img/demandas-folha-bayer.webp" data-lum="img/demandas-folha-lum.webp" alt="" width="362" height="471" loading="lazy" decoding="async"></div>
 
       <svg class="dm-svg dm-svg--larga" viewBox="0 0 1108 680" xmlns="http://www.w3.org/2000/svg" focusable="false">
         <defs>
@@ -2253,65 +2277,25 @@ body>*{position:relative;z-index:1}
         </defs>
         <g mask="url(#dm-mascara)"><rect x="4.5" y="228.5" width="792" height="450" fill="url(#dm-pontos)"/></g>
         <g class="dm-fios">
-          <path d="M280.5 350V300.5A30 30 0 0 0 250.5 270.5H-8"/>
-          <path d="M196 520.5H90.5A30 30 0 0 0 60.5 550.5V720"/>
-          <path d="M484 416.5H660.5A30 30 0 0 1 690.5 446.5V720"/>
-          <path d="M484 505.5H570.5A30 30 0 0 1 600.5 535.5V720"/>
+          <path d="M280.5 350V273.5A3 3 0 0 0 277.5 270.5H-8"/>
+          <path d="M196 520.5H63.5A3 3 0 0 0 60.5 523.5V720"/>
+          <path d="M484 416.5H687.5A3 3 0 0 1 690.5 419.5V720"/>
+          <path d="M484 505.5H597.5A3 3 0 0 1 600.5 508.5V720"/>
         </g>
         <g class="dm-marcas">
           <path d="M184 270.5h8M280.5 314v8M132 520.5h8M60.5 566v8M60.5 650v8M644 416.5h8M690.5 498v8M690.5 624v8M528 505.5h8M600.5 558v8"/>
         </g>
-        <g transform="translate(190 344)">
-          <rect class="dm-folha" x=".5" y=".5" width="299" height="389" rx="6"/>
-          <g class="dm-miolo">
-            <rect x="30" y="30" width="110" height="8" rx="2"/><rect x="30" y="44" width="72" height="8" rx="2"/>
-            <path class="dm-regua" d="M30 72.5H270"/>
-            <rect x="30" y="92" width="72" height="8" rx="2"/><rect x="172" y="92" width="59" height="8" rx="2"/>
-            <rect class="dm-barra dm-b1" x="30" y="164" width="30" height="40" rx="2"/>
-            <rect class="dm-barra dm-b2" x="66" y="142" width="30" height="62" rx="2"/>
-            <rect class="dm-barra dm-b3" x="102" y="118" width="30" height="86" rx="2"/>
-            <rect x="30" y="212" width="19" height="4" rx="2"/><rect x="55" y="212" width="40" height="4" rx="2"/>
-            <circle class="dm-trilho" cx="212" cy="161" r="34"/>
-            <circle class="dm-rosca" cx="212" cy="161" r="34" pathLength="100" stroke-dasharray="72 100" transform="rotate(-90 212 161)"/>
-            <rect x="201" y="158" width="22" height="6" rx="2"/>
-            <rect x="193" y="212" width="38" height="4" rx="2"/>
-            <rect x="30" y="246" width="72" height="8" rx="2"/><rect x="30" y="260" width="186" height="8" rx="2"/>
-            <rect x="30" y="274" width="125" height="8" rx="2"/><rect x="30" y="288" width="221" height="8" rx="2"/>
-            <rect x="30" y="314" width="8" height="8" rx="2"/><rect x="46" y="314" width="120" height="8" rx="2"/>
-            <rect x="30" y="328" width="8" height="8" rx="2"/><rect x="46" y="328" width="90" height="8" rx="2"/>
-          </g>
-        </g>
-        <g class="dm-tag"><rect x="88.5" y="257" width="74" height="27" rx="6"/><text x="125.5" y="274.2">Diagnóstico</text></g>
-        <g class="dm-tag"><rect x="20.5" y="598" width="80" height="27" rx="6"/><text x="60.5" y="615.2">Plano diretor</text></g>
-        <g class="dm-tag"><rect x="522.5" y="403" width="98" height="27" rx="6"/><text x="571.5" y="420.2">Auditoria interna</text></g>
-        <g class="dm-tag"><rect x="562.5" y="586" width="76" height="27" rx="6"/><text x="600.5" y="603.2">Certificação</text></g>
+        <g class="dm-tag"><rect x="88.5" y="257" width="74" height="27" rx="3"/><text x="125.5" y="274.2">Diagnóstico</text></g>
+        <g class="dm-tag"><rect x="20.5" y="598" width="80" height="27" rx="3"/><text x="60.5" y="615.2">Plano diretor</text></g>
+        <g class="dm-tag"><rect x="522.5" y="403" width="98" height="27" rx="3"/><text x="571.5" y="420.2">Auditoria interna</text></g>
+        <g class="dm-tag"><rect x="562.5" y="586" width="76" height="27" rx="3"/><text x="600.5" y="603.2">Certificação</text></g>
       </svg>
 
       <svg class="dm-svg dm-svg--curta" viewBox="0 0 320 272" xmlns="http://www.w3.org/2000/svg" focusable="false">
-        <g transform="translate(76 48) scale(.6067)">
-          <rect class="dm-folha" x=".5" y=".5" width="299" height="389" rx="6"/>
-          <g class="dm-miolo">
-            <rect x="30" y="30" width="110" height="8" rx="2"/><rect x="30" y="44" width="72" height="8" rx="2"/>
-            <path class="dm-regua" d="M30 72.5H270"/>
-            <rect x="30" y="92" width="72" height="8" rx="2"/><rect x="172" y="92" width="59" height="8" rx="2"/>
-            <rect class="dm-barra dm-b1" x="30" y="164" width="30" height="40" rx="2"/>
-            <rect class="dm-barra dm-b2" x="66" y="142" width="30" height="62" rx="2"/>
-            <rect class="dm-barra dm-b3" x="102" y="118" width="30" height="86" rx="2"/>
-            <rect x="30" y="212" width="19" height="4" rx="2"/><rect x="55" y="212" width="40" height="4" rx="2"/>
-            <circle class="dm-trilho" cx="212" cy="161" r="34"/>
-            <circle class="dm-rosca" cx="212" cy="161" r="34" pathLength="100" stroke-dasharray="72 100" transform="rotate(-90 212 161)"/>
-            <rect x="201" y="158" width="22" height="6" rx="2"/>
-            <rect x="193" y="212" width="38" height="4" rx="2"/>
-            <rect x="30" y="246" width="72" height="8" rx="2"/><rect x="30" y="260" width="186" height="8" rx="2"/>
-            <rect x="30" y="274" width="125" height="8" rx="2"/><rect x="30" y="288" width="221" height="8" rx="2"/>
-            <rect x="30" y="314" width="8" height="8" rx="2"/><rect x="46" y="314" width="120" height="8" rx="2"/>
-            <rect x="30" y="328" width="8" height="8" rx="2"/><rect x="46" y="328" width="90" height="8" rx="2"/>
-          </g>
-        </g>
-        <g class="dm-tag"><rect x="10.5" y="104.5" width="74" height="27" rx="6"/><text x="47.5" y="121.7">Diagnóstico</text></g>
-        <g class="dm-tag"><rect x="7.5" y="170.5" width="80" height="27" rx="6"/><text x="47.5" y="187.7">Plano diretor</text></g>
-        <g class="dm-tag"><rect x="216.5" y="58.5" width="98" height="27" rx="6"/><text x="265.5" y="75.7">Auditoria interna</text></g>
-        <g class="dm-tag"><rect x="238.5" y="196.5" width="76" height="27" rx="6"/><text x="276.5" y="213.7">Certificação</text></g>
+        <g class="dm-tag"><rect x="10.5" y="104.5" width="74" height="27" rx="3"/><text x="47.5" y="121.7">Diagnóstico</text></g>
+        <g class="dm-tag"><rect x="7.5" y="170.5" width="80" height="27" rx="3"/><text x="47.5" y="187.7">Plano diretor</text></g>
+        <g class="dm-tag"><rect x="216.5" y="58.5" width="98" height="27" rx="3"/><text x="265.5" y="75.7">Auditoria interna</text></g>
+        <g class="dm-tag"><rect x="238.5" y="196.5" width="76" height="27" rx="3"/><text x="276.5" y="213.7">Certificação</text></g>
       </svg>
     </div>
   </div>
@@ -2798,8 +2782,8 @@ window.addEventListener('load', function(){
   setTimeout(function(){
     document.body.classList.remove('carga');
     document.body.classList.add('pronta');window.dispatchEvent(new Event('im:pronta'));
-    setTimeout(function(){ ab.classList.add('fora'); }, 1000);
-  }, 2300);
+    setTimeout(function(){ ab.classList.add('fora'); }, 900);
+  }, 1500);   /* 18/09: era 2300. A abertura arma em ~1,1s; 1,5s e o tempo de ve-la pronta e sair */
 });
 
 // scramble do modelo (chars "x&im" da marca; 0,5s no hover, do "_" na entrada)
@@ -3811,6 +3795,14 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
          passada pelo min(creme, 1,06x) do filtro #foto-creme */
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
       zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:.62});
+  })();
+
+  /* ---------------- a folha do painel Demandas ---------------- */
+  (function(){
+    var folha = document.querySelector('.dm-folha-foto'); if(!folha) return;
+    var im = folha.querySelector('img'); if(!im) return;
+    ditherVivo({raiz:folha, planos:[{el:folha, lum:im.getAttribute('data-lum')}], classeCanvas:'dm-gl', revelar:'visivel',
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008});
   })();
 
   /* ---------------- a moldura de noticias: quatro camadas empilhadas ---------------- */
