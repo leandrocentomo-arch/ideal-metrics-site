@@ -1615,10 +1615,11 @@ body>*{position:relative;z-index:1}
     rgba(250,249,245,.18) 58%, rgba(250,249,245,.04) 70%, rgba(250,249,245,0) 80%,
     rgba(250,249,245,0) 100%);
   transition:background .5s}
-/* 17/09, 7a volta: no hover a foto CLAREIA 72%. A escala sobe assim: 20 (nao se
-   via), 45, 58, 72. Aos 72% um pixel de tinta (22,52,83) chega a (186,194,200),
-   entao a foto vira marca d'agua. O teto pratico e por volta de 0,80: dali para
-   cima nao sobra foto, so creme, e o hover deixa de mostrar alguma coisa. Em 20% o efeito existia na
+/* 17/09, 8a volta: no hover a foto CLAREIA 84%. A escala foi 20 (nao se via),
+   45, 58, 72, 84. Aos 84% um pixel de tinta (22,52,83) chega a (213,217,219):
+   a foto passa a ser marca d'agua atras do vidro, que com o blur de 7px e
+   coerente. Deste ponto em diante quase nao ha o que clarear: em 100% a coluna
+   fica creme chapado e o hover para de mostrar qualquer coisa. Em 20% o efeito existia na
    conta e nao na tela: sobre uma foto que ja e 58 a 91% creme, 20% de creme a
    mais so move a parte escura, e pouco. Em 45% um pixel de tinta (22,52,83) vai
    para (125,141,156), que se ve de longe.
@@ -1636,7 +1637,7 @@ body>*{position:relative;z-index:1}
   -webkit-backdrop-filter:blur(0px) saturate(100%);
   backdrop-filter:blur(0px) saturate(100%);
   transition:opacity .5s,backdrop-filter .5s,-webkit-backdrop-filter .5s}
-.sh-col:hover::after,.sh-col:focus-within::after{opacity:.72;
+.sh-col:hover::after,.sh-col:focus-within::after{opacity:.84;
   -webkit-backdrop-filter:blur(7px) saturate(140%);
   backdrop-filter:blur(7px) saturate(140%)}
 /* 16/09: o PE de cada foto clareou um degrau, .54/.58 -> .60/.68 nas duas
