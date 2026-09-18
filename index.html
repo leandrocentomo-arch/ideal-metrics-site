@@ -1632,8 +1632,17 @@ body>*{position:relative;z-index:1}
    desfoque entra de estalo, em vez de acompanhar os 0,5s da opacidade.
    O desfoque pega o que esta PINTADO ATRAS desta camada, que e a foto e o veu;
    o escrito vive em z-index 2, acima, e nao borra. */
+/* 18/09: a chapa de vidro ganhou MASCARA. Ela estava cobrindo a coluna inteira,
+   e como o fluido tambem e efeito de hover, o mesmo gesto que acordava a onda
+   clareava 84% e desfocava 7px justamente o que a onda acabara de desenhar.
+   Agora a chapa vale cheia ate 48% da altura, que e onde o escrito acaba, e cai
+   para 22% no pe. O texto continua sobre placa limpa; a metade de baixo da foto
+   volta a viver, e e la que a onda aparece. `mask-image` recorta o fundo E o
+   `backdrop-filter` junto, que e o que faz isso funcionar. */
 .sh-col::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:#FAF9F5;opacity:.12;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 48%,rgba(0,0,0,.30) 74%,rgba(0,0,0,.22) 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 48%,rgba(0,0,0,.30) 74%,rgba(0,0,0,.22) 100%);
   -webkit-backdrop-filter:blur(0px) saturate(100%);
   backdrop-filter:blur(0px) saturate(100%);
   transition:opacity .5s,backdrop-filter .5s,-webkit-backdrop-filter .5s}
@@ -2645,7 +2654,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     'void main(){' +
     '  vec2 c = texture2D(t, v).rg - .5;' +
     '  vec2 uv = uvA + v * uvB;' +
-    '  uv -= c * .18;' +
+    '  uv -= c * .30;' +      /* 18/09: era .18. Com a chapa por cima a onda
+                              precisa de mais curso para se ler. */
     '  gl_FragColor = texture2D(foto, uv);}';
 
   function fluido(col){
