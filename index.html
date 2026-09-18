@@ -1615,12 +1615,10 @@ body>*{position:relative;z-index:1}
     rgba(250,249,245,.18) 58%, rgba(250,249,245,.04) 70%, rgba(250,249,245,0) 80%,
     rgba(250,249,245,0) 100%);
   transition:background .5s}
-/* 18/09, 9a volta: no hover a foto CLAREIA 92%, e o PE da mascara subiu junto,
-   de 22% para 48%: antes so o alto ficava claro de verdade e a metade de baixo
-   seguia fotografica. Agora o pe recebe 0,92 x 0,48, uns 44% de clareamento,
-   contra os 18% de antes. Sobra foto o bastante para a onda do fluido se ler,
-   que foi o motivo de a mascara existir.
-   Historico do numero: 20 (nao se via), 45, 58, 72, 84, 92. A escala foi 20 (nao se via),
+/* 18/09, 10a volta: no hover a coluna CLAREIA 96%, parelho de cima a baixo. Na
+   pratica e uma placa de papel com a foto de marca d'agua atras, que e o que o
+   espaco escrito novo precisa para caber.
+   Historico do numero: 20 (nao se via), 45, 58, 72, 84, 92, 96. A escala foi 20 (nao se via),
    45, 58, 72, 84. Aos 84% um pixel de tinta (22,52,83) chega a (213,217,219):
    a foto passa a ser marca d'agua atras do vidro, que com o blur de 7px e
    coerente. Deste ponto em diante quase nao ha o que clarear: em 100% a coluna
@@ -1637,21 +1635,18 @@ body>*{position:relative;z-index:1}
    desfoque entra de estalo, em vez de acompanhar os 0,5s da opacidade.
    O desfoque pega o que esta PINTADO ATRAS desta camada, que e a foto e o veu;
    o escrito vive em z-index 2, acima, e nao borra. */
-/* 18/09: a chapa de vidro ganhou MASCARA. Ela estava cobrindo a coluna inteira,
-   e como o fluido tambem e efeito de hover, o mesmo gesto que acordava a onda
-   clareava 84% e desfocava 7px justamente o que a onda acabara de desenhar.
-   Agora a chapa vale cheia ate 48% da altura, que e onde o escrito acaba, e cai
-   para 22% no pe. O texto continua sobre placa limpa; a metade de baixo da foto
-   volta a viver, e e la que a onda aparece. `mask-image` recorta o fundo E o
-   `backdrop-filter` junto, que e o que faz isso funcionar. */
+/* 18/09, 10a volta: a MASCARA SAIU. Ela fazia o clareamento entrar em degrade,
+   forte em cima e fraco no pe, e o pedido foi claro: parelho na coluna inteira.
+   A chapa volta a ser uma so, de cima a baixo.
+   CONSEQUENCIA, dita de uma vez: com a chapa parelha em 96% a onda do fluido
+   praticamente nao se le enquanto o ponteiro esta dentro da coluna. Os dois
+   efeitos moram no mesmo gesto e agora o painel ganhou. */
 .sh-col::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:#FAF9F5;opacity:.12;
-  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 52%,rgba(0,0,0,.55) 78%,rgba(0,0,0,.48) 100%);
-  mask-image:linear-gradient(to bottom,#000 0%,#000 52%,rgba(0,0,0,.55) 78%,rgba(0,0,0,.48) 100%);
   -webkit-backdrop-filter:blur(0px) saturate(100%);
   backdrop-filter:blur(0px) saturate(100%);
   transition:opacity .5s,backdrop-filter .5s,-webkit-backdrop-filter .5s}
-.sh-col:hover::after,.sh-col:focus-within::after{opacity:.92;
+.sh-col:hover::after,.sh-col:focus-within::after{opacity:.96;
   -webkit-backdrop-filter:blur(7px) saturate(140%);
   backdrop-filter:blur(7px) saturate(140%)}
 /* 16/09: o PE de cada foto clareou um degrau, .54/.58 -> .60/.68 nas duas
@@ -1709,6 +1704,14 @@ body>*{position:relative;z-index:1}
 /* 17/09, 4a volta: o grifo bege SAIU. Quem garante a leitura da lista agora e a
    camada de creme do hover, que clareia a foto inteira 50%. O <span> continua no
    HTML, inerte: devolver o grifo e so uma regra. */
+/* 18/09, 10a volta: o paragrafo do servico, que so existe no hover. Ele entra
+   junto com a lista, 80ms depois, para os dois nao aparecerem no mesmo instante.
+   O texto sai das proprias paginas de servico, encurtado; nao e copy nova. */
+.sh-texto{margin:14px 0 0;max-width:31ch;font-family:var(--sans);font-size:12px;
+  line-height:1.55;font-weight:400;color:var(--azul-escuro);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .5s .08s,transform .5s .08s}
+.sh-col:hover .sh-texto,.sh-col:focus-within .sh-texto{opacity:1;transform:none}
 .sh-cta{display:inline-block;width:fit-content;border:1px solid rgba(20,48,76,.42);
   border-radius:3px;padding:8px 24px;font-family:var(--sans);font-size:11px;
   font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--azul);
@@ -1827,6 +1830,7 @@ body>*{position:relative;z-index:1}
             <div class="sh-acento" aria-hidden="true"></div>
             <div class="sh-rodape">Reduz as emissões da sua operação</div>
             <ul class="sh-lista"><li><span>Inventário de GEE</span></li><li><span>Carbono neutro</span></li><li><span>Créditos de carbono</span></li></ul>
+            <p class="sh-texto">Medição, redução e neutralização das emissões de gases de efeito estufa, do diagnóstico inicial à publicação do inventário no GHG Protocol.</p>
           </div>
           <span class="sh-vertical" aria-hidden="true">Emissões</span>
           <div>
@@ -1843,6 +1847,7 @@ body>*{position:relative;z-index:1}
             <div class="sh-acento" aria-hidden="true"></div>
             <div class="sh-rodape">Busca certificação para a sua organização</div>
             <ul class="sh-lista"><li><span>ISO 9001: gestão da qualidade</span></li><li><span>ISO 14001: ambiental</span></li><li><span>ISO 45001: saúde e segurança</span></li></ul>
+            <p class="sh-texto">Mais de 25 anos conduzindo organizações à certificação pretendida, com interlocução direta com os principais órgãos certificadores.</p>
           </div>
           <span class="sh-vertical" aria-hidden="true">Normas</span>
           <div>
@@ -1859,6 +1864,7 @@ body>*{position:relative;z-index:1}
             <div class="sh-acento" aria-hidden="true"></div>
             <div class="sh-rodape">Atende às exigências dos seus clientes</div>
             <ul class="sh-lista"><li><span>Direitos trabalhistas</span></li><li><span>Saúde e segurança</span></li><li><span>Ética e meio ambiente</span></li></ul>
+            <p class="sh-texto">Preparação completa para a auditoria SMETA: responsabilidade social, condições de trabalho, saúde e segurança, e conformidade contínua.</p>
           </div>
           <span class="sh-vertical" aria-hidden="true">Ética</span>
           <div>
@@ -1875,6 +1881,7 @@ body>*{position:relative;z-index:1}
             <div class="sh-acento" aria-hidden="true"></div>
             <div class="sh-rodape">Comprova a sua prática de sustentabilidade</div>
             <ul class="sh-lista"><li><span>Padrões de mercado</span></li><li><span>Relato e indicadores</span></li><li><span>Cadeia de fornecedores</span></li></ul>
+            <p class="sh-texto">Orientação estratégica para integrar os princípios ESG à operação, com indicadores e relato que sustentam a prática.</p>
           </div>
           <span class="sh-vertical" aria-hidden="true">Padrões</span>
           <div>
