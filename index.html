@@ -3417,7 +3417,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
    ordenado por pixel de DISPOSITIVO. Uma segunda textura, a TRILHA, guarda por
    onde o ponteiro passou: um segmento de reta carimbado entre a posicao anterior
    e a atual, com forca proporcional a velocidade, decaindo a cada quadro. Onde a
-   trilha esta acesa o shader engrossa a celula da luminancia (ate 7,7x), troca a
+   trilha esta acesa o shader engrossa a celula da luminancia (3,2x; no OCI sao
+   7,7x, que numa coluna estreita vira quadriculado grande demais), troca a
    matriz 4x4 pela 8x8 e desloca o limiar. A foto nao e deslocada nem desfocada:
    ela e RE-TRAMADA. Os numeros da trilha sao os deles, reescalados da altura da
    janela (900) para a altura da peca.
@@ -3824,7 +3825,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       gl.uniform3f(uF.uC3, C[3][0]/255, C[3][1]/255, C[3][2]/255);
       gl.uniform3f(uF.uCreme, CR[0]/255, CR[1]/255, CR[2]/255);
       gl.uniform1f(uF.uGama, .86); gl.uniform1f(uF.uCtr, 1.55); gl.uniform1f(uF.uBrilho, .35);
-      gl.uniform1f(uF.uPix, Math.max(1, pix.v)); gl.uniform1f(uF.uPixMul, 7.7); gl.uniform1f(uF.uTrailMul, 1.02);
+      gl.uniform1f(uF.uPix, Math.max(1, pix.v)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 3.2); gl.uniform1f(uF.uTrailMul, 1.02);
       gl.uniform1f(uF.uBias, bias.v); gl.uniform1f(uF.uBiasReacao, .15); gl.uniform1f(uF.uRespiro, cfg.respiro == null ? .012 : cfg.respiro);
       gl.uniform1f(uF.uRevela, cfg.revelaNaTrilha == null ? 0 : cfg.revelaNaTrilha);
 
