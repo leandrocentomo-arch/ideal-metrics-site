@@ -3825,8 +3825,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       gl.uniform3f(uF.uC3, C[3][0]/255, C[3][1]/255, C[3][2]/255);
       gl.uniform3f(uF.uCreme, CR[0]/255, CR[1]/255, CR[2]/255);
       gl.uniform1f(uF.uGama, .86); gl.uniform1f(uF.uCtr, 1.55); gl.uniform1f(uF.uBrilho, .35);
-      gl.uniform1f(uF.uPix, Math.max(1, pix.v)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 4.2); gl.uniform1f(uF.uTrailMul, 1.45);
-      gl.uniform1f(uF.uBias, bias.v); gl.uniform1f(uF.uBiasReacao, .34); gl.uniform1f(uF.uRespiro, cfg.respiro == null ? .012 : cfg.respiro);
+      gl.uniform1f(uF.uPix, Math.max(1, pix.v)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 3.8); gl.uniform1f(uF.uTrailMul, 1.27);
+      gl.uniform1f(uF.uBias, bias.v); gl.uniform1f(uF.uBiasReacao, .23); gl.uniform1f(uF.uRespiro, cfg.respiro == null ? .012 : cfg.respiro);
       gl.uniform1f(uF.uRevela, cfg.revelaNaTrilha == null ? 0 : cfg.revelaNaTrilha);
 
       planos.forEach(function(pl){
@@ -3878,7 +3878,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var folha = document.querySelector('.dm-folha-foto'); if(!folha) return;
     var im = folha.querySelector('img'); if(!im) return;
     ditherVivo({raiz:folha, planos:[{el:folha, lum:im.getAttribute('data-lum')}], classeCanvas:'dm-gl', revelar:'visivel',
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008, pixMul:2.6});
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008, pixMul:2.2});
   })();
 
   /* ---------------- a moldura de noticias: quatro camadas empilhadas ---------------- */
