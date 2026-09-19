@@ -1232,20 +1232,20 @@ body>*{position:relative;z-index:1}
   /* 8 e nao 14: a CAIXA fica do mesmo tamanho e quem cresce e a marca.
      96 + 16 = 112 de altura, o mesmo de antes. */
   padding:3.66px;border-radius:0 0 3px 3px;border:1px solid var(--fio);border-top:none;
-  /* PRATA DISCRETA, 17/09 (6a volta). O material `prata` do Spirit vai de
-     #A9AAAA a branco, uma amplitude de 0,41 a 1,00 de luminancia: sobre a faixa
-     de papel do topo aquilo virava uma medalha. Aqui fica o MESMO eixo de 26
-     graus e as mesmas cinco paradas, com a amplitude fechada para 0,79 a 1,00.
-     O brilho continua lendo como metal quando a pagina rola, sem gritar. */
-  background:linear-gradient(26deg,#E9EAEB 0%,#F4F5F5 25%,#FFFFFF 50%,#F1F2F3 75%,#E4E5E7 100%);
+  /* CREME CHAPADO, 19/09. A caixa era prata: um degrade de cinco paradas no
+     eixo de 26 graus, de #E9EAEB a branco (a «prata discreta» de 17/09). Sobre
+     o creme da pagina ela lia como um cartao branco recortado, e nao como a
+     marca solta. Agora e o proprio creme do site, sem degrade e sem brilho
+     interno: o que aparece no alto e o monograma, nao a placa. O desfoque fica,
+     porque a caixa passa por cima da foto da primeira secao. */
+  background:var(--mercurio);
   backdrop-filter:blur(14px) saturate(160%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
   transition:background .45s cubic-bezier(.4,0,.2,1)}
 /* navegador sem backdrop-filter nao pode ficar com uma caixa translucida sem
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .barra-marca{background:var(--mercurio)} }
-.barra-marca:hover{background:rgba(255,255,255,.72)}
+.barra-marca:hover{background:var(--mercurio)}
 .barra-marca .marca-frente{height:81.1px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca .marca-frente{height:71.1px}
