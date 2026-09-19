@@ -1293,7 +1293,7 @@ body>*{position:relative;z-index:1}
    encosta no fio do cabecalho, sem faixa de creme no meio. 14/09, tarde: a
    barra emagreceu de 76 para 66, entao este numero caiu de 102 para 92 e a
    placa da marca passou a vazar 13px em vez de 3, sem crescer */
-.qc-sec{padding:92px 0 110px;background:var(--mercurio)}
+.qc-sec{padding:92px 0 110px;background:var(--mercurio);position:relative}
 .qc-abre{padding:44px var(--lado) 0}
 .qc-abre .qc-rotulo{display:flex;justify-content:space-between;
   border-top:1px solid rgba(20,48,76,.2);padding-top:12px;
@@ -1304,16 +1304,26 @@ body>*{position:relative;z-index:1}
    de 34px que antes era do titulo passa para a linha, e o titulo fica com
    margem zero em cima, senao ele desceria 34px e a marca nao. Ela vai a
    direita, embaixo do «[ IM.1 ]» do rotulo.
-   19/09: a vaga passou a ser do SELO (selo-ideal-m.svg, Asset 175, 228,95
-   quadrado). Como a peca e quadrada e o lockup era 2,5:1, a altura sobe de 46
-   para 76px: e a altura optica equivalente. Desde a mesma data os tres nomes de
+   19/09: o lockup oficial chapado fica em cima de «O que fazemos», a
+   esquerda, 46px de altura e 20px de respiro ate o rotulo (.qc-abre-logo).
+   O SELO (selo-ideal-m.svg, Asset 175, 228,95 quadrado) saiu do flex e foi
+   para o CANTO INFERIOR DIREITO da secao: absoluto dentro da propria
+   .qc-sec, e nao dentro de .qc-abre. A secao tem 110px de padding embaixo,
+   entao ancorar no .qc-abre parava o selo 110px acima do canto, alinhado com
+   a base do texto. Encostado em right:var(--lado) e bottom:0, a 150px. Abaixo de 880px ele volta a ser estatico, a 96px, e
+   cai no fim da coluna: nessa largura a linha ja quebra e o canto sumiria.
+   A faixa do «ideal.m» do selo esta em creme desde a mesma data, com o
+   letreiro em #315275: era degrade prateado com letreiro creme. Desde a mesma data os tres nomes de
    lockup (logo-ideal-m, -escuro e -salvo) guardam o mesmo Asset 172 chapado,
    518,84 x 207,39, e o -prata guarda o 173 na MESMA caixa. */
 .qc-abre-linha{display:flex;justify-content:space-between;align-items:flex-start;
   gap:40px;margin-top:34px;flex-wrap:wrap}
 .qc-abre-linha .qc-titulo-sec{margin-top:0}
-.qc-abre-selo{display:block;height:76px;width:auto;flex:none}
-@media (max-width:880px){ .qc-abre-selo{height:60px} }
+.qc-abre-logo{display:block;height:46px;width:auto;margin:0 0 20px}
+.qc-abre-selo{position:absolute;right:var(--lado);bottom:0;
+  display:block;height:150px;width:auto}
+@media (max-width:880px){ .qc-abre-logo{height:38px;margin-bottom:16px}
+  .qc-abre-selo{position:static;height:96px;margin:24px var(--lado) 0} }
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
   line-height:1.45;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
 .qc-lead{margin:10px 0 0;font-family:var(--sans);font-weight:700;
@@ -2262,12 +2272,13 @@ body>*{position:relative;z-index:1}
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
       <div class="qc-abre-linha">
         <div>
+          <img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg" alt="Ideal Metrics" width="519" height="207">
           <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
           <p class="qc-lead">Reunimos exigência de lei, de norma e de cliente num sistema auditável.</p>
         </div>
-        <img class="qc-abre-selo" src="img/selo-ideal-m.svg" alt="Ideal Metrics" width="229" height="229">
       </div>
     </div>
+    <img class="qc-abre-selo" src="img/selo-ideal-m.svg" alt="Ideal Metrics" width="229" height="229">
   </section>
 
 <section class="dm-sec" id="demandas" aria-labelledby="dm-titulo">
