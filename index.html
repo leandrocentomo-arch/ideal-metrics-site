@@ -1896,6 +1896,14 @@ body>*{position:relative;z-index:1}
 .dm-svg{display:block;width:100%;height:100%}
 /* a folha, em % da caixa do desenho: 190/1108, 344/680, 300/1108 e 390/680. Passa
    da base de proposito (344+390 > 680): quem corta e o overflow do painel. */
+/* a folha: 190/1108 de recuo, 300/680 de topo, 300/1108 de largura e 390/680 de
+   altura, os mesmos numeros do desenho. Passa da base de proposito; quem corta e
+   o overflow do painel. */
+.dm-folha-foto{position:absolute;left:17.148%;top:44.118%;width:27.076%;height:57.353%;
+  border:1px solid rgba(20,48,76,.14);border-radius:3px;overflow:hidden;background:var(--mercurio)}
+.dm-folha-foto img,.dm-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.dm-folha-foto img{object-fit:cover}
+.dm-folha-foto.gl-on img{visibility:hidden}
 /* 19/09: a folha e vetor chapado, nao mais foto tramada. O Leandro pediu
    "mais geometrico, este esta muito pixelado": a trama Bayer, que e otima na
    tira de fotos, virava serrilha nesta peca porque ela aparece com 300 px de
@@ -1972,9 +1980,13 @@ body>*{position:relative;z-index:1}
    medir menos que 80 + 518 + 416): o titulo ganha um respiro para nao
    encostar na chapa branca das pilulas */
 @media (max-width:1245px){ .dm-titulo{padding-right:24px} }
-/* 19/09: a regra que escondia as etiquetas da direita antes de 1560px saiu
-   junto com elas. As seis etapas agora descem numa escada dentro de x < 230,
-   que e a faixa que sobra em tela de 900 px, a mais estreita do desktop. */
+/* As duas placas da direita ficam atras da coluna das pilulas e leem como texto
+   cortado em tela media. Medido no navegador: o desenho some a partir de x=602
+   numa janela de 1440 e de x=800 numa de 1920; a borda da placa mais larga da
+   direita esta em x=623, logo ela so cabe inteira a partir de 1491 px. Dai o
+   corte em 1500. Abaixo disso aparecem as quatro da esquerda, que sozinhas ja
+   contam a sequencia do comeco ao "Sistema implementado". */
+@media (max-width:1500px){ .dm-svg--larga .dm-tag--dir{display:none} }
 /* entre 881 e ~900px o titulo caia em 7 linhas e a etiqueta "Diagnostico"
    pousava sobre a ultima. */
 @media (max-width:900px){ .dm-sec{--dm-lh:38px} .dm-titulo{font-size:32px;padding-right:0} }
@@ -1999,6 +2011,7 @@ body>*{position:relative;z-index:1}
   .dm-svg{height:auto}
   .dm-svg--larga{display:none}
   .dm-svg--curta{display:block}
+  .dm-folha-foto{display:none}
   .dm-sonda{top:45%}
 }
 @media (prefers-reduced-motion:reduce){
@@ -2289,19 +2302,25 @@ body>*{position:relative;z-index:1}
     <div class="dm-arte" data-dm-entra aria-hidden="true">
       <span class="dm-sonda" data-dm-entra></span>
 
+      <!-- A FOLHA E IMAGEM, nao vetor: o Leandro pediu que "a imagem do
+           relatorio" carregue o efeito das fotos do site, que e a trama Bayer
+           da casa. O desenho e o mesmo vetor geometrico deste painel,
+           rasterizado e tramado pelo gera-folha.py. A <img> e a versao ja
+           tramada, que vale em file://, no telefone e sem WebGL; o data-lum e
+           a luminancia que o shader trama ao vivo. -->
+      <div class="dm-folha-foto"><img src="img/demandas-folha-bayer.webp" data-lum="img/demandas-folha-lum.webp" alt="" width="375" height="488" loading="lazy" decoding="async"></div>
+
       <svg class="dm-svg dm-svg--larga" viewBox="0 0 1108 680" xmlns="http://www.w3.org/2000/svg" focusable="false">
-        <defs><pattern id="dm-pontos" x="4.5" y="228.5" width="18" height="18" patternUnits="userSpaceOnUse"><circle class="dm-ponto" cx="9" cy="9" r=".5"/></pattern><radialGradient id="dm-esmaece"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="dm-mascara" maskUnits="userSpaceOnUse" x="0" y="0" width="1108" height="680"><ellipse cx="380" cy="500" rx="470" ry="300" fill="url(#dm-esmaece)"/></mask></defs>
-        <g mask="url(#dm-mascara)"><rect x="4.5" y="228.5" width="860" height="450" fill="url(#dm-pontos)"/></g>
-        <g class="dm-fios"><path d="M550 396.5H737.5A3 3 0 0 1 740.5 399.5V680"/><path d="M550 524.5H847.5A3 3 0 0 1 850.5 527.5V680"/><path d="M122.0 359.5H250"/></g>
-        <g class="dm-fios"><path d="M46.0 252.0V320.0A3 3 0 0 0 49.0 323.0H55.0A3 3 0 0 1 58.0 326.0V394.0A3 3 0 0 0 61.0 397.0H67.0A3 3 0 0 1 70.0 400.0V468.0A3 3 0 0 0 73.0 471.0H79.0A3 3 0 0 1 82.0 474.0V542.0A3 3 0 0 0 85.0 545.0H91.0A3 3 0 0 1 94.0 548.0V616.0A3 3 0 0 0 97.0 619.0H103.0A3 3 0 0 1 106.0 622.0V690.0"/></g>
-        <g class="dm-marcas"><path d="M52.0 319.0v8M64.0 393.0v8M76.0 467.0v8M88.0 541.0v8M100.0 615.0v8M644 392.5v8M740.5 466v8M754 520.5v8M850.5 588v8"/></g>
-        <rect class="dm-fo-papel" x="250" y="300" width="300" height="390" rx="3"/><rect class="dm-fo-t1" x="270" y="324" width="110" height="8" rx="2"/><rect class="dm-fo-t2" x="270" y="340" width="72" height="8" rx="2"/><path class="dm-fo-fio" d="M270 366.5H530"/><rect class="dm-fo-t2" x="270" y="386" width="72" height="8" rx="2"/><rect class="dm-fo-t2" x="418" y="386" width="60" height="8" rx="2"/><rect class="dm-fo-b1" x="270" y="468" width="28" height="52" rx="2"/><rect class="dm-fo-b2" x="306" y="442" width="28" height="78" rx="2"/><rect class="dm-fo-b3" x="342" y="416" width="28" height="104" rx="2"/><rect class="dm-fo-b2" x="378" y="454" width="28" height="66" rx="2"/><circle class="dm-fo-anel-f" cx="466" cy="464" r="33"/><circle class="dm-fo-anel" cx="466" cy="464" r="33" stroke-dasharray="136.8 70.5" transform="rotate(-90 466 464)"/><rect class="dm-fo-t2" x="455" y="461" width="22" height="6" rx="2"/><rect class="dm-fo-t1" x="270" y="550" width="72" height="8" rx="2"/><rect class="dm-fo-t3" x="270" y="566" width="186" height="8" rx="2"/><rect class="dm-fo-t3" x="270" y="582" width="125" height="8" rx="2"/><rect class="dm-fo-t3" x="270" y="598" width="221" height="8" rx="2"/><rect class="dm-fo-b3" x="270" y="630" width="8" height="8" rx="2"/><rect class="dm-fo-t3" x="286" y="630" width="120" height="8" rx="2"/><rect class="dm-fo-b3" x="270" y="650" width="8" height="8" rx="2"/><rect class="dm-fo-t3" x="286" y="650" width="90" height="8" rx="2"/><rect class="dm-fo-b3" x="270" y="670" width="8" height="8" rx="2"/><rect class="dm-fo-t3" x="286" y="670" width="150" height="8" rx="2"/>
-        <g class="dm-tag"><rect x="9.0" y="272.5" width="74" height="27" rx="3"/><text x="46.0" y="289.7">Diagnóstico</text></g>
-        <g class="dm-tag"><rect x="18.0" y="346.5" width="80" height="27" rx="3"/><text x="58.0" y="363.7">Plano diretor</text></g>
-        <g class="dm-tag"><rect x="18.0" y="420.5" width="104" height="27" rx="3"/><text x="70.0" y="437.7">Pessoal capacitado</text></g>
-        <g class="dm-tag"><rect x="26.0" y="494.5" width="112" height="27" rx="3"/><text x="82.0" y="511.7">Sistema implementado</text></g>
-        <g class="dm-tag"><rect x="45.0" y="568.5" width="98" height="27" rx="3"/><text x="94.0" y="585.7">Auditoria interna</text></g>
-        <g class="dm-tag"><rect x="43.0" y="642.5" width="126" height="27" rx="3"/><text x="106.0" y="659.7">Suporte na certificação</text></g>
+        <defs><pattern id="dm-pontos" x="4.5" y="228.5" width="18" height="18" patternUnits="userSpaceOnUse"><circle class="dm-ponto" cx="9" cy="9" r=".5"/></pattern><radialGradient id="dm-esmaece"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="dm-mascara" maskUnits="userSpaceOnUse" x="0" y="0" width="1108" height="680"><ellipse cx="360" cy="500" rx="460" ry="300" fill="url(#dm-esmaece)"/></mask></defs>
+        <g mask="url(#dm-mascara)"><rect x="4.5" y="228.5" width="840" height="450" fill="url(#dm-pontos)"/></g>
+        <g class="dm-fios"><path d="M60.5 282V648M60.5 355.5H190M490 416.5H687.5A3 3 0 0 1 690.5 419.5V680M490 599.5H617.5A3 3 0 0 1 620.5 602.5V680"/></g>
+        <g class="dm-marcas"><path d="M116.5 355.5h8M56.5 355.0h8M56.5 465.0h8M56.5 575.0h8M644 412.5v8M690.5 490v8M600.0 595.5v8"/></g>
+        <g class="dm-tag"><rect x="23.5" y="286.5" width="74" height="27" rx="3"/><text x="60.5" y="303.7">Diagnóstico</text></g>
+        <g class="dm-tag"><rect x="20.5" y="396.5" width="80" height="27" rx="3"/><text x="60.5" y="413.7">Plano diretor</text></g>
+        <g class="dm-tag"><rect x="8.5" y="506.5" width="104" height="27" rx="3"/><text x="60.5" y="523.7">Pessoal capacitado</text></g>
+        <g class="dm-tag"><rect x="4.5" y="616.5" width="112" height="27" rx="3"/><text x="60.5" y="633.7">Sistema implementado</text></g>
+        <g class="dm-tag dm-tag--dir"><rect x="511.0" y="403.0" width="98" height="27" rx="3"/><text x="560.0" y="420.2">Auditoria interna</text></g>
+        <g class="dm-tag dm-tag--dir"><rect x="497.0" y="586.0" width="126" height="27" rx="3"/><text x="560.0" y="603.2">Suporte na certificação</text></g>
         </svg>
 
       <svg class="dm-svg dm-svg--curta" viewBox="0 0 320 368" xmlns="http://www.w3.org/2000/svg" focusable="false">
@@ -3910,6 +3929,14 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
          passada pelo min(creme, 1,06x) do filtro #foto-creme */
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
       zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
+  })();
+
+  /* ---------------- a folha do painel Demandas ---------------- */
+  (function(){
+    var folha = document.querySelector('.dm-folha-foto'); if(!folha) return;
+    var im = folha.querySelector('img'); if(!im) return;
+    ditherVivo({raiz:folha, planos:[{el:folha, lum:im.getAttribute('data-lum')}], classeCanvas:'dm-gl', revelar:'visivel',
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008, pixMul:2.2});
   })();
 
   /* ---------------- a moldura de noticias: quatro camadas empilhadas ---------------- */
