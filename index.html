@@ -1116,7 +1116,12 @@ body>*{position:relative;z-index:1}
 .st-lead{margin:10px 0 44px;font-family:var(--sans);font-weight:500;font-size:22px;
   line-height:1.35;letter-spacing:-.005em;color:var(--azul);max-width:34ch}
 .st-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 30px}
-.st-card{display:flex;flex-direction:column;gap:12px}
+.st-card{display:flex;flex-direction:column;gap:12px;position:relative}
+/* o cartao inteiro leva a pagina do setor: o link do nome estica por cima dele */
+.st-nome a{color:inherit;text-decoration:none}
+.st-nome a::after{content:"";position:absolute;inset:0}
+.st-nome a:focus-visible{outline:none}
+.st-nome a:focus-visible::after{outline:2px solid var(--fundo);outline-offset:4px}
 .st-cab{display:flex;justify-content:space-between;align-items:baseline;
   border-bottom:1px solid var(--fio);padding-bottom:7px;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
@@ -2413,14 +2418,14 @@ body>*{position:relative;z-index:1}
         </div>
       </div>
       <div class="sv-item">
-        <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="sv-btn-6" aria-expanded="false" aria-controls="sv-panel-6"><span>Apoio técnico</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+        <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="sv-btn-6" aria-expanded="false" aria-controls="sv-panel-6"><span>Atendimento a NRs</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
         <div class="sv-panel" id="sv-panel-6" role="region" aria-labelledby="sv-btn-6">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
               <figure class="sv-foto"><img src="img/industria-bayer-sv.webp" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Avaliações e emissão de laudos para atendimento às Normas Regulamentadoras do trabalho.</p>
-              <a class="sv-more" href="servicos.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
+              <a class="sv-more" href="nrs.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
             </div>
             </div>
           </div>
@@ -2434,7 +2439,35 @@ body>*{position:relative;z-index:1}
               <figure class="sv-foto"><img src="img/energia-bayer-sv.webp" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Consultoria para as normas e os padrões da gestão de segurança de alimentos, do APPCC à certificação.</p>
-              <a class="sv-more" href="servicos.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
+              <a class="sv-more" href="seguranca-alimentos.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sv-item">
+        <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="sv-btn-8" aria-expanded="false" aria-controls="sv-panel-8"><span>Compliance e segurança da informação</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+        <div class="sv-panel" id="sv-panel-8" role="region" aria-labelledby="sv-btn-8">
+          <div class="sv-panel-inner">
+            <div class="sv-panel-body">
+              <figure class="sv-foto"><img src="img/tecnologia-bayer-sv.webp" alt="" loading="lazy"></figure>
+              <div class="sv-texto">
+              <p class="sv-desc">Sistemas de compliance, antissuborno, segurança da informação e continuidade de negócios, integrados ao sistema de gestão.</p>
+              <a class="sv-more" href="compliance-seguranca-informacao.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sv-item">
+        <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="sv-btn-9" aria-expanded="false" aria-controls="sv-panel-9"><span>Estudos e pesquisa aplicada</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+        <div class="sv-panel" id="sv-panel-9" role="region" aria-labelledby="sv-btn-9">
+          <div class="sv-panel-inner">
+            <div class="sv-panel-body">
+              <figure class="sv-foto"><img src="img/logistica-bayer-sv.webp" alt="" loading="lazy"></figure>
+              <div class="sv-texto">
+              <p class="sv-desc">Estudos regulatórios e setoriais, índices, painéis e rastreabilidade de cadeia, com fonte primária e método declarado.</p>
+              <a class="sv-more" href="estudos-pesquisa.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
             </div>
             </div>
           </div>
@@ -2574,37 +2607,37 @@ body>*{position:relative;z-index:1}
       <article class="st-card">
         <header class="st-cab"><span class="st-num">01</span><span class="st-cat">Manufatura</span></header>
         <div class="st-quadro"><img class="st-foto" src="img/industria-bayer-st.webp" alt="Indústria em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Indústria</h3>
+        <h3 class="st-nome"><a href="setor-industria.html">Indústria</a></h3>
         <p class="st-mono">Manufatura, metalurgia, plásticos e automotivo.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">02</span><span class="st-cat">Suprimentos</span></header>
         <div class="st-quadro"><img class="st-foto" src="img/logistica-bayer-st.webp" alt="Logística em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Logística</h3>
+        <h3 class="st-nome"><a href="setor-logistica.html">Logística</a></h3>
         <p class="st-mono">Transporte, armazenagem e cadeia de suprimentos.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">03</span><span class="st-cat">Alimentício</span></header>
         <div class="st-quadro"><img class="st-foto" src="img/alimentos-bayer-st.webp" alt="Alimentos em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Alimentos</h3>
+        <h3 class="st-nome"><a href="setor-alimentos.html">Alimentos</a></h3>
         <p class="st-mono">Processamento, distribuição e food service.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">04</span><span class="st-cat">Hospitalar</span></header>
         <div class="st-quadro"><img class="st-foto" src="img/saude-bayer-st.webp" alt="Saúde em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Saúde</h3>
+        <h3 class="st-nome"><a href="setor-saude.html">Saúde</a></h3>
         <p class="st-mono">Hospitais, laboratórios e dispositivos médicos.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">05</span><span class="st-cat">Digital</span></header>
         <div class="st-quadro"><img class="st-foto" src="img/tecnologia-bayer-st.webp" alt="Tecnologia em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Tecnologia</h3>
+        <h3 class="st-nome"><a href="setor-tecnologia.html">Tecnologia</a></h3>
         <p class="st-mono">Software, TI e serviços digitais.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">06</span><span class="st-cat">Energético</span></header>
         <div class="st-quadro"><img class="st-foto" src="img/energia-bayer-st.webp" alt="Energia em tingimento azul da marca" loading="lazy"></div>
-        <h3 class="st-nome">Energia</h3>
+        <h3 class="st-nome"><a href="setor-energia.html">Energia</a></h3>
         <p class="st-mono">Petróleo, gás, renováveis e utilities.</p>
       </article>
     </div>
@@ -2748,15 +2781,20 @@ body>*{position:relative;z-index:1}
   <hr class="ft-hr" aria-hidden="true">
   <nav class="ft-nav" aria-label="Navegação do rodapé">
     <ul class="ft-col ft-col-a" role="menu">
-      <li role="none"><a role="menuitem" href="servicos.html">Serviços</a></li>
-      <li role="none"><a role="menuitem" href="como-trabalhamos.html">Como trabalhamos</a></li>
-      <li role="none"><a role="menuitem" href="sobre.html">Quem somos</a></li>
-      <li role="none"><a role="menuitem" href="clientes.html">Clientes</a></li>
+      <li role="none"><a role="menuitem" href="servicos.html">Todos os servi&ccedil;os</a></li>
+      <li role="none"><a role="menuitem" href="implantacao-iso.html">Implanta&ccedil;&atilde;o ISO</a></li>
+      <li role="none"><a role="menuitem" href="compliance-seguranca-informacao.html">Compliance e seguran&ccedil;a da informa&ccedil;&atilde;o</a></li>
+      <li role="none"><a role="menuitem" href="suporte.html">Suporte ao sistema de gest&atilde;o</a></li>
+      <li role="none"><a role="menuitem" href="nrs.html">Atendimento a NR(s)</a></li>
+      <li role="none"><a role="menuitem" href="inspecoes.html">Inspe&ccedil;&otilde;es</a></li>
     </ul>
     <ul class="ft-col ft-col-b" role="menu">
-      <li role="none"><a role="menuitem" href="https://www.linkedin.com/company/cqt-br/" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li role="none"><a role="menuitem" href="https://wa.me/5511954684086" target="_blank" rel="noopener">WhatsApp</a></li>
-      <li role="none"><a role="menuitem" class="ft-lower" href="mailto:info@cqt-br.com">info@cqt-br.com</a></li>
+      <li role="none"><a role="menuitem" href="padroes-mercado.html">Padr&otilde;es de mercado</a></li>
+      <li role="none"><a role="menuitem" href="sedex-smeta.html">SEDEX/SMETA</a></li>
+      <li role="none"><a role="menuitem" href="gestao-carbono.html">Gest&atilde;o de carbono</a></li>
+      <li role="none"><a role="menuitem" href="esg.html">ESG</a></li>
+      <li role="none"><a role="menuitem" href="seguranca-alimentos.html">Seguran&ccedil;a de alimentos</a></li>
+      <li role="none"><a role="menuitem" href="estudos-pesquisa.html">Estudos e pesquisa aplicada</a></li>
     </ul>
     <ul class="ft-col ft-col-c" role="menu">
       <li role="none"><a role="menuitem" href="blog.html">Conteúdo</a></li>
@@ -2779,10 +2817,10 @@ body>*{position:relative;z-index:1}
       </form>
     </div>
     <ul class="ft-col ft-credits">
-      <li>Ideal Metrics · Desde 1998 · São Paulo, Brasil</li>
+      <li>Ideal Metrics · Equipe em atuação desde 1998 · São Paulo, Brasil</li>
     </ul>
   </nav>
-  <div class="ft-legal"><img class="ft-mono" src="img/monograma-ideal-m.svg" alt="" width="166" height="221" loading="lazy">© 2026 Centomo &amp; Consultores Ltda · CNPJ 02.569.436/0001-21</div>
+  <div class="ft-legal"><img class="ft-mono" src="img/monograma-ideal-m.svg" alt="" width="166" height="221" loading="lazy">© 2026 Ideal Metrics Ltda · CNPJ 69.202.916/0001-20</div>
 </footer>
 
 <script>
