@@ -70,7 +70,7 @@ body>*{position:relative;z-index:1}
    real do logo (--logo-l) e da razao 2,527 do lockup prata, mais uma respiracao */
 .abertura{--logo-l:min(240px,50vw);
   --folga-h:calc(var(--logo-l)/2 + 34px);
-  --folga-v:calc(var(--logo-l)/2.54358/2 + 28px)}
+  --folga-v:calc(var(--logo-l)/2.50176/2 + 28px)}
 .abertura .l-v,.abertura .l-h{position:absolute;background:rgba(232,230,224,.8)}
 .abertura .l-v{left:50%;width:1px;height:calc(50% - var(--folga-v));transform:scaleY(0)}
 .abertura .l-v1{top:0;transform-origin:top;
@@ -1299,22 +1299,21 @@ body>*{position:relative;z-index:1}
   border-top:1px solid rgba(20,48,76,.2);padding-top:12px;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;color:var(--azul-escuro)}
-/* 16/09: o LOGO OFICIAL entra na segunda secao, na mesma linha de «Por onde
-   comecar» e alinhado pelo TOPO. A linha e um flex com `align-items:flex-start`;
-   o respiro de 34px que antes era do titulo passa para a linha, e o titulo fica
-   com margem zero em cima, senao ele desceria 34px e o logo nao. O logo vai a
-   direita, embaixo do «[ IM.1 ]» do rotulo, e tem 46px de altura, a medida de
-   logo de secao que o site ja usa (.im-secao-logo).
-   O ARQUIVO E O LOCKUP OFICIAL ESCURO E COMPLETO: logo-ideal-m-escuro.svg, que
-   e o Asset 148 intocado (518,84 x 203,98, tinta chapada #14304C, zero
-   degrade). Nao e o logo-ideal-m.svg: esse nome guarda hoje o Asset 157, em
-   liga fria, e o logo-ideal-m-salvo.svg tem a mesma caixa do 148 mas com um
-   degrade aplicado por cima (md5 diferente do original). */
+/* 16/09: a MARCA entra na segunda secao, na mesma linha de «O que fazemos» e
+   alinhada pelo TOPO. A linha e um flex com `align-items:flex-start`; o respiro
+   de 34px que antes era do titulo passa para a linha, e o titulo fica com
+   margem zero em cima, senao ele desceria 34px e a marca nao. Ela vai a
+   direita, embaixo do «[ IM.1 ]» do rotulo.
+   19/09: a vaga passou a ser do SELO (selo-ideal-m.svg, Asset 175, 228,95
+   quadrado). Como a peca e quadrada e o lockup era 2,5:1, a altura sobe de 46
+   para 76px: e a altura optica equivalente. Desde a mesma data os tres nomes de
+   lockup (logo-ideal-m, -escuro e -salvo) guardam o mesmo Asset 172 chapado,
+   518,84 x 207,39, e o -prata guarda o 173 na MESMA caixa. */
 .qc-abre-linha{display:flex;justify-content:space-between;align-items:flex-start;
   gap:40px;margin-top:34px;flex-wrap:wrap}
 .qc-abre-linha .qc-titulo-sec{margin-top:0}
-.qc-abre-logo{display:block;height:46px;width:auto;flex:none}
-@media (max-width:880px){ .qc-abre-logo{height:38px} }
+.qc-abre-selo{display:block;height:76px;width:auto;flex:none}
+@media (max-width:880px){ .qc-abre-selo{height:60px} }
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
   line-height:1.45;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
 .qc-lead{margin:10px 0 0;font-family:var(--sans);font-weight:700;
@@ -2266,7 +2265,7 @@ body>*{position:relative;z-index:1}
           <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
           <p class="qc-lead">Reunimos exigência de lei, de norma e de cliente num sistema auditável.</p>
         </div>
-        <img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg" alt="Ideal Metrics">
+        <img class="qc-abre-selo" src="img/selo-ideal-m.svg" alt="Ideal Metrics" width="229" height="229">
       </div>
     </div>
   </section>
@@ -2796,7 +2795,7 @@ body>*{position:relative;z-index:1}
 <!-- ===== rodape ===== -->
 <footer class="ft-root js-ft-root" aria-label="Rodapé Ideal Metrics">
   <div class="ft-brand">
-    <img class="ft-logo" src="img/logo-ideal-m-prata.svg" alt="Ideal Metrics" width="519" height="204" loading="lazy">
+    <img class="ft-logo" src="img/logo-ideal-m-prata.svg" alt="Ideal Metrics" width="519" height="207" loading="lazy">
   </div>
   <hr class="ft-hr" aria-hidden="true">
   <nav class="ft-nav" aria-label="Navegação do rodapé">
