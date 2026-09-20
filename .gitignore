@@ -1,2 +1,14 @@
 ----external template/
 __pycache__/
+
+# 20/09/2026: o repositorio e publico, entao so o site de verdade fica nele.
+# Estes continuam no disco, mas nao sobem mais.
+index-anterior.html
+index-antigo.html
+index-mix.html
+index-modelo-caixas-creme.html
+index-teste.html
+index-teste-4-azul.html
+index-teste-claro.html
+hero-lab.html
+graphify-out/
