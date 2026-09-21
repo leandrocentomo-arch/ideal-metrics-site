@@ -40,13 +40,9 @@ CSS = r"""
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
 .ar-palco{max-width:1080px;margin:44px auto 0}
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
-/* miolos: bege da casa, e tres FRIOS na azul secundaria da casa (#9FC5F0) a 22%
-   sobre o creme = #E6ECF1, no mesmo valor do bege. Multiply so ENTRE os miolos
-   (isolation), para o cruzamento escurecer sem sujar o creme da pagina. Sem
-   movimento na rolagem: o miolo e concentrico ao aro, e deslocar desalinha. */
-.ar-discos{isolation:isolate}
-.ar-discos circle{fill:#F0EFEA;mix-blend-mode:multiply}
-.ar-discos circle.ar-frio{fill:#E6ECF1}
+.ar-camada{will-change:transform}
+.ar-discos circle{fill:#F0EFEA}
+.ar-discos circle.ar-azul{fill:#E6ECF1}
 .ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.16);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-soltos circle{stroke:rgba(20,48,76,.09)}
@@ -54,7 +50,7 @@ CSS = r"""
 .ar-tema{cursor:pointer;transition:opacity .35s ease}
 .ar-tema:focus{outline:none}
 .ar-alvo{fill:transparent}
-.ar-tit{font-family:var(--sans);font-weight:600;font-size:17px;fill:var(--azul);
+.ar-tit{font-family:var(--sans);font-weight:600;font-size:19px;fill:var(--azul);
   text-anchor:middle;dominant-baseline:central}
 /* etiqueta no CREME DA PAGINA, var(--mercurio), e nao em branco (21/09): ela
    combina com o fundo da tela. Sobre o creme quem a desenha e o contorno, que
@@ -86,7 +82,29 @@ CSS = r"""
 @media (max-width:600px){ .ar-lista{grid-template-columns:1fr} }
 """
 
-JS = ""   # 21/09: a profundidade por rolagem saiu, o miolo fica registrado no aro
+JS = r"""
+<script>
+/* CONHECIMENTO: profundidade por rolagem. Discos descem, aros soltos sobem; o
+   aro de cada tema e as suas normas ficam parados. Um quadro por rolagem, so
+   enquanto a secao esta na tela, e nada com prefers-reduced-motion. */
+(function(){
+  var sec=document.getElementById('conhecimento');
+  if(!sec||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var cam=[].slice.call(sec.querySelectorAll('[data-ar-vel]')), pend=false;
+  function pinta(){
+    pend=false;
+    var r=sec.getBoundingClientRect(), vh=innerHeight;
+    if(r.bottom<0||r.top>vh) return;
+    var p=((r.top+r.height/2)-vh/2)/(vh/2+r.height/2);
+    for(var i=0;i<cam.length;i++)
+      cam[i].style.transform='translateY('+(p*+cam[i].getAttribute('data-ar-vel')).toFixed(2)+'px)';
+  }
+  addEventListener('scroll',function(){ if(!pend){pend=true;requestAnimationFrame(pinta);} },{passive:true});
+  addEventListener('resize',pinta);
+  pinta();
+})();
+</script>
+"""
 
 
 def svg(L):
@@ -94,10 +112,9 @@ def svg(L):
     T = arcos.TEMAS
     o = ['<svg class="ar-svg" viewBox="%.1f %.1f %.1f %.1f" aria-label="Temas e normas da Ideal Metrics">'
          % arcos.limites(L)]
-    o.append('<g class="ar-discos" aria-hidden="true">')
-    for tid, pag, div, cx, cy, r, tit, normas in T:
-        o.append('<circle%s cx="%d" cy="%d" r="%d"/>'
-                 % (' class="ar-frio"' if tid in arcos.TEMAS_FRIOS else '', cx, cy, r - arcos.FOLGA_MIOLO))
+    o.append('<g class="ar-camada ar-discos" data-ar-vel="64" aria-hidden="true">')
+    o += ['<circle%s cx="%d" cy="%d" r="%d"/>' % ((' class="ar-azul"' if k in arcos.DISCOS_AZUIS else '',) + c)
+          for k, c in enumerate(arcos.DISCOS)]
     o.append('</g>')
     if arcos.AROS_SOLTOS:
         o.append('<g class="ar-camada ar-soltos" data-ar-vel="-34" aria-hidden="true">')

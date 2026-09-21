@@ -26,11 +26,10 @@ import json, math, os
 AQUI = os.path.dirname(os.path.abspath(__file__))
 VB_W, VB_H = 1200, 760
 PAD_X, PIL_H = 8, 20           # respiro lateral e altura da pilula, em unidades do viewBox
-TXT_PIL, TXT_TIT, LH_TIT = 10.5, 17, 21
-# larguras.json foi medido com pilula a 12,5 e titulo a 19: a largura de texto
-# escala linear com o corpo, entao basta a razao
-ESC_PIL, ESC_TIT = TXT_PIL / 12.5, TXT_TIT / 19.0
-FOLGA_MIOLO = 12               # o miolo de cada aro para 12 antes da linha
+TXT_PIL, TXT_TIT, LH_TIT = 10.5, 19, 23
+# 21/09: etiqueta menor a pedido do Leandro (era 12,5 de corpo e 26 de altura).
+# larguras.json foi medido a 12,5: a largura do texto escala linear com o corpo
+ESC_PIL = TXT_PIL / 12.5
 
 # (id, pagina, divisao, cx, cy, r, linhas do titulo, [(norma, angulo em graus)])
 # angulo: 0 = direita, 90 = baixo (y do SVG cresce para baixo)
@@ -55,14 +54,13 @@ TEMAS = [
     [('Nota técnica', -130), ('Observatório setorial', 100), ('EUDR', -40)]),
 ]
 
-# 21/09/2026 (2a volta): as manchas soltas por tras SAIRAM. Desalinhadas dos
-# aros e em duas cores, liam como erro de registro. Agora cada aro tem o seu
-# MIOLO, concentrico, parando FOLGA_MIOLO antes da linha; onde dois miolos se
-# cruzam o tom escurece sozinho (multiply). Tres miolos sao frios, no
-# cinza-azulado da liga fria (#A3B5C8 a 25% sobre o creme = #E4E8EA), no mesmo
-# valor do bege: «mais proximo do bege», como o Leandro pediu.
-DISCOS = []
-TEMAS_FRIOS = {'iso', 'esg', 'estudos'}
+# manchas cheias por tras, independentes dos aros (como na referencia), todas
+# DENTRO da prancha: a primeira versao deixava uma sair por baixo
+DISCOS = [(360, 360, 215), (722, 252, 160), (962, 428, 140), (540, 642, 105), (1080, 655, 95)]
+# 21/09/2026: tres dos cinco discos em AZUL palido (o ISO, o do ESG com Padroes
+# de mercado e o de Estudos), a pedido do Leandro: «quero que tenha partes em
+# azul». Os outros dois ficam no bege da casa. Indices de DISCOS.
+DISCOS_AZUIS = {0, 2, 4}
 # 21/09/2026: os aros soltos (sem rotulo, so ritmo, copiados da referencia)
 # SAIRAM. O Leandro perguntou para que serviam, e a resposta era: para nada.
 # Todo aro desta secao e um tema.
@@ -90,7 +88,7 @@ def titulos(L):
     out = []
     for tid, pag, div, cx, cy, r, tit, normas in TEMAS:
         n = len(tit)
-        w = max(L.get('T:' + l, len(l) * 9.4) for l in tit) * ESC_TIT
+        w = max(L.get('T:' + l, len(l) * 9.4) for l in tit)
         h = LH_TIT * n
         out.append(dict(tema=tid, x0=cx - w / 2, y0=cy - h / 2, x1=cx + w / 2, y1=cy + h / 2))
     return out
