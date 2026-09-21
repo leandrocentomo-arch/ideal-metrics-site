@@ -1326,16 +1326,20 @@ body>*{position:relative;z-index:1}
 /* navegador sem backdrop-filter nao pode ficar com uma caixa translucida sem
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .barra-marca{background:var(--mercurio)} }
-.barra-marca:hover{background:var(--mercurio)}
-/* 21/09: o fundo do monograma e EXATAMENTE o das manchas do diagrama
-   Conhecimento: trama #6792BD sobre o creme, tom 0,95, pelo mesmo motor
-   ditherVivo, com o rastro do mouse. O canvas e opaco e fica atras do
-   monograma; sem WebGL fica o creme liso. overflow corta o canto da caixa.
-   (Passou pelo #E8F2DC antes; o Leandro queria este fundo.) */
-.barra-marca{overflow:hidden}
-.bm-gl{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none}
-.barra-marca .marca-frente{position:relative;z-index:1}
+  .barra-marca{background:linear-gradient(135deg, #F5F8FC 0%, #E4ECF5 50%, #C9D8E9 100%)} }
+/* 21/09 (noite): o fundo do monograma e o VIDRO DO SELO, sem trama: o mesmo
+   degrade azul bem claro do anel do selo-ideal-m-vidro.svg (#F5F8FC a #C9D8E9,
+   claro no alto a esquerda), o mesmo reflexo (branco 72% -> 18% -> 0 de cima
+   para baixo) e a mesma borda de luz (branco 85% por dentro). O Leandro chamou
+   de «um tipo de prata». A trama pelo motor saiu. */
+.barra-marca{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.18) 55%, rgba(255,255,255,0) 100%),
+    linear-gradient(135deg, #F5F8FC 0%, #E4ECF5 50%, #C9D8E9 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.85), 0 6px 16px rgba(20,48,76,.08)}
+.barra-marca:hover{background:
+    linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.18) 55%, rgba(255,255,255,0) 100%),
+    linear-gradient(135deg, #F5F8FC 0%, #E4ECF5 50%, #C9D8E9 100%)}
 .barra-marca .marca-frente{height:81.1px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca .marca-frente{height:71.1px}
@@ -4165,17 +4169,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008, pixMul:2.2});
   })();
 
-  /* ---------------- MONOGRAMA do menu: trama rala atras dele ---------------- */
-  (function(){
-    var c = document.querySelector('.barra-marca'); if(!c) return;
-    ditherVivo({raiz:c, planos:[{el:c, lum:'img/monograma-fundo-lum.webp'}], classeCanvas:'bm-gl', revelar:'visivel',
-      /* a cor 3, que e o fundo, e o #E8F2DC da placa, e nao o creme */
-      /* 21/09: trama QUASE IMPERCEPTIVEL, a pedido do Leandro: tom 0,985 (~4,5% de
-         pontos, contra ~15% das manchas) e o ponto num azul bem mais claro,
-         #C3D3E4 no lugar do #6792BD. Mesmo creme e mesmo pincel das manchas. */
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[195,211,228],[250,249,245]], pincel:.7});
-  })();
-  /* ---------------- fim MONOGRAMA do menu ---------------- */
   /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---------------- */
   (function(){
     var m = document.querySelector('.ar-manchas'); if(!m) return;
