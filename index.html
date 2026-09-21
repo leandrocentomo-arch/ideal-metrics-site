@@ -4165,9 +4165,10 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var c = document.querySelector('.barra-marca'); if(!c) return;
     ditherVivo({raiz:c, planos:[{el:c, lum:'img/monograma-fundo-lum.webp'}], classeCanvas:'bm-gl', revelar:'visivel',
       /* a cor 3, que e o fundo, e o #E8F2DC da placa, e nao o creme */
-      /* 21/09: EXATAMENTE a trama das manchas do diagrama Conhecimento: mesma
-         rampa, mesmo creme, mesmo tom (0,95, ~15% de pontos) e mesmo pincel */
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
+      /* 21/09: trama QUASE IMPERCEPTIVEL, a pedido do Leandro: tom 0,985 (~4,5% de
+         pontos, contra ~15% das manchas) e o ponto num azul bem mais claro,
+         #C3D3E4 no lugar do #6792BD. Mesmo creme e mesmo pincel das manchas. */
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[195,211,228],[250,249,245]], pincel:.7});
   })();
   /* ---------------- fim MONOGRAMA do menu ---------------- */
   /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---------------- */
