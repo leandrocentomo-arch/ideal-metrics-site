@@ -38,8 +38,11 @@ def no_site(css, secao, js):
     assert t.count(ancora_html) == 1
     t = t.replace(ancora_html, secao + '\n\n' + ancora_html, 1)
 
-    assert t.count('</body>') == 1
-    t = t.replace('</body>', js.strip('\n') + '\n</body>', 1)
+    # sem script (a profundidade por rolagem saiu em 21/09) nada entra: senao
+    # cada rodada deixaria uma linha em branco a mais antes de </body>
+    if js.strip():
+        assert t.count('</body>') == 1
+        t = t.replace('</body>', js.strip('\n') + '\n</body>', 1)
 
     if 'Serviços / [ IM.2 ]' in t:
         t = t.replace('Serviços / [ IM.2 ]', 'Serviços / [ IM.3 ]', 1)
