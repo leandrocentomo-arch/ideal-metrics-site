@@ -62,26 +62,6 @@ img { max-width: 100%; display: block; }
 /* ========== TARJA DE IDENTIFICACAO ========== */
 /* Vem antes do cabecalho e rola junto com a pagina: o .header e sticky,
    nao fixed, entao a tarja sai de cena na primeira rolagem. */
-.tarja {
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 max(40px, calc(50% - 580px));
-  background: #EF4545;
-}
-.tarja span {
-  font-family: var(--mono, 'IBM Plex Mono', monospace);
-  font-weight: 500;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #FFFFFF;
-}
-@media (max-width: 768px) {
-  .tarja { height: 22px; padding: 0 16px; }
-  .tarja span { font-size: 9px; letter-spacing: 0.16em; }
-}
 
 /* ========== HEADER ========== */
 .header {
@@ -3740,3 +3720,142 @@ html.js .content > .in-view { opacity: 1; transform: none; }
   .im-secao-logo { margin-bottom: 16px; }
   .im-secao-logo img { height: 36px; }
 }
+
+/* ===== BARRA DA HOME (gerado por _ferramentas/barra.py) ===== */
+.veu-menu{position:fixed;inset:0;z-index:980;background:var(--fundo);
+  color:var(--mercurio);display:flex;flex-direction:column;justify-content:flex-start;
+  padding:132px var(--lado) 0;gap:0;transform:translateY(-101%);
+  counter-reset:vm;overflow-y:auto;
+  transition:transform .6s cubic-bezier(.76,0,.24,1)}
+.veu-menu.aberto{transform:none}
+/* cada item: indice mono a esquerda, nome a direita, fio embaixo. E o
+   mesmo idioma dos rotulos de secao, na escala dos titulos. */
+.veu-menu a{counter-increment:vm;display:flex;align-items:baseline;gap:22px;
+  padding:15px 0;border-bottom:1px solid rgba(250,249,245,.20);
+  font-family:var(--sans);font-weight:500;
+  font-size:clamp(22px,2.4vw,34px);line-height:1.2;letter-spacing:-.012em;
+  transition:padding-left .35s cubic-bezier(.4,0,.2,1),color .35s}
+.veu-menu a::before{content:"[ " counter(vm,decimal-leading-zero) " ]";
+  font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;
+  color:rgba(250,249,245,.55);flex:none;min-width:64px}
+.veu-menu a:first-of-type{border-top:1px solid rgba(250,249,245,.20)}
+.veu-menu a:hover{color:var(--branco);padding-left:10px}
+@media (max-width:880px){
+  .veu-menu{padding-top:104px}
+  .veu-menu a{gap:14px;padding:12px 0}
+  .veu-menu a::before{min-width:48px}
+}
+.veu-menu .fecha{position:absolute;top:15px;right:var(--lado);
+  background:var(--branco);color:var(--azul);border:none;cursor:pointer;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;padding:16px 24px}
+.veu-menu .selo-mono{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;opacity:.8;margin-bottom:24px}
+.tarja{position:fixed;top:0;left:0;right:0;z-index:950;height:26px;
+  display:flex;align-items:center;justify-content:flex-end;
+  padding:0 var(--lado);background:var(--mercurio);
+  /* 3px e nao 1: esta e a PRIMEIRA LINHA da pagina, e ela virou tambem a
+     aresta de cima da caixa do logo (ver `.barra-marca`). Com
+     `box-sizing:border-box` os 26 de altura ja contam o fio, entao ele
+     ocupa de 23 a 26 e a barra, que comeca em 26, encosta nele sem folga. */
+  border-bottom:3px solid rgba(20,48,76,.2)}
+.tarja-lado{display:flex;align-items:center;height:100%}
+.tarja span{display:flex;align-items:center;height:100%;padding:0 14px;
+  font-family:var(--mono);font-weight:500;font-size:10px;white-space:nowrap;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(20,48,76,.72)}
+.tarja span + span{border-left:1px solid rgba(20,48,76,.22)}
+.tarja-lado span:last-child{padding-right:0}
+.tarja .tarja-nome{color:var(--azul)}
+@media (max-width:880px){ .tarja{height:22px}
+  .tarja span{font-size:9px;letter-spacing:.16em;padding:0 10px} }
+
+.barra{position:fixed;top:26px;left:0;right:0;z-index:960;height:66px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--lado);background:rgba(250,249,245,.78);
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  backdrop-filter:blur(20px) saturate(150%);
+  border-bottom:1px solid rgba(20,48,76,.16)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .barra{background:var(--mercurio)} }
+/* A CAIXA DO LOGO, no feitio das pecas do painel Spirit: fio de 1px, canto de
+   3px e 18 de respiro em volta da marca (`.peca{border:1px solid;border-radius:3px;
+   padding:18px}` la). O fundo volta ao CREME, mas em VIDRO: creme a 62% com
+   desfoque por tras, e nao chapa. E por isso que o monograma entra SEM a chapa
+   dele (`monograma-ideal-m-limpo.svg`, o oficial com o <rect> de fundo tirado):
+   chapa opaca dentro de caixa de vidro apaga o vidro justamente no meio, e
+   sobraria um aro de vidro em volta de um retangulo cego.
+   O brilho de 1px na aresta de cima e a receita da casa para vidro (a mesma do
+   `.barra-nav a.vidro`), e e o que faz a peca ler como superficie e nao como
+   recorte. Sem sombra, que e regra da casa.
+   ANCORA: `margin-top:-26px` e exatamente o `top` da barra, entao a aresta de
+   cima cai em y=26, no fim do fio grosso da tarja. A caixa tem 81,1 de marca mais 7,3
+   de respiro, 88,4 no total (a peca inteira encolheu 15% em 14/09, noite), e a
+   base cai em 114 contra 92 da barra: sao 22px de
+   caixa sobre a foto, que e onde o vidro tem o que desfocar. A primeira versao
+   saiu com 148 e ficou grande demais. */
+.barra-marca{display:flex;align-items:center;position:relative;z-index:1;
+  /* margin-top:0 e nao -26: a aresta de cima da caixa cai em y=26, que e
+     exatamente onde termina o fio grosso da tarja. Os dois viram UMA coisa,
+     e por isso a caixa nao tem `border-top`: quem fecha o alto dela e a
+     primeira linha da pagina. */
+  align-self:flex-start;margin-top:0;
+  /* 8 e nao 14: a CAIXA fica do mesmo tamanho e quem cresce e a marca.
+     96 + 16 = 112 de altura, o mesmo de antes. */
+  padding:3.66px;border-radius:0 0 3px 3px;border:1px solid var(--fio);border-top:none;
+  /* CREME CHAPADO, 19/09. A caixa era prata: um degrade de cinco paradas no
+     eixo de 26 graus, de #E9EAEB a branco (a «prata discreta» de 17/09). Sobre
+     o creme da pagina ela lia como um cartao branco recortado, e nao como a
+     marca solta. Agora e o proprio creme do site, sem degrade e sem brilho
+     interno: o que aparece no alto e o monograma, nao a placa. O desfoque fica,
+     porque a caixa passa por cima da foto da primeira secao.
+     21/09: o fundo passa a #E8F2DC, a pedido do Leandro, o mesmo da placa do
+     monograma oficial e do disco do avatar. */
+  background:var(--mercurio);
+  backdrop-filter:blur(14px) saturate(160%);
+  transition:background .45s cubic-bezier(.4,0,.2,1)}
+/* navegador sem backdrop-filter nao pode ficar com uma caixa translucida sem
+   desfoque por tras: ali o creme fecha. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .barra-marca{background:var(--mercurio)} }
+/* 21/09: o cartao do monograma no CREME da pagina, var(--mercurio), como
+   estava em efd247b. Passou por #E8F2DC, por trama e por vidro prateado; o
+   Leandro pediu de volta o creme. Sobre o creme quem desenha a caixa e o fio. */
+.barra-marca{background:var(--mercurio)}
+.barra-marca:hover{background:var(--mercurio)}
+.barra-marca .marca-frente{height:81.1px;width:auto;display:block;
+  transition:height .45s cubic-bezier(.4,0,.2,1)}
+.barra.rolou .barra-marca .marca-frente{height:71.1px}
+.barra-marca span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.barra-nav{display:flex;align-items:center;gap:30px}
+.barra-nav a{font-family:var(--mono);font-weight:500;font-size:10.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro);
+  border-bottom:1px solid transparent;padding-bottom:2px;
+  transition:color .3s,border-color .3s}
+.barra-nav a:hover{color:var(--azul);border-bottom-color:var(--azul)}
+/* Contato e o unico botao de vidro da barra: fundo quase branco, o
+   desfoque da propria barra por tras, e um brilho de 1px na aresta de
+   cima, que e o que faz a peca ler como vidro e nao como caixa. Sem
+   sombra, que e regra da casa. */
+.barra-nav a.vidro{padding:9px 20px;border:1px solid rgba(20,48,76,.16);
+  border-radius:3px;background:rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(14px) saturate(170%);
+  backdrop-filter:blur(14px) saturate(170%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(20,48,76,.05);
+  color:var(--azul);
+  transition:background .35s,border-color .35s,color .35s}
+.barra-nav a.vidro:hover{background:rgba(255,255,255,.86);
+  border-color:rgba(20,48,76,.30);color:var(--azul)}
+.barra-menu{background:none;border:1px solid rgba(20,48,76,.28);border-radius:3px;
+  cursor:pointer;font-family:var(--mono);font-weight:500;font-size:10.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--azul);padding:9px 18px;
+  transition:background .35s,border-color .35s,color .35s}
+.barra-menu:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
+@media (max-width:1100px){ .barra-nav{display:none} }
+@media (min-width:1101px){ .barra-menu{display:none} }
+@media (max-width:880px){ .barra{top:22px;height:56px} .barra-marca .marca-frente{height:69.4px}
+  /* a barra comeca em 22 aqui: a ancora da placa acompanha, senao ela passa
+     do topo da tela e a aresta de cima e cortada */
+  .barra-marca{margin-top:0;padding:3.15px} }
+.barra-espaco{height:92px}
+/* ===== fim BARRA DA HOME ===== */
