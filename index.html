@@ -1326,20 +1326,12 @@ body>*{position:relative;z-index:1}
 /* navegador sem backdrop-filter nao pode ficar com uma caixa translucida sem
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .barra-marca{background:linear-gradient(135deg, #F5F8FC 0%, #E4ECF5 50%, #C9D8E9 100%)} }
-/* 21/09 (noite): o fundo do monograma e o VIDRO DO SELO, sem trama: o mesmo
-   degrade azul bem claro do anel do selo-ideal-m-vidro.svg (#F5F8FC a #C9D8E9,
-   claro no alto a esquerda), o mesmo reflexo (branco 72% -> 18% -> 0 de cima
-   para baixo) e a mesma borda de luz (branco 85% por dentro). O Leandro chamou
-   de «um tipo de prata». A trama pelo motor saiu. */
-.barra-marca{
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.18) 55%, rgba(255,255,255,0) 100%),
-    linear-gradient(135deg, #F5F8FC 0%, #E4ECF5 50%, #C9D8E9 100%);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.85), 0 6px 16px rgba(20,48,76,.08)}
-.barra-marca:hover{background:
-    linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.18) 55%, rgba(255,255,255,0) 100%),
-    linear-gradient(135deg, #F5F8FC 0%, #E4ECF5 50%, #C9D8E9 100%)}
+  .barra-marca{background:#E8F2DC} }
+/* 21/09: o cartao do monograma na cor clara #E8F2DC, lisa. Passou por vidro
+   prateado e por trama, e o Leandro pediu de volta a cor clara. E a mesma cor
+   da placa do monograma oficial e do disco do avatar. */
+.barra-marca{background:#E8F2DC}
+.barra-marca:hover{background:#E8F2DC}
 .barra-marca .marca-frente{height:81.1px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca .marca-frente{height:71.1px}
@@ -1415,11 +1407,7 @@ body>*{position:relative;z-index:1}
 .qc-abre-linha .qc-titulo-sec{margin-top:0}
 .qc-abre-logo{display:block;height:46px;width:auto;margin:0 0 20px}
 .qc-abre-selo{position:absolute;right:var(--lado);bottom:0;
-  display:block;height:150px;width:auto;
-  /* 21/09: variante de VIDRO (selo-ideal-m-vidro.svg, gerada por
-     _ferramentas/selo_vidro.py): azul bem claro, reflexo e borda de luz no
-     proprio desenho; a sombra que descola do fundo fica aqui */
-  filter:drop-shadow(0 10px 22px rgba(20,48,76,.12)) drop-shadow(0 2px 4px rgba(20,48,76,.08))}
+  display:block;height:150px;width:auto}
 @media (max-width:880px){ .qc-abre-logo{height:38px;margin-bottom:16px}
   .qc-abre-selo{position:static;height:96px;margin:24px var(--lado) 0} }
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
@@ -2376,7 +2364,7 @@ body>*{position:relative;z-index:1}
         </div>
       </div>
     </div>
-    <img class="qc-abre-selo" src="img/selo-ideal-m-vidro.svg?v=21092026" alt="Ideal Metrics" width="229" height="229">
+    <img class="qc-abre-selo" src="img/selo-ideal-m.svg?v=19092026" alt="Ideal Metrics" width="229" height="229">
   </section>
 
 <section class="dm-sec" id="demandas" aria-labelledby="dm-titulo">
