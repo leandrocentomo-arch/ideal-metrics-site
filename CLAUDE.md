@@ -5,6 +5,9 @@
 - Nunca pergunte se deve fazer commit, sempre faça automaticamente.
 - Repositório: `leandrocentomo-arch/ideal-metrics-site`.
 - O site está hospedado no GitHub Pages em https://leandrocentomo-arch.github.io/ideal-metrics-site/
+- O repositório é PÚBLICO, e precisa ser: no plano gratuito o GitHub Pages só publica repositório público. Tornar privado derruba o site, e voltar a público não religa o Pages sozinho (Settings > Pages, branch `main`, pasta raiz). Por isso só o site de verdade entra no repositório: rascunho, página de teste e artefato interno ficam no disco e no `.gitignore`. Nunca versionar chave, senha, dado de cliente ou proposta.
+- As peças da marca em `img/` trocam de conteúdo mantendo o nome, então levam `?v=<data>` na URL para o navegador não servir a versão antiga do cache. A cada troca de logo, mudar esse número em todas as páginas.
+- A seção «Conhecimento» da home (esquema por arcos) é gerada: editar `_ferramentas/arcos/arcos.py` e rodar `python _ferramentas/arcos/monta.py site`, que reinsere de forma idempotente. O gerador recusa colisão de pílula, de título e de aro. Não editar o SVG à mão no `index.html`.
 - Visual, layout e fontes seguem o mesmo padrão da CQT (IBM Plex Sans Condensed). O que muda entre as marcas é só o logo e o nome.
 - Rodapé legal: IDEAL METRICS LTDA · CNPJ 69.202.916/0001-20 (empresa aberta em 16/09/2026; trocado no site em 18/09/2026). A experiência desde 1998 é da equipe, não do CNPJ: escrever "equipe em atuação desde 1998", nunca "fundada em 1998".
 - Arquitetura do site (mapa estratégico v1.1): duas divisões. **Padrões e Conformidade**, com dez temas, e **Estudos e Pesquisa Aplicada**, com quatro. Consultoria, auditoria, inspeção e treinamento são modos de prestar um tema, não temas, e por isso não têm página própria.
