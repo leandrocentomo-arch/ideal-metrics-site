@@ -259,6 +259,50 @@ body>*{position:relative;z-index:1}
 }
 @media (max-width:600px){ .ar-lista{grid-template-columns:1fr} }
 /* ===== fim CONHECIMENTO ===== */
+/* ===== VARIANTES CONHECIMENTO (B e C) ===== */
+/* B: a grade */
+.cb-sec{padding:92px var(--lado) 104px;background:var(--mercurio);color:var(--azul)}
+.cb-cab{border-top:1px solid var(--fio);padding-top:12px}
+.cb-grade{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;margin-top:44px;
+  background:rgba(20,48,76,.14);border:1px solid rgba(20,48,76,.14)}
+.cb-cel{background:var(--mercurio);padding:26px 22px 28px;display:flex;flex-direction:column;gap:16px;
+  min-height:214px;text-decoration:none;color:inherit;transition:background .35s ease}
+.cb-cel:hover,.cb-cel:focus-visible{background:#F0EFEA;outline:none}
+.cb-cel--i{background-image:repeating-linear-gradient(135deg,transparent 0 7px,rgba(20,48,76,.05) 7px 8px)}
+.cb-num{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--azul-escuro)}
+.cb-tit{font-family:var(--sans);font-weight:600;font-size:19px;line-height:1.2;letter-spacing:-.01em;margin:0}
+.cb-normas{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.cb-normas span{font-family:var(--sans);font-weight:500;font-size:11.5px;line-height:1;padding:6px 8px;
+  background:var(--branco);border:1px solid rgba(20,48,76,.14);border-radius:3px;color:var(--azul-escuro)}
+@media (max-width:1180px){ .cb-grade{grid-template-columns:repeat(2,minmax(0,1fr))} .cb-cel{min-height:0} }
+@media (max-width:600px){ .cb-grade{grid-template-columns:1fr} }
+
+/* C: a roda */
+.cc-sec{padding:92px var(--lado) 104px;background:var(--mercurio);color:var(--azul)}
+.cc-cab{border-top:1px solid var(--fio);padding-top:12px}
+.cc-palco{position:relative;max-width:940px;margin:36px auto 0}
+.cc-svg{display:block;width:100%;height:auto;overflow:visible}
+.cc-anel{fill:none;stroke:rgba(20,48,76,.18);stroke-width:1;vector-effect:non-scaling-stroke}
+.cc-anel--i{stroke-dasharray:3 5}
+.cc-pt{cursor:pointer}
+.cc-pt circle{fill:var(--mercurio);stroke:rgba(20,48,76,.45);stroke-width:1.2;vector-effect:non-scaling-stroke;transition:fill .3s,stroke .3s}
+.cc-pt text{font-family:var(--sans);font-weight:500;font-size:14px;fill:var(--azul);transition:font-weight .1s}
+.cc-pt:focus{outline:none}
+.cc-pt.cc-on circle{fill:var(--azul);stroke:var(--azul)}
+.cc-pt.cc-on text{font-weight:700}
+.cc-centro{position:absolute;left:50%;top:50%;width:min(300px,42%);transform:translate(-50%,-50%);text-align:center}
+.cc-centro-rot{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro);margin:0 0 10px}
+.cc-centro-tit{font-family:var(--sans);font-weight:700;font-size:clamp(20px,2.2vw,28px);line-height:1.15;letter-spacing:-.012em;margin:0 0 16px;text-wrap:balance}
+.cc-centro-normas{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.cc-centro-normas span{font-family:var(--sans);font-weight:500;font-size:12px;line-height:1;padding:6px 9px;
+  background:var(--branco);border:1px solid rgba(20,48,76,.14);border-radius:3px;color:var(--azul-escuro)}
+.cc-centro a{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--azul);text-decoration:none;border-bottom:1px solid var(--fio);padding-bottom:3px}
+.cc-lista{display:none}
+@media (max-width:760px){ .cc-palco{display:none} .cc-lista{display:block} }
+/* ===== fim VARIANTES CONHECIMENTO ===== */
+
+
 .sv{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:15px;grid-template-rows:auto auto auto auto;align-content:start;min-height:100svh;padding:50px var(--lado) 0;background:var(--mercurio);color:var(--azul)}
 .sv-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .sv-label{grid-column:1/7;grid-row:1;margin:0;font-family:var(--mono);font-weight:400;font-size:12px;line-height:1;letter-spacing:.02em;text-transform:uppercase;color:var(--azul)}
@@ -2538,6 +2582,78 @@ body>*{position:relative;z-index:1}
 </ul>
   </div>
 </section>
+
+
+<!-- ===== VARIANTES CONHECIMENTO (B e C) ===== -->
+<section class="cb-sec" id="conhecimento-b" aria-labelledby="cb-titulo">
+  <div class="cb-cab"><p class="ar-rotulo">Conhecimento / opção B: grade</p>
+  <div class="ar-linha"><h2 class="ar-titulo" id="cb-titulo">Cada tema, com as normas e os padrões que aplicamos</h2>
+  <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul></div></div>
+  <div class="cb-grade">
+    <a class="cb-cel" href="implantacao-iso.html"><span class="cb-num">01</span><h3 class="cb-tit">Sistemas de gestão ISO</h3><span class="cb-normas"><span>ISO 9001</span><span>ISO 14001</span><span>ISO 45001</span><span>ISO 50001</span><span>ISO 41001</span></span></a>
+    <a class="cb-cel" href="nrs.html"><span class="cb-num">02</span><h3 class="cb-tit">Normas Regulamentadoras</h3><span class="cb-normas"><span>NR-01</span><span>NR-12</span><span>NR-17</span></span></a>
+    <a class="cb-cel" href="compliance-seguranca-informacao.html"><span class="cb-num">03</span><h3 class="cb-tit">Gestão de compliance</h3><span class="cb-normas"><span>ISO 37001</span><span>ISO 37301</span><span>LGPD</span></span></a>
+    <a class="cb-cel" href="compliance-seguranca-informacao.html"><span class="cb-num">04</span><h3 class="cb-tit">Segurança da informação</h3><span class="cb-normas"><span>LGPD</span><span>ISO/IEC 27001</span></span></a>
+    <a class="cb-cel" href="gestao-carbono.html"><span class="cb-num">05</span><h3 class="cb-tit">Gestão de carbono</h3><span class="cb-normas"><span>GHG Protocol</span><span>ISO 14064</span><span>ISO 14068-1</span><span>SBTi</span></span></a>
+    <a class="cb-cel" href="esg.html"><span class="cb-num">06</span><h3 class="cb-tit">ESG</h3><span class="cb-normas"><span>ABNT PR 2030</span><span>GRI</span><span>IFRS S1 e S2</span></span></a>
+    <a class="cb-cel" href="sedex-smeta.html"><span class="cb-num">07</span><h3 class="cb-tit">SEDEX SMETA</h3><span class="cb-normas"><span>SMETA 7.0</span><span>SA 8000</span></span></a>
+    <a class="cb-cel" href="padroes-mercado.html"><span class="cb-num">08</span><h3 class="cb-tit">Padrões de mercado</h3><span class="cb-normas"><span>EcoVadis</span><span>FSC</span></span></a>
+    <a class="cb-cel" href="seguranca-alimentos.html"><span class="cb-num">09</span><h3 class="cb-tit">Segurança de alimentos</h3><span class="cb-normas"><span>ISO 22000</span><span>FSSC 22000</span></span></a>
+    <a class="cb-cel cb-cel--i" href="estudos-pesquisa.html"><span class="cb-num">10</span><h3 class="cb-tit">Estudos e pesquisa aplicada</h3><span class="cb-normas"><span>Nota técnica</span><span>Observatório setorial</span><span>EUDR</span></span></a>
+  </div>
+</section>
+
+<section class="cc-sec" id="conhecimento-c" aria-labelledby="cc-titulo">
+  <div class="cc-cab"><p class="ar-rotulo">Conhecimento / opção C: roda</p>
+  <div class="ar-linha"><h2 class="ar-titulo" id="cc-titulo">Cada tema, com as normas e os padrões que aplicamos</h2>
+  <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul></div></div>
+  <div class="cc-palco">
+  <svg class="cc-svg" viewBox="0 0 940 660" aria-label="Roda dos temas">
+    <circle class="cc-anel" cx="470" cy="330" r="232"/>
+    <circle class="cc-anel cc-anel--i" cx="470" cy="330" r="246"/>
+    <g class="cc-pt" data-t="iso" tabindex="0" role="button" aria-label="Sistemas de gestão ISO"><circle cx="470.0" cy="98.0" r="7"/><text x="470.0" y="58.0" text-anchor="middle" dominant-baseline="central">Sistemas de gestão ISO</text></g>
+    <g class="cc-pt" data-t="nrs" tabindex="0" role="button" aria-label="Normas Regulamentadoras"><circle cx="606.4" cy="142.3" r="7"/><text x="629.9" y="109.9" text-anchor="start" dominant-baseline="central">Normas Regulamentadoras</text></g>
+    <g class="cc-pt" data-t="compliance" tabindex="0" role="button" aria-label="Gestão de compliance"><circle cx="690.6" cy="258.3" r="7"/><text x="728.7" y="245.9" text-anchor="start" dominant-baseline="central">Gestão de compliance</text></g>
+    <g class="cc-pt" data-t="si" tabindex="0" role="button" aria-label="Segurança da informação"><circle cx="690.6" cy="401.7" r="7"/><text x="728.7" y="414.1" text-anchor="start" dominant-baseline="central">Segurança da informação</text></g>
+    <g class="cc-pt" data-t="carbono" tabindex="0" role="button" aria-label="Gestão de carbono"><circle cx="606.4" cy="517.7" r="7"/><text x="629.9" y="550.1" text-anchor="start" dominant-baseline="central">Gestão de carbono</text></g>
+    <g class="cc-pt" data-t="esg" tabindex="0" role="button" aria-label="ESG"><circle cx="470.0" cy="562.0" r="7"/><text x="470.0" y="602.0" text-anchor="middle" dominant-baseline="central">ESG</text></g>
+    <g class="cc-pt" data-t="smeta" tabindex="0" role="button" aria-label="SEDEX SMETA"><circle cx="333.6" cy="517.7" r="7"/><text x="310.1" y="550.1" text-anchor="end" dominant-baseline="central">SEDEX SMETA</text></g>
+    <g class="cc-pt" data-t="padroes" tabindex="0" role="button" aria-label="Padrões de mercado"><circle cx="249.4" cy="401.7" r="7"/><text x="211.3" y="414.1" text-anchor="end" dominant-baseline="central">Padrões de mercado</text></g>
+    <g class="cc-pt" data-t="alimentos" tabindex="0" role="button" aria-label="Segurança de alimentos"><circle cx="249.4" cy="258.3" r="7"/><text x="211.3" y="245.9" text-anchor="end" dominant-baseline="central">Segurança de alimentos</text></g>
+    <g class="cc-pt" data-t="estudos" tabindex="0" role="button" aria-label="Estudos e pesquisa aplicada"><circle cx="325.4" cy="131.0" r="7"/><text x="310.1" y="109.9" text-anchor="end" dominant-baseline="central">Estudos e pesquisa aplicada</text></g>
+  </svg>
+  <div class="cc-centro" aria-live="polite"><p class="cc-centro-rot" id="cc-rot"></p><h3 class="cc-centro-tit" id="cc-tit"></h3><div class="cc-centro-normas" id="cc-normas"></div><a id="cc-link" href="#">Ver o tema</a></div>
+  </div>
+<ul class="ar-lista cc-lista">
+<li class="ar-item"><a href="implantacao-iso.html">Sistemas de gestão ISO</a><span class="ar-normas"><span>ISO 9001</span><span>ISO 14001</span><span>ISO 45001</span><span>ISO 50001</span><span>ISO 41001</span></span></li>
+<li class="ar-item"><a href="nrs.html">Normas Regulamentadoras</a><span class="ar-normas"><span>NR-01</span><span>NR-12</span><span>NR-17</span></span></li>
+<li class="ar-item"><a href="compliance-seguranca-informacao.html">Gestão de compliance</a><span class="ar-normas"><span>ISO 37001</span><span>ISO 37301</span><span>LGPD</span></span></li>
+<li class="ar-item"><a href="compliance-seguranca-informacao.html">Segurança da informação</a><span class="ar-normas"><span>LGPD</span><span>ISO/IEC 27001</span></span></li>
+<li class="ar-item"><a href="gestao-carbono.html">Gestão de carbono</a><span class="ar-normas"><span>GHG Protocol</span><span>ISO 14064</span><span>ISO 14068-1</span><span>SBTi</span></span></li>
+<li class="ar-item"><a href="esg.html">ESG</a><span class="ar-normas"><span>ABNT PR 2030</span><span>GRI</span><span>IFRS S1 e S2</span></span></li>
+<li class="ar-item"><a href="sedex-smeta.html">SEDEX SMETA</a><span class="ar-normas"><span>SMETA 7.0</span><span>SA 8000</span></span></li>
+<li class="ar-item"><a href="padroes-mercado.html">Padrões de mercado</a><span class="ar-normas"><span>EcoVadis</span><span>FSC</span></span></li>
+<li class="ar-item"><a href="seguranca-alimentos.html">Segurança de alimentos</a><span class="ar-normas"><span>ISO 22000</span><span>FSSC 22000</span></span></li>
+<li class="ar-item ar-item--i"><a href="estudos-pesquisa.html">Estudos e pesquisa aplicada</a><span class="ar-normas"><span>Nota técnica</span><span>Observatório setorial</span><span>EUDR</span></span></li>
+</ul>
+</section>
+<script>
+(function(){
+  var D={"iso": {"tit": "Sistemas de gestão ISO", "normas": ["ISO 9001", "ISO 14001", "ISO 45001", "ISO 50001", "ISO 41001"], "pag": "implantacao-iso.html", "n": 1, "div": "p"}, "nrs": {"tit": "Normas Regulamentadoras", "normas": ["NR-01", "NR-12", "NR-17"], "pag": "nrs.html", "n": 2, "div": "p"}, "compliance": {"tit": "Gestão de compliance", "normas": ["ISO 37001", "ISO 37301", "LGPD"], "pag": "compliance-seguranca-informacao.html", "n": 3, "div": "p"}, "si": {"tit": "Segurança da informação", "normas": ["LGPD", "ISO/IEC 27001"], "pag": "compliance-seguranca-informacao.html", "n": 4, "div": "p"}, "carbono": {"tit": "Gestão de carbono", "normas": ["GHG Protocol", "ISO 14064", "ISO 14068-1", "SBTi"], "pag": "gestao-carbono.html", "n": 5, "div": "p"}, "esg": {"tit": "ESG", "normas": ["ABNT PR 2030", "GRI", "IFRS S1 e S2"], "pag": "esg.html", "n": 6, "div": "p"}, "smeta": {"tit": "SEDEX SMETA", "normas": ["SMETA 7.0", "SA 8000"], "pag": "sedex-smeta.html", "n": 7, "div": "p"}, "padroes": {"tit": "Padrões de mercado", "normas": ["EcoVadis", "FSC"], "pag": "padroes-mercado.html", "n": 8, "div": "p"}, "alimentos": {"tit": "Segurança de alimentos", "normas": ["ISO 22000", "FSSC 22000"], "pag": "seguranca-alimentos.html", "n": 9, "div": "p"}, "estudos": {"tit": "Estudos e pesquisa aplicada", "normas": ["Nota técnica", "Observatório setorial", "EUDR"], "pag": "estudos-pesquisa.html", "n": 10, "div": "i"}}, pts=[].slice.call(document.querySelectorAll('#conhecimento-c .cc-pt')), atual=null;
+  function mostra(id){ if(id===atual) return; atual=id; var d=D[id];
+    pts.forEach(function(p){ p.classList.toggle('cc-on', p.getAttribute('data-t')===id); });
+    document.getElementById('cc-rot').textContent=(d.n<10?'0':'')+d.n+' / '+(d.div==='i'?'Inteligência':'Padronização');
+    document.getElementById('cc-tit').textContent=d.tit;
+    document.getElementById('cc-normas').innerHTML=d.normas.map(function(n){return '<span>'+n+'</span>';}).join('');
+    document.getElementById('cc-link').setAttribute('href',d.pag); }
+  pts.forEach(function(p){ var id=p.getAttribute('data-t');
+    p.addEventListener('mouseenter',function(){mostra(id);}); p.addEventListener('focus',function(){mostra(id);});
+    p.addEventListener('click',function(){mostra(id);});
+    p.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); location.href=D[id].pag; } }); });
+  mostra(pts[0].getAttribute('data-t'));
+})();
+</script>
+<!-- ===== fim VARIANTES CONHECIMENTO ===== -->
 
 <section class="sv" id="servicos" aria-labelledby="sv-h2">
   <p class="sv-label">Serviços / [ IM.3 ]</p>
