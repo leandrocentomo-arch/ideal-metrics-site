@@ -1402,7 +1402,11 @@ body>*{position:relative;z-index:1}
 .qc-abre-linha .qc-titulo-sec{margin-top:0}
 .qc-abre-logo{display:block;height:46px;width:auto;margin:0 0 20px}
 .qc-abre-selo{position:absolute;right:var(--lado);bottom:0;
-  display:block;height:150px;width:auto}
+  display:block;height:150px;width:auto;
+  /* 21/09: variante de VIDRO (selo-ideal-m-vidro.svg, gerada por
+     _ferramentas/selo_vidro.py): azul bem claro, reflexo e borda de luz no
+     proprio desenho; a sombra que descola do fundo fica aqui */
+  filter:drop-shadow(0 10px 22px rgba(20,48,76,.12)) drop-shadow(0 2px 4px rgba(20,48,76,.08))}
 @media (max-width:880px){ .qc-abre-logo{height:38px;margin-bottom:16px}
   .qc-abre-selo{position:static;height:96px;margin:24px var(--lado) 0} }
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
@@ -2359,7 +2363,7 @@ body>*{position:relative;z-index:1}
         </div>
       </div>
     </div>
-    <img class="qc-abre-selo" src="img/selo-ideal-m.svg?v=19092026" alt="Ideal Metrics" width="229" height="229">
+    <img class="qc-abre-selo" src="img/selo-ideal-m-vidro.svg?v=21092026" alt="Ideal Metrics" width="229" height="229">
   </section>
 
 <section class="dm-sec" id="demandas" aria-labelledby="dm-titulo">
@@ -3757,6 +3761,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     '  c = mix(c, uCreme, uLava*(1. - uRevela*tr));' +
     '  gl_FragColor = vec4(c, uOpac);}';
 
+  var PINCEL_GERAL = .5;   /* tamanho do cometa do mouse em todas as pecas; ver o uso */
+
   /* curvas: as mesmas que o OCI usa no GSAP, em forma fechada */
   var CURVA = {
     p4out:   function(t){ return 1 - Math.pow(1-t, 5); },
@@ -4041,7 +4047,11 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       gl.uniform1i(uT.t, 0); gl.uniform2f(uT.res, TW, TH);
       gl.uniform2f(uT.pt, pt[0], pt[1]); gl.uniform2f(uT.ptAnt, ptAnt[0], ptAnt[1]);
       gl.uniform1f(uT.aspecto, asp); gl.uniform1f(uT.vel, v);
-      var pinc = esc*(cfg.pincel || 1);
+      /* 21/09: PINCEL_GERAL encolhe o cometa em TODAS as pecas de uma vez (tira da
+         1a secao, folha Demandas, manchas Conhecimento, moldura de noticias). Com
+         1,0 ele media 180 px de altura na secao Conhecimento, e o Leandro achou
+         grande demais. O rastro que fica para tras (fica) nao muda. */
+      var pinc = esc*(cfg.pincel || 1)*PINCEL_GERAL;
       gl.uniform1f(uT.raio, (.066 + v*.015)*pinc); gl.uniform1f(uT.borda, (.129 + v*.054)*pinc);
       gl.uniform1f(uT.fica, Math.pow(1-.040, f60));
       gl.drawArrays(gl.TRIANGLES, 0, 3);
