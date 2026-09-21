@@ -38,11 +38,17 @@ CSS = r"""
 .ar-legenda li{display:flex;align-items:center;gap:10px}
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
-.ar-palco{max-width:1080px;margin:44px auto 0}
+.ar-palco{max-width:1080px;margin:44px auto 0;position:relative}
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
-.ar-camada{will-change:transform}
-.ar-discos circle{fill:#F0EFEA}
-.ar-discos circle.ar-azul{fill:#E6ECF1}
+.ar-svg{position:relative}
+/* as manchas sao IMAGEM desenhada pelo motor ditherVivo, o mesmo das fotos da
+   primeira secao: trama Bayer na rampa da casa e o rastro do mouse. A imagem tem
+   a caixa exata do viewBox, entao cada mancha cai sob o seu circulo. Sem WebGL
+   fica a <img> ja tramada. Sem movimento na rolagem: o canvas mede a propria
+   caixa, e deslocar a caixa a cada quadro descasaria o rastro do ponteiro. */
+.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%}
+.ar-manchas img,.ar-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ar-manchas.gl-on img{visibility:hidden}
 .ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.16);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-soltos circle{stroke:rgba(20,48,76,.09)}
@@ -67,7 +73,7 @@ CSS = r"""
 .ar-lista{display:none}
 @media (max-width:1000px){
   .ar-sec{padding-top:70px;padding-bottom:78px}
-  .ar-svg{display:none}
+  .ar-svg,.ar-manchas{display:none}
   .ar-palco{margin-top:34px}
   .ar-lista{display:grid;grid-template-columns:1fr 1fr;gap:26px 28px;margin:0;padding:0;list-style:none}
   .ar-item{border-top:1px solid rgba(20,48,76,.16);padding-top:14px}
@@ -82,28 +88,17 @@ CSS = r"""
 @media (max-width:600px){ .ar-lista{grid-template-columns:1fr} }
 """
 
-JS = r"""
-<script>
-/* CONHECIMENTO: profundidade por rolagem. Discos descem, aros soltos sobem; o
-   aro de cada tema e as suas normas ficam parados. Um quadro por rolagem, so
-   enquanto a secao esta na tela, e nada com prefers-reduced-motion. */
-(function(){
-  var sec=document.getElementById('conhecimento');
-  if(!sec||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var cam=[].slice.call(sec.querySelectorAll('[data-ar-vel]')), pend=false;
-  function pinta(){
-    pend=false;
-    var r=sec.getBoundingClientRect(), vh=innerHeight;
-    if(r.bottom<0||r.top>vh) return;
-    var p=((r.top+r.height/2)-vh/2)/(vh/2+r.height/2);
-    for(var i=0;i<cam.length;i++)
-      cam[i].style.transform='translateY('+(p*+cam[i].getAttribute('data-ar-vel')).toFixed(2)+'px)';
-  }
-  addEventListener('scroll',function(){ if(!pend){pend=true;requestAnimationFrame(pinta);} },{passive:true});
-  addEventListener('resize',pinta);
-  pinta();
-})();
-</script>
+JS = ""   # sem profundidade por rolagem: as manchas agora sao do motor ditherVivo
+
+# chamada do motor, inserida DENTRO do IIFE que define ditherVivo (ele nao e global)
+MOTOR = r"""  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---------------- */
+  (function(){
+    var m = document.querySelector('.ar-manchas'); if(!m) return;
+    var im = m.querySelector('img'); if(!im) return;
+    ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
+  })();
+  /* ---------------- fim CONHECIMENTO manchas ---------------- */
 """
 
 
@@ -112,10 +107,6 @@ def svg(L):
     T = arcos.TEMAS
     o = ['<svg class="ar-svg" viewBox="%.1f %.1f %.1f %.1f" aria-label="Temas e normas da Ideal Metrics">'
          % arcos.limites(L)]
-    o.append('<g class="ar-camada ar-discos" data-ar-vel="64" aria-hidden="true">')
-    o += ['<circle%s cx="%d" cy="%d" r="%d"/>' % ((' class="ar-azul"' if k in arcos.DISCOS_AZUIS else '',) + c)
-          for k, c in enumerate(arcos.DISCOS)]
-    o.append('</g>')
     if arcos.AROS_SOLTOS:
         o.append('<g class="ar-camada ar-soltos" data-ar-vel="-34" aria-hidden="true">')
         o += ['<circle cx="%d" cy="%d" r="%d"/>' % c for c in arcos.AROS_SOLTOS]
@@ -154,6 +145,9 @@ def secao(L):
         '    </div>',
         '  </div>',
         '  <div class="ar-palco">',
+        '    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp" '
+        'data-lum="img/conhecimento-manchas-lum.webp" alt="" width="1350" height="%d" loading="lazy" decoding="async"></div>'
+        % round(1350 * arcos.limites(L)[3] / arcos.limites(L)[2]),
         svg(L),
         arcos.lista(),
         '  </div>',
@@ -189,5 +183,6 @@ if __name__ == '__main__':
         open(dst, 'w', encoding='utf-8').write(PREVIA % (css(), secao(L), JS))
         print('previa ->', dst)
     elif modo == 'site':
-        import insere
-        insere.no_site(css(), secao(L), JS)
+        import insere, manchas
+        manchas.main()
+        insere.no_site(css(), secao(L), JS, MOTOR)

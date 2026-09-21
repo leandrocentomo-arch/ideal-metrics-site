@@ -17,7 +17,7 @@ SITE = ("C:/Users/Leandro Centomo/OneDrive/\u00c1rea de Trabalho/CQT\u2014Inbox\
 FIM_CSS = '/* ===== fim CONHECIMENTO ===== */'
 
 
-def no_site(css, secao, js):
+def no_site(css, secao, js, motor=''):
     p = SITE + 'index.html'
     raw = open(p, 'rb').read()
     crlf, lf = raw.count(b'\r\n'), raw.count(b'\n')
@@ -43,6 +43,14 @@ def no_site(css, secao, js):
     if js.strip():
         assert t.count('</body>') == 1
         t = t.replace('</body>', js.strip('\n') + '\n</body>', 1)
+
+    # o motor das manchas entra dentro do IIFE do ditherVivo, antes da moldura
+    # de noticias, entre marcadores proprios
+    t = re.sub(r'  /\* -+ CONHECIMENTO: as manchas.*?fim CONHECIMENTO manchas -+ \*/\n', '', t, flags=re.S)
+    if motor:
+        ancora = '  /* ---------------- a moldura de noticias'
+        assert t.count(ancora) == 1, 'ancora do motor: %d' % t.count(ancora)
+        t = t.replace(ancora, motor + ancora, 1)
 
     if 'Serviços / [ IM.2 ]' in t:
         t = t.replace('Serviços / [ IM.2 ]', 'Serviços / [ IM.3 ]', 1)
