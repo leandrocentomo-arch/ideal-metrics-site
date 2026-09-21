@@ -1326,12 +1326,12 @@ body>*{position:relative;z-index:1}
 /* navegador sem backdrop-filter nao pode ficar com uma caixa translucida sem
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .barra-marca{background:#E8F2DC} }
-/* 21/09: o cartao do monograma na cor clara #E8F2DC, lisa. Passou por vidro
-   prateado e por trama, e o Leandro pediu de volta a cor clara. E a mesma cor
-   da placa do monograma oficial e do disco do avatar. */
-.barra-marca{background:#E8F2DC}
-.barra-marca:hover{background:#E8F2DC}
+  .barra-marca{background:var(--mercurio)} }
+/* 21/09: o cartao do monograma no CREME da pagina, var(--mercurio), como
+   estava em efd247b. Passou por #E8F2DC, por trama e por vidro prateado; o
+   Leandro pediu de volta o creme. Sobre o creme quem desenha a caixa e o fio. */
+.barra-marca{background:var(--mercurio)}
+.barra-marca:hover{background:var(--mercurio)}
 .barra-marca .marca-frente{height:81.1px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca .marca-frente{height:71.1px}
