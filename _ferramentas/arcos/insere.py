@@ -28,7 +28,7 @@ def no_site(css, secao, js, motor=''):
     # tira a versao anterior, se houver
     t = re.sub(r'/\* ===== CONHECIMENTO, .*?' + re.escape(FIM_CSS) + r'\n', '', t, flags=re.S)
     t = re.sub(r'<section class="ar-sec" id="conhecimento".*?</section>\n\n', '', t, flags=re.S)
-    t = re.sub(r'<script>\n/\* CONHECIMENTO: profundidade.*?</script>\n', '', t, flags=re.S)
+    t = re.sub(r'<script>\n/\* CONHECIMENTO: .*?</script>\n', '', t, flags=re.S)
 
     ancora_css = '.sv{display:grid;'
     assert t.count(ancora_css) == 1, 'ancora do CSS: %d' % t.count(ancora_css)

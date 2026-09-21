@@ -53,23 +53,30 @@ CSS = r"""
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-soltos circle{stroke:rgba(20,48,76,.09)}
 .ar-aro--i{stroke-dasharray:3 5}
-.ar-tema{cursor:pointer;transition:opacity .35s ease}
+/* 21/09 (noite): BOLAS PEQUENAS que crescem no mouse. Cada tema e um grupo
+   (aro + titulo + pilulas) desenhado em torno do proprio centro e levado ao
+   lugar por translate(--cx,--cy); o scale acontece nesse centro. O traco do aro
+   nao engrossa (non-scaling-stroke); o texto cresce junto, de proposito. */
+.ar-tema{cursor:pointer;transform:translate(var(--cx),var(--cy)) scale(1);
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s ease}
+.ar-tema:is(:hover,:focus-visible){transform:translate(var(--cx),var(--cy)) scale(1.6)}
+.ar-tema:is(:hover,:focus-visible) .ar-aro{stroke:rgba(20,48,76,.5)}
 .ar-tema:focus{outline:none}
+@media (prefers-reduced-motion:reduce){ .ar-tema{transition:opacity .35s ease} }
 .ar-alvo{fill:transparent}
-.ar-tit{font-family:var(--sans);font-weight:600;font-size:19px;fill:var(--azul);
+.ar-tit{font-family:var(--sans);font-weight:600;font-size:13px;fill:var(--azul);
   text-anchor:middle;dominant-baseline:central}
 /* etiqueta no CREME DA PAGINA, var(--mercurio), e nao em branco (21/09): ela
    combina com o fundo da tela. Sobre o creme quem a desenha e o contorno, que
    por isso sobe de 10% para 18%; sobre os discos ela aparece como recorte. */
 .ar-pil rect{fill:var(--mercurio);stroke:rgba(20,48,76,.12);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
-.ar-pil text{font-family:var(--sans);font-weight:500;font-size:10.5px;letter-spacing:.01em;
+.ar-pil text{font-family:var(--sans);font-weight:500;font-size:8.5px;letter-spacing:.01em;
   text-anchor:middle;fill:var(--azul-escuro)}
 /* realce: o tema sob o mouse fica, os outros recuam */
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-tema:not(:hover):not(:focus-visible){opacity:.34}
 .ar-tema:is(:hover,:focus-visible) .ar-pil rect{stroke:rgba(20,48,76,.42)}
 .ar-tema:focus-visible .ar-tit{text-decoration:underline;text-underline-offset:4px}
-%(HOVER)s
 .ar-lista{display:none}
 @media (max-width:1000px){
   .ar-sec{padding-top:70px;padding-bottom:78px}
@@ -88,7 +95,19 @@ CSS = r"""
 @media (max-width:600px){ .ar-lista{grid-template-columns:1fr} }
 """
 
-JS = ""   # sem profundidade por rolagem: as manchas agora sao do motor ditherVivo
+JS = r"""<script>
+/* CONHECIMENTO: frente. No SVG quem e pintado por ultimo fica por cima, e o tema
+   que cresce no mouse precisa cobrir os vizinhos: o grupo vai para o fim. */
+(function(){
+  var g = document.querySelector('#conhecimento .ar-temas'); if(!g) return;
+  g.addEventListener('mouseover', function(e){
+    var t = e.target.closest('.ar-tema'); if(t && t !== g.lastElementChild) g.appendChild(t);
+  });
+  g.addEventListener('focusin', function(e){
+    var t = e.target.closest('.ar-tema'); if(t && t !== g.lastElementChild) g.appendChild(t);
+  });
+})();
+</script>"""
 
 # chamada do motor, inserida DENTRO do IIFE que define ditherVivo (ele nao e global)
 MOTOR = r"""  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---------------- */
@@ -114,21 +133,19 @@ def svg(L):
     o.append('<g class="ar-temas">')
     P = arcos.pilulas(L)
     for tid, pag, div, cx, cy, r, tit, normas in T:
-        rot = '%s: %s' % (' '.join(tit), ', '.join(n for n, a in normas))
-        o.append('<circle class="ar-aro%s" data-t="%s" cx="%d" cy="%d" r="%d" aria-hidden="true"/>'
-                 % (' ar-aro--i' if div == 'i' else '', tid, cx, cy, r))
-    for tid, pag, div, cx, cy, r, tit, normas in T:
         rot = '%s: %s' % (' '.join(tit), ', '.join(arcos.normas_de(tid)))
-        o.append('<a class="ar-tema" data-t="%s" href="%s" aria-label="%s">' % (tid, pag, arcos.esc(rot)))
-        o.append('<circle class="ar-alvo" cx="%d" cy="%d" r="%d"/>' % (cx, cy, r))
-        y0 = cy - arcos.LH_TIT * (len(tit) - 1) / 2.0
-        o.append('<text class="ar-tit" x="%d" y="%.1f" aria-hidden="true">' % (cx, y0) +
-                 ''.join('<tspan x="%d" dy="%s">%s</tspan>' % (cx, '0' if k == 0 else arcos.LH_TIT, arcos.esc(l))
+        o.append('<a class="ar-tema" data-t="%s" href="%s" aria-label="%s" style="--cx:%dpx;--cy:%dpx">'
+                 % (tid, pag, arcos.esc(rot), cx, cy))
+        o.append('<circle class="ar-aro%s" r="%d" aria-hidden="true"/>' % (' ar-aro--i' if div == 'i' else '', r))
+        o.append('<circle class="ar-alvo" r="%d"/>' % r)
+        y0 = -arcos.LH_TIT * (len(tit) - 1) / 2.0
+        o.append('<text class="ar-tit" x="0" y="%.1f" aria-hidden="true">' % y0 +
+                 ''.join('<tspan x="0" dy="%s">%s</tspan>' % ('0' if k == 0 else arcos.LH_TIT, arcos.esc(l))
                          for k, l in enumerate(tit)) + '</text>')
         for p in (p for p in P if p['tema'] == tid):
             o.append('<g class="ar-pil" aria-hidden="true"><rect x="%.1f" y="%.1f" width="%.1f" height="%d" rx="3"/>'
                      '<text x="%.1f" y="%.1f">%s</text></g>'
-                     % (p['x0'], p['y0'], p['w'], arcos.PIL_H, p['x'], p['y'] + 3.7, arcos.esc(p['txt'])))
+                     % (p['x0'] - cx, p['y0'] - cy, p['w'], arcos.PIL_H, p['x'] - cx, p['y'] - cy + 3.7, arcos.esc(p['txt'])))
         o.append('</a>')
     o.append('</g></svg>')
     return '\n'.join(o)
@@ -156,7 +173,7 @@ def secao(L):
 
 
 def css():
-    return CSS.replace('%(HOVER)s', arcos.css_hover())
+    return CSS
 
 
 PREVIA = """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">

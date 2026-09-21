@@ -24,43 +24,45 @@ do site (getComputedTextLength), e nao estimadas."""
 import json, math, os
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-VB_W, VB_H = 1200, 760
+VB_W, VB_H = 1200, 560
 PAD_X, PIL_H = 8, 20           # respiro lateral e altura da pilula, em unidades do viewBox
-TXT_PIL, TXT_TIT, LH_TIT = 10.5, 19, 23
+TXT_PIL, TXT_TIT, LH_TIT = 8.5, 13, 15.5
 # 21/09: etiqueta menor a pedido do Leandro (era 12,5 de corpo e 26 de altura).
 # larguras.json foi medido a 12,5: a largura do texto escala linear com o corpo
 ESC_PIL = TXT_PIL / 12.5
+ESC_TIT = TXT_TIT / 19          # os titulos de larguras.json foram medidos a 19
 
 # (id, pagina, divisao, cx, cy, r, linhas do titulo, [(norma, angulo em graus)])
 # angulo: 0 = direita, 90 = baixo (y do SVG cresce para baixo)
 TEMAS = [
- ('iso', 'implantacao-iso.html', 'p', 320, 318, 178, ['Sistemas de', 'gestão ISO'],
-    [('ISO 9001', -135), ('ISO 14001', -75), ('ISO 45001', 180), ('ISO 50001', 145), ('ISO 41001', -15)]),
- ('nrs', 'nrs.html', 'p', 215, 578, 104, ['Normas', 'Regulamentadoras'],
-    [('NR-01', -120), ('NR-12', 130), ('NR-17', 60)]),
- # 21/09: compliance vira DOIS aros, a pedido do Leandro. A LGPD e dos dois:
- # uma etiqueta so, no ponto onde os aros se cruzam ('cruza:<tema>:<baixo|cima>').
- ('compliance', 'compliance-seguranca-informacao.html', 'p', 492, 588, 94, ['Gestão de', 'compliance'],
-    [('ISO 37001', 160), ('ISO 37301', 110), ('LGPD', 'cruza:si:baixo')]),
- ('si', 'compliance-seguranca-informacao.html', 'p', 625, 490, 78, ['Segurança da', 'informação'],
-    [('ISO/IEC 27001', -40)]),
- ('carbono', 'gestao-carbono.html', 'p', 680, 218, 140, ['Gestão', 'de carbono'],
-    [('GHG Protocol', -150), ('ISO 14064', -90), ('ISO 14068-1', -30), ('SBTi', 100)]),
- ('esg', 'esg.html', 'p', 895, 350, 124, ['ESG'],
-    [('ABNT PR 2030', -40), ('GRI', 160), ('IFRS S1 e S2', 80)]),
- ('smeta', 'sedex-smeta.html', 'p', 1090, 150, 86, ['SEDEX', 'SMETA'],
-    [('SMETA 7.0', -150), ('SA 8000', 140)]),
- ('padroes', 'padroes-mercado.html', 'p', 1080, 420, 78, ['Padrões', 'de mercado'],
-    [('EcoVadis', -60), ('FSC', 40)]),
- ('alimentos', 'seguranca-alimentos.html', 'p', 760, 620, 92, ['Segurança', 'de alimentos'],
-    [('ISO 22000', -70), ('FSSC 22000', 60)]),
- ('estudos', 'estudos-pesquisa.html', 'i', 1045, 640, 100, ['Estudos e', 'pesquisa', 'aplicada'],
-    [('Nota técnica', -130), ('Observatório setorial', 100), ('EUDR', -40)]),
+ # 21/09 (noite): BOLAS PEQUENAS que crescem no mouse (monta.py: scale 1,6 no
+ # hover). Raios de 44 a 66, titulo em 13 e pilula em 8,5; nenhum aro encosta
+ # em outro (so compliance e SI se cruzam, de proposito, para a LGPD).
+ ('iso', 'implantacao-iso.html', 'p', 150, 176, 66, ['Sistemas de', 'gestão ISO'],
+    [('ISO 9001', -135), ('ISO 14001', -70), ('ISO 45001', 150), ('ISO 50001', 100), ('ISO 41001', 35)]),
+ ('carbono', 'gestao-carbono.html', 'p', 420, 130, 56, ['Gestão', 'de carbono'],
+    [('GHG Protocol', -140), ('ISO 14064', -56), ('ISO 14068-1', 40), ('SBTi', 110)]),
+ ('esg', 'esg.html', 'p', 650, 180, 46, ['ESG'],
+    [('ABNT PR 2030', -60), ('GRI', 160), ('IFRS S1 e S2', 60)]),
+ ('smeta', 'sedex-smeta.html', 'p', 870, 120, 50, ['SEDEX', 'SMETA'],
+    [('SMETA 7.0', -135), ('SA 8000', 120)]),
+ ('padroes', 'padroes-mercado.html', 'p', 1080, 176, 52, ['Padrões', 'de mercado'],
+    [('EcoVadis', -70), ('FSC', 50)]),
+ ('nrs', 'nrs.html', 'p', 190, 430, 62, ['Normas', 'Regulamentadoras'],
+    [('NR-01', -120), ('NR-12', 125), ('NR-17', 55)]),
+ ('compliance', 'compliance-seguranca-informacao.html', 'p', 470, 430, 54, ['Gestão de', 'compliance'],
+    [('ISO 37001', 220), ('ISO 37301', 110), ('LGPD', 'cruza:si:baixo')]),
+ ('si', 'compliance-seguranca-informacao.html', 'p', 540, 358, 48, ['Segurança da', 'informação'],
+    [('ISO/IEC 27001', -55)]),
+ ('alimentos', 'seguranca-alimentos.html', 'p', 770, 420, 54, ['Segurança', 'de alimentos'],
+    [('ISO 22000', -110), ('FSSC 22000', 60)]),
+ ('estudos', 'estudos-pesquisa.html', 'i', 1020, 430, 62, ['Estudos e', 'pesquisa', 'aplicada'],
+    [('Nota técnica', -130), ('Observatório setorial', 95), ('EUDR', -55)]),
 ]
 
 # manchas cheias por tras, independentes dos aros (como na referencia), todas
 # DENTRO da prancha: a primeira versao deixava uma sair por baixo
-DISCOS = [(360, 360, 215), (722, 252, 160), (962, 428, 140), (540, 642, 105), (1080, 655, 95)]
+DISCOS = [(215, 215, 100), (500, 175, 78), (960, 240, 88), (380, 455, 70), (1090, 440, 70)]
 # 21/09/2026: tres dos cinco discos em AZUL palido (o ISO, o do ESG com Padroes
 # de mercado e o de Estudos), a pedido do Leandro: «quero que tenha partes em
 # azul». Os outros dois ficam no bege da casa. Indices de DISCOS.
@@ -127,7 +129,7 @@ def titulos(L):
     out = []
     for tid, pag, div, cx, cy, r, tit, normas in TEMAS:
         n = len(tit)
-        w = max(L.get('T:' + l, len(l) * 9.4) for l in tit)
+        w = max(L.get('T:' + l, len(l) * 9.4) for l in tit) * ESC_TIT
         h = LH_TIT * n
         out.append(dict(tema=tid, x0=cx - w / 2, y0=cy - h / 2, x1=cx + w / 2, y1=cy + h / 2))
     return out
@@ -163,12 +165,22 @@ def colisoes(L, folga=6):
                 ruim.append('pilula x aro solto: %s' % p['txt'])
     # titulo nao pode ser cortado pela linha de outro aro
     for t, tema in zip(T, TEMAS):
-        tx, ty = (t['x0'] + t['x1']) / 2, (t['y0'] + t['y1']) / 2
-        meia = math.hypot(t['x1'] - t['x0'], t['y1'] - t['y0']) / 2
         for tid, pag, div, cx, cy, r, tit, normas in TEMAS:
             if tid == tema[0]: continue
-            if abs(math.hypot(tx - cx, ty - cy) - r) < meia + 8:
-                ruim.append('titulo cortado por aro: %s por %s' % (tema[0], tid))
+            # distancia minima e maxima do centro do aro a caixa do titulo (exata)
+            dx = max(t['x0'] - cx, 0, cx - t['x1']); dy = max(t['y0'] - cy, 0, cy - t['y1'])
+            dmin = math.hypot(dx, dy)
+            dmax = max(math.hypot(x - cx, y - cy) for x in (t['x0'], t['x1']) for y in (t['y0'], t['y1']))
+            if dmin < r + 8 and dmax > r - 8:
+                ruim.append('titulo cortado por aro: %s por %s (%.0f..%.0f, r %d)' % (tema[0], tid, dmin, dmax, r))
+    # aros nao se sobrepoem (folga de 10), salvo compliance/si, que se cruzam para a LGPD
+    for a in range(len(TEMAS)):
+        for b in range(a + 1, len(TEMAS)):
+            ta, tb = TEMAS[a], TEMAS[b]
+            if {ta[0], tb[0]} == {'compliance', 'si'}: continue
+            d = math.hypot(ta[3] - tb[3], ta[4] - tb[4])
+            if d < ta[5] + tb[5] + 10:
+                ruim.append('aros encostam: %s / %s (%.0f de folga)' % (ta[0], tb[0], d - ta[5] - tb[5]))
     for cx, cy, r in DISCOS:
         if cx - r < 0 or cy - r < 0 or cx + r > VB_W or cy + r > VB_H:
             ruim.append('disco fora da prancha: (%d,%d,%d)' % (cx, cy, r))
