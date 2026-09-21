@@ -3779,6 +3779,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 
   var PINCEL_GERAL = .5;   /* tamanho do cometa do mouse em todas as pecas; ver o uso */
   var RASTRO_GERAL = .4;   /* comprimento da cauda do cometa em todas as pecas; ver o uso */
+  var RAIO_GERAL = .8, BORDA_GERAL = .3;   /* espessura do cometa; ver o uso */
 
   /* curvas: as mesmas que o OCI usa no GSAP, em forma fechada */
   var CURVA = {
@@ -4069,7 +4070,11 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
          1,0 ele media 180 px de altura na secao Conhecimento, e o Leandro achou
          grande demais. O rastro que fica para tras (fica) nao muda. */
       var pinc = esc*(cfg.pincel || 1)*PINCEL_GERAL;
-      gl.uniform1f(uT.raio, (.066 + v*.015)*pinc); gl.uniform1f(uT.borda, (.129 + v*.054)*pinc);
+      /* 21/09: o cometa estava «gordo». A espessura na tela e (raio+borda) x 900 x
+         pincel x PINCEL_GERAL, e a BORDA suave (0,129) era o dobro do raio: era ela
+         o halo largo. RAIO_GERAL 0,8 e BORDA_GERAL 0,3 levam a espessura parada de
+         ~123 px para ~58 px na secao Conhecimento, com o miolo mais firme. */
+      gl.uniform1f(uT.raio, (.066 + v*.015)*pinc*RAIO_GERAL); gl.uniform1f(uT.borda, (.129 + v*.054)*pinc*BORDA_GERAL);
       /* 21/09: RASTRO_GERAL encurta a cauda do cometa em todas as pecas. Com 1,0 a
          trama engrossada guardava 96% por quadro, cauda de 240 px na secao
          Conhecimento; o Leandro pediu 60% menor. Dividir o expoente por 0,4
