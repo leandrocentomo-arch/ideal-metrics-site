@@ -42,6 +42,7 @@ CSS = r"""
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
 .ar-camada{will-change:transform}
 .ar-discos circle{fill:#F0EFEA}
+.ar-discos circle.ar-azul{fill:#DCE7F2}
 .ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.16);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-soltos circle{stroke:rgba(20,48,76,.09)}
@@ -51,7 +52,10 @@ CSS = r"""
 .ar-alvo{fill:transparent}
 .ar-tit{font-family:var(--sans);font-weight:600;font-size:19px;fill:var(--azul);
   text-anchor:middle;dominant-baseline:central}
-.ar-pil rect{fill:var(--branco);stroke:rgba(20,48,76,.10);stroke-width:1;
+/* etiqueta no CREME DA PAGINA, var(--mercurio), e nao em branco (21/09): ela
+   combina com o fundo da tela. Sobre o creme quem a desenha e o contorno, que
+   por isso sobe de 10% para 18%; sobre os discos ela aparece como recorte. */
+.ar-pil rect{fill:var(--mercurio);stroke:rgba(20,48,76,.18);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-pil text{font-family:var(--sans);font-weight:500;font-size:12.5px;letter-spacing:.01em;
   text-anchor:middle;fill:var(--azul-escuro)}
@@ -72,7 +76,7 @@ CSS = r"""
     color:var(--azul);text-decoration:none}
   .ar-normas{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
   .ar-normas span{font-family:var(--sans);font-weight:500;font-size:12.5px;line-height:1;
-    padding:6px 9px;background:var(--branco);border:1px solid rgba(20,48,76,.12);
+    padding:6px 9px;background:var(--mercurio);border:1px solid rgba(20,48,76,.18);
     border-radius:3px;color:var(--azul-escuro)}
 }
 @media (max-width:600px){ .ar-lista{grid-template-columns:1fr} }
@@ -109,11 +113,13 @@ def svg(L):
     o = ['<svg class="ar-svg" viewBox="%.1f %.1f %.1f %.1f" aria-label="Temas e normas da Ideal Metrics">'
          % arcos.limites(L)]
     o.append('<g class="ar-camada ar-discos" data-ar-vel="64" aria-hidden="true">')
-    o += ['<circle cx="%d" cy="%d" r="%d"/>' % c for c in arcos.DISCOS]
+    o += ['<circle%s cx="%d" cy="%d" r="%d"/>' % ((' class="ar-azul"' if k in arcos.DISCOS_AZUIS else '',) + c)
+          for k, c in enumerate(arcos.DISCOS)]
     o.append('</g>')
-    o.append('<g class="ar-camada ar-soltos" data-ar-vel="-34" aria-hidden="true">')
-    o += ['<circle cx="%d" cy="%d" r="%d"/>' % c for c in arcos.AROS_SOLTOS]
-    o.append('</g>')
+    if arcos.AROS_SOLTOS:
+        o.append('<g class="ar-camada ar-soltos" data-ar-vel="-34" aria-hidden="true">')
+        o += ['<circle cx="%d" cy="%d" r="%d"/>' % c for c in arcos.AROS_SOLTOS]
+        o.append('</g>')
     o.append('<g class="ar-temas">')
     P = arcos.pilulas(L)
     for tid, pag, div, cx, cy, r, tit, normas in T:

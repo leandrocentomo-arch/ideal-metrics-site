@@ -54,8 +54,14 @@ TEMAS = [
 # manchas cheias por tras, independentes dos aros (como na referencia), todas
 # DENTRO da prancha: a primeira versao deixava uma sair por baixo
 DISCOS = [(360, 360, 215), (722, 252, 160), (962, 428, 140), (540, 642, 105), (1080, 655, 95)]
-# aros sem rotulo, so ritmo
-AROS_SOLTOS = [(470, 104, 44), (900, 96, 26), (652, 426, 24), (392, 708, 28), (1172, 292, 22)]
+# 21/09/2026: tres dos cinco discos em AZUL palido (o ISO, o do ESG com Padroes
+# de mercado e o de Estudos), a pedido do Leandro: «quero que tenha partes em
+# azul». Os outros dois ficam no bege da casa. Indices de DISCOS.
+DISCOS_AZUIS = {0, 2, 4}
+# 21/09/2026: os aros soltos (sem rotulo, so ritmo, copiados da referencia)
+# SAIRAM. O Leandro perguntou para que serviam, e a resposta era: para nada.
+# Todo aro desta secao e um tema.
+AROS_SOLTOS = []
 
 def larguras():
     p = os.path.join(AQUI, 'larguras.json')

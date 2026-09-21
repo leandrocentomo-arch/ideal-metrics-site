@@ -205,6 +205,7 @@ body>*{position:relative;z-index:1}
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
 .ar-camada{will-change:transform}
 .ar-discos circle{fill:#F0EFEA}
+.ar-discos circle.ar-azul{fill:#DCE7F2}
 .ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.16);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-soltos circle{stroke:rgba(20,48,76,.09)}
@@ -214,7 +215,10 @@ body>*{position:relative;z-index:1}
 .ar-alvo{fill:transparent}
 .ar-tit{font-family:var(--sans);font-weight:600;font-size:19px;fill:var(--azul);
   text-anchor:middle;dominant-baseline:central}
-.ar-pil rect{fill:var(--branco);stroke:rgba(20,48,76,.10);stroke-width:1;
+/* etiqueta no CREME DA PAGINA, var(--mercurio), e nao em branco (21/09): ela
+   combina com o fundo da tela. Sobre o creme quem a desenha e o contorno, que
+   por isso sobe de 10% para 18%; sobre os discos ela aparece como recorte. */
+.ar-pil rect{fill:var(--mercurio);stroke:rgba(20,48,76,.18);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-pil text{font-family:var(--sans);font-weight:500;font-size:12.5px;letter-spacing:.01em;
   text-anchor:middle;fill:var(--azul-escuro)}
@@ -243,7 +247,7 @@ body>*{position:relative;z-index:1}
     color:var(--azul);text-decoration:none}
   .ar-normas{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
   .ar-normas span{font-family:var(--sans);font-weight:500;font-size:12.5px;line-height:1;
-    padding:6px 9px;background:var(--branco);border:1px solid rgba(20,48,76,.12);
+    padding:6px 9px;background:var(--mercurio);border:1px solid rgba(20,48,76,.18);
     border-radius:3px;color:var(--azul-escuro)}
 }
 @media (max-width:600px){ .ar-lista{grid-template-columns:1fr} }
@@ -2425,20 +2429,13 @@ body>*{position:relative;z-index:1}
     </div>
   </div>
   <div class="ar-palco">
-<svg class="ar-svg" viewBox="92.5 50.0 1111.5 711.5" aria-label="Temas e normas da Ideal Metrics">
+<svg class="ar-svg" viewBox="92.5 54.0 1093.5 707.5" aria-label="Temas e normas da Ideal Metrics">
 <g class="ar-camada ar-discos" data-ar-vel="64" aria-hidden="true">
-<circle cx="360" cy="360" r="215"/>
+<circle class="ar-azul" cx="360" cy="360" r="215"/>
 <circle cx="722" cy="252" r="160"/>
-<circle cx="962" cy="428" r="140"/>
+<circle class="ar-azul" cx="962" cy="428" r="140"/>
 <circle cx="540" cy="642" r="105"/>
-<circle cx="1080" cy="655" r="95"/>
-</g>
-<g class="ar-camada ar-soltos" data-ar-vel="-34" aria-hidden="true">
-<circle cx="470" cy="104" r="44"/>
-<circle cx="900" cy="96" r="26"/>
-<circle cx="652" cy="426" r="24"/>
-<circle cx="392" cy="708" r="28"/>
-<circle cx="1172" cy="292" r="22"/>
+<circle class="ar-azul" cx="1080" cy="655" r="95"/>
 </g>
 <g class="ar-temas">
 <circle class="ar-aro" data-t="iso" cx="320" cy="318" r="178" aria-hidden="true"/>
