@@ -1320,18 +1320,19 @@ body>*{position:relative;z-index:1}
      porque a caixa passa por cima da foto da primeira secao.
      21/09: o fundo passa a #E8F2DC, a pedido do Leandro, o mesmo da placa do
      monograma oficial e do disco do avatar. */
-  background:#E8F2DC;
+  background:var(--mercurio);
   backdrop-filter:blur(14px) saturate(160%);
   transition:background .45s cubic-bezier(.4,0,.2,1)}
 /* navegador sem backdrop-filter nao pode ficar com uma caixa translucida sem
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .barra-marca{background:var(--mercurio)} }
-.barra-marca:hover{background:#E8F2DC}
-/* 21/09: o fundo do monograma ganha a TRAMA da casa, bem rala (tom 0,975, ~8% de
-   pontos #6792BD sobre o #E8F2DC), pelo mesmo motor ditherVivo das fotos, com o
-   rastro do mouse. O canvas e opaco e fica atras do monograma; sem WebGL fica o
-   #E8F2DC liso. overflow corta o canvas no canto arredondado da caixa. */
+.barra-marca:hover{background:var(--mercurio)}
+/* 21/09: o fundo do monograma e EXATAMENTE o das manchas do diagrama
+   Conhecimento: trama #6792BD sobre o creme, tom 0,95, pelo mesmo motor
+   ditherVivo, com o rastro do mouse. O canvas e opaco e fica atras do
+   monograma; sem WebGL fica o creme liso. overflow corta o canto da caixa.
+   (Passou pelo #E8F2DC antes; o Leandro queria este fundo.) */
 .barra-marca{overflow:hidden}
 .bm-gl{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none}
 .barra-marca .marca-frente{position:relative;z-index:1}
@@ -3777,6 +3778,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     '  gl_FragColor = vec4(c, uOpac);}';
 
   var PINCEL_GERAL = .5;   /* tamanho do cometa do mouse em todas as pecas; ver o uso */
+  var RASTRO_GERAL = .4;   /* comprimento da cauda do cometa em todas as pecas; ver o uso */
 
   /* curvas: as mesmas que o OCI usa no GSAP, em forma fechada */
   var CURVA = {
@@ -4068,7 +4070,11 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
          grande demais. O rastro que fica para tras (fica) nao muda. */
       var pinc = esc*(cfg.pincel || 1)*PINCEL_GERAL;
       gl.uniform1f(uT.raio, (.066 + v*.015)*pinc); gl.uniform1f(uT.borda, (.129 + v*.054)*pinc);
-      gl.uniform1f(uT.fica, Math.pow(1-.040, f60));
+      /* 21/09: RASTRO_GERAL encurta a cauda do cometa em todas as pecas. Com 1,0 a
+         trama engrossada guardava 96% por quadro, cauda de 240 px na secao
+         Conhecimento; o Leandro pediu 60% menor. Dividir o expoente por 0,4
+         encolhe a constante de tempo para 40%. */
+      gl.uniform1f(uT.fica, Math.pow(1-.040, f60/RASTRO_GERAL));
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       idx = prox;
 
@@ -4159,7 +4165,9 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var c = document.querySelector('.barra-marca'); if(!c) return;
     ditherVivo({raiz:c, planos:[{el:c, lum:'img/monograma-fundo-lum.webp'}], classeCanvas:'bm-gl', revelar:'visivel',
       /* a cor 3, que e o fundo, e o #E8F2DC da placa, e nao o creme */
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[232,242,220]], creme:[232,242,220], pincel:.6});
+      /* 21/09: EXATAMENTE a trama das manchas do diagrama Conhecimento: mesma
+         rampa, mesmo creme, mesmo tom (0,95, ~15% de pontos) e mesmo pincel */
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
   })();
   /* ---------------- fim MONOGRAMA do menu ---------------- */
   /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---------------- */
