@@ -25,7 +25,7 @@ CSS = r"""
    linha; a profundidade vem dos discos e dos aros soltos, em sentidos opostos.
    Abaixo de 1000px o esquema vira lista: as pilulas ficariam com menos de 10px. */
 .ar-sec{padding:92px var(--lado) 104px;background:var(--mercurio);color:var(--azul)}
-.ar-cab{max-width:1200px;margin:0 auto;border-top:1px solid var(--fio);padding-top:12px}
+.ar-cab{border-top:1px solid var(--fio);padding-top:12px}
 .ar-rotulo{margin:0;font-family:var(--mono);font-weight:400;font-size:12px;line-height:1;
   letter-spacing:.02em;text-transform:uppercase;color:var(--azul)}
 .ar-linha{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;
@@ -38,7 +38,7 @@ CSS = r"""
 .ar-legenda li{display:flex;align-items:center;gap:10px}
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
-.ar-palco{max-width:1080px;margin:44px auto 0;position:relative}
+.ar-palco{margin:44px 0 0;position:relative}   /* largura inteira da pagina (21/09) */
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
 .ar-svg{position:relative}
 /* as manchas sao IMAGEM desenhada pelo motor ditherVivo, o mesmo das fotos da
@@ -49,7 +49,7 @@ CSS = r"""
 .ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%}
 .ar-manchas img,.ar-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ar-manchas.gl-on img{visibility:hidden}
-.ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.16);stroke-width:1;
+.ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.10);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-soltos circle{stroke:rgba(20,48,76,.09)}
 .ar-aro--i{stroke-dasharray:3 5}
@@ -61,7 +61,7 @@ CSS = r"""
 /* etiqueta no CREME DA PAGINA, var(--mercurio), e nao em branco (21/09): ela
    combina com o fundo da tela. Sobre o creme quem a desenha e o contorno, que
    por isso sobe de 10% para 18%; sobre os discos ela aparece como recorte. */
-.ar-pil rect{fill:var(--mercurio);stroke:rgba(20,48,76,.18);stroke-width:1;
+.ar-pil rect{fill:var(--mercurio);stroke:rgba(20,48,76,.12);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-pil text{font-family:var(--sans);font-weight:500;font-size:10.5px;letter-spacing:.01em;
   text-anchor:middle;fill:var(--azul-escuro)}
@@ -146,8 +146,8 @@ def secao(L):
         '  </div>',
         '  <div class="ar-palco">',
         '    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp" '
-        'data-lum="img/conhecimento-manchas-lum.webp" alt="" width="1350" height="%d" loading="lazy" decoding="async"></div>'
-        % round(1350 * arcos.limites(L)[3] / arcos.limites(L)[2]),
+        'data-lum="img/conhecimento-manchas-lum.webp" alt="" width="1800" height="%d" loading="lazy" decoding="async"></div>'
+        % round(1800 * arcos.limites(L)[3] / arcos.limites(L)[2]),
         svg(L),
         arcos.lista(),
         '  </div>',

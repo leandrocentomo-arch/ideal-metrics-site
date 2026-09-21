@@ -15,9 +15,10 @@ O QUE SAI em img/:
 TOM. O fundo sai em luminancia 1, que a curva leva ao creme puro: fora das
 manchas, nada de trama. Dentro, o tom-alvo e escolhido NA SAIDA e a curva e
 invertida para achar a luminancia, como o gerador da folha fez:
-  mancha azul   tom 0,84  -> 48% dos pontos na azul clara da rampa
-  mancha bege   tom 0,90  -> 30%
-  cruzamento    o mais escuro dos dois, menos 0,03
+  mancha azul   tom 0,95   -> 15% dos pontos na azul clara da rampa
+  mancha bege   tom 0,975  ->  8%
+  cruzamento    o mais escuro dos dois, menos 0,015
+(ate 21/09 a tarde eram 0,84 e 0,90, 48% e 30%: o Leandro pediu muito mais claro)
 A curva e a do shader: tom = sigmoide(g^0,86, contraste 1,55) + 0,35.
 
 A imagem tem a MESMA caixa do viewBox do SVG, entao cada mancha cai exatamente
@@ -33,10 +34,10 @@ import arcos
 
 SITE = os.path.dirname(os.path.dirname(AQUI))
 GAMA, CTR, BRILHO = .86, 1.55, .35
-TOM_AZUL, TOM_BEGE, CRUZA = .84, .90, .03
+TOM_AZUL, TOM_BEGE, CRUZA = .95, .975, .015   # 21/09: «clareie muito»; antes .84 e .90
 # a rampa da folha Demandas (e da tira da 1a secao), ja passada pelo filtro creme
 CORES = np.array([[21.2, 50.9, 80.6], [24.2, 56.2, 88.1], [103.0, 146.1, 189.4], [250, 249, 245]])
-LARG = 1350          # 1080 px css da vaga vezes 1,25, como as outras imagens tramadas
+LARG = 1800          # a vaga passou a ocupar a largura da pagina (ate ~1440 css vezes 1,25)
 
 
 def tom(g):
