@@ -1316,15 +1316,17 @@ body>*{position:relative;z-index:1}
      o creme da pagina ela lia como um cartao branco recortado, e nao como a
      marca solta. Agora e o proprio creme do site, sem degrade e sem brilho
      interno: o que aparece no alto e o monograma, nao a placa. O desfoque fica,
-     porque a caixa passa por cima da foto da primeira secao. */
-  background:var(--mercurio);
+     porque a caixa passa por cima da foto da primeira secao.
+     21/09: o fundo passa a #E8F2DC, a pedido do Leandro, o mesmo da placa do
+     monograma oficial e do disco do avatar. */
+  background:#E8F2DC;
   backdrop-filter:blur(14px) saturate(160%);
   transition:background .45s cubic-bezier(.4,0,.2,1)}
 /* navegador sem backdrop-filter nao pode ficar com uma caixa translucida sem
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .barra-marca{background:var(--mercurio)} }
-.barra-marca:hover{background:var(--mercurio)}
+.barra-marca:hover{background:#E8F2DC}
 .barra-marca .marca-frente{height:81.1px;width:auto;display:block;
   transition:height .45s cubic-bezier(.4,0,.2,1)}
 .barra.rolou .barra-marca .marca-frente{height:71.1px}
@@ -3028,7 +3030,7 @@ body>*{position:relative;z-index:1}
       <li>Ideal Metrics · Equipe em atuação desde 1998 · São Paulo, Brasil</li>
     </ul>
   </nav>
-  <div class="ft-legal"><img class="ft-mono" src="img/monograma-ideal-m.svg?v=19092026" alt="" width="166" height="221" loading="lazy">© 2026 Ideal Metrics Ltda · CNPJ 69.202.916/0001-20</div>
+  <div class="ft-legal"><img class="ft-mono" src="img/monograma-ideal-m.svg?v=21092026" alt="" width="166" height="221" loading="lazy">© 2026 Ideal Metrics Ltda · CNPJ 69.202.916/0001-20</div>
 </footer>
 
 <script>
