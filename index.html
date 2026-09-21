@@ -235,6 +235,7 @@ body>*{position:relative;z-index:1}
 .ar-svg:has(.ar-tema[data-t="iso"]:is(:hover,:focus-visible)) .ar-aro[data-t="iso"],
 .ar-svg:has(.ar-tema[data-t="nrs"]:is(:hover,:focus-visible)) .ar-aro[data-t="nrs"],
 .ar-svg:has(.ar-tema[data-t="compliance"]:is(:hover,:focus-visible)) .ar-aro[data-t="compliance"],
+.ar-svg:has(.ar-tema[data-t="si"]:is(:hover,:focus-visible)) .ar-aro[data-t="si"],
 .ar-svg:has(.ar-tema[data-t="carbono"]:is(:hover,:focus-visible)) .ar-aro[data-t="carbono"],
 .ar-svg:has(.ar-tema[data-t="esg"]:is(:hover,:focus-visible)) .ar-aro[data-t="esg"],
 .ar-svg:has(.ar-tema[data-t="smeta"]:is(:hover,:focus-visible)) .ar-aro[data-t="smeta"],
@@ -2453,7 +2454,8 @@ body>*{position:relative;z-index:1}
 <g class="ar-temas">
 <circle class="ar-aro" data-t="iso" cx="320" cy="318" r="178" aria-hidden="true"/>
 <circle class="ar-aro" data-t="nrs" cx="215" cy="578" r="104" aria-hidden="true"/>
-<circle class="ar-aro" data-t="compliance" cx="525" cy="598" r="106" aria-hidden="true"/>
+<circle class="ar-aro" data-t="compliance" cx="492" cy="588" r="94" aria-hidden="true"/>
+<circle class="ar-aro" data-t="si" cx="625" cy="490" r="78" aria-hidden="true"/>
 <circle class="ar-aro" data-t="carbono" cx="680" cy="218" r="140" aria-hidden="true"/>
 <circle class="ar-aro" data-t="esg" cx="895" cy="350" r="124" aria-hidden="true"/>
 <circle class="ar-aro" data-t="smeta" cx="1090" cy="150" r="86" aria-hidden="true"/>
@@ -2476,12 +2478,17 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="125.9" y="647.7" width="44.5" height="20" rx="3"/><text x="148.2" y="661.4">NR-12</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="244.8" y="658.1" width="44.5" height="20" rx="3"/><text x="267.0" y="671.8">NR-17</text></g>
 </a>
-<a class="ar-tema" data-t="compliance" href="compliance-seguranca-informacao.html" aria-label="Compliance e segurança da informação: ISO 37001, ISO/IEC 27001, LGPD">
-<circle class="ar-alvo" cx="525" cy="598" r="106"/>
-<text class="ar-tit" x="525" y="575.0" aria-hidden="true"><tspan x="525" dy="0">Compliance e</tspan><tspan x="525" dy="23">segurança da</tspan><tspan x="525" dy="23">informação</tspan></text>
-<g class="ar-pil" aria-hidden="true"><rect x="456.8" y="488.4" width="63.9" height="20" rx="3"/><text x="488.7" y="502.1">ISO 37001</text></g>
-<g class="ar-pil" aria-hidden="true"><rect x="536.3" y="679.8" width="83.5" height="20" rx="3"/><text x="578.0" y="693.5">ISO/IEC 27001</text></g>
-<g class="ar-pil" aria-hidden="true"><rect x="444.2" y="674.8" width="40.0" height="20" rx="3"/><text x="464.2" y="688.5">LGPD</text></g>
+<a class="ar-tema" data-t="compliance" href="compliance-seguranca-informacao.html" aria-label="Gestão de compliance: ISO 37001, ISO 37301, LGPD">
+<circle class="ar-alvo" cx="492" cy="588" r="94"/>
+<text class="ar-tit" x="492" y="576.5" aria-hidden="true"><tspan x="492" dy="0">Gestão de</tspan><tspan x="492" dy="23">compliance</tspan></text>
+<g class="ar-pil" aria-hidden="true"><rect x="371.7" y="610.1" width="63.9" height="20" rx="3"/><text x="403.7" y="623.8">ISO 37001</text></g>
+<g class="ar-pil" aria-hidden="true"><rect x="427.9" y="666.3" width="63.9" height="20" rx="3"/><text x="459.9" y="680.0">ISO 37301</text></g>
+<g class="ar-pil" aria-hidden="true"><rect x="559.3" y="543.2" width="40.0" height="20" rx="3"/><text x="579.3" y="556.9">LGPD</text></g>
+</a>
+<a class="ar-tema" data-t="si" href="compliance-seguranca-informacao.html" aria-label="Segurança da informação: LGPD, ISO/IEC 27001">
+<circle class="ar-alvo" cx="625" cy="490" r="78"/>
+<text class="ar-tit" x="625" y="478.5" aria-hidden="true"><tspan x="625" dy="0">Segurança da</tspan><tspan x="625" dy="23">informação</tspan></text>
+<g class="ar-pil" aria-hidden="true"><rect x="643.0" y="429.9" width="83.5" height="20" rx="3"/><text x="684.8" y="443.6">ISO/IEC 27001</text></g>
 </a>
 <a class="ar-tema" data-t="carbono" href="gestao-carbono.html" aria-label="Gestão de carbono: GHG Protocol, ISO 14064, ISO 14068-1, SBTi">
 <circle class="ar-alvo" cx="680" cy="218" r="140"/>
@@ -2513,7 +2520,7 @@ body>*{position:relative;z-index:1}
 <a class="ar-tema" data-t="alimentos" href="seguranca-alimentos.html" aria-label="Segurança de alimentos: ISO 22000, FSSC 22000">
 <circle class="ar-alvo" cx="760" cy="620" r="92"/>
 <text class="ar-tit" x="760" y="608.5" aria-hidden="true"><tspan x="760" dy="0">Segurança</tspan><tspan x="760" dy="23">de alimentos</tspan></text>
-<g class="ar-pil" aria-hidden="true"><rect x="668.9" y="539.5" width="63.9" height="20" rx="3"/><text x="700.9" y="553.2">ISO 22000</text></g>
+<g class="ar-pil" aria-hidden="true"><rect x="759.5" y="523.5" width="63.9" height="20" rx="3"/><text x="791.5" y="537.2">ISO 22000</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="770.9" y="689.7" width="70.3" height="20" rx="3"/><text x="806.0" y="703.4">FSSC 22000</text></g>
 </a>
 <a class="ar-tema" data-t="estudos" href="estudos-pesquisa.html" aria-label="Estudos e pesquisa aplicada: Nota técnica, Observatório setorial, EUDR">
@@ -2527,7 +2534,8 @@ body>*{position:relative;z-index:1}
 <ul class="ar-lista">
 <li class="ar-item"><a href="implantacao-iso.html">Sistemas de gestão ISO</a><span class="ar-normas"><span>ISO 9001</span><span>ISO 14001</span><span>ISO 45001</span><span>ISO 50001</span><span>ISO 41001</span></span></li>
 <li class="ar-item"><a href="nrs.html">Normas Regulamentadoras</a><span class="ar-normas"><span>NR-01</span><span>NR-12</span><span>NR-17</span></span></li>
-<li class="ar-item"><a href="compliance-seguranca-informacao.html">Compliance e segurança da informação</a><span class="ar-normas"><span>ISO 37001</span><span>ISO/IEC 27001</span><span>LGPD</span></span></li>
+<li class="ar-item"><a href="compliance-seguranca-informacao.html">Gestão de compliance</a><span class="ar-normas"><span>ISO 37001</span><span>ISO 37301</span><span>LGPD</span></span></li>
+<li class="ar-item"><a href="compliance-seguranca-informacao.html">Segurança da informação</a><span class="ar-normas"><span>LGPD</span><span>ISO/IEC 27001</span></span></li>
 <li class="ar-item"><a href="gestao-carbono.html">Gestão de carbono</a><span class="ar-normas"><span>GHG Protocol</span><span>ISO 14064</span><span>ISO 14068-1</span><span>SBTi</span></span></li>
 <li class="ar-item"><a href="esg.html">ESG</a><span class="ar-normas"><span>ABNT PR 2030</span><span>GRI</span><span>IFRS S1 e S2</span></span></li>
 <li class="ar-item"><a href="sedex-smeta.html">SEDEX SMETA</a><span class="ar-normas"><span>SMETA 7.0</span><span>SA 8000</span></span></li>
@@ -4146,14 +4154,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008, pixMul:2.2});
   })();
 
-  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---------------- */
-  (function(){
-    var m = document.querySelector('.ar-manchas'); if(!m) return;
-    var im = m.querySelector('img'); if(!im) return;
-    ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
-  })();
-  /* ---------------- fim CONHECIMENTO manchas ---------------- */
   /* ---------------- MONOGRAMA do menu: trama rala atras dele ---------------- */
   (function(){
     var c = document.querySelector('.barra-marca'); if(!c) return;
@@ -4162,6 +4162,14 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[232,242,220]], creme:[232,242,220], pincel:.6});
   })();
   /* ---------------- fim MONOGRAMA do menu ---------------- */
+  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---------------- */
+  (function(){
+    var m = document.querySelector('.ar-manchas'); if(!m) return;
+    var im = m.querySelector('img'); if(!im) return;
+    ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
+  })();
+  /* ---------------- fim CONHECIMENTO manchas ---------------- */
   /* ---------------- a moldura de noticias: quatro camadas empilhadas ---------------- */
   (function(){
     var midia = document.querySelector('.nt-midia'); if(!midia) return;

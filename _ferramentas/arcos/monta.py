@@ -118,7 +118,7 @@ def svg(L):
         o.append('<circle class="ar-aro%s" data-t="%s" cx="%d" cy="%d" r="%d" aria-hidden="true"/>'
                  % (' ar-aro--i' if div == 'i' else '', tid, cx, cy, r))
     for tid, pag, div, cx, cy, r, tit, normas in T:
-        rot = '%s: %s' % (' '.join(tit), ', '.join(n for n, a in normas))
+        rot = '%s: %s' % (' '.join(tit), ', '.join(arcos.normas_de(tid)))
         o.append('<a class="ar-tema" data-t="%s" href="%s" aria-label="%s">' % (tid, pag, arcos.esc(rot)))
         o.append('<circle class="ar-alvo" cx="%d" cy="%d" r="%d"/>' % (cx, cy, r))
         y0 = cy - arcos.LH_TIT * (len(tit) - 1) / 2.0

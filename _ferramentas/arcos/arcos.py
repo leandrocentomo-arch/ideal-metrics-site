@@ -38,8 +38,12 @@ TEMAS = [
     [('ISO 9001', -135), ('ISO 14001', -75), ('ISO 45001', 180), ('ISO 50001', 145), ('ISO 41001', -15)]),
  ('nrs', 'nrs.html', 'p', 215, 578, 104, ['Normas', 'Regulamentadoras'],
     [('NR-01', -120), ('NR-12', 130), ('NR-17', 60)]),
- ('compliance', 'compliance-seguranca-informacao.html', 'p', 525, 598, 106, ['Compliance e', 'segurança da', 'informação'],
-    [('ISO 37001', -110), ('ISO/IEC 27001', 60), ('LGPD', 125)]),
+ # 21/09: compliance vira DOIS aros, a pedido do Leandro. A LGPD e dos dois:
+ # uma etiqueta so, no ponto onde os aros se cruzam ('cruza:<tema>:<baixo|cima>').
+ ('compliance', 'compliance-seguranca-informacao.html', 'p', 492, 588, 94, ['Gestão de', 'compliance'],
+    [('ISO 37001', 160), ('ISO 37301', 110), ('LGPD', 'cruza:si:baixo')]),
+ ('si', 'compliance-seguranca-informacao.html', 'p', 625, 490, 78, ['Segurança da', 'informação'],
+    [('ISO/IEC 27001', -40)]),
  ('carbono', 'gestao-carbono.html', 'p', 680, 218, 140, ['Gestão', 'de carbono'],
     [('GHG Protocol', -150), ('ISO 14064', -90), ('ISO 14068-1', -30), ('SBTi', 100)]),
  ('esg', 'esg.html', 'p', 895, 350, 124, ['ESG'],
@@ -49,7 +53,7 @@ TEMAS = [
  ('padroes', 'padroes-mercado.html', 'p', 1080, 420, 78, ['Padrões', 'de mercado'],
     [('EcoVadis', -60), ('FSC', 40)]),
  ('alimentos', 'seguranca-alimentos.html', 'p', 760, 620, 92, ['Segurança', 'de alimentos'],
-    [('ISO 22000', -130), ('FSSC 22000', 60)]),
+    [('ISO 22000', -70), ('FSSC 22000', 60)]),
  ('estudos', 'estudos-pesquisa.html', 'i', 1045, 640, 100, ['Estudos e', 'pesquisa', 'aplicada'],
     [('Nota técnica', -130), ('Observatório setorial', 100), ('EUDR', -40)]),
 ]
@@ -60,7 +64,9 @@ DISCOS = [(360, 360, 215), (722, 252, 160), (962, 428, 140), (540, 642, 105), (1
 # 21/09/2026: tres dos cinco discos em AZUL palido (o ISO, o do ESG com Padroes
 # de mercado e o de Estudos), a pedido do Leandro: «quero que tenha partes em
 # azul». Os outros dois ficam no bege da casa. Indices de DISCOS.
-DISCOS_AZUIS = {0, 2, 4}
+# 21/09 (noite): «esqueca o bege no diagrama»: TODAS as manchas na trama da do
+# ISO (tom 0,95, ~15% de pontos azuis). Antes eram 0, 2 e 4 azuis e o resto bege.
+DISCOS_AZUIS = set(range(len(DISCOS)))
 # 21/09/2026: os aros soltos (sem rotulo, so ritmo, copiados da referencia)
 # SAIRAM. O Leandro perguntou para que serviam, e a resposta era: para nada.
 # Todo aro desta secao e um tema.
@@ -71,15 +77,48 @@ def larguras():
     return json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {}
 
 
+def aro(tid):
+    for t in TEMAS:
+        if t[0] == tid: return t[3], t[4], t[5]
+    raise KeyError(tid)
+
+
+def cruzamento(a, b, lado='baixo'):
+    """um dos dois pontos onde os aros dos temas a e b se cruzam"""
+    (x1, y1, r1), (x2, y2, r2) = aro(a), aro(b)
+    d = math.hypot(x2 - x1, y2 - y1)
+    assert abs(r1 - r2) < d < r1 + r2, 'os aros de %s e %s nao se cruzam' % (a, b)
+    k = (d * d + r1 * r1 - r2 * r2) / (2 * d)
+    h = math.sqrt(r1 * r1 - k * k)
+    mx, my = x1 + k * (x2 - x1) / d, y1 + k * (y2 - y1) / d
+    p = [(mx + h * (y2 - y1) / d, my - h * (x2 - x1) / d), (mx - h * (y2 - y1) / d, my + h * (x2 - x1) / d)]
+    return max(p, key=lambda q: q[1]) if lado == 'baixo' else min(p, key=lambda q: q[1])
+
+
+def normas_de(tid):
+    """as normas do tema, mais as que ele divide com outro aro no cruzamento"""
+    out = []
+    for t in TEMAS:
+        for n, a in t[7]:
+            if t[0] == tid or (isinstance(a, str) and a.split(':')[1] == tid):
+                out.append(n)
+    return out
+
+
 def pilulas(L):
     """posicao e caixa de cada pilula, centrada NO aro"""
     out = []
     for tid, pag, div, cx, cy, r, tit, normas in TEMAS:
         for txt, ang in normas:
             w = L.get(txt, len(txt) * 6.6) * ESC_PIL + 2 * PAD_X
-            t = math.radians(ang)
-            x, y = cx + r * math.cos(t), cy + r * math.sin(t)
-            out.append(dict(tema=tid, txt=txt, x=x, y=y, w=w, h=PIL_H,
+            cruza = None
+            if isinstance(ang, str):
+                _, cruza, lado = ang.split(':')
+                x, y = cruzamento(tid, cruza, lado)
+            else:
+                t = math.radians(ang)
+                x, y = cx + r * math.cos(t), cy + r * math.sin(t)
+            out.append(dict(tema=tid, txt=txt, x=x, y=y, w=w, h=PIL_H, cruza=cruza,
                             x0=x - w / 2, y0=y - PIL_H / 2, x1=x + w / 2, y1=y + PIL_H / 2))
     return out
 
@@ -114,7 +153,7 @@ def colisoes(L, folga=6):
     # a pilula tem de ler como do SEU aro: longe da linha de qualquer outro
     for p in P:
         for tid, pag, div, cx, cy, r, tit, normas in TEMAS:
-            if tid == p['tema']: continue
+            if tid == p['tema'] or tid == p.get('cruza'): continue
             d = math.hypot(p['x'] - cx, p['y'] - cy)
             if abs(d - r) < 34:
                 ruim.append('pilula no aro alheio: %s perto do aro de %s (%.0f)' % (p['txt'], tid, abs(d - r)))
@@ -179,7 +218,7 @@ def lista():
     for tid, pag, div, cx, cy, r, tit, normas in TEMAS:
         o.append('<li class="ar-item%s"><a href="%s">%s</a><span class="ar-normas">%s</span></li>'
                  % (' ar-item--i' if div == 'i' else '', pag, esc(' '.join(tit)),
-                    ''.join('<span>%s</span>' % esc(n) for n, a in normas)))
+                    ''.join('<span>%s</span>' % esc(n) for n in normas_de(tid))))
     o.append('</ul>')
     return '\n'.join(o)
 
