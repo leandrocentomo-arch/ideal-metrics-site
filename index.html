@@ -209,12 +209,10 @@ body>*{position:relative;z-index:1}
 /* 22/09: «quero que os desenhos se encontrem», mas «nao e para avancar, e so para
    nao ter gap»: a grade nao tem vao, e a foto comeca exatamente onde o esquema
    acaba, sem sobrepor nem esfumar. */
-.ar-foto{position:relative;min-height:300px;overflow:hidden;
-  /* 22/09: esfumada da direita para a esquerda, para nao haver divisao com o diagrama */
-  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 45%);mask-image:linear-gradient(to right,transparent 0,#000 45%)}
+.ar-foto{position:relative;min-height:300px;overflow:hidden}
 /* a foto da vaga (foto.py: trama da casa pelo motor, com rastro do mouse),
    cobrindo a vaga: so os lados sao cortados */
-.ar-foto img,.af-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:60% 50%}
+.ar-foto img,.af-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
 .ar-foto.gl-on img{visibility:hidden}
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
 .ar-svg{position:relative}
@@ -2552,7 +2550,7 @@ body>*{position:relative;z-index:1}
 <li class="ar-item ar-item--i"><a href="estudos-pesquisa.html">Estudos e pesquisa aplicada</a><span class="ar-normas"><span>Nota técnica</span><span>Observatório setorial</span><span>EUDR</span></span></li>
 </ul>
   </div>
-  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-foto-bayer.webp?v=3" data-lum="img/conhecimento-foto-lum.webp?v=3" alt="" width="1024" height="683" loading="lazy" decoding="async"></div>
+  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-foto-bayer.webp?v=4" data-lum="img/conhecimento-foto-lum.webp?v=4" alt="" width="797" height="720" loading="lazy" decoding="async"></div>
   </div>
 </section>
 
@@ -3723,9 +3721,9 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var im = m.querySelector('img'); if(!im) return;
     ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
-    /* a foto da refinaria, no terco direito (ancora X 0,60: as torres no meio) */
+    /* a foto do terco direito (foto.py; ja sai na proporcao da vaga) */
     var f = document.querySelector('.ar-foto'), fi = f && f.querySelector('img');
-    if(f && fi) ditherVivo({raiz:f, planos:[{el:f, lum:fi.getAttribute('data-lum'), ax:.60}], classeCanvas:'af-gl', revelar:'visivel',
+    if(f && fi) ditherVivo({raiz:f, planos:[{el:f, lum:fi.getAttribute('data-lum')}], classeCanvas:'af-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
   })();
   /* ---------------- fim CONHECIMENTO manchas ---------------- */
