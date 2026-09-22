@@ -47,13 +47,16 @@ def main():
     im = ImageOps.mirror(Image.open(CRU).convert('L'))
     l = PISO + (1 - PISO) * np.clip(np.asarray(im, dtype=np.float64) / 255 / .96, 0, 1) ** GAMA
     # fundo branco na proporcao da vaga: mais largo que a foto -> sobra dos
-    # lados; mais estreito -> sobra em cima e embaixo. A foto nunca e cortada.
+    # lados; mais estreito -> sobra em CIMA. A foto nunca e cortada.
     if im.width / im.height < VAGA:
         h = im.height; w = round(h * VAGA)
     else:
         w = im.width; h = round(w / VAGA)
     lum = np.ones((h, w))
-    x0, y0 = (w - im.width) // 2, (h - im.height) // 2
+    # 22/09: «alinhe a figura da direita no bottom com o painel mosaico»: a sobra
+    # vertical vai TODA para cima, entao a base da piramide fica na linha de baixo
+    # do esquema. A sobra horizontal continua dividida, com a piramide centrada.
+    x0, y0 = (w - im.width) // 2, h - im.height
     lum[y0:y0 + im.height, x0:x0 + im.width] = l
     img = os.path.join(SITE, 'img')
     Image.fromarray((lum * 255).round().astype(np.uint8), 'L').save(

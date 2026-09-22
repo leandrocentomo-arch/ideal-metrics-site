@@ -185,8 +185,8 @@ def secao(L):
         svg(L),
         arcos.lista(),
         '  </div>',
-        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-foto-bayer.webp?v=6" '
-        'data-lum="img/conhecimento-foto-lum.webp?v=6" alt="" width="480" height="867" loading="lazy" decoding="async"></div>',
+        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-foto-bayer.webp?v=7" '
+        'data-lum="img/conhecimento-foto-lum.webp?v=7" alt="" width="480" height="867" loading="lazy" decoding="async"></div>',
         '  </div>',
         '</section>',
     ])
