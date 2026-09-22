@@ -14,7 +14,7 @@ ESPELHADA, a pedido do Leandro.
 
 INTEIRA NA VAGA. A foto e vertical (2:3) e a vaga quase quadrada (~436 x 394 css
 numa tela de 1440): no cover ela perderia a cabeca do boneco de cima e a base.
-Por isso a luminancia sai com fundo branco na PROPORCAO DA VAGA (436:394), com a
+Por isso a luminancia sai com fundo branco na PROPORCAO DA VAGA (VAGA), com a
 piramide inteira no meio; o cover da pagina entao nao corta nada. O fundo da foto
 ja e branco (mediana 1,0), e branco vira creme na trama: sem borda nenhuma.
 
@@ -40,17 +40,21 @@ SITE = os.path.dirname(os.path.dirname(AQUI))
 CRU = os.path.join(os.path.dirname(SITE), '_tingir-fotos', 'FOTOS', 'piramide-bonecos-papel.jpg')
 GAMA = 2.2
 PISO = .30   # 22/09: «os bonecos estao muito escuros»: nada abaixo de 0,30
-VAGA = 436 / 394          # largura / altura da vaga numa tela de 1440
+VAGA = 262 / 473          # largura / altura da vaga numa tela de 1440 (22/09: esquema em 4/5, foto em 1/5)
 
 
 def main():
     im = ImageOps.mirror(Image.open(CRU).convert('L'))
     l = PISO + (1 - PISO) * np.clip(np.asarray(im, dtype=np.float64) / 255 / .96, 0, 1) ** GAMA
-    h = im.height
-    w = round(h * VAGA)
+    # fundo branco na proporcao da vaga: mais largo que a foto -> sobra dos
+    # lados; mais estreito -> sobra em cima e embaixo. A foto nunca e cortada.
+    if im.width / im.height < VAGA:
+        h = im.height; w = round(h * VAGA)
+    else:
+        w = im.width; h = round(w / VAGA)
     lum = np.ones((h, w))
-    x0 = (w - im.width) // 2
-    lum[:, x0:x0 + im.width] = l
+    x0, y0 = (w - im.width) // 2, (h - im.height) // 2
+    lum[y0:y0 + im.height, x0:x0 + im.width] = l
     img = os.path.join(SITE, 'img')
     Image.fromarray((lum * 255).round().astype(np.uint8), 'L').save(
         os.path.join(img, 'conhecimento-foto-lum.webp'), lossless=True)

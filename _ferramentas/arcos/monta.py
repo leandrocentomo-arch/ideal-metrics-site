@@ -39,7 +39,9 @@ CSS = r"""
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
 /* 22/09: o esquema nos 2/3 da esquerda e a foto dos barquinhos no 1/3 da direita */
-.ar-corpo{display:grid;grid-template-columns:2fr 1fr;gap:0;align-items:stretch;margin:44px 0 0}
+/* 22/09: «esse mosaico 20% maior»: o esquema passa de 2/3 para 4/5 da largura
+   (873 -> 1048 px numa tela de 1440) e a foto fica com o quinto restante */
+.ar-corpo{display:grid;grid-template-columns:4fr 1fr;gap:0;align-items:stretch;margin:44px 0 0}
 .ar-palco{position:relative;min-width:0;z-index:2}
 /* 22/09: «quero que os desenhos se encontrem», mas «nao e para avancar, e so para
    nao ter gap»: a grade nao tem vao, e a foto comeca exatamente onde o esquema
@@ -183,8 +185,8 @@ def secao(L):
         svg(L),
         arcos.lista(),
         '  </div>',
-        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-foto-bayer.webp?v=5" '
-        'data-lum="img/conhecimento-foto-lum.webp?v=5" alt="" width="797" height="720" loading="lazy" decoding="async"></div>',
+        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-foto-bayer.webp?v=6" '
+        'data-lum="img/conhecimento-foto-lum.webp?v=6" alt="" width="480" height="867" loading="lazy" decoding="async"></div>',
         '  </div>',
         '</section>',
     ])
