@@ -1,64 +1,53 @@
 # -*- coding: utf-8 -*-
 """A foto do terco direito da secao «Conhecimento» (22/09/2026).
 
-Os barquinhos de papel: um vermelho saindo na frente, a trilha tracejada e seis
-brancos atras. Recorte feito pelo proprio Leandro.
+Paginas de revista abertas em leque, em close. Escolhida pelo Leandro depois de
+tres tentativas com barquinhos de papel (a trama apagava os barcos brancos, e o
+duotom sem trama nao ficou bom).
 
     python _ferramentas/arcos/foto.py
 
-ORIGEM. O cru fica em Ideal Metrics/_tingir-fotos/FOTOS/
-barquinhos-papel-vermelho-recorte.jpg (1332 x 784), como manda a regra da casa.
+ORIGEM. O cru fica em Ideal Metrics/_tingir-fotos/FOTOS/paginas-revista-leque.jpg
+(2000 x 1333), como manda a regra da casa.
 
-DUOTOM, NAO TRAMA. Na trama Bayer os barcos brancos perdiam a definicao: a face
-iluminada deles tem o mesmo cinza do papel (0,87), e a curva da casa leva os dois
-ao creme. Aqui o tom e continuo, do azul-tinta #14304C ao creme #FAF9F5:
-  lum 0,20 ou menos -> azul-tinta   (o barco vermelho, que fica azul-escuro)
-  lum do fundo      -> creme        (o papel some no fundo da secao)
-As dobras e as sombras dos brancos ficam, porque nada vira ponto.
-O papel e nivelado (dividido pela propria luz, desfoque de 60 px) e as bordas se
-esfumam em 36 px: sem isso a foto aparecia como um retangulo cinza.
-Sem o motor da trama, entao sem rastro do mouse nesta peca.
+ESPELHADA. No original o lado direito e o mais claro; o Leandro pediu espelhar,
+para o leque denso ficar a DIREITA e o lado claro encostar no esquema.
 
-ENCAIXE. A pagina mostra a foto INTEIRA, na proporcao dela, sem preencher a vaga
-(object-fit: contain em monta.py): «sem mexer na proporcao, sem preencher o
-espaco todo».
+TRAMA DA CASA, sem ajuste: a foto tem tom de sobra (5% abaixo de 0,20, mediana
+0,84), entao a curva do shader ja deixa o papel em creme e o leque em azul.
+A pagina faz object-fit cover (vaga ~426 x 384 css numa tela de 1440; a foto e
+1,5:1, entao so os lados sao cortados).
 
-SAIDA: img/conhecimento-barco.webp, WebP q88, 900 px de largura (a vaga tem ~426
-css numa tela de 1440; 900 cobre tela de densidade 2)."""
+SAIDA em img/, para o motor ditherVivo:
+  conhecimento-paginas-lum.webp     luminancia, sem perda, 1200 x 800
+  conhecimento-paginas-bayer.webp   a mesma ja tramada, para quem nao tem WebGL"""
 
-import os
+import os, sys
 import numpy as np
-from PIL import Image, ImageFilter
+from PIL import Image, ImageOps
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, AQUI)
+import manchas   # a curva de tom e a rampa
+
 SITE = os.path.dirname(os.path.dirname(AQUI))
-CRU = os.path.join(os.path.dirname(SITE), '_tingir-fotos', 'FOTOS', 'barquinhos-papel-vermelho-recorte.jpg')
-ESCURO, CREME = np.array([20, 48, 76.]), np.array([250, 249, 245.])
-PRETO, LARG = .20, 900
+CRU = os.path.join(os.path.dirname(SITE), '_tingir-fotos', 'FOTOS', 'paginas-revista-leque.jpg')
+LARG = 1200
 
 
 def main():
-    im = Image.open(CRU).convert('RGB')
+    im = ImageOps.mirror(Image.open(CRU).convert('L'))
     im = im.resize((LARG, round(im.height * LARG / im.width)), Image.LANCZOS)
-    l = np.asarray(im.convert('L'), dtype=np.float64) / 255
-    # o papel nao e uniforme (clareia a esquerda, acinzenta a direita) e desenhava
-    # um retangulo cinza sobre o creme da secao. A luz do papel e estimada com um
-    # desfoque largo dos pixels claros (os barcos entram pouco) e dividida fora.
-    claro = np.where(l > .6, l, np.percentile(l, 50))
-    papel = np.asarray(Image.fromarray((claro * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(60)),
-                       dtype=np.float64) / 255
-    plano = l / np.maximum(papel, .05)
-    branco = np.percentile(plano, 50) - .015   # abaixo da mediana: o papel satura no creme
-    t = np.clip((plano - PRETO) / (branco - PRETO), 0, 1)
-    # bordas esfumadas no creme, 36 px, para a foto nao ter contorno nenhum
-    h, w = t.shape
-    yy, xx = np.mgrid[0:h, 0:w]
-    borda = np.minimum(np.minimum(xx, w - 1 - xx), np.minimum(yy, h - 1 - yy))
-    t = 1 - (1 - t) * np.clip(borda / 36, 0, 1)
-    rgb = ESCURO + (CREME - ESCURO) * t[..., None]
-    dst = os.path.join(SITE, 'img', 'conhecimento-barco.webp')
-    Image.fromarray(rgb.round().astype(np.uint8), 'RGB').save(dst, quality=88)
-    print('img/conhecimento-barco.webp: %d x %d, duotom, papel em %.3f' % (im.width, im.height, branco))
+    lum = np.asarray(im, dtype=np.float64) / 255
+    img = os.path.join(SITE, 'img')
+    im.save(os.path.join(img, 'conhecimento-paginas-lum.webp'), lossless=True)
+    m4 = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]])
+    yy, xx = np.mgrid[0:im.height, 0:im.width]
+    T = (m4[yy % 4, xx % 4] + .5) / 16
+    k = np.clip(np.floor(manchas.tom(lum) * 3 + T), 0, 3).astype(int)
+    Image.fromarray(manchas.CORES[k].round().astype(np.uint8), 'RGB').save(
+        os.path.join(img, 'conhecimento-paginas-bayer.webp'), lossless=True)
+    print('conhecimento-paginas: %d x %d, espelhada' % im.size)
 
 
 if __name__ == '__main__':

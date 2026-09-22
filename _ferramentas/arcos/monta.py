@@ -42,10 +42,10 @@ CSS = r"""
 .ar-corpo{display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:stretch;margin:44px 0 0}
 .ar-palco{position:relative;min-width:0}
 .ar-foto{position:relative;min-height:300px;overflow:hidden}
-/* a foto INTEIRA, na proporcao dela, sem preencher a vaga (contain), em duotom
-   azul-tinta a creme gerado por foto.py: sem trama, os barcos brancos mantem a
-   definicao. O papel da foto e o creme da secao, entao a borda nao aparece. */
-.ar-foto img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:50% 50%}
+/* a foto das paginas em leque (foto.py: espelhada, trama da casa pelo motor, com
+   rastro do mouse), cobrindo a vaga: so os lados sao cortados */
+.ar-foto img,.af-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.ar-foto.gl-on img{visibility:hidden}
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
 .ar-svg{position:relative}
 /* as manchas sao IMAGEM desenhada pelo motor ditherVivo, o mesmo das fotos da
@@ -123,6 +123,10 @@ MOTOR = r"""  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---
     var im = m.querySelector('img'); if(!im) return;
     ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
+    /* a foto das paginas em leque, no terco direito */
+    var f = document.querySelector('.ar-foto'), fi = f && f.querySelector('img');
+    if(f && fi) ditherVivo({raiz:f, planos:[{el:f, lum:fi.getAttribute('data-lum')}], classeCanvas:'af-gl', revelar:'visivel',
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
   })();
   /* ---------------- fim CONHECIMENTO manchas ---------------- */
 """
@@ -176,8 +180,8 @@ def secao(L):
         svg(L),
         arcos.lista(),
         '  </div>',
-        '  <div class="ar-foto"><img src="img/conhecimento-barco.webp" alt="Barco de papel azul à frente de seis barcos brancos, com uma trilha tracejada" '
-        'width="900" height="530" loading="lazy" decoding="async"></div>',
+        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-paginas-bayer.webp" '
+        'data-lum="img/conhecimento-paginas-lum.webp" alt="" width="1200" height="800" loading="lazy" decoding="async"></div>',
         '  </div>',
         '</section>',
     ])
