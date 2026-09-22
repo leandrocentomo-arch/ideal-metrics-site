@@ -34,7 +34,7 @@ import arcos
 
 SITE = os.path.dirname(os.path.dirname(AQUI))
 GAMA, CTR, BRILHO = .86, 1.55, .35
-TOM_AZUL, TOM_BEGE, CRUZA = .95, .975, .015   # 21/09: «clareie muito»; antes .84 e .90
+TOM_AZUL, TOM_BEGE, CRUZA = .975, .985, .010  # 22/09: «mais claro ainda, para o requisito escrito ficar nitido» (era .95)
 # a rampa da folha Demandas (e da tira da 1a secao), ja passada pelo filtro creme
 CORES = np.array([[21.2, 50.9, 80.6], [24.2, 56.2, 88.1], [103.0, 146.1, 189.4], [250, 249, 245]])
 LARG = 1800          # a vaga passou a ocupar a largura da pagina (ate ~1440 css vezes 1,25)

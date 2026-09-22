@@ -184,8 +184,8 @@ def secao(L):
         '  </div>',
         '  <div class="ar-corpo">',
         '  <div class="ar-palco">',
-        '    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp" '
-        'data-lum="img/conhecimento-manchas-lum.webp" alt="" width="1800" height="%d" loading="lazy" decoding="async"></div>'
+        '    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp?v=2" '
+        'data-lum="img/conhecimento-manchas-lum.webp?v=2" alt="" width="1800" height="%d" loading="lazy" decoding="async"></div>'
         % round(1800 * arcos.limites(L)[3] / arcos.limites(L)[2]),
         svg(L),
         arcos.lista(),
