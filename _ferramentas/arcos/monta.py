@@ -44,7 +44,9 @@ CSS = r"""
 /* 22/09: «quero que os desenhos se encontrem», mas «nao e para avancar, e so para
    nao ter gap»: a grade nao tem vao, e a foto comeca exatamente onde o esquema
    acaba, sem sobrepor nem esfumar. */
-.ar-foto{position:relative;min-height:300px;overflow:hidden}
+.ar-foto{position:relative;min-height:300px;overflow:hidden;
+  /* 22/09: esfumada da direita para a esquerda, para nao haver divisao com o diagrama */
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 45%);mask-image:linear-gradient(to right,transparent 0,#000 45%)}
 /* a foto da vaga (foto.py: trama da casa pelo motor, com rastro do mouse),
    cobrindo a vaga: so os lados sao cortados */
 .ar-foto img,.af-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:60% 50%}
@@ -183,8 +185,8 @@ def secao(L):
         svg(L),
         arcos.lista(),
         '  </div>',
-        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-foto-bayer.webp?v=1" '
-        'data-lum="img/conhecimento-foto-lum.webp?v=1" alt="" width="1024" height="683" loading="lazy" decoding="async"></div>',
+        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-foto-bayer.webp?v=3" '
+        'data-lum="img/conhecimento-foto-lum.webp?v=3" alt="" width="1024" height="683" loading="lazy" decoding="async"></div>',
         '  </div>',
         '</section>',
     ])

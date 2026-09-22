@@ -13,6 +13,12 @@ TRAMA DA CASA, com GAMA 1,4 antes da curva do shader: com 1,0 o ceu e o campo
 ficam ralos; com 1,9 as nuvens escuras pesam. Com 1,4 aparecem as nuvens, as
 torres e o campo em trama media.
 
+SEM CEU (22/09): «corte as nuvens do ceu». O enquadramento fica (recortar o alto
+obrigaria o cover a AMPLIAR a foto); o que muda e o ceu, que vira creme. Ceu =
+acima de y HORIZONTE e azulado (B - R > 25) ou claro e um pouco azulado (lum > 0,72 e
+B - R > 8: a chaminé branca, neutra, fica), com a mascara
+suavizada; as torres, cinzentas e mais escuras, ficam.
+
 ENCAIXE. A pagina faz object-fit cover (vaga ~436 x 394 css numa tela de 1440;
 a foto e 1,5:1, entao so os lados sao cortados). Ancora X 0,60 (monta.py): o
 conjunto principal de torres fica no meio da vaga.
@@ -23,7 +29,7 @@ SAIDA em img/, para o motor ditherVivo, na largura do original (sem ampliar):
 
 import os, sys
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
@@ -32,11 +38,20 @@ import manchas   # a curva de tom e a rampa
 SITE = os.path.dirname(os.path.dirname(AQUI))
 CRU = os.path.join(os.path.dirname(SITE), '_tingir-fotos', 'FOTOS', 'refinaria-campo-ceu.jpg')
 GAMA = 1.4
+HORIZONTE = 478
 
 
 def main():
-    im = Image.open(CRU).convert('L')
-    lum = (np.asarray(im, dtype=np.float64) / 255) ** GAMA
+    cor = Image.open(CRU).convert('RGB')
+    im = cor.convert('L')
+    a = np.asarray(cor).astype(np.float64)
+    lum = np.asarray(im, dtype=np.float64) / 255
+    yy0 = np.arange(im.height)[:, None]
+    ceu = ((a[..., 2] - a[..., 0] > 25) | ((lum > .72) & (a[..., 2] - a[..., 0] > 8))) & (yy0 < HORIZONTE)
+    ceu = np.asarray(Image.fromarray((ceu * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.2)),
+                     dtype=np.float64) / 255
+    lum = lum ** GAMA
+    lum = lum * (1 - ceu) + ceu
     img = os.path.join(SITE, 'img')
     Image.fromarray((lum * 255).round().astype(np.uint8), 'L').save(
         os.path.join(img, 'conhecimento-foto-lum.webp'), lossless=True)
