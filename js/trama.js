@@ -65,6 +65,11 @@
     'uniform float uGama;uniform float uCtr;uniform float uBrilho;' +
     'uniform float uPix;uniform float uPixMul;uniform float uTrailMul;uniform float uBias;uniform float uBiasReacao;' +
     'uniform float uRespiro;uniform float uLava;uniform float uRevela;uniform float uOpac;' +
+    /* 22/09: uSoFigura > 0 -> a trilha do mouse so vale onde a imagem TEM figura.
+       Na vaga da piramide o branco em volta acendia com o cometa e desenhava a
+       quina do retangulo; com isto o cometa anda sobre os bonecos e some no
+       branco. O corte e no tom JA revelado, medido na celula parada. */
+    'uniform float uSoFigura;' +
     /* ruido de valor: bem mais barato que o Perlin 3D do OCI e, na amplitude em
        que entra (3% do limiar), indistinguivel dele */
     'float h(vec3 p){return fract(sin(dot(p, vec3(127.1,311.7,74.7)))*43758.5453);}' +
@@ -78,6 +83,15 @@
     'void main(){' +
     '  vec2 frag = gl_FragCoord.xy;' +
     '  float tr = clamp(texture2D(uTrilha, frag/uTela).r * uTrailMul, 0., 1.);' +
+    /* object-fit cover, nas mesmas contas de baixo, para medir o tom parado */
+    '  float aC0 = uCol.z/uCol.w, aT0 = uTex.x/uTex.y; vec2 sc0 = vec2(1.), of0 = vec2(0.);' +
+    '  if(aT0>aC0){ float s=aC0/aT0; sc0.x=s; of0.x=(1.-s)*uAx; } else { float s=aT0/aC0; sc0.y=s; of0.y=(1.-s)*.5; }' +
+    '  if(uSoFigura > .5){' +
+    '    vec2 q1 = (floor((frag - uCol.xy)/max(uPix,1.))+.5)*max(uPix,1.);' +
+    '    vec2 p1 = q1/uCol.zw; if(uEspelha>.5) p1.x = 1.-p1.x; p1 = (p1-.5)/uZoom + .5;' +
+    '    float v1 = tom(texture2D(uLum, clamp(p1*sc0+of0, 0., 1.)).r);' +
+    '    tr *= 1. - smoothstep(.90, .995, v1);' +
+    '  }' +
     /* a celula da luminancia engrossa com a trilha, em px de DISPOSITIVO e
        ancorada no canto da peca, para o quadriculado nao escorregar */
     '  float px = mix(uPix, uPix*uPixMul, tr);' +
@@ -86,8 +100,7 @@
     '  if(uEspelha>.5) p.x = 1.-p.x;' +
     '  p = (p-.5)/uZoom + .5;' +
     /* object-fit: cover, com a ancora X da peca */
-    '  float aC = uCol.z/uCol.w, aT = uTex.x/uTex.y; vec2 sc = vec2(1.), of = vec2(0.);' +
-    '  if(aT>aC){ float s=aC/aT; sc.x=s; of.x=(1.-s)*uAx; } else { float s=aT/aC; sc.y=s; of.y=(1.-s)*.5; }' +
+    '  vec2 sc = sc0, of = of0;' +
     '  float v = tom(texture2D(uLum, clamp(p*sc+of, 0., 1.)).r);' +
     /* limiar: 4x4 em repouso, 8x8 onde a trilha passa de meio, como no OCI */
     '  float T = tr < .5 ? texture2D(uB4, (floor(frag)+.5)/4.).r : texture2D(uB8, (floor(frag)+.5)/8.).r;' +
@@ -150,7 +163,7 @@
     function uni(pr, nomes){ var o = {}; nomes.forEach(function(n){ o[n] = gl.getUniformLocation(pr, n); }); return o; }
     var uT = uni(pT, ['t','res','pt','ptAnt','aspecto','vel','raio','borda','fica']);
     var uF = uni(pF, ['uLum','uTrilha','uB4','uB8','uTela','uCol','uTex','uAx','uEspelha','uZoom','uTempo','uC0','uC1','uC2','uC3','uCreme',
-      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac']);
+      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura']);
 
     var quad = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, quad);
@@ -434,6 +447,7 @@
       gl.uniform1f(uF.uPix, Math.max(1, pix.v)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 3.3); gl.uniform1f(uF.uTrailMul, 1.27);
       gl.uniform1f(uF.uBias, bias.v); gl.uniform1f(uF.uBiasReacao, .20);   /* 22/09: cometa mais escuro (era 0,13) */ gl.uniform1f(uF.uRespiro, cfg.respiro == null ? .012 : cfg.respiro);
       gl.uniform1f(uF.uRevela, cfg.revelaNaTrilha == null ? 0 : cfg.revelaNaTrilha);
+      gl.uniform1f(uF.uSoFigura, cfg.trilhaSoNaFigura ? 1 : 0);
 
       planos.forEach(function(pl){
         if(pl.opac.v < .002) return;

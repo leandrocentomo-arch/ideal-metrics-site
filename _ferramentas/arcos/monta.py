@@ -129,13 +129,12 @@ MOTOR = r"""  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---
     ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
     /* a foto do terco direito (foto.py; ja sai na proporcao da vaga).
-       22/09: SEM cometa aqui (pincel ~0). O rastro do mouse acendia pontos no
-       branco em volta da piramide e desenhava a quina do retangulo da foto:
-       «nao gostaria desta divisao». Sem ele o branco fica igual ao creme da
-       secao e a piramide nao tem moldura. */
+       22/09: o cometa fica, mas SO SOBRE A FIGURA (trilhaSoNaFigura). No branco
+       em volta da piramide ele acendia pontos e desenhava a quina do retangulo
+       da foto; agora o rastro anda sobre os bonecos e some no branco. */
     var f = document.querySelector('.ar-foto'), fi = f && f.querySelector('img');
     if(f && fi) ditherVivo({raiz:f, planos:[{el:f, lum:fi.getAttribute('data-lum')}], classeCanvas:'af-gl', revelar:'visivel',
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.0001});
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, trilhaSoNaFigura:true});
   })();
   /* ---------------- fim CONHECIMENTO manchas ---------------- */
 """
