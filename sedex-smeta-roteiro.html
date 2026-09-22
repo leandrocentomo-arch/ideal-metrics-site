@@ -1140,6 +1140,8 @@
     }
   </style>
 <script>document.documentElement.classList.add('js');window.addEventListener('load',function(){setTimeout(function(){if(!document.querySelector('.rot-sec.in-view,.sec.in-view')){var n=document.querySelectorAll('.rot-sec,.sec');for(var i=0;i<n.length;i++){n[i].classList.add('in-view');}}},1200);});</script>
+<link rel="stylesheet" href="css/barra.css?v=1">
+<style>.topbar{top:92px} .barra a,.veu-menu a,.tarja a{text-decoration:none}</style>
 </head>
 
 <body>
@@ -1170,8 +1172,7 @@
   <button class="fecha js-scramble" id="fechaMenu">Fechar</button>
 </nav>
 <div class="barra-espaco" aria-hidden="true"></div>
-
-  <div style="height:1.5rem;"></div>
+<div class="page-banner"><h1>SEDEX e SMETA: roteiro completo</h1><p>Da associação ao Sedex à auditoria SMETA 7.0, etapa por etapa.</p></div>
 
   <nav class="topbar" id="topbar">
     <div class="topbar-brand"><a href="index.html"><img src="img/logo-ideal-m.svg?v=19092026" alt="Ideal Metrics"></a></div>
@@ -2260,13 +2261,6 @@
       .dia svg{display:block;max-width:100%;height:auto;}
       .dia-caption{font-size:.65rem;color:var(--ink-muted);margin-top:.5rem;font-style:italic;letter-spacing:.02em;}
       .dia-full{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin:1.5rem 0;}
-    /* Tarja de identificacao, igual a do resto do site */
-.tarja{height:26px;display:flex;align-items:center;justify-content:flex-end;
-  padding:0 max(40px,calc(50% - 580px));background:#EF4545}
-.tarja span{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:10px;
-  letter-spacing:.2em;text-transform:uppercase;color:#FFFFFF}
-@media (max-width:768px){ .tarja{height:22px;padding:0 16px}
-  .tarja span{font-size:9px;letter-spacing:.16em} }
 </style>
 
   </main>
@@ -2429,6 +2423,8 @@
     }
   </script>
 <script src="js/barra.js"></script>
+<script src="js/trama.js"></script>
+<script src="js/banner.js"></script>
 </body>
 
 </html>

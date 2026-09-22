@@ -96,6 +96,24 @@ def main():
     s = s.rstrip('\n') + '\n\n' + INI + '\n' + css + '\n.barra-espaco{height:92px}\n' + FIM + '\n'
     gravar(p, s); print('css/style.css: bloco da barra da home')
 
+    # css/barra.css: o mesmo bloco, autonomo, para paginas com CSS proprio que nao
+    # carregam css/style.css (o roteiro SEDEX/SMETA). Leva as variaveis da casa e
+    # o banner creme/trama (22/09/2026), copiado de style.css.
+    a = s.index('.page-banner {'); b = s.index('}', s.index('.page-banner p {', a)) + 1
+    banner = s[a:b]
+    pb_gl = re.search(r'\.page-banner \.pb-gl \{[^}]*\}', s).group(0)
+    raiz = (":root{--azul:#14304C;--azul-escuro:#315275;--mercurio:#FAF9F5;--branco:#FFFFFF;"
+            "--fio:rgba(20,48,76,.30);--sans:'IBM Plex Sans Condensed',sans-serif;"
+            "--mono:'IBM Plex Mono',monospace;--lado:clamp(28px,4vw,64px);--fundo:#336699;"
+            "--color-primary:#14304C;--mid-gray:#315275;--border-gray:#A3B5C8}")
+    p2 = os.path.join(SITE, 'css', 'barra.css'); _EOL[p2] = '\n'
+    gravar(p2, '/* gerado por _ferramentas/barra.py: menu da home e banner das internas, para\n'
+               '   paginas que nao carregam css/style.css. Nao editar a mao. */\n' + raiz + '\n' + css +
+               '\n.barra-espaco{height:92px}\n' + banner + '\n' + pb_gl + '\n'
+               '@media (max-width:768px){ .page-banner{padding:26px 16px;min-height:auto} '
+               '.page-banner h1,.page-banner p{max-width:100%} }\n')
+    print('css/barra.css: bloco autonomo')
+
     os.makedirs(os.path.join(SITE, 'js'), exist_ok=True)
     p = os.path.join(SITE, 'js', 'barra.js'); _EOL[p] = '\n'; gravar(p, js); print('js/barra.js')
 
