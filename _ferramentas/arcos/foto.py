@@ -16,7 +16,7 @@ para o leque denso ficar a DIREITA e o lado claro encostar no esquema.
 TRAMA DA CASA, com a foto ESCURECIDA antes (22/09): direto na curva do shader
 (brilho +0,35) ela ficou apagada, «quase nao da pra reconhecer». A mediana e
 0,84, quase tudo papel claro, e a curva leva isso ao creme. Por isso
-lum = (lum / 0,93) ^ GAMA, com GAMA 3,5: os aneis das folhas no alto e as
+lum = (lum / 0,93) ^ GAMA, com GAMA 2,8 (3,5 escureceu demais): os aneis das folhas no alto e as
 paginas em leque embaixo aparecem; 2,2 ainda era ralo, 5 empapava o leque.
 A pagina faz object-fit cover (vaga ~426 x 384 css numa tela de 1440; a foto e
 1,5:1, entao so os lados sao cortados).
@@ -36,7 +36,7 @@ import manchas   # a curva de tom e a rampa
 SITE = os.path.dirname(os.path.dirname(AQUI))
 CRU = os.path.join(os.path.dirname(SITE), '_tingir-fotos', 'FOTOS', 'paginas-revista-leque.jpg')
 LARG = 1200
-GAMA = 3.5
+GAMA = 2.8   # 22/09: 3,5 ficou escuro demais; «um pouco mais clara»
 
 
 def main():
