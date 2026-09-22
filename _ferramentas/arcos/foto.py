@@ -20,6 +20,9 @@ ja e branco (mediana 1,0), e branco vira creme na trama: sem borda nenhuma.
 
 TRAMA DA CASA, com lum = (lum / 0,96) ^ GAMA e GAMA 2,2: com 1,0 os bonecos de
 baixo, azul-claro, sumiam; com 1,5 ainda falhavam; com 2,2 aparecem todos.
+MAIS CLARA (22/09): os bonecos ficaram escuros demais, entao a luminancia ganha
+um PISO de 0,30 (lum = 0,30 + 0,70 x lum): some o azul-tinta e fica a trama
+clara. Com piso 0,45 os bonecos de baixo sumiam.
 
 SAIDA em img/, para o motor ditherVivo:
   conhecimento-foto-lum.webp     luminancia, sem perda
@@ -36,12 +39,13 @@ import manchas   # a curva de tom e a rampa
 SITE = os.path.dirname(os.path.dirname(AQUI))
 CRU = os.path.join(os.path.dirname(SITE), '_tingir-fotos', 'FOTOS', 'piramide-bonecos-papel.jpg')
 GAMA = 2.2
+PISO = .30   # 22/09: «os bonecos estao muito escuros»: nada abaixo de 0,30
 VAGA = 436 / 394          # largura / altura da vaga numa tela de 1440
 
 
 def main():
     im = ImageOps.mirror(Image.open(CRU).convert('L'))
-    l = np.clip(np.asarray(im, dtype=np.float64) / 255 / .96, 0, 1) ** GAMA
+    l = PISO + (1 - PISO) * np.clip(np.asarray(im, dtype=np.float64) / 255 / .96, 0, 1) ** GAMA
     h = im.height
     w = round(h * VAGA)
     lum = np.ones((h, w))
@@ -56,7 +60,7 @@ def main():
     k = np.clip(np.floor(manchas.tom(lum) * 3 + T), 0, 3).astype(int)
     Image.fromarray(manchas.CORES[k].round().astype(np.uint8), 'RGB').save(
         os.path.join(img, 'conhecimento-foto-bayer.webp'), lossless=True)
-    print('conhecimento-foto: %d x %d, espelhada, gama %.1f' % (w, h, GAMA))
+    print('conhecimento-foto: %d x %d, espelhada, gama %.1f, piso %.2f' % (w, h, GAMA, PISO))
 
 
 if __name__ == '__main__':

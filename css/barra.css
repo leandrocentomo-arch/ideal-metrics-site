@@ -96,14 +96,20 @@
    desfoque por tras: ali o creme fecha. */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .barra-marca{background:var(--mercurio)} }
-/* 21/09: o cartao do monograma no CREME da pagina, var(--mercurio), como
-   estava em efd247b. Passou por #E8F2DC, por trama e por vidro prateado; o
-   Leandro pediu de volta o creme. Sobre o creme quem desenha a caixa e o fio. */
-.barra-marca{background:var(--mercurio)}
-.barra-marca:hover{background:var(--mercurio)}
-.barra-marca .marca-frente{height:81.1px;width:auto;display:block;
-  transition:height .45s cubic-bezier(.4,0,.2,1)}
-.barra.rolou .barra-marca .marca-frente{height:71.1px}
+/* 22/09: o cartao do monograma volta ao VIDRO CLARO de c66f739 (21/09, noite),
+   a pedido do Leandro: o degrade azul bem claro do anel do selo de vidro
+   (#F5F8FC a #C9D8E9, claro no alto a esquerda), o reflexo (branco 72% -> 18%
+   -> 0 de cima para baixo) e a borda de luz (branco 85% por dentro).
+   E «este fundo nao pode mudar conforme avancamos na pagina»: o cartao e OPACO
+   e sem backdrop-filter (nada do que passa por tras aparece nele), e nao
+   encolhe mais ao rolar (a regra .barra.rolou saiu; a marca fica em 81,1). */
+.barra-marca,.barra-marca:hover{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.18) 55%, rgba(255,255,255,0) 100%),
+    linear-gradient(135deg, #F5F8FC 0%, #E4ECF5 50%, #C9D8E9 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.85), 0 6px 16px rgba(20,48,76,.08);
+  -webkit-backdrop-filter:none;backdrop-filter:none;transition:none}
+.barra-marca .marca-frente{height:81.1px;width:auto;display:block}
 .barra-marca span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
   overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .barra-nav{display:flex;align-items:center;gap:30px}
