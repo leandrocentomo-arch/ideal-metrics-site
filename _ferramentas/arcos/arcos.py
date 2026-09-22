@@ -24,7 +24,7 @@ do site (getComputedTextLength), e nao estimadas."""
 import json, math, os
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-VB_W, VB_H = 1200, 560
+VB_W, VB_H = 940, 480
 PAD_X, PIL_H = 8, 20           # respiro lateral e altura da pilula, em unidades do viewBox
 TXT_PIL, TXT_TIT, LH_TIT = 8.5, 13, 15.5
 # 21/09: etiqueta menor a pedido do Leandro (era 12,5 de corpo e 26 de altura).
@@ -38,31 +38,32 @@ TEMAS = [
  # 21/09 (noite): BOLAS PEQUENAS que crescem no mouse (monta.py: scale 1,6 no
  # hover). Raios de 44 a 66, titulo em 13 e pilula em 8,5; nenhum aro encosta
  # em outro (so compliance e SI se cruzam, de proposito, para a LGPD).
- ('iso', 'implantacao-iso.html', 'p', 150, 176, 66, ['Sistemas de', 'gestão ISO'],
+ ('iso', 'implantacao-iso.html', 'p', 110, 150, 66, ['Sistemas de', 'gestão ISO'],
     [('ISO 9001', -135), ('ISO 14001', -70), ('ISO 45001', 150), ('ISO 50001', 100), ('ISO 41001', 35)]),
- ('carbono', 'gestao-carbono.html', 'p', 420, 130, 56, ['Gestão', 'de carbono'],
+ ('carbono', 'gestao-carbono.html', 'p', 310, 120, 56, ['Gestão', 'de carbono'],
     [('GHG Protocol', -140), ('ISO 14064', -56), ('ISO 14068-1', 40), ('SBTi', 110)]),
- ('esg', 'esg.html', 'p', 650, 180, 46, ['ESG'],
+ ('esg', 'esg.html', 'p', 480, 165, 46, ['ESG'],
     [('ABNT PR 2030', -60), ('GRI', 160), ('IFRS S1 e S2', 60)]),
- ('smeta', 'sedex-smeta.html', 'p', 870, 120, 50, ['SEDEX', 'SMETA'],
+ ('smeta', 'sedex-smeta.html', 'p', 640, 110, 50, ['SEDEX', 'SMETA'],
     [('SMETA 7.0', -135), ('SA 8000', 120)]),
- ('padroes', 'padroes-mercado.html', 'p', 1080, 176, 52, ['Padrões', 'de mercado'],
+ ('padroes', 'padroes-mercado.html', 'p', 800, 160, 52, ['Padrões', 'de mercado'],
     [('EcoVadis', -70), ('FSC', 50)]),
- ('nrs', 'nrs.html', 'p', 190, 430, 62, ['Normas', 'Regulamentadoras'],
+ ('nrs', 'nrs.html', 'p', 150, 370, 62, ['Normas', 'Regulamentadoras'],
     [('NR-01', -120), ('NR-12', 125), ('NR-17', 55)]),
- ('compliance', 'compliance-seguranca-informacao.html', 'p', 470, 430, 54, ['Gestão de', 'compliance'],
+ ('compliance', 'compliance-seguranca-informacao.html', 'p', 380, 370, 54, ['Gestão de', 'compliance'],
     [('ISO 37001', 220), ('ISO 37301', 110), ('LGPD', 'cruza:si:baixo')]),
- ('si', 'compliance-seguranca-informacao.html', 'p', 540, 358, 48, ['Segurança da', 'informação'],
+ ('si', 'compliance-seguranca-informacao.html', 'p', 450, 298, 48, ['Segurança da', 'informação'],
     [('ISO/IEC 27001', -55)]),
- ('alimentos', 'seguranca-alimentos.html', 'p', 770, 420, 54, ['Segurança', 'de alimentos'],
+ ('alimentos', 'seguranca-alimentos.html', 'p', 600, 365, 54, ['Segurança', 'de alimentos'],
     [('ISO 22000', -110), ('FSSC 22000', 60)]),
- ('estudos', 'estudos-pesquisa.html', 'i', 1020, 430, 62, ['Estudos e', 'pesquisa', 'aplicada'],
+ ('estudos', 'estudos-pesquisa.html', 'i', 790, 375, 62, ['Estudos e', 'pesquisa', 'aplicada'],
     [('Nota técnica', -130), ('Observatório setorial', 95), ('EUDR', -55)]),
 ]
 
 # manchas cheias por tras, independentes dos aros (como na referencia), todas
 # DENTRO da prancha: a primeira versao deixava uma sair por baixo
-DISCOS = [(215, 215, 100), (500, 175, 78), (960, 240, 88), (380, 455, 70), (1090, 440, 70)]
+# 22/09: manchas 20% menores e tudo mais junto (o esquema deixou de ocupar a largura da pagina)
+DISCOS = [(175, 189, 80), (390, 165, 62), (750, 215, 70), (290, 395, 56), (860, 385, 56)]
 # 21/09/2026: tres dos cinco discos em AZUL palido (o ISO, o do ESG com Padroes
 # de mercado e o de Estudos), a pedido do Leandro: «quero que tenha partes em
 # azul». Os outros dois ficam no bege da casa. Indices de DISCOS.

@@ -203,7 +203,7 @@ body>*{position:relative;z-index:1}
 .ar-legenda li{display:flex;align-items:center;gap:10px}
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
-.ar-palco{margin:44px 0 0;position:relative}   /* largura inteira da pagina (21/09) */
+.ar-palco{margin:44px auto 0;position:relative;max-width:1040px}   /* 22/09: tudo junto, sem ocupar a largura inteira */
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
 .ar-svg{position:relative}
 /* as manchas sao IMAGEM desenhada pelo motor ditherVivo, o mesmo das fotos da
@@ -2444,10 +2444,10 @@ body>*{position:relative;z-index:1}
     </div>
   </div>
   <div class="ar-palco">
-    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp" data-lum="img/conhecimento-manchas-lum.webp" alt="" width="1800" height="767" loading="lazy" decoding="async"></div>
-<svg class="ar-svg" viewBox="55.5 60.0 1114.5 475.0" aria-label="Temas e normas da Ideal Metrics">
+    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp" data-lum="img/conhecimento-manchas-lum.webp" alt="" width="1800" height="812" loading="lazy" decoding="async"></div>
+<svg class="ar-svg" viewBox="15.5 50.0 910.5 411.0" aria-label="Temas e normas da Ideal Metrics">
 <g class="ar-temas">
-<a class="ar-tema" data-t="iso" href="implantacao-iso.html" aria-label="Sistemas de gestão ISO: ISO 9001, ISO 14001, ISO 45001, ISO 50001, ISO 41001" style="--cx:150px;--cy:176px">
+<a class="ar-tema" data-t="iso" href="implantacao-iso.html" aria-label="Sistemas de gestão ISO: ISO 9001, ISO 14001, ISO 45001, ISO 50001, ISO 41001" style="--cx:110px;--cy:150px">
 <circle class="ar-aro" r="66" aria-hidden="true"/>
 <circle class="ar-alvo" r="66"/>
 <text class="ar-tit" x="0" y="-7.8" aria-hidden="true"><tspan x="0" dy="0">Sistemas de</tspan><tspan x="0" dy="15.5">gestão ISO</tspan></text>
@@ -2457,7 +2457,7 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="-38.8" y="55.0" width="54.8" height="20" rx="3"/><text x="-11.5" y="68.7">ISO 50001</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="26.7" y="27.9" width="54.8" height="20" rx="3"/><text x="54.1" y="41.6">ISO 41001</text></g>
 </a>
-<a class="ar-tema" data-t="carbono" href="gestao-carbono.html" aria-label="Gestão de carbono: GHG Protocol, ISO 14064, ISO 14068-1, SBTi" style="--cx:420px;--cy:130px">
+<a class="ar-tema" data-t="carbono" href="gestao-carbono.html" aria-label="Gestão de carbono: GHG Protocol, ISO 14064, ISO 14068-1, SBTi" style="--cx:310px;--cy:120px">
 <circle class="ar-aro" r="56" aria-hidden="true"/>
 <circle class="ar-alvo" r="56"/>
 <text class="ar-tit" x="0" y="-7.8" aria-hidden="true"><tspan x="0" dy="0">Gestão</tspan><tspan x="0" dy="15.5">de carbono</tspan></text>
@@ -2466,7 +2466,7 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="11.6" y="26.0" width="62.5" height="20" rx="3"/><text x="42.9" y="39.7">ISO 14068-1</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="-35.3" y="42.6" width="32.3" height="20" rx="3"/><text x="-19.2" y="56.3">SBTi</text></g>
 </a>
-<a class="ar-tema" data-t="esg" href="esg.html" aria-label="ESG: ABNT PR 2030, GRI, IFRS S1 e S2" style="--cx:650px;--cy:180px">
+<a class="ar-tema" data-t="esg" href="esg.html" aria-label="ESG: ABNT PR 2030, GRI, IFRS S1 e S2" style="--cx:480px;--cy:165px">
 <circle class="ar-aro" r="46" aria-hidden="true"/>
 <circle class="ar-alvo" r="46"/>
 <text class="ar-tit" x="0" y="-0.0" aria-hidden="true"><tspan x="0" dy="0">ESG</tspan></text>
@@ -2474,21 +2474,21 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="-58.2" y="5.7" width="29.9" height="20" rx="3"/><text x="-43.2" y="19.4">GRI</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="-8.1" y="29.8" width="62.2" height="20" rx="3"/><text x="23.0" y="43.5">IFRS S1 e S2</text></g>
 </a>
-<a class="ar-tema" data-t="smeta" href="sedex-smeta.html" aria-label="SEDEX SMETA: SMETA 7.0, SA 8000" style="--cx:870px;--cy:120px">
+<a class="ar-tema" data-t="smeta" href="sedex-smeta.html" aria-label="SEDEX SMETA: SMETA 7.0, SA 8000" style="--cx:640px;--cy:110px">
 <circle class="ar-aro" r="50" aria-hidden="true"/>
 <circle class="ar-alvo" r="50"/>
 <text class="ar-tit" x="0" y="-7.8" aria-hidden="true"><tspan x="0" dy="0">SEDEX</tspan><tspan x="0" dy="15.5">SMETA</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="-62.5" y="-45.4" width="54.4" height="20" rx="3"/><text x="-35.4" y="-31.7">SMETA 7.0</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="-48.2" y="33.3" width="46.4" height="20" rx="3"/><text x="-25.0" y="47.0">SA 8000</text></g>
 </a>
-<a class="ar-tema" data-t="padroes" href="padroes-mercado.html" aria-label="Padrões de mercado: EcoVadis, FSC" style="--cx:1080px;--cy:176px">
+<a class="ar-tema" data-t="padroes" href="padroes-mercado.html" aria-label="Padrões de mercado: EcoVadis, FSC" style="--cx:800px;--cy:160px">
 <circle class="ar-aro" r="52" aria-hidden="true"/>
 <circle class="ar-alvo" r="52"/>
 <text class="ar-tit" x="0" y="-7.8" aria-hidden="true"><tspan x="0" dy="0">Padrões</tspan><tspan x="0" dy="15.5">de mercado</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="-6.3" y="-58.9" width="48.2" height="20" rx="3"/><text x="17.8" y="-45.2">EcoVadis</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="18.4" y="29.8" width="30.1" height="20" rx="3"/><text x="33.4" y="43.5">FSC</text></g>
 </a>
-<a class="ar-tema" data-t="nrs" href="nrs.html" aria-label="Normas Regulamentadoras: NR-01, NR-12, NR-17" style="--cx:190px;--cy:430px">
+<a class="ar-tema" data-t="nrs" href="nrs.html" aria-label="Normas Regulamentadoras: NR-01, NR-12, NR-17" style="--cx:150px;--cy:370px">
 <circle class="ar-aro" r="62" aria-hidden="true"/>
 <circle class="ar-alvo" r="62"/>
 <text class="ar-tit" x="0" y="-7.8" aria-hidden="true"><tspan x="0" dy="0">Normas</tspan><tspan x="0" dy="15.5">Regulamentadoras</tspan></text>
@@ -2496,7 +2496,7 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="-55.1" y="40.8" width="39.1" height="20" rx="3"/><text x="-35.6" y="54.5">NR-12</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="16.0" y="40.8" width="39.1" height="20" rx="3"/><text x="35.6" y="54.5">NR-17</text></g>
 </a>
-<a class="ar-tema" data-t="compliance" href="compliance-seguranca-informacao.html" aria-label="Gestão de compliance: ISO 37001, ISO 37301, LGPD" style="--cx:470px;--cy:430px">
+<a class="ar-tema" data-t="compliance" href="compliance-seguranca-informacao.html" aria-label="Gestão de compliance: ISO 37001, ISO 37301, LGPD" style="--cx:380px;--cy:370px">
 <circle class="ar-aro" r="54" aria-hidden="true"/>
 <circle class="ar-alvo" r="54"/>
 <text class="ar-tit" x="0" y="-7.8" aria-hidden="true"><tspan x="0" dy="0">Gestão de</tspan><tspan x="0" dy="15.5">compliance</tspan></text>
@@ -2504,20 +2504,20 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="-45.8" y="40.7" width="54.8" height="20" rx="3"/><text x="-18.5" y="54.4">ISO 37301</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="25.8" y="-42.0" width="35.4" height="20" rx="3"/><text x="43.5" y="-28.3">LGPD</text></g>
 </a>
-<a class="ar-tema" data-t="si" href="compliance-seguranca-informacao.html" aria-label="Segurança da informação: LGPD, ISO/IEC 27001" style="--cx:540px;--cy:358px">
+<a class="ar-tema" data-t="si" href="compliance-seguranca-informacao.html" aria-label="Segurança da informação: LGPD, ISO/IEC 27001" style="--cx:450px;--cy:298px">
 <circle class="ar-aro" r="48" aria-hidden="true"/>
 <circle class="ar-alvo" r="48"/>
 <text class="ar-tit" x="0" y="-7.8" aria-hidden="true"><tspan x="0" dy="0">Segurança da</tspan><tspan x="0" dy="15.5">informação</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="-7.8" y="-49.3" width="70.6" height="20" rx="3"/><text x="27.5" y="-35.6">ISO/IEC 27001</text></g>
 </a>
-<a class="ar-tema" data-t="alimentos" href="seguranca-alimentos.html" aria-label="Segurança de alimentos: ISO 22000, FSSC 22000" style="--cx:770px;--cy:420px">
+<a class="ar-tema" data-t="alimentos" href="seguranca-alimentos.html" aria-label="Segurança de alimentos: ISO 22000, FSSC 22000" style="--cx:600px;--cy:365px">
 <circle class="ar-aro" r="54" aria-hidden="true"/>
 <circle class="ar-alvo" r="54"/>
 <text class="ar-tit" x="0" y="-7.8" aria-hidden="true"><tspan x="0" dy="0">Segurança</tspan><tspan x="0" dy="15.5">de alimentos</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="-45.8" y="-60.7" width="54.8" height="20" rx="3"/><text x="-18.5" y="-47.0">ISO 22000</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="-3.0" y="36.8" width="59.9" height="20" rx="3"/><text x="27.0" y="50.5">FSSC 22000</text></g>
 </a>
-<a class="ar-tema" data-t="estudos" href="estudos-pesquisa.html" aria-label="Estudos e pesquisa aplicada: Nota técnica, Observatório setorial, EUDR" style="--cx:1020px;--cy:430px">
+<a class="ar-tema" data-t="estudos" href="estudos-pesquisa.html" aria-label="Estudos e pesquisa aplicada: Nota técnica, Observatório setorial, EUDR" style="--cx:790px;--cy:375px">
 <circle class="ar-aro ar-aro--i" r="62" aria-hidden="true"/>
 <circle class="ar-alvo" r="62"/>
 <text class="ar-tit" x="0" y="-15.5" aria-hidden="true"><tspan x="0" dy="0">Estudos e</tspan><tspan x="0" dy="15.5">pesquisa</tspan><tspan x="0" dy="15.5">aplicada</tspan></text>

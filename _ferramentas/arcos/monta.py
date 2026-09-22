@@ -38,7 +38,7 @@ CSS = r"""
 .ar-legenda li{display:flex;align-items:center;gap:10px}
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
-.ar-palco{margin:44px 0 0;position:relative}   /* largura inteira da pagina (21/09) */
+.ar-palco{margin:44px auto 0;position:relative;max-width:1040px}   /* 22/09: tudo junto, sem ocupar a largura inteira */
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
 .ar-svg{position:relative}
 /* as manchas sao IMAGEM desenhada pelo motor ditherVivo, o mesmo das fotos da
