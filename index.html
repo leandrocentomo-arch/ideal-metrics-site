@@ -203,7 +203,7 @@ body>*{position:relative;z-index:1}
 .ar-legenda li{display:flex;align-items:center;gap:10px}
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
-.ar-palco{margin:44px auto 0;position:relative;max-width:1040px}   /* 22/09: tudo junto, sem ocupar a largura inteira */
+.ar-palco{margin:44px 0 0;position:relative;width:66.667%}   /* 22/09: os 2/3 da esquerda da pagina */
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
 .ar-svg{position:relative}
 /* as manchas sao IMAGEM desenhada pelo motor ditherVivo, o mesmo das fotos da
@@ -224,7 +224,7 @@ body>*{position:relative;z-index:1}
    nao engrossa (non-scaling-stroke); o texto cresce junto, de proposito. */
 .ar-tema{cursor:pointer;transform:translate(var(--cx),var(--cy)) scale(1);
   transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s ease}
-.ar-tema:is(:hover,:focus-visible){transform:translate(var(--cx),var(--cy)) scale(1.6)}
+.ar-tema:is(:hover,:focus-visible){transform:translate(var(--cx),var(--cy)) scale(1.3)}   /* 22/09: zoom menor (era 1,6) */
 .ar-tema:is(:hover,:focus-visible) .ar-aro{stroke:rgba(20,48,76,.5)}
 .ar-tema:focus{outline:none}
 @media (prefers-reduced-motion:reduce){ .ar-tema{transition:opacity .35s ease} }
@@ -237,7 +237,7 @@ body>*{position:relative;z-index:1}
 .ar-pil rect{fill:var(--mercurio);stroke:rgba(20,48,76,.12);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-pil text{font-family:var(--sans);font-weight:500;font-size:8.5px;letter-spacing:.01em;
-  text-anchor:middle;fill:var(--azul-escuro)}
+  text-anchor:middle;fill:#5F7C9B}   /* 22/09: um pouco mais clara (era #315275) */
 /* realce: o tema sob o mouse fica, os outros recuam */
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-tema:not(:hover):not(:focus-visible){opacity:.34}
 .ar-tema:is(:hover,:focus-visible) .ar-pil rect{stroke:rgba(20,48,76,.42)}
