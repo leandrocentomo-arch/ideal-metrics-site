@@ -45,9 +45,9 @@ CSS = r"""
    nao ter gap»: a grade nao tem vao, e a foto comeca exatamente onde o esquema
    acaba, sem sobrepor nem esfumar. */
 .ar-foto{position:relative;min-height:300px;overflow:hidden}
-/* a foto das paginas em leque (foto.py: espelhada, trama da casa pelo motor, com
-   rastro do mouse), cobrindo a vaga: so os lados sao cortados */
-.ar-foto img,.af-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+/* a foto da vaga (foto.py: trama da casa pelo motor, com rastro do mouse),
+   cobrindo a vaga: so os lados sao cortados */
+.ar-foto img,.af-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:60% 50%}
 .ar-foto.gl-on img{visibility:hidden}
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
 .ar-svg{position:relative}
@@ -126,9 +126,9 @@ MOTOR = r"""  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---
     var im = m.querySelector('img'); if(!im) return;
     ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
-    /* a foto das paginas em leque, no terco direito */
+    /* a foto da refinaria, no terco direito (ancora X 0,60: as torres no meio) */
     var f = document.querySelector('.ar-foto'), fi = f && f.querySelector('img');
-    if(f && fi) ditherVivo({raiz:f, planos:[{el:f, lum:fi.getAttribute('data-lum')}], classeCanvas:'af-gl', revelar:'visivel',
+    if(f && fi) ditherVivo({raiz:f, planos:[{el:f, lum:fi.getAttribute('data-lum'), ax:.60}], classeCanvas:'af-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
   })();
   /* ---------------- fim CONHECIMENTO manchas ---------------- */
@@ -183,8 +183,8 @@ def secao(L):
         svg(L),
         arcos.lista(),
         '  </div>',
-        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-paginas-bayer.webp?v=3" '
-        'data-lum="img/conhecimento-paginas-lum.webp?v=3" alt="" width="1200" height="800" loading="lazy" decoding="async"></div>',
+        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-foto-bayer.webp?v=1" '
+        'data-lum="img/conhecimento-foto-lum.webp?v=1" alt="" width="1024" height="683" loading="lazy" decoding="async"></div>',
         '  </div>',
         '</section>',
     ])
