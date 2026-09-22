@@ -42,7 +42,13 @@ CSS = r"""
 .ar-corpo{display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:stretch;margin:44px 0 0}
 .ar-palco{position:relative;min-width:0}
 .ar-foto{position:relative;min-height:300px;overflow:hidden}
-.ar-foto img,.af-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:15% 50%}
+/* a foto em TAMANHO ORIGINAL, 1 px da foto = 1 px css: os barcos do mesmo tamanho
+   da original. A vaga e uma janela recortada sobre o quadro de 1920 x 1020,
+   deslocado para o barco vermelho (x 533 a 797, y 267 a 387 no original) entrar
+   pela esquerda, com o comeco da trilha a direita dele. */
+.ar-foto-quadro{position:absolute;left:-500px;top:-170px;width:1920px;height:1020px}
+.ar-foto-quadro img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.af-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ar-foto.gl-on img{visibility:hidden}
 .ar-svg{display:block;width:100%;height:auto;overflow:visible}
 .ar-svg{position:relative}
@@ -121,9 +127,10 @@ MOTOR = r"""  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---
     var im = m.querySelector('img'); if(!im) return;
     ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
-    /* a foto dos barquinhos, no terco direito: ancora X 0,15 guarda o barco vermelho */
+    /* a foto dos barquinhos, no terco direito, em tamanho original: o plano e o quadro de
+       1920 x 1020, maior que a vaga; o canvas so desenha o que cabe na janela */
     var f = document.querySelector('.ar-foto'), fi = f && f.querySelector('img');
-    if(f && fi) ditherVivo({raiz:f, planos:[{el:f, lum:fi.getAttribute('data-lum'), ax:.15}], classeCanvas:'af-gl', revelar:'visivel',
+    if(f && fi) ditherVivo({raiz:f, planos:[{el:f.querySelector('.ar-foto-quadro'), lum:fi.getAttribute('data-lum')}], classeCanvas:'af-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7});
   })();
   /* ---------------- fim CONHECIMENTO manchas ---------------- */
@@ -178,8 +185,8 @@ def secao(L):
         svg(L),
         arcos.lista(),
         '  </div>',
-        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-barco-bayer.webp" '
-        'data-lum="img/conhecimento-barco-lum.webp" alt="" width="900" height="900" loading="lazy" decoding="async"></div>',
+        '  <div class="ar-foto" aria-hidden="true"><div class="ar-foto-quadro"><img src="img/conhecimento-barco-bayer.webp" '
+        'data-lum="img/conhecimento-barco-lum.webp" alt="" width="1920" height="1020" loading="lazy" decoding="async"></div></div>',
         '  </div>',
         '</section>',
     ])
