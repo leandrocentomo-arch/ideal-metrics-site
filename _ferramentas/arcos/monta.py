@@ -64,7 +64,7 @@ CSS = r"""
 .ar-tema:focus{outline:none}
 @media (prefers-reduced-motion:reduce){ .ar-tema{transition:opacity .35s ease} }
 .ar-alvo{fill:transparent}
-.ar-tit{font-family:var(--sans);font-weight:600;font-size:13px;fill:var(--azul);
+.ar-tit{font-family:var(--sans);font-weight:600;font-size:10.5px;fill:var(--azul);
   text-anchor:middle;dominant-baseline:central}
 /* etiqueta no CREME DA PAGINA, var(--mercurio), e nao em branco (21/09): ela
    combina com o fundo da tela. Sobre o creme quem a desenha e o contorno, que

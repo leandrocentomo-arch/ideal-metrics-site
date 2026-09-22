@@ -26,7 +26,7 @@ import json, math, os
 AQUI = os.path.dirname(os.path.abspath(__file__))
 VB_W, VB_H = 940, 480
 PAD_X, PIL_H = 8, 20           # respiro lateral e altura da pilula, em unidades do viewBox
-TXT_PIL, TXT_TIT, LH_TIT = 8.5, 13, 15.5
+TXT_PIL, TXT_TIT, LH_TIT = 8.5, 10.5, 12.5   # 22/09: titulo menor a pedido do Leandro (era 13)
 # 21/09: etiqueta menor a pedido do Leandro (era 12,5 de corpo e 26 de altura).
 # larguras.json foi medido a 12,5: a largura do texto escala linear com o corpo
 ESC_PIL = TXT_PIL / 12.5

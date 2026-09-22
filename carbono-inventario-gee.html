@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=49">
+<link rel="stylesheet" href="css/style.css?v=50">
 <script>document.documentElement.classList.add('js');window.addEventListener('load',function(){setTimeout(function(){if(!document.querySelector('.in-view')){var n=document.querySelectorAll('.rot-sec,.sec,.content>*');for(var i=0;i<n.length;i++){n[i].classList.add('in-view');}}},1200);});</script>
 </head>
 <body>
@@ -173,7 +173,7 @@
 </footer>
 <script>
 (function(){
-  var header = document.querySelector('.header');
+  var header = document.querySelector('.header'); if(!header) return;
   var threshold = 80;
   function onScroll(){
     if(window.scrollY > threshold){ header.classList.add('scrolled'); }
@@ -203,4 +203,6 @@
 })();
 </script>
 <script src="js/barra.js"></script>
+<script src="js/trama.js"></script>
+<script src="js/banner.js"></script>
 </body></html>
