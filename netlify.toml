@@ -1,0 +1,14 @@
+# O site e estatico: nao ha nada para compilar.
+# Este arquivo existe para o Netlify nao tentar rodar um build proprio (um build
+# que falha deixa o ar parado no ultimo deploy bom, que foi o que aconteceu entre
+# 22 e 23/09/2026: o GitHub tinha oito commits que o dominio nao servia).
+[build]
+  publish = "."
+  command = ""
+
+# A pagina nunca fica em cache do CDN, para a proxima troca aparecer na hora.
+# Imagem, folha e script levam ?v= no HTML, entao podem ficar em cache.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
