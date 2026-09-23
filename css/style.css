@@ -441,7 +441,9 @@ img { max-width: 100%; display: block; }
 .secondary-nav a:hover { color: var(--dark-gray); }
 
 /* ========== CONTENT CONTAINERS ========== */
-.content { max-width: 1240px; margin: 0 auto; padding: 40px 40px 68px; counter-reset: csec; }
+/* 23/09/2026: mais respiro entre a migalha e o texto (40 -> 60) e um vao maior
+   ate o rodape (68 -> 120), a pedido do Leandro, em todas as paginas. */
+.content { max-width: 1240px; margin: 0 auto; padding: 60px 40px 120px; counter-reset: csec; }
 .content h2 {
   counter-increment: csec;
   font-size: 21px;
@@ -2735,7 +2737,7 @@ img { max-width: 100%; display: block; }
   .filter-tab { font-size: 12px; padding: 5px 12px; }
   .blog-grid { grid-template-columns: 1fr; }
   .blog-section { padding-left: 20px; padding-right: 20px; }
-  .content { padding: 24px 16px; }
+  .content { padding: 36px 16px 72px; }
   .page-banner { padding: 26px 16px; min-height: auto; }
   .page-banner::after { display: none; }
   .breadcrumb { padding: 6px 16px; }
@@ -3816,14 +3818,15 @@ html.js .content > .in-view { opacity: 1; transform: none; }
    -> 0 de cima para baixo) e a borda de luz (branco 85% por dentro).
    Ainda em 22/09, «um pouco mais branco creme, menos azulada, ligeiramente»:
    as paradas foram puxadas para o creme #FAF9F5, de #F5F8FC/#E4ECF5/#C9D8E9
-   para #F9F9F6/#EEF0F0/#DCE3E9.
+   para #F9F9F6/#EEF0F0/#DCE3E9. 23/09: «ligeiramente mais bege», entao
+   #FAF8F1/#F1EFE6/#DFE0D9; e o monograma passou ao azul-tinta #14304C.
    E «este fundo nao pode mudar conforme avancamos na pagina»: o cartao e OPACO
    e sem backdrop-filter (nada do que passa por tras aparece nele), e nao
    encolhe mais ao rolar (a regra .barra.rolou saiu; a marca fica em 81,1). */
 .barra-marca,.barra-marca:hover{
   background:
     linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.18) 55%, rgba(255,255,255,0) 100%),
-    linear-gradient(135deg, #F9F9F6 0%, #EEF0F0 50%, #DCE3E9 100%);
+    linear-gradient(135deg, #FAF8F1 0%, #F1EFE6 50%, #DFE0D9 100%);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.85), 0 6px 16px rgba(20,48,76,.08);
   -webkit-backdrop-filter:none;backdrop-filter:none;transition:none}
 .barra-marca .marca-frente{height:81.1px;width:auto;display:block}
@@ -3861,3 +3864,29 @@ html.js .content > .in-view { opacity: 1; transform: none; }
   .barra-marca{margin-top:0;padding:3.15px} }
 .barra-espaco{height:92px}
 /* ===== fim BARRA DA HOME ===== */
+
+/* ========== PAGINA IFC (23/09/2026) ==========
+   A pagina abre pelo que entregamos, em grade, e so depois explica o framework.
+   Dois desenhos quebram a leitura: o percurso do trabalho e a roda dos oito
+   padroes, com o PS1 no meio. Tudo em linha fina e tinta da casa, sem cor nova. */
+.ifc-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px;
+  background: rgba(20,48,76,.14); border: 1px solid rgba(20,48,76,.14); margin: 22px 0 6px; }
+.ifc-cel { background: var(--color-bg-alt); padding: 18px 20px 20px; }
+.ifc-cel .ifc-rot { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 8px; }
+.ifc-cel h4 { font-size: 15px; font-weight: 700; color: var(--color-primary); margin: 0 0 6px; }
+.ifc-cel p { font-size: 15px; line-height: 1.5; color: var(--mid-gray); margin: 0; }
+.ifc-fig { margin: 30px 0 8px; }
+.ifc-fig svg { display: block; width: 100%; height: auto; }
+.ifc-fig figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--mid-gray); margin-top: 12px; }
+.ifc-svg-t { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 13px; font-weight: 600;
+  fill: var(--color-primary); text-anchor: middle; }
+.ifc-svg-p { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 11.5px; font-weight: 500;
+  fill: var(--mid-gray); text-anchor: middle; }
+.ifc-svg-n { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .18em;
+  fill: var(--mid-gray); text-anchor: middle; }
+.ifc-linha { fill: none; stroke: rgba(20,48,76,.35); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.ifc-aro { fill: none; stroke: rgba(20,48,76,.22); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.ifc-aro--f { fill: var(--color-bg-alt); }
+@media (max-width: 760px) { .ifc-grade { grid-template-columns: 1fr; } }
