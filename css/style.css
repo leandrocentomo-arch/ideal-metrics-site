@@ -3387,9 +3387,9 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
   max-width: 1240px;
   margin: 0 auto;
   /* 23/09/2026: quem manda no respiro das paginas internas e ESTE padding, e nao
-     o do .content (zerado logo abaixo). Menos espaco embaixo do titulo (36 -> 22)
-     e um vao bem maior ate o rodape (68 -> 176). */
-  padding: 22px 40px 176px;
+     o do .content (zerado logo abaixo). Vao maior entre a migalha e o texto
+     (36 -> 56) e bem maior ate o rodape (68 -> 176). */
+  padding: 56px 40px 176px;
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
   gap: 3.2rem;
@@ -3447,7 +3447,7 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
 }
 
 @media (max-width: 900px) {
-  .page-layout { grid-template-columns: 1fr; gap: 0; padding: 16px 20px 104px; }
+  .page-layout { grid-template-columns: 1fr; gap: 0; padding: 40px 20px 104px; }
   .sidenav {
     position: static;
     max-height: none;
