@@ -1,8 +1,9 @@
 # Instruções para o Claude Code
 
 - Este é o site da **Ideal Metrics** (segunda marca do Leandro; reflete os serviços da CQT e acrescenta serviços de emissões de carbono).
-- Sempre que fizer qualquer edição em arquivos, faça automaticamente git add, commit com mensagem descritiva em português, e push para o GitHub.
+- Sempre que fizer qualquer edição em arquivos, faça automaticamente git add e commit com mensagem descritiva em português.
 - Nunca pergunte se deve fazer commit, sempre faça automaticamente.
+- **PUSH SÓ QUANDO O LEANDRO PEDIR** (regra de 23/09/2026). Cada push dispara uma reconstrução no Netlify e consome 15 dos 300 créditos mensais do plano grátis; publicar a cada ajuste estourou a cota em dois dias e deixou o domínio parado até a virada do ciclo. Commitar sempre, acumular, e subir quando ele mandar.
 - Repositório: `leandrocentomo-arch/ideal-metrics-site`.
 - O site está hospedado no GitHub Pages em https://leandrocentomo-arch.github.io/ideal-metrics-site/
 - O repositório é PÚBLICO, e precisa ser: no plano gratuito o GitHub Pages só publica repositório público. Tornar privado derruba o site, e voltar a público não religa o Pages sozinho (Settings > Pages, branch `main`, pasta raiz). Por isso só o site de verdade entra no repositório: rascunho, página de teste e artefato interno ficam no disco e no `.gitignore`. Nunca versionar chave, senha, dado de cliente ou proposta.
