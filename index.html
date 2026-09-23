@@ -157,6 +157,33 @@ body>*{position:relative;z-index:1}
   background:var(--branco);color:var(--azul);border:none;cursor:pointer;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;padding:16px 24px}
+/* 23/09/2026: a SUPER BUSCA e o mapa do site dentro do veu. O site e estatico,
+   entao a busca roda no navegador sobre busca-indice.json, gerado por
+   _ferramentas/busca.py. O campo abre com o menu e ja vem com o foco. */
+.veu-busca{position:relative;margin:0 0 26px}
+.veu-busca input{width:100%;background:transparent;border:none;
+  border-bottom:1px solid rgba(250,249,245,.35);color:var(--mercurio);
+  font-family:var(--sans);font-weight:500;font-size:clamp(18px,1.8vw,24px);
+  padding:10px 0 12px;outline:none}
+.veu-busca input::placeholder{color:rgba(250,249,245,.45)}
+.veu-busca input:focus{border-bottom-color:var(--mercurio)}
+.veu-res{list-style:none;margin:10px 0 0;padding:0;max-height:46vh;overflow-y:auto}
+.veu-res li{border-bottom:1px solid rgba(250,249,245,.14)}
+.veu-res a{display:block;padding:12px 0;border:none;font-size:17px;font-weight:600;
+  line-height:1.25;counter-increment:none}
+.veu-res a::before{content:none}
+.veu-res a:hover,.veu-res li.sel a{color:var(--branco);padding-left:8px}
+.veu-res .veu-res-d{display:block;font-family:var(--sans);font-weight:400;font-size:13.5px;
+  color:rgba(250,249,245,.62);margin-top:3px}
+.veu-res .veu-res-vazio{padding:12px 0;font-size:15px;color:rgba(250,249,245,.62)}
+.veu-mapa{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px;margin:30px 0 40px}
+.veu-mapa h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(250,249,245,.55);margin:0 0 10px;font-weight:500}
+.veu-mapa a{display:block;padding:6px 0;border:none;font-size:15px;font-weight:400;line-height:1.3;
+  counter-increment:none;color:rgba(250,249,245,.88)}
+.veu-mapa a::before{content:none}
+.veu-mapa a:hover{color:var(--branco);padding-left:6px}
+@media (max-width:880px){ .veu-mapa{grid-template-columns:1fr 1fr;gap:18px 20px} }
 .veu-menu .selo-mono{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;opacity:.8;margin-bottom:24px}
 
@@ -2295,12 +2322,22 @@ body>*{position:relative;z-index:1}
 </header>
 <nav class="veu-menu" id="veuMenu" aria-label="Menu">
   <p class="selo-mono">Ideal Metrics &middot; Integra&ccedil;&atilde;o e Sustentabilidade</p>
-  <a href="servicos.html">Servi&ccedil;os</a>
+<form class="veu-busca" role="search" onsubmit="return false">
+  <input id="buscaCampo" type="search" placeholder="Buscar tema, norma ou página" autocomplete="off" spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes">
+  <ul class="veu-res" id="buscaRes" role="listbox" hidden></ul>
+</form>
+  <a href="servicos.html">Todos os servi&ccedil;os</a>
   <a href="como-trabalhamos.html">Como trabalhamos</a>
   <a href="sobre.html">Quem somos</a>
   <a href="clientes.html">Clientes</a>
   <a href="blog.html">Conte&uacute;do</a>
   <a href="contato.html">Contato</a>
+  <div class="veu-mapa" aria-label="Todos os temas">
+  <div><h3>Sistemas de gestão</h3><a href="implantacao-iso.html">Implantação ISO</a><a href="norma-iso-9001.html">ISO 9001</a><a href="norma-iso-14001.html">ISO 14001</a><a href="norma-iso-45001.html">ISO 45001</a><a href="compliance-seguranca-informacao.html">Compliance e segurança da informação</a><a href="suporte.html">Suporte ao sistema de gestão</a></div>
+  <div><h3>Padrões e sustentabilidade</h3><a href="padroes-mercado.html">Padrões de mercado</a><a href="ifc-performance-standards.html">IFC Performance Standards</a><a href="sedex-smeta.html">SEDEX/SMETA</a><a href="gestao-carbono.html">Gestão de carbono</a><a href="esg.html">ESG</a></div>
+  <div><h3>Segurança e inspeção</h3><a href="seguranca-alimentos.html">Segurança de alimentos</a><a href="nrs.html">Atendimento a NRs</a><a href="inspecoes.html">Inspeções</a><a href="produtos-inspecionamos.html">Produtos que inspecionamos</a></div>
+  <div><h3>Estudos e pesquisa aplicada</h3><a href="estudos-pesquisa.html">Visão geral</a><a href="estudos-regulatorios.html">Estudos regulatórios</a><a href="estudos-setoriais.html">Estudos setoriais</a><a href="observatorio-setorial.html">Observatório setorial</a><a href="rastreabilidade-cadeia.html">Rastreabilidade de cadeia</a></div>
+  </div>
   <button class="fecha js-scramble" id="fechaMenu">Fechar</button>
 </nav>
 <!-- ===== servicos ===== -->
@@ -2504,11 +2541,12 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="-62.5" y="-45.4" width="54.4" height="20" rx="3"/><text x="-35.4" y="-31.7">SMETA 7.0</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="-48.2" y="33.3" width="46.4" height="20" rx="3"/><text x="-25.0" y="47.0">SA 8000</text></g>
 </a>
-<a class="ar-tema" data-t="padroes" href="padroes-mercado.html" aria-label="Padrões de mercado: EcoVadis, FSC" style="--cx:800px;--cy:160px">
+<a class="ar-tema" data-t="padroes" href="padroes-mercado.html" aria-label="Padrões de mercado: EcoVadis, IFC, FSC" style="--cx:800px;--cy:160px">
 <circle class="ar-aro" r="52" aria-hidden="true"/>
 <circle class="ar-alvo" r="52"/>
 <text class="ar-tit" x="0" y="-6.2" aria-hidden="true"><tspan x="0" dy="0">Padrões</tspan><tspan x="0" dy="12.5">de mercado</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="-6.3" y="-58.9" width="48.2" height="20" rx="3"/><text x="17.8" y="-45.2">EcoVadis</text></g>
+<g class="ar-pil" aria-hidden="true"><rect x="35.5" y="3.5" width="29.5" height="20" rx="3"/><text x="50.2" y="17.2">IFC</text></g>
 <g class="ar-pil" aria-hidden="true"><rect x="18.4" y="29.8" width="30.1" height="20" rx="3"/><text x="33.4" y="43.5">FSC</text></g>
 </a>
 <a class="ar-tema" data-t="nrs" href="nrs.html" aria-label="Normas Regulamentadoras: NR-01, NR-12, NR-17" style="--cx:150px;--cy:370px">
@@ -2554,7 +2592,7 @@ body>*{position:relative;z-index:1}
 <li class="ar-item"><a href="gestao-carbono.html">Gestão de carbono</a><span class="ar-normas"><span>GHG Protocol</span><span>ISO 14064</span><span>ISO 14068-1</span><span>SBTi</span></span></li>
 <li class="ar-item"><a href="esg.html">ESG</a><span class="ar-normas"><span>ABNT PR 2030</span><span>GRI</span><span>IFRS S1 e S2</span></span></li>
 <li class="ar-item"><a href="sedex-smeta.html">SEDEX SMETA</a><span class="ar-normas"><span>SMETA 7.0</span><span>SA 8000</span></span></li>
-<li class="ar-item"><a href="padroes-mercado.html">Padrões de mercado</a><span class="ar-normas"><span>EcoVadis</span><span>FSC</span></span></li>
+<li class="ar-item"><a href="padroes-mercado.html">Padrões de mercado</a><span class="ar-normas"><span>EcoVadis</span><span>IFC</span><span>FSC</span></span></li>
 <li class="ar-item"><a href="nrs.html">Normas Regulamentadoras</a><span class="ar-normas"><span>NR-01</span><span>NR-12</span><span>NR-17</span></span></li>
 <li class="ar-item"><a href="compliance-seguranca-informacao.html">Gestão de compliance</a><span class="ar-normas"><span>ISO 37001</span><span>ISO 37301</span><span>LGPD</span></span></li>
 <li class="ar-item"><a href="compliance-seguranca-informacao.html">Segurança da informação</a><span class="ar-normas"><span>LGPD</span><span>ISO/IEC 27001</span></span></li>
@@ -3697,7 +3735,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js"></script>
+<script src="js/trama.js?v=2"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -3772,5 +3810,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   });
 })();
 </script>
+<script src="js/busca.js?v=1"></script>
 </body>
 </html>

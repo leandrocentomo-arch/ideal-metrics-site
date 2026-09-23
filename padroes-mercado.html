@@ -31,12 +31,22 @@
 </header>
 <nav class="veu-menu" id="veuMenu" aria-label="Menu">
   <p class="selo-mono">Ideal Metrics &middot; Integra&ccedil;&atilde;o e Sustentabilidade</p>
-  <a href="servicos.html">Servi&ccedil;os</a>
+<form class="veu-busca" role="search" onsubmit="return false">
+  <input id="buscaCampo" type="search" placeholder="Buscar tema, norma ou página" autocomplete="off" spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes">
+  <ul class="veu-res" id="buscaRes" role="listbox" hidden></ul>
+</form>
+  <a href="servicos.html">Todos os servi&ccedil;os</a>
   <a href="como-trabalhamos.html">Como trabalhamos</a>
   <a href="sobre.html">Quem somos</a>
   <a href="clientes.html">Clientes</a>
   <a href="blog.html">Conte&uacute;do</a>
   <a href="contato.html">Contato</a>
+  <div class="veu-mapa" aria-label="Todos os temas">
+  <div><h3>Sistemas de gestão</h3><a href="implantacao-iso.html">Implantação ISO</a><a href="norma-iso-9001.html">ISO 9001</a><a href="norma-iso-14001.html">ISO 14001</a><a href="norma-iso-45001.html">ISO 45001</a><a href="compliance-seguranca-informacao.html">Compliance e segurança da informação</a><a href="suporte.html">Suporte ao sistema de gestão</a></div>
+  <div><h3>Padrões e sustentabilidade</h3><a href="padroes-mercado.html">Padrões de mercado</a><a href="ifc-performance-standards.html">IFC Performance Standards</a><a href="sedex-smeta.html">SEDEX/SMETA</a><a href="gestao-carbono.html">Gestão de carbono</a><a href="esg.html">ESG</a></div>
+  <div><h3>Segurança e inspeção</h3><a href="seguranca-alimentos.html">Segurança de alimentos</a><a href="nrs.html">Atendimento a NRs</a><a href="inspecoes.html">Inspeções</a><a href="produtos-inspecionamos.html">Produtos que inspecionamos</a></div>
+  <div><h3>Estudos e pesquisa aplicada</h3><a href="estudos-pesquisa.html">Visão geral</a><a href="estudos-regulatorios.html">Estudos regulatórios</a><a href="estudos-setoriais.html">Estudos setoriais</a><a href="observatorio-setorial.html">Observatório setorial</a><a href="rastreabilidade-cadeia.html">Rastreabilidade de cadeia</a></div>
+  </div>
   <button class="fecha js-scramble" id="fechaMenu">Fechar</button>
 </nav>
 <div class="barra-espaco" aria-hidden="true"></div>
@@ -61,6 +71,7 @@
     <div class="sn-num">02</div>
     <h5>Padrões e sustentabilidade</h5>
     <a href="padroes-mercado.html" class="active" aria-current="page">Padrões de mercado</a>
+    <a href="ifc-performance-standards.html">IFC Performance Standards</a>
     <a href="sedex-smeta.html">SEDEX/SMETA</a>
     <a href="gestao-carbono.html">Gestão de carbono</a>
     <a href="esg.html">ESG</a>
@@ -215,7 +226,8 @@
   });
 })();
 </script>
-<script src="js/barra.js"></script>
-<script src="js/trama.js"></script>
-<script src="js/banner.js"></script>
+<script src="js/barra.js?v=2"></script>
+<script src="js/busca.js?v=1"></script>
+<script src="js/trama.js?v=2"></script>
+<script src="js/banner.js?v=2"></script>
 </body></html>

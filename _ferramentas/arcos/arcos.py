@@ -47,7 +47,7 @@ TEMAS = [
  ('smeta', 'sedex-smeta.html', 'p', 640, 110, 50, ['SEDEX', 'SMETA'],
     [('SMETA 7.0', -135), ('SA 8000', 120)]),
  ('padroes', 'padroes-mercado.html', 'p', 800, 160, 52, ['Padrões', 'de mercado'],
-    [('EcoVadis', -70), ('FSC', 50)]),
+    [('EcoVadis', -70), ('IFC', 15), ('FSC', 50)]),
  ('nrs', 'nrs.html', 'p', 150, 370, 62, ['Normas', 'Regulamentadoras'],
     [('NR-01', -120), ('NR-12', 125), ('NR-17', 55)]),
  ('compliance', 'compliance-seguranca-informacao.html', 'p', 380, 370, 54, ['Gestão de', 'compliance'],
