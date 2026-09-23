@@ -154,7 +154,7 @@
      (--banner-photo) continua no HTML e deixou de ser usada aqui. */
   background: var(--mercurio, #FAF9F5);
   padding: 46px max(40px, calc(50% - 580px));
-  min-height: 240px;
+  min-height: 300px;   /* 23/09: «ligeiramente mais alta», e a foto vai aqui */
   display: flex;
   flex-direction: column;
   justify-content: center;

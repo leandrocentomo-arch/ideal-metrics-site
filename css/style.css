@@ -221,7 +221,7 @@ img { max-width: 100%; display: block; }
      (--banner-photo) continua no HTML e deixou de ser usada aqui. */
   background: var(--mercurio, #FAF9F5);
   padding: 46px max(40px, calc(50% - 580px));
-  min-height: 240px;
+  min-height: 300px;   /* 23/09: «ligeiramente mais alta», e a foto vai aqui */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -441,9 +441,10 @@ img { max-width: 100%; display: block; }
 .secondary-nav a:hover { color: var(--dark-gray); }
 
 /* ========== CONTENT CONTAINERS ========== */
-/* 23/09/2026: mais respiro entre a migalha e o texto (40 -> 60) e um vao maior
-   ate o rodape (68 -> 120), a pedido do Leandro, em todas as paginas. */
-.content { max-width: 1240px; margin: 0 auto; padding: 60px 40px 120px; counter-reset: csec; }
+/* 23/09/2026: respiro entre a migalha e o texto e ate o rodape, em todas as
+   paginas. Primeiro 40 -> 60 e 68 -> 120; na mesma tarde, «ainda mais espaco»,
+   entao 88 em cima e 168 embaixo. */
+.content { max-width: 1240px; margin: 0 auto; padding: 88px 40px 168px; counter-reset: csec; }
 .content h2 {
   counter-increment: csec;
   font-size: 21px;
@@ -2737,7 +2738,7 @@ img { max-width: 100%; display: block; }
   .filter-tab { font-size: 12px; padding: 5px 12px; }
   .blog-grid { grid-template-columns: 1fr; }
   .blog-section { padding-left: 20px; padding-right: 20px; }
-  .content { padding: 36px 16px 72px; }
+  .content { padding: 48px 16px 96px; }
   .page-banner { padding: 26px 16px; min-height: auto; }
   .page-banner::after { display: none; }
   .breadcrumb { padding: 6px 16px; }
@@ -3385,7 +3386,10 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
 .page-layout {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 36px 40px 68px;
+  /* 23/09/2026: quem manda no respiro das paginas internas e ESTE padding, e nao
+     o do .content (zerado logo abaixo). Menos espaco embaixo do titulo (36 -> 22)
+     e um vao bem maior ate o rodape (68 -> 176). */
+  padding: 22px 40px 176px;
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
   gap: 3.2rem;
@@ -3443,7 +3447,7 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
 }
 
 @media (max-width: 900px) {
-  .page-layout { grid-template-columns: 1fr; gap: 0; padding: 22px 20px 56px; }
+  .page-layout { grid-template-columns: 1fr; gap: 0; padding: 16px 20px 104px; }
   .sidenav {
     position: static;
     max-height: none;
@@ -3716,6 +3720,44 @@ html.js .content > .in-view { opacity: 1; transform: none; }
   .im-secao-logo img { height: 36px; }
 }
 
+
+/* ========== PAGINA IFC (23/09/2026) ==========
+   A pagina abre pelo que entregamos, em grade, e so depois explica o framework.
+   Dois desenhos quebram a leitura: o percurso do trabalho e a roda dos oito
+   padroes, com o PS1 no meio. Tudo em linha fina e tinta da casa, sem cor nova. */
+.ifc-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px;
+  background: rgba(20,48,76,.14); border: 1px solid rgba(20,48,76,.14); margin: 22px 0 6px; }
+.ifc-cel { background: var(--color-bg-alt); padding: 18px 20px 20px; }
+.ifc-cel .ifc-rot { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 8px; }
+.ifc-cel h4 { font-size: 15px; font-weight: 700; color: var(--color-primary); margin: 0 0 6px; }
+.ifc-cel p { font-size: 15px; line-height: 1.5; color: var(--mid-gray); margin: 0; }
+.ifc-fig { margin: 30px 0 8px; }
+.ifc-fig svg { display: block; width: 100%; height: auto; }
+.ifc-fig figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--mid-gray); margin-top: 12px; }
+.ifc-svg-t { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 13px; font-weight: 600;
+  fill: var(--color-primary); text-anchor: middle; }
+.ifc-svg-p { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 11.5px; font-weight: 500;
+  fill: var(--mid-gray); text-anchor: middle; }
+.ifc-svg-n { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .18em;
+  fill: var(--mid-gray); text-anchor: middle; }
+.ifc-linha { fill: none; stroke: rgba(20,48,76,.35); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.ifc-aro { fill: none; stroke: rgba(20,48,76,.22); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.ifc-aro--f { fill: var(--color-bg-alt); }
+@media (max-width: 760px) { .ifc-grade { grid-template-columns: 1fr; } }
+
+/* ========== TESTE 23/09/2026: texto do conteudo no azul-tinta ==========
+   So vale na pagina que levar `class="txt-escuro"` no <body> (hoje, a do IFC).
+   O padrao do site e o corpo em #315275; aqui tudo vai para #14304C. */
+.txt-escuro .content,
+.txt-escuro .content p,
+.txt-escuro .content li,
+.txt-escuro .content .ifc-cel p,
+.txt-escuro .content .ifc-fig figcaption { color: var(--color-primary); }
+.txt-escuro .content .ifc-svg-p,
+.txt-escuro .content .ifc-svg-n { fill: var(--color-primary); }
+
 /* ===== BARRA DA HOME (gerado por _ferramentas/barra.py) ===== */
 .veu-menu{position:fixed;inset:0;z-index:980;background:var(--fundo);
   color:var(--mercurio);display:flex;flex-direction:column;justify-content:flex-start;
@@ -3864,29 +3906,3 @@ html.js .content > .in-view { opacity: 1; transform: none; }
   .barra-marca{margin-top:0;padding:3.15px} }
 .barra-espaco{height:92px}
 /* ===== fim BARRA DA HOME ===== */
-
-/* ========== PAGINA IFC (23/09/2026) ==========
-   A pagina abre pelo que entregamos, em grade, e so depois explica o framework.
-   Dois desenhos quebram a leitura: o percurso do trabalho e a roda dos oito
-   padroes, com o PS1 no meio. Tudo em linha fina e tinta da casa, sem cor nova. */
-.ifc-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px;
-  background: rgba(20,48,76,.14); border: 1px solid rgba(20,48,76,.14); margin: 22px 0 6px; }
-.ifc-cel { background: var(--color-bg-alt); padding: 18px 20px 20px; }
-.ifc-cel .ifc-rot { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
-  letter-spacing: .2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 8px; }
-.ifc-cel h4 { font-size: 15px; font-weight: 700; color: var(--color-primary); margin: 0 0 6px; }
-.ifc-cel p { font-size: 15px; line-height: 1.5; color: var(--mid-gray); margin: 0; }
-.ifc-fig { margin: 30px 0 8px; }
-.ifc-fig svg { display: block; width: 100%; height: auto; }
-.ifc-fig figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .2em;
-  text-transform: uppercase; color: var(--mid-gray); margin-top: 12px; }
-.ifc-svg-t { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 13px; font-weight: 600;
-  fill: var(--color-primary); text-anchor: middle; }
-.ifc-svg-p { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 11.5px; font-weight: 500;
-  fill: var(--mid-gray); text-anchor: middle; }
-.ifc-svg-n { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .18em;
-  fill: var(--mid-gray); text-anchor: middle; }
-.ifc-linha { fill: none; stroke: rgba(20,48,76,.35); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.ifc-aro { fill: none; stroke: rgba(20,48,76,.22); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.ifc-aro--f { fill: var(--color-bg-alt); }
-@media (max-width: 760px) { .ifc-grade { grid-template-columns: 1fr; } }
