@@ -31,7 +31,7 @@ CSS = r"""
 .ar-linha{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;
   flex-wrap:wrap;margin-top:34px}
 .ar-titulo{margin:0;font-family:var(--sans);font-weight:700;font-size:clamp(20px,2.2vw,30px);
-  line-height:1.2;letter-spacing:-.012em;color:var(--azul);max-width:34ch;text-wrap:balance}   /* 24/09: 34ch, para a frase nova caber em 2 linhas */
+  line-height:1.2;letter-spacing:-.012em;color:var(--azul);max-width:40ch;text-wrap:balance}   /* 24/09: 40ch, para a frase caber em 2 linhas */
 .ar-legenda{display:flex;gap:26px;margin:0 0 4px;padding:0;list-style:none;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
@@ -58,7 +58,7 @@ CSS = r"""
    a caixa exata do viewBox, entao cada mancha cai sob o seu circulo. Sem WebGL
    fica a <img> ja tramada. Sem movimento na rolagem: o canvas mede a propria
    caixa, e deslocar a caixa a cada quadro descasaria o rastro do ponteiro. */
-.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.5}   /* 24/09: 50% mais transparentes, com trama um pouco mais densa (manchas.py) */
+.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.75}   /* 24/09: eram .5 («50% mais transparentes»); depois «menos transparentes»: .75 */
 .ar-manchas img,.ar-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ar-manchas.gl-on img{visibility:hidden}
 .ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.10);stroke-width:1;
@@ -78,7 +78,14 @@ CSS = r"""
 .ar-tema{cursor:pointer;transform:translate(var(--cx),var(--cy)) scale(1);
   transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s ease}
 .ar-tema:is(:hover,:focus-visible){transform:translate(var(--cx),var(--cy)) scale(1.3)}   /* 22/09: zoom menor (era 1,6) */
-.ar-tema:is(:hover,:focus-visible) .ar-aro{stroke:rgba(20,48,76,.5)}
+/* 24/09: «nao quero ver o aro do circulo por tras» das etiquetas. Os aros sairam
+   dos grupos dos temas e foram para uma camada PROPRIA, por baixo de todos os
+   temas (.ar-aros): assim nenhuma linha de aro, nem a do vizinho, passa por cima
+   de etiqueta. Cada aro acompanha o seu tema pelo --cx/--cy e cresce junto no
+   hover pela regra gerada em css() (.ar-svg:has(tema em hover) .ar-aro[data-t]). */
+.ar-aros .ar-aro{transform:translate(var(--cx),var(--cy)) scale(1);
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),stroke .35s ease,opacity .35s ease}
+.ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-aro{opacity:.34}
 .ar-tema:focus{outline:none}
 @media (prefers-reduced-motion:reduce){ .ar-tema{transition:opacity .35s ease} }
 .ar-alvo{fill:transparent}
@@ -92,11 +99,21 @@ CSS = r"""
 .ar-pil text{font-family:var(--sans);font-weight:500;font-size:8.5px;letter-spacing:.01em;
   text-anchor:middle;fill:#5F7C9B}   /* 22/09: um pouco mais clara (era #315275) */
 /* realce: o tema sob o mouse fica, os outros recuam */
-.ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-tema:not(:hover):not(:focus-visible){opacity:.34}
+/* 24/09: quem recua e o TEXTO (titulo e nome da norma), nunca o fundo da
+   etiqueta: o creme dela fica opaco sempre, para o aro nao aparecer por tras */
+.ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-tema:not(:hover):not(:focus-visible) :is(.ar-tit,.ar-pil text){opacity:.34}
+.ar-tit{transition:opacity .35s ease}
 .ar-tema:is(:hover,:focus-visible) .ar-pil rect{stroke:rgba(20,48,76,.42)}
-/* 24/09: em repouso as etiquetas ficam levemente apagadas; no hover do tema, cheias */
-.ar-pil{opacity:.62;transition:opacity .3s ease}
-.ar-tema:is(:hover,:focus-visible) .ar-pil{opacity:1}
+/* 24/09: em repouso o NOME da norma fica levemente apagado; no hover do tema, cheio.
+   E no hover as etiquetas do tema giram um pouco, alternando o sentido, cada uma
+   em torno do proprio centro (transform-box). */
+.ar-pil{transform-box:fill-box;transform-origin:center;transform:rotate(0deg);
+  transition:opacity .3s ease,transform .45s cubic-bezier(.2,.7,.2,1)}
+.ar-pil text{opacity:.62;transition:opacity .3s ease}
+.ar-tema:is(:hover,:focus-visible) .ar-pil text{opacity:1}
+.ar-tema:is(:hover,:focus-visible) .ar-pil:nth-of-type(odd){transform:rotate(-6deg)}
+.ar-tema:is(:hover,:focus-visible) .ar-pil:nth-of-type(even){transform:rotate(5deg)}
+@media (prefers-reduced-motion:reduce){ .ar-pil{transition:opacity .3s ease} .ar-tema:is(:hover,:focus-visible) .ar-pil{transform:none} }
 .ar-pil--eco{opacity:0;pointer-events:none}
 .ar-tema:is(:hover,:focus-visible) .ar-pil--eco{opacity:1}
 %(ECO)s
@@ -163,13 +180,19 @@ def svg(L):
         o.append('<g class="ar-camada ar-soltos" data-ar-vel="-34" aria-hidden="true">')
         o += ['<circle cx="%d" cy="%d" r="%d"/>' % c for c in arcos.AROS_SOLTOS]
         o.append('</g>')
+    # 24/09: os aros numa camada propria, por baixo de todos os temas, para nenhuma
+    # linha de aro passar por cima de etiqueta (ver o CSS de .ar-aros)
+    o.append('<g class="ar-aros" aria-hidden="true">')
+    for tid, pag, div, cx, cy, r, tit, normas in T:
+        o.append('<circle class="ar-aro%s" data-t="%s" r="%d" style="--cx:%dpx;--cy:%dpx"/>'
+                 % (' ar-aro--i' if div == 'i' else '', tid, r, cx, cy))
+    o.append('</g>')
     o.append('<g class="ar-temas">')
     P = arcos.pilulas(L)
     for tid, pag, div, cx, cy, r, tit, normas in T:
         rot = '%s: %s' % (' '.join(tit), ', '.join(arcos.normas_de(tid)))
         o.append('<a class="ar-tema" data-t="%s" href="%s" aria-label="%s" style="--cx:%dpx;--cy:%dpx">'
                  % (tid, pag, arcos.esc(rot), cx, cy))
-        o.append('<circle class="ar-aro%s" r="%d" aria-hidden="true"/>' % (' ar-aro--i' if div == 'i' else '', r))
         o.append('<circle class="ar-alvo" r="%d"/>' % r)
         y0 = -arcos.LH_TIT * (len(tit) - 1) / 2.0
         o.append('<text class="ar-tit" x="0" y="%.1f" aria-hidden="true">' % y0 +
@@ -198,7 +221,7 @@ def secao(L):
         '  <div class="ar-cab">',
         '    <p class="ar-rotulo">Conhecimento / [ IM.2 ]</p>',
         '    <div class="ar-linha">',
-        '      <h2 class="ar-titulo" id="ar-titulo">Sua organização em conformidade com normas e padrões setoriais</h2>',
+        '      <h2 class="ar-titulo" id="ar-titulo">A ideal-m garante a adequação de organizações a normas e padrões setoriais</h2>',
         '      <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul>',
         '    </div>',
         '  </div>',
@@ -226,6 +249,12 @@ def css():
             regras.append('.ar-svg:has(.ar-tema[data-t="%s"]:is(:hover,:focus-visible)) '
                           '.ar-tema[data-t="%s"] .ar-pil[data-par="%s"]:not(.ar-pil--eco){opacity:0}'
                           % (p['cruza'], p['tema'], p['cruza']))
+    # 24/09: o aro mora fora do grupo do tema; quando o tema esta no hover, o aro
+    # dele cresce junto (mesma escala de .ar-tema), escurece e fica inteiro
+    for t in arcos.TEMAS:
+        cor = 'var(--im-vermelho,#EF4545)' if t[2] == 'i' else 'rgba(20,48,76,.5)'
+        regras.append('.ar-svg:has(.ar-tema[data-t="%s"]:is(:hover,:focus-visible)) .ar-aro[data-t="%s"]'
+                      '{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:%s;opacity:1}' % (t[0], t[0], cor))
     return CSS.replace('%(ECO)s', chr(10).join(regras))
 
 

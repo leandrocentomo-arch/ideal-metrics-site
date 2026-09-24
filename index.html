@@ -239,7 +239,7 @@ body>*{position:relative;z-index:1}
 .ar-linha{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;
   flex-wrap:wrap;margin-top:34px}
 .ar-titulo{margin:0;font-family:var(--sans);font-weight:700;font-size:clamp(20px,2.2vw,30px);
-  line-height:1.2;letter-spacing:-.012em;color:var(--azul);max-width:34ch;text-wrap:balance}   /* 24/09: 34ch, para a frase nova caber em 2 linhas */
+  line-height:1.2;letter-spacing:-.012em;color:var(--azul);max-width:40ch;text-wrap:balance}   /* 24/09: 40ch, para a frase caber em 2 linhas */
 .ar-legenda{display:flex;gap:26px;margin:0 0 4px;padding:0;list-style:none;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
@@ -266,7 +266,7 @@ body>*{position:relative;z-index:1}
    a caixa exata do viewBox, entao cada mancha cai sob o seu circulo. Sem WebGL
    fica a <img> ja tramada. Sem movimento na rolagem: o canvas mede a propria
    caixa, e deslocar a caixa a cada quadro descasaria o rastro do ponteiro. */
-.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.5}   /* 24/09: 50% mais transparentes, com trama um pouco mais densa (manchas.py) */
+.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.75}   /* 24/09: eram .5 («50% mais transparentes»); depois «menos transparentes»: .75 */
 .ar-manchas img,.ar-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ar-manchas.gl-on img{visibility:hidden}
 .ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.10);stroke-width:1;
@@ -286,7 +286,14 @@ body>*{position:relative;z-index:1}
 .ar-tema{cursor:pointer;transform:translate(var(--cx),var(--cy)) scale(1);
   transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s ease}
 .ar-tema:is(:hover,:focus-visible){transform:translate(var(--cx),var(--cy)) scale(1.3)}   /* 22/09: zoom menor (era 1,6) */
-.ar-tema:is(:hover,:focus-visible) .ar-aro{stroke:rgba(20,48,76,.5)}
+/* 24/09: «nao quero ver o aro do circulo por tras» das etiquetas. Os aros sairam
+   dos grupos dos temas e foram para uma camada PROPRIA, por baixo de todos os
+   temas (.ar-aros): assim nenhuma linha de aro, nem a do vizinho, passa por cima
+   de etiqueta. Cada aro acompanha o seu tema pelo --cx/--cy e cresce junto no
+   hover pela regra gerada em css() (.ar-svg:has(tema em hover) .ar-aro[data-t]). */
+.ar-aros .ar-aro{transform:translate(var(--cx),var(--cy)) scale(1);
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),stroke .35s ease,opacity .35s ease}
+.ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-aro{opacity:.34}
 .ar-tema:focus{outline:none}
 @media (prefers-reduced-motion:reduce){ .ar-tema{transition:opacity .35s ease} }
 .ar-alvo{fill:transparent}
@@ -300,17 +307,37 @@ body>*{position:relative;z-index:1}
 .ar-pil text{font-family:var(--sans);font-weight:500;font-size:8.5px;letter-spacing:.01em;
   text-anchor:middle;fill:#5F7C9B}   /* 22/09: um pouco mais clara (era #315275) */
 /* realce: o tema sob o mouse fica, os outros recuam */
-.ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-tema:not(:hover):not(:focus-visible){opacity:.34}
+/* 24/09: quem recua e o TEXTO (titulo e nome da norma), nunca o fundo da
+   etiqueta: o creme dela fica opaco sempre, para o aro nao aparecer por tras */
+.ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-tema:not(:hover):not(:focus-visible) :is(.ar-tit,.ar-pil text){opacity:.34}
+.ar-tit{transition:opacity .35s ease}
 .ar-tema:is(:hover,:focus-visible) .ar-pil rect{stroke:rgba(20,48,76,.42)}
-/* 24/09: em repouso as etiquetas ficam levemente apagadas; no hover do tema, cheias */
-.ar-pil{opacity:.62;transition:opacity .3s ease}
-.ar-tema:is(:hover,:focus-visible) .ar-pil{opacity:1}
+/* 24/09: em repouso o NOME da norma fica levemente apagado; no hover do tema, cheio.
+   E no hover as etiquetas do tema giram um pouco, alternando o sentido, cada uma
+   em torno do proprio centro (transform-box). */
+.ar-pil{transform-box:fill-box;transform-origin:center;transform:rotate(0deg);
+  transition:opacity .3s ease,transform .45s cubic-bezier(.2,.7,.2,1)}
+.ar-pil text{opacity:.62;transition:opacity .3s ease}
+.ar-tema:is(:hover,:focus-visible) .ar-pil text{opacity:1}
+.ar-tema:is(:hover,:focus-visible) .ar-pil:nth-of-type(odd){transform:rotate(-6deg)}
+.ar-tema:is(:hover,:focus-visible) .ar-pil:nth-of-type(even){transform:rotate(5deg)}
+@media (prefers-reduced-motion:reduce){ .ar-pil{transition:opacity .3s ease} .ar-tema:is(:hover,:focus-visible) .ar-pil{transform:none} }
 .ar-pil--eco{opacity:0;pointer-events:none}
 .ar-tema:is(:hover,:focus-visible) .ar-pil--eco{opacity:1}
 .ar-svg:has(.ar-tema[data-t="iso"]:is(:hover,:focus-visible)) .ar-tema[data-t="si"] .ar-pil[data-par="iso"]:not(.ar-pil--eco){opacity:0}
 .ar-svg:has(.ar-tema[data-t="iso"]:is(:hover,:focus-visible)) .ar-tema[data-t="compliance"] .ar-pil[data-par="iso"]:not(.ar-pil--eco){opacity:0}
 .ar-svg:has(.ar-tema[data-t="iso"]:is(:hover,:focus-visible)) .ar-tema[data-t="alimentos"] .ar-pil[data-par="iso"]:not(.ar-pil--eco){opacity:0}
 .ar-svg:has(.ar-tema[data-t="padroes"]:is(:hover,:focus-visible)) .ar-tema[data-t="smeta"] .ar-pil[data-par="padroes"]:not(.ar-pil--eco){opacity:0}
+.ar-svg:has(.ar-tema[data-t="iso"]:is(:hover,:focus-visible)) .ar-aro[data-t="iso"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
+.ar-svg:has(.ar-tema[data-t="carbono"]:is(:hover,:focus-visible)) .ar-aro[data-t="carbono"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
+.ar-svg:has(.ar-tema[data-t="si"]:is(:hover,:focus-visible)) .ar-aro[data-t="si"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
+.ar-svg:has(.ar-tema[data-t="compliance"]:is(:hover,:focus-visible)) .ar-aro[data-t="compliance"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
+.ar-svg:has(.ar-tema[data-t="alimentos"]:is(:hover,:focus-visible)) .ar-aro[data-t="alimentos"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
+.ar-svg:has(.ar-tema[data-t="smeta"]:is(:hover,:focus-visible)) .ar-aro[data-t="smeta"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
+.ar-svg:has(.ar-tema[data-t="padroes"]:is(:hover,:focus-visible)) .ar-aro[data-t="padroes"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
+.ar-svg:has(.ar-tema[data-t="esg"]:is(:hover,:focus-visible)) .ar-aro[data-t="esg"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
+.ar-svg:has(.ar-tema[data-t="nrs"]:is(:hover,:focus-visible)) .ar-aro[data-t="nrs"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
+.ar-svg:has(.ar-tema[data-t="estudos"]:is(:hover,:focus-visible)) .ar-aro[data-t="estudos"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:var(--im-vermelho,#EF4545);opacity:1}
 .ar-tema:focus-visible .ar-tit{text-decoration:underline;text-underline-offset:4px}
 .ar-lista{display:none}
 @media (max-width:1000px){
@@ -2629,7 +2656,7 @@ body>*{position:relative;z-index:1}
   <div class="ar-cab">
     <p class="ar-rotulo">Conhecimento / [ IM.2 ]</p>
     <div class="ar-linha">
-      <h2 class="ar-titulo" id="ar-titulo">Sua organização em conformidade com normas e padrões setoriais</h2>
+      <h2 class="ar-titulo" id="ar-titulo">A ideal-m garante a adequação de organizações a normas e padrões setoriais</h2>
       <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul>
     </div>
   </div>
@@ -2637,9 +2664,20 @@ body>*{position:relative;z-index:1}
   <div class="ar-palco">
     <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp?v=6" data-lum="img/conhecimento-manchas-lum.webp?v=6" alt="" width="1800" height="992" loading="lazy" decoding="async"></div>
 <svg class="ar-svg" viewBox="95.1 52.0 914.9 504.0" aria-label="Temas e normas da Ideal Metrics">
+<g class="ar-aros" aria-hidden="true">
+<circle class="ar-aro" data-t="iso" r="100" style="--cx:480px;--cy:300px"/>
+<circle class="ar-aro" data-t="carbono" r="70" style="--cx:275px;--cy:195px"/>
+<circle class="ar-aro" data-t="si" r="66" style="--cx:590px;--cy:185px"/>
+<circle class="ar-aro" data-t="compliance" r="66" style="--cx:370px;--cy:415px"/>
+<circle class="ar-aro" data-t="alimentos" r="64" style="--cx:605px;--cy:405px"/>
+<circle class="ar-aro" data-t="smeta" r="58" style="--cx:790px;--cy:120px"/>
+<circle class="ar-aro" data-t="padroes" r="62" style="--cx:870px;--cy:200px"/>
+<circle class="ar-aro" data-t="esg" r="56" style="--cx:770px;--cy:390px"/>
+<circle class="ar-aro" data-t="nrs" r="68" style="--cx:195px;--cy:360px"/>
+<circle class="ar-aro ar-aro--i" data-t="estudos" r="66" style="--cx:905px;--cy:470px"/>
+</g>
 <g class="ar-temas">
 <a class="ar-tema" data-t="iso" href="implantacao-iso.html" aria-label="Sistemas de gestão ISO: ISO 9001, ISO 41001, ISO 50001, ISO 45001, ISO/IEC 27001, ISO 37001, ISO 22000" style="--cx:480px;--cy:300px">
-<circle class="ar-aro" r="100" aria-hidden="true"/>
 <circle class="ar-alvo" r="100"/>
 <text class="ar-tit" x="0" y="-6.2" aria-hidden="true"><tspan x="0" dy="0">Sistemas de</tspan><tspan x="0" dy="12.5">gestão ISO</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="68.8" y="-17.0" width="62.0" height="20" rx="3"/><text x="99.8" y="-3.3">ISO 9001</text></g>
@@ -2651,7 +2689,6 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil ar-pil--eco" data-dono="alimentos" data-par="iso" aria-hidden="true"><rect x="40.4" y="60.0" width="62.0" height="20" rx="3"/><text x="71.4" y="73.7">ISO 22000</text></g>
 </a>
 <a class="ar-tema" data-t="carbono" href="gestao-carbono.html" aria-label="Gestão de carbono: GHG Protocol, ISO 14068-1, SBTi, ISO 14064" style="--cx:275px;--cy:195px">
-<circle class="ar-aro" r="70" aria-hidden="true"/>
 <circle class="ar-alvo" r="70"/>
 <text class="ar-tit" x="0" y="-6.2" aria-hidden="true"><tspan x="0" dy="0">Gestão</tspan><tspan x="0" dy="12.5">de carbono</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="37.8" y="-10.0" width="64.5" height="20" rx="3"/><text x="70.0" y="3.7">GHG Protocol</text></g>
@@ -2660,7 +2697,6 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="-31.0" y="-80.0" width="62.0" height="20" rx="3"/><text x="0.0" y="-66.3">ISO 14064</text></g>
 </a>
 <a class="ar-tema" data-t="si" href="compliance-seguranca-informacao.html" aria-label="Segurança da informação: LGPD, SGSI, ISO/IEC 27001" style="--cx:590px;--cy:185px">
-<circle class="ar-aro" r="66" aria-hidden="true"/>
 <circle class="ar-alvo" r="66"/>
 <text class="ar-tit" x="0" y="-6.2" aria-hidden="true"><tspan x="0" dy="0">Segurança da</tspan><tspan x="0" dy="12.5">informação</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="23.1" y="27.9" width="62.0" height="20" rx="3"/><text x="54.1" y="41.6">LGPD</text></g>
@@ -2668,28 +2704,24 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" data-dono="si" data-par="iso" aria-hidden="true"><rect x="-94.7" y="18.7" width="70.6" height="20" rx="3"/><text x="-59.4" y="32.4">ISO/IEC 27001</text></g>
 </a>
 <a class="ar-tema" data-t="compliance" href="compliance-seguranca-informacao.html" aria-label="Gestão de compliance: ISO 37301, ISO 37001" style="--cx:370px;--cy:415px">
-<circle class="ar-aro" r="66" aria-hidden="true"/>
 <circle class="ar-alvo" r="66"/>
 <text class="ar-tit" x="0" y="-6.2" aria-hidden="true"><tspan x="0" dy="0">Gestão de</tspan><tspan x="0" dy="12.5">compliance</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="-88.2" y="23.0" width="62.0" height="20" rx="3"/><text x="-57.2" y="36.7">ISO 37301</text></g>
 <g class="ar-pil" data-dono="compliance" data-par="iso" aria-hidden="true"><rect x="28.4" y="-38.7" width="62.0" height="20" rx="3"/><text x="59.4" y="-25.0">ISO 37001</text></g>
 </a>
 <a class="ar-tema" data-t="alimentos" href="seguranca-alimentos.html" aria-label="Segurança de alimentos: FSSC 22000, ISO 22000" style="--cx:605px;--cy:405px">
-<circle class="ar-aro" r="64" aria-hidden="true"/>
 <circle class="ar-alvo" r="64"/>
 <text class="ar-tit" x="0" y="-6.2" aria-hidden="true"><tspan x="0" dy="0">Segurança</tspan><tspan x="0" dy="12.5">de alimentos</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="23.3" y="23.9" width="62.0" height="20" rx="3"/><text x="54.3" y="37.6">FSSC 22000</text></g>
 <g class="ar-pil" data-dono="alimentos" data-par="iso" aria-hidden="true"><rect x="-84.6" y="-45.0" width="62.0" height="20" rx="3"/><text x="-53.6" y="-31.3">ISO 22000</text></g>
 </a>
 <a class="ar-tema" data-t="smeta" href="sedex-smeta.html" aria-label="SEDEX SMETA: SA 8000, SMETA 7.0" style="--cx:790px;--cy:120px">
-<circle class="ar-aro" r="58" aria-hidden="true"/>
 <circle class="ar-alvo" r="58"/>
 <text class="ar-tit" x="0" y="-6.2" aria-hidden="true"><tspan x="0" dy="0">SEDEX</tspan><tspan x="0" dy="12.5">SMETA</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="-83.6" y="-34.5" width="62.0" height="20" rx="3"/><text x="-52.6" y="-20.8">SA 8000</text></g>
 <g class="ar-pil" data-dono="smeta" data-par="padroes" aria-hidden="true"><rect x="21.6" y="14.4" width="62.0" height="20" rx="3"/><text x="52.6" y="28.1">SMETA 7.0</text></g>
 </a>
 <a class="ar-tema" data-t="padroes" href="padroes-mercado.html" aria-label="Padrões de mercado: SMETA 7.0, EcoVadis, IFC, FSC" style="--cx:870px;--cy:200px">
-<circle class="ar-aro" r="62" aria-hidden="true"/>
 <circle class="ar-alvo" r="62"/>
 <text class="ar-tit" x="0" y="-6.2" aria-hidden="true"><tspan x="0" dy="0">Padrões</tspan><tspan x="0" dy="12.5">de mercado</tspan></text>
 <g class="ar-pil ar-pil--eco" data-dono="smeta" data-par="padroes" aria-hidden="true"><rect x="-58.4" y="-65.6" width="62.0" height="20" rx="3"/><text x="-27.4" y="-51.9">SMETA 7.0</text></g>
@@ -2698,7 +2730,6 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="22.7" y="-41.0" width="62.0" height="20" rx="3"/><text x="53.7" y="-27.3">FSC</text></g>
 </a>
 <a class="ar-tema" data-t="esg" href="esg.html" aria-label="ESG: ABNT PR 2030, GRI, IFRS S1 e S2" style="--cx:770px;--cy:390px">
-<circle class="ar-aro" r="56" aria-hidden="true"/>
 <circle class="ar-alvo" r="56"/>
 <text class="ar-tit" x="0" y="-0.0" aria-hidden="true"><tspan x="0" dy="0">ESG</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="21.5" y="-10.0" width="68.9" height="20" rx="3"/><text x="56.0" y="3.7">ABNT PR 2030</text></g>
@@ -2706,7 +2737,6 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="-59.1" y="-58.5" width="62.2" height="20" rx="3"/><text x="-28.0" y="-44.8">IFRS S1 e S2</text></g>
 </a>
 <a class="ar-tema" data-t="nrs" href="nrs.html" aria-label="Normas Regulamentadoras: NR-01, NR-12, NR-17" style="--cx:195px;--cy:360px">
-<circle class="ar-aro" r="68" aria-hidden="true"/>
 <circle class="ar-alvo" r="68"/>
 <text class="ar-tit" x="0" y="-6.2" aria-hidden="true"><tspan x="0" dy="0">Normas</tspan><tspan x="0" dy="12.5">Regulamentadoras</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="-31.0" y="58.0" width="62.0" height="20" rx="3"/><text x="0.0" y="71.7">NR-01</text></g>
@@ -2714,7 +2744,6 @@ body>*{position:relative;z-index:1}
 <g class="ar-pil" aria-hidden="true"><rect x="27.9" y="-44.0" width="62.0" height="20" rx="3"/><text x="58.9" y="-30.3">NR-17</text></g>
 </a>
 <a class="ar-tema" data-t="estudos" href="estudos-pesquisa.html" aria-label="Estudos e pesquisa aplicada: Nota técnica, Observatório setorial, EUDR" style="--cx:905px;--cy:470px">
-<circle class="ar-aro ar-aro--i" r="66" aria-hidden="true"/>
 <circle class="ar-alvo" r="66"/>
 <text class="ar-tit" x="0" y="-12.5" aria-hidden="true"><tspan x="0" dy="0">Estudos e</tspan><tspan x="0" dy="12.5">pesquisa</tspan><tspan x="0" dy="12.5">aplicada</tspan></text>
 <g class="ar-pil" aria-hidden="true"><rect x="-31.0" y="56.0" width="62.0" height="20" rx="3"/><text x="0.0" y="69.7">Nota técnica</text></g>
