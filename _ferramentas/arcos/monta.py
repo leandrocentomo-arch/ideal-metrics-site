@@ -61,7 +61,7 @@ CSS = r"""
 .ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.75}   /* 24/09: eram .5 («50% mais transparentes»); depois «menos transparentes»: .75 */
 .ar-manchas img,.ar-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ar-manchas.gl-on img{visibility:hidden}
-.ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.10);stroke-width:1;
+.ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.20);stroke-width:1;   /* 24/09: aros um pouco mais escuros (era .10) */
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-soltos circle{stroke:rgba(20,48,76,.09)}
 .ar-aro--i{stroke-dasharray:3 5;stroke:var(--im-vermelho,#EF4545)}
