@@ -122,7 +122,13 @@ def main():
         nome = os.path.basename(p)
         if nome == 'index.html' or nome.startswith('index-'): continue
         s = ler(p)
-        m = re.search(r'<div class="tarja"(?: role="note")?>.*?</header>(?:\n<nav class="veu-menu".*?</nav>)?(?:\n<div class="barra-espaco"[^>]*></div>)?', s, flags=re.S)
+        # 24/09/2026: o bloco da home ganhou o mega-menu entre o </header> e o veu, e a
+        # regex antiga so reconhecia header + veu: cada rodada deixava o conjunto velho
+        # (mega-menu, veu, espaco) e punha outro, e as internas estavam com 2 copias.
+        # Agora a troca engole TODAS as copias seguidas desses tres blocos.
+        m = re.search(r'<div class="tarja"(?: role="note")?>.*?</header>'
+                      r'(?:\s*(?:<div class="mega-menu".*?\n</div>|<nav class="veu-menu".*?</nav>|<div class="barra-espaco"[^>]*></div>))*',
+                      s, flags=re.S)
         if not m: print('  pulada (sem cabecalho reconhecido):', nome); continue
         s = s[:m.start()] + html + '\n<div class="barra-espaco" aria-hidden="true"></div>' + s[m.end():]
         if 'js/barra.js' not in s:
