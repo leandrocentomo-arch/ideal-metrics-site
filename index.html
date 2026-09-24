@@ -1487,9 +1487,13 @@ body>*{position:relative;z-index:1}
   .qc-abre-selo{height:80px;margin-top:20px} }
 /* maquina de escrever: a frase entra letra a letra quando a secao aparece;
    .qc-cursor e o cursor, que pisca e some no fim. */
-.qc-lead .qc-cursor{display:inline-block;width:.09em;height:1em;background:var(--azul);
-  vertical-align:-.12em;margin-left:.06em;animation:qcPisca 1s steps(2,start) infinite}
-.qc-lead.pronta .qc-cursor{display:none}
+/* 24/09: a frase entra palavra por palavra, cada uma subindo e desembacando com
+   um pequeno atraso em relacao a anterior (a maquina de escrever saiu). */
+.qc-lead .w{display:inline-block;opacity:0;transform:translateY(.45em);filter:blur(5px);
+  transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1),filter .7s ease;
+  transition-delay:var(--d,0s)}
+.qc-lead.entra .w{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){ .qc-lead .w{opacity:1;transform:none;filter:none;transition:none} }
 @keyframes qcPisca{to{visibility:hidden}}
 /* 24/09/2026: a SUPER BUSCA mora na segunda secao, ao lado de «O que fazemos»,
    que estava vazia do meio para a direita. O indice e busca-indice.json, gerado
@@ -2457,7 +2461,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/industria-bayer-qc.webp" data-lum="img/industria-lum-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/industria-bayer-qc.webp?v=24092026" data-lum="img/industria-lum-qc.webp?v=24092026" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -3899,7 +3903,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   })();
 })();
 </script>
-<script src="js/busca.js?v=5"></script>
+<script src="js/busca.js?v=6"></script>
 <script>
 /* CONHECIMENTO: frente. No SVG quem e pintado por ultimo fica por cima, e o tema
    que cresce no mouse precisa cobrir os vizinhos: o grupo vai para o fim. */

@@ -151,29 +151,19 @@
 
   var lead = document.getElementById('qcLead');
   if(!lead || !('IntersectionObserver' in window)) return;
-  var texto = lead.getAttribute('data-texto') || lead.textContent;
-  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduz) return;
-  var feito = false;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  /* 24/09: cada palavra vira um span com o seu atraso; a classe .entra dispara
+     a subida quando a frase aparece na tela */
+  var palavras = (lead.getAttribute('data-texto') || lead.textContent).split(' ');
+  lead.textContent = '';
+  palavras.forEach(function(p, i){
+    var w = document.createElement('span'); w.className = 'w'; w.textContent = p;
+    w.style.setProperty('--d', (i * 70) + 'ms');
+    lead.appendChild(w);
+    if(i < palavras.length - 1) lead.appendChild(document.createTextNode(' '));
+  });
   var obs = new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting || feito) return;
-      feito = true; obs.disconnect();
-      lead.textContent = '';
-      var cur = document.createElement('span'); cur.className = 'qc-cursor'; lead.appendChild(cur);
-      var i = 0;
-      (function passo(){
-        if(i < texto.length){
-          lead.insertBefore(document.createTextNode(texto.charAt(i)), cur);
-          i++;
-          var ch = texto.charAt(i - 1);
-          /* 24/09: «mais lento»: 55 ms por letra, 70 no espaco, 380 na virgula (era 22/34/160) */
-          setTimeout(passo, ch === ',' ? 380 : (ch === ' ' ? 70 : 55));
-        } else {
-          setTimeout(function(){ lead.classList.add('pronta'); }, 900);
-        }
-      })();
-    });
+    es.forEach(function(e){ if(e.isIntersecting){ lead.classList.add('entra'); obs.disconnect(); } });
   }, {threshold: .35});
   obs.observe(lead);
 })();
