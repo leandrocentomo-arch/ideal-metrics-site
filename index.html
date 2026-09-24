@@ -1569,8 +1569,10 @@ body>*{position:relative;z-index:1}
 .qc-busca-caixa{transition:background .2s ease;border-radius:3px 3px 0 0}
 .qc-busca-caixa.foco{background:rgba(51,102,153,.07)}
 .qc-busca-caixa.foco input{padding-left:.9em}
-.qc-busca-caixa .qc-caret{opacity:.55}
-.qc-busca-caixa.foco .qc-caret{opacity:1}
+/* 24/09 (noite): «o traco piscando na cor escura da Ideal Metrics». Ele ja era o
+   azul-tinta #14304C, mas a 55% em repouso lia como cinza: agora cheio sempre. O
+   campo ativo continua marcado pelo fundo azulado e pelo fio de 2px. */
+.qc-busca-caixa .qc-caret{opacity:1;background:#14304C}
 .qc-busca:focus-within .qc-busca-rot{color:var(--azul)}
 .qc-res{list-style:none;margin:8px 0 0;padding:0;max-height:300px;overflow-y:auto}
 .qc-res li{border-bottom:1px solid rgba(20,48,76,.14)}
