@@ -1481,9 +1481,8 @@ body>*{position:relative;z-index:1}
 .qc-abre-linha .qc-busca{flex:0 1 42%;min-width:280px}
 .qc-abre-linha .qc-titulo-sec{margin-top:0}
 .qc-abre-logo{display:block;height:74px;width:auto;margin:0 0 30px}   /* 24/09: maior, e em cima da busca */
-.qc-abre-selo{position:static;display:block;height:96px;width:auto;margin:28px 0 0}
-@media (max-width:880px){ .qc-abre-logo{height:52px;margin-bottom:18px}
-  .qc-abre-selo{height:80px;margin-top:20px} }
+/* 24/09: o selo saiu desta secao e foi para o painel Demandas (.dm-selo) */
+@media (max-width:880px){ .qc-abre-logo{height:52px;margin-bottom:18px} }
 /* maquina de escrever: a frase entra letra a letra quando a secao aparece;
    .qc-cursor e o cursor, que pisca e some no fim. */
 /* 24/09: a frase entra palavra por palavra, cada uma subindo e desembacando com
@@ -2042,6 +2041,9 @@ body>*{position:relative;z-index:1}
    direita do desenho. Em 340 as pilulas param antes das etiquetas "Auditoria
    interna" e "Certificacao", e a coluna do titulo fica com a sobra. */
 .dm-texto{width:calc(100% - 340px);max-width:560px}
+/* 24/09: o selo saiu da segunda secao e mora aqui, abaixo do titulo do painel */
+.dm-selo{display:block;height:96px;width:auto;margin:28px 0 0}
+@media (max-width:880px){ .dm-selo{height:80px;margin-top:20px} }
 .dm-titulo{margin:0;font-family:var(--sans);font-weight:500;
   font-size:34px;line-height:var(--dm-lh);letter-spacing:-.012em;color:var(--azul); /* 18/09: era 44/50, pedido do Leandro */
   text-wrap:balance;
@@ -2517,7 +2519,6 @@ body>*{position:relative;z-index:1}
         <div>
           <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
           <p class="qc-lead" id="qcLead" data-texto="Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
-          <img class="qc-abre-selo" src="img/selo-ideal-m.svg?v=19092026" alt="Ideal Metrics" width="229" height="229">
         </div>
         <form class="qc-busca" role="search" onsubmit="return false">
           <img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=19092026" alt="Ideal Metrics" width="519" height="207">
@@ -2536,6 +2537,7 @@ body>*{position:relative;z-index:1}
     <div class="dm-texto">
       <!-- os dois &nbsp; prendem "do diagnostico" e "a certificacao": com o text-wrap:balance o titulo quebra em tres frases inteiras, e sem ele o "a" nao fica pendurado no fim da linha -->
       <h2 class="dm-titulo" id="dm-titulo" data-dm-entra><span class="dm-sobe">O que a sua organização precisa comprovar, e&nbsp;para&nbsp;quem</span></h2>
+      <img class="dm-selo" src="img/selo-ideal-m.svg?v=19092026" alt="Ideal Metrics" width="229" height="229" loading="lazy">
     </div>
     <div class="dm-coluna">
       <p class="dm-sub">Demandas que atendemos com frequência</p>
