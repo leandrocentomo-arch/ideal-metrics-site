@@ -48,7 +48,7 @@ TEMAS = [
  # o SMETA 7.0 e um padrao de mercado. As etiquetas proprias ficam DENTRO do aro.
  ('iso', 'implantacao-iso.html', 'p', 480, 300, 100, ['Sistemas de', 'gestão ISO'],
     [('ISO 9001', -145), ('ISO 41001', 0), ('ISO 50001', 180), ('ISO 45001', -120)]),
- ('carbono', 'gestao-carbono.html', 'p', 250, 150, 70, ['Gestão', 'de carbono'],
+ ('carbono', 'gestao-carbono.html', 'p', 275, 195, 70, ['Gestão', 'de carbono'],
     [('GHG Protocol', -35), ('ISO 14068-1', 125), ('SBTi', 180), ('ISO 14064', -145)]),
  ('si', 'compliance-seguranca-informacao.html', 'p', 590, 185, 66, ['Segurança da', 'informação'],
     [('LGPD', -125), ('SGSI', -55), ('ISO/IEC 27001', 'cruza:iso:cima')]),
@@ -62,7 +62,7 @@ TEMAS = [
     [('EcoVadis', 125), ('IFC', 160), ('FSC', -55)]),
  ('esg', 'esg.html', 'p', 770, 390, 56, ['ESG'],
     [('ABNT PR 2030', 0), ('GRI', 55), ('IFRS S1 e S2', -125)]),
- ('nrs', 'nrs.html', 'p', 135, 390, 68, ['Normas', 'Regulamentadoras'],
+ ('nrs', 'nrs.html', 'p', 195, 360, 68, ['Normas', 'Regulamentadoras'],
     [('NR-01', -125), ('NR-12', 125), ('NR-17', 0)]),
  ('estudos', 'estudos-pesquisa.html', 'i', 905, 470, 66, ['Estudos e', 'pesquisa', 'aplicada'],
     [('Nota técnica', 35), ('Observatório setorial', 125), ('EUDR', -55)]),
@@ -75,7 +75,7 @@ CRUZAM = {frozenset(('iso', 'si')), frozenset(('iso', 'compliance')),
 # manchas cheias por tras, independentes dos aros (como na referencia), todas
 # DENTRO da prancha: a primeira versao deixava uma sair por baixo
 # 22/09: manchas 20% menores e tudo mais junto (o esquema deixou de ocupar a largura da pagina)
-DISCOS = [(190, 280, 92), (480, 300, 82), (830, 165, 76), (420, 460, 62), (940, 445, 60)]   # 24/09: a de Estudos sai do contorno
+DISCOS = [(225, 290, 86), (520, 265, 80), (830, 165, 76), (420, 460, 62), (940, 445, 60)]   # 24/09: a de Estudos sai do contorno
 # 21/09/2026: tres dos cinco discos em AZUL palido (o ISO, o do ESG com Padroes
 # de mercado e o de Estudos), a pedido do Leandro: «quero que tenha partes em
 # azul». Os outros dois ficam no bege da casa. Indices de DISCOS.
