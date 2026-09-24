@@ -105,3 +105,75 @@
   var fecha = document.getElementById('fechaMenu');
   if(fecha) fecha.addEventListener('click', function(){ mapa.hidden = true; alvo.setAttribute('aria-expanded','false'); });
 })();
+
+/* 24/09: o MEGA-MENU flutuante. Abre por «Todos os servicos» na barra (hover e
+   clique) e fecha ao sair com o mouse, em Esc ou no clique fora. Dentro do veu,
+   o mesmo item continua abrindo o painel proprio do veu. */
+(function(){
+  var abre = document.getElementById('megaAbre'), mega = document.getElementById('megaMenu');
+  if(!abre || !mega) return;
+  var timer = null;
+  function mostra(){ clearTimeout(timer); mega.classList.add('aberto'); abre.setAttribute('aria-expanded','true'); }
+  function esconde(){ timer = setTimeout(function(){ mega.classList.remove('aberto'); abre.setAttribute('aria-expanded','false'); }, 180); }
+  abre.addEventListener('mouseenter', mostra);
+  abre.addEventListener('mouseleave', esconde);
+  mega.addEventListener('mouseenter', mostra);
+  mega.addEventListener('mouseleave', esconde);
+  abre.addEventListener('click', function(e){
+    /* no primeiro clique abre; no segundo, com o painel aberto, navega */
+    if(!mega.classList.contains('aberto')){ e.preventDefault(); mostra(); }
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') esconde(); });
+  document.addEventListener('click', function(e){ if(!mega.contains(e.target) && e.target !== abre) esconde(); });
+})();
+
+/* 24/09: cursor grosso do campo de busca (o do navegador e um fio de 1px) e a
+   frase de abertura da segunda secao em maquina de escrever, quando aparece. */
+(function(){
+  var campo = document.getElementById('buscaCampo');
+  var caixa = campo && campo.closest('.qc-busca-caixa'), caret = caixa && caixa.querySelector('.qc-caret');
+  if(campo && caret){
+    var medidor = document.createElement('span');
+    medidor.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;font:inherit';
+    caixa.appendChild(medidor);
+    function move(){
+      var cs = getComputedStyle(campo);
+      medidor.style.font = cs.font; medidor.style.letterSpacing = cs.letterSpacing;
+      medidor.textContent = campo.value.slice(0, campo.selectionStart || campo.value.length);
+      var recuo = parseFloat(cs.paddingLeft) || 0;
+      caret.style.left = Math.min(recuo * (campo.value ? 1 : 0) + medidor.offsetWidth, campo.clientWidth - 8) + 'px';
+    }
+    move();
+    campo.addEventListener('focus', function(){ caixa.classList.add('foco'); move(); });
+    campo.addEventListener('blur', function(){ caixa.classList.remove('foco'); });
+    ['input','keyup','click','select'].forEach(function(ev){ campo.addEventListener(ev, move); });
+  }
+
+  var lead = document.getElementById('qcLead');
+  if(!lead || !('IntersectionObserver' in window)) return;
+  var texto = lead.getAttribute('data-texto') || lead.textContent;
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduz) return;
+  var feito = false;
+  var obs = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting || feito) return;
+      feito = true; obs.disconnect();
+      lead.textContent = '';
+      var cur = document.createElement('span'); cur.className = 'qc-cursor'; lead.appendChild(cur);
+      var i = 0;
+      (function passo(){
+        if(i < texto.length){
+          lead.insertBefore(document.createTextNode(texto.charAt(i)), cur);
+          i++;
+          var ch = texto.charAt(i - 1);
+          /* 24/09: «mais lento»: 55 ms por letra, 70 no espaco, 380 na virgula (era 22/34/160) */
+          setTimeout(passo, ch === ',' ? 380 : (ch === ' ' ? 70 : 55));
+        } else {
+          setTimeout(function(){ lead.classList.add('pronta'); }, 900);
+        }
+      })();
+    });
+  }, {threshold: .35});
+  obs.observe(lead);
+})();

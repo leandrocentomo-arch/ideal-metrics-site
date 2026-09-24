@@ -1,18 +1,24 @@
 /* gerado por _ferramentas/barra.py: menu da home e banner das internas, para
    paginas que nao carregam css/style.css. Nao editar a mao. */
 :root{--azul:#14304C;--azul-escuro:#315275;--mercurio:#FAF9F5;--branco:#FFFFFF;--fio:rgba(20,48,76,.30);--sans:'IBM Plex Sans Condensed',sans-serif;--mono:'IBM Plex Mono',monospace;--lado:clamp(28px,4vw,64px);--fundo:#336699;--color-primary:#14304C;--mid-gray:#315275;--border-gray:#A3B5C8}
-.veu-menu{position:fixed;inset:0;z-index:980;background:var(--fundo);
+.veu-menu{position:fixed;inset:0;z-index:980;
+  /* 24/09: o mesmo vidro azul da abertura (rgba 51,102,153 a 80% + desfoque), e
+     nunca mais alto que a tela: o que nao couber rola dentro do proprio veu. */
+  background:rgba(51,102,153,.86);
+  -webkit-backdrop-filter:blur(30px) saturate(150%);backdrop-filter:blur(30px) saturate(150%);
   color:var(--mercurio);display:flex;flex-direction:column;justify-content:flex-start;
-  padding:132px var(--lado) 0;gap:0;transform:translateY(-101%);
-  counter-reset:vm;overflow-y:auto;
+  padding:104px var(--lado) 40px;gap:0;transform:translateY(-101%);
+  counter-reset:vm;overflow-y:auto;max-height:100vh;
   transition:transform .6s cubic-bezier(.76,0,.24,1)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .veu-menu{background:var(--fundo)} }
 .veu-menu.aberto{transform:none}
 /* cada item: indice mono a esquerda, nome a direita, fio embaixo. E o
    mesmo idioma dos rotulos de secao, na escala dos titulos. */
 .veu-menu a{counter-increment:vm;display:flex;align-items:baseline;gap:22px;
-  padding:15px 0;border-bottom:1px solid rgba(250,249,245,.20);
+  padding:11px 0;border-bottom:1px solid rgba(250,249,245,.20);
   font-family:var(--sans);font-weight:500;
-  font-size:clamp(22px,2.4vw,34px);line-height:1.2;letter-spacing:-.012em;
+  font-size:clamp(20px,2vw,28px);line-height:1.2;letter-spacing:-.012em;
   transition:padding-left .35s cubic-bezier(.4,0,.2,1),color .35s}
 .veu-menu a::before{content:"[ " counter(vm,decimal-leading-zero) " ]";
   font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;
@@ -39,6 +45,32 @@
 .veu-mapa a::before{content:none}
 .veu-mapa a:hover{color:var(--branco);padding-left:6px}
 @media (max-width:880px){ .veu-mapa{grid-template-columns:1fr 1fr;gap:18px 20px} }
+/* 24/09: o MEGA-MENU flutuante de antes da troca de cabecalho, de volta para o
+   Leandro comparar com o veu. Largura toda, altura so a do conteudo, icones
+   redondos. Abre por «Todos os servicos» na barra (hover ou clique) e dentro do
+   veu; fecha no clique fora, em Esc, ou ao sair com o mouse. */
+.mega-menu{position:fixed;left:0;right:0;top:92px;z-index:950;   /* abaixo da barra (960): o cartao do monograma desce 22px sobre a pagina e nao pode ser coberto */
+  display:grid;grid-template-columns:repeat(4,1fr);gap:32px;
+  background:var(--mercurio);padding:36px var(--lado) 34px;
+  box-shadow:0 12px 30px rgba(20,48,76,.10);border-top:1px solid var(--azul);
+  border-bottom:1px solid rgba(20,48,76,.16);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .2s ease,visibility 0s linear .2s}
+.mega-menu.aberto{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+.mega-menu-col h4{font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--azul-escuro);margin:0 0 14px;padding-bottom:8px;
+  border-bottom:1px solid rgba(20,48,76,.16)}
+.mega-menu-col a{display:flex;align-items:center;gap:10px;padding:7px 0;
+  font-family:var(--sans);font-size:14px;color:var(--azul);text-decoration:none;transition:color .2s}
+.mega-menu-col a:hover{color:var(--liga-corpo)}
+.mega-icon{width:30px;height:30px;border:1px solid rgba(20,48,76,.25);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:border-color .2s,background .2s}
+.mega-menu-col a:hover .mega-icon{border-color:var(--liga-corpo);background:rgba(51,102,153,.08)}
+.mega-icon svg{width:14px;height:14px;fill:none;stroke:var(--azul-escuro);stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round}
+.mega-menu-col a:hover .mega-icon svg{stroke:var(--liga-corpo)}
+@media (max-width:880px){ .mega-menu{display:none} }
 .veu-menu .selo-mono{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;opacity:.8;margin-bottom:24px}
 .tarja{position:fixed;top:0;left:0;right:0;z-index:950;height:26px;

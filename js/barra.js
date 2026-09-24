@@ -41,7 +41,8 @@ document.querySelectorAll('.js-scramble').forEach(function(el){
   });
   var f = document.getElementById('fechaMenu');
   if(f) f.addEventListener('click', function(){ veu.classList.remove('aberto'); });
-  veu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ veu.classList.remove('aberto'); }); });
+  /* 24/09: «Todos os servicos» abre um painel DENTRO do veu (js/busca.js), entao nao fecha o veu */
+  veu.querySelectorAll('a').forEach(function(a){ if(a.id === 'veuTodos') return; a.addEventListener('click', function(){ veu.classList.remove('aberto'); }); });
 })();
 
 // ===== a placa da marca encolhe ao rolar =====

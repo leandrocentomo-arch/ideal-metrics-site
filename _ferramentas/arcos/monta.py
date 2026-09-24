@@ -64,7 +64,13 @@ CSS = r"""
 .ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.10);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-soltos circle{stroke:rgba(20,48,76,.09)}
-.ar-aro--i{stroke-dasharray:3 5}
+.ar-aro--i{stroke-dasharray:3 5;stroke:var(--im-vermelho,#EF4545)}
+/* 24/09: o aro de Estudos e pesquisa aplicada em VERMELHO, a pedido do Leandro. A
+   paleta da Ideal Metrics nao tem vermelho (as variaveis «accent-red» do site
+   apontam para azul); este e o #EF4545 que a tarja do site usou. Um so ponto
+   para trocar: --im-vermelho. */
+.ar-tema:is(:hover,:focus-visible) .ar-aro--i{stroke:var(--im-vermelho,#EF4545)}
+.ar-legenda .ar-leg-i::before{border-top-color:var(--im-vermelho,#EF4545)}
 /* 21/09 (noite): BOLAS PEQUENAS que crescem no mouse. Cada tema e um grupo
    (aro + titulo + pilulas) desenhado em torno do proprio centro e levado ao
    lugar por translate(--cx,--cy); o scale acontece nesse centro. O traco do aro

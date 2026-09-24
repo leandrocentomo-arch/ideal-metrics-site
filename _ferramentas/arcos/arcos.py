@@ -24,7 +24,7 @@ do site (getComputedTextLength), e nao estimadas."""
 import json, math, os
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-VB_W, VB_H = 940, 480
+VB_W, VB_H = 1000, 520
 PAD_X, PIL_H = 8, 20           # respiro lateral e altura da pilula, em unidades do viewBox
 TXT_PIL, TXT_TIT, LH_TIT = 8.5, 10.5, 12.5   # 22/09: titulo menor a pedido do Leandro (era 13)
 # 21/09: etiqueta menor a pedido do Leandro (era 12,5 de corpo e 26 de altura).
@@ -35,35 +35,43 @@ ESC_TIT = TXT_TIT / 19          # os titulos de larguras.json foram medidos a 19
 # (id, pagina, divisao, cx, cy, r, linhas do titulo, [(norma, angulo em graus)])
 # angulo: 0 = direita, 90 = baixo (y do SVG cresce para baixo)
 TEMAS = [
- # 21/09 (noite): BOLAS PEQUENAS que crescem no mouse (monta.py: scale 1,6 no
- # hover). Raios de 44 a 66, titulo em 13 e pilula em 8,5; nenhum aro encosta
- # em outro (so compliance e SI se cruzam, de proposito, para a LGPD).
- ('iso', 'implantacao-iso.html', 'p', 110, 150, 66, ['Sistemas de', 'gestão ISO'],
-    [('ISO 9001', -135), ('ISO 14001', -70), ('ISO 45001', 150), ('ISO 50001', 100), ('ISO 41001', 35)]),
- ('carbono', 'gestao-carbono.html', 'p', 310, 120, 56, ['Gestão', 'de carbono'],
-    [('GHG Protocol', -140), ('ISO 14064', -56), ('ISO 14068-1', 40), ('SBTi', 110)]),
- ('esg', 'esg.html', 'p', 480, 165, 46, ['ESG'],
-    [('ABNT PR 2030', -60), ('GRI', 160), ('IFRS S1 e S2', 60)]),
- ('smeta', 'sedex-smeta.html', 'p', 640, 110, 50, ['SEDEX', 'SMETA'],
-    [('SMETA 7.0', -135), ('SA 8000', 120)]),
- ('padroes', 'padroes-mercado.html', 'p', 800, 160, 52, ['Padrões', 'de mercado'],
-    [('EcoVadis', -70), ('IFC', 15), ('FSC', 50)]),
- ('nrs', 'nrs.html', 'p', 150, 370, 62, ['Normas', 'Regulamentadoras'],
-    [('NR-01', -120), ('NR-12', 125), ('NR-17', 55)]),
- ('compliance', 'compliance-seguranca-informacao.html', 'p', 380, 370, 54, ['Gestão de', 'compliance'],
-    [('ISO 37001', 220), ('ISO 37301', 110), ('LGPD', 'cruza:si:baixo')]),
- ('si', 'compliance-seguranca-informacao.html', 'p', 450, 298, 48, ['Segurança da', 'informação'],
-    [('ISO/IEC 27001', -55)]),
- ('alimentos', 'seguranca-alimentos.html', 'p', 600, 365, 54, ['Segurança', 'de alimentos'],
-    [('ISO 22000', -110), ('FSSC 22000', 60)]),
- ('estudos', 'estudos-pesquisa.html', 'i', 790, 375, 62, ['Estudos e', 'pesquisa', 'aplicada'],
-    [('Nota técnica', -130), ('Observatório setorial', 95), ('EUDR', -55)]),
+ # 24/09/2026: o mosaico passou a contar uma HISTORIA, a pedido do Leandro.
+ # «Sistemas de gestão ISO» e o eixo, no meio, e os temas cuja norma tambem e ISO
+ # CRUZAM com ele: a etiqueta da norma fica no ponto onde os dois aros se
+ # encontram, e por isso pertence aos dois ao mesmo tempo (ISO 14064 no carbono,
+ # ISO/IEC 27001 na seguranca da informacao, ISO 37001 no compliance e ISO 22000
+ # nos alimentos). Fora do eixo, SEDEX/SMETA cruza com Padroes de mercado, porque
+ # o SMETA 7.0 e um padrao de mercado. As etiquetas proprias ficam DENTRO do aro.
+ ('iso', 'implantacao-iso.html', 'p', 430, 250, 100, ['Sistemas de', 'gestão ISO'],
+    [('ISO 9001', -160), ('ISO 41001', 145), ('ISO 50001', 0), ('ISO 45001', 180)]),
+ ('carbono', 'gestao-carbono.html', 'p', 325, 135, 66, ['Gestão', 'de carbono'],
+    [('GHG Protocol', -35), ('ISO 14068-1', 125), ('SBTi', 180), ('ISO 14064', 'cruza:iso:cima')]),
+ ('si', 'compliance-seguranca-informacao.html', 'p', 560, 150, 66, ['Segurança da', 'informação'],
+    [('LGPD', 35), ('SGSI', -125), ('ISO/IEC 27001', 'cruza:iso:cima')]),
+ ('compliance', 'compliance-seguranca-informacao.html', 'p', 320, 360, 66, ['Gestão de', 'compliance'],
+    [('ISO 37301', 55), ('ISO 37001', 'cruza:iso:baixo')]),
+ ('alimentos', 'seguranca-alimentos.html', 'p', 555, 355, 64, ['Segurança', 'de alimentos'],
+    [('FSSC 22000', 125), ('ISO 22000', 'cruza:iso:baixo')]),
+ ('smeta', 'sedex-smeta.html', 'p', 745, 120, 58, ['SEDEX', 'SMETA'],
+    [('SA 8000', 160), ('SMETA 7.0', 'cruza:padroes:cima')]),
+ ('padroes', 'padroes-mercado.html', 'p', 825, 205, 62, ['Padrões', 'de mercado'],
+    [('EcoVadis', 125), ('IFC', 55), ('FSC', -160)]),
+ ('esg', 'esg.html', 'p', 690, 310, 54, ['ESG'],
+    [('ABNT PR 2030', 0), ('GRI', 55), ('IFRS S1 e S2', -125)]),
+ ('nrs', 'nrs.html', 'p', 140, 290, 68, ['Normas', 'Regulamentadoras'],
+    [('NR-01', -125), ('NR-12', 125), ('NR-17', 0)]),
+ ('estudos', 'estudos-pesquisa.html', 'i', 880, 390, 64, ['Estudos e', 'pesquisa', 'aplicada'],
+    [('Nota técnica', 125), ('Observatório setorial', 35), ('EUDR', -145)]),
 ]
+
+# os pares que se cruzam de proposito: a etiqueta da norma mora no encontro
+CRUZAM = {frozenset(('iso', 'carbono')), frozenset(('iso', 'si')), frozenset(('iso', 'compliance')),
+          frozenset(('iso', 'alimentos')), frozenset(('smeta', 'padroes'))}
 
 # manchas cheias por tras, independentes dos aros (como na referencia), todas
 # DENTRO da prancha: a primeira versao deixava uma sair por baixo
 # 22/09: manchas 20% menores e tudo mais junto (o esquema deixou de ocupar a largura da pagina)
-DISCOS = [(175, 189, 80), (390, 165, 62), (750, 215, 70), (290, 395, 56), (860, 385, 56)]
+DISCOS = [(200, 260, 86), (430, 250, 74), (790, 170, 72), (360, 400, 60), (880, 390, 58)]
 # 21/09/2026: tres dos cinco discos em AZUL palido (o ISO, o do ESG com Padroes
 # de mercado e o de Estudos), a pedido do Leandro: «quero que tenha partes em
 # azul». Os outros dois ficam no bege da casa. Indices de DISCOS.
@@ -119,6 +127,11 @@ def pilulas(L):
                 _, cruza, lado = ang.split(':')
                 x, y = cruzamento(tid, cruza, lado)
             else:
+                # a etiqueta fica centrada NA linha do aro. Por dentro so caberia
+                # com texto minusculo: «Observatorio setorial» sozinha mede 95
+                # unidades, quase o diametro do aro dela. O alinhamento vem dos
+                # angulos, iguais em todos os temas (-160, -125, -90, -55, 55, 90,
+                # 125, 160), e nao de encostar por dentro.
                 t = math.radians(ang)
                 x, y = cx + r * math.cos(t), cy + r * math.sin(t)
             out.append(dict(tema=tid, txt=txt, x=x, y=y, w=w, h=PIL_H, cruza=cruza,
@@ -157,6 +170,7 @@ def colisoes(L, folga=6):
     for p in P:
         for tid, pag, div, cx, cy, r, tit, normas in TEMAS:
             if tid == p['tema'] or tid == p.get('cruza'): continue
+            if frozenset((tid, p['tema'])) in CRUZAM: continue
             d = math.hypot(p['x'] - cx, p['y'] - cy)
             if abs(d - r) < 34:
                 ruim.append('pilula no aro alheio: %s perto do aro de %s (%.0f)' % (p['txt'], tid, abs(d - r)))
@@ -178,7 +192,7 @@ def colisoes(L, folga=6):
     for a in range(len(TEMAS)):
         for b in range(a + 1, len(TEMAS)):
             ta, tb = TEMAS[a], TEMAS[b]
-            if {ta[0], tb[0]} == {'compliance', 'si'}: continue
+            if frozenset((ta[0], tb[0])) in CRUZAM: continue
             d = math.hypot(ta[3] - tb[3], ta[4] - tb[4])
             if d < ta[5] + tb[5] + 10:
                 ruim.append('aros encostam: %s / %s (%.0f de folga)' % (ta[0], tb[0], d - ta[5] - tb[5]))
