@@ -1507,7 +1507,7 @@ body>*{position:relative;z-index:1}
 .qc-busca-caixa{position:relative}
 .qc-busca-caixa .qc-caret{position:absolute;left:0;top:9px;width:.55em;height:1.15em;
   background:var(--azul);font-size:15px;pointer-events:none;
-  animation:qcPisca 1s steps(2,start) infinite}
+  animation:qcPisca .7s steps(2,start) infinite}   /* 24/09: «um pouquinho mais rapido» (era 1s) */
 /* 24/09: o traco pisca desde sempre, antes do clique, como um terminal a espera;
    o campo tem .8em de recuo a esquerda para o placeholder nao ficar por baixo dele */
 .qc-busca input::placeholder{color:rgba(20,48,76,.45);font-family:var(--mono)}
@@ -2516,7 +2516,7 @@ body>*{position:relative;z-index:1}
       <div class="qc-abre-linha">
         <div>
           <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
-          <p class="qc-lead" id="qcLead" data-texto="Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
+          <p class="qc-lead" id="qcLead" data-texto="Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
           <img class="qc-abre-selo" src="img/selo-ideal-m.svg?v=19092026" alt="Ideal Metrics" width="229" height="229">
         </div>
         <form class="qc-busca" role="search" onsubmit="return false">
