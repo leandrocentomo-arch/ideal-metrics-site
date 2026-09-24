@@ -41,7 +41,7 @@ CSS = r"""
 /* 22/09: o esquema nos 2/3 da esquerda e a foto dos barquinhos no 1/3 da direita */
 /* 22/09: «esse mosaico 20% maior»: o esquema passa de 2/3 para 4/5 da largura
    (873 -> 1048 px numa tela de 1440) e a foto fica com o quinto restante */
-.ar-corpo{display:grid;grid-template-columns:4fr 1fr;gap:0;align-items:stretch;margin:44px 0 0}
+.ar-corpo{display:grid;grid-template-columns:4fr 1fr;gap:0;align-items:stretch;margin:8px 0 0}
 .ar-palco{position:relative;min-width:0;z-index:2}
 /* 22/09: «quero que os desenhos se encontrem», mas «nao e para avancar, e so para
    nao ter gap»: a grade nao tem vao, e a foto comeca exatamente onde o esquema
@@ -105,7 +105,7 @@ CSS = r"""
 @media (max-width:1000px){
   .ar-sec{padding-top:70px;padding-bottom:78px}
   .ar-svg,.ar-manchas{display:none}
-  .ar-corpo{display:block;margin-top:34px} .ar-foto{display:none}
+  .ar-corpo{display:block;margin-top:14px} .ar-foto{display:none}
   .ar-lista{display:grid;grid-template-columns:1fr 1fr;gap:26px 28px;margin:0;padding:0;list-style:none}
   .ar-item{border-top:1px solid rgba(20,48,76,.16);padding-top:14px}
   .ar-item--i{border-top-style:dashed}
