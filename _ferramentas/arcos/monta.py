@@ -34,7 +34,7 @@ CSS = r"""
   line-height:1.2;letter-spacing:-.012em;color:var(--azul);max-width:40ch;text-wrap:balance}   /* 24/09: 40ch, para a frase caber em 2 linhas */
 /* 24/09: «ideal-m em mais negrito». O Plex Condensed para no 700, que o titulo
    ja usa; o peso a mais vem de um contorno da propria cor em volta das letras. */
-.ar-titulo .ar-marca{font-weight:700;-webkit-text-stroke:1.1px currentColor;paint-order:stroke fill}
+.ar-titulo .ar-marca{font-weight:700;-webkit-text-stroke:.55px currentColor;paint-order:stroke fill}   /* 24/09: 1,1 px ficou pesado demais; «um tom a menos» */
 .ar-legenda{display:flex;gap:26px;margin:0 0 4px;padding:0;list-style:none;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
