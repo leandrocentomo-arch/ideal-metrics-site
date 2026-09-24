@@ -58,7 +58,7 @@ CSS = r"""
    a caixa exata do viewBox, entao cada mancha cai sob o seu circulo. Sem WebGL
    fica a <img> ja tramada. Sem movimento na rolagem: o canvas mede a propria
    caixa, e deslocar a caixa a cada quadro descasaria o rastro do ponteiro. */
-.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%}
+.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.5}   /* 24/09: 50% mais transparentes, com trama um pouco mais densa (manchas.py) */
 .ar-manchas img,.ar-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ar-manchas.gl-on img{visibility:hidden}
 .ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.10);stroke-width:1;
@@ -204,8 +204,8 @@ def secao(L):
         '  </div>',
         '  <div class="ar-corpo">',
         '  <div class="ar-palco">',
-        '    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp?v=5" '
-        'data-lum="img/conhecimento-manchas-lum.webp?v=5" alt="" width="1800" height="%d" loading="lazy" decoding="async"></div>'
+        '    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp?v=6" '
+        'data-lum="img/conhecimento-manchas-lum.webp?v=6" alt="" width="1800" height="%d" loading="lazy" decoding="async"></div>'
         % round(1800 * arcos.limites(L)[3] / arcos.limites(L)[2]),
         svg(L),
         arcos.lista(),

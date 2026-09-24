@@ -34,7 +34,7 @@ import arcos
 
 SITE = os.path.dirname(os.path.dirname(AQUI))
 GAMA, CTR, BRILHO = .86, 1.55, .35
-TOM_AZUL, TOM_BEGE, CRUZA = .985, .99, .006   # 24/09: «ainda mais apagados» (era .975); 22/09 era .95
+TOM_AZUL, TOM_BEGE, CRUZA = .965, .98, .008   # 24/09 (tarde): «podem ficar mais densas, mas 50% mais transparentes»: 11% de pontos, e a camada inteira a 50% no CSS (monta.py)
 # a rampa da folha Demandas (e da tira da 1a secao), ja passada pelo filtro creme
 CORES = np.array([[21.2, 50.9, 80.6], [24.2, 56.2, 88.1], [103.0, 146.1, 189.4], [250, 249, 245]])
 LARG = 1800          # a vaga passou a ocupar a largura da pagina (ate ~1440 css vezes 1,25)
