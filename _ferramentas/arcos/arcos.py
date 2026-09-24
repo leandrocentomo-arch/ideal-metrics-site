@@ -26,6 +26,10 @@ import json, math, os
 AQUI = os.path.dirname(os.path.abspath(__file__))
 VB_W, VB_H = 1000, 600
 PAD_X, PIL_H = 8, 20           # respiro lateral e altura da pilula, em unidades do viewBox
+# 24/09: TODAS as etiquetas com a mesma largura, 62 unidades, menos as de nome
+# muito grande, que crescem so o necessario (GHG Protocol, ABNT PR 2030,
+# ISO/IEC 27001 e Observatorio setorial)
+PIL_W = 62
 TXT_PIL, TXT_TIT, LH_TIT = 8.5, 10.5, 12.5   # 22/09: titulo menor a pedido do Leandro (era 13)
 # 21/09: etiqueta menor a pedido do Leandro (era 12,5 de corpo e 26 de altura).
 # larguras.json foi medido a 12,5: a largura do texto escala linear com o corpo
@@ -47,25 +51,25 @@ TEMAS = [
  # nos alimentos). Fora do eixo, SEDEX/SMETA cruza com Padroes de mercado, porque
  # o SMETA 7.0 e um padrao de mercado. As etiquetas proprias ficam DENTRO do aro.
  ('iso', 'implantacao-iso.html', 'p', 480, 300, 100, ['Sistemas de', 'gestão ISO'],
-    [('ISO 9001', -145), ('ISO 41001', 0), ('ISO 50001', 180), ('ISO 45001', -120)]),
+    [('ISO 9001', -4), ('ISO 41001', 79), ('ISO 50001', -163), ('ISO 45001', -111)]),
  ('carbono', 'gestao-carbono.html', 'p', 275, 195, 70, ['Gestão', 'de carbono'],
-    [('GHG Protocol', -35), ('ISO 14068-1', 125), ('SBTi', 180), ('ISO 14064', -145)]),
+    [('GHG Protocol', 0), ('ISO 14068-1', 90), ('SBTi', -180), ('ISO 14064', -90)]),
  ('si', 'compliance-seguranca-informacao.html', 'p', 590, 185, 66, ['Segurança da', 'informação'],
-    [('LGPD', -125), ('SGSI', -55), ('ISO/IEC 27001', 'cruza:iso:cima')]),
- ('compliance', 'compliance-seguranca-informacao.html', 'p', 370, 410, 66, ['Gestão de', 'compliance'],
-    [('ISO 37301', -125), ('ISO 37001', 'cruza:iso:baixo')]),
+    [('LGPD', 35), ('SGSI', -85), ('ISO/IEC 27001', 'cruza:iso:cima')]),
+ ('compliance', 'compliance-seguranca-informacao.html', 'p', 370, 415, 66, ['Gestão de', 'compliance'],
+    [('ISO 37301', 150), ('ISO 37001', 'cruza:iso:baixo')]),
  ('alimentos', 'seguranca-alimentos.html', 'p', 605, 405, 64, ['Segurança', 'de alimentos'],
-    [('FSSC 22000', 35), ('ISO 22000', 'cruza:iso:baixo')]),
+    [('FSSC 22000', 32), ('ISO 22000', 'cruza:iso:baixo')]),
  ('smeta', 'sedex-smeta.html', 'p', 790, 120, 58, ['SEDEX', 'SMETA'],
-    [('SA 8000', -90), ('SMETA 7.0', 'cruza:padroes:cima')]),
+    [('SA 8000', -155), ('SMETA 7.0', 'cruza:padroes:cima')]),
  ('padroes', 'padroes-mercado.html', 'p', 870, 200, 62, ['Padrões', 'de mercado'],
-    [('EcoVadis', 125), ('IFC', 160), ('FSC', -55)]),
+    [('EcoVadis', 65), ('IFC', 150), ('FSC', -30)]),
  ('esg', 'esg.html', 'p', 770, 390, 56, ['ESG'],
-    [('ABNT PR 2030', 0), ('GRI', 55), ('IFRS S1 e S2', -125)]),
+    [('ABNT PR 2030', 0), ('GRI', 120), ('IFRS S1 e S2', -120)]),
  ('nrs', 'nrs.html', 'p', 195, 360, 68, ['Normas', 'Regulamentadoras'],
-    [('NR-01', -125), ('NR-12', 125), ('NR-17', 0)]),
+    [('NR-01', 90), ('NR-12', -150), ('NR-17', -30)]),
  ('estudos', 'estudos-pesquisa.html', 'i', 905, 470, 66, ['Estudos e', 'pesquisa', 'aplicada'],
-    [('Nota técnica', 35), ('Observatório setorial', 125), ('EUDR', -55)]),
+    [('Nota técnica', 90), ('Observatório setorial', -145), ('EUDR', -25)]),
 ]
 
 # os pares que se cruzam de proposito: a etiqueta da norma mora no encontro
@@ -125,7 +129,7 @@ def pilulas(L):
     out = []
     for tid, pag, div, cx, cy, r, tit, normas in TEMAS:
         for txt, ang in normas:
-            w = L.get(txt, len(txt) * 6.6) * ESC_PIL + 2 * PAD_X
+            w = max(PIL_W, L.get(txt, len(txt) * 6.6) * ESC_PIL + 2 * PAD_X)
             cruza = None
             if isinstance(ang, str):
                 _, cruza, lado = ang.split(':')

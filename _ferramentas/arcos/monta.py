@@ -94,6 +94,12 @@ CSS = r"""
 /* realce: o tema sob o mouse fica, os outros recuam */
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-tema:not(:hover):not(:focus-visible){opacity:.34}
 .ar-tema:is(:hover,:focus-visible) .ar-pil rect{stroke:rgba(20,48,76,.42)}
+/* 24/09: em repouso as etiquetas ficam levemente apagadas; no hover do tema, cheias */
+.ar-pil{opacity:.62;transition:opacity .3s ease}
+.ar-tema:is(:hover,:focus-visible) .ar-pil{opacity:1}
+.ar-pil--eco{opacity:0;pointer-events:none}
+.ar-tema:is(:hover,:focus-visible) .ar-pil--eco{opacity:1}
+%(ECO)s
 .ar-tema:focus-visible .ar-tit{text-decoration:underline;text-underline-offset:4px}
 .ar-lista{display:none}
 @media (max-width:1000px){
@@ -169,10 +175,18 @@ def svg(L):
         o.append('<text class="ar-tit" x="0" y="%.1f" aria-hidden="true">' % y0 +
                  ''.join('<tspan x="0" dy="%s">%s</tspan>' % ('0' if k == 0 else arcos.LH_TIT, arcos.esc(l))
                          for k, l in enumerate(tit)) + '</text>')
-        for p in (p for p in P if p['tema'] == tid):
-            o.append('<g class="ar-pil" aria-hidden="true"><rect x="%.1f" y="%.1f" width="%.1f" height="%d" rx="3"/>'
+        # 24/09: a etiqueta compartilhada (encontro de dois aros) existe nos DOIS grupos:
+        # a do dono aparece em repouso; a copia do vizinho («eco») so aparece quando o
+        # vizinho esta no hover, e ai sobe junto com ele, enquanto a do dono some.
+        for p in (p for p in P if p['tema'] == tid or p['cruza'] == tid):
+            eco = p['tema'] != tid
+            attrs = ''
+            if p['cruza']:
+                attrs = ' data-dono="%s" data-par="%s"' % (p['tema'], p['cruza'])
+            o.append('<g class="ar-pil%s"%s aria-hidden="true"><rect x="%.1f" y="%.1f" width="%.1f" height="%d" rx="3"/>'
                      '<text x="%.1f" y="%.1f">%s</text></g>'
-                     % (p['x0'] - cx, p['y0'] - cy, p['w'], arcos.PIL_H, p['x'] - cx, p['y'] - cy + 3.7, arcos.esc(p['txt'])))
+                     % (' ar-pil--eco' if eco else '', attrs, p['x0'] - cx, p['y0'] - cy, p['w'], arcos.PIL_H,
+                        p['x'] - cx, p['y'] - cy + 3.7, arcos.esc(p['txt'])))
         o.append('</a>')
     o.append('</g></svg>')
     return '\n'.join(o)
@@ -190,8 +204,8 @@ def secao(L):
         '  </div>',
         '  <div class="ar-corpo">',
         '  <div class="ar-palco">',
-        '    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp?v=4" '
-        'data-lum="img/conhecimento-manchas-lum.webp?v=4" alt="" width="1800" height="%d" loading="lazy" decoding="async"></div>'
+        '    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp?v=5" '
+        'data-lum="img/conhecimento-manchas-lum.webp?v=5" alt="" width="1800" height="%d" loading="lazy" decoding="async"></div>'
         % round(1800 * arcos.limites(L)[3] / arcos.limites(L)[2]),
         svg(L),
         arcos.lista(),
@@ -204,7 +218,15 @@ def secao(L):
 
 
 def css():
-    return CSS
+    # quando o PAR de uma etiqueta compartilhada esta no hover, a copia do dono some
+    # (a do par sobe no lugar dela), para nao ficar etiqueta dupla na tela
+    regras = []
+    for p in arcos.pilulas(arcos.larguras()):
+        if p['cruza']:
+            regras.append('.ar-svg:has(.ar-tema[data-t="%s"]:is(:hover,:focus-visible)) '
+                          '.ar-tema[data-t="%s"] .ar-pil[data-par="%s"]:not(.ar-pil--eco){opacity:0}'
+                          % (p['cruza'], p['tema'], p['cruza']))
+    return CSS.replace('%(ECO)s', chr(10).join(regras))
 
 
 PREVIA = """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
