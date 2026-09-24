@@ -1477,13 +1477,12 @@ body>*{position:relative;z-index:1}
   gap:40px;margin-top:34px;flex-wrap:wrap}
 /* 24/09: a frase fica com quase metade e a busca com a outra metade; o selo,
    menor, cai abaixo da frase. */
-.qc-abre-linha>div:first-child{flex:0 1 46%;min-width:280px}
-.qc-abre-linha .qc-busca{flex:0 1 44%;min-width:280px}
-.qc-lead{max-width:none}
+.qc-abre-linha>div:first-child{flex:0 1 52%;min-width:280px}
+.qc-abre-linha .qc-busca{flex:0 1 42%;min-width:280px}
 .qc-abre-linha .qc-titulo-sec{margin-top:0}
-.qc-abre-logo{display:block;height:46px;width:auto;margin:0 0 20px}
+.qc-abre-logo{display:block;height:74px;width:auto;margin:0 0 30px}   /* 24/09: maior, e em cima da busca */
 .qc-abre-selo{position:static;display:block;height:96px;width:auto;margin:28px 0 0}
-@media (max-width:880px){ .qc-abre-logo{height:38px;margin-bottom:16px}
+@media (max-width:880px){ .qc-abre-logo{height:52px;margin-bottom:18px}
   .qc-abre-selo{height:80px;margin-top:20px} }
 /* maquina de escrever: a frase entra letra a letra quando a secao aparece;
    .qc-cursor e o cursor, que pisca e some no fim. */
@@ -1525,7 +1524,7 @@ body>*{position:relative;z-index:1}
   line-height:1.45;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
 .qc-lead{margin:10px 0 0;font-family:var(--sans);font-weight:700;
   font-size:clamp(20px,2.2vw,30px);line-height:1.2;letter-spacing:-.012em;
-  color:var(--azul);max-width:26ch}
+  color:var(--azul);max-width:none}   /* 24/09: chega ate o meio da secao (era 26ch) */
 .qc-tira{display:flex;width:100%;height:min(560px,40vw);overflow:hidden;
   background:var(--mercurio);position:relative}
 .qc-col{position:relative;flex:1;overflow:hidden;min-width:0;
@@ -2516,12 +2515,12 @@ body>*{position:relative;z-index:1}
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
       <div class="qc-abre-linha">
         <div>
-          <img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=19092026" alt="Ideal Metrics" width="519" height="207">
           <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
           <p class="qc-lead" id="qcLead" data-texto="Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
           <img class="qc-abre-selo" src="img/selo-ideal-m.svg?v=19092026" alt="Ideal Metrics" width="229" height="229">
         </div>
         <form class="qc-busca" role="search" onsubmit="return false">
+          <img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=19092026" alt="Ideal Metrics" width="519" height="207">
           <p class="qc-busca-rot">Busca</p>
           <div class="qc-busca-caixa"><input id="buscaCampo" type="search" placeholder="Tema, norma ou padrão" autocomplete="off"
             spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes"><span class="qc-caret" aria-hidden="true"></span></div>
