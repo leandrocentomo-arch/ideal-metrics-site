@@ -31,7 +31,7 @@ CSS = r"""
 .ar-linha{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;
   flex-wrap:wrap;margin-top:34px}
 .ar-titulo{margin:0;font-family:var(--sans);font-weight:700;font-size:clamp(20px,2.2vw,30px);
-  line-height:1.2;letter-spacing:-.012em;color:var(--azul);max-width:24ch;text-wrap:balance}
+  line-height:1.2;letter-spacing:-.012em;color:var(--azul);max-width:34ch;text-wrap:balance}   /* 24/09: 34ch, para a frase nova caber em 2 linhas */
 .ar-legenda{display:flex;gap:26px;margin:0 0 4px;padding:0;list-style:none;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--azul-escuro)}
@@ -198,7 +198,7 @@ def secao(L):
         '  <div class="ar-cab">',
         '    <p class="ar-rotulo">Conhecimento / [ IM.2 ]</p>',
         '    <div class="ar-linha">',
-        '      <h2 class="ar-titulo" id="ar-titulo">Cada tema, com as normas e os padrões que aplicamos</h2>',
+        '      <h2 class="ar-titulo" id="ar-titulo">Sua organização em conformidade com normas e padrões setoriais</h2>',
         '      <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul>',
         '    </div>',
         '  </div>',
