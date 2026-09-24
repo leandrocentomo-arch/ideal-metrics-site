@@ -104,16 +104,22 @@ CSS = r"""
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-tema:not(:hover):not(:focus-visible) :is(.ar-tit,.ar-pil text){opacity:.34}
 .ar-tit{transition:opacity .35s ease}
 .ar-tema:is(:hover,:focus-visible) .ar-pil rect{stroke:rgba(20,48,76,.42)}
-/* 24/09: em repouso o NOME da norma fica levemente apagado; no hover do tema, cheio.
-   E no hover as etiquetas do tema giram um pouco, alternando o sentido, cada uma
-   em torno do proprio centro (transform-box). */
-.ar-pil{transform-box:fill-box;transform-origin:center;transform:rotate(0deg);
-  transition:opacity .3s ease,transform .45s cubic-bezier(.2,.7,.2,1)}
+/* 24/09: em repouso o NOME da norma fica levemente apagado; no hover do tema, cheio. */
 .ar-pil text{opacity:.62;transition:opacity .3s ease}
 .ar-tema:is(:hover,:focus-visible) .ar-pil text{opacity:1}
-.ar-tema:is(:hover,:focus-visible) .ar-pil:nth-of-type(odd){transform:rotate(-6deg)}
-.ar-tema:is(:hover,:focus-visible) .ar-pil:nth-of-type(even){transform:rotate(5deg)}
-@media (prefers-reduced-motion:reduce){ .ar-pil{transition:opacity .3s ease} .ar-tema:is(:hover,:focus-visible) .ar-pil{transform:none} }
+/* 24/09: CARROSSEL. No hover do tema as etiquetas andam 30 graus pela linha do aro,
+   em torno do centro do tema, e freiam devagar; soltando o mouse, voltam. O giro e
+   de .ar-orb, cuja origem (0,0) e o centro do tema; a .ar-pil dentro dele gira o
+   mesmo tanto ao contrario em torno do proprio centro, e por isso o texto continua
+   de pe. (A primeira versao so entortava cada etiqueta no lugar: recusada.) */
+.ar-orb{transform-box:view-box;transform-origin:0 0;transform:rotate(0deg);
+  transition:transform 2.4s cubic-bezier(.16,.8,.2,1)}
+.ar-orb .ar-pil{transform-box:fill-box;transform-origin:center;transform:rotate(0deg);
+  transition:opacity .3s ease,transform 2.4s cubic-bezier(.16,.8,.2,1)}
+.ar-tema:is(:hover,:focus-visible) .ar-orb{transform:rotate(30deg)}
+.ar-tema:is(:hover,:focus-visible) .ar-orb .ar-pil{transform:rotate(-30deg)}
+@media (prefers-reduced-motion:reduce){ .ar-orb,.ar-orb .ar-pil{transition:opacity .3s ease}
+  .ar-tema:is(:hover,:focus-visible) :is(.ar-orb,.ar-orb .ar-pil){transform:none} }
 .ar-pil--eco{opacity:0;pointer-events:none}
 .ar-tema:is(:hover,:focus-visible) .ar-pil--eco{opacity:1}
 %(ECO)s
@@ -206,8 +212,8 @@ def svg(L):
             attrs = ''
             if p['cruza']:
                 attrs = ' data-dono="%s" data-par="%s"' % (p['tema'], p['cruza'])
-            o.append('<g class="ar-pil%s"%s aria-hidden="true"><rect x="%.1f" y="%.1f" width="%.1f" height="%d" rx="3"/>'
-                     '<text x="%.1f" y="%.1f">%s</text></g>'
+            o.append('<g class="ar-orb"><g class="ar-pil%s"%s aria-hidden="true"><rect x="%.1f" y="%.1f" width="%.1f" height="%d" rx="3"/>'
+                     '<text x="%.1f" y="%.1f">%s</text></g></g>'
                      % (' ar-pil--eco' if eco else '', attrs, p['x0'] - cx, p['y0'] - cy, p['w'], arcos.PIL_H,
                         p['x'] - cx, p['y'] - cy + 3.7, arcos.esc(p['txt'])))
         o.append('</a>')
