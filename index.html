@@ -157,25 +157,9 @@ body>*{position:relative;z-index:1}
   background:var(--branco);color:var(--azul);border:none;cursor:pointer;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;padding:16px 24px}
-/* 23/09/2026: a SUPER BUSCA e o mapa do site dentro do veu. O site e estatico,
-   entao a busca roda no navegador sobre busca-indice.json, gerado por
-   _ferramentas/busca.py. O campo abre com o menu e ja vem com o foco. */
-.veu-busca{position:relative;margin:0 0 26px}
-.veu-busca input{width:100%;background:transparent;border:none;
-  border-bottom:1px solid rgba(250,249,245,.35);color:var(--mercurio);
-  font-family:var(--sans);font-weight:500;font-size:clamp(18px,1.8vw,24px);
-  padding:10px 0 12px;outline:none}
-.veu-busca input::placeholder{color:rgba(250,249,245,.45)}
-.veu-busca input:focus{border-bottom-color:var(--mercurio)}
-.veu-res{list-style:none;margin:10px 0 0;padding:0;max-height:46vh;overflow-y:auto}
-.veu-res li{border-bottom:1px solid rgba(250,249,245,.14)}
-.veu-res a{display:block;padding:12px 0;border:none;font-size:17px;font-weight:600;
-  line-height:1.25;counter-increment:none}
-.veu-res a::before{content:none}
-.veu-res a:hover,.veu-res li.sel a{color:var(--branco);padding-left:8px}
-.veu-res .veu-res-d{display:block;font-family:var(--sans);font-weight:400;font-size:13.5px;
-  color:rgba(250,249,245,.62);margin-top:3px}
-.veu-res .veu-res-vazio{padding:12px 0;font-size:15px;color:rgba(250,249,245,.62)}
+/* 23/09/2026: o mapa do site dentro do veu. «Todos os servicos» nao navega mais:
+   ele ABRE este painel com todos os temas, e so vai para servicos.html se o
+   navegador estiver sem JS. A busca saiu daqui e foi para a segunda secao. */
 .veu-mapa{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px;margin:30px 0 40px}
 .veu-mapa h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:rgba(250,249,245,.55);margin:0 0 10px;font-weight:500}
@@ -1459,6 +1443,25 @@ body>*{position:relative;z-index:1}
   display:block;height:150px;width:auto}
 @media (max-width:880px){ .qc-abre-logo{height:38px;margin-bottom:16px}
   .qc-abre-selo{position:static;height:96px;margin:24px var(--lado) 0} }
+/* 24/09/2026: a SUPER BUSCA mora na segunda secao, ao lado de «O que fazemos»,
+   que estava vazia do meio para a direita. O indice e busca-indice.json, gerado
+   por _ferramentas/busca.py e baixado so quando a pessoa digita a primeira letra. */
+.qc-busca{width:min(420px,100%);position:relative;margin-top:6px}
+.qc-busca-rot{margin:0 0 10px;font-family:var(--mono);font-weight:500;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
+.qc-busca input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--fio);
+  color:var(--azul);font-family:var(--sans);font-weight:500;font-size:19px;
+  padding:8px 0 10px;outline:none}
+.qc-busca input::placeholder{color:rgba(20,48,76,.45)}
+.qc-busca input:focus{border-bottom-color:var(--azul)}
+.qc-res{list-style:none;margin:8px 0 0;padding:0;max-height:300px;overflow-y:auto}
+.qc-res li{border-bottom:1px solid rgba(20,48,76,.14)}
+.qc-res a{display:block;padding:11px 0;font-family:var(--sans);font-weight:600;font-size:16px;
+  line-height:1.25;color:var(--azul);text-decoration:none;transition:padding-left .25s}
+.qc-res a:hover,.qc-res li.sel a{padding-left:8px}
+.qc-res .veu-res-d{display:block;font-weight:400;font-size:13px;color:var(--azul-escuro);margin-top:3px}
+.qc-res .veu-res-vazio{padding:11px 0;font-size:14px;color:var(--azul-escuro)}
+@media (max-width:880px){ .qc-busca{width:100%} }
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
   line-height:1.45;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
 .qc-lead{margin:10px 0 0;font-family:var(--sans);font-weight:700;
@@ -2322,17 +2325,13 @@ body>*{position:relative;z-index:1}
 </header>
 <nav class="veu-menu" id="veuMenu" aria-label="Menu">
   <p class="selo-mono">Ideal Metrics &middot; Integra&ccedil;&atilde;o e Sustentabilidade</p>
-<form class="veu-busca" role="search" onsubmit="return false">
-  <input id="buscaCampo" type="search" placeholder="Buscar tema, norma ou página" autocomplete="off" spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes">
-  <ul class="veu-res" id="buscaRes" role="listbox" hidden></ul>
-</form>
-  <a href="servicos.html">Todos os servi&ccedil;os</a>
+  <a href="servicos.html" id="veuTodos" aria-controls="veuMapa" aria-expanded="false">Todos os servi&ccedil;os</a>
   <a href="como-trabalhamos.html">Como trabalhamos</a>
   <a href="sobre.html">Quem somos</a>
   <a href="clientes.html">Clientes</a>
   <a href="blog.html">Conte&uacute;do</a>
   <a href="contato.html">Contato</a>
-  <div class="veu-mapa" aria-label="Todos os temas">
+  <div class="veu-mapa" id="veuMapa" aria-label="Todos os temas" hidden>
   <div><h3>Sistemas de gestão</h3><a href="implantacao-iso.html">Implantação ISO</a><a href="norma-iso-9001.html">ISO 9001</a><a href="norma-iso-14001.html">ISO 14001</a><a href="norma-iso-45001.html">ISO 45001</a><a href="compliance-seguranca-informacao.html">Compliance e segurança da informação</a><a href="suporte.html">Suporte ao sistema de gestão</a></div>
   <div><h3>Padrões e sustentabilidade</h3><a href="padroes-mercado.html">Padrões de mercado</a><a href="ifc-performance-standards.html">IFC Performance Standards</a><a href="sedex-smeta.html">SEDEX/SMETA</a><a href="gestao-carbono.html">Gestão de carbono</a><a href="esg.html">ESG</a></div>
   <div><h3>Segurança e inspeção</h3><a href="seguranca-alimentos.html">Segurança de alimentos</a><a href="nrs.html">Atendimento a NRs</a><a href="inspecoes.html">Inspeções</a><a href="produtos-inspecionamos.html">Produtos que inspecionamos</a></div>
@@ -2421,6 +2420,12 @@ body>*{position:relative;z-index:1}
           <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
           <p class="qc-lead">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
         </div>
+        <form class="qc-busca" role="search" onsubmit="return false">
+          <p class="qc-busca-rot">Busca</p>
+          <input id="buscaCampo" type="search" placeholder="Tema, norma ou padrão" autocomplete="off"
+            spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes">
+          <ul class="qc-res" id="buscaRes" role="listbox" hidden></ul>
+        </form>
       </div>
     </div>
     <img class="qc-abre-selo" src="img/selo-ideal-m.svg?v=19092026" alt="Ideal Metrics" width="229" height="229">
@@ -3810,6 +3815,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   });
 })();
 </script>
-<script src="js/busca.js?v=1"></script>
+<script src="js/busca.js?v=2"></script>
 </body>
 </html>

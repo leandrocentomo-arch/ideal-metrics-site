@@ -1,4 +1,5 @@
-/* A super busca do menu (23/09/2026).
+/* A super busca (23/09/2026; desde 24/09 na segunda secao da home) e o painel
+   «Todos os servicos» do menu grande.
 
    O site e estatico, entao a busca acontece no navegador: o indice
    busca-indice.json (gerado por _ferramentas/busca.py) so e baixado quando a
@@ -87,8 +88,20 @@
     } else if(e.key === 'Escape'){ campo.value = ''; procura(); }
   });
 
-  /* o campo recebe o foco quando o menu abre, e a busca zera quando ele fecha */
-  var abre = document.getElementById('abreMenu2'), fecha = document.getElementById('fechaMenu');
-  if(abre) abre.addEventListener('click', function(){ setTimeout(function(){ campo.focus(); }, 620); });
-  if(fecha) fecha.addEventListener('click', function(){ campo.value = ''; procura(); });
+})();
+
+/* «Todos os servicos», no menu grande, ABRE o painel com todos os temas em vez de
+   navegar (24/09/2026). Sem JS o link continua indo para servicos.html. */
+(function(){
+  var alvo = document.getElementById('veuTodos'), mapa = document.getElementById('veuMapa');
+  if(!alvo || !mapa) return;
+  alvo.addEventListener('click', function(e){
+    e.preventDefault();
+    var aberto = !mapa.hidden;
+    mapa.hidden = aberto;
+    alvo.setAttribute('aria-expanded', aberto ? 'false' : 'true');
+    if(!aberto) mapa.scrollIntoView({block:'nearest', behavior:'smooth'});
+  });
+  var fecha = document.getElementById('fechaMenu');
+  if(fecha) fecha.addEventListener('click', function(){ mapa.hidden = true; alvo.setAttribute('aria-expanded','false'); });
 })();

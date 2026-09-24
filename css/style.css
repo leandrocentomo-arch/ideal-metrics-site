@@ -3786,25 +3786,9 @@ html.js .content > .in-view { opacity: 1; transform: none; }
   background:var(--branco);color:var(--azul);border:none;cursor:pointer;
   font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;padding:16px 24px}
-/* 23/09/2026: a SUPER BUSCA e o mapa do site dentro do veu. O site e estatico,
-   entao a busca roda no navegador sobre busca-indice.json, gerado por
-   _ferramentas/busca.py. O campo abre com o menu e ja vem com o foco. */
-.veu-busca{position:relative;margin:0 0 26px}
-.veu-busca input{width:100%;background:transparent;border:none;
-  border-bottom:1px solid rgba(250,249,245,.35);color:var(--mercurio);
-  font-family:var(--sans);font-weight:500;font-size:clamp(18px,1.8vw,24px);
-  padding:10px 0 12px;outline:none}
-.veu-busca input::placeholder{color:rgba(250,249,245,.45)}
-.veu-busca input:focus{border-bottom-color:var(--mercurio)}
-.veu-res{list-style:none;margin:10px 0 0;padding:0;max-height:46vh;overflow-y:auto}
-.veu-res li{border-bottom:1px solid rgba(250,249,245,.14)}
-.veu-res a{display:block;padding:12px 0;border:none;font-size:17px;font-weight:600;
-  line-height:1.25;counter-increment:none}
-.veu-res a::before{content:none}
-.veu-res a:hover,.veu-res li.sel a{color:var(--branco);padding-left:8px}
-.veu-res .veu-res-d{display:block;font-family:var(--sans);font-weight:400;font-size:13.5px;
-  color:rgba(250,249,245,.62);margin-top:3px}
-.veu-res .veu-res-vazio{padding:12px 0;font-size:15px;color:rgba(250,249,245,.62)}
+/* 23/09/2026: o mapa do site dentro do veu. «Todos os servicos» nao navega mais:
+   ele ABRE este painel com todos os temas, e so vai para servicos.html se o
+   navegador estiver sem JS. A busca saiu daqui e foi para a segunda secao. */
 .veu-mapa{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px;margin:30px 0 40px}
 .veu-mapa h3{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
   color:rgba(250,249,245,.55);margin:0 0 10px;font-weight:500}

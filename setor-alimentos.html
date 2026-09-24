@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=22092026">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=57">
+<link rel="stylesheet" href="css/style.css?v=58">
 <script>document.documentElement.classList.add('js');window.addEventListener('load',function(){setTimeout(function(){if(!document.querySelector('.in-view')){var n=document.querySelectorAll('.rot-sec,.sec,.content>*');for(var i=0;i<n.length;i++){n[i].classList.add('in-view');}}},1200);});</script>
 </head>
 <body>
@@ -31,17 +31,13 @@
 </header>
 <nav class="veu-menu" id="veuMenu" aria-label="Menu">
   <p class="selo-mono">Ideal Metrics &middot; Integra&ccedil;&atilde;o e Sustentabilidade</p>
-<form class="veu-busca" role="search" onsubmit="return false">
-  <input id="buscaCampo" type="search" placeholder="Buscar tema, norma ou página" autocomplete="off" spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes">
-  <ul class="veu-res" id="buscaRes" role="listbox" hidden></ul>
-</form>
-  <a href="servicos.html">Todos os servi&ccedil;os</a>
+  <a href="servicos.html" id="veuTodos" aria-controls="veuMapa" aria-expanded="false">Todos os servi&ccedil;os</a>
   <a href="como-trabalhamos.html">Como trabalhamos</a>
   <a href="sobre.html">Quem somos</a>
   <a href="clientes.html">Clientes</a>
   <a href="blog.html">Conte&uacute;do</a>
   <a href="contato.html">Contato</a>
-  <div class="veu-mapa" aria-label="Todos os temas">
+  <div class="veu-mapa" id="veuMapa" aria-label="Todos os temas" hidden>
   <div><h3>Sistemas de gestão</h3><a href="implantacao-iso.html">Implantação ISO</a><a href="norma-iso-9001.html">ISO 9001</a><a href="norma-iso-14001.html">ISO 14001</a><a href="norma-iso-45001.html">ISO 45001</a><a href="compliance-seguranca-informacao.html">Compliance e segurança da informação</a><a href="suporte.html">Suporte ao sistema de gestão</a></div>
   <div><h3>Padrões e sustentabilidade</h3><a href="padroes-mercado.html">Padrões de mercado</a><a href="ifc-performance-standards.html">IFC Performance Standards</a><a href="sedex-smeta.html">SEDEX/SMETA</a><a href="gestao-carbono.html">Gestão de carbono</a><a href="esg.html">ESG</a></div>
   <div><h3>Segurança e inspeção</h3><a href="seguranca-alimentos.html">Segurança de alimentos</a><a href="nrs.html">Atendimento a NRs</a><a href="inspecoes.html">Inspeções</a><a href="produtos-inspecionamos.html">Produtos que inspecionamos</a></div>
@@ -215,7 +211,7 @@
 })();
 </script>
 <script src="js/barra.js?v=2"></script>
-<script src="js/busca.js?v=1"></script>
+<script src="js/busca.js?v=2"></script>
 <script src="js/trama.js?v=2"></script>
 <script src="js/banner.js?v=2"></script>
 </body></html>
