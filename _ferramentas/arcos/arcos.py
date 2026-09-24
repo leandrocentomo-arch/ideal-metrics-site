@@ -24,7 +24,7 @@ do site (getComputedTextLength), e nao estimadas."""
 import json, math, os
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-VB_W, VB_H = 1000, 520
+VB_W, VB_H = 1000, 600
 PAD_X, PIL_H = 8, 20           # respiro lateral e altura da pilula, em unidades do viewBox
 TXT_PIL, TXT_TIT, LH_TIT = 8.5, 10.5, 12.5   # 22/09: titulo menor a pedido do Leandro (era 13)
 # 21/09: etiqueta menor a pedido do Leandro (era 12,5 de corpo e 26 de altura).
@@ -35,6 +35,10 @@ ESC_TIT = TXT_TIT / 19          # os titulos de larguras.json foram medidos a 19
 # (id, pagina, divisao, cx, cy, r, linhas do titulo, [(norma, angulo em graus)])
 # angulo: 0 = direita, 90 = baixo (y do SVG cresce para baixo)
 TEMAS = [
+ # 24/09/2026 (tarde): ISO 14064 saiu do eixo, porque nao e norma de sistema de
+ # gestao certificavel; fica so no aro do carbono, que deixou de cruzar com o ISO.
+ # Mais respiro: mesma largura, mais altura. Etiqueta propria nunca encosta em
+ # aro alheio, nem no do vizinho que cruza (a ISO 41001 caia dentro do compliance).
  # 24/09/2026: o mosaico passou a contar uma HISTORIA, a pedido do Leandro.
  # «Sistemas de gestão ISO» e o eixo, no meio, e os temas cuja norma tambem e ISO
  # CRUZAM com ele: a etiqueta da norma fica no ponto onde os dois aros se
@@ -42,36 +46,36 @@ TEMAS = [
  # ISO/IEC 27001 na seguranca da informacao, ISO 37001 no compliance e ISO 22000
  # nos alimentos). Fora do eixo, SEDEX/SMETA cruza com Padroes de mercado, porque
  # o SMETA 7.0 e um padrao de mercado. As etiquetas proprias ficam DENTRO do aro.
- ('iso', 'implantacao-iso.html', 'p', 430, 250, 100, ['Sistemas de', 'gestão ISO'],
-    [('ISO 9001', -160), ('ISO 41001', 145), ('ISO 50001', 0), ('ISO 45001', 180)]),
- ('carbono', 'gestao-carbono.html', 'p', 325, 135, 66, ['Gestão', 'de carbono'],
-    [('GHG Protocol', -35), ('ISO 14068-1', 125), ('SBTi', 180), ('ISO 14064', 'cruza:iso:cima')]),
- ('si', 'compliance-seguranca-informacao.html', 'p', 560, 150, 66, ['Segurança da', 'informação'],
-    [('LGPD', 35), ('SGSI', -125), ('ISO/IEC 27001', 'cruza:iso:cima')]),
- ('compliance', 'compliance-seguranca-informacao.html', 'p', 320, 360, 66, ['Gestão de', 'compliance'],
-    [('ISO 37301', 55), ('ISO 37001', 'cruza:iso:baixo')]),
- ('alimentos', 'seguranca-alimentos.html', 'p', 555, 355, 64, ['Segurança', 'de alimentos'],
-    [('FSSC 22000', 125), ('ISO 22000', 'cruza:iso:baixo')]),
- ('smeta', 'sedex-smeta.html', 'p', 745, 120, 58, ['SEDEX', 'SMETA'],
-    [('SA 8000', 160), ('SMETA 7.0', 'cruza:padroes:cima')]),
- ('padroes', 'padroes-mercado.html', 'p', 825, 205, 62, ['Padrões', 'de mercado'],
-    [('EcoVadis', 125), ('IFC', 55), ('FSC', -160)]),
- ('esg', 'esg.html', 'p', 690, 310, 54, ['ESG'],
+ ('iso', 'implantacao-iso.html', 'p', 480, 300, 100, ['Sistemas de', 'gestão ISO'],
+    [('ISO 9001', -145), ('ISO 41001', 0), ('ISO 50001', 180), ('ISO 45001', -120)]),
+ ('carbono', 'gestao-carbono.html', 'p', 250, 150, 70, ['Gestão', 'de carbono'],
+    [('GHG Protocol', -35), ('ISO 14068-1', 125), ('SBTi', 180), ('ISO 14064', -145)]),
+ ('si', 'compliance-seguranca-informacao.html', 'p', 590, 185, 66, ['Segurança da', 'informação'],
+    [('LGPD', -125), ('SGSI', -55), ('ISO/IEC 27001', 'cruza:iso:cima')]),
+ ('compliance', 'compliance-seguranca-informacao.html', 'p', 370, 410, 66, ['Gestão de', 'compliance'],
+    [('ISO 37301', -125), ('ISO 37001', 'cruza:iso:baixo')]),
+ ('alimentos', 'seguranca-alimentos.html', 'p', 605, 405, 64, ['Segurança', 'de alimentos'],
+    [('FSSC 22000', 35), ('ISO 22000', 'cruza:iso:baixo')]),
+ ('smeta', 'sedex-smeta.html', 'p', 790, 120, 58, ['SEDEX', 'SMETA'],
+    [('SA 8000', -90), ('SMETA 7.0', 'cruza:padroes:cima')]),
+ ('padroes', 'padroes-mercado.html', 'p', 870, 200, 62, ['Padrões', 'de mercado'],
+    [('EcoVadis', 125), ('IFC', 160), ('FSC', -55)]),
+ ('esg', 'esg.html', 'p', 770, 390, 56, ['ESG'],
     [('ABNT PR 2030', 0), ('GRI', 55), ('IFRS S1 e S2', -125)]),
- ('nrs', 'nrs.html', 'p', 140, 290, 68, ['Normas', 'Regulamentadoras'],
+ ('nrs', 'nrs.html', 'p', 135, 390, 68, ['Normas', 'Regulamentadoras'],
     [('NR-01', -125), ('NR-12', 125), ('NR-17', 0)]),
- ('estudos', 'estudos-pesquisa.html', 'i', 880, 390, 64, ['Estudos e', 'pesquisa', 'aplicada'],
-    [('Nota técnica', 125), ('Observatório setorial', 35), ('EUDR', -145)]),
+ ('estudos', 'estudos-pesquisa.html', 'i', 905, 470, 66, ['Estudos e', 'pesquisa', 'aplicada'],
+    [('Nota técnica', 35), ('Observatório setorial', 125), ('EUDR', -55)]),
 ]
 
 # os pares que se cruzam de proposito: a etiqueta da norma mora no encontro
-CRUZAM = {frozenset(('iso', 'carbono')), frozenset(('iso', 'si')), frozenset(('iso', 'compliance')),
+CRUZAM = {frozenset(('iso', 'si')), frozenset(('iso', 'compliance')),
           frozenset(('iso', 'alimentos')), frozenset(('smeta', 'padroes'))}
 
 # manchas cheias por tras, independentes dos aros (como na referencia), todas
 # DENTRO da prancha: a primeira versao deixava uma sair por baixo
 # 22/09: manchas 20% menores e tudo mais junto (o esquema deixou de ocupar a largura da pagina)
-DISCOS = [(200, 260, 86), (430, 250, 74), (790, 170, 72), (360, 400, 60), (880, 390, 58)]
+DISCOS = [(190, 280, 92), (480, 300, 82), (830, 165, 76), (420, 460, 62), (940, 445, 60)]   # 24/09: a de Estudos sai do contorno
 # 21/09/2026: tres dos cinco discos em AZUL palido (o ISO, o do ESG com Padroes
 # de mercado e o de Estudos), a pedido do Leandro: «quero que tenha partes em
 # azul». Os outros dois ficam no bege da casa. Indices de DISCOS.
@@ -170,7 +174,6 @@ def colisoes(L, folga=6):
     for p in P:
         for tid, pag, div, cx, cy, r, tit, normas in TEMAS:
             if tid == p['tema'] or tid == p.get('cruza'): continue
-            if frozenset((tid, p['tema'])) in CRUZAM: continue
             d = math.hypot(p['x'] - cx, p['y'] - cy)
             if abs(d - r) < 34:
                 ruim.append('pilula no aro alheio: %s perto do aro de %s (%.0f)' % (p['txt'], tid, abs(d - r)))
