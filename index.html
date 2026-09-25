@@ -3911,7 +3911,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=4"></script>
+<script src="js/trama.js?v=2"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -3929,16 +3929,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'pronta',
       /* rampa 14304C 336699 D3E2F2 FAF9F5 com escuro 1,4 (a receita da vaga qc) e ja
          passada pelo min(creme, 1,06x) do filtro #foto-creme */
-      /* 25/09, TESTE: «a parte clara tem que ser creme; as outras mais azuladas, mais
-         contraste». O creme [250,249,245] fica (a bruma #EDF3FA foi recusada). Antes:
-         [21.2,50.9,80.6] [24.2,56.2,88.1] [103.0,146.1,189.4], com as duas escuras
-         quase iguais. Agora tinta mais funda #0E243E, um azul medio de verdade #265282
-         no lugar da segunda tinta, e o claro mais saturado #5C90C8; contraste 1,9
-         (a casa usa 1,55). */
-      /* 25/09, 2o teste: «aumente mais o contraste, ficou muito pastel». O pastel vinha
-         do brilho +0,35 da casa, que levanta tudo em direcao ao creme: aqui .18, e a
-         sigmoide de 1,9 para 2,5. */
-      cores:[[14,36,62],[38,82,130],[92,144,200],[250,249,245]], ctr:2.5, brilho:.18,
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
       zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
   })();
 
