@@ -3929,7 +3929,10 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'pronta',
       /* rampa 14304C 336699 D3E2F2 FAF9F5 com escuro 1,4 (a receita da vaga qc) e ja
          passada pelo min(creme, 1,06x) do filtro #foto-creme */
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[237,243,250]],
+      /* 25/09: «as 4 fotos um pouco mais azuladas»: o degrau mais claro da rampa deixa
+         o creme [250,249,245] e passa a BRUMA #EDF3FA da paleta do Spirit; as tres
+         cores escuras ficam. So nesta tira. */
       zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
   })();
 
