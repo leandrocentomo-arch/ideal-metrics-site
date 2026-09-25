@@ -3911,7 +3911,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=5"></script>
+<script src="js/trama.js?v=2"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -3929,12 +3929,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'pronta',
       /* rampa 14304C 336699 D3E2F2 FAF9F5 com escuro 1,4 (a receita da vaga qc) e ja
          passada pelo min(creme, 1,06x) do filtro #foto-creme */
-      /* 25/09, TESTE: o TINGIMENTO OFICIAL (MK-51 v2: PADRAO_F do Spirit e --bayer do
-         tingir.py): contraste 3,0, gama .98, brilho +.30, rampa 14304C 336699 BDDDFF
-         F7FAFE. A receita da tira era a «Index de hoje»: rampa
-         [21.2,50.9,80.6] [24.2,56.2,88.1] [103.0,146.1,189.4] [250,249,245], com
-         gama .86, contraste 1,55 e brilho +.35 (os padroes do motor). */
-      cores:[[20,48,76],[51,102,153],[189,221,255],[247,250,254]], gama:.98, ctr:3.0, brilho:.30,
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
       zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
   })();
 
