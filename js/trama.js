@@ -140,6 +140,12 @@
        contexto morto: a peca ficava so creme para sempre. Agora a peca volta
        inteira ao caminho sem WebGL. */
     var morto = false;
+    /* 25/09: tudo o que a peca pendura FORA dela (janela, documento, observadores)
+       fica registrado aqui, para destruir() soltar. Sem isto, criar e destruir a
+       mesma peca ao rolar a pagina empilharia ouvintes. */
+    var soltar = [];
+    function ouve(alvo, ev, fn, op){ alvo.addEventListener(ev, fn, op); soltar.push(function(){ alvo.removeEventListener(ev, fn, op); }); }
+    function observa(io){ soltar.push(function(){ io.disconnect(); }); return io; }
     cv.addEventListener('webglcontextlost', function(e){
       e.preventDefault();          /* sem isto o navegador nem tenta restaurar */
       morto = true; ligado = false;
@@ -233,9 +239,9 @@
        do topo: so baixam quando a secao se aproxima, com a mesma folga de 150%
        que o script das noticias ja usa para as fotos de reserva. */
     if(cfg.revelar === 'visivel' && 'IntersectionObserver' in window){
-      var obsL = new IntersectionObserver(function(es){
+      var obsL = observa(new IntersectionObserver(function(es){
         if(es.some(function(e){ return e.isIntersecting; })){ obsL.disconnect(); carrega(); }
-      }, {rootMargin:'150% 0px 150% 0px'});
+      }, {rootMargin:'150% 0px 150% 0px'}));
       obsL.observe(raiz);
     } else carrega();
 
@@ -275,7 +281,7 @@
     /* ---- ponteiro: ouvido na JANELA, como no OCI, para a trilha entrar pela borda
        em vez de nascer no meio da peca ---- */
     var alvoPt = [0,0], pt = [0,0], ptAnt = [0,0], temPt = false, perto = false, vel = 0, ultimoXY = null, dxy = 0;
-    window.addEventListener('pointermove', function(e){
+    ouve(window, 'pointermove', function(e){
       if(e.pointerType && e.pointerType !== 'mouse') return;
       if(!R) return;
       var x = (e.clientX - R.left)/R.width, y = 1 - (e.clientY - R.top)/R.height;
@@ -288,8 +294,8 @@
       if(perto) acorda();
     }, {passive:true});
     function some(){ temPt = false; ultimoXY = null; dxy = 0; }
-    document.documentElement.addEventListener('mouseleave', some);
-    window.addEventListener('blur', some);
+    ouve(document.documentElement, 'mouseleave', some);
+    ouve(window, 'blur', some);
 
     planos.forEach(function(pl, i){
       var g = cfg.empilhado ? raiz : pl.el;
@@ -304,27 +310,27 @@
           vai(q.zoom, on ? (cfg.zoomHover || 1) : 1, 850, CURVA.p4out, t);
           if(cfg.lavaHover != null) vai(q.lava, on ? cfg.lavaHover : (cfg.lavaRepouso || 0), 500, CURVA.suave, t); });
         acorda(); }
-      g.addEventListener('mouseenter', function(){ sobre = true; aplica(); });
-      g.addEventListener('mouseleave', function(){ sobre = false; aplica(); });
-      g.addEventListener('focusin',  function(){ foco = true; aplica(); });
-      g.addEventListener('focusout', function(e){ foco = !!(e.relatedTarget && g.contains(e.relatedTarget)); aplica(); });
+      ouve(g, 'mouseenter', function(){ sobre = true; aplica(); });
+      ouve(g, 'mouseleave', function(){ sobre = false; aplica(); });
+      ouve(g, 'focusin',  function(){ foco = true; aplica(); });
+      ouve(g, 'focusout', function(e){ foco = !!(e.relatedTarget && g.contains(e.relatedTarget)); aplica(); });
     });
-    window.addEventListener('resize', function(){ if(ligado){ mede(); acorda(); } });
+    ouve(window, 'resize', function(){ if(ligado){ mede(); acorda(); } });
 
     /* dois observadores, porque sao duas perguntas: "vale a pena desenhar?" (com
        200px de folga, para a peca ja chegar desenhada) e "ja entrou o bastante
        para revelar?" (o `start: top 85%` do OCI). */
     var visivel = true, desenhou = false, obsR = null;
     if('IntersectionObserver' in window){
-      new IntersectionObserver(function(es){ es.forEach(function(e){ visivel = e.isIntersecting; if(visivel) acorda(); }); },
-        {rootMargin:'200px 0px 200px 0px'}).observe(raiz);
+      observa(new IntersectionObserver(function(es){ es.forEach(function(e){ visivel = e.isIntersecting; if(visivel) acorda(); }); },
+        {rootMargin:'200px 0px 200px 0px'})).observe(raiz);
       if(cfg.revelar === 'visivel'){
-        obsR = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revela(); if(revelado) obsR.disconnect(); } }); },
-          {rootMargin:'0px 0px -15% 0px'});
+        obsR = observa(new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ revela(); if(revelado) obsR.disconnect(); } }); },
+          {rootMargin:'0px 0px -15% 0px'}));
         obsR.observe(raiz);
       }
     }
-    document.addEventListener('visibilitychange', function(){ if(!document.hidden) acorda(); });
+    ouve(document, 'visibilitychange', function(){ if(!document.hidden) acorda(); });
 
     function seco(){ revelado = true; pix.v = pix.de = pix.para = 1; bias.v = bias.de = bias.para = 0; acorda(); }
     function revela(){
@@ -472,6 +478,16 @@
     }
 
     return {
+      /* 25/09: DESTROI a peca e devolve o contexto WebGL ao navegador (o limite e de
+         uns 16 por pagina). Volta a <img> de reserva. Serve para quem cria a peca so
+         quando ela chega perto da tela e a solta quando ela se afasta. */
+      destruir: function(){
+        if(morto) return; morto = true; ligado = false; rodando = false;
+        soltar.forEach(function(f){ try { f(); } catch(e){} }); soltar = [];
+        raiz.classList.remove('gl-on');
+        if(cv.parentNode) cv.parentNode.removeChild(cv);
+        var ext = gl.getExtension('WEBGL_lose_context'); if(ext) ext.loseContext();
+      },
       /* fusao cruzada entre camadas empilhadas: 0,8 s em power4.inOut, como no OCI */
       fundir: function(para){
         var t = performance.now();

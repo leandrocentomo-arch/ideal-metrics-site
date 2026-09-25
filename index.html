@@ -1313,6 +1313,12 @@ body>*{position:relative;z-index:1}
   font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--azul-escuro)}
 .st-quadro{overflow:hidden;background:var(--liga-claro)}
+/* 25/09: Servicos, Diferenciais e Setores com a trama AO VIVO e o rastro do mouse
+   (js/trama.js), como a tira e o banner da IFC. O canvas cobre a vaga; a <img>
+   -bayer- fica de reserva (sem WebGL, e ate o motor ligar). */
+.sv-foto,.df-quadro,.st-quadro{position:relative}
+.vv-gl{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.sv-foto.gl-on img,.df-quadro.gl-on img,.st-quadro.gl-on img{visibility:hidden}
 .st-foto{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;
   transition:transform .6s cubic-bezier(.4,0,.2,1)}
 .st-card:hover .st-foto{transform:scale(1.04)}
@@ -2795,7 +2801,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-0" role="region" aria-labelledby="sv-btn-0">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/industria-bayer-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/industria-bayer-sv.webp?v=25092026" data-lum="img/industria-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Mais de 25 anos preparando organizações de diversos setores para as normas ISO 9001, 14001, 45001 e padrões de mercado.</p>
               <a class="sv-more" href="implantacao-iso.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -2810,7 +2816,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-1" role="region" aria-labelledby="sv-btn-1">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/energia-bayer-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/energia-bayer-sv.webp?v=25092026" data-lum="img/energia-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Inventário, neutralização e registro de emissões de gases de efeito estufa segundo o GHG Protocol.</p>
               <a class="sv-more" href="gestao-carbono.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -2825,7 +2831,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-2" role="region" aria-labelledby="sv-btn-2">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/alimentos-bayer-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/alimentos-bayer-sv.webp?v=25092026" data-lum="img/alimentos-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Consultoria para organizações que buscam atender aos padrões éticos SEDEX SMETA nas auditorias de 2 e 4 pilares.</p>
               <a class="sv-more" href="sedex-smeta.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -2840,7 +2846,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-3" role="region" aria-labelledby="sv-btn-3">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/logistica-bayer-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/logistica-bayer-sv.webp?v=25092026" data-lum="img/logistica-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Estruturação de práticas ambientais, sociais e de governança alinhadas aos padrões internacionais.</p>
               <a class="sv-more" href="esg.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -2855,7 +2861,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-4" role="region" aria-labelledby="sv-btn-4">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/tecnologia-bayer-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/tecnologia-bayer-sv.webp?v=25092026" data-lum="img/tecnologia-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Verificação de produto pós-produção e antes do embarque: funcionamento, estado, embalagem, quantidade e requisitos.</p>
               <a class="sv-more" href="inspecoes.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -2870,7 +2876,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-5" role="region" aria-labelledby="sv-btn-5">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/saude-bayer-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/saude-bayer-sv.webp?v=25092026" data-lum="img/saude-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Manutenção do sistema de gestão, auditorias internas e preparação para as recertificações periódicas.</p>
               <a class="sv-more" href="suporte.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -2884,7 +2890,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-6" role="region" aria-labelledby="sv-btn-6">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/industria-bayer-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/industria-bayer-sv.webp?v=25092026" data-lum="img/industria-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Avaliações e emissão de laudos para atendimento às Normas Regulamentadoras do trabalho.</p>
               <a class="sv-more" href="nrs.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -2898,7 +2904,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-7" role="region" aria-labelledby="sv-btn-7">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/energia-bayer-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/energia-bayer-sv.webp?v=25092026" data-lum="img/energia-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Consultoria para as normas e os padrões da gestão de segurança de alimentos, do APPCC à certificação.</p>
               <a class="sv-more" href="seguranca-alimentos.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -2912,7 +2918,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-8" role="region" aria-labelledby="sv-btn-8">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/tecnologia-bayer-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/tecnologia-bayer-sv.webp?v=25092026" data-lum="img/tecnologia-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Sistemas de compliance, antissuborno, segurança da informação e continuidade de negócios, integrados ao sistema de gestão.</p>
               <a class="sv-more" href="compliance-seguranca-informacao.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -2926,7 +2932,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-9" role="region" aria-labelledby="sv-btn-9">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/logistica-bayer-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/logistica-bayer-sv.webp?v=25092026" data-lum="img/logistica-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Estudos regulatórios e setoriais, índices, painéis e rastreabilidade de cadeia, com fonte primária e método declarado.</p>
               <a class="sv-more" href="estudos-pesquisa.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3017,7 +3023,7 @@ body>*{position:relative;z-index:1}
       <div class="df-bloco">
         <h3 class="df-nome">Experiência desde 1998</h3>
         <div class="df-quadro">
-          <img class="df-foto" src="img/industria-bayer-df.webp?v=25092026" alt="Planta industrial em tingimento azul da marca" loading="lazy">
+          <img class="df-foto" src="img/industria-bayer-df.webp?v=25092026" data-lum="img/industria-lum-df.webp?v=25092026" alt="Planta industrial em tingimento azul da marca" loading="lazy">
         </div>
         <p class="df-mono">Mais de 25 anos preparando organizações de diversos setores para normas e padrões de mercado, do diagnóstico ao certificado.</p>
       </div>
@@ -3030,7 +3036,7 @@ body>*{position:relative;z-index:1}
       <div class="df-bloco">
         <h3 class="df-nome">Inspeção internacional</h3>
         <div class="df-quadro">
-          <img class="df-foto" src="img/logistica-bayer-df.webp?v=25092026" alt="Operação logística em tingimento azul da marca" loading="lazy">
+          <img class="df-foto" src="img/logistica-bayer-df.webp?v=25092026" data-lum="img/logistica-lum-df.webp?v=25092026" alt="Operação logística em tingimento azul da marca" loading="lazy">
         </div>
         <p class="df-mono">Equipe de inspetores na Ásia, Europa e Oriente Médio. Verificamos produção e fornecedores na fonte, antes do embarque.</p>
       </div>
@@ -3043,7 +3049,7 @@ body>*{position:relative;z-index:1}
       <div class="df-bloco">
         <h3 class="df-nome">Foco de especialista</h3>
         <div class="df-quadro">
-          <img class="df-foto" src="img/tecnologia-bayer-df.webp?v=25092026" alt="Ambiente de tecnologia em tingimento azul da marca" loading="lazy">
+          <img class="df-foto" src="img/tecnologia-bayer-df.webp?v=25092026" data-lum="img/tecnologia-lum-df.webp?v=25092026" alt="Ambiente de tecnologia em tingimento azul da marca" loading="lazy">
         </div>
         <p class="df-mono">Desde 1998, cada projeto é conduzido de perto, com o consultor dentro do seu processo.</p>
       </div>
@@ -3068,37 +3074,37 @@ body>*{position:relative;z-index:1}
     <div class="st-grade">
       <article class="st-card">
         <header class="st-cab"><span class="st-num">01</span><span class="st-cat">Manufatura</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/industria-bayer-st.webp?v=25092026" alt="Indústria em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/industria-bayer-st.webp?v=25092026" data-lum="img/industria-lum-st.webp?v=25092026" alt="Indústria em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-industria.html">Indústria</a></h3>
         <p class="st-mono">Manufatura, metalurgia, plásticos e automotivo.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">02</span><span class="st-cat">Suprimentos</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/logistica-bayer-st.webp?v=25092026" alt="Logística em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/logistica-bayer-st.webp?v=25092026" data-lum="img/logistica-lum-st.webp?v=25092026" alt="Logística em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-logistica.html">Logística</a></h3>
         <p class="st-mono">Transporte, armazenagem e cadeia de suprimentos.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">03</span><span class="st-cat">Alimentício</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/alimentos-bayer-st.webp?v=25092026" alt="Alimentos em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/alimentos-bayer-st.webp?v=25092026" data-lum="img/alimentos-lum-st.webp?v=25092026" alt="Alimentos em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-alimentos.html">Alimentos</a></h3>
         <p class="st-mono">Processamento, distribuição e food service.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">04</span><span class="st-cat">Hospitalar</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/saude-bayer-st.webp?v=25092026" alt="Saúde em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/saude-bayer-st.webp?v=25092026" data-lum="img/saude-lum-st.webp?v=25092026" alt="Saúde em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-saude.html">Saúde</a></h3>
         <p class="st-mono">Hospitais, laboratórios e dispositivos médicos.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">05</span><span class="st-cat">Digital</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/tecnologia-bayer-st.webp?v=25092026" alt="Tecnologia em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/tecnologia-bayer-st.webp?v=25092026" data-lum="img/tecnologia-lum-st.webp?v=25092026" alt="Tecnologia em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-tecnologia.html">Tecnologia</a></h3>
         <p class="st-mono">Software, TI e serviços digitais.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">06</span><span class="st-cat">Energético</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/energia-bayer-st.webp?v=25092026" alt="Energia em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/energia-bayer-st.webp?v=25092026" data-lum="img/energia-lum-st.webp?v=25092026" alt="Energia em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-energia.html">Energia</a></h3>
         <p class="st-mono">Petróleo, gás, renováveis e utilities.</p>
       </article>
@@ -3911,7 +3917,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=2"></script>
+<script src="js/trama.js?v=6"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -3958,6 +3964,36 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, trilhaSoNaFigura:true, biasReacao:.10});
   })();
   /* ---------------- fim CONHECIMENTO manchas ---------------- */
+  /* ---------------- 25/09: Servicos, Diferenciais e Setores ao vivo ----------------
+     «todas as fotos com o mesmo efeito do mouse das 4 do inicio». Sao 19 fotos, e o
+     navegador so segura uns 16 contextos WebGL por pagina (o excedente derruba os
+     mais antigos, a tira primeiro). Por isso cada foto so liga o motor quando chega
+     perto da tela (60% de folga) e o DESTROI quando se afasta; nos Servicos, so a do
+     item aberto do acordeao. Tingimento oficial, o mesmo da tira. */
+  (function(){
+    var OFICIAL = [[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]];
+    function perto(raiz, zoom, pode){
+      var im = raiz.querySelector('img[data-lum]'); if(!im || !('IntersectionObserver' in window)) return null;
+      var gl = null, dentro = false;
+      function atualiza(){
+        var quer = dentro && (!pode || pode());
+        if(quer && !gl) gl = ditherVivo({raiz:raiz, planos:[{el:raiz, lum:im.getAttribute('data-lum')}], classeCanvas:'vv-gl',
+          revelar:'visivel', cores:OFICIAL, pincel:.7, zoomHover:zoom});
+        else if(!quer && gl){ gl.destruir(); gl = null; }
+      }
+      new IntersectionObserver(function(es){ es.forEach(function(e){ dentro = e.isIntersecting; }); atualiza(); },
+        {rootMargin:'60% 0px 60% 0px'}).observe(raiz);
+      return atualiza;
+    }
+    [].forEach.call(document.querySelectorAll('.df-quadro'), function(q){ perto(q, 1.035); });
+    [].forEach.call(document.querySelectorAll('.st-quadro'), function(q){ perto(q, 1.04); });
+    [].forEach.call(document.querySelectorAll('.sv-item'), function(item){
+      var f = item.querySelector('.sv-foto'); if(!f) return;
+      var at = perto(f, 1.035, function(){ return item.classList.contains('sv-open'); });
+      if(at) new MutationObserver(at).observe(item, {attributes:true, attributeFilter:['class']});
+    });
+  })();
+  /* ---------------- fim Servicos, Diferenciais e Setores ao vivo ---------------- */
   /* ---------------- a moldura de noticias: quatro camadas empilhadas ---------------- */
   (function(){
     var midia = document.querySelector('.nt-midia'); if(!midia) return;
