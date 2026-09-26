@@ -226,10 +226,27 @@ def svg(L):
         vagas = [-90 + 360.0 * k / max(1, n) for k in range(n)]
         def dif(a, b): return (a - b + 180) % 360 - 180
         melhor = min(range(n), key=lambda sft: sum(dif(vagas[k], angs[ordem[(k + sft) % n]]) ** 2 for k in range(n)))
+        # 26/09, 4a volta: angulo igual ainda nao e DISTANCIA igual (com 7 etiquetas, as
+        # duas de baixo ficam de lado e quase se encostam). A do topo fica PRESA em -90
+        # (o alinhamento); as outras andam ate o vao real entre retangulos vizinhos
+        # (canto a canto na diagonal) ficar igual em volta do circulo inteiro.
+        seq = [ordem[(k + melhor) % n] for k in range(n)]
+        alvo = [math.radians(v) for v in vagas]
+        def vao_real(ka, kb):
+            ia, ib = seq[ka], seq[kb]
+            dx = abs(r * math.cos(alvo[ka]) - r * math.cos(alvo[kb])) - (grupo[ia]['w'] + grupo[ib]['w']) / 2.0
+            dy = abs(r * math.sin(alvo[ka]) - r * math.sin(alvo[kb])) - arcos.PIL_H
+            return math.hypot(dx, dy) if dx > 0 and dy > 0 else max(dx, dy)
+        if n > 2:
+            for _ in range(6000):
+                vaos = [vao_real(k, (k + 1) % n) for k in range(n)]
+                if max(vaos) - min(vaos) < 0.05:
+                    break
+                alvo = [alvo[0]] + [alvo[k] + 0.2 * (vaos[k] - vaos[k - 1]) / r for k in range(1, n)]
         gira = {}
         for k in range(n):
-            i = ordem[(k + melhor) % n]
-            gira[i] = dif(vagas[k], angs[i])
+            i = seq[k]
+            gira[i] = dif(math.degrees(alvo[k]), angs[i])
         for i, p in enumerate(grupo):
             eco = p['tema'] != tid
             attrs = ''
