@@ -11,7 +11,7 @@ camada, parada: a norma nunca sai da linha. Quem da a profundidade sao as
 outras duas camadas, em sentidos opostos: os discos descem (64) e os aros
 soltos sobem (34). Com 30 e 14 o curso medido foi de 7px, invisivel. Com prefers-reduced-motion nada se move."""
 
-import sys, os, re
+import sys, os, re, math
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import arcos
 
@@ -119,8 +119,10 @@ CSS = r"""
   transition:transform 2.4s cubic-bezier(.16,.8,.2,1)}
 .ar-orb .ar-pil{transform-box:fill-box;transform-origin:center;transform:rotate(0deg);
   transition:opacity .3s ease,transform 2.4s cubic-bezier(.16,.8,.2,1)}
-.ar-tema:is(:hover,:focus-visible) .ar-orb{transform:rotate(30deg)}
-.ar-tema:is(:hover,:focus-visible) .ar-orb .ar-pil{transform:rotate(-30deg)}
+/* 26/09: o giro de cada etiqueta vem do gerador (--gira): no hover elas se repartem
+   em partes iguais em volta do aro. Era um giro fixo de 30 graus para todas. */
+.ar-tema:is(:hover,:focus-visible) .ar-orb{transform:rotate(var(--gira,0deg))}
+.ar-tema:is(:hover,:focus-visible) .ar-orb .ar-pil{transform:rotate(calc(-1 * var(--gira,0deg)))}
 @media (prefers-reduced-motion:reduce){ .ar-orb,.ar-orb .ar-pil{transition:opacity .3s ease}
   .ar-tema:is(:hover,:focus-visible) :is(.ar-orb,.ar-orb .ar-pil){transform:none} }
 .ar-pil--eco{opacity:0;pointer-events:none}
@@ -210,14 +212,28 @@ def svg(L):
         # 24/09: a etiqueta compartilhada (encontro de dois aros) existe nos DOIS grupos:
         # a do dono aparece em repouso; a copia do vizinho («eco») so aparece quando o
         # vizinho esta no hover, e ai sobe junto com ele, enquanto a do dono some.
-        for p in (p for p in P if p['tema'] == tid or p['cruza'] == tid):
+        # 26/09: no hover as etiquetas do tema se REPARTEM em partes iguais em volta do
+        # aro (360/n graus). A ordem em volta do circulo fica; a rotacao do conjunto e a
+        # que menos desloca (media circular). Cada etiqueta recebe o seu giro em --gira.
+        grupo = [p for p in P if p['tema'] == tid or p['cruza'] == tid]
+        angs = [math.degrees(math.atan2(p['y'] - cy, p['x'] - cx)) for p in grupo]
+        ordem = sorted(range(len(grupo)), key=lambda i: angs[i])
+        passo = 360.0 / max(1, len(grupo))
+        sx = sum(math.cos(math.radians(angs[i] - k*passo)) for k, i in enumerate(ordem))
+        sy = sum(math.sin(math.radians(angs[i] - k*passo)) for k, i in enumerate(ordem))
+        base = math.degrees(math.atan2(sy, sx))
+        gira = {}
+        for k, i in enumerate(ordem):
+            d = (base + k*passo) - angs[i]
+            gira[i] = (d + 180) % 360 - 180
+        for i, p in enumerate(grupo):
             eco = p['tema'] != tid
             attrs = ''
             if p['cruza']:
                 attrs = ' data-dono="%s" data-par="%s"' % (p['tema'], p['cruza'])
-            o.append('<g class="ar-orb"><g class="ar-pil%s"%s aria-hidden="true"><rect x="%.1f" y="%.1f" width="%.1f" height="%d" rx="3"/>'
+            o.append('<g class="ar-orb" style="--gira:%.2fdeg"><g class="ar-pil%s"%s aria-hidden="true"><rect x="%.1f" y="%.1f" width="%.1f" height="%d" rx="3"/>'
                      '<text x="%.1f" y="%.1f">%s</text></g></g>'
-                     % (' ar-pil--eco' if eco else '', attrs, p['x0'] - cx, p['y0'] - cy, p['w'], arcos.PIL_H,
+                     % (gira[i], ' ar-pil--eco' if eco else '', attrs, p['x0'] - cx, p['y0'] - cy, p['w'], arcos.PIL_H,
                         p['x'] - cx, p['y'] - cy + 3.7, arcos.esc(p['txt'])))
         o.append('</a>')
     o.append('</g></svg>')
