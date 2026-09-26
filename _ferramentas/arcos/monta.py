@@ -212,56 +212,24 @@ def svg(L):
         # 24/09: a etiqueta compartilhada (encontro de dois aros) existe nos DOIS grupos:
         # a do dono aparece em repouso; a copia do vizinho («eco») so aparece quando o
         # vizinho esta no hover, e ai sobe junto com ele, enquanto a do dono some.
-        # 26/09: no hover as etiquetas do tema se REPARTEM em partes iguais em volta do
-        # aro (360/n graus). A ordem em volta do circulo fica; a rotacao do conjunto e a
-        # que menos desloca (media circular). Cada etiqueta recebe o seu giro em --gira.
-        # 26/09, 2a volta: angulo igual NAO e vao igual: a etiqueta e um retangulo largo,
-        # que embaixo do aro fica de lado (ocupa muito arco) e na lateral fica de pe
-        # (ocupa pouco). Agora o que se iguala e o VAO entre uma etiqueta e a proxima:
-        # cada uma ocupa no arco a sua meia-largura projetada na tangente, e o que sobra
-        # do circulo se divide em n vaos iguais. Resolvido por iteracao (a ocupacao
-        # depende da posicao, que depende da ocupacao).
+        # 26/09: no hover as etiquetas do tema se repartem em volta do aro como um
+        # POLIGONO REGULAR com um vertice no alto: 360/n graus, a primeira em -90 (topo),
+        # e o desenho fica simetrico (referencia do Leandro: SGSI no alto, LGPD e ISO/IEC
+        # 27001 na mesma altura). A ordem em volta do circulo fica; entre as n formas de
+        # encaixar essa ordem nas vagas, vale a que menos desloca as etiquetas.
+        # (Tentativas do mesmo dia, recusadas: menor deslocamento sem ancora no topo, e
+        # vao igual entre retangulos; nenhuma das duas fica alinhada.)
         grupo = [p for p in P if p['tema'] == tid or p['cruza'] == tid]
         n = len(grupo)
-        angs = [math.atan2(p['y'] - cy, p['x'] - cx) for p in grupo]
+        angs = [math.degrees(math.atan2(p['y'] - cy, p['x'] - cx)) for p in grupo]
         ordem = sorted(range(n), key=lambda i: angs[i])
-        def meio_arco(i, t):   # meia ocupacao, em radianos, da etiqueta i no angulo t
-            return ((grupo[i]['w'] / 2.0) * abs(math.sin(t)) + (arcos.PIL_H / 2.0) * abs(math.cos(t))) / r
-        def acomoda(desl):
-            sx = sum(math.cos(angs[i] - desl[k]) for k, i in enumerate(ordem))
-            sy = sum(math.sin(angs[i] - desl[k]) for k, i in enumerate(ordem))
-            b = math.atan2(sy, sx)
-            return [b + d for d in desl]
-        alvo = acomoda([2 * math.pi * k / max(1, n) for k in range(n)])
-        for _ in range(60):
-            meios = [meio_arco(i, alvo[k]) for k, i in enumerate(ordem)]
-            vao = (2 * math.pi - 2 * sum(meios)) / max(1, n)
-            if vao <= 0:
-                break
-            desl = [0.0]
-            for k in range(1, n):
-                desl.append(desl[-1] + meios[k - 1] + vao + meios[k])
-            alvo = acomoda(desl)
-        # acerto fino: a distancia REAL entre os retangulos vizinhos (canto a canto
-        # quando estao na diagonal); cada etiqueta anda um pouco para o lado do vao
-        # maior ate os vaos ficarem iguais
-        def vao_real(ka, kb):
-            ia, ib = ordem[ka], ordem[kb]
-            xa, ya = r * math.cos(alvo[ka]), r * math.sin(alvo[ka])
-            xb, yb = r * math.cos(alvo[kb]), r * math.sin(alvo[kb])
-            dx = abs(xa - xb) - (grupo[ia]['w'] + grupo[ib]['w']) / 2.0
-            dy = abs(ya - yb) - arcos.PIL_H
-            return math.hypot(dx, dy) if dx > 0 and dy > 0 else max(dx, dy)
-        if n > 2:
-            for _ in range(3000):
-                vaos = [vao_real(k, (k + 1) % n) for k in range(n)]
-                if max(vaos) - min(vaos) < 0.05:
-                    break
-                alvo = [alvo[k] + 0.2 * (vaos[k] - vaos[k - 1]) / r for k in range(n)]
+        vagas = [-90 + 360.0 * k / max(1, n) for k in range(n)]
+        def dif(a, b): return (a - b + 180) % 360 - 180
+        melhor = min(range(n), key=lambda sft: sum(dif(vagas[k], angs[ordem[(k + sft) % n]]) ** 2 for k in range(n)))
         gira = {}
-        for k, i in enumerate(ordem):
-            d = math.degrees(alvo[k] - angs[i])
-            gira[i] = (d + 180) % 360 - 180
+        for k in range(n):
+            i = ordem[(k + melhor) % n]
+            gira[i] = dif(vagas[k], angs[i])
         for i, p in enumerate(grupo):
             eco = p['tema'] != tid
             attrs = ''
