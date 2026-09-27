@@ -226,6 +226,11 @@ def svg(L):
         vagas = [-90 + 360.0 * k / max(1, n) for k in range(n)]
         def dif(a, b): return (a - b + 180) % 360 - 180
         melhor = min(range(n), key=lambda sft: sum(dif(vagas[k], angs[ordem[(k + sft) % n]]) ** 2 for k in range(n)))
+        # 27/09: tema com etiqueta escolhida para o topo no hover (senao, as que ja estao
+        # no lugar nao se mexem: no carbono elas ja formavam a cruz)
+        TOPO = {'carbono': 'GHG Protocol'}
+        if tid in TOPO:
+            melhor = next(sft for sft in range(n) if grupo[ordem[sft]]['txt'] == TOPO[tid])
         # 26/09, 4a volta: angulo igual ainda nao e DISTANCIA igual (com 7 etiquetas, as
         # duas de baixo ficam de lado e quase se encostam). A do topo fica PRESA em -90
         # (o alinhamento); as outras andam ate o vao real entre retangulos vizinhos
