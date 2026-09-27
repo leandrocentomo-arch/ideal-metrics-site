@@ -76,6 +76,21 @@ TEMAS = [
 CRUZAM = {frozenset(('iso', 'si')), frozenset(('iso', 'compliance')),
           frozenset(('iso', 'alimentos')), frozenset(('smeta', 'padroes'))}
 
+# 27/09/2026: «quero que encoste mas nao passe, apenas encoste os aros». Os pares
+# que se cruzavam passam a ser TANGENTES: o primeiro de cada par anda na linha dos
+# centros ate a distancia ser exatamente a soma dos raios; o segundo fica. A
+# etiqueta compartilhada mora no ponto onde os dois aros se tocam.
+ENCOSTAR = [('si', 'iso'), ('compliance', 'iso'), ('alimentos', 'iso'), ('smeta', 'padroes')]
+def _encosta():
+    por = {t[0]: list(t) for t in TEMAS}
+    for mov, fixo in ENCOSTAR:
+        m, f = por[mov], por[fixo]
+        dx, dy = m[3] - f[3], m[4] - f[4]
+        d = math.hypot(dx, dy)
+        m[3] = f[3] + dx / d * (m[5] + f[5]); m[4] = f[4] + dy / d * (m[5] + f[5])
+    return [tuple(por[t[0]]) for t in TEMAS]
+TEMAS = _encosta()
+
 # manchas cheias por tras, independentes dos aros (como na referencia), todas
 # DENTRO da prancha: a primeira versao deixava uma sair por baixo
 # 22/09: manchas 20% menores e tudo mais junto (o esquema deixou de ocupar a largura da pagina)
@@ -106,6 +121,8 @@ def cruzamento(a, b, lado='baixo'):
     """um dos dois pontos onde os aros dos temas a e b se cruzam"""
     (x1, y1, r1), (x2, y2, r2) = aro(a), aro(b)
     d = math.hypot(x2 - x1, y2 - y1)
+    if abs(d - (r1 + r2)) < 1e-6:          # tangentes (27/09): o ponto em que se tocam
+        return (x1 + (x2 - x1) / d * r1, y1 + (y2 - y1) / d * r1)
     assert abs(r1 - r2) < d < r1 + r2, 'os aros de %s e %s nao se cruzam' % (a, b)
     k = (d * d + r1 * r1 - r2 * r2) / (2 * d)
     h = math.sqrt(r1 * r1 - k * k)

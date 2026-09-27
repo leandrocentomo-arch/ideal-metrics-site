@@ -195,14 +195,14 @@ def svg(L):
     # linha de aro passar por cima de etiqueta (ver o CSS de .ar-aros)
     o.append('<g class="ar-aros" aria-hidden="true">')
     for tid, pag, div, cx, cy, r, tit, normas in T:
-        o.append('<circle class="ar-aro%s" data-t="%s" r="%d" style="--cx:%dpx;--cy:%dpx"/>'
+        o.append('<circle class="ar-aro%s" data-t="%s" r="%d" style="--cx:%.2fpx;--cy:%.2fpx"/>'
                  % (' ar-aro--i' if div == 'i' else '', tid, r, cx, cy))
     o.append('</g>')
     o.append('<g class="ar-temas">')
     P = arcos.pilulas(L)
     for tid, pag, div, cx, cy, r, tit, normas in T:
         rot = '%s: %s' % (' '.join(tit), ', '.join(arcos.normas_de(tid)))
-        o.append('<a class="ar-tema" data-t="%s" href="%s" aria-label="%s" style="--cx:%dpx;--cy:%dpx">'
+        o.append('<a class="ar-tema" data-t="%s" href="%s" aria-label="%s" style="--cx:%.2fpx;--cy:%.2fpx">'
                  % (tid, pag, arcos.esc(rot), cx, cy))
         o.append('<circle class="ar-alvo" r="%d"/>' % r)
         y0 = -arcos.LH_TIT * (len(tit) - 1) / 2.0
