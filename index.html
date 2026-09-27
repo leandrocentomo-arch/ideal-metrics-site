@@ -297,6 +297,13 @@ body>*{position:relative;z-index:1}
 .ar-aros .ar-aro{transform:translate(var(--cx),var(--cy)) scale(1);
   transition:transform .45s cubic-bezier(.2,.7,.2,1),stroke .35s ease,opacity .35s ease}
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-aro{opacity:.34}
+/* 27/09: no hover de um tema, as manchas pontilhadas ficam 15% mais transparentes
+   (.75 -> .60), o titulo cresce e o nome da norma vai ao azul-tinta do titulo */
+.ar-palco:has(.ar-tema:is(:hover,:focus-visible)) .ar-manchas{opacity:.60}
+.ar-manchas{transition:opacity .35s ease}
+.ar-tit{transition:opacity .35s ease,font-size .45s cubic-bezier(.2,.7,.2,1)}
+.ar-tema:is(:hover,:focus-visible) .ar-tit{font-size:13px}
+.ar-tema:is(:hover,:focus-visible) .ar-pil text{fill:var(--azul)}
 .ar-tema:focus{outline:none}
 @media (prefers-reduced-motion:reduce){ .ar-tema{transition:opacity .35s ease} }
 .ar-alvo{fill:transparent}
@@ -313,10 +320,9 @@ body>*{position:relative;z-index:1}
 /* 24/09: quem recua e o TEXTO (titulo e nome da norma), nunca o fundo da
    etiqueta: o creme dela fica opaco sempre, para o aro nao aparecer por tras */
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-tema:not(:hover):not(:focus-visible) :is(.ar-tit,.ar-pil text){opacity:.34}
-.ar-tit{transition:opacity .35s ease}
 .ar-tema:is(:hover,:focus-visible) .ar-pil rect{stroke:rgba(20,48,76,.42)}
 /* 24/09: em repouso o NOME da norma fica levemente apagado; no hover do tema, cheio. */
-.ar-pil text{opacity:.62;transition:opacity .3s ease}
+.ar-pil text{opacity:.62;transition:opacity .3s ease,fill .3s ease}
 .ar-tema:is(:hover,:focus-visible) .ar-pil text{opacity:1}
 /* 24/09: CARROSSEL. No hover do tema as etiquetas andam 30 graus pela linha do aro,
    em torno do centro do tema, e freiam devagar; soltando o mouse, voltam. O giro e
