@@ -232,11 +232,28 @@ def svg(L):
         # (canto a canto na diagonal) ficar igual em volta do circulo inteiro.
         seq = [ordem[(k + melhor) % n] for k in range(n)]
         alvo = [math.radians(v) for v in vagas]
+        # 27/09: o que se ve entre duas etiquetas e o TRECHO DO ARO que aparece entre
+        # elas (e nao a distancia reta entre os retangulos). Mede-se onde o aro sai de
+        # cada retangulo e iguala-se o arco visivel entre um e o proximo.
+        def saida(i, t, sinal):
+            cxp, cyp = r * math.cos(t), r * math.sin(t)
+            w2, h2 = grupo[i]['w'] / 2.0, arcos.PIL_H / 2.0
+            def dentro(dl):
+                x, y = r * math.cos(t + sinal * dl), r * math.sin(t + sinal * dl)
+                return abs(x - cxp) <= w2 and abs(y - cyp) <= h2
+            a, b = 0.0, math.pi / 2
+            for _ in range(40):
+                m = (a + b) / 2
+                if dentro(m): a = m
+                else: b = m
+            return b
         def vao_real(ka, kb):
             ia, ib = seq[ka], seq[kb]
-            dx = abs(r * math.cos(alvo[ka]) - r * math.cos(alvo[kb])) - (grupo[ia]['w'] + grupo[ib]['w']) / 2.0
-            dy = abs(r * math.sin(alvo[ka]) - r * math.sin(alvo[kb])) - arcos.PIL_H
-            return math.hypot(dx, dy) if dx > 0 and dy > 0 else max(dx, dy)
+            fim_a = alvo[ka] + saida(ia, alvo[ka], 1)
+            ini_b = alvo[kb] - saida(ib, alvo[kb], -1)
+            d = (ini_b - fim_a) % (2 * math.pi)
+            if d > math.pi * 1.5: d -= 2 * math.pi
+            return d * r
         if n > 2:
             for _ in range(6000):
                 vaos = [vao_real(k, (k + 1) % n) for k in range(n)]
