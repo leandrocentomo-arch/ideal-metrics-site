@@ -324,9 +324,9 @@ body>*{position:relative;z-index:1}
    mesmo tanto ao contrario em torno do proprio centro, e por isso o texto continua
    de pe. (A primeira versao so entortava cada etiqueta no lugar: recusada.) */
 .ar-orb{transform-box:view-box;transform-origin:0 0;transform:rotate(0deg);
-  transition:transform 2.4s cubic-bezier(.16,.8,.2,1)}
+  transition:transform 1.6s cubic-bezier(.16,.8,.2,1)}   /* 27/09: um pouco mais rapido (era 2,4 s) */
 .ar-orb .ar-pil{transform-box:fill-box;transform-origin:center;transform:rotate(0deg);
-  transition:opacity .3s ease,transform 2.4s cubic-bezier(.16,.8,.2,1)}
+  transition:opacity .3s ease,transform 1.6s cubic-bezier(.16,.8,.2,1)}
 /* 26/09: o giro de cada etiqueta vem do gerador (--gira): no hover elas se repartem
    em partes iguais em volta do aro. Era um giro fixo de 30 graus para todas. */
 .ar-tema:is(:hover,:focus-visible) .ar-orb{transform:rotate(var(--gira,0deg))}
