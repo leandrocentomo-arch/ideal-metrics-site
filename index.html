@@ -4145,7 +4145,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=10"></script>
+<script src="js/trama.js?v=11"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -4204,7 +4204,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       return {el:c, lum: im ? im.getAttribute('data-lum') : null,
               ax: c.classList.contains('sh-col--carbono') ? 1 : .5, espelha: c.classList.contains('sh-col--iso')};
     });
-    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel', colorido:true, forte:true, sat:.8, sombra:.58, niveis:2, sombraCor:[52,110,178],   /* 28/09: «a parte escura esta muito escura»: sombras em #346EB2 (era #184A8A), ate 58% */   /* 28/09: «mais vivida, escuros mais azulados»: sat .55->.8, sombra .5->.62, sombras em #184A8A no lugar da tinta */
+    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel', colorido:true, forte:true, sat:.8, sombra:.55, niveis:2, sombraCor:[52,110,178], piso:.22,   /* 28/09: «muito escura e sem nitidez»: piso de 22% no preto e sombras azuladas NA MESMA luminancia (detalhe fica) */   /* 28/09: «mais vivida, escuros mais azulados»: sat .55->.8, sombra .5->.62, sombras em #184A8A no lugar da tinta */
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
       zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
   })();
