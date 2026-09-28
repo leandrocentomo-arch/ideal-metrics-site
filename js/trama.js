@@ -74,6 +74,11 @@
        canal a canal, com o mesmo limiar de Bayer, a mesma celula e o mesmo rastro:
        4 niveis por canal, na cor original, sem a rampa da casa. */
     'uniform float uCor;' +
+    /* 28/09 (teste 2): uMistura puxa a cor original para o tingimento da casa antes
+       da trama: 0 = cor da foto, 1 = rampa da marca (continua, sobre o tom da luminancia) */
+    'uniform float uMistura;' +
+    'vec3 rampa(float v){ float x = v*3.;' +
+    '  return x < 1. ? mix(uC0,uC1,x) : (x < 2. ? mix(uC1,uC2,x-1.) : mix(uC2,uC3,clamp(x-2.,0.,1.))); }' +
     /* ruido de valor: bem mais barato que o Perlin 3D do OCI e, na amplitude em
        que entra (3% do limiar), indistinguivel dele */
     'float h(vec3 p){return fract(sin(dot(p, vec3(127.1,311.7,74.7)))*43758.5453);}' +
@@ -113,6 +118,7 @@
     '  float k = clamp(floor((v - bias)*3. + T), 0., 3.);' +
     '  vec3 c = k<.5 ? uC0 : (k<1.5 ? uC1 : (k<2.5 ? uC2 : uC3));' +
     '  if(uCor > .5){ vec3 rgb = texture2D(uLum, clamp(p*sc+of, 0., 1.)).rgb;' +
+    '    rgb = mix(rgb, rampa(tom(dot(rgb, vec3(.2126,.7152,.0722)))), uMistura);' +
     '    c = clamp(floor((rgb - bias)*3. + T), 0., 3.)/3.; }' +
     /* a chapa de creme do hover, que cede onde a trilha passa */
     '  c = mix(c, uCreme, uLava*(1. - uRevela*tr));' +
@@ -175,7 +181,7 @@
     function uni(pr, nomes){ var o = {}; nomes.forEach(function(n){ o[n] = gl.getUniformLocation(pr, n); }); return o; }
     var uT = uni(pT, ['t','res','pt','ptAnt','aspecto','vel','raio','borda','fica']);
     var uF = uni(pF, ['uLum','uTrilha','uB4','uB8','uTela','uCol','uTex','uAx','uEspelha','uZoom','uTempo','uC0','uC1','uC2','uC3','uCreme',
-      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor']);
+      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura']);
 
     var quad = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, quad);
@@ -466,6 +472,7 @@
       gl.uniform1f(uF.uRevela, cfg.revelaNaTrilha == null ? 0 : cfg.revelaNaTrilha);
       gl.uniform1f(uF.uSoFigura, cfg.trilhaSoNaFigura ? 1 : 0);
       gl.uniform1f(uF.uCor, cfg.colorido ? 1 : 0);
+      gl.uniform1f(uF.uMistura, cfg.mistura || 0);
 
       planos.forEach(function(pl){
         if(pl.opac.v < .002) return;
