@@ -2440,6 +2440,9 @@ body>*{position:relative;z-index:1}
 .sh-tira.gl-on .sh-foto{visibility:hidden}
 .sh-tira.gl-on .sh-col{background:none}
 .sh-tira.gl-on .sh-col::after{display:none}
+/* 28/09: TESTE da tira em cor original: sem o filtro creme, e um fio separando da tira oficial */
+.sh-tira--cor{border-top:1px solid var(--fio)}
+.sh-tira--cor .sh-foto{filter:none}
 .nt-midia{position:relative}
 .nt-gl{z-index:1}
 .nt-midia.gl-on .nt-layer{visibility:hidden}
@@ -2584,6 +2587,73 @@ body>*{position:relative;z-index:1}
       </article>
       <article class="sh-col sh-col--esg">
         <img class="sh-foto" src="img/lago-industria-bayer-qc.webp" data-lum="img/lago-industria-lum-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <div class="sh-conteudo">
+          <div>
+            <span class="sh-indice">[ 04 ]</span>
+            <h3 class="sh-titulo">ESG<br><strong>Sustentabilidade</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Comprova a sua prática de sustentabilidade</div>
+            <ul class="sh-lista"><li><span>Padrões de mercado</span></li><li><span>Relato e indicadores</span></li><li><span>Cadeia de fornecedores</span></li></ul>
+          </div>
+          <span class="sh-vertical" aria-hidden="true">Padrões</span>
+          <div>
+            <a class="sh-cta js-scramble" href="esg.html">Saiba mais</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <!-- 28/09: TESTE, a tira em COR ORIGINAL (mesma trama e mesmo rastro, canal a canal). Apagar este bloco, o CSS .sh-tira--cor e a chamada «tira em cor» para desfazer. -->
+    <div class="sh-tira sh-tira--cor">
+      <article class="sh-col sh-col--carbono">
+        <img class="sh-foto" src="img/energia-cor-bayer-qc.webp" data-lum="img/energia-cor-qc.webp" alt="" loading="lazy" decoding="async">
+        <div class="sh-conteudo">
+          <div>
+            <span class="sh-indice">[ 01 ]</span>
+            <h3 class="sh-titulo">Gestão<br><strong>de Carbono</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Reduz as emissões da sua operação</div>
+            <ul class="sh-lista"><li><span>Inventário de GEE</span></li><li><span>Carbono neutro</span></li><li><span>Créditos de carbono</span></li></ul>
+          </div>
+          <span class="sh-vertical" aria-hidden="true">Emissões</span>
+          <div>
+            <a class="sh-cta js-scramble" href="gestao-carbono.html">Saiba mais</a>
+          </div>
+        </div>
+      </article>
+      <article class="sh-col sh-col--iso">
+        <img class="sh-foto" src="img/industria-cor-bayer-qc.webp" data-lum="img/industria-cor-qc.webp" alt="" loading="lazy" decoding="async">
+        <div class="sh-conteudo">
+          <div>
+            <span class="sh-indice">[ 02 ]</span>
+            <h3 class="sh-titulo">ISO<br><strong>Certificação</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Busca certificação para a sua organização</div>
+            <ul class="sh-lista"><li><span>ISO 9001: gestão da qualidade</span></li><li><span>ISO 14001: ambiental</span></li><li><span>ISO 45001: saúde e segurança</span></li></ul>
+          </div>
+          <span class="sh-vertical" aria-hidden="true">Normas</span>
+          <div>
+            <a class="sh-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
+          </div>
+        </div>
+      </article>
+      <article class="sh-col sh-col--sedex">
+        <img class="sh-foto" src="img/etica-auditoria-cor-bayer-qc.webp" data-lum="img/etica-auditoria-cor-qc.webp" alt="" loading="lazy" decoding="async">
+        <div class="sh-conteudo">
+          <div>
+            <span class="sh-indice">[ 03 ]</span>
+            <h3 class="sh-titulo">SEDEX<br><strong>SMETA</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Atende às exigências dos seus clientes</div>
+            <ul class="sh-lista"><li><span>Direitos trabalhistas</span></li><li><span>Saúde e segurança</span></li><li><span>Ética e meio ambiente</span></li></ul>
+          </div>
+          <span class="sh-vertical" aria-hidden="true">Ética</span>
+          <div>
+            <a class="sh-cta js-scramble" href="sedex-smeta.html">Saiba mais</a>
+          </div>
+        </div>
+      </article>
+      <article class="sh-col sh-col--esg">
+        <img class="sh-foto" src="img/lago-industria-cor-bayer-qc.webp" data-lum="img/lago-industria-cor-qc.webp" alt="" loading="lazy" decoding="async">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>
@@ -3937,7 +4007,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=6"></script>
+<script src="js/trama.js?v=7"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -3955,6 +4025,20 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'pronta',
       /* rampa 14304C 336699 D3E2F2 FAF9F5 com escuro 1,4 (a receita da vaga qc) e ja
          passada pelo min(creme, 1,06x) do filtro #foto-creme */
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
+      zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
+  })();
+
+  /* ---------------- 28/09: TESTE, tira em cor ---------------- */
+  (function(){
+    var tira = document.querySelector('.sh-tira--cor'); if(!tira) return;
+    var cols = [].slice.call(tira.querySelectorAll('.sh-col'));
+    var planos = cols.map(function(c){
+      var im = c.querySelector('img.sh-foto');
+      return {el:c, lum: im ? im.getAttribute('data-lum') : null,
+              ax: c.classList.contains('sh-col--carbono') ? 1 : .5, espelha: c.classList.contains('sh-col--iso')};
+    });
+    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel', colorido:true,
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
       zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
   })();

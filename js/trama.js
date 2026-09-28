@@ -70,6 +70,10 @@
        quina do retangulo; com isto o cometa anda sobre os bonecos e some no
        branco. O corte e no tom JA revelado, medido na celula parada. */
     'uniform float uSoFigura;' +
+    /* 28/09 (teste): uCor > 0 -> a textura e a FOTO EM COR (RGB) e a trama e feita
+       canal a canal, com o mesmo limiar de Bayer, a mesma celula e o mesmo rastro:
+       4 niveis por canal, na cor original, sem a rampa da casa. */
+    'uniform float uCor;' +
     /* ruido de valor: bem mais barato que o Perlin 3D do OCI e, na amplitude em
        que entra (3% do limiar), indistinguivel dele */
     'float h(vec3 p){return fract(sin(dot(p, vec3(127.1,311.7,74.7)))*43758.5453);}' +
@@ -108,6 +112,8 @@
     '  float bias = uBias + n*uRespiro + uBiasReacao*tr;' +
     '  float k = clamp(floor((v - bias)*3. + T), 0., 3.);' +
     '  vec3 c = k<.5 ? uC0 : (k<1.5 ? uC1 : (k<2.5 ? uC2 : uC3));' +
+    '  if(uCor > .5){ vec3 rgb = texture2D(uLum, clamp(p*sc+of, 0., 1.)).rgb;' +
+    '    c = clamp(floor((rgb - bias)*3. + T), 0., 3.)/3.; }' +
     /* a chapa de creme do hover, que cede onde a trilha passa */
     '  c = mix(c, uCreme, uLava*(1. - uRevela*tr));' +
     '  gl_FragColor = vec4(c, uOpac);}';
@@ -169,7 +175,7 @@
     function uni(pr, nomes){ var o = {}; nomes.forEach(function(n){ o[n] = gl.getUniformLocation(pr, n); }); return o; }
     var uT = uni(pT, ['t','res','pt','ptAnt','aspecto','vel','raio','borda','fica']);
     var uF = uni(pF, ['uLum','uTrilha','uB4','uB8','uTela','uCol','uTex','uAx','uEspelha','uZoom','uTempo','uC0','uC1','uC2','uC3','uCreme',
-      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura']);
+      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor']);
 
     var quad = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, quad);
@@ -223,7 +229,8 @@
       im.onload = function(){
         var tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx);
         gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, gl.LUMINANCE, gl.UNSIGNED_BYTE, im); }
+        var fmt = cfg.colorido ? gl.RGB : gl.LUMINANCE;   /* 28/09 (teste): foto em cor */
+        try { gl.texImage2D(gl.TEXTURE_2D, 0, fmt, fmt, gl.UNSIGNED_BYTE, im); }
         catch(e){ gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); return; }
         gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
@@ -458,6 +465,7 @@
       gl.uniform1f(uF.uBiasReacao, cfg.biasReacao == null ? .20 : cfg.biasReacao); gl.uniform1f(uF.uRespiro, cfg.respiro == null ? .012 : cfg.respiro);
       gl.uniform1f(uF.uRevela, cfg.revelaNaTrilha == null ? 0 : cfg.revelaNaTrilha);
       gl.uniform1f(uF.uSoFigura, cfg.trilhaSoNaFigura ? 1 : 0);
+      gl.uniform1f(uF.uCor, cfg.colorido ? 1 : 0);
 
       planos.forEach(function(pl){
         if(pl.opac.v < .002) return;
