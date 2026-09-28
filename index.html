@@ -2740,7 +2740,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
     </div>
-    <!-- 28/09: TESTE 3, TRAMA QUE APARECE: cor original com o contraste da casa, 80% de saturacao, sombras em azul #184A8A (fora da paleta, de proposito) e tres niveis por canal. Apagar este bloco, o CSS .sh-tira--forte e a chamada «tira forte» para desfazer. -->
+    <!-- 28/09: TESTE 3, TRAMA QUE APARECE: cor original com o contraste da casa, 80% de saturacao, sombras em azul #346EB2 (fora da paleta, de proposito) e tres niveis por canal. Apagar este bloco, o CSS .sh-tira--forte e a chamada «tira forte» para desfazer. -->
     <div class="sh-tira sh-tira--forte">
       <article class="sh-col sh-col--carbono">
         <img class="sh-foto" src="img/energia-forte-bayer-qc.webp" data-lum="img/energia-cor-qc.webp" alt="" loading="lazy" decoding="async">
@@ -4204,7 +4204,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       return {el:c, lum: im ? im.getAttribute('data-lum') : null,
               ax: c.classList.contains('sh-col--carbono') ? 1 : .5, espelha: c.classList.contains('sh-col--iso')};
     });
-    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel', colorido:true, forte:true, sat:.8, sombra:.62, niveis:2, sombraCor:[24,74,138],   /* 28/09: «mais vivida, escuros mais azulados»: sat .55->.8, sombra .5->.62, sombras em #184A8A no lugar da tinta */
+    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel', colorido:true, forte:true, sat:.8, sombra:.58, niveis:2, sombraCor:[52,110,178],   /* 28/09: «a parte escura esta muito escura»: sombras em #346EB2 (era #184A8A), ate 58% */   /* 28/09: «mais vivida, escuros mais azulados»: sat .55->.8, sombra .5->.62, sombras em #184A8A no lugar da tinta */
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
       zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
   })();
