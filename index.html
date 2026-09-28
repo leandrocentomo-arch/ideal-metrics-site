@@ -2440,6 +2440,11 @@ body>*{position:relative;z-index:1}
 .sh-tira.gl-on .sh-foto{visibility:hidden}
 .sh-tira.gl-on .sh-col{background:none}
 .sh-tira.gl-on .sh-col::after{display:none}
+/* 28/09 (noite): a demao de creme do alto da coluna (::before, 38% no topo) era parte do
+   tingimento azul; no FILTRO EM COR ela clareava o ceu e o site saia diferente do Spirit
+   (ceu 137,219,250 contra 68,201,253). Com o motor ligado, so o veu do shader (0,17),
+   igual ao painel. Sem WebGL a reserva continua com a demao, para o escrito se ler. */
+.sh-tira.gl-on .sh-col::before{display:none}
 .nt-midia{position:relative}
 .nt-gl{z-index:1}
 .nt-midia.gl-on .nt-layer{visibility:hidden}
