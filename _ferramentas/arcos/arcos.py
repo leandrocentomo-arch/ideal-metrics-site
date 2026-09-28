@@ -53,7 +53,7 @@ TEMAS = [
  ('iso', 'implantacao-iso.html', 'p', 480, 300, 100, ['Sistemas de', 'gestão ISO'],
     [('ISO 9001', -4), ('ISO 41001', 172), ('ISO 50001', -156), ('ISO 45001', -111)]),   # 24/09: a 41001 (era 79) ficava espremida entre a 37001 e a 22000, que sao fixas nos cruzamentos; 41001 e 50001 buscadas juntas: folga minima de 33 unidades
  ('carbono', 'gestao-carbono.html', 'p', 275, 195, 70, ['Gestão', 'de carbono'],
-    [('GHG Protocol', 0), ('ISO 14068-1', 90), ('SBTi', -180), ('ISO 14064', -90)]),
+    [('GHG Protocol', -90), ('ISO 14068-1', 0), ('SBTi', 90), ('ISO 14064', -180)]),   # 28/09: GHG Protocol no TOPO em repouso (a roda girou 90 graus; a ordem em volta ficou); este tema nao gira no hover (monta.py SEM_GIRO)
  ('si', 'compliance-seguranca-informacao.html', 'p', 590, 185, 66, ['Segurança da', 'informação'],
     [('LGPD', 35), ('SGSI', -85), ('ISO/IEC 27001', 'cruza:iso:cima')]),
  ('compliance', 'compliance-seguranca-informacao.html', 'p', 370, 415, 66, ['Gestão de', 'compliance'],

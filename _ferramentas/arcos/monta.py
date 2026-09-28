@@ -61,14 +61,10 @@ CSS = r"""
    a caixa exata do viewBox, entao cada mancha cai sob o seu circulo. Sem WebGL
    fica a <img> ja tramada. Sem movimento na rolagem: o canvas mede a propria
    caixa, e deslocar a caixa a cada quadro descasaria o rastro do ponteiro. */
-/* 28/09: a TEXTURA DA PLACA DO MONOGRAMA no lugar das manchas pontilhadas: cada
-   mancha e um disco no SVG com o mesmo degrade liso da placa (azul-claro #BDDDFF
-   em cima, creme #FAF9F5 embaixo, no angulo da placa, canto a canto). Aros e
-   etiquetas na tinta do logo (#14304C). O ditherVivo saiu desta camada; as
-   imagens conhecimento-manchas-*.webp ficam no disco, sem uso. */
-.ar-discos circle{fill:url(#ar-placa);opacity:.9;transition:opacity .35s ease}
-.ar-discos{transition:opacity .35s ease}
-.ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.30);stroke-width:1;   /* 24/09: aros um pouco mais escuros (era .10); 28/09: tinta do logo, .30 */
+.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.75}   /* 24/09: eram .5 («50% mais transparentes»); depois «menos transparentes»: .75 */
+.ar-manchas img,.ar-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ar-manchas.gl-on img{visibility:hidden}
+.ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.20);stroke-width:1;   /* 24/09: aros um pouco mais escuros (era .10) */
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-soltos circle{stroke:rgba(20,48,76,.09)}
 .ar-aro--i{stroke-dasharray:3 5;stroke:var(--im-vermelho,#EF4545)}
@@ -95,7 +91,8 @@ CSS = r"""
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-aro{opacity:.34}
 /* 27/09: no hover de um tema, as manchas pontilhadas ficam 15% mais transparentes
    (.75 -> .60), o titulo cresce e o nome da norma vai ao azul-tinta do titulo */
-.ar-palco:has(.ar-tema:is(:hover,:focus-visible)) .ar-discos{opacity:.8}
+.ar-palco:has(.ar-tema:is(:hover,:focus-visible)) .ar-manchas{opacity:.60}
+.ar-manchas{transition:opacity .35s ease}
 .ar-tit{transition:opacity .35s ease,font-size .45s cubic-bezier(.2,.7,.2,1)}
 .ar-tema:is(:hover,:focus-visible) .ar-tit{font-size:13px}
 .ar-tema:is(:hover,:focus-visible) .ar-pil text{fill:var(--azul)}
@@ -110,7 +107,7 @@ CSS = r"""
 .ar-pil rect{fill:var(--mercurio);stroke:rgba(20,48,76,.12);stroke-width:1;
   vector-effect:non-scaling-stroke;transition:stroke .35s ease}
 .ar-pil text{font-family:var(--sans);font-weight:500;font-size:8.5px;letter-spacing:.01em;
-  text-anchor:middle;fill:var(--azul)}   /* 22/09: #5F7C9B; 28/09: a tinta do logo, como os elementos da placa */
+  text-anchor:middle;fill:#5F7C9B}   /* 22/09: um pouco mais clara (era #315275) */
 /* realce: o tema sob o mouse fica, os outros recuam */
 /* 24/09: quem recua e o TEXTO (titulo e nome da norma), nunca o fundo da
    etiqueta: o creme dela fica opaco sempre, para o aro nao aparecer por tras */
@@ -141,7 +138,7 @@ CSS = r"""
 .ar-lista{display:none}
 @media (max-width:1000px){
   .ar-sec{padding-top:70px;padding-bottom:78px}
-  .ar-svg{display:none}
+  .ar-svg,.ar-manchas{display:none}
   .ar-corpo{display:block;margin-top:14px} .ar-foto{display:none}
   .ar-lista{display:grid;grid-template-columns:1fr 1fr;gap:26px 28px;margin:0;padding:0;list-style:none}
   .ar-item{border-top:1px solid rgba(20,48,76,.16);padding-top:14px}
@@ -173,8 +170,12 @@ JS = r"""<script>
 # chamada do motor, inserida DENTRO do IIFE que define ditherVivo (ele nao e global)
 MOTOR = r"""  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---------------- */
   (function(){
-    /* 28/09: as manchas viraram discos com o degrade da placa do monograma, no
-       proprio SVG; o motor so cuida da foto do terco direito. */
+    var m = document.querySelector('.ar-manchas'); if(!m) return;
+    var im = m.querySelector('img'); if(!im) return;
+    /* 22/09: o rastro nesta secao escurecia a ponto de atrapalhar a leitura das
+       etiquetas por baixo dele: biasReacao 0,07 no lugar dos 0,20 das outras pecas */
+    ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, biasReacao:.07});
     /* a foto do terco direito (foto.py; ja sai na proporcao da vaga).
        22/09: o cometa fica, mas SO SOBRE A FIGURA (trilhaSoNaFigura). No branco
        em volta da piramide ele acendia pontos e desenhava a quina do retangulo
@@ -192,13 +193,6 @@ def svg(L):
     T = arcos.TEMAS
     o = ['<svg class="ar-svg" viewBox="%.1f %.1f %.1f %.1f" aria-label="Temas e normas da Ideal Metrics">'
          % arcos.limites(L)]
-    # 28/09: a textura da placa do monograma (Asset 182): degrade liso azul-claro ->
-    # creme, canto superior esquerdo ao inferior direito, um por disco (objectBoundingBox)
-    o.append('<defs><linearGradient id="ar-placa" x1="0" y1="0" x2=".75" y2="1">'
-             '<stop offset="0" stop-color="#BDDDFF"/><stop offset="1" stop-color="#FAF9F5"/></linearGradient></defs>')
-    o.append('<g class="ar-discos" aria-hidden="true">')
-    o += ['<circle cx="%d" cy="%d" r="%d"/>' % c for c in arcos.DISCOS]
-    o.append('</g>')
     if arcos.AROS_SOLTOS:
         o.append('<g class="ar-camada ar-soltos" data-ar-vel="-34" aria-hidden="true">')
         o += ['<circle cx="%d" cy="%d" r="%d"/>' % c for c in arcos.AROS_SOLTOS]
@@ -240,7 +234,10 @@ def svg(L):
         melhor = min(range(n), key=lambda sft: sum(dif(vagas[k], angs[ordem[(k + sft) % n]]) ** 2 for k in range(n)))
         # 27/09: tema com etiqueta escolhida para o topo no hover (senao, as que ja estao
         # no lugar nao se mexem: no carbono elas ja formavam a cruz)
-        TOPO = {'carbono': 'GHG Protocol'}
+        # 28/09: «a gestao de carbono nao precisa rodar, apenas deixe o GHG Protocol no
+        # topo do circulo»: o GHG ja nasce em -90 (arcos.py) e o tema fica PARADO no hover.
+        TOPO = {}
+        SEM_GIRO = {'carbono'}
         if tid in TOPO:
             melhor = next(sft for sft in range(n) if grupo[ordem[sft]]['txt'] == TOPO[tid])
         # 26/09, 4a volta: angulo igual ainda nao e DISTANCIA igual (com 7 etiquetas, as
@@ -280,7 +277,7 @@ def svg(L):
         gira = {}
         for k in range(n):
             i = seq[k]
-            gira[i] = dif(math.degrees(alvo[k]), angs[i])
+            gira[i] = 0.0 if tid in SEM_GIRO else dif(math.degrees(alvo[k]), angs[i])
         for i, p in enumerate(grupo):
             eco = p['tema'] != tid
             attrs = ''
@@ -307,6 +304,9 @@ def secao(L):
         '  </div>',
         '  <div class="ar-corpo">',
         '  <div class="ar-palco">',
+        '    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp?v=6" '
+        'data-lum="img/conhecimento-manchas-lum.webp?v=6" alt="" width="1800" height="%d" loading="lazy" decoding="async"></div>'
+        % round(1800 * arcos.limites(L)[3] / arcos.limites(L)[2]),
         svg(L),
         arcos.lista(),
         '  </div>',
