@@ -1552,7 +1552,8 @@ body>*{position:relative;z-index:1}
   gap:40px;margin-top:34px;flex-wrap:wrap}
 /* 24/09: a frase fica com quase metade e a busca com a outra metade; o selo,
    menor, cai abaixo da frase. */
-.qc-abre-linha>div:first-child{flex:0 1 58%;min-width:280px}   /* 28/09: «ate a metade da pagina, esta embolado»: 52 -> 58 */
+/* 28/09 (tarde): «troque de lado»: busca e logo a ESQUERDA, «O que fazemos» a DIREITA (ordem do HTML) */
+.qc-abre-linha>.qc-abre-texto{flex:0 1 58%;min-width:280px}   /* 28/09: «ate a metade da pagina, esta embolado»: 52 -> 58 */
 .qc-abre-linha .qc-busca{flex:0 1 36%;min-width:280px}
 .qc-abre-linha .qc-titulo-sec{margin-top:0}
 .qc-abre-logo{display:block;height:74px;width:auto;margin:0 0 30px}   /* 24/09: maior, e em cima da busca */
@@ -2607,11 +2608,6 @@ body>*{position:relative;z-index:1}
 <div class="qc-abre">
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
       <div class="qc-abre-linha">
-        <div>
-          <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
-          <p class="qc-lead" id="qcLead" data-texto="Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
-          <img class="qc-selo" src="img/selo-ideal-m.svg?v=28092026" alt="Ideal Metrics" width="229" height="229" loading="lazy">
-        </div>
         <form class="qc-busca" role="search" onsubmit="return false">
           <img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=28092026" alt="Ideal Metrics" width="519" height="209">
           <p class="qc-busca-rot">Busca</p>
@@ -2619,6 +2615,11 @@ body>*{position:relative;z-index:1}
             spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes"><span class="qc-caret" aria-hidden="true"></span></div>
           <ul class="qc-res" id="buscaRes" role="listbox" hidden></ul>
         </form>
+        <div class="qc-abre-texto">
+          <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
+          <p class="qc-lead" id="qcLead" data-texto="Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
+          <img class="qc-selo" src="img/selo-ideal-m.svg?v=28092026" alt="Ideal Metrics" width="229" height="229" loading="lazy">
+        </div>
       </div>
     </div>
   </section>
