@@ -161,11 +161,13 @@
   cur.className = 'qc-cur'; cur.setAttribute('aria-hidden', 'true');
   lead.setAttribute('aria-label', texto);
   lead.textContent = ''; lead.appendChild(alvo); lead.appendChild(cur);
+  /* 28/09: o traco da busca espera a frase terminar; sem o efeito (reduced-motion), ele pisca desde sempre */
+  if(caixa) caixa.classList.add('espera');
   var i = 0, rodando = false;
   function tecla(){
-    if(i >= texto.length){ lead.classList.remove('digitando'); lead.classList.add('pronta'); return; }
+    if(i >= texto.length){ lead.classList.remove('digitando'); lead.classList.add('pronta'); if(caixa) caixa.classList.remove('espera'); return; }
     var c = texto.charAt(i++); alvo.textContent += c;
-    setTimeout(tecla, (c === '.' || c === ',') ? 90 : 22);
+    setTimeout(tecla, (c === '.' || c === ',') ? 160 : 36);   /* 28/09: «um pouco mais devagar» (era 90/22) */
   }
   var obs = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting && !rodando){ rodando = true; lead.classList.add('digitando'); obs.disconnect(); setTimeout(tecla, 250); } });
