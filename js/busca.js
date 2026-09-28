@@ -149,28 +149,36 @@
     ['input','keyup','click','select'].forEach(function(ev){ campo.addEventListener(ev, move); });
   }
 
-  var lead = document.getElementById('qcLead');
-  if(!lead || !('IntersectionObserver' in window)) return;
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  /* 28/09: digitacao de codigo. A frase some, o cursor grosso aparece, e as letras
-     entram uma a uma a 22 ms (com um respiro de 90 ms depois de ponto e virgula, como
-     quem digita de verdade). Terminou, o cursor pisca. Dispara quando a frase
-     aparece na tela. A frase fica no data-texto, entao o HTML continua legivel. */
-  var texto = lead.getAttribute('data-texto') || lead.textContent;
-  var alvo = document.createElement('span'), cur = document.createElement('span');
-  cur.className = 'qc-cur'; cur.setAttribute('aria-hidden', 'true');
-  lead.setAttribute('aria-label', texto);
-  lead.textContent = ''; lead.appendChild(alvo); lead.appendChild(cur);
-  /* 28/09: o traco da busca espera a frase terminar; sem o efeito (reduced-motion), ele pisca desde sempre */
-  if(caixa) caixa.classList.add('espera');
-  var i = 0, rodando = false;
-  function tecla(){
-    if(i >= texto.length){ lead.classList.remove('digitando'); lead.classList.add('pronta'); if(caixa) caixa.classList.remove('espera'); return; }
-    var c = texto.charAt(i++); alvo.textContent += c;
-    setTimeout(tecla, (c === '.' || c === ',') ? 160 : 36);   /* 28/09: «um pouco mais devagar» (era 90/22) */
+  /* 28/09: digitacao de codigo. O texto some, o cursor grosso aparece, e as letras
+     entram uma a uma a 30 ms (com um respiro de 130 ms depois de ponto e virgula, como
+     quem digita de verdade). Terminou, o cursor some. Dispara quando o texto aparece
+     na tela. A frase da segunda secao fica no data-texto, entao o HTML continua legivel.
+     Serve a frase «O que fazemos» e o titulo do painel Demandas (dmLead). */
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  function digita(el, aoFim){
+    var texto = el.getAttribute('data-texto') || el.textContent;
+    var alvo = document.createElement('span'), cur = document.createElement('span');
+    cur.className = 'qc-cur'; cur.setAttribute('aria-hidden', 'true');
+    el.setAttribute('aria-label', texto);
+    el.style.minHeight = el.getBoundingClientRect().height + 'px';   /* a altura final, para nada pular */
+    el.textContent = ''; el.appendChild(alvo); el.appendChild(cur);
+    var i = 0, rodando = false;
+    function tecla(){
+      if(i >= texto.length){ el.classList.remove('digitando'); el.classList.add('pronta'); el.style.minHeight = ''; if(aoFim) aoFim(); return; }
+      var c = texto.charAt(i++); alvo.textContent += c;
+      setTimeout(tecla, (c === '.' || c === ',') ? 130 : 30);   /* 28/09: 22/90, depois 36/160 («mais devagar»), depois «um pouco mais rapido» */
+    }
+    var obs = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting && !rodando){ rodando = true; el.classList.add('digitando'); obs.disconnect(); setTimeout(tecla, 250); } });
+    }, {threshold: .35});
+    obs.observe(el);
   }
-  var obs = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting && !rodando){ rodando = true; lead.classList.add('digitando'); obs.disconnect(); setTimeout(tecla, 250); } });
-  }, {threshold: .35});
-  obs.observe(lead);
+  var lead = document.getElementById('qcLead');
+  if(lead){
+    /* o traco da busca espera a frase terminar; sem o efeito, ele pisca desde sempre */
+    if(caixa) caixa.classList.add('espera');
+    digita(lead, function(){ if(caixa) caixa.classList.remove('espera'); });
+  }
+  var dm = document.getElementById('dmLead');
+  if(dm) digita(dm);
 })();
