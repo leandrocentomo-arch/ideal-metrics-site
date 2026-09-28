@@ -37,9 +37,10 @@ IMG = os.path.join(SITE, 'img')
 CRU = os.path.join(os.path.dirname(SITE), '_tingir-fotos', 'FOTOS')
 
 # ---------- a receita (copiada do JSON do Spirit, 28/09/2026) ----------
-RECEITA = dict(ctr=1.15, gama=0.89, piso=0.21, brilho=0.08, sat=1.07,
-               sombra=0.89, sombraCor=(51, 102, 153), mistura=0.21,
-               niveis=3, celula=1, matriz=4, limiar=0.0, ruido=0.012, veu=0.17, ifcGama=1.15)
+RECEITA = dict(ctr=1.5, gama=0.98, piso=0.19, brilho=0.08, sat=0.51,
+               sombra=0.26, sombraCor=(51, 102, 153), mistura=0.21,
+               niveis=3, celula=1, matriz=2, limiar=-0.16, ruido=0.0, veu=0.08, ifcGama=1.15)
+# a 1a receita (28/09, tarde): ctr 1.15 gama .89 piso .21 brilho .08 sat 1.07 sombra .89 mistura .21 niveis 3 matriz 4 limiar 0 ruido .012 veu .17
 RAMPA = np.array([[21.2, 50.9, 80.6], [24.2, 56.2, 88.1], [103.0, 146.1, 189.4], [250, 249, 245]]) / 255
 CREME = np.array([250, 249, 245]) / 255
 LUM = np.array([.2126, .7152, .0722])

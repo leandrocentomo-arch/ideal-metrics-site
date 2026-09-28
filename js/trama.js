@@ -544,8 +544,10 @@
      Setores, noticias e o banner da IFC); o _ferramentas/fotos_cor.py gera as fotos
      -cor- e as reservas com a MESMA conta. O tingimento oficial azul (25/09) continua
      guardado no tingir.py, no Spirit (receita OFICIAL) e nos arquivos -lum-/-bayer-. */
-  ditherVivo.RECEITA_COR = {colorido:true, forte:true, ctr:1.15, gama:.89, piso:.21, brilho:.08, sat:1.07,
-    sombra:.89, sombraCor:[51,102,153], mistura:.21, niveis:2 /* 3 niveis por canal */, celula:1, matriz:4, limiar:0, respiro:.012, lavaRepouso:.17};
+  /* 28/09 (noite, 2a receita): Bayer 2x2, limiar -0,16, saturacao 0,51, sombras ate 0,26, veu 0,08.
+     A 1a (ctr 1,15 gama ,89 piso ,21 sat 1,07 sombra ,89 matriz 4 limiar 0 veu ,17) fica no Spirit como «Cor (1a, 28/09)». */
+  ditherVivo.RECEITA_COR = {colorido:true, forte:true, ctr:1.5, gama:.98, piso:.19, brilho:.08, sat:.51,
+    sombra:.26, sombraCor:[51,102,153], mistura:.21, niveis:2 /* 3 niveis por canal */, celula:1, matriz:2, limiar:-.16, respiro:0, lavaRepouso:.08};
   ditherVivo.emCor = function(cfg){ var o = {}, k; for(k in ditherVivo.RECEITA_COR) o[k] = ditherVivo.RECEITA_COR[k]; for(k in cfg) o[k] = cfg[k]; return o; };
   window.ditherVivo = ditherVivo;
 })();
