@@ -478,7 +478,7 @@
       gl.uniform3f(uF.uC3, C[3][0]/255, C[3][1]/255, C[3][2]/255);
       gl.uniform3f(uF.uCreme, CR[0]/255, CR[1]/255, CR[2]/255);
       gl.uniform1f(uF.uGama, .86); gl.uniform1f(uF.uCtr, 1.55); gl.uniform1f(uF.uBrilho, .35);
-      gl.uniform1f(uF.uPix, Math.max(1, pix.v)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 3.3); gl.uniform1f(uF.uTrailMul, 1.27);
+      gl.uniform1f(uF.uPix, Math.max(1, pix.v) * (cfg.celula || 1)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 3.3);   /* 28/09: cfg.celula engrossa a celula em repouso (1 = 1 px de dispositivo) */ gl.uniform1f(uF.uTrailMul, 1.27);
       gl.uniform1f(uF.uBias, bias.v);
       /* quanto o rastro ESCURECE a trama. 0,13 ate 21/09; 0,20 desde 22/09 («um
          pouco mais escura»). Cada peca pode baixar: na secao Conhecimento o rastro
