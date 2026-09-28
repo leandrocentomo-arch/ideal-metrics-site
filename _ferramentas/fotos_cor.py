@@ -24,7 +24,8 @@ A conta, por pixel, e a do Spirit (aba 08) e a do shader `forte` do trama.js:
   rgb *= Y2/Y; rgb = Y2 + (rgb-Y2)*sat
   sombras: rgb -> sombraCor NA MESMA luminancia, smoothstep(0, sombra, Y2)
   mistura: rgb = mix(rgb, rampa_oficial(Y2), mistura)
-  trama: Bayer 4x4 por canal, `niveis` niveis, celula de `celula` px
+  trama: Bayer `matriz`x`matriz` por canal, `niveis` niveis, celula de `celula` px,
+         limiar deslocado de `limiar`, ruido de `ruido` no limiar; o nivel mais claro = CREME
   veu: mix(creme, veu) depois da trama (na tira, o lavaRepouso do motor)"""
 
 import os, sys
@@ -38,11 +39,16 @@ CRU = os.path.join(os.path.dirname(SITE), '_tingir-fotos', 'FOTOS')
 # ---------- a receita (copiada do JSON do Spirit, 28/09/2026) ----------
 RECEITA = dict(ctr=1.15, gama=0.89, piso=0.21, brilho=0.08, sat=1.07,
                sombra=0.89, sombraCor=(51, 102, 153), mistura=0.21,
-               niveis=3, celula=1, veu=0.17, ifcGama=1.15)
+               niveis=3, celula=1, matriz=4, limiar=0.0, ruido=0.012, veu=0.17, ifcGama=1.15)
 RAMPA = np.array([[21.2, 50.9, 80.6], [24.2, 56.2, 88.1], [103.0, 146.1, 189.4], [250, 249, 245]]) / 255
 CREME = np.array([250, 249, 245]) / 255
 LUM = np.array([.2126, .7152, .0722])
-M4 = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]])
+def bayer(n):
+    m = np.array([[0]])
+    while m.shape[0] < n:
+        m = np.block([[4 * m, 4 * m + 2], [4 * m + 3, 4 * m + 1]])
+    return m
+M4 = bayer(4)
 
 # ---------- as fotos e as vagas (os mesmos recortes das -lum- de hoje) ----------
 FONTE = {
@@ -105,8 +111,13 @@ def tramar(rgb, R, veu=None, fade=None):
     cy, cx = (yy // cel).astype(int), (xx // cel).astype(int)
     if cel != 1:
         rgb = rgb[np.minimum(H - 1, (cy * cel).astype(int)), np.minimum(W - 1, (cx * cel).astype(int))]
-    T = ((M4[cy % 4, cx % 4] + .5) / 16)[..., None]
+    M = bayer(int(R.get('matriz', 4))); mn = M.shape[0]
+    T = ((M[cy % mn, cx % mn] + .5) / (mn * mn))[..., None] - R.get('limiar', 0)
+    if R.get('ruido', 0):
+        rs = np.random.RandomState(7)          # o mesmo ruido a cada rodada (arquivo estavel)
+        T = T + (rs.random_sample((H, W, 1)) - .5) * R['ruido']
     k = np.clip(np.floor(rgb * n + T), 0, n) / n
+    k = k * CREME                              # o nivel mais claro e o CREME do site, nao o branco
     v = R['veu'] if veu is None else veu
     vv = np.full((H, W, 1), v)
     if fade is not None:

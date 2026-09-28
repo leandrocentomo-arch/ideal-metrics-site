@@ -81,7 +81,7 @@
        de contraste da casa (sem o brilho), perde saturacao (uSat), as sombras vao
        para a tinta da marca (uC0) ate uSombra de luminancia, e a trama sai com
        uNiveis+1 niveis por canal (2 = tres niveis, ponto bem visivel). */
-    'uniform float uForte;uniform float uSat;uniform float uSombra;uniform float uNiveis;uniform vec3 uSombraCor;uniform float uPiso;uniform float uBrilhoF;' +
+    'uniform float uForte;uniform float uSat;uniform float uSombra;uniform float uNiveis;uniform vec3 uSombraCor;uniform float uPiso;uniform float uBrilhoF;uniform float uMatriz;uniform float uLimiar;uniform sampler2D uB2;' +
     'vec3 rampa(float v){ float x = v*3.;' +
     '  return x < 1. ? mix(uC0,uC1,x) : (x < 2. ? mix(uC1,uC2,x-1.) : mix(uC2,uC3,clamp(x-2.,0.,1.))); }' +
     /* ruido de valor: bem mais barato que o Perlin 3D do OCI e, na amplitude em
@@ -135,9 +135,11 @@
     '      vec3 az = uSombraCor * (Y2 / max(dot(uSombraCor, vec3(.2126,.7152,.0722)), 1e-3));' +
     '      rgb = mix(az, rgb, smoothstep(0., uSombra, Y2));' +
     '      rgb = mix(rgb, rampa(Y2), uMistura);' +
-    '      c = clamp(floor((rgb - bias)*uNiveis + T), 0., uNiveis)/uNiveis; }' +
+    '      float Tm = tr < .5 ? (uMatriz < 3. ? texture2D(uB2, (floor(frag)+.5)/2.).r : (uMatriz > 6. ? texture2D(uB8, (floor(frag)+.5)/8.).r : T)) : T;' +
+    '      c = clamp(floor((rgb - bias - uLimiar)*uNiveis + Tm), 0., uNiveis)/uNiveis; }' +
     '    else { rgb = mix(rgb, rampa(tom(dot(rgb, vec3(.2126,.7152,.0722)))), uMistura);' +
     '      c = clamp(floor((rgb - bias)*3. + T), 0., 3.)/3.; }' +
+    '    c = c * uCreme;' +   /* 28/09 (noite): o nivel mais claro e o CREME do site, nao o branco */
     '    c = mix(c, uCreme, uLava*(1. - uRevela*tr)); c = mix(uCreme, c, tx.a); gl_FragColor = vec4(c, uOpac); return; }' +
     /* a chapa de creme do hover, que cede onde a trilha passa */
     '  c = mix(c, uCreme, uLava*(1. - uRevela*tr));' +
@@ -200,7 +202,7 @@
     function uni(pr, nomes){ var o = {}; nomes.forEach(function(n){ o[n] = gl.getUniformLocation(pr, n); }); return o; }
     var uT = uni(pT, ['t','res','pt','ptAnt','aspecto','vel','raio','borda','fica']);
     var uF = uni(pF, ['uLum','uTrilha','uB4','uB8','uTela','uCol','uTex','uAx','uEspelha','uZoom','uTempo','uC0','uC1','uC2','uC3','uCreme',
-      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura','uForte','uSat','uSombra','uNiveis','uSombraCor','uPiso','uBrilhoF']);
+      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura','uForte','uSat','uSombra','uNiveis','uSombraCor','uPiso','uBrilhoF','uMatriz','uLimiar','uB2']);
 
     var quad = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, quad);
@@ -227,7 +229,7 @@
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
       return tx;
     }
-    var txB4 = bayer(4), txB8 = bayer(8);
+    var txB4 = bayer(4), txB8 = bayer(8), txB2 = bayer(2);
 
     /* ---- os planos: cada foto e um retangulo do DOM com a sua luminancia ---- */
     function anima(v){ return {v:v, de:v, para:v, t0:0, dur:0, curva:CURVA.suave}; }
@@ -474,6 +476,7 @@
       gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, trilha[idx].tx); gl.uniform1i(uF.uTrilha, 1);
       gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, txB4); gl.uniform1i(uF.uB4, 2);
       gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, txB8); gl.uniform1i(uF.uB8, 3);
+      gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D, txB2); gl.uniform1i(uF.uB2, 4);
       gl.uniform2f(uF.uTela, cv.width, cv.height);
       gl.uniform1f(uF.uTempo, (agora - t0)/1000);
       gl.uniform3f(uF.uC0, C[0][0]/255, C[0][1]/255, C[0][2]/255);
@@ -496,6 +499,7 @@
       gl.uniform1f(uF.uSombra, cfg.sombra == null ? .5 : cfg.sombra); gl.uniform1f(uF.uNiveis, cfg.niveis == null ? 2 : cfg.niveis);
       var SC = cfg.sombraCor || C[0]; gl.uniform3f(uF.uSombraCor, SC[0]/255, SC[1]/255, SC[2]/255);   /* 28/09: a cor das sombras (default: a tinta) */
       gl.uniform1f(uF.uPiso, cfg.piso || 0); gl.uniform1f(uF.uBrilhoF, cfg.brilho || 0);
+      gl.uniform1f(uF.uMatriz, cfg.matriz || 4); gl.uniform1f(uF.uLimiar, cfg.limiar || 0);
 
       planos.forEach(function(pl){
         if(pl.opac.v < .002) return;
@@ -541,7 +545,7 @@
      -cor- e as reservas com a MESMA conta. O tingimento oficial azul (25/09) continua
      guardado no tingir.py, no Spirit (receita OFICIAL) e nos arquivos -lum-/-bayer-. */
   ditherVivo.RECEITA_COR = {colorido:true, forte:true, ctr:1.15, gama:.89, piso:.21, brilho:.08, sat:1.07,
-    sombra:.89, sombraCor:[51,102,153], mistura:.21, niveis:2 /* 3 niveis por canal */, celula:1, lavaRepouso:.17};
+    sombra:.89, sombraCor:[51,102,153], mistura:.21, niveis:2 /* 3 niveis por canal */, celula:1, matriz:4, limiar:0, respiro:.012, lavaRepouso:.17};
   ditherVivo.emCor = function(cfg){ var o = {}, k; for(k in ditherVivo.RECEITA_COR) o[k] = ditherVivo.RECEITA_COR[k]; for(k in cfg) o[k] = cfg[k]; return o; };
   window.ditherVivo = ditherVivo;
 })();
