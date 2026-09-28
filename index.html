@@ -2440,13 +2440,6 @@ body>*{position:relative;z-index:1}
 .sh-tira.gl-on .sh-foto{visibility:hidden}
 .sh-tira.gl-on .sh-col{background:none}
 .sh-tira.gl-on .sh-col::after{display:none}
-/* 28/09: TESTE da tira em cor original: sem o filtro creme, e um fio separando da tira oficial */
-.sh-tira--cor{border-top:1px solid var(--fio)}
-.sh-tira--cor .sh-foto{filter:none}
-.sh-tira--meio{border-top:1px solid var(--fio)}
-.sh-tira--meio .sh-foto{filter:none}
-.sh-tira--forte{border-top:1px solid var(--fio)}
-.sh-tira--forte .sh-foto{filter:none}
 .nt-midia{position:relative}
 .nt-gl{z-index:1}
 .nt-midia.gl-on .nt-layer{visibility:hidden}
@@ -2542,7 +2535,7 @@ body>*{position:relative;z-index:1}
     
     <div class="sh-tira">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/energia-bayer-qc.webp" data-lum="img/energia-lum-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/energia-cor-bayer-qc.webp?v=28092026" data-lum="img/energia-cor-qc.webp?v=28092026" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
@@ -2558,7 +2551,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/industria-bayer-qc.webp?v=24092026" data-lum="img/industria-lum-qc.webp?v=24092026" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/industria-cor-bayer-qc.webp?v=28092026" data-lum="img/industria-cor-qc.webp?v=28092026" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -2574,7 +2567,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/etica-auditoria-bayer-qc.webp" data-lum="img/etica-auditoria-lum-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/etica-auditoria-cor-bayer-qc.webp?v=28092026" data-lum="img/etica-auditoria-cor-qc.webp?v=28092026" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
@@ -2590,208 +2583,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/lago-industria-bayer-qc.webp" data-lum="img/lago-industria-lum-qc.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 04 ]</span>
-            <h3 class="sh-titulo">ESG<br><strong>Sustentabilidade</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Comprova a sua prática de sustentabilidade</div>
-            <ul class="sh-lista"><li><span>Padrões de mercado</span></li><li><span>Relato e indicadores</span></li><li><span>Cadeia de fornecedores</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Padrões</span>
-          <div>
-            <a class="sh-cta js-scramble" href="esg.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-    </div>
-    <!-- 28/09: TESTE, a tira em COR ORIGINAL (mesma trama e mesmo rastro, canal a canal). Apagar este bloco, o CSS .sh-tira--cor e a chamada «tira em cor» para desfazer. -->
-    <div class="sh-tira sh-tira--cor">
-      <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/energia-cor-bayer-qc.webp" data-lum="img/energia-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 01 ]</span>
-            <h3 class="sh-titulo">Gestão<br><strong>de Carbono</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Reduz as emissões da sua operação</div>
-            <ul class="sh-lista"><li><span>Inventário de GEE</span></li><li><span>Carbono neutro</span></li><li><span>Créditos de carbono</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Emissões</span>
-          <div>
-            <a class="sh-cta js-scramble" href="gestao-carbono.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-      <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/industria-cor-bayer-qc.webp" data-lum="img/industria-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 02 ]</span>
-            <h3 class="sh-titulo">ISO<br><strong>Certificação</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Busca certificação para a sua organização</div>
-            <ul class="sh-lista"><li><span>ISO 9001: gestão da qualidade</span></li><li><span>ISO 14001: ambiental</span></li><li><span>ISO 45001: saúde e segurança</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Normas</span>
-          <div>
-            <a class="sh-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-      <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/etica-auditoria-cor-bayer-qc.webp" data-lum="img/etica-auditoria-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 03 ]</span>
-            <h3 class="sh-titulo">SEDEX<br><strong>SMETA</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Atende às exigências dos seus clientes</div>
-            <ul class="sh-lista"><li><span>Direitos trabalhistas</span></li><li><span>Saúde e segurança</span></li><li><span>Ética e meio ambiente</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Ética</span>
-          <div>
-            <a class="sh-cta js-scramble" href="sedex-smeta.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-      <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/lago-industria-cor-bayer-qc.webp" data-lum="img/lago-industria-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 04 ]</span>
-            <h3 class="sh-titulo">ESG<br><strong>Sustentabilidade</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Comprova a sua prática de sustentabilidade</div>
-            <ul class="sh-lista"><li><span>Padrões de mercado</span></li><li><span>Relato e indicadores</span></li><li><span>Cadeia de fornecedores</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Padrões</span>
-          <div>
-            <a class="sh-cta js-scramble" href="esg.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-    </div>
-    <!-- 28/09: TESTE 2, o MEIO DO CAMINHO: 50% da cor original e 50% do tingimento da marca, antes da trama. Apagar este bloco, o CSS .sh-tira--meio e a chamada «tira meio» para desfazer. -->
-    <div class="sh-tira sh-tira--meio">
-      <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/energia-meio-bayer-qc.webp" data-lum="img/energia-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 01 ]</span>
-            <h3 class="sh-titulo">Gestão<br><strong>de Carbono</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Reduz as emissões da sua operação</div>
-            <ul class="sh-lista"><li><span>Inventário de GEE</span></li><li><span>Carbono neutro</span></li><li><span>Créditos de carbono</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Emissões</span>
-          <div>
-            <a class="sh-cta js-scramble" href="gestao-carbono.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-      <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/industria-meio-bayer-qc.webp" data-lum="img/industria-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 02 ]</span>
-            <h3 class="sh-titulo">ISO<br><strong>Certificação</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Busca certificação para a sua organização</div>
-            <ul class="sh-lista"><li><span>ISO 9001: gestão da qualidade</span></li><li><span>ISO 14001: ambiental</span></li><li><span>ISO 45001: saúde e segurança</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Normas</span>
-          <div>
-            <a class="sh-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-      <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/etica-auditoria-meio-bayer-qc.webp" data-lum="img/etica-auditoria-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 03 ]</span>
-            <h3 class="sh-titulo">SEDEX<br><strong>SMETA</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Atende às exigências dos seus clientes</div>
-            <ul class="sh-lista"><li><span>Direitos trabalhistas</span></li><li><span>Saúde e segurança</span></li><li><span>Ética e meio ambiente</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Ética</span>
-          <div>
-            <a class="sh-cta js-scramble" href="sedex-smeta.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-      <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/lago-industria-meio-bayer-qc.webp" data-lum="img/lago-industria-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 04 ]</span>
-            <h3 class="sh-titulo">ESG<br><strong>Sustentabilidade</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Comprova a sua prática de sustentabilidade</div>
-            <ul class="sh-lista"><li><span>Padrões de mercado</span></li><li><span>Relato e indicadores</span></li><li><span>Cadeia de fornecedores</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Padrões</span>
-          <div>
-            <a class="sh-cta js-scramble" href="esg.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-    </div>
-    <!-- 28/09: TESTE 3, TRAMA QUE APARECE: cor original com o contraste da casa, 80% de saturacao, sombras em azul #346EB2 (fora da paleta, de proposito) e tres niveis por canal. Apagar este bloco, o CSS .sh-tira--forte e a chamada «tira forte» para desfazer. -->
-    <div class="sh-tira sh-tira--forte">
-      <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/energia-forte-bayer-qc.webp" data-lum="img/energia-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 01 ]</span>
-            <h3 class="sh-titulo">Gestão<br><strong>de Carbono</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Reduz as emissões da sua operação</div>
-            <ul class="sh-lista"><li><span>Inventário de GEE</span></li><li><span>Carbono neutro</span></li><li><span>Créditos de carbono</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Emissões</span>
-          <div>
-            <a class="sh-cta js-scramble" href="gestao-carbono.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-      <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/industria-forte-bayer-qc.webp" data-lum="img/industria-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 02 ]</span>
-            <h3 class="sh-titulo">ISO<br><strong>Certificação</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Busca certificação para a sua organização</div>
-            <ul class="sh-lista"><li><span>ISO 9001: gestão da qualidade</span></li><li><span>ISO 14001: ambiental</span></li><li><span>ISO 45001: saúde e segurança</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Normas</span>
-          <div>
-            <a class="sh-cta js-scramble" href="implantacao-iso.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-      <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/etica-auditoria-forte-bayer-qc.webp" data-lum="img/etica-auditoria-cor-qc.webp" alt="" loading="lazy" decoding="async">
-        <div class="sh-conteudo">
-          <div>
-            <span class="sh-indice">[ 03 ]</span>
-            <h3 class="sh-titulo">SEDEX<br><strong>SMETA</strong></h3>
-            <div class="sh-acento" aria-hidden="true"></div>
-            <div class="sh-rodape">Atende às exigências dos seus clientes</div>
-            <ul class="sh-lista"><li><span>Direitos trabalhistas</span></li><li><span>Saúde e segurança</span></li><li><span>Ética e meio ambiente</span></li></ul>
-          </div>
-          <span class="sh-vertical" aria-hidden="true">Ética</span>
-          <div>
-            <a class="sh-cta js-scramble" href="sedex-smeta.html">Saiba mais</a>
-          </div>
-        </div>
-      </article>
-      <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/lago-industria-forte-bayer-qc.webp" data-lum="img/lago-industria-cor-qc.webp" alt="" loading="lazy" decoding="async">
+        <img class="sh-foto" src="img/lago-industria-cor-bayer-qc.webp?v=28092026" data-lum="img/lago-industria-cor-qc.webp?v=28092026" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>
@@ -3029,7 +2821,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-0" role="region" aria-labelledby="sv-btn-0">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/industria-bayer-sv.webp?v=25092026" data-lum="img/industria-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/industria-cor-bayer-sv.webp?v=28092026" data-lum="img/industria-cor-sv.webp?v=28092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Mais de 25 anos preparando organizações de diversos setores para as normas ISO 9001, 14001, 45001 e padrões de mercado.</p>
               <a class="sv-more" href="implantacao-iso.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3044,7 +2836,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-1" role="region" aria-labelledby="sv-btn-1">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/energia-bayer-sv.webp?v=25092026" data-lum="img/energia-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/energia-cor-bayer-sv.webp?v=28092026" data-lum="img/energia-cor-sv.webp?v=28092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Inventário, neutralização e registro de emissões de gases de efeito estufa segundo o GHG Protocol.</p>
               <a class="sv-more" href="gestao-carbono.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3059,7 +2851,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-2" role="region" aria-labelledby="sv-btn-2">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/alimentos-bayer-sv.webp?v=25092026" data-lum="img/alimentos-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/alimentos-cor-bayer-sv.webp?v=28092026" data-lum="img/alimentos-cor-sv.webp?v=28092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Consultoria para organizações que buscam atender aos padrões éticos SEDEX SMETA nas auditorias de 2 e 4 pilares.</p>
               <a class="sv-more" href="sedex-smeta.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3074,7 +2866,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-3" role="region" aria-labelledby="sv-btn-3">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/logistica-bayer-sv.webp?v=25092026" data-lum="img/logistica-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/logistica-cor-bayer-sv.webp?v=28092026" data-lum="img/logistica-cor-sv.webp?v=28092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Estruturação de práticas ambientais, sociais e de governança alinhadas aos padrões internacionais.</p>
               <a class="sv-more" href="esg.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3089,7 +2881,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-4" role="region" aria-labelledby="sv-btn-4">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/tecnologia-bayer-sv.webp?v=25092026" data-lum="img/tecnologia-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/tecnologia-cor-bayer-sv.webp?v=28092026" data-lum="img/tecnologia-cor-sv.webp?v=28092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Verificação de produto pós-produção e antes do embarque: funcionamento, estado, embalagem, quantidade e requisitos.</p>
               <a class="sv-more" href="inspecoes.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3104,7 +2896,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-5" role="region" aria-labelledby="sv-btn-5">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/saude-bayer-sv.webp?v=25092026" data-lum="img/saude-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/saude-cor-bayer-sv.webp?v=28092026" data-lum="img/saude-cor-sv.webp?v=28092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Manutenção do sistema de gestão, auditorias internas e preparação para as recertificações periódicas.</p>
               <a class="sv-more" href="suporte.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3118,7 +2910,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-6" role="region" aria-labelledby="sv-btn-6">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/industria-bayer-sv.webp?v=25092026" data-lum="img/industria-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/industria-cor-bayer-sv.webp?v=28092026" data-lum="img/industria-cor-sv.webp?v=28092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Avaliações e emissão de laudos para atendimento às Normas Regulamentadoras do trabalho.</p>
               <a class="sv-more" href="nrs.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3132,7 +2924,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-7" role="region" aria-labelledby="sv-btn-7">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/energia-bayer-sv.webp?v=25092026" data-lum="img/energia-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/energia-cor-bayer-sv.webp?v=28092026" data-lum="img/energia-cor-sv.webp?v=28092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Consultoria para as normas e os padrões da gestão de segurança de alimentos, do APPCC à certificação.</p>
               <a class="sv-more" href="seguranca-alimentos.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3146,7 +2938,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-8" role="region" aria-labelledby="sv-btn-8">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/tecnologia-bayer-sv.webp?v=25092026" data-lum="img/tecnologia-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/tecnologia-cor-bayer-sv.webp?v=28092026" data-lum="img/tecnologia-cor-sv.webp?v=28092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Sistemas de compliance, antissuborno, segurança da informação e continuidade de negócios, integrados ao sistema de gestão.</p>
               <a class="sv-more" href="compliance-seguranca-informacao.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3160,7 +2952,7 @@ body>*{position:relative;z-index:1}
         <div class="sv-panel" id="sv-panel-9" role="region" aria-labelledby="sv-btn-9">
           <div class="sv-panel-inner">
             <div class="sv-panel-body">
-              <figure class="sv-foto"><img src="img/logistica-bayer-sv.webp?v=25092026" data-lum="img/logistica-lum-sv.webp?v=25092026" alt="" loading="lazy"></figure>
+              <figure class="sv-foto"><img src="img/logistica-cor-bayer-sv.webp?v=28092026" data-lum="img/logistica-cor-sv.webp?v=28092026" alt="" loading="lazy"></figure>
               <div class="sv-texto">
               <p class="sv-desc">Estudos regulatórios e setoriais, índices, painéis e rastreabilidade de cadeia, com fonte primária e método declarado.</p>
               <a class="sv-more" href="estudos-pesquisa.html">[<span class="sv-more-in"><span class="js-scramble">Saiba mais</span><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg></span>]</a>
@@ -3251,7 +3043,7 @@ body>*{position:relative;z-index:1}
       <div class="df-bloco">
         <h3 class="df-nome">Experiência desde 1998</h3>
         <div class="df-quadro">
-          <img class="df-foto" src="img/industria-bayer-df.webp?v=25092026" data-lum="img/industria-lum-df.webp?v=25092026" alt="Planta industrial em tingimento azul da marca" loading="lazy">
+          <img class="df-foto" src="img/industria-cor-bayer-df.webp?v=28092026" data-lum="img/industria-cor-df.webp?v=28092026" alt="Planta industrial em tingimento azul da marca" loading="lazy">
         </div>
         <p class="df-mono">Mais de 25 anos preparando organizações de diversos setores para normas e padrões de mercado, do diagnóstico ao certificado.</p>
       </div>
@@ -3264,7 +3056,7 @@ body>*{position:relative;z-index:1}
       <div class="df-bloco">
         <h3 class="df-nome">Inspeção internacional</h3>
         <div class="df-quadro">
-          <img class="df-foto" src="img/logistica-bayer-df.webp?v=25092026" data-lum="img/logistica-lum-df.webp?v=25092026" alt="Operação logística em tingimento azul da marca" loading="lazy">
+          <img class="df-foto" src="img/logistica-cor-bayer-df.webp?v=28092026" data-lum="img/logistica-cor-df.webp?v=28092026" alt="Operação logística em tingimento azul da marca" loading="lazy">
         </div>
         <p class="df-mono">Equipe de inspetores na Ásia, Europa e Oriente Médio. Verificamos produção e fornecedores na fonte, antes do embarque.</p>
       </div>
@@ -3277,7 +3069,7 @@ body>*{position:relative;z-index:1}
       <div class="df-bloco">
         <h3 class="df-nome">Foco de especialista</h3>
         <div class="df-quadro">
-          <img class="df-foto" src="img/tecnologia-bayer-df.webp?v=25092026" data-lum="img/tecnologia-lum-df.webp?v=25092026" alt="Ambiente de tecnologia em tingimento azul da marca" loading="lazy">
+          <img class="df-foto" src="img/tecnologia-cor-bayer-df.webp?v=28092026" data-lum="img/tecnologia-cor-df.webp?v=28092026" alt="Ambiente de tecnologia em tingimento azul da marca" loading="lazy">
         </div>
         <p class="df-mono">Desde 1998, cada projeto é conduzido de perto, com o consultor dentro do seu processo.</p>
       </div>
@@ -3302,37 +3094,37 @@ body>*{position:relative;z-index:1}
     <div class="st-grade">
       <article class="st-card">
         <header class="st-cab"><span class="st-num">01</span><span class="st-cat">Manufatura</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/industria-bayer-st.webp?v=25092026" data-lum="img/industria-lum-st.webp?v=25092026" alt="Indústria em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/industria-cor-bayer-st.webp?v=28092026" data-lum="img/industria-cor-st.webp?v=28092026" alt="Indústria em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-industria.html">Indústria</a></h3>
         <p class="st-mono">Manufatura, metalurgia, plásticos e automotivo.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">02</span><span class="st-cat">Suprimentos</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/logistica-bayer-st.webp?v=25092026" data-lum="img/logistica-lum-st.webp?v=25092026" alt="Logística em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/logistica-cor-bayer-st.webp?v=28092026" data-lum="img/logistica-cor-st.webp?v=28092026" alt="Logística em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-logistica.html">Logística</a></h3>
         <p class="st-mono">Transporte, armazenagem e cadeia de suprimentos.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">03</span><span class="st-cat">Alimentício</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/alimentos-bayer-st.webp?v=25092026" data-lum="img/alimentos-lum-st.webp?v=25092026" alt="Alimentos em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/alimentos-cor-bayer-st.webp?v=28092026" data-lum="img/alimentos-cor-st.webp?v=28092026" alt="Alimentos em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-alimentos.html">Alimentos</a></h3>
         <p class="st-mono">Processamento, distribuição e food service.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">04</span><span class="st-cat">Hospitalar</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/saude-bayer-st.webp?v=25092026" data-lum="img/saude-lum-st.webp?v=25092026" alt="Saúde em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/saude-cor-bayer-st.webp?v=28092026" data-lum="img/saude-cor-st.webp?v=28092026" alt="Saúde em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-saude.html">Saúde</a></h3>
         <p class="st-mono">Hospitais, laboratórios e dispositivos médicos.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">05</span><span class="st-cat">Digital</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/tecnologia-bayer-st.webp?v=25092026" data-lum="img/tecnologia-lum-st.webp?v=25092026" alt="Tecnologia em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/tecnologia-cor-bayer-st.webp?v=28092026" data-lum="img/tecnologia-cor-st.webp?v=28092026" alt="Tecnologia em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-tecnologia.html">Tecnologia</a></h3>
         <p class="st-mono">Software, TI e serviços digitais.</p>
       </article>
       <article class="st-card">
         <header class="st-cab"><span class="st-num">06</span><span class="st-cat">Energético</span></header>
-        <div class="st-quadro"><img class="st-foto" src="img/energia-bayer-st.webp?v=25092026" data-lum="img/energia-lum-st.webp?v=25092026" alt="Energia em tingimento azul da marca" loading="lazy"></div>
+        <div class="st-quadro"><img class="st-foto" src="img/energia-cor-bayer-st.webp?v=28092026" data-lum="img/energia-cor-st.webp?v=28092026" alt="Energia em tingimento azul da marca" loading="lazy"></div>
         <h3 class="st-nome"><a href="setor-energia.html">Energia</a></h3>
         <p class="st-mono">Petróleo, gás, renováveis e utilities.</p>
       </article>
@@ -3375,10 +3167,10 @@ body>*{position:relative;z-index:1}
   </div>
 
   <div class="nt-midia" aria-hidden="true">
-    <div class="nt-layer nt-layer-ativa"><img src="img/tecnologia-bayer-nt.webp?v=25092026" data-lum="img/tecnologia-lum-nt.webp" alt="" loading="lazy"></div>
-    <div class="nt-layer"><img src="img/industria-bayer-nt.webp?v=25092026" data-lum="img/industria-lum-nt.webp" alt="" loading="lazy"></div>
-    <div class="nt-layer"><img src="img/alimentos-bayer-nt.webp?v=25092026" data-lum="img/alimentos-lum-nt.webp" alt="" loading="lazy"></div>
-    <div class="nt-layer"><img src="img/logistica-bayer-nt.webp?v=25092026" data-lum="img/logistica-lum-nt.webp" alt="" loading="lazy"></div>
+    <div class="nt-layer nt-layer-ativa"><img src="img/tecnologia-cor-bayer-nt.webp?v=28092026" data-lum="img/tecnologia-cor-nt.webp?v=28092026" alt="" loading="lazy"></div>
+    <div class="nt-layer"><img src="img/industria-cor-bayer-nt.webp?v=28092026" data-lum="img/industria-cor-nt.webp?v=28092026" alt="" loading="lazy"></div>
+    <div class="nt-layer"><img src="img/alimentos-cor-bayer-nt.webp?v=28092026" data-lum="img/alimentos-cor-nt.webp?v=28092026" alt="" loading="lazy"></div>
+    <div class="nt-layer"><img src="img/logistica-cor-bayer-nt.webp?v=28092026" data-lum="img/logistica-cor-nt.webp?v=28092026" alt="" loading="lazy"></div>
   </div>
 
   <div class="nt-grade">
@@ -4145,7 +3937,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=12"></script>
+<script src="js/trama.js?v=13"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -4160,53 +3952,13 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       return {el:c, lum: im ? im.getAttribute('data-lum') : null,
               ax: c.classList.contains('sh-col--carbono') ? 1 : .5, espelha: c.classList.contains('sh-col--iso')};
     });
-    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'pronta',
-      /* rampa 14304C 336699 D3E2F2 FAF9F5 com escuro 1,4 (a receita da vaga qc) e ja
-         passada pelo min(creme, 1,06x) do filtro #foto-creme */
+    /* 28/09 (noite): FILTRO EM COR (ditherVivo.RECEITA_COR, no trama.js): a foto em cor
+       (-cor-qc) tramada canal a canal. Antes: o tingimento oficial azul, rampa
+       14304C 336699 D3E2F2 FAF9F5 com escuro 1,4, lavaRepouso .12 e as -lum-qc (que
+       ficam no disco; para voltar, trocar os src/data-lum e tirar o emCor). */
+    ditherVivo(ditherVivo.emCor({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'pronta',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
-      zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
-  })();
-
-  /* ---------------- 28/09: TESTE, tira em cor ---------------- */
-  (function(){
-    var tira = document.querySelector('.sh-tira--cor'); if(!tira) return;
-    var cols = [].slice.call(tira.querySelectorAll('.sh-col'));
-    var planos = cols.map(function(c){
-      var im = c.querySelector('img.sh-foto');
-      return {el:c, lum: im ? im.getAttribute('data-lum') : null,
-              ax: c.classList.contains('sh-col--carbono') ? 1 : .5, espelha: c.classList.contains('sh-col--iso')};
-    });
-    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel', colorido:true,
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
-      zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
-  })();
-
-  /* ---------------- 28/09: TESTE 2, tira meio --------------- */
-  (function(){
-    var tira = document.querySelector('.sh-tira--meio'); if(!tira) return;
-    var cols = [].slice.call(tira.querySelectorAll('.sh-col'));
-    var planos = cols.map(function(c){
-      var im = c.querySelector('img.sh-foto');
-      return {el:c, lum: im ? im.getAttribute('data-lum') : null,
-              ax: c.classList.contains('sh-col--carbono') ? 1 : .5, espelha: c.classList.contains('sh-col--iso')};
-    });
-    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel', colorido:true, mistura:.5,
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
-      zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
-  })();
-
-  /* ---------------- 28/09: TESTE 3, tira forte -------------- */
-  (function(){
-    var tira = document.querySelector('.sh-tira--forte'); if(!tira) return;
-    var cols = [].slice.call(tira.querySelectorAll('.sh-col'));
-    var planos = cols.map(function(c){
-      var im = c.querySelector('img.sh-foto');
-      return {el:c, lum: im ? im.getAttribute('data-lum') : null,
-              ax: c.classList.contains('sh-col--carbono') ? 1 : .5, espelha: c.classList.contains('sh-col--iso')};
-    });
-    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel', colorido:true, forte:true, sat:.8, sombra:.68, niveis:2, sombraCor:[40,100,190], piso:.22, celula:1.5,   /* 28/09: piso de 22% no preto, sombras azuladas na mesma luminancia; depois «mais azul nas sombras» (.55->.68, #2864BE) e «mais trama» (celula 1,5 px) */   /* 28/09: «mais vivida, escuros mais azulados»: sat .55->.8, sombra .5->.62, sombras em #184A8A no lugar da tinta */
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
-      zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
+      zoomHover:1.035, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05}));
   })();
 
   /* ---------------- a folha do painel Demandas ---------------- */
@@ -4230,8 +3982,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       var gl = null, dentro = false;
       function atualiza(){
         var quer = dentro && (!pode || pode());
-        if(quer && !gl) gl = ditherVivo({raiz:raiz, planos:[{el:raiz, lum:im.getAttribute('data-lum')}], classeCanvas:'vv-gl',
-          revelar:'visivel', cores:OFICIAL, pincel:.7, zoomHover:zoom});
+        if(quer && !gl) gl = ditherVivo(ditherVivo.emCor({raiz:raiz, planos:[{el:raiz, lum:im.getAttribute('data-lum')}], classeCanvas:'vv-gl',
+          revelar:'visivel', cores:OFICIAL, pincel:.7, zoomHover:zoom}));   /* 28/09: filtro em cor (emCor) */
         else if(!quer && gl){ gl.destruir(); gl = null; }
       }
       new IntersectionObserver(function(es){ es.forEach(function(e){ dentro = e.isIntersecting; }); atualiza(); },
@@ -4269,12 +4021,12 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var midia = document.querySelector('.nt-midia'); if(!midia) return;
     var camadas = [].slice.call(midia.querySelectorAll('.nt-layer'));
     var planos = camadas.map(function(c){ var im = c.querySelector('img'); return {el:midia, lum: im ? im.getAttribute('data-lum') : null}; });
-    var gl = ditherVivo({raiz:midia, planos:planos, classeCanvas:'nt-gl', revelar:'visivel', empilhado:true,
+    var gl = ditherVivo(ditherVivo.emCor({raiz:midia, planos:planos, classeCanvas:'nt-gl', revelar:'visivel', empilhado:true,   /* 28/09: filtro em cor */
       /* 25/09: TINGIMENTO OFICIAL, o mesmo da tira (escuro 1,4 e o min(creme, 1,06x)
          do #foto-creme). Ate hoje a vaga nt ficava no escuro 0,85, sem o filtro:
          [20.0,48.0,76.0] [27.3,60.7,94.1] [136.0,167.9,200.3] [250,249,245] */
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
-      zoomHover:1.03});
+      zoomHover:1.03}));
     if(!gl) return;
     /* quem manda trocar a foto e o script da secao, pelo evento que ele dispara */
     midia.addEventListener('nt:camada', function(e){ if(e.detail && e.detail.para != null) gl.fundir(+e.detail.para); });
