@@ -152,18 +152,23 @@
   var lead = document.getElementById('qcLead');
   if(!lead || !('IntersectionObserver' in window)) return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  /* 24/09: cada palavra vira um span com o seu atraso; a classe .entra dispara
-     a subida quando a frase aparece na tela */
-  var palavras = (lead.getAttribute('data-texto') || lead.textContent).split(' ');
-  lead.textContent = '';
-  palavras.forEach(function(p, i){
-    var w = document.createElement('span'); w.className = 'w'; w.textContent = p;
-    w.style.setProperty('--d', (i * 70) + 'ms');
-    lead.appendChild(w);
-    if(i < palavras.length - 1) lead.appendChild(document.createTextNode(' '));
-  });
+  /* 28/09: digitacao de codigo. A frase some, o cursor grosso aparece, e as letras
+     entram uma a uma a 22 ms (com um respiro de 90 ms depois de ponto e virgula, como
+     quem digita de verdade). Terminou, o cursor pisca. Dispara quando a frase
+     aparece na tela. A frase fica no data-texto, entao o HTML continua legivel. */
+  var texto = lead.getAttribute('data-texto') || lead.textContent;
+  var alvo = document.createElement('span'), cur = document.createElement('span');
+  cur.className = 'qc-cur'; cur.setAttribute('aria-hidden', 'true');
+  lead.setAttribute('aria-label', texto);
+  lead.textContent = ''; lead.appendChild(alvo); lead.appendChild(cur);
+  var i = 0, rodando = false;
+  function tecla(){
+    if(i >= texto.length){ lead.classList.remove('digitando'); lead.classList.add('pronta'); return; }
+    var c = texto.charAt(i++); alvo.textContent += c;
+    setTimeout(tecla, (c === '.' || c === ',') ? 90 : 22);
+  }
   var obs = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ lead.classList.add('entra'); obs.disconnect(); } });
+    es.forEach(function(e){ if(e.isIntersecting && !rodando){ rodando = true; lead.classList.add('digitando'); obs.disconnect(); setTimeout(tecla, 250); } });
   }, {threshold: .35});
   obs.observe(lead);
 })();
