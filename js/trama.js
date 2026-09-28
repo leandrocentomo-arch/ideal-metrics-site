@@ -77,6 +77,11 @@
     /* 28/09 (teste 2): uMistura puxa a cor original para o tingimento da casa antes
        da trama: 0 = cor da foto, 1 = rampa da marca (continua, sobre o tom da luminancia) */
     'uniform float uMistura;' +
+    /* 28/09 (teste 3): trama que APARECE. uForte > 0: a cor original passa pela curva
+       de contraste da casa (sem o brilho), perde saturacao (uSat), as sombras vao
+       para a tinta da marca (uC0) ate uSombra de luminancia, e a trama sai com
+       uNiveis+1 niveis por canal (2 = tres niveis, ponto bem visivel). */
+    'uniform float uForte;uniform float uSat;uniform float uSombra;uniform float uNiveis;' +
     'vec3 rampa(float v){ float x = v*3.;' +
     '  return x < 1. ? mix(uC0,uC1,x) : (x < 2. ? mix(uC1,uC2,x-1.) : mix(uC2,uC3,clamp(x-2.,0.,1.))); }' +
     /* ruido de valor: bem mais barato que o Perlin 3D do OCI e, na amplitude em
@@ -119,6 +124,10 @@
     '  vec3 c = k<.5 ? uC0 : (k<1.5 ? uC1 : (k<2.5 ? uC2 : uC3));' +
     '  if(uCor > .5){ vec3 rgb = texture2D(uLum, clamp(p*sc+of, 0., 1.)).rgb;' +
     '    rgb = mix(rgb, rampa(tom(dot(rgb, vec3(.2126,.7152,.0722)))), uMistura);' +
+    '    if(uForte > .5){ float Y = dot(rgb, vec3(.2126,.7152,.0722));' +
+    '      float vv = clamp(pow(max(Y,0.), uGama), 1e-6, 1.-1e-6); float aa = pow(vv,uCtr), bb = pow(1.-vv,uCtr); float Y2 = aa/(aa+bb);' +
+    '      rgb = rgb * (Y2/max(Y,1e-3)); rgb = mix(vec3(Y2), rgb, uSat); rgb = mix(uC0, rgb, smoothstep(0., uSombra, Y2));' +
+    '      c = clamp(floor((rgb - bias)*uNiveis + T), 0., uNiveis)/uNiveis; } else' +
     '    c = clamp(floor((rgb - bias)*3. + T), 0., 3.)/3.; }' +
     /* a chapa de creme do hover, que cede onde a trilha passa */
     '  c = mix(c, uCreme, uLava*(1. - uRevela*tr));' +
@@ -181,7 +190,7 @@
     function uni(pr, nomes){ var o = {}; nomes.forEach(function(n){ o[n] = gl.getUniformLocation(pr, n); }); return o; }
     var uT = uni(pT, ['t','res','pt','ptAnt','aspecto','vel','raio','borda','fica']);
     var uF = uni(pF, ['uLum','uTrilha','uB4','uB8','uTela','uCol','uTex','uAx','uEspelha','uZoom','uTempo','uC0','uC1','uC2','uC3','uCreme',
-      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura']);
+      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura','uForte','uSat','uSombra','uNiveis']);
 
     var quad = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, quad);
@@ -473,6 +482,8 @@
       gl.uniform1f(uF.uSoFigura, cfg.trilhaSoNaFigura ? 1 : 0);
       gl.uniform1f(uF.uCor, cfg.colorido ? 1 : 0);
       gl.uniform1f(uF.uMistura, cfg.mistura || 0);
+      gl.uniform1f(uF.uForte, cfg.forte ? 1 : 0); gl.uniform1f(uF.uSat, cfg.sat == null ? .55 : cfg.sat);
+      gl.uniform1f(uF.uSombra, cfg.sombra == null ? .5 : cfg.sombra); gl.uniform1f(uF.uNiveis, cfg.niveis == null ? 2 : cfg.niveis);
 
       planos.forEach(function(pl){
         if(pl.opac.v < .002) return;
