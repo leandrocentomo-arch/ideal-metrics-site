@@ -2449,6 +2449,8 @@ body>*{position:relative;z-index:1}
 .sh-tira--flow{border-top:1px solid var(--fio)}
 .sh-tira--flow .sh-col--iso .sh-foto{transform:none}
 .sh-tira--flow .sh-col--iso:hover .sh-foto{transform:scale(1.035)}
+.sh-tira--flow .sh-col--sedex .sh-foto{transform:scaleX(-1)}
+.sh-tira--flow .sh-col--sedex:hover .sh-foto{transform:scaleX(-1) scale(1.035)}
 .nt-midia{position:relative}
 .nt-gl{z-index:1}
 .nt-midia.gl-on .nt-layer{visibility:hidden}
@@ -4041,7 +4043,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   (function(){
     var tira = document.querySelector('.sh-tira--flow'); if(!tira) return;
     var planos = [].slice.call(tira.querySelectorAll('.sh-col')).map(function(c){
-      var im = c.querySelector('img.sh-foto'); return {el:c, lum: im ? im.getAttribute('data-lum') : null, ax:.5, espelha:false};
+      /* 29/09: a do SMETA espelha, para os operarios sairem de baixo do botao */
+      var im = c.querySelector('img.sh-foto'); return {el:c, lum: im ? im.getAttribute('data-lum') : null, ax:.5, espelha:c.classList.contains('sh-col--sedex')};
     });
     /* 29/09: «volte ao colorido»: filtro em cor (emCor), como a tira oficial */
     ditherVivo(ditherVivo.emCor({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel',
