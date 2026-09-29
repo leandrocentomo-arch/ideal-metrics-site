@@ -61,7 +61,7 @@ FONTE = {
     # 29/09: as quatro fotos feitas no Google Flow (Nano Banana 2) para a tira de teste
     'flow-carbono': 'flow-gestao-carbono-4-recorte.jpg',   # 29/09: a 4a, recortada para o lago ocupar 1/4 como no ESG (o cru inteiro e -4.jpg); antes -2 (chamine) e a 1a
     'flow-iso': 'flow-implantacao-iso-2.jpg',   # 29/09: a 2a (o predio de vidro); a 1a era flow-implantacao-iso.jpg
-    'flow-smeta': 'flow-smeta-2-recorte.jpg',   # 29/09: descida 9% (ceu esticado no alto) para alinhar o ceu com as outras; o cru e -2.jpg   # 29/09: a 2a (operarios chegando ao portao); a 1a era flow-smeta.jpg
+    'flow-smeta': 'flow-smeta-2.jpg',   # 29/09: a 2a, SEM recorte (a descida de 9% foi desfeita a pedido); o -recorte fica no disco   # 29/09: a 2a (operarios chegando ao portao); a 1a era flow-smeta.jpg
     'flow-esg': 'flow-gestao-carbono-3.jpg',   # 29/09: o lago claro (nome do arquivo cru ficou -carbono-3, era para o ESG); a 1a era flow-esg-sustentabilidade.jpg
 }
 # vaga -> (largura da reserva, altura da reserva, [(assunto, arquivo-base, ax, ay)])
