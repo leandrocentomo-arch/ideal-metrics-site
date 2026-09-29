@@ -2447,6 +2447,8 @@ body>*{position:relative;z-index:1}
 .sh-tira.gl-on .sh-col::before{display:none}
 /* 29/09: TESTE da tira com as fotos do Google Flow: fio separando da oficial, e as fotos NAO espelham (a ISO oficial espelha) */
 .sh-tira--flow{border-top:1px solid var(--fio)}
+/* 29/09: tira Flow no tingimento azul antigo: a demao de creme do alto volta (o filtro em cor a esconde) */
+.sh-tira--flow.gl-on .sh-col::before{display:block}
 .sh-tira--flow .sh-col--iso .sh-foto{transform:none}
 .sh-tira--flow .sh-col--iso:hover .sh-foto{transform:scale(1.035)}
 .nt-midia{position:relative}
@@ -2608,10 +2610,10 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
     </div>
-    <!-- 29/09: TESTE, a tira com as fotos feitas no Google Flow (mesmo filtro em cor e mesmo motor). Apagar este bloco, o CSS .sh-tira--flow e a chamada «tira Flow» para desfazer. -->
+    <!-- 29/09: TESTE, a tira com as fotos feitas no Google Flow, no TINGIMENTO OFICIAL AZUL da tira antiga (luminancia, rampa, veu ,12 e a demao de creme). Apagar este bloco, o CSS .sh-tira--flow e a chamada «tira Flow» para desfazer. -->
     <div class="sh-tira sh-tira--flow">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/flow-carbono-cor-bayer-fl.webp?v=29092026" data-lum="img/flow-carbono-cor-fl.webp?v=29092026" alt="" loading="lazy" decoding="async">
+        <img class="sh-foto" src="img/flow-carbono-bayer-fl.webp?v=29092026" data-lum="img/flow-carbono-lum-fl.webp?v=29092026" alt="" loading="lazy" decoding="async">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
@@ -2627,7 +2629,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/flow-iso-cor-bayer-fl.webp?v=29092026" data-lum="img/flow-iso-cor-fl.webp?v=29092026" alt="" loading="lazy" decoding="async">
+        <img class="sh-foto" src="img/flow-iso-bayer-fl.webp?v=29092026" data-lum="img/flow-iso-lum-fl.webp?v=29092026" alt="" loading="lazy" decoding="async">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -2643,7 +2645,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/flow-smeta-cor-bayer-fl.webp?v=29092026" data-lum="img/flow-smeta-cor-fl.webp?v=29092026" alt="" loading="lazy" decoding="async">
+        <img class="sh-foto" src="img/flow-smeta-bayer-fl.webp?v=29092026" data-lum="img/flow-smeta-lum-fl.webp?v=29092026" alt="" loading="lazy" decoding="async">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
@@ -2659,7 +2661,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/flow-esg-cor-bayer-fl.webp?v=29092026" data-lum="img/flow-esg-cor-fl.webp?v=29092026" alt="" loading="lazy" decoding="async">
+        <img class="sh-foto" src="img/flow-esg-bayer-fl.webp?v=29092026" data-lum="img/flow-esg-lum-fl.webp?v=29092026" alt="" loading="lazy" decoding="async">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>
@@ -4043,9 +4045,11 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var planos = [].slice.call(tira.querySelectorAll('.sh-col')).map(function(c){
       var im = c.querySelector('img.sh-foto'); return {el:c, lum: im ? im.getAttribute('data-lum') : null, ax:.5, espelha:false};
     });
-    ditherVivo(ditherVivo.emCor({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel',
+    /* 29/09: «so azul, sem ser colorido, como no site antigo»: a chamada da tira ANTES do
+       filtro em cor, sem emCor, com as -lum-fl e o veu de ,12 */
+    ditherVivo({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
-      zoomHover:1.035, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05}));
+      zoomHover:1.035, lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
   })();
 
   /* ---------------- a folha do painel Demandas ---------------- */
