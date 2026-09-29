@@ -59,7 +59,7 @@ FONTE = {
     'lago-industria': 'Industrial_plant_reflecting_in_lake_2K_20260917203841.jpeg',
     'refinaria': 'refinaria-campo-ceu.jpg',
     # 29/09: as quatro fotos feitas no Google Flow (Nano Banana 2) para a tira de teste
-    'flow-carbono': 'flow-gestao-carbono-2.jpg',   # 29/09: a 2a (chamine sobre a agua); a 1a era flow-gestao-carbono.jpg
+    'flow-carbono': 'flow-gestao-carbono-4-recorte.jpg',   # 29/09: a 4a, recortada para o lago ocupar 1/4 como no ESG (o cru inteiro e -4.jpg); antes -2 (chamine) e a 1a
     'flow-iso': 'flow-implantacao-iso-2.jpg',   # 29/09: a 2a (o predio de vidro); a 1a era flow-implantacao-iso.jpg
     'flow-smeta': 'flow-smeta-2.jpg',   # 29/09: a 2a (operarios chegando ao portao); a 1a era flow-smeta.jpg
     'flow-esg': 'flow-gestao-carbono-3.jpg',   # 29/09: o lago claro (nome do arquivo cru ficou -carbono-3, era para o ESG); a 1a era flow-esg-sustentabilidade.jpg
