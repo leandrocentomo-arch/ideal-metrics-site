@@ -558,10 +558,10 @@
   ditherVivo.RECEITA_COR = {colorido:true, forte:true, ctr:1, gama:.68, piso:.1, brilho:0, sat:1,
     sombra:0, sombraCor:[40,100,190], luzCor:[250,249,245], luzDe:.32, luzForca:.56, mistura:.5,
     niveis:3 /* 4 niveis por canal */, celula:1, matriz:2, limiar:0, respiro:0, lavaRepouso:.13,
-    /* 28/09 (noite, 3a receita): «rastro menos evidente, talvez um pouco azulado»: a celula engrossa
-       menos na trilha (2,4x; o padrao e 3,3), o limiar escurece menos (biasReacao ,10, padrao ,20) e o
-       rastro puxa a cor para o azul da casa na mesma luminancia (trilhaAzul ,55) */
-    pixMul:2.4, biasReacao:.10, trilhaCor:[51,102,153], trilhaAzul:.55};
+    /* 28/09 (noite): o rastro do mouse e o DE SEMPRE (celula 3,3x na trilha, biasReacao ,20, sem tinta):
+       as duas mudancas («mais evidente», depois «menos evidente e azulado») foram desfeitas a pedido.
+       trilhaCor/trilhaAzul continuam no motor, desligados (trilhaAzul 0). */
+    trilhaAzul:0};
   ditherVivo.emCor = function(cfg){ var o = {}, k; for(k in ditherVivo.RECEITA_COR) o[k] = ditherVivo.RECEITA_COR[k]; for(k in cfg) o[k] = cfg[k]; return o; };
   window.ditherVivo = ditherVivo;
 })();
