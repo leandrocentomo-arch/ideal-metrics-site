@@ -2473,6 +2473,13 @@ body>*{position:relative;z-index:1}
 .sh-tira--flow.anima .sh-col:nth-of-type(3) .sh-conteudo{transition-delay:.57s}
 .sh-tira--flow.anima .sh-col:nth-of-type(4) .sh-conteudo{transition-delay:.73s}
 .sh-tira--flow .sh-col{animation:none}
+/* 29/09: a SOMBRA entra junto com a cortina: sai de 0 e chega aos 28% no mesmo passo e no mesmo
+   atraso do card (a sombra fica FORA do card, a cortina nao a cobria) */
+.sh-tira.sh-tira--flow.anima .sh-col + .sh-col{box-shadow:-10px 0 22px -6px rgba(20,48,76,0)}
+.sh-tira.sh-tira--flow.anima.entrou .sh-col + .sh-col{box-shadow:-10px 0 22px -6px rgba(20,48,76,.28)}
+.sh-tira--flow.anima .sh-col:nth-of-type(2){transition:flex .5s cubic-bezier(.4,0,.2,1),box-shadow .9s cubic-bezier(.65,0,.35,1) .16s}
+.sh-tira--flow.anima .sh-col:nth-of-type(3){transition:flex .5s cubic-bezier(.4,0,.2,1),box-shadow .9s cubic-bezier(.65,0,.35,1) .32s}
+.sh-tira--flow.anima .sh-col:nth-of-type(4){transition:flex .5s cubic-bezier(.4,0,.2,1),box-shadow .9s cubic-bezier(.65,0,.35,1) .48s}
 .sh-tira--flow .sh-col--iso .sh-foto{transform:none}
 .sh-tira--flow .sh-col--iso:hover .sh-foto{transform:scale(1.035)}
 .sh-tira--flow .sh-col--sedex .sh-foto{transform:scaleX(-1)}
