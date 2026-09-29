@@ -2452,7 +2452,27 @@ body>*{position:relative;z-index:1}
 /* 29/09: SOMBRA entre os cards, do lado esquerdo de cada um (modelo URS): cada coluna, a partir da
    segunda, projeta uma sombra macia sobre a vizinha da esquerda, como folhas sobrepostas. A coluna
    pinta por cima da anterior (mesmo z-index, ordem do HTML), entao a sombra cai sobre ela. */
-.sh-tira--flow .sh-col + .sh-col{box-shadow:-10px 0 22px -6px rgba(20,48,76,.28)}
+.sh-tira--flow .sh-col + .sh-col{box-shadow:-8px 0 18px -8px rgba(20,48,76,.16)}   /* 29/09: «um pouco mais discreta» (era -10px 0 22px -6px a ,28) */
+/* 29/09: ENTRADA da esquerda para a direita. Quando a tira chega na tela (JS: .anima e depois
+   .entrou), uma cortina de creme em cada card recolhe para a direita, card apos card, e o
+   bloco de texto entra deslizando da esquerda. A foto e um canvas so, por tras dos quatro
+   cards, entao quem esconde e revela e a cortina, nao a opacidade do card. Sem JS ou com
+   movimento reduzido nada disso liga. */
+.sh-tira.sh-tira--flow.anima .sh-col::after{display:block;opacity:1;background:#FAF9F5;
+  -webkit-backdrop-filter:none;backdrop-filter:none;transform-origin:right center;transform:scaleX(1);
+  transition:transform .9s cubic-bezier(.65,0,.35,1)}
+.sh-tira.sh-tira--flow.anima.entrou .sh-col::after{transform:scaleX(0)}
+.sh-tira--flow.anima .sh-conteudo{opacity:0;transform:translateX(-22px);
+  transition:opacity .7s ease,transform .9s cubic-bezier(.16,.8,.2,1)}
+.sh-tira--flow.anima.entrou .sh-conteudo{opacity:1;transform:none}
+.sh-tira--flow.anima .sh-col:nth-of-type(2)::after{transition-delay:.16s}
+.sh-tira--flow.anima .sh-col:nth-of-type(3)::after{transition-delay:.32s}
+.sh-tira--flow.anima .sh-col:nth-of-type(4)::after{transition-delay:.48s}
+.sh-tira--flow.anima .sh-col:nth-of-type(1) .sh-conteudo{transition-delay:.25s}
+.sh-tira--flow.anima .sh-col:nth-of-type(2) .sh-conteudo{transition-delay:.41s}
+.sh-tira--flow.anima .sh-col:nth-of-type(3) .sh-conteudo{transition-delay:.57s}
+.sh-tira--flow.anima .sh-col:nth-of-type(4) .sh-conteudo{transition-delay:.73s}
+.sh-tira--flow .sh-col{animation:none}
 .sh-tira--flow .sh-col--iso .sh-foto{transform:none}
 .sh-tira--flow .sh-col--iso:hover .sh-foto{transform:scale(1.035)}
 .sh-tira--flow .sh-col--sedex .sh-foto{transform:scaleX(-1)}
@@ -4048,6 +4068,12 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   /* ---------------- 29/09: TESTE, tira Flow ---------------- */
   (function(){
     var tira = document.querySelector('.sh-tira--flow'); if(!tira) return;
+    /* 29/09: a entrada da esquerda para a direita (ver o CSS .anima/.entrou) */
+    if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      tira.classList.add('anima');
+      var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ tira.classList.add('entrou'); io.disconnect(); } }); }, {threshold:.3});
+      io.observe(tira);
+    }
     var planos = [].slice.call(tira.querySelectorAll('.sh-col')).map(function(c){
       /* 29/09: a do SMETA espelha, para os operarios sairem de baixo do botao */
       var im = c.querySelector('img.sh-foto'); return {el:c, lum: im ? im.getAttribute('data-lum') : null, ax:.5, espelha:c.classList.contains('sh-col--sedex')};
