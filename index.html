@@ -2447,6 +2447,12 @@ body>*{position:relative;z-index:1}
 .sh-tira.gl-on .sh-col::before{display:none}
 /* 29/09: TESTE da tira com as fotos do Google Flow: fio separando da oficial, e as fotos NAO espelham (a ISO oficial espelha) */
 .sh-tira--flow{border-top:1px solid var(--fio)}
+/* 29/09: «titulos, subtitulos e numeros ligeiramente mais para baixo» (64 -> 92 px no alto do bloco) */
+.sh-tira--flow .sh-conteudo{padding-top:92px}
+/* 29/09: SOMBRA entre os cards, do lado esquerdo de cada um (modelo URS): cada coluna, a partir da
+   segunda, projeta uma sombra macia sobre a vizinha da esquerda, como folhas sobrepostas. A coluna
+   pinta por cima da anterior (mesmo z-index, ordem do HTML), entao a sombra cai sobre ela. */
+.sh-tira--flow .sh-col + .sh-col{box-shadow:-10px 0 22px -6px rgba(20,48,76,.28)}
 .sh-tira--flow .sh-col--iso .sh-foto{transform:none}
 .sh-tira--flow .sh-col--iso:hover .sh-foto{transform:scale(1.035)}
 .sh-tira--flow .sh-col--sedex .sh-foto{transform:scaleX(-1)}
@@ -2613,7 +2619,7 @@ body>*{position:relative;z-index:1}
     <!-- 29/09: TESTE, a tira com as fotos feitas no Google Flow, de volta ao FILTRO EM COR (a versao azul durou uma rodada; as -lum-fl/-bayer-fl ficam no disco). Apagar este bloco, o CSS .sh-tira--flow e a chamada «tira Flow» para desfazer. -->
     <div class="sh-tira sh-tira--flow">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/flow-carbono-cor-bayer-fl.webp?v=29092026b" data-lum="img/flow-carbono-cor-fl.webp?v=29092026b" alt="" loading="lazy" decoding="async">
+        <img class="sh-foto" src="img/flow-carbono-cor-bayer-fl.webp?v=29092026c" data-lum="img/flow-carbono-cor-fl.webp?v=29092026c" alt="" loading="lazy" decoding="async">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
