@@ -37,9 +37,9 @@ IMG = os.path.join(SITE, 'img')
 CRU = os.path.join(os.path.dirname(SITE), '_tingir-fotos', 'FOTOS')
 
 # ---------- a receita (copiada do JSON do Spirit, 28/09/2026) ----------
-RECEITA = dict(ctr=1.5, gama=0.98, piso=0.19, brilho=0.08, sat=0.51,
-               sombra=0.26, sombraCor=(51, 102, 153), mistura=0.21,
-               niveis=3, celula=1, matriz=2, limiar=-0.16, ruido=0.0, veu=0.08, ifcGama=1.15)
+RECEITA = dict(ctr=1.0, gama=0.68, piso=0.10, brilho=0.0, sat=1.0,
+               sombra=0.0, sombraCor=(40, 100, 190), luzCor=(250, 249, 245), luzDe=0.32, luzForca=0.56,
+               mistura=0.5, niveis=4, celula=1, matriz=2, limiar=0.0, ruido=0.0, veu=0.13, ifcGama=1.4)
 # a 1a receita (28/09, tarde): ctr 1.15 gama .89 piso .21 brilho .08 sat 1.07 sombra .89 mistura .21 niveis 3 matriz 4 limiar 0 ruido .012 veu .17
 RAMPA = np.array([[21.2, 50.9, 80.6], [24.2, 56.2, 88.1], [103.0, 146.1, 189.4], [250, 249, 245]]) / 255
 CREME = np.array([250, 249, 245]) / 255
@@ -101,6 +101,11 @@ def filtrar(rgb, R, gama_extra=None):
     az = SC[None, None, :] * (Y2 / max(SC @ LUM, 1e-3))[..., None]
     t = np.clip(Y2 / max(R['sombra'], 1e-6), 0, 1); s = (t * t * (3 - 2 * t))[..., None]
     out = az * (1 - s) + out * s
+    if R.get('luzForca', 0) > 0:      # as luzes: a partir de luzDe, para luzCor na mesma luminancia
+        LC = np.array(R['luzCor']) / 255
+        lz = LC[None, None, :] * (Y2 / max(LC @ LUM, 1e-3))[..., None]
+        t2 = np.clip((Y2 - R['luzDe']) / max(1 - R['luzDe'], 1e-6), 0, 1); l = (t2 * t2 * (3 - 2 * t2))[..., None] * R['luzForca']
+        out = out * (1 - l) + lz * l
     if R['mistura'] > 0:
         out = out * (1 - R['mistura']) + rampa(Y2) * R['mistura']
     return np.clip(out, 0, 1)
