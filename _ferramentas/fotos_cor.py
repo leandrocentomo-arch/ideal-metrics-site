@@ -61,7 +61,8 @@ FONTE = {
     # 29/09: as quatro fotos feitas no Google Flow (Nano Banana 2) para a tira de teste
     'flow-carbono': 'flow-gestao-carbono-2.jpg',   # 29/09: a 2a (chamine sobre a agua); a 1a era flow-gestao-carbono.jpg
     'flow-iso': 'flow-implantacao-iso-2.jpg',   # 29/09: a 2a (o predio de vidro); a 1a era flow-implantacao-iso.jpg
-    'flow-smeta': 'flow-smeta.jpg', 'flow-esg': 'flow-esg-sustentabilidade.jpg',
+    'flow-smeta': 'flow-smeta-2.jpg',   # 29/09: a 2a (operarios chegando ao portao); a 1a era flow-smeta.jpg
+    'flow-esg': 'flow-esg-sustentabilidade.jpg',
 }
 # vaga -> (largura da reserva, altura da reserva, [(assunto, arquivo-base, ax, ay)])
 # qc: a coluna da tira; os recortes foram casados com as -lum-qc de hoje (foto_coluna.py)
