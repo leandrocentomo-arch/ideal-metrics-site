@@ -58,6 +58,9 @@ FONTE = {
     'etica-auditoria': 'Coworkers_talking_in_factory_2K_20260917192906.jpeg',
     'lago-industria': 'Industrial_plant_reflecting_in_lake_2K_20260917203841.jpeg',
     'refinaria': 'refinaria-campo-ceu.jpg',
+    # 29/09: as quatro fotos feitas no Google Flow (Nano Banana 2) para a tira de teste
+    'flow-carbono': 'flow-gestao-carbono.jpg', 'flow-iso': 'flow-implantacao-iso.jpg',
+    'flow-smeta': 'flow-smeta.jpg', 'flow-esg': 'flow-esg-sustentabilidade.jpg',
 }
 # vaga -> (largura da reserva, altura da reserva, [(assunto, arquivo-base, ax, ay)])
 # qc: a coluna da tira; os recortes foram casados com as -lum-qc de hoje (foto_coluna.py)
@@ -68,6 +71,8 @@ VAGAS = {
     'df': (562, 380, [(a, a, .5, .5) for a in ['industria', 'logistica', 'tecnologia']]),
     'st': (562, 422, [(a, a, .5, .5) for a in ['industria', 'logistica', 'alimentos', 'saude', 'tecnologia', 'energia']]),
     'nt': (900, 506, [(a, a, .5, .5) for a in ['tecnologia', 'industria', 'alimentos', 'logistica']]),
+    # 29/09: a tira de teste com as fotos do Flow (mesma vaga da qc, sem espelhar)
+    'fl': (633, 788, [(a, a, .5, .5) for a in ['flow-carbono', 'flow-iso', 'flow-smeta', 'flow-esg']]),
 }
 COR_W = 900          # largura da foto em cor que o motor le
 
