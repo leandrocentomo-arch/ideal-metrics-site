@@ -2449,6 +2449,14 @@ body>*{position:relative;z-index:1}
    (ceu 137,219,250 contra 68,201,253). Com o motor ligado, so o veu do shader (0,17),
    igual ao painel. Sem WebGL a reserva continua com a demao, para o escrito se ler. */
 .sh-tira.gl-on .sh-col::before{display:none}
+/* 30/09 (noite): RESERVA CONTINUA da tira panoramica (sem o motor: file://, sem WebGL, antes de ligar).
+   A panoramica inteira tramada de fundo da tira, presa como o motor (largura toda, chao na base);
+   o recorte de cada card fica so para o celular, onde os cards empilham. */
+@media (min-width:881px){
+  .sh-tira.sh-tira--flow:not(.gl-on){background:#FAF9F5 url(img/tira-panorama-cor-bayer.webp?v=30092026cg) center bottom/100% auto no-repeat}
+  .sh-tira--flow:not(.gl-on) .sh-foto{visibility:hidden}
+  .sh-tira--flow:not(.gl-on) .sh-col{background:transparent}
+}
 /* 29/09: TESTE da tira com as fotos do Google Flow: fio separando da oficial, e as fotos NAO espelham (a ISO oficial espelha) */
 /* 29/09: «titulos, subtitulos e numeros ligeiramente mais para baixo» (64 -> 92 px no alto do bloco) */
 .sh-tira--flow .sh-conteudo{padding-top:84px}   /* 30/09: «titulos so um pouco mais para cima» (era 92) */
@@ -2596,7 +2604,7 @@ body>*{position:relative;z-index:1}
     <!-- 30/09: A TIRA DA HOME E UMA FOTO SO. Os quatro cards sao janelas de uma panoramica continua (img/tira-panorama-cor.webp, montada por _ferramentas/panorama.py a partir de duas metades geradas no Google Flow sobre a foto do escritorio): producao com a chamine | escritorio | patio com a entrevista | estacao de tratamento. O src de cada card e o seu quarto ja tramado (reserva sem WebGL e telefone). As quatro fotos separadas de 29/09 (flow-*-cor-fl) ficam em img/. -->
     <div class="sh-tira sh-tira--flow">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=30092026cf" data-lum="img/tira-panorama-cor.webp?v=30092026cf" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=30092026cg" data-lum="img/tira-panorama-cor.webp?v=30092026cg" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
@@ -2612,7 +2620,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=30092026cf" data-lum="img/tira-panorama-cor.webp?v=30092026cf" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=30092026cg" data-lum="img/tira-panorama-cor.webp?v=30092026cg" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -2628,7 +2636,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=30092026cf" data-lum="img/tira-panorama-cor.webp?v=30092026cf" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=30092026cg" data-lum="img/tira-panorama-cor.webp?v=30092026cg" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
@@ -2644,7 +2652,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=30092026cf" data-lum="img/tira-panorama-cor.webp?v=30092026cf" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=30092026cg" data-lum="img/tira-panorama-cor.webp?v=30092026cg" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>

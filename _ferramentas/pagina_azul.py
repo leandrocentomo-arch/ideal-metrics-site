@@ -38,6 +38,7 @@ for p in pares:
     if n == 0: print('AVISO: linha nao achada:', p['de'][0][:90]); falhas += 1; continue
     s = s.replace(de, para, 1)
 # a tira
+s, n3 = re.subn(r'img/tira-panorama-cor-bayer\.webp', 'img/tira-panorama-bayer.webp', s)   # a reserva continua (CSS)
 s, n1 = re.subn(r'img/tira-(carbono|iso|smeta|esg)-cor-bayer\.webp\?v=([0-9a-z]+)', r'img/tira-\1-bayer.webp?v=\2', s)
 s, n2 = re.subn(r'data-lum="img/tira-panorama-cor\.webp\?v=([0-9a-z]+)"', r'data-lum="img/tira-panorama-lum.webp?v=\1"', s)
 i = s.find('pecaTira = ditherVivo(ditherVivo.emCor({')

@@ -269,6 +269,14 @@ def gravar(m, ordem, prefixo='tira'):
     mestra.save(dest, quality=90, method=6)
     print('%s  %d KB' % (os.path.basename(dest), os.path.getsize(dest) // 1024))
     R = fotos_cor.RECEITA
+    # 30/09 (noite): a RESERVA CONTINUA. Sem o motor (file://, sem WebGL) cada card mostrava o seu
+    # recorte e a panoramica nao emendava. A mestra inteira, filtrada e tramada, vai de fundo da tira
+    # (CSS .sh-tira--flow:not(.gl-on)), presa como o motor: largura toda, chao na base.
+    rgb = np.asarray(mestra, np.float64) / 255
+    arq = os.path.join(IMG, '%s-panorama-cor-bayer.webp' % prefixo)
+    # SEM a trama: reduzida na tela, a trama de 1 px vira moire; a reserva vai so no tom (a trama e do motor)
+    kb = fotos_cor.salvar_rgb(fotos_cor.filtrar(rgb, R), arq, quality=90)
+    print('  %-34s %dx%d  %d KB' % (os.path.basename(arq), W, HM, kb))
     for i, nome in enumerate(ordem):
         q = mestra.crop((round(i * W / 4.0), 0, round((i + 1) * W / 4.0), HM))
         q = q.resize((CARD_W, round(q.height * CARD_W / q.width)), Image.LANCZOS)

@@ -133,6 +133,12 @@ g = reforcar(np.asarray(mestra, np.float64), lumin(mestra))
 dest = os.path.join(IMG, 'tira-panorama-lum.webp')
 Image.fromarray(np.clip(np.rint(g * 255), 0, 255).astype(np.uint8), 'L').save(dest, lossless=True)
 print('%s  %dx%d  %d KB' % (os.path.basename(dest), W, HM, os.path.getsize(dest) // 1024))
+# 30/09 (noite): a reserva continua, a panoramica inteira tramada no azul (fundo da tira sem o motor)
+arq = os.path.join(IMG, 'tira-panorama-bayer.webp')
+# SEM a trama (reduzida na tela vira moire): o tom continuo, a rampa interpolada
+_L = lut_rampa(); _v = tom(g); _i = np.clip(np.rint(_v * 255), 0, 255).astype(np.int32)
+Image.fromarray(np.clip(np.rint(_L[_i]), 0, 255).astype(np.uint8), 'RGB').save(arq, 'WEBP', quality=90, method=6)
+print('  %-28s %dx%d  %d KB' % (os.path.basename(arq), W, HM, os.path.getsize(arq) // 1024))
 for i, nome in enumerate(ORDEM):
     q = Image.fromarray(np.clip(g * 255, 0, 255).astype(np.uint8), 'L').crop((round(i * W / 4.0), 0, round((i + 1) * W / 4.0), HM))
     q = q.resize((CARD_W, round(q.height * CARD_W / q.width)), Image.LANCZOS)
