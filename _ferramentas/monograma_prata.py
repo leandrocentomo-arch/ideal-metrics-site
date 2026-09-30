@@ -32,8 +32,9 @@ grad = ('<defs><linearGradient id="prata" gradientUnits="userSpaceOnUse" x1="%.2
         '</linearGradient></defs>' % (x1, y1, x2, y2,
                                       ''.join('<stop offset="%g" stop-color="%s"/>' % p for p in PARADAS)))
 cores = set(c.upper() for c in re.findall(r'fill="(#[0-9A-Fa-f]{3,6})"', s))
-assert cores == {'#14304C'}, cores          # o oficial e uma cor so; se mudar, rever a receita
+assert cores <= {'#14304C'}, cores          # o oficial e uma cor so (ou degrades); se mudar, rever a receita
 s = re.sub(r'fill="#14304[cC]"', 'fill="url(#prata)"', s)   # 28/09: o Asset 182 escreve o hex em minusculas
+s = re.sub(r'fill="url\(#linear-gradient(-\d+)?\)"', 'fill="url(#prata)"', s)   # 30/09: o Asset 7 vem em degrade metalico
 s = re.sub(r'(<svg[^>]*>)', r'\1' + grad, s, count=1)
 open(DESTINO, 'w', encoding='utf-8', newline='\n').write(s)
 print('prata:', DESTINO, '| %d preenchimentos' % s.count('url(#prata)'))
