@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="-13.02 -38 167.5 159.24"><defs><linearGradient id="placa" gradientUnits="userSpaceOnUse" x1="-13.02" y1="-38" x2="154.48" y2="121.24"><stop offset="0" stop-color="#BDDDFF"/><stop offset="1" stop-color="#FAF9F5"/></linearGradient></defs>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="-13.02 -60 167.5 189.24"><defs><linearGradient id="placa" gradientUnits="userSpaceOnUse" x1="-13.02" y1="-60" x2="154.48" y2="129.24"><stop offset="0" stop-color="#BDDDFF"/><stop offset="1" stop-color="#FAF9F5"/></linearGradient></defs>
   <g id="Layer_1-2" data-name="Layer 1">
-    <rect x="-13.02" y="-38" width="167.5" height="159.24" fill="url(#placa)"/>
+    <rect x="-13.02" y="-60" width="167.5" height="189.24" fill="url(#placa)"/>
     <g>
       <path d="M69.41,24.81l.06-.57-.66-.1-.04.58c.21.03.43.06.64.1h0Z" fill="#14304c"/>
       <polygon points="70.64 24.28 69.99 24.1 69.85 24.91 70.49 25.05 70.64 24.28" fill="#14304c"/>
