@@ -28,7 +28,9 @@ IMG = os.path.join(SITE, 'img')
 ORDEM = ['carbono', 'iso', 'smeta', 'esg']
 CARD_W, CARD_H = 633, 788
 RAMPA = ['14304C', '336699', 'D3E2F2', 'FAF9F5']
-R = dict(gama=0.86, ctr=1.55, brilho=0.20, escuro=1.4, niveis=4, n=4)   # 30/09 (noite): brilho .20 (o oficial e .35), igual a tira da pagina azul
+import json as _json
+_TOM = _json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tom_azul.json'), encoding='utf-8'))
+R = dict(gama=_TOM['gama'], ctr=_TOM['ctr'], brilho=_TOM['brilhoTom'], escuro=1.4, niveis=4, n=4)   # 30/09 (noite): o tom da pagina azul, de _ferramentas/tom_azul.json
 
 
 def lumin(im):
