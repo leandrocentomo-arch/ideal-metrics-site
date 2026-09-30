@@ -1,0 +1,208 @@
+[
+ {
+  "de": [
+   "<title>Ideal Metrics</title>"
+  ],
+  "para": [
+   "<title>Ideal Metrics (azul)</title>"
+  ]
+ },
+ {
+  "inserir_depois_de": "<body class=\"carga inicio\">",
+  "linhas": [
+   "<!-- 30/09/2026: pagina de comparacao pedida pelo Leandro («salve uma pagina com todas as fotos no efeito azul»): a home da HEAD 13009c8 com Servicos, Diferenciais, Setores e noticias no TINGIMENTO OFICIAL AZUL (sem ditherVivo.emCor, arquivos -lum-/-bayer- de 436e790^). Nao e publicada (index-azul.html esta no .gitignore). -->"
+  ]
+ },
+ {
+  "de": [
+   "              <figure class=\"sv-foto\"><img src=\"img/industria-cor-bayer-sv.webp?v=28092026\" data-lum=\"img/industria-cor-sv.webp?v=28092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ],
+  "para": [
+   "              <figure class=\"sv-foto\"><img src=\"img/industria-bayer-sv.webp?v=25092026\" data-lum=\"img/industria-lum-sv.webp?v=25092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ]
+ },
+ {
+  "de": [
+   "              <figure class=\"sv-foto\"><img src=\"img/energia-cor-bayer-sv.webp?v=28092026\" data-lum=\"img/energia-cor-sv.webp?v=28092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ],
+  "para": [
+   "              <figure class=\"sv-foto\"><img src=\"img/energia-bayer-sv.webp?v=25092026\" data-lum=\"img/energia-lum-sv.webp?v=25092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ]
+ },
+ {
+  "de": [
+   "              <figure class=\"sv-foto\"><img src=\"img/alimentos-cor-bayer-sv.webp?v=28092026\" data-lum=\"img/alimentos-cor-sv.webp?v=28092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ],
+  "para": [
+   "              <figure class=\"sv-foto\"><img src=\"img/alimentos-bayer-sv.webp?v=25092026\" data-lum=\"img/alimentos-lum-sv.webp?v=25092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ]
+ },
+ {
+  "de": [
+   "              <figure class=\"sv-foto\"><img src=\"img/logistica-cor-bayer-sv.webp?v=28092026\" data-lum=\"img/logistica-cor-sv.webp?v=28092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ],
+  "para": [
+   "              <figure class=\"sv-foto\"><img src=\"img/logistica-bayer-sv.webp?v=25092026\" data-lum=\"img/logistica-lum-sv.webp?v=25092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ]
+ },
+ {
+  "de": [
+   "              <figure class=\"sv-foto\"><img src=\"img/tecnologia-cor-bayer-sv.webp?v=28092026\" data-lum=\"img/tecnologia-cor-sv.webp?v=28092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ],
+  "para": [
+   "              <figure class=\"sv-foto\"><img src=\"img/tecnologia-bayer-sv.webp?v=25092026\" data-lum=\"img/tecnologia-lum-sv.webp?v=25092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ]
+ },
+ {
+  "de": [
+   "              <figure class=\"sv-foto\"><img src=\"img/saude-cor-bayer-sv.webp?v=28092026\" data-lum=\"img/saude-cor-sv.webp?v=28092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ],
+  "para": [
+   "              <figure class=\"sv-foto\"><img src=\"img/saude-bayer-sv.webp?v=25092026\" data-lum=\"img/saude-lum-sv.webp?v=25092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ]
+ },
+ {
+  "de": [
+   "              <figure class=\"sv-foto\"><img src=\"img/industria-cor-bayer-sv.webp?v=28092026\" data-lum=\"img/industria-cor-sv.webp?v=28092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ],
+  "para": [
+   "              <figure class=\"sv-foto\"><img src=\"img/industria-bayer-sv.webp?v=25092026\" data-lum=\"img/industria-lum-sv.webp?v=25092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ]
+ },
+ {
+  "de": [
+   "              <figure class=\"sv-foto\"><img src=\"img/energia-cor-bayer-sv.webp?v=28092026\" data-lum=\"img/energia-cor-sv.webp?v=28092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ],
+  "para": [
+   "              <figure class=\"sv-foto\"><img src=\"img/energia-bayer-sv.webp?v=25092026\" data-lum=\"img/energia-lum-sv.webp?v=25092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ]
+ },
+ {
+  "de": [
+   "              <figure class=\"sv-foto\"><img src=\"img/tecnologia-cor-bayer-sv.webp?v=28092026\" data-lum=\"img/tecnologia-cor-sv.webp?v=28092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ],
+  "para": [
+   "              <figure class=\"sv-foto\"><img src=\"img/tecnologia-bayer-sv.webp?v=25092026\" data-lum=\"img/tecnologia-lum-sv.webp?v=25092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ]
+ },
+ {
+  "de": [
+   "              <figure class=\"sv-foto\"><img src=\"img/logistica-cor-bayer-sv.webp?v=28092026\" data-lum=\"img/logistica-cor-sv.webp?v=28092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ],
+  "para": [
+   "              <figure class=\"sv-foto\"><img src=\"img/logistica-bayer-sv.webp?v=25092026\" data-lum=\"img/logistica-lum-sv.webp?v=25092026\" alt=\"\" loading=\"lazy\"></figure>"
+  ]
+ },
+ {
+  "de": [
+   "          <img class=\"df-foto\" src=\"img/industria-cor-bayer-df.webp?v=28092026\" data-lum=\"img/industria-cor-df.webp?v=28092026\" alt=\"Planta industrial em tingimento azul da marca\" loading=\"lazy\">"
+  ],
+  "para": [
+   "          <img class=\"df-foto\" src=\"img/industria-bayer-df.webp?v=25092026\" data-lum=\"img/industria-lum-df.webp?v=25092026\" alt=\"Planta industrial em tingimento azul da marca\" loading=\"lazy\">"
+  ]
+ },
+ {
+  "de": [
+   "          <img class=\"df-foto\" src=\"img/logistica-cor-bayer-df.webp?v=28092026\" data-lum=\"img/logistica-cor-df.webp?v=28092026\" alt=\"Operação logística em tingimento azul da marca\" loading=\"lazy\">"
+  ],
+  "para": [
+   "          <img class=\"df-foto\" src=\"img/logistica-bayer-df.webp?v=25092026\" data-lum=\"img/logistica-lum-df.webp?v=25092026\" alt=\"Operação logística em tingimento azul da marca\" loading=\"lazy\">"
+  ]
+ },
+ {
+  "de": [
+   "          <img class=\"df-foto\" src=\"img/tecnologia-cor-bayer-df.webp?v=28092026\" data-lum=\"img/tecnologia-cor-df.webp?v=28092026\" alt=\"Ambiente de tecnologia em tingimento azul da marca\" loading=\"lazy\">"
+  ],
+  "para": [
+   "          <img class=\"df-foto\" src=\"img/tecnologia-bayer-df.webp?v=25092026\" data-lum=\"img/tecnologia-lum-df.webp?v=25092026\" alt=\"Ambiente de tecnologia em tingimento azul da marca\" loading=\"lazy\">"
+  ]
+ },
+ {
+  "de": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/industria-cor-bayer-st.webp?v=28092026\" data-lum=\"img/industria-cor-st.webp?v=28092026\" alt=\"Indústria em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ],
+  "para": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/industria-bayer-st.webp?v=25092026\" data-lum=\"img/industria-lum-st.webp?v=25092026\" alt=\"Indústria em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ]
+ },
+ {
+  "de": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/logistica-cor-bayer-st.webp?v=28092026\" data-lum=\"img/logistica-cor-st.webp?v=28092026\" alt=\"Logística em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ],
+  "para": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/logistica-bayer-st.webp?v=25092026\" data-lum=\"img/logistica-lum-st.webp?v=25092026\" alt=\"Logística em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ]
+ },
+ {
+  "de": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/alimentos-cor-bayer-st.webp?v=28092026\" data-lum=\"img/alimentos-cor-st.webp?v=28092026\" alt=\"Alimentos em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ],
+  "para": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/alimentos-bayer-st.webp?v=25092026\" data-lum=\"img/alimentos-lum-st.webp?v=25092026\" alt=\"Alimentos em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ]
+ },
+ {
+  "de": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/saude-cor-bayer-st.webp?v=28092026\" data-lum=\"img/saude-cor-st.webp?v=28092026\" alt=\"Saúde em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ],
+  "para": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/saude-bayer-st.webp?v=25092026\" data-lum=\"img/saude-lum-st.webp?v=25092026\" alt=\"Saúde em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ]
+ },
+ {
+  "de": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/tecnologia-cor-bayer-st.webp?v=28092026\" data-lum=\"img/tecnologia-cor-st.webp?v=28092026\" alt=\"Tecnologia em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ],
+  "para": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/tecnologia-bayer-st.webp?v=25092026\" data-lum=\"img/tecnologia-lum-st.webp?v=25092026\" alt=\"Tecnologia em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ]
+ },
+ {
+  "de": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/energia-cor-bayer-st.webp?v=28092026\" data-lum=\"img/energia-cor-st.webp?v=28092026\" alt=\"Energia em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ],
+  "para": [
+   "        <div class=\"st-quadro\"><img class=\"st-foto\" src=\"img/energia-bayer-st.webp?v=25092026\" data-lum=\"img/energia-lum-st.webp?v=25092026\" alt=\"Energia em tingimento azul da marca\" loading=\"lazy\"></div>"
+  ]
+ },
+ {
+  "de": [
+   "    <div class=\"nt-layer nt-layer-ativa\"><img src=\"img/tecnologia-cor-bayer-nt.webp?v=28092026\" data-lum=\"img/tecnologia-cor-nt.webp?v=28092026\" alt=\"\" loading=\"lazy\"></div>",
+   "    <div class=\"nt-layer\"><img src=\"img/industria-cor-bayer-nt.webp?v=28092026\" data-lum=\"img/industria-cor-nt.webp?v=28092026\" alt=\"\" loading=\"lazy\"></div>",
+   "    <div class=\"nt-layer\"><img src=\"img/alimentos-cor-bayer-nt.webp?v=28092026\" data-lum=\"img/alimentos-cor-nt.webp?v=28092026\" alt=\"\" loading=\"lazy\"></div>",
+   "    <div class=\"nt-layer\"><img src=\"img/logistica-cor-bayer-nt.webp?v=28092026\" data-lum=\"img/logistica-cor-nt.webp?v=28092026\" alt=\"\" loading=\"lazy\"></div>"
+  ],
+  "para": [
+   "    <div class=\"nt-layer nt-layer-ativa\"><img src=\"img/tecnologia-bayer-nt.webp?v=25092026\" data-lum=\"img/tecnologia-lum-nt.webp\" alt=\"\" loading=\"lazy\"></div>",
+   "    <div class=\"nt-layer\"><img src=\"img/industria-bayer-nt.webp?v=25092026\" data-lum=\"img/industria-lum-nt.webp\" alt=\"\" loading=\"lazy\"></div>",
+   "    <div class=\"nt-layer\"><img src=\"img/alimentos-bayer-nt.webp?v=25092026\" data-lum=\"img/alimentos-lum-nt.webp\" alt=\"\" loading=\"lazy\"></div>",
+   "    <div class=\"nt-layer\"><img src=\"img/logistica-bayer-nt.webp?v=25092026\" data-lum=\"img/logistica-lum-nt.webp\" alt=\"\" loading=\"lazy\"></div>"
+  ]
+ },
+ {
+  "de": [
+   "        if(quer && !gl) gl = ditherVivo(ditherVivo.emCor({raiz:raiz, planos:[{el:raiz, lum:im.getAttribute('data-lum')}], classeCanvas:'vv-gl',",
+   "          revelar:'visivel', cores:OFICIAL, pincel:.7, zoomHover:zoom}));   /* 28/09: filtro em cor (emCor) */"
+  ],
+  "para": [
+   "        if(quer && !gl) gl = ditherVivo({raiz:raiz, planos:[{el:raiz, lum:im.getAttribute('data-lum')}], classeCanvas:'vv-gl',",
+   "          revelar:'visivel', cores:OFICIAL, pincel:.7, zoomHover:zoom});   /* index-azul: tingimento oficial azul, sem emCor (como em 436e790^) */"
+  ]
+ },
+ {
+  "de": [
+   "    var gl = ditherVivo(ditherVivo.emCor({raiz:midia, planos:planos, classeCanvas:'nt-gl', revelar:'visivel', empilhado:true,   /* 28/09: filtro em cor */"
+  ],
+  "para": [
+   "    var gl = ditherVivo({raiz:midia, planos:planos, classeCanvas:'nt-gl', revelar:'visivel', empilhado:true,   /* index-azul: tingimento oficial azul, sem emCor (como em 436e790^) */"
+  ]
+ },
+ {
+  "de": [
+   "      zoomHover:1.03}));"
+  ],
+  "para": [
+   "      zoomHover:1.03});"
+  ]
+ }
+]

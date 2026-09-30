@@ -535,7 +535,7 @@
       gl.uniform3f(uF.uC2, C[2][0]/255, C[2][1]/255, C[2][2]/255);
       gl.uniform3f(uF.uC3, C[3][0]/255, C[3][1]/255, C[3][2]/255);
       gl.uniform3f(uF.uCreme, CR[0]/255, CR[1]/255, CR[2]/255);
-      gl.uniform1f(uF.uGama, cfg.gama || .86); gl.uniform1f(uF.uCtr, cfg.ctr || 1.55); gl.uniform1f(uF.uBrilho, .35);   /* 28/09: gama e contraste por peca (o modo em cor usa outros) */
+      gl.uniform1f(uF.uGama, cfg.gama || .86); gl.uniform1f(uF.uCtr, cfg.ctr || 1.55); gl.uniform1f(uF.uBrilho, cfg.brilhoTom == null ? .35 : cfg.brilhoTom);   /* 30/09: brilho do tom azul por peca (a tira da pagina azul usa .20) */   /* 28/09: gama e contraste por peca (o modo em cor usa outros) */
       gl.uniform1f(uF.uPix, Math.max(1, pix.v) * (cfg.celula || 1)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 3.3);   /* 28/09: cfg.celula engrossa a celula em repouso (1 = 1 px de dispositivo) */ gl.uniform1f(uF.uTrailMul, 1.27);
       gl.uniform1f(uF.uBias, bias.v);
       /* quanto o rastro ESCURECE a trama. 0,13 ate 21/09; 0,20 desde 22/09 («um

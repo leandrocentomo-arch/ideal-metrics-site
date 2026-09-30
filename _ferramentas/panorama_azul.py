@@ -28,7 +28,7 @@ IMG = os.path.join(SITE, 'img')
 ORDEM = ['carbono', 'iso', 'smeta', 'esg']
 CARD_W, CARD_H = 633, 788
 RAMPA = ['14304C', '336699', 'D3E2F2', 'FAF9F5']
-R = dict(gama=0.86, ctr=1.55, brilho=0.35, escuro=1.4, niveis=4, n=4)
+R = dict(gama=0.86, ctr=1.55, brilho=0.20, escuro=1.4, niveis=4, n=4)   # 30/09 (noite): brilho .20 (o oficial e .35), igual a tira da pagina azul
 
 
 def lumin(im):
@@ -91,19 +91,24 @@ def reforcar(m, g):
     # moinhos
     y0, y1, x0, x1 = 600, 1060, 2380, 2900
     bx = m[y0:y1, x0:x1]
-    G = np.array([128, 133, 154.0]); d = S - G
-    a = ((S - bx) @ d) / (d @ d)
-    res = np.linalg.norm(bx - (S - a[..., None] * d), axis=2)
-    cand = ((a > 0.04) & (res < 9)).astype(np.uint8)
+    # 30/09 (noite): os moinhos passaram a ser fotograficos (Flow), claros e com sombreado; em vez
+    # da reta ceu-cinza, conta o que se afasta do ceu (o ceu e plano, --ceu-plano)
+    dist = np.abs(bx - S).max(axis=2)
+    a = np.clip((dist - 6) / 20.0, 0, 1)
+    cand = (dist > 8)
+    # so a faixa de ceu dos moinhos: entre o predio do SMETA (a esquerda) e os tanques (a direita),
+    # acima dos paineis; sem isso os moinhos se ligam a paineis, tanques e predio num bloco so
+    yy, xx = np.mgrid[0:cand.shape[0], 0:cand.shape[1]]
+    cand &= (xx >= 60) & (xx < 440) & (yy < 410) & ~((xx < 95) & (yy > 320))
+    cand = cand.astype(np.uint8)
     n, lab, st, _ = cv2.connectedComponentsWithStats(cand, connectivity=8)
     # os pedacos dos moinhos: sobem acima dos tanques (topo < linha 300 da caixa) e ficam a
     # esquerda deles (x < 420 da caixa); tanques, paineis e predio ficam fora
-    altos = [i for i in range(1, n) if st[i, cv2.CC_STAT_AREA] > 20 and st[i, cv2.CC_STAT_TOP] < 300
-             and st[i, cv2.CC_STAT_LEFT] < 420 and st[i, cv2.CC_STAT_LEFT] > 60]
+    altos = [i for i in range(1, n) if st[i, cv2.CC_STAT_AREA] > 20]
     moinho = np.isin(lab, altos)
-    moinho = cv2.dilate(moinho.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+    # (sem engrossar: os moinhos fotograficos ja tem a espessura certa)
     aa = np.clip(a, 0, 1) * moinho
-    MOINHO, VAPOR = 0.22, 0.42
+    MOINHO, VAPOR = 0.40, 0.42         # moinho a 40%: azul medio-claro (22% com o desenho antigo, fino)
     reg = out[y0:y1, x0:x1]
     out[y0:y1, x0:x1] = reg * (1 - aa) + MOINHO * aa
     # vapor
