@@ -32,7 +32,7 @@ grad = ('<defs><linearGradient id="prata" gradientUnits="userSpaceOnUse" x1="%.2
         '</linearGradient></defs>' % (x1, y1, x2, y2,
                                       ''.join('<stop offset="%g" stop-color="%s"/>' % p for p in PARADAS)))
 cores = set(c.upper() for c in re.findall(r'fill="(#[0-9A-Fa-f]{3,6})"', s))
-assert cores <= {'#14304C', '#F7FAFE', '#315275', '#369'}, cores   # a tinta (ou degrades); as letras vazadas em #f7fafe ficam; os blocos azuis do 18Asset 4 viram prata
+assert cores <= {'#14304C', '#F7FAFE', '#315275', '#369', '#9FC5F0'}, cores   # a tinta (ou degrades); as letras vazadas em #f7fafe ficam; os blocos azuis do 18Asset 4 viram prata
 s = re.sub(r'fill="#(315275|369)"', 'fill="url(#prata)"', s)
 s = re.sub(r'fill="#14304[cC]"', 'fill="url(#prata)"', s)   # 28/09: o Asset 182 escreve o hex em minusculas
 s = re.sub(r'fill="url\(#linear-gradient(-\d+)?\)"', 'fill="url(#prata)"', s)   # 30/09: o Asset 7 vem em degrade metalico
