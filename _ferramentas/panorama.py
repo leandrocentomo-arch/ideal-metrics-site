@@ -29,6 +29,9 @@ COMO A MESTRA E MONTADA.
 --pe diz onde o predio encosta no piso (fracao da altura da foto de entrada): dali para
 baixo o piso e alisado. Nas telas de 1792 x 1008 desta tira, o pe esta em 820/1008 = 0,8135.
 
+--teto fixa a linha do telhado (fracao da altura da foto de entrada). Desde 30/09 a tira usa
+--teto 0.514, a mediana medida antes do telhado em shed do SMETA, para a cena nao descer.
+
 --ordem diz que servico esta em cada quarto, da esquerda para a direita; so da nome
 aos arquivos de reserva."""
 
@@ -58,10 +61,10 @@ def skyline(mask):
     return np.where(tem, run.argmax(axis=0) - (k - 1), H)
 
 
-def montar(caminhos, alvo=0.66, espelhar=False, pe=None):
+def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None):
     ims = [Image.open(c).convert('RGB') for c in caminhos]
     if len(ims) == 2:                                   # duas metades: mesma altura, lado a lado
-        h = min(i.height for i in ims)
+        h = max(i.height for i in ims)                  # a metade menor (download 1K) sobe; a mestra nao perde resolucao
         ims = [i.resize((round(i.width * h / i.height), h), Image.LANCZOS) for i in ims]
         im = Image.new('RGB', (ims[0].width + ims[1].width, h)); im.paste(ims[0], (0, 0)); im.paste(ims[1], (ims[0].width, 0))
     else:
@@ -73,6 +76,8 @@ def montar(caminhos, alvo=0.66, espelhar=False, pe=None):
     mask, perfil, fim = ceu_comum.medir(a)
     sk = skyline(mask)
     teto = int(np.median(sk)); topo = int(sk.min())
+    if teto_fixo is not None:                           # um telhado novo alto (o shed do SMETA) puxa a mediana para cima e desce a cena toda
+        print('  telhado medido a %.0f%%, fixado em %.1f%% (--teto)' % (100.0 * teto / H, 100.0 * teto_fixo)); teto = int(round(teto_fixo * H))
     print('entrada %dx%d | ceu ate %.0f%% | telhado (mediana) a %.0f%% | ponto mais alto a %.0f%%' % (W, H, 100.0 * fim / H, 100.0 * teto / H, 100.0 * topo / H))
 
     HM = int(round(W / RAZAO)); a_px = int(round(alvo * HM))
@@ -152,10 +157,11 @@ if __name__ == '__main__':
         return padrao
     alvo = opt('--alvo', 0.66, float); ordem = opt('--ordem', 'carbono,iso,smeta,esg').split(',')
     prefixo = opt('--prefixo', 'tira')
+    teto_fixo = opt('--teto', None, float)   # fixa a linha do telhado (fracao da altura), em vez da mediana medida
     pe = opt('--pe', None, float)       # onde o predio encosta no piso, em fracao da altura da foto (alisa o piso dali para baixo)
     espelhar = '--espelhar' in args; prova = '--prova' in args
     fotos = [x for x in args if not x.startswith('--')]
-    m = montar(fotos, alvo, espelhar, pe)
+    m = montar(fotos, alvo, espelhar, pe, teto_fixo)
     if prova:
         p = os.path.join(os.path.dirname(os.path.dirname(SITE)), 'tmp', 'panorama-prova.jpg')
         os.makedirs(os.path.dirname(p), exist_ok=True)
