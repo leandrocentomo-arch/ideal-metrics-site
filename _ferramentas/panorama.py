@@ -39,6 +39,8 @@ no horizonte. Testado em 30/09 e REPROVADO pelo Leandro («volte ao azul que era
 --ceu-azul K puxa o perfil do ceu K do caminho para AZUL (168,192,250). A tira usa 0.7.
 --ceu-claro K, depois, clareia K do caminho para (250,250,255). A tira usa 0.2.
 --ceu-plano deixa o ceu num tom so (o do alto), sem a faixa de manchas perto do horizonte.
+--tom D,F gira os azuis D graus e multiplica a saturacao deles por F (girar_tom); --ceu-cor R,G,B
+da ao ceu plano uma cor exata. Desde 30/09 (noite), «como as outras fotos»: --tom -25,2 --ceu-cor 25,185,240 (o ceu da foto da Industria, em Servicos, e 5,182,237).
 Comando da tira desde 30/09 (tarde): --alvo 0.724 --pe 0.8135 --teto 0.514 --ceu-azul 0.7 --ceu-claro 0.2 --ceu-plano
 
 --ordem diz que servico esta em cada quarto, da esquerda para a direita; so da nome
@@ -71,7 +73,7 @@ def skyline(mask):
     return np.where(tem, run.argmax(axis=0) - (k - 1), H)
 
 
-def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=False, azul=0.0, claro=0.0, plano=False):
+def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=False, azul=0.0, claro=0.0, plano=False, tom=None, ceu_cor=None):
     ims = [Image.open(c).convert('RGB') for c in caminhos]
     if len(ims) == 2:                                   # duas metades: mesma altura, lado a lado
         h = max(i.height for i in ims)                  # a metade menor (download 1K) sobe; a mestra nao perde resolucao
@@ -82,6 +84,7 @@ def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=F
     if espelhar: im = ImageOps.mirror(im)
     if im.width > LARG_MAX: im = im.resize((LARG_MAX, round(im.height * LARG_MAX / im.width)), Image.LANCZOS)
     a = np.asarray(im, np.float64); H, W = a.shape[:2]
+    if tom: a = girar_tom(a, *tom)
 
     mask, perfil, fim = ceu_comum.medir(a)
     sk = skyline(mask)
@@ -118,7 +121,7 @@ def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=F
         # faixa atravessando a tira. Ceu num tom so, o do alto; o vapor continua (e residuo).
         # o tom e o do ALTO (linhas 0..120): a media das linhas 100..400 caiu em cima do limiar
         # da trama e o ruido fino da foto virou mancha no ceu inteiro
-        Tm = np.repeat(Tm[0:120].mean(axis=0)[None, :], Tm.shape[0], axis=0)
+        Tm = np.repeat((np.array(ceu_cor, np.float64) if ceu_cor else Tm[0:120].mean(axis=0))[None, :], Tm.shape[0], axis=0)
         print('  ceu num tom so: %s' % Tm[0].round().astype(int).tolist())
 
     if falta >= 0:
@@ -157,6 +160,24 @@ def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=F
         m = ceu_liso(m, Tm, lim)
     print('mestra %dx%d (%.2f:1) | telhado a %.0f%% | ponto mais alto a %.0f%%' % (W, HM, W / float(HM), 100.0 * a_px / HM, 100.0 * (a_px - (teto - topo)) / HM))
     return np.clip(m, 0, 255)
+
+
+def girar_tom(a, desloc, fsat):
+    """30/09: «corrija a cor da panoramica para ficar como as outras fotos». Medido: 79% da cena
+    tem tom entre 210 e 240 graus (mediana 226, azul-violeta do entardecer do Flow) e saturacao
+    mediana 59; nas fotos de Servicos, 81 a 90% ficam entre 180 e 210 graus (medianas 195 a 204,
+    azul-ciano) e a saturacao mediana e 164. Os azuis giram `desloc` graus e a saturacao deles
+    multiplica por `fsat`; peso 1 entre 180 e 260 graus, rampa de 20 graus para fora (amarelos,
+    vermelhos e as janelas acesas nao andam). A luminosidade (V) fica."""
+    import cv2
+    H = cv2.cvtColor(np.clip(a, 0, 255).astype(np.uint8), cv2.COLOR_RGB2HSV_FULL).astype(np.float64)
+    h = H[..., 0] * 360 / 256.0
+    w = np.clip(np.minimum((h - 160) / 20.0, (280 - h) / 20.0), 0, 1)
+    H[..., 0] = ((h + desloc * w) % 360) * 256 / 360.0
+    H[..., 1] = np.clip(H[..., 1] * (1 + (fsat - 1) * w), 0, 255)
+    out = cv2.cvtColor(np.clip(np.rint(H), 0, 255).astype(np.uint8), cv2.COLOR_HSV2RGB_FULL).astype(np.float64)
+    print('  tom: azuis %+.0f graus, saturacao x%.2f' % (desloc, fsat))
+    return out
 
 
 def ceu_liso(m, Tm, lim, perto=16, de=5.0, ate=15.0):
@@ -271,10 +292,14 @@ if __name__ == '__main__':
     azul = opt('--ceu-azul', 0.0, float)   # 30/09: quanto o ceu vai para o AZUL (0 a 1); a tira usa 0.7
     claro = opt('--ceu-claro', 0.0, float) # 30/09: depois do azul, quanto o ceu clareia para o branco-azulado; a tira usa 0.2
     plano = '--ceu-plano' in args          # 30/09: ceu num tom so (sem a faixa de manchas perto do horizonte)
+    t_ = opt('--tom', None)                # 30/09: «como as outras fotos»: desloc,fsat (ex. -25,2)
+    tom = tuple(float(v) for v in t_.split(',')) if t_ else None
+    c_ = opt('--ceu-cor', None)            # 30/09: com --ceu-plano, a cor exata do ceu (R,G,B)
+    ceu_cor = tuple(float(v) for v in c_.split(',')) if c_ else None
     pe = opt('--pe', None, float)       # onde o predio encosta no piso, em fracao da altura da foto (alisa o piso dali para baixo)
     espelhar = '--espelhar' in args; prova = '--prova' in args
     fotos = [x for x in args if not x.startswith('--')]
-    m = montar(fotos, alvo, espelhar, pe, teto_fixo, creme, azul, claro, plano)
+    m = montar(fotos, alvo, espelhar, pe, teto_fixo, creme, azul, claro, plano, tom, ceu_cor)
     if prova:
         p = os.path.join(os.path.dirname(os.path.dirname(SITE)), 'tmp', 'panorama-prova.jpg')
         os.makedirs(os.path.dirname(p), exist_ok=True)
