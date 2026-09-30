@@ -73,16 +73,63 @@ def tramar(g):
     return Image.fromarray(np.clip(np.rint(L[np.rint(v * 255).astype(np.int32)]), 0, 255).astype(np.uint8), 'RGB')
 
 
+def reforcar(m, g):
+    """30/09: «escureca os moinhos e o vapor para aparecerem no azul». No azul, tudo acima de
+    ~55%% de luminancia vira creme: o ceu (82%%), o vapor (mais claro que o ceu) e os moinhos
+    (cinza de 53%%) sumiam. So a LUMINANCIA muda; a mestra em cor fica como esta.
+      moinhos  pixel = ceu + a x (cinza do moinho - ceu), com a lido na reta ceu-cinza;
+               entram so os pedacos acima e a esquerda dos tanques (tanques e predio ficam fora).
+               Luminancia vai a MOINHO (22%%): azul medio.
+      vapor    o que e mais claro que o ceu e se liga ao alto da foto, na metade de producao
+               (x < 1300). Luminancia vai a VAPOR (42%%) na parte mais densa: pontinhos
+               azul-claros sobre o ceu creme; nas bordas, na proporcao da densidade."""
+    import cv2
+    H, W = g.shape
+    S = np.median(m[50:200, 1500:2000].reshape(-1, 3), axis=0)
+    Ls = float(lumin(Image.fromarray(np.uint8(S[None, None, :]))).ravel()[0])
+    out = g.copy()
+    # moinhos
+    y0, y1, x0, x1 = 600, 1060, 2380, 2900
+    bx = m[y0:y1, x0:x1]
+    G = np.array([128, 133, 154.0]); d = S - G
+    a = ((S - bx) @ d) / (d @ d)
+    res = np.linalg.norm(bx - (S - a[..., None] * d), axis=2)
+    cand = ((a > 0.04) & (res < 9)).astype(np.uint8)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(cand, connectivity=8)
+    # os pedacos dos moinhos: sobem acima dos tanques (topo < linha 300 da caixa) e ficam a
+    # esquerda deles (x < 420 da caixa); tanques, paineis e predio ficam fora
+    altos = [i for i in range(1, n) if st[i, cv2.CC_STAT_AREA] > 20 and st[i, cv2.CC_STAT_TOP] < 300
+             and st[i, cv2.CC_STAT_LEFT] < 420 and st[i, cv2.CC_STAT_LEFT] > 60]
+    moinho = np.isin(lab, altos)
+    moinho = cv2.dilate(moinho.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+    aa = np.clip(a, 0, 1) * moinho
+    MOINHO, VAPOR = 0.22, 0.42
+    reg = out[y0:y1, x0:x1]
+    out[y0:y1, x0:x1] = reg * (1 - aa) + MOINHO * aa
+    # vapor
+    lum = g
+    claro = (lum > Ls + 0.007)
+    perto = np.abs(m - S).max(axis=2) < 16
+    regiao = ((claro | perto) & (np.arange(H)[:, None] < int(0.75 * H)) & (np.arange(W)[None, :] < 1300)).astype(np.uint8)
+    n, lab = cv2.connectedComponents(regiao, connectivity=4)
+    ceu = np.isin(lab, np.unique(lab[0][lab[0] > 0]))
+    av = np.clip((lum - Ls - 0.007) / 0.07, 0, 1) * ceu
+    av = cv2.GaussianBlur(av.astype(np.float32), (0, 0), 1.0)
+    out = out * (1 - av) + VAPOR * av
+    print('reforco: moinhos %d px, vapor %d px (ceu a %.2f de luminancia)' % (int(moinho.sum()), int((av > 0.1).sum()), Ls))
+    return out
+
+
 mestra = Image.open(os.path.join(IMG, 'tira-panorama-cor.webp')).convert('RGB')
 W, HM = mestra.size
-g = lumin(mestra)
+g = reforcar(np.asarray(mestra, np.float64), lumin(mestra))
 dest = os.path.join(IMG, 'tira-panorama-lum.webp')
 Image.fromarray(np.clip(np.rint(g * 255), 0, 255).astype(np.uint8), 'L').save(dest, lossless=True)
 print('%s  %dx%d  %d KB' % (os.path.basename(dest), W, HM, os.path.getsize(dest) // 1024))
 for i, nome in enumerate(ORDEM):
-    q = mestra.crop((round(i * W / 4.0), 0, round((i + 1) * W / 4.0), HM))
+    q = Image.fromarray(np.clip(g * 255, 0, 255).astype(np.uint8), 'L').crop((round(i * W / 4.0), 0, round((i + 1) * W / 4.0), HM))
     q = q.resize((CARD_W, round(q.height * CARD_W / q.width)), Image.LANCZOS)
     q = q.crop((0, q.height - CARD_H, CARD_W, q.height)) if q.height >= CARD_H else q.resize((CARD_W, CARD_H), Image.LANCZOS)
     arq = os.path.join(IMG, 'tira-%s-bayer.webp' % nome)
-    tramar(lumin(q)).save(arq, 'WEBP', lossless=True, quality=100, method=6)
+    tramar(np.asarray(q, np.float32) / 255.0).save(arq, 'WEBP', lossless=True, quality=100, method=6)
     print('  %-28s %dx%d  %d KB' % (os.path.basename(arq), CARD_W, CARD_H, os.path.getsize(arq) // 1024))
