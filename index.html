@@ -2456,11 +2456,12 @@ body>*{position:relative;z-index:1}
 @media (min-width:881px){ .sh-tira--flow .sh-conteudo{padding-bottom:8px} }   /* 30/09: menos rua (--alvo .724); depois «um pouco mais para baixo, sem encostar na guia da calcada» (era 14px, antes 20) */
 /* 30/09: «o botao Saiba mais menos alto»: 5 px de respiro vertical (era 8) */
 .sh-tira--flow .sh-cta{padding-top:5px;padding-bottom:5px;font-size:10px}   /* 30/09: texto um pouco menor (era 11px) */
-/* 30/09: «ACESSE» com uma seta comprida (era «Saiba mais»); a seta e SVG, no padrao do .sv-more,
-   para sair igual em qualquer fonte. Segue a cor do texto, inclusive no hover azul. */
+/* 30/09: «ACESSE» (era «Saiba mais») com um icone em SVG, no padrao do .sv-more, para sair
+   igual em qualquer fonte. Segue a cor do texto, inclusive no hover azul. */
 .sh-tira--flow .sh-cta{display:inline-flex;align-items:center;gap:10px}
-.sh-tira--flow .sh-seta{width:26px;height:9px;flex:none;fill:none;stroke:currentColor;stroke-width:1.3;
-  stroke-linecap:round;stroke-linejoin:round;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+/* 30/09 (noite): a seta saiu («fica ao contrario do letreiro, que vai da direita para a esquerda»);
+   no lugar, o icone do Leandro: seis losangos, 3 x 2, bem pequeno. */
+.sh-tira--flow .sh-seta{width:13px;height:8px;flex:none;fill:currentColor;transition:transform .3s cubic-bezier(.4,0,.2,1)}
 .sh-tira--flow .sh-cta:hover .sh-seta{transform:translateX(3px)}
 /* 30/09: «os botoes 50% transparentes» (eram .92); o hover continua azul cheio */
 .sh-tira--flow .sh-cta{background:rgba(250,249,245,.5)}
@@ -2606,7 +2607,7 @@ body>*{position:relative;z-index:1}
           </div>
           <span class="sh-vertical" aria-hidden="true">Emissões</span>
           <div>
-            <a class="sh-cta" href="gestao-carbono.html"><span class="js-scramble">Acesse</span><svg class="sh-seta" viewBox="0 0 30 10" aria-hidden="true"><path d="M0 5h29M25 1l4 4-4 4"/></svg></a>
+            <a class="sh-cta" href="gestao-carbono.html"><span class="js-scramble">Acesse</span><svg class="sh-seta" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></a>
           </div>
         </div>
       </article>
@@ -2622,7 +2623,7 @@ body>*{position:relative;z-index:1}
           </div>
           <span class="sh-vertical" aria-hidden="true">Normas</span>
           <div>
-            <a class="sh-cta" href="implantacao-iso.html"><span class="js-scramble">Acesse</span><svg class="sh-seta" viewBox="0 0 30 10" aria-hidden="true"><path d="M0 5h29M25 1l4 4-4 4"/></svg></a>
+            <a class="sh-cta" href="implantacao-iso.html"><span class="js-scramble">Acesse</span><svg class="sh-seta" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></a>
           </div>
         </div>
       </article>
@@ -2638,7 +2639,7 @@ body>*{position:relative;z-index:1}
           </div>
           <span class="sh-vertical" aria-hidden="true">Ética</span>
           <div>
-            <a class="sh-cta" href="sedex-smeta.html"><span class="js-scramble">Acesse</span><svg class="sh-seta" viewBox="0 0 30 10" aria-hidden="true"><path d="M0 5h29M25 1l4 4-4 4"/></svg></a>
+            <a class="sh-cta" href="sedex-smeta.html"><span class="js-scramble">Acesse</span><svg class="sh-seta" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></a>
           </div>
         </div>
       </article>
@@ -2654,7 +2655,7 @@ body>*{position:relative;z-index:1}
           </div>
           <span class="sh-vertical" aria-hidden="true">Padrões</span>
           <div>
-            <a class="sh-cta" href="esg.html"><span class="js-scramble">Acesse</span><svg class="sh-seta" viewBox="0 0 30 10" aria-hidden="true"><path d="M0 5h29M25 1l4 4-4 4"/></svg></a>
+            <a class="sh-cta" href="esg.html"><span class="js-scramble">Acesse</span><svg class="sh-seta" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></a>
           </div>
         </div>
       </article>
