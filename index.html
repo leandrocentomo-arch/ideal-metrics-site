@@ -2450,7 +2450,9 @@ body>*{position:relative;z-index:1}
 /* 29/09: «titulos, subtitulos e numeros ligeiramente mais para baixo» (64 -> 92 px no alto do bloco) */
 .sh-tira--flow .sh-conteudo{padding-top:84px}   /* 30/09: «titulos so um pouco mais para cima» (era 92) */
 /* 30/09: o botao «Saiba mais» mais baixo, inteiro na rua (o pe do card era 40 px) */
-@media (min-width:881px){ .sh-tira--flow .sh-conteudo{padding-bottom:20px} }
+@media (min-width:881px){ .sh-tira--flow .sh-conteudo{padding-bottom:14px} }   /* 30/09, 2a volta: menos rua na foto (--alvo .705); o botao desce junto (era 20px) */
+/* 30/09: «o botao Saiba mais menos alto»: 5 px de respiro vertical (era 8) */
+.sh-tira--flow .sh-cta{padding-top:5px;padding-bottom:5px}
 /* 30/09: «os botoes 50% transparentes» (eram .92); o hover continua azul cheio */
 .sh-tira--flow .sh-cta{background:rgba(250,249,245,.5)}
 .sh-tira--flow .sh-cta:hover{background:var(--azul)}
@@ -2584,7 +2586,7 @@ body>*{position:relative;z-index:1}
     <!-- 30/09: A TIRA DA HOME E UMA FOTO SO. Os quatro cards sao janelas de uma panoramica continua (img/tira-panorama-cor.webp, montada por _ferramentas/panorama.py a partir de duas metades geradas no Google Flow sobre a foto do escritorio): producao com a chamine | escritorio | patio com a entrevista | estacao de tratamento. O src de cada card e o seu quarto ja tramado (reserva sem WebGL e telefone). As quatro fotos separadas de 29/09 (flow-*-cor-fl) ficam em img/. -->
     <div class="sh-tira sh-tira--flow">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=30092026g" data-lum="img/tira-panorama-cor.webp?v=30092026g" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=30092026l" data-lum="img/tira-panorama-cor.webp?v=30092026l" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
@@ -2600,7 +2602,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=30092026g" data-lum="img/tira-panorama-cor.webp?v=30092026g" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=30092026l" data-lum="img/tira-panorama-cor.webp?v=30092026l" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -2616,7 +2618,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=30092026g" data-lum="img/tira-panorama-cor.webp?v=30092026g" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=30092026l" data-lum="img/tira-panorama-cor.webp?v=30092026l" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
@@ -2632,7 +2634,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=30092026g" data-lum="img/tira-panorama-cor.webp?v=30092026g" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=30092026l" data-lum="img/tira-panorama-cor.webp?v=30092026l" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>

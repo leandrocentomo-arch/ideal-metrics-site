@@ -32,6 +32,9 @@ baixo o piso e alisado. Nas telas de 1792 x 1008 desta tira, o pe esta em 820/10
 --teto fixa a linha do telhado (fracao da altura da foto de entrada). Desde 30/09 a tira usa
 --teto 0.514, a mediana medida antes do telhado em shed do SMETA, para a cena nao descer.
 
+--ceu-creme troca o ceu pelo creme da pagina (#FAF9F5), com o vapor em cinza-claro. Desde 30/09
+a tira usa --alvo 0.705 (menos rua) e --ceu-creme.
+
 --ordem diz que servico esta em cada quarto, da esquerda para a direita; so da nome
 aos arquivos de reserva."""
 
@@ -61,7 +64,7 @@ def skyline(mask):
     return np.where(tem, run.argmax(axis=0) - (k - 1), H)
 
 
-def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None):
+def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=False):
     ims = [Image.open(c).convert('RGB') for c in caminhos]
     if len(ims) == 2:                                   # duas metades: mesma altura, lado a lado
         h = max(i.height for i in ims)                  # a metade menor (download 1K) sobe; a mestra nao perde resolucao
@@ -127,8 +130,50 @@ def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None):
             t = np.clip((mag - 16) / 28.0, 0, 1); fica = (t * t * (3 - 2 * t))[..., None]
             m[y0:] = med + dev * (fica + (1 - fica) * 0.25)
             print('  piso alisado a partir da linha %d (%.0f%% da mestra)' % (y0, 100.0 * y0 / HM))
+    if creme:
+        lim = falta + int(round(pe * H)) if pe is not None else HM
+        m = ceu_creme(m, Tm, lim)
     print('mestra %dx%d (%.2f:1) | telhado a %.0f%% | ponto mais alto a %.0f%%' % (W, HM, W / float(HM), 100.0 * a_px / HM, 100.0 * (a_px - (teto - topo)) / HM))
     return np.clip(m, 0, 255)
+
+
+def ceu_creme(m, Tm, lim, perto=13, borda=20, vapor_k=0.75):
+    """O CEU VIRA O CREME DA PAGINA (30/09/2026: «a cor do ceu se mescle no creme do fundo»).
+    Ceu = o que esta perto do perfil do ceu da linha (Tm) E se liga ao alto da foto; o vapor
+    (mais claro que o ceu por igual) entra junto. Destino: creme, com o residuo claro do vapor
+    INVERTIDO (vapor vira nuvem cinza-clara sobre o creme; branco sobre creme sumiria) e o
+    residuo escuro mantido (borda de chamine, pa de moinho). Objetos (tanques, chamines,
+    moinhos, telhados) ficam intactos: o tanque mais claro fica a 28 niveis do ceu."""
+    import cv2
+    HM = m.shape[0]
+    T = Tm[:HM][:, None, :]
+    res = m - T
+    dist = np.abs(res).max(axis=2)
+    lum = res.mean(axis=2)
+    linhas = (np.arange(HM) < lim)[:, None]
+    vapor = (lum > 3) & (res.min(axis=2) > -4) & linhas
+    regiao = (((dist < perto) | vapor) & linhas).astype(np.uint8)
+    n, lab = cv2.connectedComponents(regiao, connectivity=4)
+    topo = np.unique(lab[0][lab[0] > 0])
+    ceu = np.isin(lab, topo)
+    perto_ceu = cv2.dilate(ceu.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0
+    w = np.where(vapor, 1.0, np.clip((borda - dist) / float(borda - perto + 1), 0, 1)) * perto_ceu
+    w = cv2.GaussianBlur(w.astype(np.float32), (0, 0), 0.8)[..., None]
+    # zona morta de 8 niveis: o ceu real se afasta do perfil em ate +-8 perto do horizonte, e o
+    # filtro da trama (sat 1) transforma 2 a 4 niveis abaixo do creme em pontinhos amarelos
+    r2 = np.sign(res) * np.maximum(np.abs(res) - 8, 0)
+    alvo = ceu_comum.CREME[None, None, :] + np.where(r2 > 0, -vapor_k * r2, r2)
+    out = m * (1 - w) + alvo * w
+    # o que ficou a menos de 7 niveis do creme vira creme exato (so o creme exato sai liso na trama)
+    quase = np.abs(out - ceu_comum.CREME[None, None, :]).max(axis=2) < 7
+    out[quase] = ceu_comum.CREME
+    # borda (mistura de ceu e objeto) e vapor: tom quente quase creme vira amarelo na trama.
+    # Ali a cor passa a um neutro frio com a mesma luminosidade (sai azul-claro, da paleta).
+    borda_ = (w[..., 0] > 0.01) & ~quase
+    L = out[borda_].mean(axis=1, keepdims=True)
+    out[borda_] = np.clip(L * np.array([0.965, 0.985, 1.04]), 0, 255)
+    print('  ceu em creme: %.0f%% da mestra (creme exato em %.0f%%)' % (100.0 * ceu.mean(), 100.0 * quase.mean()))
+    return out
 
 
 def gravar(m, ordem, prefixo='tira'):
@@ -158,10 +203,11 @@ if __name__ == '__main__':
     alvo = opt('--alvo', 0.66, float); ordem = opt('--ordem', 'carbono,iso,smeta,esg').split(',')
     prefixo = opt('--prefixo', 'tira')
     teto_fixo = opt('--teto', None, float)   # fixa a linha do telhado (fracao da altura), em vez da mediana medida
+    creme = '--ceu-creme' in args          # 30/09: o ceu vira o creme da pagina
     pe = opt('--pe', None, float)       # onde o predio encosta no piso, em fracao da altura da foto (alisa o piso dali para baixo)
     espelhar = '--espelhar' in args; prova = '--prova' in args
     fotos = [x for x in args if not x.startswith('--')]
-    m = montar(fotos, alvo, espelhar, pe, teto_fixo)
+    m = montar(fotos, alvo, espelhar, pe, teto_fixo, creme)
     if prova:
         p = os.path.join(os.path.dirname(os.path.dirname(SITE)), 'tmp', 'panorama-prova.jpg')
         os.makedirs(os.path.dirname(p), exist_ok=True)
