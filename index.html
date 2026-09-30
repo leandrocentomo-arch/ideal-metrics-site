@@ -1984,6 +1984,9 @@ body>*{position:relative;z-index:1}
 .sh-titulo{margin:0 0 9px;font-family:var(--sans);font-weight:700;
   font-size:clamp(17.4px,1.65vw,23.4px);line-height:1.06;letter-spacing:-.012em}   /* 30/09: 7% maior, depois «um pouco menores» (5% abaixo; o original era 17px, 1.62vw, 23px) */
 .sh-titulo strong{font-weight:inherit}
+/* 30/09: «o titulo so um pouco mais bold». 700 ja e o maximo da IBM Plex Sans Condensed (nao ha
+   800); o corpo vem de um contorno de .5px na cor da letra, que engrossa ~.25px de cada lado. */
+.sh-tira--flow .sh-titulo{-webkit-text-stroke:.5px currentColor;paint-order:stroke fill}
 /* 1,5px e nao 3: a barra sob o titulo afina e passa a ter a espessura do fio
    do index oficial (.qc-fio{height:1.5px}). */
 .sh-acento{width:40px;height:1.5px;background:var(--azul);margin-bottom:16px}
