@@ -2452,7 +2452,7 @@ body>*{position:relative;z-index:1}
 /* 30/09: o botao «Saiba mais» mais baixo, inteiro na rua (o pe do card era 40 px) */
 @media (min-width:881px){ .sh-tira--flow .sh-conteudo{padding-bottom:14px} }   /* 30/09, 2a volta: menos rua na foto (--alvo .705); o botao desce junto (era 20px) */
 /* 30/09: «o botao Saiba mais menos alto»: 5 px de respiro vertical (era 8) */
-.sh-tira--flow .sh-cta{padding-top:5px;padding-bottom:5px}
+.sh-tira--flow .sh-cta{padding-top:5px;padding-bottom:5px;font-size:10px}   /* 30/09: texto um pouco menor (era 11px) */
 /* 30/09: «os botoes 50% transparentes» (eram .92); o hover continua azul cheio */
 .sh-tira--flow .sh-cta{background:rgba(250,249,245,.5)}
 .sh-tira--flow .sh-cta:hover{background:var(--azul)}
@@ -2586,7 +2586,7 @@ body>*{position:relative;z-index:1}
     <!-- 30/09: A TIRA DA HOME E UMA FOTO SO. Os quatro cards sao janelas de uma panoramica continua (img/tira-panorama-cor.webp, montada por _ferramentas/panorama.py a partir de duas metades geradas no Google Flow sobre a foto do escritorio): producao com a chamine | escritorio | patio com a entrevista | estacao de tratamento. O src de cada card e o seu quarto ja tramado (reserva sem WebGL e telefone). As quatro fotos separadas de 29/09 (flow-*-cor-fl) ficam em img/. -->
     <div class="sh-tira sh-tira--flow">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=30092026r" data-lum="img/tira-panorama-cor.webp?v=30092026r" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=30092026w" data-lum="img/tira-panorama-cor.webp?v=30092026w" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
@@ -2602,7 +2602,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=30092026r" data-lum="img/tira-panorama-cor.webp?v=30092026r" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=30092026w" data-lum="img/tira-panorama-cor.webp?v=30092026w" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -2618,7 +2618,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=30092026r" data-lum="img/tira-panorama-cor.webp?v=30092026r" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=30092026w" data-lum="img/tira-panorama-cor.webp?v=30092026w" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
@@ -2634,7 +2634,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=30092026r" data-lum="img/tira-panorama-cor.webp?v=30092026r" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=30092026w" data-lum="img/tira-panorama-cor.webp?v=30092026w" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>
@@ -4028,10 +4028,9 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       pecaTira = ditherVivo(ditherVivo.emCor({raiz:tira, planos:planosDaTira(), classeCanvas:'sh-gl', panorama:true,
         revelar: jaEntrou ? 'visivel' : 'manual', lavaInicial: jaEntrou ? undefined : 1,
         cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
-        /* 30/09: «o mouse queima a foto, nao precisa disso; pode diminuir um pouco o efeito».
-           Sem o veu creme no hover (era lavaHover .88); o rastro so onde ha figura (no ceu
-           creme ele virava amarelo) e mais leve: biasReacao .12 (era .20), celula 2,4x (3,3x). */
-        trilhaSoNaFigura:true, biasReacao:.12, pixMul:2.4, pincel:.85}));
+        /* 30/09: o efeito do mouse testado mais leve e sem o veu (com o ceu creme) foi desfeito:
+           «o efeito do mouse deve voltar a ser convencional». */
+        lavaHover:.88, revelaNaTrilha:.6, pincel:1.05}));
     }
     function desliga(){ if(pecaTira){ pecaTira.destruir(); pecaTira = null; } }
     liga();

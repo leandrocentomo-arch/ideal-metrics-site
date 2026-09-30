@@ -33,8 +33,11 @@ baixo o piso e alisado. Nas telas de 1792 x 1008 desta tira, o pe esta em 820/10
 --teto 0.514, a mediana medida antes do telhado em shed do SMETA, para a cena nao descer.
 
 --ceu-creme mescla o ceu no creme da pagina (#FAF9F5): creme exato no alto, degrade ate o ceu da foto
-no horizonte. Desde 30/09
-a tira usa --alvo 0.705 (menos rua) e --ceu-creme.
+no horizonte. Testado em 30/09 e REPROVADO pelo Leandro («volte ao azul que era»): a tira usa
+--alvo 0.705 (menos rua) SEM --ceu-creme. A opcao fica aqui guardada.
+
+--ceu-azul K puxa o perfil do ceu K do caminho para AZUL (168,192,250). A tira usa 0.7.
+--ceu-claro K, depois, clareia K do caminho para (250,250,255). A tira usa 0.2.
 
 --ordem diz que servico esta em cada quarto, da esquerda para a direita; so da nome
 aos arquivos de reserva."""
@@ -51,6 +54,7 @@ import ceu_comum, fotos_cor
 RAZAO = 2.40            # largura / altura da mestra = a tira mais estreita do desktop
 LARG_MAX = 3200
 CARD_W, CARD_H = 633, 788
+AZUL = np.array([168, 192, 250], np.float64)   # o azul para onde --ceu-azul puxa o perfil do ceu
 
 
 def skyline(mask):
@@ -65,7 +69,7 @@ def skyline(mask):
     return np.where(tem, run.argmax(axis=0) - (k - 1), H)
 
 
-def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=False):
+def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=False, azul=0.0, claro=0.0):
     ims = [Image.open(c).convert('RGB') for c in caminhos]
     if len(ims) == 2:                                   # duas metades: mesma altura, lado a lado
         h = max(i.height for i in ims)                  # a metade menor (download 1K) sobe; a mestra nao perde resolucao
@@ -102,6 +106,10 @@ def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=F
     r = 40; x = np.arange(-r, r + 1); k = np.exp(-x * x / (2.0 * 18 * 18)); k /= k.sum()
     pad = np.pad(Tm, ((r, r), (0, 0)), mode='edge'); Tm = sum(pad[i:i + HM] * k[i] for i in range(2 * r + 1))
     Tm = Tm * (1 - ceu_comum.CLAREAR) + ceu_comum.CREME * ceu_comum.CLAREAR
+    if azul:                                            # 30/09: «o ceu mais azulado»
+        Tm = Tm * (1 - azul) + AZUL * azul
+    if claro:                                           # 30/09: «a cor do ceu um pouco mais clara»
+        Tm = Tm * (1 - claro) + np.array([250.0, 250.0, 255.0]) * claro
 
     if falta >= 0:
         T = Tm[falta:falta + H] if falta + H <= HM else np.vstack([Tm[falta:], np.repeat(Tm[-1:], falta + H - HM, 0)])
@@ -221,10 +229,12 @@ if __name__ == '__main__':
     prefixo = opt('--prefixo', 'tira')
     teto_fixo = opt('--teto', None, float)   # fixa a linha do telhado (fracao da altura), em vez da mediana medida
     creme = '--ceu-creme' in args          # 30/09: o ceu vira o creme da pagina
+    azul = opt('--ceu-azul', 0.0, float)   # 30/09: quanto o ceu vai para o AZUL (0 a 1); a tira usa 0.7
+    claro = opt('--ceu-claro', 0.0, float) # 30/09: depois do azul, quanto o ceu clareia para o branco-azulado; a tira usa 0.2
     pe = opt('--pe', None, float)       # onde o predio encosta no piso, em fracao da altura da foto (alisa o piso dali para baixo)
     espelhar = '--espelhar' in args; prova = '--prova' in args
     fotos = [x for x in args if not x.startswith('--')]
-    m = montar(fotos, alvo, espelhar, pe, teto_fixo, creme)
+    m = montar(fotos, alvo, espelhar, pe, teto_fixo, creme, azul, claro)
     if prova:
         p = os.path.join(os.path.dirname(os.path.dirname(SITE)), 'tmp', 'panorama-prova.jpg')
         os.makedirs(os.path.dirname(p), exist_ok=True)
