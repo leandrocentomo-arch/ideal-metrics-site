@@ -40,7 +40,8 @@ no horizonte. Testado em 30/09 e REPROVADO pelo Leandro («volte ao azul que era
 --ceu-claro K, depois, clareia K do caminho para (250,250,255). A tira usa 0.2.
 --ceu-plano deixa o ceu num tom so (o do alto), sem a faixa de manchas perto do horizonte.
 --tom D,F gira os azuis D graus e multiplica a saturacao deles por F (girar_tom); --ceu-cor R,G,B
-da ao ceu plano uma cor exata. Desde 30/09 (noite), «como as outras fotos»: --tom -25,2 --ceu-cor 25,185,240 (o ceu da foto da Industria, em Servicos, e 5,182,237).
+da ao ceu plano uma cor exata. Testado em 30/09 (noite), «como as outras fotos» (--tom -25,2 --ceu-cor
+25,185,240) e desfeito («volte o azul claro como estava»): a tira usa o comando SEM --tom e --ceu-cor.
 Comando da tira desde 30/09 (tarde): --alvo 0.724 --pe 0.8135 --teto 0.514 --ceu-azul 0.7 --ceu-claro 0.2 --ceu-plano
 
 --ordem diz que servico esta em cada quarto, da esquerda para a direita; so da nome
