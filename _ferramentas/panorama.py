@@ -32,7 +32,8 @@ baixo o piso e alisado. Nas telas de 1792 x 1008 desta tira, o pe esta em 820/10
 --teto fixa a linha do telhado (fracao da altura da foto de entrada). Desde 30/09 a tira usa
 --teto 0.514, a mediana medida antes do telhado em shed do SMETA, para a cena nao descer.
 
---ceu-creme troca o ceu pelo creme da pagina (#FAF9F5), com o vapor em cinza-claro. Desde 30/09
+--ceu-creme mescla o ceu no creme da pagina (#FAF9F5): creme exato no alto, degrade ate o ceu da foto
+no horizonte. Desde 30/09
 a tira usa --alvo 0.705 (menos rua) e --ceu-creme.
 
 --ordem diz que servico esta em cada quarto, da esquerda para a direita; so da nome
@@ -137,13 +138,16 @@ def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=F
     return np.clip(m, 0, 255)
 
 
-def ceu_creme(m, Tm, lim, perto=13, borda=20, vapor_k=0.75):
-    """O CEU VIRA O CREME DA PAGINA (30/09/2026: «a cor do ceu se mescle no creme do fundo»).
+def ceu_creme(m, Tm, lim, perto=13, borda=20, Y0=450, Y1=920, D1=14):
+    """O CEU SE MESCLA NO CREME DA PAGINA (30/09/2026).
+    1a volta (creme chapado, vapor invertido em cinza) nao ficou boa. Agora e um DEGRADE: creme
+    exato no alto (a tira emenda no fundo da pagina sem linha) e o ceu da foto voltando aos
+    poucos ate o horizonte (linha Y1, logo acima dos telhados), com o vapor natural.
     Ceu = o que esta perto do perfil do ceu da linha (Tm) E se liga ao alto da foto; o vapor
-    (mais claro que o ceu por igual) entra junto. Destino: creme, com o residuo claro do vapor
-    INVERTIDO (vapor vira nuvem cinza-clara sobre o creme; branco sobre creme sumiria) e o
-    residuo escuro mantido (borda de chamine, pa de moinho). Objetos (tanques, chamines,
-    moinhos, telhados) ficam intactos: o tanque mais claro fica a 28 niveis do ceu."""
+    entra junto. Objetos (tanques, chamines, moinhos, telhados) ficam intactos: o tanque mais
+    claro fica a 28 niveis do ceu. Na trama em cor (sat 1), tom quente 2 a 4 niveis abaixo do
+    creme vira pontinho amarelo: por isso a cor do ceu sai de uma rampa pela luminosidade, que
+    esfria sem deixar o azul cair antes do vermelho (ver o fim da funcao)."""
     import cv2
     HM = m.shape[0]
     T = Tm[:HM][:, None, :]
@@ -159,20 +163,33 @@ def ceu_creme(m, Tm, lim, perto=13, borda=20, vapor_k=0.75):
     perto_ceu = cv2.dilate(ceu.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0
     w = np.where(vapor, 1.0, np.clip((borda - dist) / float(borda - perto + 1), 0, 1)) * perto_ceu
     w = cv2.GaussianBlur(w.astype(np.float32), (0, 0), 0.8)[..., None]
-    # zona morta de 8 niveis: o ceu real se afasta do perfil em ate +-8 perto do horizonte, e o
-    # filtro da trama (sat 1) transforma 2 a 4 niveis abaixo do creme em pontinhos amarelos
-    r2 = np.sign(res) * np.maximum(np.abs(res) - 8, 0)
-    alvo = ceu_comum.CREME[None, None, :] + np.where(r2 > 0, -vapor_k * r2, r2)
+    t = np.clip((np.arange(HM) - Y0) / float(Y1 - Y0), 0, 1); t = (t * t * (3 - 2 * t))[:, None, None]
+    creme = ceu_comum.CREME[None, None, :]
+    alvo = creme * (1 - t) + m * t
     out = m * (1 - w) + alvo * w
-    # o que ficou a menos de 7 niveis do creme vira creme exato (so o creme exato sai liso na trama)
-    quase = np.abs(out - ceu_comum.CREME[None, None, :]).max(axis=2) < 7
-    out[quase] = ceu_comum.CREME
-    # borda (mistura de ceu e objeto) e vapor: tom quente quase creme vira amarelo na trama.
-    # Ali a cor passa a um neutro frio com a mesma luminosidade (sai azul-claro, da paleta).
-    borda_ = (w[..., 0] > 0.01) & ~quase
-    L = out[borda_].mean(axis=1, keepdims=True)
-    out[borda_] = np.clip(L * np.array([0.965, 0.985, 1.04]), 0, 255)
-    print('  ceu em creme: %.0f%% da mestra (creme exato em %.0f%%)' % (100.0 * ceu.mean(), 100.0 * quase.mean()))
+    # rampa de cor do ceu pela luminosidade: vermelho e verde descem, o azul fica no alto: o ceu
+    # esfria aos poucos, sem degrau e sem amarelo.
+    reg = w[..., 0] > 0.01
+    L = out[reg].mean(axis=1)
+    Lc = ceu_comum.CREME.mean()                                       # 248: a luminosidade do creme
+    d = np.maximum(Lc - L, 0)
+    d = np.where(d < 1.5, 0, d)                                       # o que e quase creme vira creme exato
+    # A trama 2x2 nao tem meio-termo entre o creme e o 1o nivel (25% dos pontos): um degrade
+    # continuo vira uma FAIXA. Na passagem (d de 0 a D1) cada pixel sorteia: fica creme ou ja
+    # e o ceu de d = D1, com chance d/D1. A densidade de pontinhos sobe sem linha, como na trama.
+    # o sorteio e feito em graos de 2x2 alinhados: a WebP guarda a cor em blocos de 2x2 e, com
+    # sorteio pixel a pixel, inventava pontinhos amarelo-esverdeados na passagem
+    rs = np.random.RandomState(7)
+    HM_, W_ = m.shape[:2]
+    grao = rs.random_sample(((HM_ + 1) // 2, (W_ + 1) // 2)).repeat(2, axis=0).repeat(2, axis=1)[:HM_, :W_]
+    sorteio = grao[reg]
+    passa = (d > 0) & (d < D1)
+    d = np.where(passa, np.where(sorteio < d / D1, D1, 0), d)
+    # fora do creme exato o azul vai ao maximo (255) e so desce depois de 25 niveis: a trama mistura
+    # o quase-branco com o creme das luzes e o azul, no limite, cairia primeiro (pontinho amarelo)
+    out[reg] = np.stack([250 - 1.3 * d, 249 - 1.15 * d, np.where(d > 0, 255 - 1.0 * np.maximum(d - 25, 0), 245)], axis=1)
+    quase = reg & (np.abs(out - creme).max(axis=2) < 0.5)   # (so para o relatorio)
+    print('  ceu mesclado no creme: regiao %.0f%% da mestra, creme exato em %.0f%%, degrade das linhas %d a %d' % (100.0 * ceu.mean(), 100.0 * quase.mean(), Y0, Y1))
     return out
 
 
