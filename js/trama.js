@@ -152,12 +152,14 @@
     '    c = mix(c, uTrilhaCor * (dot(c, vec3(.2126,.7152,.0722)) / max(dot(uTrilhaCor, vec3(.2126,.7152,.0722)), 1e-3)), tr * uTrilhaAzul);' +
     /* 30/09: DEGRADE. uDeg = (ligado, de, ate), em fracao da altura da peca a partir do ALTO.
        O azul oficial sai da luminancia propria (uAzul, com moinhos e vapor reforcados), na
-       trama 4x4 e na rampa da peca (uC0..uC3); a cor e a de cima. Um limiar ordenado 8x8 escolhe
-       ponto a ponto: a proporcao de pontos em cor cresce de cima para baixo e a trama fica nitida. */
+       trama 4x4 e na rampa da peca (uC0..uC3); a cor e a de cima. Um sorteio por ponto (ruido fixo)
+       escolhe: a proporcao de pontos em cor cresce de cima para baixo e a trama fica nitida. O limiar
+       8x8 foi descartado: os valores baixos dele caem todos na mesma fase da trama 2x2 da cor, e o
+       ceu saia cinza ate 25% e lilas depois, com uma linha no meio. */
     '    if(uDeg.x > .5){ float va = tomA(texture2D(uAzul, clamp(p*sc+of, 0., 1.)).r);' +
     '      float ka = clamp(floor((va - bias)*3. + T), 0., 3.); vec3 cb = ka<.5 ? uC0 : (ka<1.5 ? uC1 : (ka<2.5 ? uC2 : uC3));' +
     '      float yf = (uCol.y + uCol.w - frag.y)/uCol.w; float wc = smoothstep(uDeg.y, uDeg.z, yf);' +
-    '      float Bd = texture2D(uB8, (floor(frag)+.5)/8.).r; c = wc > Bd ? c : cb; }' +
+    '      float Bd = fract(sin(dot(floor(frag), vec2(12.9898, 78.233)))*43758.5453); c = wc > Bd ? c : cb; }' +
     '    c = mix(c, uCreme, uLava*(1. - uRevela*tr)); c = mix(uCreme, c, tx.a); gl_FragColor = vec4(c, uOpac); return; }' +
     /* a chapa de creme do hover, que cede onde a trilha passa */
     '  c = mix(c, uCreme, uLava*(1. - uRevela*tr));' +

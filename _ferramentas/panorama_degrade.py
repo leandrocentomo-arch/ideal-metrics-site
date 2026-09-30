@@ -4,7 +4,7 @@
     python _ferramentas/panorama_degrade.py [de] [ate]
 
 «Nao teria como colorir gradativamente os cards de cima para baixo?» Ao vivo quem faz o
-degrade e o motor (js/trama.js, cfg.degrade): ponto a ponto, um limiar ordenado 8x8 escolhe
+degrade e o motor (js/trama.js, cfg.degrade): ponto a ponto, um sorteio fixo escolhe
 entre o azul oficial e a cor, e a proporcao de pontos em cor cresce de cima para baixo.
 Aqui sai a mesma coisa para a reserva de cada card (sem WebGL e telefone), juntando as
 duas reservas que ja existem:
@@ -43,7 +43,7 @@ for nome in ['carbono', 'iso', 'smeta', 'esg']:
     co = np.asarray(Image.open(os.path.join(IMG, 'tira-%s-cor-bayer.webp' % nome)).convert('RGB'))
     H, W = az.shape[:2]
     t = np.clip((np.arange(H) / float(H - 1) - DE) / (ATE - DE), 0, 1); t = t * t * (3 - 2 * t)
-    B = bayer(8)[np.arange(H) % 8][:, np.arange(W) % 8]
+    B = np.random.RandomState(7).random_sample((H, W))   # sorteio fixo (o 8x8 alinhava com a trama 2x2 da cor)
     cor = t[:, None] > B
     out = np.where(cor[..., None], co, az)
     arq = os.path.join(IMG, 'tira-%s-grad-bayer.webp' % nome)
