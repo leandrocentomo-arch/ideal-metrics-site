@@ -60,7 +60,8 @@ FONTE = {
     'refinaria': 'refinaria-campo-ceu.jpg',
     # 29/09: as quatro fotos feitas no Google Flow (Nano Banana 2) para a tira de teste
     'flow-carbono': 'flow-gestao-carbono-4-recorte.jpg',   # 29/09: a 4a, recortada para o lago ocupar 1/4 como no ESG (o cru inteiro e -4.jpg); antes -2 (chamine) e a 1a
-    'flow-iso': 'flow-implantacao-iso-5.jpg',   # 30/09: a 5a (fabrica de vidro, linha vista pela janela); antes -4-recorte
+    'flow-iso': 'flow-implantacao-iso-6-recorte.jpg',   # 30/09: a 6a (escritorio baixo, pessoas e coleta seletiva); piso cortado 7%, ceu esticado; cru = -6.jpg
+   #   # 30/09: a 5a (fabrica de vidro, linha vista pela janela); antes -4-recorte
    #   # 30/09: a 4a (tres colegas e o tablet), chao cortado e ceu esticado; o cru e -4.jpg
    #   # 30/09: a 3a (linha coberta com o inspetor); antes -2 (predio de vidro)
    #   # 29/09: a 2a (o predio de vidro); a 1a era flow-implantacao-iso.jpg
