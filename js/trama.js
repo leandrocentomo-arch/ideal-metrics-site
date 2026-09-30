@@ -529,6 +529,8 @@
     }
 
     return {
+      /* 30/09: acorda o laco (a entrada da tira move os cards; o canvas segue o retangulo de cada um) */
+      acordar: function(){ acorda(); },
       /* 25/09: DESTROI a peca e devolve o contexto WebGL ao navegador (o limite e de
          uns 16 por pagina). Volta a <img> de reserva. Serve para quem cria a peca so
          quando ela chega perto da tela e a solta quando ela se afasta. */
