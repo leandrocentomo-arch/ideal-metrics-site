@@ -22,8 +22,9 @@ PARADAS = [(0, '#A9AAAA'), (.2, '#D1D2D3'), (.5, '#FFFFFF'), (.8, '#D1D2D3'), (1
 ANGULO = 26
 
 s = open(ORIGEM, encoding='utf-8').read()
-w, h = [float(v) for v in re.search(r'viewBox="0 0 ([\d.]+) ([\d.]+)"', s).groups()]
-cx, cy = w / 2, h / 2
+# 30/09: o monograma do Asset 2 tem o viewBox com origem deslocada (-13.02 -31.33 167.5 222.5)
+x0, y0, w, h = [float(v) for v in re.search(r'viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"', s).groups()]
+cx, cy = x0 + w / 2, y0 + h / 2
 dx, dy = math.cos(math.radians(ANGULO)), math.sin(math.radians(ANGULO))
 meio = (w * abs(dx) + h * abs(dy)) / 2
 x1, y1, x2, y2 = cx - dx * meio, cy - dy * meio, cx + dx * meio, cy + dy * meio
