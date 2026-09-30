@@ -2453,18 +2453,18 @@ body>*{position:relative;z-index:1}
    segunda, projeta uma sombra macia sobre a vizinha da esquerda, como folhas sobrepostas. A coluna
    pinta por cima da anterior (mesmo z-index, ordem do HTML), entao a sombra cai sobre ela. */
 .sh-tira--flow .sh-col + .sh-col{box-shadow:-10px 0 22px -6px rgba(20,48,76,.14)}   /* 30/09: 50% menor (era ,28) */
-/* 30/09: ENTRADA «deslizando todos de um ponto so, da esquerda». Os quatro cards nascem
-   empilhados FORA da tira, na borda esquerda (card i deslocado (i+1) x 100% da propria
-   largura), e deslizam juntos, no mesmo tempo, cada um ate a sua vaga: o primeiro anda uma
-   largura, o quarto anda quatro, e eles se abrem como um leque de fichas. A foto vem junto
-   (o motor desenha cada foto no retangulo real do card a cada quadro), e o fio e a sombra
-   tambem, porque sao do proprio card. Dispara depois da tela de abertura (JS: .anima/.entrou).
-   A versao de 29/09 (cortina de creme card a card) saiu: o fio e a sombra apareciam antes. */
-.sh-tira--flow.anima .sh-col:nth-of-type(1){transform:translateX(-100%)}
-.sh-tira--flow.anima .sh-col:nth-of-type(2){transform:translateX(-200%)}
-.sh-tira--flow.anima .sh-col:nth-of-type(3){transform:translateX(-300%)}
-.sh-tira--flow.anima .sh-col:nth-of-type(4){transform:translateX(-400%)}
-.sh-tira--flow.anima.entrou .sh-col{transform:none;transition:flex .5s cubic-bezier(.4,0,.2,1),transform 1.9s cubic-bezier(.16,.8,.2,1)}   /* 30/09: 50% mais devagar (era 1,25 s). A transicao so existe na volta: ao ligar .anima os cards vao para fora sem animar */
+/* 30/09 (2a): ENTRADA «a trama se forma, card a card». A tira nasce lisa, no creme (o motor
+   com o veu de cada foto em 1 e a trama por revelar). Depois da tela de abertura (JS: .anima/
+   .entrou), cada card surge da esquerda para a direita, 0,22 s um do outro: o veu da foto
+   dele cai do creme ate o de repouso, enquanto a trama inteira se resolve de pixel grande
+   ate o ponto de 1 px. O fio, a sombra e o texto sao do proprio card e aparecem com a
+   opacidade dele, junto com a foto, nunca antes. (Deslize de um ponto so, 30/09 de manha:
+   recusado; cortina de creme, 29/09: o fio e a sombra apareciam antes.) */
+.sh-tira--flow.anima .sh-col{opacity:0}
+.sh-tira--flow.anima.entrou .sh-col{opacity:1;transition:flex .5s cubic-bezier(.4,0,.2,1),opacity 1.4s cubic-bezier(.4,0,.2,1)}
+.sh-tira--flow.anima.entrou .sh-col:nth-of-type(2){transition:flex .5s cubic-bezier(.4,0,.2,1),opacity 1.4s cubic-bezier(.4,0,.2,1) .22s}
+.sh-tira--flow.anima.entrou .sh-col:nth-of-type(3){transition:flex .5s cubic-bezier(.4,0,.2,1),opacity 1.4s cubic-bezier(.4,0,.2,1) .44s}
+.sh-tira--flow.anima.entrou .sh-col:nth-of-type(4){transition:flex .5s cubic-bezier(.4,0,.2,1),opacity 1.4s cubic-bezier(.4,0,.2,1) .66s}
 .sh-tira--flow .sh-col{animation:none}
 .sh-tira--flow .sh-col--iso .sh-foto{transform:none}
 .sh-tira--flow .sh-col--iso:hover .sh-foto{transform:scale(1.035)}
@@ -3968,7 +3968,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=18"></script>
+<script src="js/trama.js?v=19"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -3984,7 +3984,14 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       /* 29/09: «o efeito tem que vir depois da tela de entrada»: so dispara quando a abertura
          ja saiu (evento im:pronta + os 0,9 s em que o painel sobe) E a tira esta na tela */
       var saiu = document.body.classList.contains('pronta'), vista = false;
-      function tenta(){ if(saiu && vista){ tira.classList.add('entrou'); if(pecaTira && pecaTira.acordar) pecaTira.acordar(); } }
+      function tenta(){
+        if(!saiu || !vista) return;
+        tira.classList.add('entrou');
+        if(!pecaTira || !pecaTira.revelar){ return; }
+        pecaTira.revelar(2600);                       /* a trama se resolve em 2,6 s */
+        var repouso = ditherVivo.RECEITA_COR.lavaRepouso || 0;
+        [0,1,2,3].forEach(function(i){ setTimeout(function(){ pecaTira.lavar(i, repouso, 1400); }, i*220); });
+      }
       if(!saiu) window.addEventListener('im:pronta', function(){ setTimeout(function(){ saiu = true; tenta(); }, 900); }, {once:true});
       var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ vista = true; io.disconnect(); tenta(); } }); }, {threshold:.3});
       io.observe(tira);
@@ -3994,7 +4001,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       var im = c.querySelector('img.sh-foto'); return {el:c, lum: im ? im.getAttribute('data-lum') : null, ax:.5, espelha:c.classList.contains('sh-col--sedex')};
     });
     /* 29/09: «volte ao colorido»: filtro em cor (emCor), como a tira oficial */
-    pecaTira = ditherVivo(ditherVivo.emCor({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'visivel',
+    pecaTira = ditherVivo(ditherVivo.emCor({raiz:tira, planos:planos, classeCanvas:'sh-gl', revelar:'manual', lavaInicial:1,
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
       zoomHover:1.035, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05}));
   })();

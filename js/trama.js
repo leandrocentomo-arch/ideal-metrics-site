@@ -251,7 +251,7 @@
     }
     var planos = cfg.planos.map(function(pl, i){
       return {el:pl.el, src:pl.lum, ax:pl.ax == null ? .5 : pl.ax, espelha:pl.espelha ? 1 : 0, tx:null, w:1, h:1,
-              zoom:anima(1), lava:anima(cfg.lavaRepouso || 0), opac:anima(cfg.empilhado ? (i === 0 ? 1 : 0) : 1)};
+              zoom:anima(1), lava:anima(cfg.lavaInicial != null ? cfg.lavaInicial : (cfg.lavaRepouso || 0)),   /* 30/09: lavaInicial = o veu com que a peca nasce */ opac:anima(cfg.empilhado ? (i === 0 ? 1 : 0) : 1)};
     });
     if(planos.some(function(pl){ return !pl.src || !pl.el; })) return null;
 
@@ -393,6 +393,7 @@
          chapado, com as <img> de reserva escondidas pelo gl-on.
          observe() de novo entrega a entrada inicial outra vez, agora com a
          textura na mao. Sem IntersectionObserver, revela direto. */
+      else if(cfg.revelar === 'manual'){ /* 30/09: a pagina chama revelar() quando quiser */ }
       else if(cfg.revelar === 'visivel'){ if(obsR){ obsR.unobserve(raiz); obsR.observe(raiz); } else revela(); }
       else if(cfg.revelar === 'pronta'){
         /* a revelacao (celula 20->1, limiar -1->0 em 2s) e para quando a trama fica
@@ -531,6 +532,11 @@
     return {
       /* 30/09: acorda o laco (a entrada da tira move os cards; o canvas segue o retangulo de cada um) */
       acordar: function(){ acorda(); },
+      /* 30/09: a revelacao da trama (celula 20->1, limiar -1->0), agora, com duracao propria */
+      revelar: function(dur){ if(!ligado){ cfg.revelar = null; return; } revelado = true; var t = performance.now();
+        vai(pix, 1, dur || 2000, CURVA.p4out, t); vai(bias, 0, dur || 2000, CURVA.p4out, t); acorda(); },
+      /* 30/09: leva o veu de creme da peca i ate v em dur ms (a entrada card a card) */
+      lavar: function(i, v, dur){ var pl = planos[i]; if(!pl) return; vai(pl.lava, v, dur || 1200, CURVA.suave, performance.now()); acorda(); },
       /* 25/09: DESTROI a peca e devolve o contexto WebGL ao navegador (o limite e de
          uns 16 por pagina). Volta a <img> de reserva. Serve para quem cria a peca so
          quando ela chega perto da tela e a solta quando ela se afasta. */
