@@ -153,7 +153,11 @@ def salvar_rgb(arr, caminho, lossless=False, quality=90):
 def vaga(suf):
     W, H, fotos = VAGAS[suf]
     for assunto, base, ax, ay in fotos:
-        src = Image.open(os.path.join(CRU, FONTE[base])).convert('RGB')
+        arq = FONTE[base]
+        # 30/09: na tira (vaga fl) vale a versao com o CEU COMUM, se existir (ceu_comum.py)
+        ceu = os.path.splitext(arq)[0] + '-ceu.jpg'
+        if suf == 'fl' and os.path.exists(os.path.join(CRU, ceu)): arq = ceu
+        src = Image.open(os.path.join(CRU, arq)).convert('RGB')
         # a foto em cor, no recorte da vaga, para o motor
         CH = int(round(COR_W * H / W))
         cor = enquadrar(src, COR_W, CH, ax, ay)

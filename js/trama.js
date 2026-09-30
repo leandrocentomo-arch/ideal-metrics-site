@@ -81,7 +81,7 @@
        de contraste da casa (sem o brilho), perde saturacao (uSat), as sombras vao
        para a tinta da marca (uC0) ate uSombra de luminancia, e a trama sai com
        uNiveis+1 niveis por canal (2 = tres niveis, ponto bem visivel). */
-    'uniform float uForte;uniform float uSat;uniform float uSombra;uniform float uNiveis;uniform vec3 uSombraCor;uniform float uPiso;uniform float uBrilhoF;uniform float uMatriz;uniform float uLimiar;uniform sampler2D uB2;uniform vec3 uLuzCor;uniform float uLuzDe;uniform float uLuzForca;uniform vec3 uTrilhaCor;uniform float uTrilhaAzul;' +
+    'uniform float uForte;uniform float uSat;uniform float uSombra;uniform float uNiveis;uniform vec3 uSombraCor;uniform float uPiso;uniform float uBrilhoF;uniform float uMatriz;uniform float uLimiar;uniform sampler2D uB2;uniform vec3 uLuzCor;uniform float uLuzDe;uniform float uLuzForca;uniform vec3 uTrilhaCor;uniform float uTrilhaAzul;uniform float uAy;' +
     'vec3 rampa(float v){ float x = v*3.;' +
     '  return x < 1. ? mix(uC0,uC1,x) : (x < 2. ? mix(uC1,uC2,x-1.) : mix(uC2,uC3,clamp(x-2.,0.,1.))); }' +
     /* ruido de valor: bem mais barato que o Perlin 3D do OCI e, na amplitude em
@@ -99,7 +99,7 @@
     '  float tr = clamp(texture2D(uTrilha, frag/uTela).r * uTrailMul, 0., 1.);' +
     /* object-fit cover, nas mesmas contas de baixo, para medir o tom parado */
     '  float aC0 = uCol.z/uCol.w, aT0 = uTex.x/uTex.y; vec2 sc0 = vec2(1.), of0 = vec2(0.);' +
-    '  if(aT0>aC0){ float s=aC0/aT0; sc0.x=s; of0.x=(1.-s)*uAx; } else { float s=aT0/aC0; sc0.y=s; of0.y=(1.-s)*.5; }' +
+    '  if(aT0>aC0){ float s=aC0/aT0; sc0.x=s; of0.x=(1.-s)*uAx; } else { float s=aT0/aC0; sc0.y=s; of0.y=(1.-s)*uAy; }' +   /* 30/09: uAy = ancora vertical do recorte (0 = base, ,5 = centro) */
     '  if(uSoFigura > .5){' +
     '    vec2 q1 = (floor((frag - uCol.xy)/max(uPix,1.))+.5)*max(uPix,1.);' +
     '    vec2 p1 = q1/uCol.zw; if(uEspelha>.5) p1.x = 1.-p1.x; p1 = (p1-.5)/uZoom + .5;' +
@@ -208,7 +208,7 @@
     function uni(pr, nomes){ var o = {}; nomes.forEach(function(n){ o[n] = gl.getUniformLocation(pr, n); }); return o; }
     var uT = uni(pT, ['t','res','pt','ptAnt','aspecto','vel','raio','borda','fica']);
     var uF = uni(pF, ['uLum','uTrilha','uB4','uB8','uTela','uCol','uTex','uAx','uEspelha','uZoom','uTempo','uC0','uC1','uC2','uC3','uCreme',
-      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura','uForte','uSat','uSombra','uNiveis','uSombraCor','uPiso','uBrilhoF','uMatriz','uLimiar','uB2','uLuzCor','uLuzDe','uLuzForca','uTrilhaCor','uTrilhaAzul']);
+      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura','uForte','uSat','uSombra','uNiveis','uSombraCor','uPiso','uBrilhoF','uMatriz','uLimiar','uB2','uLuzCor','uLuzDe','uLuzForca','uTrilhaCor','uTrilhaAzul','uAy']);
 
     var quad = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, quad);
@@ -257,7 +257,13 @@
 
     var pix = anima(20), bias = anima(-1), revelado = false;   /* a entrada: celula 20->1 e limiar -1->0 */
     var ligado = false, prontas = 0;
+    /* 30/09: uma textura por ENDERECO. Na tira panoramica os quatro cards apontam para a
+       mesma imagem: ela baixa e sobe para a placa uma vez so. */
+    var porEndereco = {};
     function carrega(){ planos.forEach(function(pl){
+      var fila = porEndereco[pl.src];
+      if(fila){ fila.push(pl); return; }
+      fila = porEndereco[pl.src] = [pl];
       var im = new Image();
       im.onload = function(){
         var tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx);
@@ -270,8 +276,9 @@
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        pl.tx = tx; pl.w = im.naturalWidth; pl.h = im.naturalHeight;
-        if(++prontas === planos.length) liga();
+        fila.forEach(function(q){ q.tx = tx; q.w = im.naturalWidth; q.h = im.naturalHeight; });
+        prontas += fila.length;
+        if(prontas === planos.length) liga();
       };
       im.src = pl.src;
     }); }
@@ -520,9 +527,16 @@
         if(w < 1 || h < 1) return;
         gl.scissor(x0, y, w, h);
         gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, pl.tx); gl.uniform1i(uF.uLum, 0);
-        gl.uniform4f(uF.uCol, x0, y, w, h); gl.uniform2f(uF.uTex, pl.w, pl.h);
-        gl.uniform1f(uF.uAx, pl.espelha ? 1 - pl.ax : pl.ax); gl.uniform1f(uF.uEspelha, pl.espelha);
-        gl.uniform1f(uF.uZoom, pl.zoom.v); gl.uniform1f(uF.uLava, pl.lava.v); gl.uniform1f(uF.uOpac, pl.opac.v/soma);
+        /* 30/09: PANORAMA (cfg.panorama). A foto e UMA, presa ao retangulo da tira inteira:
+           ocupa sempre a largura toda e o que sobra de altura e cortado do ALTO (o ceu), com
+           o chao ancorado na base. Cada card so recorta a sua janela (o scissor), entao a
+           imagem continua de um card para o outro, mesmo quando um deles alarga no hover.
+           Sem zoom no hover: aproximar um card so quebraria a emenda com o vizinho. */
+        if(cfg.panorama){ gl.uniform4f(uF.uCol, 0, 0, cv.width, cv.height); gl.uniform1f(uF.uAy, 0); gl.uniform1f(uF.uAx, .5); gl.uniform1f(uF.uEspelha, 0); gl.uniform1f(uF.uZoom, 1); }
+        else { gl.uniform4f(uF.uCol, x0, y, w, h); gl.uniform1f(uF.uAy, .5);
+          gl.uniform1f(uF.uAx, pl.espelha ? 1 - pl.ax : pl.ax); gl.uniform1f(uF.uEspelha, pl.espelha); gl.uniform1f(uF.uZoom, pl.zoom.v); }
+        gl.uniform2f(uF.uTex, pl.w, pl.h);
+        gl.uniform1f(uF.uLava, pl.lava.v); gl.uniform1f(uF.uOpac, pl.opac.v/soma);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
       });
       if(mexeu) acorda();
