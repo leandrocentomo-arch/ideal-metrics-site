@@ -2460,8 +2460,8 @@ body>*{position:relative;z-index:1}
    igual em qualquer fonte. Segue a cor do texto, inclusive no hover azul. */
 .sh-tira--flow .sh-cta{display:inline-flex;align-items:center;gap:10px}
 /* 30/09 (noite): a seta saiu («fica ao contrario do letreiro, que vai da direita para a esquerda»);
-   no lugar, o icone do Leandro: seis losangos, 3 x 2, bem pequeno. */
-.sh-tira--flow .sh-seta{width:13px;height:8px;flex:none;fill:currentColor;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+   no lugar, o icone do Leandro: seis losangos, 3 x 2, bem pequeno (13 x 8, depois 10 x 6 px). */
+.sh-tira--flow .sh-seta{width:10px;height:6px;flex:none;fill:currentColor;transition:transform .3s cubic-bezier(.4,0,.2,1)}
 .sh-tira--flow .sh-cta:hover .sh-seta{transform:translateX(3px)}
 /* 30/09: «os botoes 50% transparentes» (eram .92); o hover continua azul cheio */
 .sh-tira--flow .sh-cta{background:rgba(250,249,245,.5)}
@@ -2596,7 +2596,7 @@ body>*{position:relative;z-index:1}
     <!-- 30/09: A TIRA DA HOME E UMA FOTO SO. Os quatro cards sao janelas de uma panoramica continua (img/tira-panorama-cor.webp, montada por _ferramentas/panorama.py a partir de duas metades geradas no Google Flow sobre a foto do escritorio): producao com a chamine | escritorio | patio com a entrevista | estacao de tratamento. O src de cada card e o seu quarto ja tramado (reserva sem WebGL e telefone). As quatro fotos separadas de 29/09 (flow-*-cor-fl) ficam em img/. -->
     <div class="sh-tira sh-tira--flow">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/tira-carbono-grad-bayer.webp?v=30092026bc" data-lum="img/tira-panorama-cor.webp?v=30092026aa" data-lum-azul="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=30092026aa" data-lum="img/tira-panorama-cor.webp?v=30092026aa" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
@@ -2612,7 +2612,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/tira-iso-grad-bayer.webp?v=30092026bc" data-lum="img/tira-panorama-cor.webp?v=30092026aa" data-lum-azul="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=30092026aa" data-lum="img/tira-panorama-cor.webp?v=30092026aa" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -2628,7 +2628,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/tira-smeta-grad-bayer.webp?v=30092026bc" data-lum="img/tira-panorama-cor.webp?v=30092026aa" data-lum-azul="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=30092026aa" data-lum="img/tira-panorama-cor.webp?v=30092026aa" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
@@ -2644,7 +2644,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/tira-esg-grad-bayer.webp?v=30092026bc" data-lum="img/tira-panorama-cor.webp?v=30092026aa" data-lum-azul="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=30092026aa" data-lum="img/tira-panorama-cor.webp?v=30092026aa" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>
@@ -4036,17 +4036,13 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     function liga(){
       if(pecaTira || !largo.matches) return;
       var jaEntrou = tira.classList.contains('entrou');
-      /* 30/09 (noite): «nao teria como colorir gradativamente os cards de cima para baixo?». A tira
-         em DEGRADE: o filtro em cor (emCor, textura img/tira-panorama-cor.webp) e o tingimento
-         oficial azul (a luminancia img/tira-panorama-lum.webp, com moinhos e vapor reforcados)
-         juntos. Ponto a ponto, um sorteio fixo escolhe um ou outro; a proporcao de pontos em cor
-         vai de 0 em 30% da altura da tira a 100% em 95% (cfg.degrade, js/trama.js). Reservas:
-         img/tira-<servico>-grad-bayer.webp (_ferramentas/panorama_degrade.py). A tira toda azul
-         esta em index-azul.html (so no disco); a toda em cor, no commit 898d650. */
+      /* 30/09 (noite): a tira voltou ao FILTRO EM COR padrao («o colorido nao ficou bom, volte ao
+         colorido padrao, como antes»). Os testes do dia ficam guardados: a tira toda azul em
+         index-azul.html (so no disco) e no commit 19f95a9; o degrade azul -> cor no commit 12a4f99
+         (a opcao cfg.degrade continua no js/trama.js, desligada). */
       pecaTira = ditherVivo(ditherVivo.emCor({raiz:tira, planos:planosDaTira(), classeCanvas:'sh-gl', panorama:true,
         revelar: jaEntrou ? 'visivel' : 'manual', lavaInicial: jaEntrou ? undefined : 1,
         cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
-        degrade:{de:.30, ate:.95},
         lavaHover:.88, revelaNaTrilha:.6, pincel:1.05}));
     }
     function desliga(){ if(pecaTira){ pecaTira.destruir(); pecaTira = null; } }
