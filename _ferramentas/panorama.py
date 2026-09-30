@@ -38,6 +38,8 @@ no horizonte. Testado em 30/09 e REPROVADO pelo Leandro («volte ao azul que era
 
 --ceu-azul K puxa o perfil do ceu K do caminho para AZUL (168,192,250). A tira usa 0.7.
 --ceu-claro K, depois, clareia K do caminho para (250,250,255). A tira usa 0.2.
+--ceu-plano deixa o ceu num tom so (o do alto), sem a faixa de manchas perto do horizonte.
+Comando da tira desde 30/09 (tarde): --alvo 0.724 --pe 0.8135 --teto 0.514 --ceu-azul 0.7 --ceu-claro 0.2 --ceu-plano
 
 --ordem diz que servico esta em cada quarto, da esquerda para a direita; so da nome
 aos arquivos de reserva."""
@@ -69,7 +71,7 @@ def skyline(mask):
     return np.where(tem, run.argmax(axis=0) - (k - 1), H)
 
 
-def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=False, azul=0.0, claro=0.0):
+def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=False, azul=0.0, claro=0.0, plano=False):
     ims = [Image.open(c).convert('RGB') for c in caminhos]
     if len(ims) == 2:                                   # duas metades: mesma altura, lado a lado
         h = max(i.height for i in ims)                  # a metade menor (download 1K) sobe; a mestra nao perde resolucao
@@ -110,6 +112,14 @@ def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=F
         Tm = Tm * (1 - azul) + AZUL * azul
     if claro:                                           # 30/09: «a cor do ceu um pouco mais clara»
         Tm = Tm * (1 - claro) + np.array([250.0, 250.0, 255.0]) * claro
+    if plano:
+        # 30/09: «os cards estao com esta mancha de fundo». O ceu clareava perto do horizonte e
+        # cruzava o limiar de um nivel da trama: ali a textura da foto virava manchas creme numa
+        # faixa atravessando a tira. Ceu num tom so, o do alto; o vapor continua (e residuo).
+        # o tom e o do ALTO (linhas 0..120): a media das linhas 100..400 caiu em cima do limiar
+        # da trama e o ruido fino da foto virou mancha no ceu inteiro
+        Tm = np.repeat(Tm[0:120].mean(axis=0)[None, :], Tm.shape[0], axis=0)
+        print('  ceu num tom so: %s' % Tm[0].round().astype(int).tolist())
 
     if falta >= 0:
         T = Tm[falta:falta + H] if falta + H <= HM else np.vstack([Tm[falta:], np.repeat(Tm[-1:], falta + H - HM, 0)])
@@ -142,8 +152,37 @@ def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=F
     if creme:
         lim = falta + int(round(pe * H)) if pe is not None else HM
         m = ceu_creme(m, Tm, lim)
+    if plano:
+        lim = falta + int(round(pe * H)) if pe is not None else HM
+        m = ceu_liso(m, Tm, lim)
     print('mestra %dx%d (%.2f:1) | telhado a %.0f%% | ponto mais alto a %.0f%%' % (W, HM, W / float(HM), 100.0 * a_px / HM, 100.0 * (a_px - (teto - topo)) / HM))
     return np.clip(m, 0, 255)
+
+
+def ceu_liso(m, Tm, lim, perto=16, de=5.0, ate=15.0):
+    """CEU LISO (30/09/2026: «os cards estao com esta mancha de fundo»). No ceu (o que esta perto
+    do tom do ceu e se liga ao alto da foto) a textura fina das nuvens do Flow cruzava o limiar
+    de um nivel da trama e virava manchas. Aqui o residuo pequeno (|luz| < de) vai a zero e o
+    grande (vapor, |luz| > ate) fica inteiro, com rampa suave entre os dois."""
+    import cv2
+    HM = m.shape[0]
+    T = Tm[:HM][:, None, :]
+    res = m - T
+    lum = res.mean(axis=2)
+    linhas = (np.arange(HM) < lim)[:, None]
+    regiao = (((np.abs(res).max(axis=2) < perto) | (lum > 3)) & linhas).astype(np.uint8)
+    n, lab = cv2.connectedComponents(regiao, connectivity=4)
+    ceu = np.isin(lab, np.unique(lab[0][lab[0] > 0]))
+    ceu = cv2.erode(ceu.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0     # nao encosta nas bordas dos objetos
+    # sobre as chamines (mestra x < 1200) o corte e brando: as pontas tenues do vapor ficam
+    W_ = m.shape[1]; xs = np.arange(W_)[None, :]
+    de_ = np.where(xs < 1200, 1.5, de); ate_ = np.where(xs < 1200, 5.0, ate)
+    k = np.clip((np.abs(lum) - de_) / (ate_ - de_), 0, 1); k = k * k * (3 - 2 * k)
+    k = cv2.GaussianBlur(k.astype(np.float32), (0, 0), 1.2)
+    novo = T + res * k[..., None]
+    out = m.copy(); out[ceu] = novo[ceu]
+    print('  ceu liso: %.0f%% da mestra; textura fina tirada, vapor mantido' % (100.0 * ceu.mean()))
+    return out
 
 
 def ceu_creme(m, Tm, lim, perto=13, borda=20, Y0=450, Y1=920, D1=14):
@@ -231,10 +270,11 @@ if __name__ == '__main__':
     creme = '--ceu-creme' in args          # 30/09: o ceu vira o creme da pagina
     azul = opt('--ceu-azul', 0.0, float)   # 30/09: quanto o ceu vai para o AZUL (0 a 1); a tira usa 0.7
     claro = opt('--ceu-claro', 0.0, float) # 30/09: depois do azul, quanto o ceu clareia para o branco-azulado; a tira usa 0.2
+    plano = '--ceu-plano' in args          # 30/09: ceu num tom so (sem a faixa de manchas perto do horizonte)
     pe = opt('--pe', None, float)       # onde o predio encosta no piso, em fracao da altura da foto (alisa o piso dali para baixo)
     espelhar = '--espelhar' in args; prova = '--prova' in args
     fotos = [x for x in args if not x.startswith('--')]
-    m = montar(fotos, alvo, espelhar, pe, teto_fixo, creme, azul, claro)
+    m = montar(fotos, alvo, espelhar, pe, teto_fixo, creme, azul, claro, plano)
     if prova:
         p = os.path.join(os.path.dirname(os.path.dirname(SITE)), 'tmp', 'panorama-prova.jpg')
         os.makedirs(os.path.dirname(p), exist_ok=True)
