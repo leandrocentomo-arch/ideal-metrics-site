@@ -60,7 +60,8 @@ FONTE = {
     'refinaria': 'refinaria-campo-ceu.jpg',
     # 29/09: as quatro fotos feitas no Google Flow (Nano Banana 2) para a tira de teste
     'flow-carbono': 'flow-gestao-carbono-4-recorte.jpg',   # 29/09: a 4a, recortada para o lago ocupar 1/4 como no ESG (o cru inteiro e -4.jpg); antes -2 (chamine) e a 1a
-    'flow-iso': 'flow-implantacao-iso-4-recorte.jpg',   # 30/09: a 4a (tres colegas e o tablet), chao cortado e ceu esticado; o cru e -4.jpg
+    'flow-iso': 'flow-implantacao-iso-5.jpg',   # 30/09: a 5a (fabrica de vidro, linha vista pela janela); antes -4-recorte
+   #   # 30/09: a 4a (tres colegas e o tablet), chao cortado e ceu esticado; o cru e -4.jpg
    #   # 30/09: a 3a (linha coberta com o inspetor); antes -2 (predio de vidro)
    #   # 29/09: a 2a (o predio de vidro); a 1a era flow-implantacao-iso.jpg
     'flow-smeta': 'flow-smeta-2.jpg',   # 29/09: a 2a, SEM recorte (a descida de 9% foi desfeita a pedido); o -recorte fica no disco   # 29/09: a 2a (operarios chegando ao portao); a 1a era flow-smeta.jpg
@@ -77,7 +78,7 @@ VAGAS = {
     'nt': (900, 506, [(a, a, .5, .5) for a in ['tecnologia', 'industria', 'alimentos', 'logistica']]),
     # 29/09: a tira de teste com as fotos do Flow (mesma vaga da qc, sem espelhar)
     # 30/09: a ISO ancora na BASE (ay=1), para os pes nao serem cortados; o recorte dela ja vem espelhado
-    'fl': (633, 788, [(a, a, .5, 1.0 if a == 'flow-iso' else .5) for a in ['flow-carbono', 'flow-iso', 'flow-smeta', 'flow-esg']]),
+    'fl': (633, 788, [(a, a, .5, .5) for a in ['flow-carbono', 'flow-iso', 'flow-smeta', 'flow-esg']]),
 }
 COR_W = 900          # largura da foto em cor que o motor le
 
