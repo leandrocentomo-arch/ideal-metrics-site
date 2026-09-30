@@ -2596,7 +2596,7 @@ body>*{position:relative;z-index:1}
     <!-- 30/09: A TIRA DA HOME E UMA FOTO SO. Os quatro cards sao janelas de uma panoramica continua (img/tira-panorama-cor.webp, montada por _ferramentas/panorama.py a partir de duas metades geradas no Google Flow sobre a foto do escritorio): producao com a chamine | escritorio | patio com a entrevista | estacao de tratamento. O src de cada card e o seu quarto ja tramado (reserva sem WebGL e telefone). As quatro fotos separadas de 29/09 (flow-*-cor-fl) ficam em img/. -->
     <div class="sh-tira sh-tira--flow">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/tira-carbono-bayer.webp?v=30092026ba" data-lum="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-carbono-grad-bayer.webp?v=30092026bb" data-lum="img/tira-panorama-cor.webp?v=30092026aa" data-lum-azul="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
@@ -2612,7 +2612,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/tira-iso-bayer.webp?v=30092026ba" data-lum="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-iso-grad-bayer.webp?v=30092026bb" data-lum="img/tira-panorama-cor.webp?v=30092026aa" data-lum-azul="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -2628,7 +2628,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/tira-smeta-bayer.webp?v=30092026ba" data-lum="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-smeta-grad-bayer.webp?v=30092026bb" data-lum="img/tira-panorama-cor.webp?v=30092026aa" data-lum-azul="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
@@ -2644,7 +2644,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/tira-esg-bayer.webp?v=30092026ba" data-lum="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-esg-grad-bayer.webp?v=30092026bb" data-lum="img/tira-panorama-cor.webp?v=30092026aa" data-lum-azul="img/tira-panorama-lum.webp?v=30092026ba" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>
@@ -3998,7 +3998,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=21"></script>
+<script src="js/trama.js?v=22"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -4030,22 +4030,24 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
        a tira inteira e cada card e uma janela (cfg.panorama). So vale com os cards lado a lado:
        abaixo de 881 px eles empilham e fica a reserva de cada um. */
     function planosDaTira(){ return [].slice.call(tira.querySelectorAll('.sh-col')).map(function(c){
-      var im = c.querySelector('img.sh-foto'); return {el:c, lum: im ? im.getAttribute('data-lum') : null, ax:.5, espelha:false}; }); }
+      var im = c.querySelector('img.sh-foto'); return {el:c, lum: im ? im.getAttribute('data-lum') : null,
+        lumAzul: im ? im.getAttribute('data-lum-azul') : null, ax:.5, espelha:false}; }); }
     var largo = window.matchMedia('(min-width:881px)');
     function liga(){
       if(pecaTira || !largo.matches) return;
       var jaEntrou = tira.classList.contains('entrou');
-      /* 30/09 (fim da tarde): «volte o tingimento azulado que era antes no site, quero ver como
-         fica com esta nova configuracao». A panoramica no TINGIMENTO OFICIAL AZUL, sem o filtro em
-         cor (sem emCor): o motor trama a LUMINANCIA (img/tira-panorama-lum.webp) com a curva
-         oficial do proprio shader (gama .86, contraste 1,55, brilho .35) e a rampa 14304C 336699
-         D3E2F2 FAF9F5 (escuro 1,4, ja com o creme 1,06); veu de repouso .12, como a tira antiga.
-         Reservas: img/tira-<servico>-bayer.webp, geradas por _ferramentas/panorama_azul.py.
-         Para voltar ao filtro em cor: ditherVivo.emCor({...}) e os arquivos -cor- (commit 898d650). */
-      pecaTira = ditherVivo({raiz:tira, planos:planosDaTira(), classeCanvas:'sh-gl', panorama:true,
+      /* 30/09 (noite): «nao teria como colorir gradativamente os cards de cima para baixo?». A tira
+         em DEGRADE: o filtro em cor (emCor, textura img/tira-panorama-cor.webp) e o tingimento
+         oficial azul (a luminancia img/tira-panorama-lum.webp, com moinhos e vapor reforcados)
+         juntos. Ponto a ponto, um limiar 8x8 escolhe um ou outro; a proporcao de pontos em cor
+         vai de 0 em 30% da altura da tira a 100% em 95% (cfg.degrade, js/trama.js). Reservas:
+         img/tira-<servico>-grad-bayer.webp (_ferramentas/panorama_degrade.py). A tira toda azul
+         esta em index-azul.html (so no disco); a toda em cor, no commit 898d650. */
+      pecaTira = ditherVivo(ditherVivo.emCor({raiz:tira, planos:planosDaTira(), classeCanvas:'sh-gl', panorama:true,
         revelar: jaEntrou ? 'visivel' : 'manual', lavaInicial: jaEntrou ? undefined : 1,
         cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
-        lavaRepouso:.12, lavaHover:.88, revelaNaTrilha:.6, pincel:1.05});
+        degrade:{de:.30, ate:.95},
+        lavaHover:.88, revelaNaTrilha:.6, pincel:1.05}));
     }
     function desliga(){ if(pecaTira){ pecaTira.destruir(); pecaTira = null; } }
     liga();

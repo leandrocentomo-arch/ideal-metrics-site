@@ -81,7 +81,7 @@
        de contraste da casa (sem o brilho), perde saturacao (uSat), as sombras vao
        para a tinta da marca (uC0) ate uSombra de luminancia, e a trama sai com
        uNiveis+1 niveis por canal (2 = tres niveis, ponto bem visivel). */
-    'uniform float uForte;uniform float uSat;uniform float uSombra;uniform float uNiveis;uniform vec3 uSombraCor;uniform float uPiso;uniform float uBrilhoF;uniform float uMatriz;uniform float uLimiar;uniform sampler2D uB2;uniform vec3 uLuzCor;uniform float uLuzDe;uniform float uLuzForca;uniform vec3 uTrilhaCor;uniform float uTrilhaAzul;uniform float uAy;' +
+    'uniform float uForte;uniform float uSat;uniform float uSombra;uniform float uNiveis;uniform vec3 uSombraCor;uniform float uPiso;uniform float uBrilhoF;uniform float uMatriz;uniform float uLimiar;uniform sampler2D uB2;uniform vec3 uLuzCor;uniform float uLuzDe;uniform float uLuzForca;uniform vec3 uTrilhaCor;uniform float uTrilhaAzul;uniform float uAy;uniform sampler2D uAzul;uniform vec3 uDeg;' +
     'vec3 rampa(float v){ float x = v*3.;' +
     '  return x < 1. ? mix(uC0,uC1,x) : (x < 2. ? mix(uC1,uC2,x-1.) : mix(uC2,uC3,clamp(x-2.,0.,1.))); }' +
     /* ruido de valor: bem mais barato que o Perlin 3D do OCI e, na amplitude em
@@ -90,6 +90,10 @@
     'float ru(vec3 p){vec3 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);' +
     '  return mix(mix(mix(h(i),h(i+vec3(1,0,0)),f.x),mix(h(i+vec3(0,1,0)),h(i+vec3(1,1,0)),f.x),f.y),' +
     '             mix(mix(h(i+vec3(0,0,1)),h(i+vec3(1,0,1)),f.x),mix(h(i+vec3(0,1,1)),h(i+vec3(1,1,1)),f.x),f.y),f.z);}' +
+    /* 30/09: DEGRADE azul -> cor (cfg.degrade). tomA e o tom do TINGIMENTO OFICIAL AZUL, com as
+       constantes da receita (gama .86, contraste 1,55, brilho .35), para o azul sair igual ao da
+       tira azul mesmo com o modo em cor usando outra curva. */
+    'float tomA(float g){ float v = clamp(pow(max(g,0.), .86), 1e-6, 1.-1e-6); float a = pow(v,1.55), b = pow(1.-v,1.55); return clamp(a/(a+b) + .35, 0., 1.);}' +
     'float tom(float g){' +
     '  float v = clamp(pow(max(g,0.), uGama), 1e-6, 1.-1e-6);' +
     '  float a = pow(v,uCtr), b = pow(1.-v,uCtr);' +
@@ -146,6 +150,14 @@
     /* 28/09 (noite): o rastro do mouse AZULADO: onde a trilha passa, a cor vai para uTrilhaCor na
        mesma luminancia (uTrilhaAzul = quanto), em vez de so engrossar a celula */
     '    c = mix(c, uTrilhaCor * (dot(c, vec3(.2126,.7152,.0722)) / max(dot(uTrilhaCor, vec3(.2126,.7152,.0722)), 1e-3)), tr * uTrilhaAzul);' +
+    /* 30/09: DEGRADE. uDeg = (ligado, de, ate), em fracao da altura da peca a partir do ALTO.
+       O azul oficial sai da luminancia propria (uAzul, com moinhos e vapor reforcados), na
+       trama 4x4 e na rampa da peca (uC0..uC3); a cor e a de cima. Um limiar ordenado 8x8 escolhe
+       ponto a ponto: a proporcao de pontos em cor cresce de cima para baixo e a trama fica nitida. */
+    '    if(uDeg.x > .5){ float va = tomA(texture2D(uAzul, clamp(p*sc+of, 0., 1.)).r);' +
+    '      float ka = clamp(floor((va - bias)*3. + T), 0., 3.); vec3 cb = ka<.5 ? uC0 : (ka<1.5 ? uC1 : (ka<2.5 ? uC2 : uC3));' +
+    '      float yf = (uCol.y + uCol.w - frag.y)/uCol.w; float wc = smoothstep(uDeg.y, uDeg.z, yf);' +
+    '      float Bd = texture2D(uB8, (floor(frag)+.5)/8.).r; c = wc > Bd ? c : cb; }' +
     '    c = mix(c, uCreme, uLava*(1. - uRevela*tr)); c = mix(uCreme, c, tx.a); gl_FragColor = vec4(c, uOpac); return; }' +
     /* a chapa de creme do hover, que cede onde a trilha passa */
     '  c = mix(c, uCreme, uLava*(1. - uRevela*tr));' +
@@ -208,7 +220,7 @@
     function uni(pr, nomes){ var o = {}; nomes.forEach(function(n){ o[n] = gl.getUniformLocation(pr, n); }); return o; }
     var uT = uni(pT, ['t','res','pt','ptAnt','aspecto','vel','raio','borda','fica']);
     var uF = uni(pF, ['uLum','uTrilha','uB4','uB8','uTela','uCol','uTex','uAx','uEspelha','uZoom','uTempo','uC0','uC1','uC2','uC3','uCreme',
-      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura','uForte','uSat','uSombra','uNiveis','uSombraCor','uPiso','uBrilhoF','uMatriz','uLimiar','uB2','uLuzCor','uLuzDe','uLuzForca','uTrilhaCor','uTrilhaAzul','uAy']);
+      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura','uForte','uSat','uSombra','uNiveis','uSombraCor','uPiso','uBrilhoF','uMatriz','uLimiar','uB2','uLuzCor','uLuzDe','uLuzForca','uTrilhaCor','uTrilhaAzul','uAy','uAzul','uDeg']);
 
     var quad = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, quad);
@@ -250,17 +262,40 @@
       return true;
     }
     var planos = cfg.planos.map(function(pl, i){
-      return {el:pl.el, src:pl.lum, ax:pl.ax == null ? .5 : pl.ax, espelha:pl.espelha ? 1 : 0, tx:null, w:1, h:1,
+      return {el:pl.el, src:pl.lum, srcAzul:cfg.degrade ? pl.lumAzul : null, txA:null, ax:pl.ax == null ? .5 : pl.ax, espelha:pl.espelha ? 1 : 0, tx:null, w:1, h:1,
               zoom:anima(1), lava:anima(cfg.lavaInicial != null ? cfg.lavaInicial : (cfg.lavaRepouso || 0)),   /* 30/09: lavaInicial = o veu com que a peca nasce */ opac:anima(cfg.empilhado ? (i === 0 ? 1 : 0) : 1)};
     });
     if(planos.some(function(pl){ return !pl.src || !pl.el; })) return null;
+    if(cfg.degrade && planos.some(function(pl){ return !pl.srcAzul; })) cfg.degrade = null;   /* sem luminancia azul, sem degrade */
 
     var pix = anima(20), bias = anima(-1), revelado = false;   /* a entrada: celula 20->1 e limiar -1->0 */
     var ligado = false, prontas = 0;
     /* 30/09: uma textura por ENDERECO. Na tira panoramica os quatro cards apontam para a
        mesma imagem: ela baixa e sobe para a placa uma vez so. */
     var porEndereco = {};
-    function carrega(){ planos.forEach(function(pl){
+    var precisa = planos.length * (cfg.degrade ? 2 : 1);
+    function carrega(){ if(cfg.degrade) planos.forEach(function(pl){
+      var fila = porEndereco['A:' + pl.srcAzul];
+      if(fila){ fila.push(pl); return; }
+      fila = porEndereco['A:' + pl.srcAzul] = [pl];
+      var im = new Image();
+      im.onload = function(){
+        var tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, gl.LUMINANCE, gl.UNSIGNED_BYTE, im); }
+        catch(e){ gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); return; }
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        fila.forEach(function(q){ q.txA = tx; });
+        prontas += fila.length;
+        if(prontas === precisa) liga();
+      };
+      im.src = pl.srcAzul;
+    });
+      planos.forEach(function(pl){
       var fila = porEndereco[pl.src];
       if(fila){ fila.push(pl); return; }
       fila = porEndereco[pl.src] = [pl];
@@ -278,7 +313,7 @@
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
         fila.forEach(function(q){ q.tx = tx; q.w = im.naturalWidth; q.h = im.naturalHeight; });
         prontas += fila.length;
-        if(prontas === planos.length) liga();
+        if(prontas === precisa) liga();
       };
       im.src = pl.src;
     }); }
@@ -527,6 +562,9 @@
         if(w < 1 || h < 1) return;
         gl.scissor(x0, y, w, h);
         gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, pl.tx); gl.uniform1i(uF.uLum, 0);
+        if(cfg.degrade){ gl.activeTexture(gl.TEXTURE5); gl.bindTexture(gl.TEXTURE_2D, pl.txA); gl.uniform1i(uF.uAzul, 5);
+          gl.uniform3f(uF.uDeg, 1, cfg.degrade.de, cfg.degrade.ate); gl.activeTexture(gl.TEXTURE0); }
+        else gl.uniform3f(uF.uDeg, 0, 0, 1);
         /* 30/09: PANORAMA (cfg.panorama). A foto e UMA, presa ao retangulo da tira inteira:
            ocupa sempre a largura toda e o que sobra de altura e cortado do ALTO (o ceu), com
            o chao ancorado na base. Cada card so recorta a sua janela (o scissor), entao a
