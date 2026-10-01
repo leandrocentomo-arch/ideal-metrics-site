@@ -74,7 +74,7 @@ def skyline(mask):
     return np.where(tem, run.argmax(axis=0) - (k - 1), H)
 
 
-def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=False, azul=0.0, claro=0.0, plano=False, tom=None, ceu_cor=None):
+def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=False, azul=0.0, claro=0.0, plano=False, tom=None, ceu_cor=None, limpo=0.0):
     ims = [Image.open(c).convert('RGB') for c in caminhos]
     if len(ims) == 2:                                   # duas metades: mesma altura, lado a lado
         h = max(i.height for i in ims)                  # a metade menor (download 1K) sobe; a mestra nao perde resolucao
@@ -159,6 +159,15 @@ def montar(caminhos, alvo=0.66, espelhar=False, pe=None, teto_fixo=None, creme=F
     if plano:
         lim = falta + int(round(pe * H)) if pe is not None else HM
         m = ceu_liso(m, Tm, lim)
+    if limpo and plano:
+        # 01/10: --ceu-limpo K. Acima do telhado, o que desvia ATE K tons do ceu chapado vira o ceu (o Flow deixa
+        # fantasmas de 1 a 3 tons que a trama realca em fios e manchas); vapor e fumaca desviam muito mais e ficam
+        ceu0 = Tm[0]
+        alto = m[:a_px]
+        d = np.abs(alto - ceu0).max(axis=2)
+        t = np.clip((limpo * 1.6 - d) / (limpo * 0.6), 0, 1)[..., None]
+        m[:a_px] = alto * (1 - t) + ceu0 * t
+        print('  ceu limpo: %d px encostados no ceu (desvio ate %g)' % (int((t[..., 0] > .5).sum()), limpo))
     print('mestra %dx%d (%.2f:1) | telhado a %.0f%% | ponto mais alto a %.0f%%' % (W, HM, W / float(HM), 100.0 * a_px / HM, 100.0 * (a_px - (teto - topo)) / HM))
     return np.clip(m, 0, 255)
 
@@ -305,10 +314,11 @@ if __name__ == '__main__':
     tom = tuple(float(v) for v in t_.split(',')) if t_ else None
     c_ = opt('--ceu-cor', None)            # 30/09: com --ceu-plano, a cor exata do ceu (R,G,B)
     ceu_cor = tuple(float(v) for v in c_.split(',')) if c_ else None
+    limpo = opt('--ceu-limpo', 0.0, float)   # 01/10: encosta no ceu o que desvia ate K tons (a tira2 usa 6)
     pe = opt('--pe', None, float)       # onde o predio encosta no piso, em fracao da altura da foto (alisa o piso dali para baixo)
     espelhar = '--espelhar' in args; prova = '--prova' in args
     fotos = [x for x in args if not x.startswith('--')]
-    m = montar(fotos, alvo, espelhar, pe, teto_fixo, creme, azul, claro, plano, tom, ceu_cor)
+    m = montar(fotos, alvo, espelhar, pe, teto_fixo, creme, azul, claro, plano, tom, ceu_cor, limpo)
     if prova:
         p = os.path.join(os.path.dirname(os.path.dirname(SITE)), 'tmp', 'panorama-prova.jpg')
         os.makedirs(os.path.dirname(p), exist_ok=True)
