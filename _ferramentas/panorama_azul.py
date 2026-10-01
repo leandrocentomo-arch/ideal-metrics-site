@@ -134,14 +134,20 @@ def reforcar(m, g):
     return out
 
 
-mestra = Image.open(os.path.join(IMG, 'tira-panorama-cor.webp')).convert('RGB')
+# 01/10: a SEGUNDA tira (cards 5 a 8): python panorama_azul.py --prefixo tira2 --ordem nrs,alimentos,viaria,florestal
+#        (sem o reforco dos moinhos, que e da primeira)
+import sys
+_a = sys.argv[1:]
+PREFIXO = _a[_a.index('--prefixo') + 1] if '--prefixo' in _a else 'tira'
+if '--ordem' in _a: ORDEM = _a[_a.index('--ordem') + 1].split(',')
+mestra = Image.open(os.path.join(IMG, '%s-panorama-cor.webp' % PREFIXO)).convert('RGB')
 W, HM = mestra.size
-g = reforcar(np.asarray(mestra, np.float64), lumin(mestra))
-dest = os.path.join(IMG, 'tira-panorama-lum.webp')
+g = reforcar(np.asarray(mestra, np.float64), lumin(mestra)) if PREFIXO == 'tira' else lumin(mestra)
+dest = os.path.join(IMG, '%s-panorama-lum.webp' % PREFIXO)
 Image.fromarray(np.clip(np.rint(g * 255), 0, 255).astype(np.uint8), 'L').save(dest, lossless=True)
 print('%s  %dx%d  %d KB' % (os.path.basename(dest), W, HM, os.path.getsize(dest) // 1024))
 # 30/09 (noite): a reserva continua, a panoramica inteira tramada no azul (fundo da tira sem o motor)
-arq = os.path.join(IMG, 'tira-panorama-bayer.webp')
+arq = os.path.join(IMG, '%s-panorama-bayer.webp' % PREFIXO)
 # SEM a trama (reduzida na tela vira moire): o tom continuo, a rampa interpolada
 _L = lut_rampa(); _v = tom(g); _i = np.clip(np.rint(_v * 255), 0, 255).astype(np.int32)
 Image.fromarray(np.clip(np.rint(_L[_i]), 0, 255).astype(np.uint8), 'RGB').save(arq, 'WEBP', quality=90, method=6)
@@ -150,6 +156,6 @@ for i, nome in enumerate(ORDEM):
     q = Image.fromarray(np.clip(g * 255, 0, 255).astype(np.uint8), 'L').crop((round(i * W / 4.0), 0, round((i + 1) * W / 4.0), HM))
     q = q.resize((CARD_W, round(q.height * CARD_W / q.width)), Image.LANCZOS)
     q = q.crop((0, q.height - CARD_H, CARD_W, q.height)) if q.height >= CARD_H else q.resize((CARD_W, CARD_H), Image.LANCZOS)
-    arq = os.path.join(IMG, 'tira-%s-bayer.webp' % nome)
+    arq = os.path.join(IMG, '%s-%s-bayer.webp' % (PREFIXO, nome))
     tramar(np.asarray(q, np.float32) / 255.0).save(arq, 'WEBP', lossless=True, quality=100, method=6)
     print('  %-28s %dx%d  %d KB' % (os.path.basename(arq), CARD_W, CARD_H, os.path.getsize(arq) // 1024))

@@ -38,10 +38,10 @@ for p in pares:
     if n == 0: print('AVISO: linha nao achada:', p['de'][0][:90]); falhas += 1; continue
     s = s.replace(de, para, 1)
 # a tira
-s, n3 = re.subn(r'img/tira-panorama-cor-bayer\.webp', 'img/tira-panorama-bayer.webp', s)   # a reserva continua (CSS)
-s, n1 = re.subn(r'img/tira-(carbono|iso|smeta|esg)-cor-bayer\.webp\?v=([0-9a-z]+)', r'img/tira-\1-bayer.webp?v=\2', s)
-s, n2 = re.subn(r'data-lum="img/tira-panorama-cor\.webp\?v=([0-9a-z]+)"', r'data-lum="img/tira-panorama-lum.webp?v=\1"', s)
-i = s.find('pecaTira = ditherVivo(ditherVivo.emCor({')
+s, n3 = re.subn(r'img/(tira2?)-panorama-cor-bayer\.webp', r'img/\1-panorama-bayer.webp', s)   # a reserva continua (CSS); 01/10: as DUAS tiras
+s, n1 = re.subn(r'img/(tira2?)-(carbono|iso|smeta|esg|nrs|alimentos|viaria|florestal)-cor-bayer\.webp\?v=([0-9a-z]+)', r'img/\1-\2-bayer.webp?v=\3', s)
+s, n2 = re.subn(r'data-lum="img/(tira2?)-panorama-cor\.webp\?v=([0-9a-z]+)"', r'data-lum="img/\1-panorama-lum.webp?v=\2"', s)
+i = s.find('pecaTira = ditherVivo(ditherVivo.emCor({')   # 01/10: UMA chamada para as duas tiras (forEach)
 j = s.find('}));', i)
 if i < 0 or j < 0: print('AVISO: chamada da tira'); falhas += 1
 else:

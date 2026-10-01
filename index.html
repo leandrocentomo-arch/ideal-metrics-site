@@ -1987,6 +1987,37 @@ body>*{position:relative;z-index:1}
 /* 30/09: «o titulo so um pouco mais bold». 700 ja e o maximo da IBM Plex Sans Condensed (nao ha
    800); o corpo vem de um contorno na cor da letra. Depois «ligeiramente menos bold»: .3px (era .5); depois «um pouco menos bold»: .15px. */
 .sh-tira--flow .sh-titulo{-webkit-text-stroke:.15px currentColor;paint-order:stroke fill}
+/* 01/10: O ROLO. As duas tiras lado a lado numa faixa de 200%; a seta do canto desliza a faixa
+   meio rolo para a direita (cards 05 a 08) e vira para voltar. No celular (ate 880 px) as duas
+   tiras empilham e a seta some: os oito cards ficam em coluna. */
+.sh-rolo{position:relative;width:100%;overflow:hidden}
+.sh-faixa{display:flex;width:200%;transition:transform .9s cubic-bezier(.4,0,.2,1)}
+.sh-faixa.avancou{transform:translateX(-50%)}
+.sh-faixa .sh-tira{width:50%;flex:none}
+.sh-avanca{position:absolute;right:0;top:0;z-index:5;width:72px;height:72px;border:1px solid rgba(20,48,76,.42);border-right:none;border-top:none;
+  border-radius:0 0 0 3px;background:rgba(250,249,245,.78);color:var(--azul);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;
+  transition:background .3s,color .3s,opacity .5s,transform .5s cubic-bezier(.4,0,.2,1)}
+.sh-avanca svg{width:44px;height:28px;fill:currentColor;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.sh-avanca:hover{background:var(--azul);color:var(--mercurio)}
+.sh-avanca:hover svg{transform:translateX(4px)}
+.sh-avanca--volta{}   /* 01/10: a volta fica no MESMO canto (o canto esquerdo e do logo flutuante), com a seta virada */
+.sh-avanca--volta svg{transform:scaleX(-1)}
+.sh-avanca--volta:hover svg{transform:scaleX(-1) translateX(4px)}
+.sh-rolo:not(.avancou) .sh-avanca--volta,.sh-rolo.avancou #shAvanca{opacity:0;pointer-events:none}
+.sh-cta--breve{cursor:default;opacity:.72}
+.sh-cta--breve:hover{background:rgba(250,249,245,.5);color:var(--azul);border-color:rgba(20,48,76,.42)}
+.sh-col--nrs      {background:linear-gradient(160deg,rgba(250,249,245,.22) 0%,rgba(238,243,249,.19) 100%)}
+.sh-col--alimentos{background:linear-gradient(160deg,rgba(238,243,249,.19) 0%,rgba(223,233,244,.17) 100%)}
+.sh-col--viaria   {background:linear-gradient(160deg,rgba(223,233,244,.17) 0%,rgba(206,223,241,.15) 100%)}
+.sh-col--florestal{background:linear-gradient(160deg,rgba(206,223,241,.15) 0%,rgba(189,212,236,.13) 100%)}
+@media (max-width:880px){
+  .sh-faixa{display:block;width:100%;transform:none !important}
+  .sh-faixa .sh-tira{width:100%}
+  .sh-avanca{display:none}
+}
+@media (min-width:881px){
+  .sh-tira.sh-tira--2:not(.gl-on){background:#FAF9F5 url(img/tira2-panorama-cor-bayer.webp?v=01102026c) center bottom/100% auto no-repeat}
+}
 /* 1,5px e nao 3: a barra sob o titulo afina e passa a ter a espessura do fio
    do index oficial (.qc-fio{height:1.5px}). */
 .sh-acento{width:40px;height:1.5px;background:var(--azul);margin-bottom:16px}
@@ -2453,7 +2484,7 @@ body>*{position:relative;z-index:1}
    A panoramica inteira tramada de fundo da tira, presa como o motor (largura toda, chao na base);
    o recorte de cada card fica so para o celular, onde os cards empilham. */
 @media (min-width:881px){
-  .sh-tira.sh-tira--flow:not(.gl-on){background:#FAF9F5 url(img/tira-panorama-cor-bayer.webp?v=01102026b) center bottom/100% auto no-repeat}
+  .sh-tira.sh-tira--flow:not(.gl-on){background:#FAF9F5 url(img/tira-panorama-cor-bayer.webp?v=01102026c) center bottom/100% auto no-repeat}
   .sh-tira--flow:not(.gl-on) .sh-foto{visibility:hidden}
   .sh-tira--flow:not(.gl-on) .sh-col{background:transparent}
 }
@@ -2602,9 +2633,15 @@ body>*{position:relative;z-index:1}
   <section class="qc-sec" id="quatro-colunas" aria-labelledby="qc-titulo-sec">
     
     <!-- 30/09: A TIRA DA HOME E UMA FOTO SO. Os quatro cards sao janelas de uma panoramica continua (img/tira-panorama-cor.webp, montada por _ferramentas/panorama.py a partir de duas metades geradas no Google Flow sobre a foto do escritorio): producao com a chamine | escritorio | patio com a entrevista | estacao de tratamento. O src de cada card e o seu quarto ja tramado (reserva sem WebGL e telefone). As quatro fotos separadas de 29/09 (flow-*-cor-fl) ficam em img/. -->
+    <!-- 01/10: a CONTINUACAO DO MOSAICO. Mais quatro cards (05 a 08) na mesma secao, numa segunda panoramica
+         (img/tira2-panorama-cor.webp, gerada no Flow a partir da metade direita da primeira: manutencao predial com
+         descarga de quimicos, deposito, trabalho em altura e empilhadeira; refeitorio e recebimento de alimentos;
+         portaria, estacionamento, onibus e estrada; floresta). A seta no canto desliza o rolo para a direita. -->
+    <div class="sh-rolo" id="shRolo">
+    <div class="sh-faixa" id="shFaixa">
     <div class="sh-tira sh-tira--flow">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=01102026b" data-lum="img/tira-panorama-cor.webp?v=01102026b" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=01102026c" data-lum="img/tira-panorama-cor.webp?v=01102026c" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
@@ -2620,7 +2657,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=01102026b" data-lum="img/tira-panorama-cor.webp?v=01102026b" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=01102026c" data-lum="img/tira-panorama-cor.webp?v=01102026c" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -2636,7 +2673,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=01102026b" data-lum="img/tira-panorama-cor.webp?v=01102026b" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=01102026c" data-lum="img/tira-panorama-cor.webp?v=01102026c" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
@@ -2652,7 +2689,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=01102026b" data-lum="img/tira-panorama-cor.webp?v=01102026b" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=01102026c" data-lum="img/tira-panorama-cor.webp?v=01102026c" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>
@@ -2667,6 +2704,76 @@ body>*{position:relative;z-index:1}
           </div>
         </div>
       </article>
+    </div>
+    <div class="sh-tira sh-tira--flow sh-tira--2">
+      <article class="sh-col sh-col--nrs">
+        <img class="sh-foto" src="img/tira2-nrs-cor-bayer.webp?v=01102026c" data-lum="img/tira2-panorama-cor.webp?v=01102026c" alt="" loading="lazy" decoding="async">
+        <div class="sh-conteudo">
+          <div>
+            <span class="sh-indice">[ 05 ]</span>
+            <h3 class="sh-titulo">Normas<br><strong>Regulamentadoras</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Cumpre as NRs na sua operação</div>
+            <ul class="sh-lista"><li><span>NR-20: inflamáveis e combustíveis</span></li><li><span>NR-35: trabalho em altura</span></li><li><span>NR-11 e NR-12: movimentação e máquinas</span></li></ul>
+          </div>
+          <span class="sh-vertical" aria-hidden="true">Segurança</span>
+          <div>
+            <a class="sh-cta" href="nrs.html"><span class="js-scramble">Acesse</span><svg class="sh-seta" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></a>
+          </div>
+        </div>
+      </article>
+      <article class="sh-col sh-col--alimentos">
+        <img class="sh-foto" src="img/tira2-alimentos-cor-bayer.webp?v=01102026c" data-lum="img/tira2-panorama-cor.webp?v=01102026c" alt="" loading="lazy" decoding="async">
+        <div class="sh-conteudo">
+          <div>
+            <span class="sh-indice">[ 06 ]</span>
+            <h3 class="sh-titulo">Segurança<br><strong>de Alimentos</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Garante a segurança do alimento que você entrega</div>
+            <ul class="sh-lista"><li><span>APPCC e BPF</span></li><li><span>FSSC 22000 e ISO 22000</span></li><li><span>Recebimento e rastreabilidade</span></li></ul>
+          </div>
+          <span class="sh-vertical" aria-hidden="true">Alimentos</span>
+          <div>
+            <a class="sh-cta" href="seguranca-alimentos.html"><span class="js-scramble">Acesse</span><svg class="sh-seta" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></a>
+          </div>
+        </div>
+      </article>
+      <article class="sh-col sh-col--viaria">
+        <img class="sh-foto" src="img/tira2-viaria-cor-bayer.webp?v=01102026c" data-lum="img/tira2-panorama-cor.webp?v=01102026c" alt="" loading="lazy" decoding="async">
+        <div class="sh-conteudo">
+          <div>
+            <span class="sh-indice">[ 07 ]</span>
+            <h3 class="sh-titulo">Segurança<br><strong>Viária</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Reduz o risco no trânsito da sua operação</div>
+            <ul class="sh-lista"><li><span>ISO 39001</span></li><li><span>Frota e transporte de pessoas</span></li><li><span>Rotas, condutores e estacionamento</span></li></ul>
+          </div>
+          <span class="sh-vertical" aria-hidden="true">Trânsito</span>
+          <div>
+            <span class="sh-cta sh-cta--breve" aria-disabled="true"><span class="js-scramble">Em breve</span><svg class="sh-seta" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></span>
+          </div>
+        </div>
+      </article>
+      <article class="sh-col sh-col--florestal">
+        <img class="sh-foto" src="img/tira2-florestal-cor-bayer.webp?v=01102026c" data-lum="img/tira2-panorama-cor.webp?v=01102026c" alt="" loading="lazy" decoding="async">
+        <div class="sh-conteudo">
+          <div>
+            <span class="sh-indice">[ 08 ]</span>
+            <h3 class="sh-titulo">Compliance<br><strong>Ambiental e FSC</strong></h3>
+            <div class="sh-acento" aria-hidden="true"></div>
+            <div class="sh-rodape">Comprova a conformidade ambiental e florestal</div>
+            <ul class="sh-lista"><li><span>Licenças e condicionantes</span></li><li><span>FSC: manejo e cadeia de custódia</span></li><li><span>Legislação ambiental aplicável</span></li></ul>
+          </div>
+          <span class="sh-vertical" aria-hidden="true">Floresta</span>
+          <div>
+            <span class="sh-cta sh-cta--breve" aria-disabled="true"><span class="js-scramble">Em breve</span><svg class="sh-seta" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></span>
+          </div>
+        </div>
+      </article>
+    </div>
+    </div>
+    <button class="sh-avanca" id="shAvanca" type="button" aria-label="Mais serviços: cards 05 a 08"><svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></button>
+    <button class="sh-avanca sh-avanca--volta" id="shVolta" type="button" aria-label="Voltar: cards 01 a 04"><svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></button>
     </div>
     <div class="qc-letreiro" aria-label="Serviços que prestamos">
       <div class="qc-letreiro-fita"><span>Implantação ISO 9001</span><span>Implantação ISO 14001</span><span>Implantação ISO 45001</span><span>Preparação SEDEX/SMETA</span><span>Inventário de GEE</span><span>Pegada de carbono</span><span>Descarbonização</span><span>Neutralização de carbono</span><span>Estruturação ESG</span><span>Atendimento a NRs</span><span>Inspeções pré-embarque</span><span>Segurança de alimentos</span><span>Auditoria interna</span><span>Padrões de mercado</span><span>Implantação ISO 9001</span><span>Implantação ISO 14001</span><span>Implantação ISO 45001</span><span>Preparação SEDEX/SMETA</span><span>Inventário de GEE</span><span>Pegada de carbono</span><span>Descarbonização</span><span>Neutralização de carbono</span><span>Estruturação ESG</span><span>Atendimento a NRs</span><span>Inspeções pré-embarque</span><span>Segurança de alimentos</span><span>Auditoria interna</span><span>Padrões de mercado</span></div>
@@ -4013,8 +4120,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   var ditherVivo = window.ditherVivo; if(!ditherVivo) return;
 
   /* ---------------- a tira da home (29/09: as fotos do Google Flow) ---------------- */
-  (function(){
-    var tira = document.querySelector('.sh-tira--flow'); if(!tira) return;
+  [].forEach.call(document.querySelectorAll('.sh-tira--flow'), function(tira){
     var pecaTira = null;
     /* 29/09: a entrada da esquerda para a direita (ver o CSS .anima/.entrou) */
     if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
@@ -4028,7 +4134,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
         if(!pecaTira || !pecaTira.revelar){ return; }
         pecaTira.revelar(2600);                       /* a trama se resolve em 2,6 s */
         var repouso = ditherVivo.RECEITA_COR.lavaRepouso || 0;
-        [0,1,2,3].forEach(function(i){ setTimeout(function(){ pecaTira.lavar(i, repouso, 1400); }, i*220); });
+        [0,1,2,3].forEach(function(i){ setTimeout(function(){ pecaTira.lavar(i, repouso, 1400); }, i*220); });   /* 01/10: o mesmo para a 2a tira, quando a seta a traz para a tela */
       }
       if(!saiu) window.addEventListener('im:pronta', function(){ setTimeout(function(){ saiu = true; tenta(); }, 900); }, {once:true});
       var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ vista = true; io.disconnect(); tenta(); } }); }, {threshold:.3});
@@ -4057,6 +4163,13 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     liga();
     var troca = function(){ if(largo.matches) liga(); else desliga(); };
     if(largo.addEventListener) largo.addEventListener('change', troca); else if(largo.addListener) largo.addListener(troca);
+  });
+  /* 01/10: a SETA do rolo: desliza a faixa meio rolo (cards 05 a 08) e volta */
+  (function(){
+    var rolo = document.getElementById('shRolo'), faixa = document.getElementById('shFaixa'); if(!rolo || !faixa) return;
+    function vai(av){ faixa.classList.toggle('avancou', av); rolo.classList.toggle('avancou', av); }
+    document.getElementById('shAvanca').addEventListener('click', function(){ vai(true); });
+    document.getElementById('shVolta').addEventListener('click', function(){ vai(false); });
   })();
 
   /* ---------------- a folha do painel Demandas ---------------- */
