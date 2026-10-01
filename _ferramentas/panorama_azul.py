@@ -96,21 +96,28 @@ def reforcar(m, g):
     # 30/09 (noite): os moinhos passaram a ser fotograficos (Flow), claros e com sombreado; em vez
     # da reta ceu-cinza, conta o que se afasta do ceu (o ceu e plano, --ceu-plano)
     dist = np.abs(bx - S).max(axis=2)
-    a = np.clip((dist - 6) / 20.0, 0, 1)
+    a = np.clip((dist - 4) / 10.0, 0, 1)   # 01/10: mais duro (as pas finas entravam pela metade)
     cand = (dist > 8)
     # so a faixa de ceu dos moinhos: entre o predio do SMETA (a esquerda) e os tanques (a direita),
     # acima dos paineis; sem isso os moinhos se ligam a paineis, tanques e predio num bloco so
     yy, xx = np.mgrid[0:cand.shape[0], 0:cand.shape[1]]
     cand &= (xx >= 60) & (xx < 440) & (yy < 410) & ~((xx < 95) & (yy > 320))
+    # 01/10: abaixo da linha 325 (grama e arvores atras dos moinhos) so valem as colunas das torres,
+    # lidas nas linhas 300-325; sem isso a faixa de grama vira uma barra escura
+    cols = cand[300:325].any(axis=0)
+    cols = np.convolve(cols.astype(int), np.ones(7, int), 'same') > 0
+    cand[325:] &= cols[None, :]
     cand = cand.astype(np.uint8)
     n, lab, st, _ = cv2.connectedComponentsWithStats(cand, connectivity=8)
     # os pedacos dos moinhos: sobem acima dos tanques (topo < linha 300 da caixa) e ficam a
     # esquerda deles (x < 420 da caixa); tanques, paineis e predio ficam fora
     altos = [i for i in range(1, n) if st[i, cv2.CC_STAT_AREA] > 20]
     moinho = np.isin(lab, altos)
-    # (sem engrossar: os moinhos fotograficos ja tem a espessura certa)
+    # 01/10: engrossa 1 px, para as pas lerem na trama
+    moinho = cv2.dilate(moinho.astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool)
+    aa_d = cv2.dilate(a.astype(np.float32), np.ones((3, 3), np.uint8)).astype(np.float64); a = np.maximum(a, aa_d * 0.5)
     aa = np.clip(a, 0, 1) * moinho
-    MOINHO, VAPOR = 0.40, 0.42         # moinho a 40%: azul medio-claro (22% com o desenho antigo, fino)
+    MOINHO, VAPOR = 0.33, 0.42         # 01/10: moinho a 33% (26% ficou escuro demais) («no fundo azul os moinhos nao estao legiveis»); era 40%
     reg = out[y0:y1, x0:x1]
     out[y0:y1, x0:x1] = reg * (1 - aa) + MOINHO * aa
     # vapor
