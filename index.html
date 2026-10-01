@@ -1997,11 +1997,11 @@ body>*{position:relative;z-index:1}
 /* 01/10 (noite): ABA DE FICHARIO entre as duas partes (no lugar da espia com foto). Presa na borda da tira,
    centrada na altura, creme com fio azul de 1 px e canto de 3 px so do lado de fora; texto vertical em mono;
    os seis losangos do «Acesse» como seta. No hover a aba sai 10 px, como quando se puxa a aba do fichario. */
-.sh-aba{position:absolute;top:44%;right:0;z-index:5;width:41px;height:44%;padding:18px 0 16px;
+.sh-aba{position:absolute;top:44%;right:0;z-index:5;width:39px;height:44%;padding:18px 0 16px;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;
   background:var(--mercurio);color:var(--azul);border:1px solid rgba(20,48,76,.42);border-right:none;border-radius:3px 0 0 3px;
   box-shadow:-6px 0 18px -8px rgba(20,48,76,.35);transition:width .35s cubic-bezier(.4,0,.2,1),background .3s,color .3s,opacity .5s}
-.sh-aba:hover,.sh-aba:focus-visible{width:50px;background:var(--azul);color:var(--mercurio);outline:none}
+.sh-aba:hover,.sh-aba:focus-visible{width:47px;background:var(--azul);color:var(--mercurio);outline:none}
 .sh-aba-txt{writing-mode:vertical-rl;transform:rotate(180deg);font:500 11px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
 .sh-aba-txt b{font-weight:600;letter-spacing:.16em}
 .sh-aba svg{width:18px;height:11px;fill:currentColor;flex:none;transition:transform .3s cubic-bezier(.4,0,.2,1)}
@@ -2022,7 +2022,7 @@ body>*{position:relative;z-index:1}
   .sh-aba{display:none}
 }
 @media (min-width:881px){
-  .sh-tira.sh-tira--2:not(.gl-on){background:#FAF9F5 url(img/tira2-panorama-cor-bayer.webp?v=01102026za) center bottom/100% auto no-repeat}
+  .sh-tira.sh-tira--2:not(.gl-on){background:#FAF9F5 url(img/tira2-panorama-cor-bayer.webp?v=01102026zb) center bottom/100% auto no-repeat}
 }
 /* 1,5px e nao 3: a barra sob o titulo afina e passa a ter a espessura do fio
    do index oficial (.qc-fio{height:1.5px}). */
@@ -2033,6 +2033,10 @@ body>*{position:relative;z-index:1}
   letter-spacing:-.04em;opacity:.18;white-space:nowrap;color:var(--azul);
   pointer-events:none;z-index:2;transition:opacity .5s}
 .sh-col:hover .sh-vertical{opacity:.35}
+/* 01/10 (noite): no card 08 a floresta ficou maior e passa atras da palavra; o contorno creme deixa a
+   palavra legivel tambem sobre as arvores (sobre o ceu o contorno some). */
+.sh-col--florestal .sh-vertical{opacity:1;color:rgba(20,48,76,.18);-webkit-text-stroke:1px rgba(250,249,245,.5)}
+.sh-col--florestal:hover .sh-vertical{opacity:1;color:rgba(20,48,76,.35)}
 .sh-lista{list-style:none;margin:0;padding:0;opacity:0;transform:translateY(8px);
   transition:opacity .5s,transform .5s}
 .sh-col:hover .sh-lista,.sh-col:focus-within .sh-lista{opacity:1;transform:none}
@@ -2490,7 +2494,7 @@ body>*{position:relative;z-index:1}
    A panoramica inteira tramada de fundo da tira, presa como o motor (largura toda, chao na base);
    o recorte de cada card fica so para o celular, onde os cards empilham. */
 @media (min-width:881px){
-  .sh-tira.sh-tira--flow:not(.gl-on){background:#FAF9F5 url(img/tira-panorama-cor-bayer.webp?v=01102026za) center bottom/100% auto no-repeat}
+  .sh-tira.sh-tira--flow:not(.gl-on){background:#FAF9F5 url(img/tira-panorama-cor-bayer.webp?v=01102026zb) center bottom/100% auto no-repeat}
   .sh-tira--flow:not(.gl-on) .sh-foto{visibility:hidden}
   .sh-tira--flow:not(.gl-on) .sh-col{background:transparent}
 }
@@ -2647,7 +2651,7 @@ body>*{position:relative;z-index:1}
     <div class="sh-faixa" id="shFaixa">
     <div class="sh-tira sh-tira--flow">
       <article class="sh-col sh-col--carbono">
-        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=01102026za" data-lum="img/tira-panorama-cor.webp?v=01102026za" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-carbono-cor-bayer.webp?v=01102026zb" data-lum="img/tira-panorama-cor.webp?v=01102026zb" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 01 ]</span>
@@ -2663,7 +2667,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--iso">
-        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=01102026za" data-lum="img/tira-panorama-cor.webp?v=01102026za" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-iso-cor-bayer.webp?v=01102026zb" data-lum="img/tira-panorama-cor.webp?v=01102026zb" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 02 ]</span>
@@ -2679,7 +2683,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--sedex">
-        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=01102026za" data-lum="img/tira-panorama-cor.webp?v=01102026za" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-smeta-cor-bayer.webp?v=01102026zb" data-lum="img/tira-panorama-cor.webp?v=01102026zb" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 03 ]</span>
@@ -2695,7 +2699,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--esg">
-        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=01102026za" data-lum="img/tira-panorama-cor.webp?v=01102026za" alt="" loading="eager" decoding="sync" fetchpriority="high">
+        <img class="sh-foto" src="img/tira-esg-cor-bayer.webp?v=01102026zb" data-lum="img/tira-panorama-cor.webp?v=01102026zb" alt="" loading="eager" decoding="sync" fetchpriority="high">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 04 ]</span>
@@ -2713,7 +2717,7 @@ body>*{position:relative;z-index:1}
     </div>
     <div class="sh-tira sh-tira--flow sh-tira--2">
       <article class="sh-col sh-col--nrs">
-        <img class="sh-foto" src="img/tira2-nrs-cor-bayer.webp?v=01102026za" data-lum="img/tira2-panorama-cor.webp?v=01102026za" alt="" loading="lazy" decoding="async">
+        <img class="sh-foto" src="img/tira2-nrs-cor-bayer.webp?v=01102026zb" data-lum="img/tira2-panorama-cor.webp?v=01102026zb" alt="" loading="lazy" decoding="async">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 05 ]</span>
@@ -2729,7 +2733,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--alimentos">
-        <img class="sh-foto" src="img/tira2-alimentos-cor-bayer.webp?v=01102026za" data-lum="img/tira2-panorama-cor.webp?v=01102026za" alt="" loading="lazy" decoding="async">
+        <img class="sh-foto" src="img/tira2-alimentos-cor-bayer.webp?v=01102026zb" data-lum="img/tira2-panorama-cor.webp?v=01102026zb" alt="" loading="lazy" decoding="async">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 06 ]</span>
@@ -2745,7 +2749,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--viaria">
-        <img class="sh-foto" src="img/tira2-viaria-cor-bayer.webp?v=01102026za" data-lum="img/tira2-panorama-cor.webp?v=01102026za" alt="" loading="lazy" decoding="async">
+        <img class="sh-foto" src="img/tira2-viaria-cor-bayer.webp?v=01102026zb" data-lum="img/tira2-panorama-cor.webp?v=01102026zb" alt="" loading="lazy" decoding="async">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 07 ]</span>
@@ -2761,7 +2765,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
       <article class="sh-col sh-col--florestal">
-        <img class="sh-foto" src="img/tira2-florestal-cor-bayer.webp?v=01102026za" data-lum="img/tira2-panorama-cor.webp?v=01102026za" alt="" loading="lazy" decoding="async">
+        <img class="sh-foto" src="img/tira2-florestal-cor-bayer.webp?v=01102026zb" data-lum="img/tira2-panorama-cor.webp?v=01102026zb" alt="" loading="lazy" decoding="async">
         <div class="sh-conteudo">
           <div>
             <span class="sh-indice">[ 08 ]</span>
