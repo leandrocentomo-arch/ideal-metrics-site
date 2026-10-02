@@ -251,7 +251,6 @@ s = s.replace(x, '    <a href="seguranca-viaria.html" class="active" aria-curren
 i = s.index('<div class="content">') + len('<div class="content">')
 j = s.index('</div>\n</div>\n<footer')
 s = s[:i] + '\n' + MIOLO + s[j:]
-s = s.replace('js/trama.js?v=24', 'js/trama.js?v=25')      # 02/10: o motor com cfg.escuro
 x = '<script src="js/banner.js?v=3"></script>'
 assert s.count(x) == 1
 s = s.replace(x, x + '\n' + JS)

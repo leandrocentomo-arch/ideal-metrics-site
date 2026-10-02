@@ -48,7 +48,36 @@ def recorte(im, W, H, px, py):
     return r.crop((x0, y0, x0 + W, y0 + H))
 
 
+def da_receita(receita, cru, nome):
+    """02/10/2026: a foto do corpo da pagina pela receita da aba [ 08 ] do Spirit (tipo «foto da página»).
+
+        python _ferramentas/foto_azul.py --receita receita.json <cru.jpg> <nome>
+
+    A luminancia sai a 1,6x da vaga, com recorte, espelho, inclinacao, zoom e os ajustes da foto; a reserva
+    e a mesma luminancia reduzida a vaga e tramada no tom padrao."""
+    sys.path.insert(0, os.path.join(AQUI, 'banner'))
+    import foto_banner
+    R = json.load(open(receita, encoding='utf-8'))
+    W, H = R.get('vaga', [562, 422])
+    wl, hl = round(W * 1.6), round(H * 1.6)
+    g = foto_banner.luz_da_receita(cru, R, wl, hl)
+    L = Image.fromarray(np.uint8(np.clip(np.rint(g * 255), 0, 255)), 'L')
+    L.convert('RGB').save(os.path.join(SITE, 'img', nome + '-lum.webp'), 'WEBP', quality=90, method=6)
+    v = tom(np.asarray(L.resize((W, H), Image.LANCZOS), np.float32) / 255.0)
+    M = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32)
+    T = (M[np.arange(H) % 4][:, np.arange(W) % 4] + .5) / 16
+    v = np.clip(np.floor(v * 3 + T) / 3, 0, 1)
+    Image.fromarray(np.uint8(np.clip(np.rint(lut()[np.rint(v * 255).astype(np.int32)]), 0, 255)), 'RGB').save(
+        os.path.join(SITE, 'img', nome + '-bayer.webp'), 'WEBP', lossless=True, quality=100, method=6)
+    for t in ('lum', 'bayer'):
+        f = os.path.join(SITE, 'img', '%s-%s.webp' % (nome, t))
+        print('%-28s %dx%d  %d KB' % (os.path.basename(f), *Image.open(f).size, os.path.getsize(f) // 1024))
+
+
 def main():
+    if '--receita' in sys.argv:
+        i = sys.argv.index('--receita'); rec = sys.argv[i + 1]; del sys.argv[i:i + 2]
+        return da_receita(rec, sys.argv[1], sys.argv[2])
     cru, nome = sys.argv[1], sys.argv[2]
     W, H = arg('--larg', 562), arg('--alt', 422)
     px, py, gama = arg('--px', 50.0), arg('--py', 50.0), arg('--gama', 1.0)

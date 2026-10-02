@@ -2500,7 +2500,7 @@ body>*{position:relative;z-index:1}
 }
 /* 29/09: TESTE da tira com as fotos do Google Flow: fio separando da oficial, e as fotos NAO espelham (a ISO oficial espelha) */
 /* 29/09: «titulos, subtitulos e numeros ligeiramente mais para baixo» (64 -> 92 px no alto do bloco) */
-.sh-tira--flow .sh-conteudo{padding-top:84px}   /* 30/09: «titulos so um pouco mais para cima» (era 92) */
+.sh-tira--flow .sh-conteudo{padding-top:56px}   /* 02/10: «titulos e seus elementos 5% mais para cima no card» (era 84) */   /* 30/09: «titulos so um pouco mais para cima» (era 92) */
 /* 30/09: o botao «Saiba mais» mais baixo, inteiro na rua (o pe do card era 40 px) */
 @media (min-width:881px){ .sh-tira--flow .sh-conteudo{padding-bottom:8px} }   /* 30/09: menos rua (--alvo .724); depois «um pouco mais para baixo, sem encostar na guia da calcada» (era 14px, antes 20) */
 /* 30/09: «o botao Saiba mais menos alto»: 5 px de respiro vertical (era 8) */
@@ -4124,7 +4124,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=25"></script>
+<script src="js/trama.js?v=26"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){

@@ -19,6 +19,8 @@
     if(tom.brilhoTom != null) cfg.brilhoTom = +tom.brilhoTom;
     if(tom.gama) cfg.gama = +tom.gama;
     if(tom.ctr) cfg.ctr = +tom.ctr;
+    if(tom.escuro) cfg.escuro = +tom.escuro;
+    if(tom.lavaRepouso) cfg.lavaRepouso = +tom.lavaRepouso;
     if(tom.cores && tom.cores.length === 4) cfg.cores = tom.cores.map(function(h){ var v = parseInt(String(h).replace('#',''), 16); return [v>>16&255, v>>8&255, v&255]; });
   }
   window.ditherVivo(cor ? window.ditherVivo.emCor(cfg) : cfg);

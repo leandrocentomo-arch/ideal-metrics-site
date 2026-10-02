@@ -76,16 +76,10 @@ def _caixa(a, r):
     return a
 
 
-def da_receita(cru, saida, receita, prova=None):
-    """02/10/2026: o banner pela RECEITA da aba [ 08 ] Banner de pagina do Spirit («copiar receita para o Claude»).
-
-        python _ferramentas/banner/foto_banner.py --receita receita.json <cru.jpg> <saida-lum.webp> [--prova prova.png]
-
-    Mesma conta da aba: enquadramento (recorte, espelhar, inclinar, zoom, px, py) no 3:1, luminancia Rec.709, suavizar, nitidez, exposicao,
-    gama, contraste, piso, teto, brilho, e a passagem para o creme (inicio, fim, suave)."""
-    import json
-    R = json.load(open(receita, encoding='utf-8')) if isinstance(receita, str) else receita
-    q, f, a = R['tamanho_e_posicao'], R['passagem_para_o_creme'], R['ajustes_da_foto']
+def luz_da_receita(cru, R, LARG, ALT):
+    """A foto enquadrada e ajustada pela receita do Spirit, em luminancia 0..1, no tamanho LARG x ALT.
+    Serve ao banner (2400 x 800, depois vem a passagem para o creme) e a foto do corpo da pagina (foto_azul.py)."""
+    q, a = R['tamanho_e_posicao'], R['ajustes_da_foto']
     im = Image.open(cru).convert('RGB')
     cl, cr, ct, cb = [q.get(k, 0) / 100 for k in ('corte_esq', 'corte_dir', 'corte_topo', 'corte_base')]
     if cl or cr or ct or cb:                                            # o recorte vem antes de tudo
@@ -122,6 +116,20 @@ def da_receita(cru, saida, receita, prova=None):
     if k != 1: v = v ** k / (v ** k + (1 - v) ** k)
     piso, teto = a.get('piso', 0), a.get('teto', 1)
     foto = np.clip(piso + (teto - piso) * v + a.get('brilho', 0), 0, 1)
+    return foto
+
+
+def da_receita(cru, saida, receita, prova=None):
+    """02/10/2026: o banner pela RECEITA da aba [ 08 ] Banner de pagina do Spirit («copiar receita para o Claude»).
+
+        python _ferramentas/banner/foto_banner.py --receita receita.json <cru.jpg> <saida-lum.webp> [--prova prova.png]
+
+    Mesma conta da aba: enquadramento (recorte, espelhar, inclinar, zoom, px, py) no 3:1, luminancia Rec.709, suavizar, nitidez, exposicao,
+    gama, contraste, piso, teto, brilho, e a passagem para o creme (inicio, fim, suave)."""
+    import json
+    R = json.load(open(receita, encoding='utf-8')) if isinstance(receita, str) else receita
+    f = R['passagem_para_o_creme']
+    foto = luz_da_receita(cru, R, LARG, ALT)
     ini = f.get('inicio', INICIO); fim = max(ini + .02, f.get('fim', FIM))
     x = (np.arange(LARG) + .5) / LARG
     t = np.clip((x - ini) / (fim - ini), 0, 1)
