@@ -30,6 +30,7 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - A Ideal Metrics implanta e prepara para a certificação. Nunca escrever «auditoria de certificação» nem algo que sugira que ela audita para certificar.
 - Sem palavra de trocadilho com o tema («percurso», «caminho», «ponto de partida») e sem usar o objeto do tema como diagrama. Diagrama em linha fina, como o da página do IFC.
 - Credencial sem floreio («Consultores: formação internacional de Auditor Líder (Lead Auditor) em ISO 39001»). Norma de apoio só a que ele usa (na segurança viária, a ISO 39002).
+- **Sujeito sempre nomeado:** frase nunca começa por pronome («Ela organiza...», «Ele estabelece...») nem com o sujeito oculto que retoma a frase anterior («... no mundo. Organiza processos...»). Escrever o sujeito: «A norma traz a implantação de um sistema de gestão da qualidade que organiza processos, reduz retrabalho e falhas...» (correção de 02/10/2026).
 - Nunca «auditoria de certificação», nem como «preparação para a auditoria de certificação»: escrever «preparação para a certificação».
 - Título de seção «Aplicação», não «Para quem é». Título da página de segurança viária: «Gestão da Segurança Viária», não «de».
 - Molde: `seguranca-viaria.html`, gerada por `_ferramentas/pagina_viaria.py`.
