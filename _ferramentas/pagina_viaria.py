@@ -42,8 +42,8 @@ eol = '\r\n' if '\r\n' in casca else '\n'
 s = casca.replace('\r\n', '\n')
 
 ARQ = 'seguranca-viaria.html'
-V = '02102026e'                                 # versao das fotos desta pagina
-TITULO = 'Gestão de Segurança Viária'
+V = '02102026f'                                 # versao das fotos desta pagina
+TITULO = 'Gestão da Segurança Viária'
 SUB = 'Apoio na implantação do sistema de gestão da segurança viária, para a certificação ISO 39001.'
 DESC = ('Consultoria para implantação da ISO 39001: sistema de gestão da segurança viária, análise de risco viário, '
         'metas, indicadores e preparação para a certificação. Para concessionárias de rodovias, frotas e transporte.')
@@ -240,7 +240,7 @@ s, n = re.subn(r'<div class="page-banner"[^>]*>.*?</div>',
                s, count=1, flags=re.S)
 assert n == 1
 s, n = re.subn(r'<div class="breadcrumb">.*?</div>',
-               '<div class="breadcrumb"><a href="index.html">Página Inicial</a> &gt; <a href="servicos.html">Todos os serviços</a> &gt; Gestão de segurança viária</div>', s, count=1, flags=re.S)
+               '<div class="breadcrumb"><a href="index.html">Página Inicial</a> &gt; <a href="servicos.html">Todos os serviços</a> &gt; Gestão da segurança viária</div>', s, count=1, flags=re.S)
 assert n == 1
 s = s.replace('<a href="ifc-performance-standards.html" class="active" aria-current="page">IFC Performance Standards</a>',
               '<a href="ifc-performance-standards.html">IFC Performance Standards</a>')

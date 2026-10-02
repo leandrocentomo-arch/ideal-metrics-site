@@ -81,12 +81,16 @@ def da_receita(cru, saida, receita, prova=None):
 
         python _ferramentas/banner/foto_banner.py --receita receita.json <cru.jpg> <saida-lum.webp> [--prova prova.png]
 
-    Mesma conta da aba: enquadramento (espelhar, inclinar, zoom, px, py) no 3:1, luminancia Rec.709, suavizar, nitidez, exposicao,
+    Mesma conta da aba: enquadramento (recorte, espelhar, inclinar, zoom, px, py) no 3:1, luminancia Rec.709, suavizar, nitidez, exposicao,
     gama, contraste, piso, teto, brilho, e a passagem para o creme (inicio, fim, suave)."""
     import json
     R = json.load(open(receita, encoding='utf-8')) if isinstance(receita, str) else receita
     q, f, a = R['tamanho_e_posicao'], R['passagem_para_o_creme'], R['ajustes_da_foto']
     im = Image.open(cru).convert('RGB')
+    cl, cr, ct, cb = [q.get(k, 0) / 100 for k in ('corte_esq', 'corte_dir', 'corte_topo', 'corte_base')]
+    if cl or cr or ct or cb:                                            # o recorte vem antes de tudo
+        im = im.crop((round(cl * im.width), round(ct * im.height), max(round(cl * im.width) + 1, round((1 - cr) * im.width)),
+                      max(round(ct * im.height) + 1, round((1 - cb) * im.height))))
     if q.get('espelhar'): im = im.transpose(Image.FLIP_LEFT_RIGHT)      # o enquadramento vale sobre a foto ja espelhada
     ang = q.get('inclinar', 0)
     if not ang:

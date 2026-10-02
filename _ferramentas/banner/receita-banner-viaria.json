@@ -3,14 +3,16 @@
  "arquivo": "banner-viaria-lum.webp",
  "foto_original": "_tingir-fotos/FOTOS/rodovia-aerea-entroncamento-flow-03.jpg (Vehicles_driving_on_motorway_int…_20261002110940.jpg)",
  "tamanho_e_posicao": {
-  "zoom": 1,
-  "px": 52.091637712618294,
-  "py": 0
+  "zoom": 1.1025,
+  "px": 38.717214577598035,
+  "py": 0,
+  "espelhar": true,
+  "inclinar": 0
  },
  "passagem_para_o_creme": {
-  "inicio": 0.19,
-  "fim": 0.72,
-  "suave": 1.3
+  "inicio": 0,
+  "fim": 0.83,
+  "suave": 1.6
  },
  "ajustes_da_foto": {
   "exposicao": 0,
