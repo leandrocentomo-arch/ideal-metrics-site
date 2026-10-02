@@ -20,6 +20,11 @@ achar a linha e avisada (a home mudou ali; rever o par)."""
 import os, re, json
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 s = open(os.path.join(SITE, 'index.html'), encoding='utf-8').read()
+# 02/10/2026: «decidi que o oficial sera o azul». A index.html PASSOU A SER a pagina azul (a ultima saida desta
+# ferramenta, com o titulo sem «(azul)»); a home em cor ficou guardada em index-cor.html (so no disco).
+# Daqui em diante edita-se a index.html direto; esta ferramenta so roda de novo sobre uma home em cor.
+if 'ditherVivo.emCor(' not in s:
+    raise SystemExit('a index.html ja e a pagina azul (oficial desde 02/10/2026); nada a gerar')
 pares = json.load(open(os.path.join(SITE, '_ferramentas', 'pagina_azul_pares.json'), encoding='utf-8'))
 TOM = json.load(open(os.path.join(SITE, '_ferramentas', 'tom_azul.json'), encoding='utf-8'))
 falhas = 0

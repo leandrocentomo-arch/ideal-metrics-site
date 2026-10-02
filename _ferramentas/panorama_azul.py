@@ -75,6 +75,9 @@ def tramar(g):
     return Image.fromarray(np.clip(np.rint(L[np.rint(v * 255).astype(np.int32)]), 0, 255).astype(np.uint8), 'RGB')
 
 
+MOINHOS_CHAPADOS = False
+
+
 def reforcar(m, g):
     """30/09: «escureca os moinhos e o vapor para aparecerem no azul». No azul, tudo acima de
     ~55%% de luminancia vira creme: o ceu (82%%), o vapor (mais claro que o ceu) e os moinhos
@@ -119,7 +122,9 @@ def reforcar(m, g):
     aa = np.clip(a, 0, 1) * moinho
     MOINHO, VAPOR = 0.33, 0.42         # 01/10: moinho a 33% (26% ficou escuro demais) («no fundo azul os moinhos nao estao legiveis»); era 40%
     reg = out[y0:y1, x0:x1]
-    out[y0:y1, x0:x1] = reg * (1 - aa) + MOINHO * aa
+    # 02/10: os moinhos passaram a ser ESCUROS na propria foto (Flow, _tingir-fotos/panorama/moinhos_escuros.py):
+    # o tom sai da luminancia real, com sombreado; a mascara chapada (MOINHO) so volta com MOINHOS_CHAPADOS
+    if MOINHOS_CHAPADOS: out[y0:y1, x0:x1] = reg * (1 - aa) + MOINHO * aa
     # vapor
     lum = g
     claro = (lum > Ls + 0.007)
