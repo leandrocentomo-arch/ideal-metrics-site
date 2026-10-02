@@ -3756,6 +3756,14 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 .ifc-aro--f { fill: var(--color-bg-alt); }
 @media (max-width: 760px) { .ifc-grade { grid-template-columns: 1fr; } }
 
+/* 02/10/2026: NUMEROS COM FONTE, componente do site (nasceu na seguranca viaria): cards soltos, fonte colada embaixo */
+.vi-nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:22px 0 8px}
+.vi-num{background:var(--color-bg-alt);border:1px solid rgba(20,48,76,.14);border-radius:3px;padding:18px 18px 16px}
+.vi-num b{display:block;font:700 31px/1 'IBM Plex Sans Condensed',sans-serif;color:var(--color-primary);letter-spacing:-.01em;white-space:nowrap}
+.vi-num span{display:block;margin-top:9px;font-size:14px;line-height:1.3;color:var(--color-primary)}
+.content p.vi-fonte{font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.6;letter-spacing:.04em;margin:8px 0 0}
+.content .vi-nums + p.vi-fonte{margin-bottom:28px}
+@media (max-width:760px){.vi-nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* ========== TESTE 23/09/2026: texto do conteudo no azul-tinta ==========
    So vale na pagina que levar `class="txt-escuro"` no <body> (hoje, a do IFC).
    O padrao do site e o corpo em #315275; aqui tudo vai para #14304C. */
