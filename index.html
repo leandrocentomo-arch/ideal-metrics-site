@@ -825,16 +825,15 @@ body>*{position:relative;z-index:1}
   padding:0;
   display:grid;
   grid-template-columns:repeat(6,1fr);
-  border-top:1px solid var(--fio);
-  border-left:1px solid var(--fio);
+  gap:8px;                               /* 02/10/2026: padrao de card do site, cards soltos com canto de 3px */
 }
 .cl-cel{
   aspect-ratio:9/5;
   display:flex;
   align-items:center;
   justify-content:center;
-  border-right:1px solid var(--fio);
-  border-bottom:1px solid var(--fio);
+  border:1px solid var(--fio);
+  border-radius:3px;
 }
 .cl-cel img{
   display:block;

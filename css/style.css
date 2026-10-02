@@ -762,18 +762,21 @@ img { max-width: 100%; display: block; }
 .step-content p { font-size: 16px; color: var(--text-light); }
 
 /* ========== NUMBERED LIST (Suporte) ========== */
-.numbered-items { counter-reset: item; }
+.numbered-items { counter-reset: item; display: grid; gap: 8px; }   /* 02/10/2026: cards soltos, nao mais linhas separadas por fio */
 .numbered-item {
-  display: flex; gap: 16px; padding: 16px 0;
-  border-bottom: 1px solid var(--border-gray);
+  display: flex; gap: 16px; padding: 14px 18px 16px;
+  border: 1px solid rgba(20,48,76,.14); border-radius: 3px; background: var(--color-bg-alt);
   align-items: flex-start;
 }
 .numbered-item .num {
   font-size: 28px; font-weight: 700; color: var(--dark);
   min-width: 40px; line-height: 1;
 }
-.numbered-item h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-.numbered-item p { font-size: 15px; color: var(--text-light); line-height: 1.5; }
+.numbered-item h4 { font-size: 13px; font-weight: 600; line-height: 1.25; margin-bottom: 4px; }
+.numbered-item p { font-size: 15px; color: var(--text-light); line-height: 1.35; }
+/* o ultimo paragrafo do card nao leva a margem do texto corrido; a lista solta do texto que vem depois */
+.numbered-item p:last-child, .pos-card p:last-child { margin-bottom: 0; }
+.numbered-items { margin-bottom: 18px; }
 
 /* ========== RODAPE ==========
    Portado da home (index-completo). O rodape antigo, de tres colunas de
@@ -2589,16 +2592,17 @@ img { max-width: 100%; display: block; }
 }
 
 /* ===== Posicionamento (home) + fatos (como-trabalhamos) ===== */
-.pos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 960px; margin: 0 auto; }
-.pos-card { border: 1px solid rgba(51,102,153,0.3); border-radius: 3px; padding: 26px 24px; background: transparent; transition: border-color 0.3s; }
-.pos-card:hover { border-color: rgba(51,102,153,0.45); }
+.pos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 960px; margin: 0 auto; }
+/* 02/10/2026: PADRAO DE CARD DO SITE, o mesmo da .ifc-cel: solto, borda fina propria, canto de 3px, vao de 8px na grade, entrelinha 1,35 */
+.pos-card { border: 1px solid rgba(20,48,76,.14); border-radius: 3px; padding: 18px 20px 20px; background: var(--color-bg-alt); transition: border-color 0.3s; }
+.pos-card:hover { border-color: rgba(20,48,76,.32); }
 .pos-num { display: block; font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--accent-red); margin-bottom: 14px; }
-.pos-card h4 { font-size: 16px; font-weight: 700; color: #315275; margin-bottom: 8px; text-wrap: pretty; }
-.pos-card p { font-size: 13.5px; color: #336699; line-height: 1.55; }
+.pos-card h4 { font-size: 16px; font-weight: 700; color: #315275; line-height: 1.25; margin-bottom: 6px; text-wrap: pretty; }
+.pos-card p { font-size: 13.5px; color: #336699; line-height: 1.35; }
 .pos-cta-wrap { text-align: center; margin-top: 34px; }
 .pos-cta { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-red); border: 1px solid rgba(51,102,153,0.4); border-radius: 3px; padding: 12px 28px; transition: background 0.25s, color 0.25s, border-color 0.25s; }
 .pos-cta:hover { background: var(--accent-red); color: #fff; border-color: var(--accent-red); }
-.fact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin: 22px 0 10px; }
+.fact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; margin: 22px 0 10px; }
 @media (max-width: 760px) { .pos-grid { grid-template-columns: 1fr; } }
 
 /* ===== Faixa de clientes / prova ===== */
@@ -3065,7 +3069,7 @@ img { max-width: 100%; display: block; }
 
 /* ===== Cards de produto clicaveis (Gestao de Carbono) ===== */
 a.pos-card { display: block; text-decoration: none; color: inherit; }
-.pos-card--link:hover { border-color: rgba(51,102,153,0.5); }
+.pos-card--link:hover { border-color: rgba(20,48,76,.4); }
 .pos-card--link .pos-more { display: block; margin-top: 12px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-red-text); }
 
 /* ==========================================================================
@@ -3358,7 +3362,7 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
   font-size: 14px;
   color: var(--text-light);
   margin-top: 3px;
-  line-height: 1.45;
+  line-height: 1.35;
 }
 .more-card .mc-arrow {
   flex: 0 0 auto;
@@ -3730,7 +3734,7 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 .ifc-cel { background: var(--color-bg-alt); border: 1px solid rgba(20,48,76,.14); border-radius: 3px; padding: 18px 20px 20px; }
 .ifc-cel .ifc-rot { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
   letter-spacing: .2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 8px; }
-.ifc-cel h4 { font-size: 15px; font-weight: 700; color: var(--color-primary); margin: 0 0 6px; }
+.ifc-cel h4 { font-size: 15px; font-weight: 700; line-height: 1.25; color: var(--color-primary); margin: 0 0 6px; }
 .ifc-cel p { font-size: 15px; line-height: 1.35; color: var(--mid-gray); margin: 0; }   /* 02/10: a linha que quebra sozinha fica mais junta (era 1,5) */
 .ifc-fig { margin: 30px 0 8px; }
 .ifc-fig svg { display: block; width: 100%; height: auto; }

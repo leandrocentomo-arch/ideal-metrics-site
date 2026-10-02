@@ -20,3 +20,4 @@
 - Mantenha todos os textos em português com acentuação correta.
 - As imagens ficam na pasta img/ (logos da Ideal Metrics em `img/ideal-metrics-*.svg`).
 - O CSS principal fica em css/style.css.
+- **Padrão de card do site (02/10/2026):** card solto, nunca colado no vizinho nem separado por fio; borda fina própria `rgba(20,48,76,.14)`, canto de 3 px, vão de 8 px na grade; texto do card com entrelinha 1,35 e título 1,25 (a linha que quebra sozinha fica junta; o espaço entre título e texto não muda). Classes que já seguem: `.ifc-cel`, `.pos-card`, `.numbered-item`, `.cl-cel` da home. O acordeão de serviços e a malha de notícias da home não são cards e ficam como estão.
