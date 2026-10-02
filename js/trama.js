@@ -62,7 +62,7 @@
     'uniform sampler2D uLum;uniform sampler2D uTrilha;uniform sampler2D uB4;uniform sampler2D uB8;' +
     'uniform vec2 uTela;uniform vec4 uCol;uniform vec2 uTex;uniform float uAx;uniform float uEspelha;uniform float uZoom;' +
     'uniform float uTempo;uniform vec3 uC0;uniform vec3 uC1;uniform vec3 uC2;uniform vec3 uC3;uniform vec3 uCreme;' +
-    'uniform float uGama;uniform float uCtr;uniform float uBrilho;' +
+    'uniform float uGama;uniform float uCtr;uniform float uBrilho;uniform float uEscuro;' +
     'uniform float uPix;uniform float uPixMul;uniform float uTrailMul;uniform float uBias;uniform float uBiasReacao;' +
     'uniform float uRespiro;uniform float uLava;uniform float uRevela;uniform float uOpac;' +
     /* 22/09: uSoFigura > 0 -> a trilha do mouse so vale onde a imagem TEM figura.
@@ -97,7 +97,9 @@
     'float tom(float g){' +
     '  float v = clamp(pow(max(g,0.), uGama), 1e-6, 1.-1e-6);' +
     '  float a = pow(v,uCtr), b = pow(1.-v,uCtr);' +
-    '  return clamp(a/(a+b) + uBrilho, 0., 1.);}' +
+    /* 02/10: uEscuro (cfg.escuro) aprofunda so o que esta abaixo de 78% do tom; o creme nao anda. A mesma conta do Spirit. */
+    '  float w = clamp(a/(a+b) + uBrilho, 0., 1.);' +
+    '  return (uEscuro > 0. && w < .78) ? .78*pow(w/.78, 1. + 2.*uEscuro) : w;}' +
     'void main(){' +
     '  vec2 frag = gl_FragCoord.xy;' +
     '  float tr = clamp(texture2D(uTrilha, frag/uTela).r * uTrailMul, 0., 1.);' +
@@ -222,7 +224,7 @@
     function uni(pr, nomes){ var o = {}; nomes.forEach(function(n){ o[n] = gl.getUniformLocation(pr, n); }); return o; }
     var uT = uni(pT, ['t','res','pt','ptAnt','aspecto','vel','raio','borda','fica']);
     var uF = uni(pF, ['uLum','uTrilha','uB4','uB8','uTela','uCol','uTex','uAx','uEspelha','uZoom','uTempo','uC0','uC1','uC2','uC3','uCreme',
-      'uGama','uCtr','uBrilho','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura','uForte','uSat','uSombra','uNiveis','uSombraCor','uPiso','uBrilhoF','uMatriz','uLimiar','uB2','uLuzCor','uLuzDe','uLuzForca','uTrilhaCor','uTrilhaAzul','uAy','uAzul','uDeg']);
+      'uGama','uCtr','uBrilho','uEscuro','uPix','uPixMul','uTrailMul','uBias','uBiasReacao','uRespiro','uLava','uRevela','uOpac','uSoFigura','uCor','uMistura','uForte','uSat','uSombra','uNiveis','uSombraCor','uPiso','uBrilhoF','uMatriz','uLimiar','uB2','uLuzCor','uLuzDe','uLuzForca','uTrilhaCor','uTrilhaAzul','uAy','uAzul','uDeg']);
 
     var quad = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, quad);
@@ -535,7 +537,7 @@
       gl.uniform3f(uF.uC2, C[2][0]/255, C[2][1]/255, C[2][2]/255);
       gl.uniform3f(uF.uC3, C[3][0]/255, C[3][1]/255, C[3][2]/255);
       gl.uniform3f(uF.uCreme, CR[0]/255, CR[1]/255, CR[2]/255);
-      gl.uniform1f(uF.uGama, cfg.gama || .86); gl.uniform1f(uF.uCtr, cfg.ctr || 1.55); gl.uniform1f(uF.uBrilho, cfg.brilhoTom == null ? .35 : cfg.brilhoTom);   /* 30/09: brilho do tom azul por peca (a tira da pagina azul usa .20) */   /* 28/09: gama e contraste por peca (o modo em cor usa outros) */
+      gl.uniform1f(uF.uGama, cfg.gama || .86); gl.uniform1f(uF.uCtr, cfg.ctr || 1.55); gl.uniform1f(uF.uBrilho, cfg.brilhoTom == null ? .35 : cfg.brilhoTom); gl.uniform1f(uF.uEscuro, cfg.escuro || 0);   /* 30/09: brilho do tom azul por peca (a tira da pagina azul usa .20) */   /* 28/09: gama e contraste por peca (o modo em cor usa outros) */
       gl.uniform1f(uF.uPix, Math.max(1, pix.v) * (cfg.celula || 1)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 3.3);   /* 28/09: cfg.celula engrossa a celula em repouso (1 = 1 px de dispositivo) */ gl.uniform1f(uF.uTrailMul, 1.27);
       gl.uniform1f(uF.uBias, bias.v);
       /* quanto o rastro ESCURECE a trama. 0,13 ate 21/09; 0,20 desde 22/09 («um

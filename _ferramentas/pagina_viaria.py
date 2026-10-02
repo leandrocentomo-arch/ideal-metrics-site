@@ -42,7 +42,7 @@ eol = '\r\n' if '\r\n' in casca else '\n'
 s = casca.replace('\r\n', '\n')
 
 ARQ = 'seguranca-viaria.html'
-V = '02102026f'                                 # versao das fotos desta pagina
+V = '02102026g'                                 # versao das fotos desta pagina
 TITULO = 'Gestão da Segurança Viária'
 SUB = 'Apoio na implantação do sistema de gestão da segurança viária, para a certificação ISO 39001.'
 DESC = ('Consultoria para implantação da ISO 39001: sistema de gestão da segurança viária, análise de risco viário, '
@@ -217,7 +217,7 @@ JS = '''<script>
   if(!window.ditherVivo) return;
   [].forEach.call(document.querySelectorAll('.vi-quadro'), function(q){
     var im = q.querySelector('img'); if(!im) return;
-    window.ditherVivo({brilhoTom:0.28, gama:0.86, ctr:1.55, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
+    window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});   /* o mesmo efeito de mouse das fotos da home */
   });
 })();
@@ -251,6 +251,7 @@ s = s.replace(x, '    <a href="seguranca-viaria.html" class="active" aria-curren
 i = s.index('<div class="content">') + len('<div class="content">')
 j = s.index('</div>\n</div>\n<footer')
 s = s[:i] + '\n' + MIOLO + s[j:]
+s = s.replace('js/trama.js?v=24', 'js/trama.js?v=25')      # 02/10: o motor com cfg.escuro
 x = '<script src="js/banner.js?v=3"></script>'
 assert s.count(x) == 1
 s = s.replace(x, x + '\n' + JS)

@@ -111,7 +111,7 @@
 </nav>
 <div class="barra-espaco" aria-hidden="true"></div>
 
-<div class="page-banner" data-lum="img/banner-viaria-lum.webp?v=02102026f"><h1>Gestão da Segurança Viária</h1><p>Apoio na implantação do sistema de gestão da segurança viária, para a certificação ISO 39001.</p></div>
+<div class="page-banner" data-lum="img/banner-viaria-lum.webp?v=02102026g"><h1>Gestão da Segurança Viária</h1><p>Apoio na implantação do sistema de gestão da segurança viária, para a certificação ISO 39001.</p></div>
 <div class="breadcrumb"><a href="index.html">Página Inicial</a> &gt; <a href="servicos.html">Todos os serviços</a> &gt; Gestão da segurança viária</div>
 
 
@@ -229,9 +229,9 @@
 <hr class="section-divider">
 <h3>Aplicação</h3>
 <div class="vi-fotos">
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-rodovia-bayer.webp?v=02102026f" data-lum="img/viaria-rodovia-lum.webp?v=02102026f" alt="" loading="lazy"></div><figcaption>Concessões rodoviárias</figcaption></figure>
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-trevo-bayer.webp?v=02102026f" data-lum="img/viaria-trevo-lum.webp?v=02102026f" alt="" loading="lazy"></div><figcaption>Infraestrutura viária</figcaption></figure>
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-frota-bayer.webp?v=02102026f" data-lum="img/viaria-frota-lum.webp?v=02102026f" alt="" loading="lazy"></div><figcaption>Frotas e logística</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-rodovia-bayer.webp?v=02102026g" data-lum="img/viaria-rodovia-lum.webp?v=02102026g" alt="" loading="lazy"></div><figcaption>Concessões rodoviárias</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-trevo-bayer.webp?v=02102026g" data-lum="img/viaria-trevo-lum.webp?v=02102026g" alt="" loading="lazy"></div><figcaption>Infraestrutura viária</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-frota-bayer.webp?v=02102026g" data-lum="img/viaria-frota-lum.webp?v=02102026g" alt="" loading="lazy"></div><figcaption>Frotas e logística</figcaption></figure>
 </div>
 <ul>
 <li>Concessionárias de rodovias e operadores de infraestrutura viária.</li>
@@ -261,9 +261,9 @@
 <p>Com o sistema implantado, a organização mostra resultado em três Objetivos de Desenvolvimento Sustentável.</p>
 <div class="vi-ods">
   <div class="vi-ods-linha" role="tablist" aria-label="ODS ligados à ISO 39001">
-    <button class="vi-ods-bt on" type="button" role="tab" id="ods-t03" aria-controls="ods-p03" aria-selected="true"><img src="img/ods-03.svg?v=02102026f" alt="ODS 3: Saúde e bem-estar" width="720" height="720"></button>
-    <button class="vi-ods-bt" type="button" role="tab" id="ods-t11" aria-controls="ods-p11" aria-selected="false"><img src="img/ods-11.svg?v=02102026f" alt="ODS 11: Cidades e comunidades sustentáveis" width="720" height="720"></button>
-    <button class="vi-ods-bt" type="button" role="tab" id="ods-t12" aria-controls="ods-p12" aria-selected="false"><img src="img/ods-12.svg?v=02102026f" alt="ODS 12: Consumo e produção responsáveis" width="720" height="720"></button>
+    <button class="vi-ods-bt on" type="button" role="tab" id="ods-t03" aria-controls="ods-p03" aria-selected="true"><img src="img/ods-03.svg?v=02102026g" alt="ODS 3: Saúde e bem-estar" width="720" height="720"></button>
+    <button class="vi-ods-bt" type="button" role="tab" id="ods-t11" aria-controls="ods-p11" aria-selected="false"><img src="img/ods-11.svg?v=02102026g" alt="ODS 11: Cidades e comunidades sustentáveis" width="720" height="720"></button>
+    <button class="vi-ods-bt" type="button" role="tab" id="ods-t12" aria-controls="ods-p12" aria-selected="false"><img src="img/ods-12.svg?v=02102026g" alt="ODS 12: Consumo e produção responsáveis" width="720" height="720"></button>
     <span class="vi-ods-dica">Clique num ODS para abrir a meta e o indicador</span>
   </div>
   <div class="vi-ods-painel on" role="tabpanel" id="ods-p03" aria-labelledby="ods-t03"><div><div class="vi-ods-sub">
@@ -376,7 +376,7 @@
 </script>
 <script src="js/barra.js?v=3"></script>
 <script src="js/busca.js?v=6"></script>
-<script src="js/trama.js?v=24"></script>
+<script src="js/trama.js?v=25"></script>
 <script src="js/banner.js?v=3"></script>
 <script>
 /* as fotos desta pagina passam pelo motor da trama, no tom azul do site */
@@ -384,7 +384,7 @@
   if(!window.ditherVivo) return;
   [].forEach.call(document.querySelectorAll('.vi-quadro'), function(q){
     var im = q.querySelector('img'); if(!im) return;
-    window.ditherVivo({brilhoTom:0.28, gama:0.86, ctr:1.55, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
+    window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});   /* o mesmo efeito de mouse das fotos da home */
   });
 })();
