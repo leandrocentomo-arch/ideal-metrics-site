@@ -42,7 +42,7 @@ eol = '\r\n' if '\r\n' in casca else '\n'
 s = casca.replace('\r\n', '\n')
 
 ARQ = 'seguranca-viaria.html'
-V = '02102026g'                                 # versao das fotos desta pagina
+V = '02102026h'                                 # versao das fotos desta pagina
 TITULO = 'Gestão da Segurança Viária'
 SUB = 'Apoio na implantação do sistema de gestão da segurança viária, para a certificação ISO 39001.'
 DESC = ('Consultoria para implantação da ISO 39001: sistema de gestão da segurança viária, análise de risco viário, '
@@ -95,10 +95,10 @@ PASSOS = [('01', 'Diagnóstico', 'a operação contra', 'a ISO 39001'),
           ('04', 'Auditoria interna', 'e análise crítica', 'pela direção'),
           ('05', 'Organização pronta', 'para a certificação', 'ISO 39001')]
 f1 = ['<figure class="ifc-fig">',
-      '<svg viewBox="0 0 1100 200" role="img" aria-label="As cinco etapas da implantação: diagnóstico, plano diretor, implantação, auditoria interna e organização pronta para a certificação">',
-      '<line class="ifc-linha" x1="110" y1="66" x2="990" y2="66"/>']
+      '<svg viewBox="0 0 900 170" role="img" aria-label="As cinco etapas da implantação: diagnóstico, plano diretor, implantação, auditoria interna e organização pronta para a certificação">',
+      '<line class="ifc-linha" x1="90" y1="66" x2="810" y2="66"/>']
 for i, (n, t, p1, p2) in enumerate(PASSOS):
-    x = 110 + i * 220
+    x = 90 + i * 180      # 02/10: escala 1:1 com a coluna de texto (era 1100 de largura e o texto encolhia)
     f1 += ['<circle class="ifc-aro ifc-aro--f" cx="%d" cy="66" r="13"/>' % x,
            '<circle cx="%d" cy="66" r="3.5" fill="#14304C"/>' % x,
            '<text class="ifc-svg-n" x="%d" y="38">%s</text>' % (x, n),
@@ -107,6 +107,32 @@ for i, (n, t, p1, p2) in enumerate(PASSOS):
            '<text class="ifc-svg-p" x="%d" y="148">%s</text>' % (x, p2)]
 f1 += ['</svg>', '<figcaption>As cinco etapas da implantação</figcaption>', '</figure>']
 FIG1 = '\n'.join(f1)
+
+# ---------------------------------------------------------------- o que o sistema passa a medir (ISO 39001, 6.3; leitura no vault:
+# — CQT/✱ Padrões/Segurança Viária/seguranca-viaria-requisitos.md). Linha fina, como as etapas.
+EXPO = ['Distância percorrida', 'Volume de tráfego', 'Volume do serviço']
+INTER = ['Via e velocidade seguras', 'Via adequada ao veículo', 'Equipamento de proteção', 'Velocidade de condução', 'Aptidão do condutor',
+         'Planejamento da viagem', 'Segurança do veículo', 'Habilitação adequada', 'Inapto fora da via', 'Resposta pós-sinistro']
+FINAL = ['Mortes e lesões graves', 'nos sinistros que a', 'organização influencia']
+f2 = ['<figure class="ifc-fig">',
+      '<svg viewBox="0 0 900 252" role="img" aria-label="O que o sistema passa a medir: exposição ao risco, dez fatores intermediários e o resultado final, mortes e lesões graves">']
+for x, w, num, tit in ((1, 196, '01', 'Exposição ao risco'), (250, 400, '02', 'Fatores intermediários'), (703, 196, '03', 'Resultado final')):
+    cx = x + w // 2
+    f2 += ['<rect class="ifc-aro ifc-aro--f" x="%d" y="10" width="%d" height="240" rx="3"/>' % (x, w),
+           '<text class="ifc-svg-n" x="%d" y="42">%s</text>' % (cx, num),
+           '<text class="ifc-svg-t" x="%d" y="70">%s</text>' % (cx, tit),
+           '<line class="ifc-linha" x1="%d" y1="88" x2="%d" y2="88"/>' % (cx - 40, cx + 40)]
+for i, t in enumerate(EXPO):
+    f2.append('<text class="ifc-svg-p" x="99" y="%d">%s</text>' % (122 + i * 26, t))
+for i, t in enumerate(INTER):
+    f2.append('<text class="ifc-svg-p" x="%d" y="%d">%s</text>' % (350 if i < 5 else 550, 122 + (i % 5) * 26, t))
+for i, t in enumerate(FINAL):
+    f2.append('<text class="ifc-svg-p" x="801" y="%d">%s</text>' % (122 + i * 26, t))
+for x1, x2 in ((200, 244), (653, 697)):
+    f2 += ['<line class="ifc-linha" x1="%d" y1="152" x2="%d" y2="152"/>' % (x1, x2),
+           '<polyline class="ifc-linha" points="%d,146 %d,152 %d,158"/>' % (x2 - 6, x2, x2 - 6)]
+f2 += ['</svg>', '<figcaption>O que o sistema passa a medir</figcaption>', '</figure>']
+FIG2 = '\n'.join(f2)
 
 # ---------------------------------------------------------------- numeros
 NUMS = [('1,19 milhão', 'de mortes no trânsito por ano, no mundo'),
@@ -161,13 +187,20 @@ for n, _ in FOTOS:
         assert os.path.exists(os.path.join(SITE, 'img', '%s-%s.webp' % (n, t))), 'falta a foto img/%s-%s.webp (rodar _ferramentas/foto_azul.py)' % (n, t)
 
 # ---------------------------------------------------------------- o miolo: curto, em topicos, com o peso no servico
-MIOLO = '''<p>A Ideal Metrics apoia a sua organização na implantação do <strong>sistema de gestão da segurança viária</strong> e na preparação para a <strong>certificação ISO 39001</strong>.</p>
-
-<h3>O que fazemos</h3>
-__GRADE__
+# 02/10 (5a volta): «toda pagina comeca por esta frase, em tamanho maior; depois um texto, depois diagramas e o conteudo atual»
+MIOLO = '''<p class="abre">A Ideal Metrics apoia a sua organização na implantação do <strong>sistema de gestão da segurança viária</strong> e na preparação para a <strong>certificação ISO 39001</strong>.</p>
+<p>O trabalho começa pela operação real: rotas, frota, condutores, contratadas e a via sob a sua responsabilidade. Levantamos o que já existe, mostramos o que falta para a norma e montamos com a sua equipe os controles, os indicadores e a rotina que o organismo certificador vai verificar.</p>
+<p>O sistema passa a medir o que reduz mortes e lesões graves: a exposição ao risco, os fatores intermediários, como velocidade, jornada, condição do veículo e aptidão do condutor, e o resultado final. Com esses números, a direção decide onde investir, e a organização chega à certificação com evidência de resultado.</p>
 
 __FIG1__
 
+__FIG2__
+
+<hr class="section-divider">
+<h3>O que fazemos</h3>
+__GRADE__
+
+<hr class="section-divider">
 <h3>Por que a Ideal Metrics</h3>
 <ul>
 <li><strong>Experiência em concessão rodoviária de grande porte:</strong> sistema implantado e certificado na ISO 39001.</li>
@@ -207,7 +240,7 @@ __FIG3__
 <hr class="section-divider">
 <p>Para implantar a ISO 39001 na sua operação, <a href="contato.html">fale com a gente</a>.</p>
 '''
-for k, v in (('__NUMS__', nums), ('__FIG1__', FIG1), ('__FIG3__', FIG3), ('__GRADE__', grade), ('__FOTOS__', fotos)):
+for k, v in (('__NUMS__', nums), ('__FIG1__', FIG1), ('__FIG2__', FIG2), ('__FIG3__', FIG3), ('__GRADE__', grade), ('__FOTOS__', fotos)):
     MIOLO = MIOLO.replace(k, v)
 for palavra in ('percurso', 'Percurso', 'caminho', 'Ponto de partida', 'exame', 'auditoria de certificação', 'Para quem é'):
     assert palavra not in MIOLO and palavra not in SUB, 'palavra vetada no texto: ' + palavra

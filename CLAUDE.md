@@ -25,10 +25,12 @@
 Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro. Ao receber uma correção, aplicar em todas as páginas que têm o mesmo elemento e registrar aqui.
 
 ### Página de serviço
+- **Ordem de toda página:** (1) frase de abertura que diz o serviço, maior que o texto (`<p class="abre">`, 22 px, tinta); (2) um texto curto, de dois parágrafos no máximo, sobre como o trabalho é feito e o que a organização ganha; (3) os diagramas, em linha fina; (4) o conteúdo em seções. A abertura começa por «A Ideal Metrics ...» e nomeia a norma, não «a norma».
 - Vende consultoria, não ensina a norma. Quem entra quer saber se a Ideal Metrics presta o serviço de apoio à implantação para a certificação. Abrir pelo serviço, tópicos de uma linha, parágrafo de uma ou duas frases, sem seção que explique a norma.
 - A Ideal Metrics implanta e prepara para a certificação. Nunca escrever «auditoria de certificação» nem algo que sugira que ela audita para certificar.
 - Sem palavra de trocadilho com o tema («percurso», «caminho», «ponto de partida») e sem usar o objeto do tema como diagrama. Diagrama em linha fina, como o da página do IFC.
 - Credencial sem floreio («Consultores: formação internacional de Auditor Líder (Lead Auditor) em ISO 39001»). Norma de apoio só a que ele usa (na segurança viária, a ISO 39002).
+- Nunca «auditoria de certificação», nem como «preparação para a auditoria de certificação»: escrever «preparação para a certificação».
 - Título de seção «Aplicação», não «Para quem é». Título da página de segurança viária: «Gestão da Segurança Viária», não «de».
 - Molde: `seguranca-viaria.html`, gerada por `_ferramentas/pagina_viaria.py`.
 - **Página nova entra no menu na mesma entrega, sem ele pedir.** Com norma, o rótulo leva tema e norma na mesma linha: «Qualidade · ISO 9001», «Segurança viária · ISO 39001». Sistema de gestão ISO fica em «Sistemas de gestão». Editar `MENU` em `_ferramentas/blocos.py` e rodar `python _ferramentas/menu.py` (regrava menu do topo, do celular e lateral em todas as páginas, home incluída); depois `cp index.html index-azul.html` e `python _ferramentas/busca.py`. Entra também no card de `servicos.html`.
@@ -45,4 +47,6 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - **Entrelinha:** texto que quebra sozinho dentro de card, 1,35; título de card, 1,25. O espaço entre título e texto (o «enter») não muda. Texto corrido da página, 1,5.
 - **Espaçamento:** seção a seção, 56 px até o fio (`.section-divider`) e 44 px do fio ao título; título de seção (`.content h3`) a 44 px do bloco de cima; `h2` a 56 px. Bloco (grade de cards, fotos, números, figura, ícones) até o texto ou o bloco seguinte: 28 px. A linha de fonte fica colada nos números e a 28 px da lista que vem depois.
 - Canto de 3 px em campo, botão e card.
+- **Rodapé:** 352 px de branco entre o fim do conteúdo e o rodapé (`.page-layout`, padding de baixo).
+- **Diagrama:** SVG em linha fina com `viewBox` de 900 de largura (a coluna de texto tem ~890 px), para o texto do desenho sair no tamanho de leitura. Desenho mais largo encolhe a letra.
 - CSS novo: subir `css/style.css?v=` em todas as páginas.

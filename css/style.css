@@ -483,6 +483,9 @@ img { max-width: 100%; display: block; }
   margin-bottom: 6px;
 }
 .content p { margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--text-light); }
+/* 02/10/2026: TODA PAGINA ABRE POR UMA FRASE, maior que o texto, que diz o servico; depois um texto, depois os diagramas */
+.content p.abre { font-size: 22px; line-height: 1.35; color: var(--color-primary); margin: 0 0 20px; text-wrap: pretty; }
+.content p.abre + p { margin-top: 0; }
 .content ul { margin: 8px 0 18px 2px; }
 .content ul li {
   font-size: 14.5px;
@@ -3395,7 +3398,7 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
   /* 23/09/2026: quem manda no respiro das paginas internas e ESTE padding, e nao
      o do .content (zerado logo abaixo). Vao maior entre a migalha e o texto
      (36 -> 56) e bem maior ate o rodape (68 -> 176). */
-  padding: 56px 40px 176px;
+  padding: 56px 40px 352px;   /* 02/10/2026: «o branco ate o rodape, o dobro do que e agora» (era 176) */
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
   gap: 3.2rem;
