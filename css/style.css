@@ -234,7 +234,7 @@ img { max-width: 100%; display: block; }
   font-size: clamp(26px, 3vw, 42px);                   /* mesma escala da chamada da home */
   font-weight: 700;
   letter-spacing: -0.012em;
-  line-height: 1.16;
+  line-height: 1.04;                                   /* 02/10/2026: «diminua o espacamento entre as linhas» (era 1,16) */
   color: var(--color-primary);                         /* título escuro sobre o branco */
   position: relative;
   z-index: 2;

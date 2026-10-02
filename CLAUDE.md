@@ -49,6 +49,8 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - **Entrelinha:** texto que quebra sozinho dentro de card, 1,35; título de card, 1,25. O espaço entre título e texto (o «enter») não muda. Texto corrido da página, 1,5.
 - **Espaçamento:** seção a seção, 56 px até o fio (`.section-divider`) e 44 px do fio ao título; título de seção (`.content h3`) a 44 px do bloco de cima; `h2` a 56 px. Bloco (grade de cards, fotos, números, figura, ícones) até o texto ou o bloco seguinte: 28 px. A linha de fonte fica colada nos números e a 28 px da lista que vem depois.
 - **Cor do texto:** o escuro da Ideal Metrics, `#14304C` (`--text-light`), no texto corrido, nas listas, nos cards, na abertura e na navegação lateral (era `#315275`). Rótulos e títulos pequenos de seção continuam em `--mid-gray`.
+- **Título da faixa:** entrelinha 1,04 (era 1,16), para o título de duas linhas ficar junto.
+- **Monograma (cartão do topo e rodapé):** o pássaro do 18Asset 13 a 88% e centrado sobre o «ideal·m™», o nome intacto (02/10/2026, «repare que no logo que eu coloquei o pássaro é menor»). Grupo `#passaro-proporcao` em `img/monograma-ideal-m-limpo.svg` e `img/monograma-ideal-m.svg`.
 - Canto de 3 px em campo, botão e card.
 - **Rodapé:** 352 px de branco entre o fim do conteúdo e o rodapé (`.page-layout`, padding de baixo).
 - **Diagrama:** SVG em linha fina com `viewBox` de 900 de largura (a coluna de texto tem ~890 px), para o texto do desenho sair no tamanho de leitura. Desenho mais largo encolhe a letra.
