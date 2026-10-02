@@ -65,7 +65,64 @@ def main(cru, saida, gama=1.4, inicio=INICIO, fim=FIM, suave=1.0):
     print('prova:', prova)
 
 
+def _caixa(a, r):
+    """Media em caixa de raio r, com a borda repetida (a mesma conta da aba [ 08 ] do Spirit)."""
+    if r < 1: return a
+    n = 2 * r + 1
+    for eixo in (1, 0):
+        p = np.pad(a, [(r + 1, r) if e == eixo else (0, 0) for e in (0, 1)], mode='edge')
+        c = np.cumsum(p, axis=eixo)
+        a = (np.take(c, range(n, c.shape[eixo]), axis=eixo) - np.take(c, range(0, c.shape[eixo] - n), axis=eixo)) / n
+    return a
+
+
+def da_receita(cru, saida, receita, prova=None):
+    """02/10/2026: o banner pela RECEITA da aba [ 08 ] Banner de pagina do Spirit («copiar receita para o Claude»).
+
+        python _ferramentas/banner/foto_banner.py --receita receita.json <cru.jpg> <saida-lum.webp> [--prova prova.png]
+
+    Mesma conta da aba: enquadramento (zoom, px, py) no 3:1, luminancia Rec.709, suavizar, nitidez, exposicao,
+    gama, contraste, piso, teto, brilho, e a passagem para o creme (inicio, fim, suave)."""
+    import json
+    R = json.load(open(receita, encoding='utf-8')) if isinstance(receita, str) else receita
+    q, f, a = R['tamanho_e_posicao'], R['passagem_para_o_creme'], R['ajustes_da_foto']
+    im = Image.open(cru).convert('RGB')
+    e = max(LARG / im.width, ALT / im.height) * q.get('zoom', 1)
+    ox, oy = (LARG - im.width * e) * q.get('px', 50) / 100, (ALT - im.height * e) * q.get('py', 50) / 100
+    im = im.resize((LARG, ALT), Image.LANCZOS, box=(-ox / e, -oy / e, (LARG - ox) / e, (ALT - oy) / e))
+    c = np.asarray(im, dtype=np.float64) / 255
+    Y = .2126 * c[..., 0] + .7152 * c[..., 1] + .0722 * c[..., 2]
+    if a.get('suavizar', 0) > 0:
+        r = max(1, round(a['suavizar'] * 3)); Y = _caixa(_caixa(Y, r), r)
+    if a.get('nitidez', 0) > 0:
+        Y = Y + a['nitidez'] * (Y - _caixa(Y, 4))
+    v = np.clip(np.minimum(1, np.clip(Y, 0, 1) * 2 ** a.get('exposicao', 0)) ** a.get('gama', 1), 1e-6, 1 - 1e-6)
+    k = a.get('ctr', 1)
+    if k != 1: v = v ** k / (v ** k + (1 - v) ** k)
+    piso, teto = a.get('piso', 0), a.get('teto', 1)
+    foto = np.clip(piso + (teto - piso) * v + a.get('brilho', 0), 0, 1)
+    ini = f.get('inicio', INICIO); fim = max(ini + .02, f.get('fim', FIM))
+    x = (np.arange(LARG) + .5) / LARG
+    t = np.clip((x - ini) / (fim - ini), 0, 1)
+    t = (t * t * (3 - 2 * t)) ** f.get('suave', 1)
+    lum = 1 - t[None, :] * (1 - foto)
+    Image.fromarray((lum * 255).round().astype(np.uint8), 'L').save(saida, lossless=True)
+    print('%s: %d x %d, pela receita do Spirit' % (os.path.basename(saida), LARG, ALT))
+    if prova:
+        m4 = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]])
+        yy, xx = np.mgrid[0:ALT, 0:LARG]
+        kk = np.clip(np.floor(manchas.tom(lum) * 3 + (m4[yy % 4, xx % 4] + .5) / 16), 0, 3).astype(int)
+        Image.fromarray(manchas.CORES[kk].round().astype(np.uint8), 'RGB').save(prova)
+        print('prova:', prova)
+
+
 if __name__ == '__main__':
+    if '--receita' in sys.argv:
+        i = sys.argv.index('--receita'); rec = sys.argv[i + 1]; del sys.argv[i:i + 2]
+        pv = None
+        if '--prova' in sys.argv:
+            i = sys.argv.index('--prova'); pv = sys.argv[i + 1]; del sys.argv[i:i + 2]
+        da_receita(sys.argv[1], sys.argv[2], rec, pv); sys.exit()
     g = 1.4
     if '--gama' in sys.argv:
         i = sys.argv.index('--gama'); g = float(sys.argv[i + 1]); del sys.argv[i:i + 2]

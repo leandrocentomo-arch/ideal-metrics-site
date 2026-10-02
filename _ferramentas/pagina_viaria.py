@@ -42,7 +42,7 @@ eol = '\r\n' if '\r\n' in casca else '\n'
 s = casca.replace('\r\n', '\n')
 
 ARQ = 'seguranca-viaria.html'
-V = '02102026d'                                 # versao das fotos desta pagina
+V = '02102026e'                                 # versao das fotos desta pagina
 TITULO = 'Gestão de Segurança Viária'
 SUB = 'Apoio na implantação do sistema de gestão da segurança viária, para a certificação ISO 39001.'
 DESC = ('Consultoria para implantação da ISO 39001: sistema de gestão da segurança viária, análise de risco viário, '

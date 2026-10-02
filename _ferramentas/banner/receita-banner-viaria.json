@@ -1,0 +1,27 @@
+{
+ "modulo": "Spirit [ 08 ] Banner de página",
+ "arquivo": "banner-viaria-lum.webp",
+ "foto_original": "_tingir-fotos/FOTOS/rodovia-aerea-entroncamento-flow-03.jpg (Vehicles_driving_on_motorway_int…_20261002110940.jpg)",
+ "tamanho_e_posicao": {
+  "zoom": 1,
+  "px": 52.091637712618294,
+  "py": 0
+ },
+ "passagem_para_o_creme": {
+  "inicio": 0.19,
+  "fim": 0.72,
+  "suave": 1.3
+ },
+ "ajustes_da_foto": {
+  "exposicao": 0,
+  "gama": 1.23,
+  "ctr": 1,
+  "brilho": -0.07,
+  "piso": 0,
+  "teto": 0.91,
+  "nitidez": 0,
+  "suavizar": 0
+ },
+ "tingimento": "padrão do banner do site",
+ "tela_da_previa": 1536
+}
