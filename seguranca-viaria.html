@@ -26,11 +26,19 @@
 .vi-quadro img{object-fit:cover}
 .vi-quadro.gl-on img{visibility:hidden}
 .vi-foto figcaption{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-primary);margin-top:10px}
-.vi-t{font:600 15px 'IBM Plex Sans Condensed',sans-serif;fill:#14304C}
-.vi-p{font:500 13.5px 'IBM Plex Sans Condensed',sans-serif;fill:#14304C}
-.vi-n{font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.16em;fill:#14304C}
-.vi-ods{font:700 30px 'IBM Plex Sans Condensed',sans-serif;fill:#fff;text-anchor:middle}
-@media (max-width:760px){.vi-nums{grid-template-columns:repeat(2,minmax(0,1fr))}.vi-fotos{grid-template-columns:1fr}}
+.vi-ods{margin:22px 0 12px}
+.vi-ods-linha{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.vi-ods-bt{appearance:none;-webkit-appearance:none;border:0;padding:0;background:none;cursor:pointer;width:128px;line-height:0;border-radius:3px;
+  transition:transform .35s cubic-bezier(.4,0,.2,1),box-shadow .3s}
+.vi-ods-bt img{width:100%;height:auto;display:block;border-radius:3px}
+.vi-ods-bt:hover,.vi-ods-bt:focus-visible{transform:translateY(-4px);outline:none}
+.vi-ods-bt.on{transform:translateY(-4px);box-shadow:0 0 0 3px var(--color-bg-alt),0 0 0 4px #14304C}
+.vi-ods-dica{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary);margin-left:8px}
+.vi-ods-painel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.4,0,.2,1)}
+.vi-ods-painel.on{grid-template-rows:1fr}
+.vi-ods-painel>div{overflow:hidden;min-height:0}
+.vi-ods-sub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(20,48,76,.14);border:1px solid rgba(20,48,76,.14);margin-top:16px}
+@media (max-width:760px){.vi-nums{grid-template-columns:repeat(2,minmax(0,1fr))}.vi-fotos{grid-template-columns:1fr}.vi-ods-sub{grid-template-columns:1fr}.vi-ods-bt{width:96px}.vi-ods-dica{flex-basis:100%;margin-left:0}}
 </style>
 </head>
 <body class="txt-escuro">
@@ -103,7 +111,7 @@
 </nav>
 <div class="barra-espaco" aria-hidden="true"></div>
 
-<div class="page-banner" data-lum="img/banner-viaria-lum.webp?v=02102026b"><h1>Gestão de Segurança Viária</h1><p>Apoio na implantação do sistema de gestão da segurança viária, para a certificação ISO 39001.</p></div>
+<div class="page-banner" data-lum="img/banner-viaria-lum.webp?v=02102026d"><h1>Gestão de Segurança Viária</h1><p>Apoio na implantação do sistema de gestão da segurança viária, para a certificação ISO 39001.</p></div>
 <div class="breadcrumb"><a href="index.html">Página Inicial</a> &gt; <a href="servicos.html">Todos os serviços</a> &gt; Gestão de segurança viária</div>
 
 
@@ -221,9 +229,9 @@
 <hr class="section-divider">
 <h3>Aplicação</h3>
 <div class="vi-fotos">
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-rodovia-bayer.webp?v=02102026b" data-lum="img/viaria-rodovia-lum.webp?v=02102026b" alt="" loading="lazy"></div><figcaption>Concessões rodoviárias</figcaption></figure>
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-trevo-bayer.webp?v=02102026b" data-lum="img/viaria-trevo-lum.webp?v=02102026b" alt="" loading="lazy"></div><figcaption>Infraestrutura viária</figcaption></figure>
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-frota-bayer.webp?v=02102026b" data-lum="img/viaria-frota-lum.webp?v=02102026b" alt="" loading="lazy"></div><figcaption>Frotas e logística</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-rodovia-bayer.webp?v=02102026d" data-lum="img/viaria-rodovia-lum.webp?v=02102026d" alt="" loading="lazy"></div><figcaption>Concessões rodoviárias</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-trevo-bayer.webp?v=02102026d" data-lum="img/viaria-trevo-lum.webp?v=02102026d" alt="" loading="lazy"></div><figcaption>Infraestrutura viária</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/viaria-frota-bayer.webp?v=02102026d" data-lum="img/viaria-frota-lum.webp?v=02102026d" alt="" loading="lazy"></div><figcaption>Frotas e logística</figcaption></figure>
 </div>
 <ul>
 <li>Concessionárias de rodovias e operadores de infraestrutura viária.</li>
@@ -251,38 +259,31 @@
 <hr class="section-divider">
 <h3>ISO 39001 e os ODS da ONU</h3>
 <p>Com o sistema implantado, a organização mostra resultado em três Objetivos de Desenvolvimento Sustentável.</p>
-<figure class="ifc-fig">
-<svg viewBox="0 0 900 330" role="img" aria-label="A ISO 39001 ligada a três Objetivos de Desenvolvimento Sustentável da ONU: ODS 3, meta 3.6; ODS 11, meta 11.2; ODS 12, meta 12.6">
-<circle class="ifc-aro ifc-aro--f" cx="130" cy="165" r="96"/>
-<text class="vi-n" x="130" y="150" style="text-anchor:middle">ISO 39001</text>
-<text class="vi-t" x="130" y="174" style="text-anchor:middle">Gestão da</text>
-<text class="vi-t" x="130" y="193" style="text-anchor:middle">segurança viária</text>
-<path class="ifc-linha" d="M226 165 C 280 165, 270 60, 330 60"/>
-<rect x="330" y="21" width="78" height="78" fill="#4C9F38"/>
-<text class="vi-ods" x="369" y="71">3</text>
-<text class="vi-t" x="432" y="43">ODS 3 · Saúde e bem-estar</text>
-<text class="vi-p" x="432" y="67">Meta 3.6: reduzir pela metade as mortes e os feridos no trânsito.</text>
-<text class="vi-p" x="432" y="88">Indicador 3.6.1: taxa de mortalidade por sinistros de trânsito.</text>
-<path class="ifc-linha" d="M226 165 C 280 165, 270 165, 330 165"/>
-<rect x="330" y="126" width="78" height="78" fill="#FD9D24"/>
-<text class="vi-ods" x="369" y="176">11</text>
-<text class="vi-t" x="432" y="148">ODS 11 · Cidades e comunidades sustentáveis</text>
-<text class="vi-p" x="432" y="172">Meta 11.2: transporte seguro, acessível e sustentável para todos,</text>
-<text class="vi-p" x="432" y="193">com melhoria da segurança viária, até 2030.</text>
-<path class="ifc-linha" d="M226 165 C 280 165, 270 270, 330 270"/>
-<rect x="330" y="231" width="78" height="78" fill="#BF8B2E"/>
-<text class="vi-ods" x="369" y="281">12</text>
-<text class="vi-t" x="432" y="253">ODS 12 · Consumo e produção responsáveis</text>
-<text class="vi-p" x="432" y="277">Meta 12.6: empresas com práticas sustentáveis de gestão</text>
-<text class="vi-p" x="432" y="298">e com essa informação nos seus relatórios.</text>
-</svg>
-<figcaption>A ISO 39001 e os Objetivos de Desenvolvimento Sustentável da ONU</figcaption>
-</figure>
-<ul>
-<li><strong>Ligação direta:</strong> a meta 3.6 e o indicador 3.6.1 medem as mortes no trânsito, o mesmo resultado que a ISO 39001 manda reduzir.</li>
-<li><strong>No relatório de sustentabilidade:</strong> as metas e os indicadores do sistema entram com o ODS correspondente.</li>
-</ul>
-<p class="vi-fonte">A ISO relaciona a norma aos ODS 3, 11 e 12. No ODS 12 ela não indica meta: a 12.6 é a leitura da Ideal Metrics.</p>
+<div class="vi-ods">
+  <div class="vi-ods-linha" role="tablist" aria-label="ODS ligados à ISO 39001">
+    <button class="vi-ods-bt on" type="button" role="tab" id="ods-t03" aria-controls="ods-p03" aria-selected="true"><img src="img/ods-03.svg?v=02102026d" alt="ODS 3: Saúde e bem-estar" width="720" height="720"></button>
+    <button class="vi-ods-bt" type="button" role="tab" id="ods-t11" aria-controls="ods-p11" aria-selected="false"><img src="img/ods-11.svg?v=02102026d" alt="ODS 11: Cidades e comunidades sustentáveis" width="720" height="720"></button>
+    <button class="vi-ods-bt" type="button" role="tab" id="ods-t12" aria-controls="ods-p12" aria-selected="false"><img src="img/ods-12.svg?v=02102026d" alt="ODS 12: Consumo e produção responsáveis" width="720" height="720"></button>
+    <span class="vi-ods-dica">Clique num ODS para abrir a meta e o indicador</span>
+  </div>
+  <div class="vi-ods-painel on" role="tabpanel" id="ods-p03" aria-labelledby="ods-t03"><div><div class="vi-ods-sub">
+    <div class="ifc-cel"><span class="ifc-rot">Meta 3.6</span><p>Reduzir pela metade as mortes e os ferimentos por acidentes em estradas.</p></div>
+    <div class="ifc-cel"><span class="ifc-rot">Indicador 3.6.1</span><p>Taxa de mortalidade por acidentes de trânsito.</p></div>
+    <div class="ifc-cel"><span class="ifc-rot">Na ISO 39001</span><p>É o resultado final que o sistema mede e reduz: mortes e lesões graves.</p></div>
+  </div></div></div>
+  <div class="vi-ods-painel" role="tabpanel" id="ods-p11" aria-labelledby="ods-t11"><div><div class="vi-ods-sub">
+    <div class="ifc-cel"><span class="ifc-rot">Meta 11.2</span><p>Até 2030, transporte seguro, acessível e sustentável para todos, com melhoria da segurança rodoviária.</p></div>
+    <div class="ifc-cel"><span class="ifc-rot">Indicador 11.2.1</span><p>Proporção da população com acesso adequado a transporte público.</p></div>
+    <div class="ifc-cel"><span class="ifc-rot">Na ISO 39001</span><p>Operação de vias e de transporte com os riscos viários sob controle.</p></div>
+  </div></div></div>
+  <div class="vi-ods-painel" role="tabpanel" id="ods-p12" aria-labelledby="ods-t12"><div><div class="vi-ods-sub">
+    <div class="ifc-cel"><span class="ifc-rot">Meta 12.6</span><p>Empresas com práticas sustentáveis e com essa informação nos seus relatórios.</p></div>
+    <div class="ifc-cel"><span class="ifc-rot">Indicador 12.6.1</span><p>Número de empresas que publicam relatórios de sustentabilidade.</p></div>
+    <div class="ifc-cel"><span class="ifc-rot">Na ISO 39001</span><p>Metas e indicadores de segurança viária prontos para o relatório de sustentabilidade.</p></div>
+  </div></div></div>
+</div>
+<p class="vi-fonte">A ISO relaciona a norma aos ODS 3, 11 e 12. No ODS 12 ela não indica meta: a 12.6 é a leitura da Ideal Metrics. O prazo da meta 3.6 foi renovado para 2030 pela Resolução 74/299 da ONU.</p>
+<p class="vi-fonte">Ícones dos ODS: Nações Unidas, <a href="https://www.un.org/sustainabledevelopment/" target="_blank" rel="noopener">un.org/sustainabledevelopment</a>. O conteúdo desta página não foi aprovado pelas Nações Unidas e não reflete as opiniões das Nações Unidas, de seus funcionários ou dos Estados-Membros.</p>
 
 <hr class="section-divider">
 <p>Para implantar a ISO 39001 na sua operação, <a href="contato.html">fale com a gente</a>.</p>
@@ -384,8 +385,15 @@
   [].forEach.call(document.querySelectorAll('.vi-quadro'), function(q){
     var im = q.querySelector('img'); if(!im) return;
     window.ditherVivo({brilhoTom:0.28, gama:0.86, ctr:1.55, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5});
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});   /* o mesmo efeito de mouse das fotos da home */
   });
+})();
+/* os ODS: um clique abre o painel do icone e fecha os outros */
+(function(){
+  var bts = document.querySelectorAll('.vi-ods-bt');
+  [].forEach.call(bts, function(b){ b.addEventListener('click', function(){
+    [].forEach.call(bts, function(x){ var on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', on ? 'true' : 'false');
+      document.getElementById(x.getAttribute('aria-controls')).classList.toggle('on', on); }); }); });
 })();
 </script>
 </body></html>

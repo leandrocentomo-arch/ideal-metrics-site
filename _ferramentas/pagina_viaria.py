@@ -42,7 +42,7 @@ eol = '\r\n' if '\r\n' in casca else '\n'
 s = casca.replace('\r\n', '\n')
 
 ARQ = 'seguranca-viaria.html'
-V = '02102026b'                                 # versao das fotos desta pagina
+V = '02102026d'                                 # versao das fotos desta pagina
 TITULO = 'Gestão de Segurança Viária'
 SUB = 'Apoio na implantação do sistema de gestão da segurança viária, para a certificação ISO 39001.'
 DESC = ('Consultoria para implantação da ISO 39001: sistema de gestão da segurança viária, análise de risco viário, '
@@ -62,11 +62,19 @@ CSS = '''<style>
 .vi-quadro img{object-fit:cover}
 .vi-quadro.gl-on img{visibility:hidden}
 .vi-foto figcaption{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-primary);margin-top:10px}
-.vi-t{font:600 15px 'IBM Plex Sans Condensed',sans-serif;fill:#14304C}
-.vi-p{font:500 13.5px 'IBM Plex Sans Condensed',sans-serif;fill:#14304C}
-.vi-n{font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.16em;fill:#14304C}
-.vi-ods{font:700 30px 'IBM Plex Sans Condensed',sans-serif;fill:#fff;text-anchor:middle}
-@media (max-width:760px){.vi-nums{grid-template-columns:repeat(2,minmax(0,1fr))}.vi-fotos{grid-template-columns:1fr}}
+.vi-ods{margin:22px 0 12px}
+.vi-ods-linha{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.vi-ods-bt{appearance:none;-webkit-appearance:none;border:0;padding:0;background:none;cursor:pointer;width:128px;line-height:0;border-radius:3px;
+  transition:transform .35s cubic-bezier(.4,0,.2,1),box-shadow .3s}
+.vi-ods-bt img{width:100%;height:auto;display:block;border-radius:3px}
+.vi-ods-bt:hover,.vi-ods-bt:focus-visible{transform:translateY(-4px);outline:none}
+.vi-ods-bt.on{transform:translateY(-4px);box-shadow:0 0 0 3px var(--color-bg-alt),0 0 0 4px #14304C}
+.vi-ods-dica{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary);margin-left:8px}
+.vi-ods-painel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.4,0,.2,1)}
+.vi-ods-painel.on{grid-template-rows:1fr}
+.vi-ods-painel>div{overflow:hidden;min-height:0}
+.vi-ods-sub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(20,48,76,.14);border:1px solid rgba(20,48,76,.14);margin-top:16px}
+@media (max-width:760px){.vi-nums{grid-template-columns:repeat(2,minmax(0,1fr))}.vi-fotos{grid-template-columns:1fr}.vi-ods-sub{grid-template-columns:1fr}.vi-ods-bt{width:96px}.vi-ods-dica{flex-basis:100%;margin-left:0}}
 </style>'''
 
 # ---------------------------------------------------------------- o que fazemos (grade de seis, uma linha cada)
@@ -108,34 +116,39 @@ nums = ('<div class="vi-nums">\n' + '\n'.join('  <div class="vi-num"><b>%s</b><s
         '<p class="vi-fonte">Fontes: OMS, Global status report on road safety 2023 · Assembleia Geral da ONU, Resolução 74/299 · ISO/TC 241, outubro de 2026.</p>')
 
 # ---------------------------------------------------------------- a ISO 39001 e os ODS da ONU
-# Os tres quadros levam as cores oficiais dos ODS (3 verde, 11 laranja, 12 ocre); o resto fica na tinta da casa.
-ODS = [('3', '#4C9F38', 'ODS 3 · Saúde e bem-estar',
-        ['Meta 3.6: reduzir pela metade as mortes e os feridos no trânsito.',
-         'Indicador 3.6.1: taxa de mortalidade por sinistros de trânsito.']),
-       ('11', '#FD9D24', 'ODS 11 · Cidades e comunidades sustentáveis',
-        ['Meta 11.2: transporte seguro, acessível e sustentável para todos,',
-         'com melhoria da segurança viária, até 2030.']),
-       ('12', '#BF8B2E', 'ODS 12 · Consumo e produção responsáveis',
-        ['Meta 12.6: empresas com práticas sustentáveis de gestão',
-         'e com essa informação nos seus relatórios.'])]
-f3 = ['<figure class="ifc-fig">',
-      '<svg viewBox="0 0 900 330" role="img" aria-label="A ISO 39001 ligada a três Objetivos de Desenvolvimento Sustentável da ONU: ODS 3, meta 3.6; ODS 11, meta 11.2; ODS 12, meta 12.6">',
-      '<circle class="ifc-aro ifc-aro--f" cx="130" cy="165" r="96"/>',
-      '<text class="vi-n" x="130" y="150" style="text-anchor:middle">ISO 39001</text>',
-      '<text class="vi-t" x="130" y="174" style="text-anchor:middle">Gestão da</text>',
-      '<text class="vi-t" x="130" y="193" style="text-anchor:middle">segurança viária</text>']
-for i, (n, cor, tit, linhas) in enumerate(ODS):
-    yc = 60 + i * 105
-    f3 += ['<path class="ifc-linha" d="M226 165 C 280 165, 270 %d, 330 %d"/>' % (yc, yc),
-           '<rect x="330" y="%d" width="78" height="78" fill="%s"/>' % (yc - 39, cor),
-           '<text class="vi-ods" x="369" y="%d">%s</text>' % (yc + 11, n),
-           '<text class="vi-t" x="432" y="%d">%s</text>' % (yc - 17, tit)]
-    for k, l in enumerate(linhas):
-        f3.append('<text class="vi-p" x="432" y="%d">%s</text>' % (yc + 7 + k * 21, l))
-f3 += ['</svg>', '<figcaption>A ISO 39001 e os Objetivos de Desenvolvimento Sustentável da ONU</figcaption>', '</figure>']
-FIG3 = '\n'.join(f3)
+# 02/10 (3a volta): «use os logos oficiais do ODS, com efeito de abrir e ler os subelementos». Os tres icones
+# sao os oficiais em portugues (ONU Brasil, brasil.un.org, img/ods-NN.svg), sem alteracao; um clique abre o
+# painel com a meta, o indicador e a ligacao com a ISO 39001. A linha de aviso e a que a ONU pede para uso
+# informativo dos icones.
+ODS = [('03', 'ODS 3: Saúde e bem-estar',
+        [('Meta 3.6', 'Reduzir pela metade as mortes e os ferimentos por acidentes em estradas.'),
+         ('Indicador 3.6.1', 'Taxa de mortalidade por acidentes de trânsito.'),
+         ('Na ISO 39001', 'É o resultado final que o sistema mede e reduz: mortes e lesões graves.')]),
+       ('11', 'ODS 11: Cidades e comunidades sustentáveis',
+        [('Meta 11.2', 'Até 2030, transporte seguro, acessível e sustentável para todos, com melhoria da segurança rodoviária.'),
+         ('Indicador 11.2.1', 'Proporção da população com acesso adequado a transporte público.'),
+         ('Na ISO 39001', 'Operação de vias e de transporte com os riscos viários sob controle.')]),
+       ('12', 'ODS 12: Consumo e produção responsáveis',
+        [('Meta 12.6', 'Empresas com práticas sustentáveis e com essa informação nos seus relatórios.'),
+         ('Indicador 12.6.1', 'Número de empresas que publicam relatórios de sustentabilidade.'),
+         ('Na ISO 39001', 'Metas e indicadores de segurança viária prontos para o relatório de sustentabilidade.')])]
+o = ['<div class="vi-ods">', '  <div class="vi-ods-linha" role="tablist" aria-label="ODS ligados à ISO 39001">']
+for k, (n, alt, _) in enumerate(ODS):
+    o.append('    <button class="vi-ods-bt%s" type="button" role="tab" id="ods-t%s" aria-controls="ods-p%s" aria-selected="%s"><img src="img/ods-%s.svg?v=%s" alt="%s" width="720" height="720"></button>'
+             % (' on' if k == 0 else '', n, n, 'true' if k == 0 else 'false', n, V, alt))
+o.append('    <span class="vi-ods-dica">Clique num ODS para abrir a meta e o indicador</span>')
+o.append('  </div>')
+for k, (n, alt, sub) in enumerate(ODS):
+    o.append('  <div class="vi-ods-painel%s" role="tabpanel" id="ods-p%s" aria-labelledby="ods-t%s"><div><div class="vi-ods-sub">' % (' on' if k == 0 else '', n, n))
+    for rot, txt in sub:
+        o.append('    <div class="ifc-cel"><span class="ifc-rot">%s</span><p>%s</p></div>' % (rot, txt))
+    o.append('  </div></div></div>')
+o.append('</div>')
+FIG3 = '\n'.join(o)
 
 # ---------------------------------------------------------------- fotos (vista aerea, Google Flow, tingimento azul)
+# 02/10 (3a volta): «prefiro estrada fora de area urbana ou de matagal»: praca de pedagio vista de cima,
+# entroncamento com viadutos em terreno aberto e patio de frota (os nomes de arquivo ficaram os da 2a volta)
 FOTOS = [('viaria-rodovia', 'Concessões rodoviárias'),
          ('viaria-trevo', 'Infraestrutura viária'),
          ('viaria-frota', 'Frotas e logística')]
@@ -187,11 +200,8 @@ __NUMS__
 <h3>ISO 39001 e os ODS da ONU</h3>
 <p>Com o sistema implantado, a organização mostra resultado em três Objetivos de Desenvolvimento Sustentável.</p>
 __FIG3__
-<ul>
-<li><strong>Ligação direta:</strong> a meta 3.6 e o indicador 3.6.1 medem as mortes no trânsito, o mesmo resultado que a ISO 39001 manda reduzir.</li>
-<li><strong>No relatório de sustentabilidade:</strong> as metas e os indicadores do sistema entram com o ODS correspondente.</li>
-</ul>
-<p class="vi-fonte">A ISO relaciona a norma aos ODS 3, 11 e 12. No ODS 12 ela não indica meta: a 12.6 é a leitura da Ideal Metrics.</p>
+<p class="vi-fonte">A ISO relaciona a norma aos ODS 3, 11 e 12. No ODS 12 ela não indica meta: a 12.6 é a leitura da Ideal Metrics. O prazo da meta 3.6 foi renovado para 2030 pela Resolução 74/299 da ONU.</p>
+<p class="vi-fonte">Ícones dos ODS: Nações Unidas, <a href="https://www.un.org/sustainabledevelopment/" target="_blank" rel="noopener">un.org/sustainabledevelopment</a>. O conteúdo desta página não foi aprovado pelas Nações Unidas e não reflete as opiniões das Nações Unidas, de seus funcionários ou dos Estados-Membros.</p>
 
 <hr class="section-divider">
 <p>Para implantar a ISO 39001 na sua operação, <a href="contato.html">fale com a gente</a>.</p>
@@ -208,8 +218,15 @@ JS = '''<script>
   [].forEach.call(document.querySelectorAll('.vi-quadro'), function(q){
     var im = q.querySelector('img'); if(!im) return;
     window.ditherVivo({brilhoTom:0.28, gama:0.86, ctr:1.55, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5});
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});   /* o mesmo efeito de mouse das fotos da home */
   });
+})();
+/* os ODS: um clique abre o painel do icone e fecha os outros */
+(function(){
+  var bts = document.querySelectorAll('.vi-ods-bt');
+  [].forEach.call(bts, function(b){ b.addEventListener('click', function(){
+    [].forEach.call(bts, function(x){ var on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', on ? 'true' : 'false');
+      document.getElementById(x.getAttribute('aria-controls')).classList.toggle('on', on); }); }); });
 })();
 </script>'''
 

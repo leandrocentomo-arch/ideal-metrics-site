@@ -31,7 +31,7 @@ INICIO, FIM = .30, .78         # onde a foto comeca a aparecer e onde fica intei
 TOPO = .30                     # de onde cortar na vertical (0 = topo do original)
 
 
-def main(cru, saida, gama=1.4):
+def main(cru, saida, gama=1.4, inicio=INICIO, fim=FIM, suave=1.0):
     im = Image.open(cru).convert('L')
     # recorte 3:1, ancorado abaixo do topo
     alvo = LARG / ALT
@@ -46,8 +46,11 @@ def main(cru, saida, gama=1.4):
 
     foto = np.clip(np.asarray(im, dtype=np.float64) / 255, 0, 1) ** gama
     x = (np.arange(LARG) + .5) / LARG
-    t = np.clip((x - INICIO) / (FIM - INICIO), 0, 1)
+    t = np.clip((x - inicio) / (fim - inicio), 0, 1)
     t = t * t * (3 - 2 * t)                      # smoothstep
+    # 02/10/2026: «o corte entre a foto e a parte escrita esta muito acentuado, mais smooth». --suave > 1
+    # atrasa a entrada da foto (t elevado a potencia): foto escura deixa de nascer de uma vez
+    t = t ** suave
     lum = 1 - t[None, :] * (1 - foto)            # 1 = creme; a foto entra pela direita
 
     Image.fromarray((lum * 255).round().astype(np.uint8), 'L').save(saida, lossless=True)
@@ -66,4 +69,9 @@ if __name__ == '__main__':
     g = 1.4
     if '--gama' in sys.argv:
         i = sys.argv.index('--gama'); g = float(sys.argv[i + 1]); del sys.argv[i:i + 2]
-    main(sys.argv[1], sys.argv[2], g)
+    def _op(n, pad):
+        if n in sys.argv:
+            i = sys.argv.index(n); v = float(sys.argv[i + 1]); del sys.argv[i:i + 2]; return v
+        return pad
+    ini, fim, suave = _op('--inicio', INICIO), _op('--fim', FIM), _op('--suave', 1.0)
+    main(sys.argv[1], sys.argv[2], g, ini, fim, suave)
