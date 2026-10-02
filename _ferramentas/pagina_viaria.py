@@ -50,10 +50,10 @@ DESC = ('Consultoria para implantação da ISO 39001: sistema de gestão da segu
 
 CSS = '''<style>
 /* so desta pagina: numeros, fotos e textos dos diagramas */
-.vi-nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgba(20,48,76,.14);border:1px solid rgba(20,48,76,.14);margin:22px 0 8px}
-.vi-num{background:var(--color-bg-alt);padding:18px 18px 16px}
+.vi-nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:22px 0 8px}
+.vi-num{background:var(--color-bg-alt);border:1px solid rgba(20,48,76,.14);border-radius:3px;padding:18px 18px 16px}
 .vi-num b{display:block;font:700 31px/1 'IBM Plex Sans Condensed',sans-serif;color:var(--color-primary);letter-spacing:-.01em;white-space:nowrap}
-.vi-num span{display:block;margin-top:9px;font-size:14px;line-height:1.4;color:var(--color-primary)}
+.vi-num span{display:block;margin-top:9px;font-size:14px;line-height:1.3;color:var(--color-primary)}
 .content p.vi-fonte{font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.6;letter-spacing:.04em;margin:8px 0 0}
 .vi-fotos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0 14px}
 .vi-foto{margin:0}
@@ -73,7 +73,7 @@ CSS = '''<style>
 .vi-ods-painel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.4,0,.2,1)}
 .vi-ods-painel.on{grid-template-rows:1fr}
 .vi-ods-painel>div{overflow:hidden;min-height:0}
-.vi-ods-sub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(20,48,76,.14);border:1px solid rgba(20,48,76,.14);margin-top:16px}
+.vi-ods-sub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:16px}
 @media (max-width:760px){.vi-nums{grid-template-columns:repeat(2,minmax(0,1fr))}.vi-fotos{grid-template-columns:1fr}.vi-ods-sub{grid-template-columns:1fr}.vi-ods-bt{width:96px}.vi-ods-dica{flex-basis:100%;margin-left:0}}
 </style>'''
 
