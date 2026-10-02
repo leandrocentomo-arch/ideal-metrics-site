@@ -38,6 +38,7 @@ IC = {  # icones do mega-menu, os mesmos tracos finos que o site ja usa
  'balanca': '<path d="M12 3v18M5 21h14M5 7h14"/><path d="M5 7l-3 7a3 3 0 006 0zM19 7l-3 7a3 3 0 006 0z"/>',
  'barras':  '<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
  'radar':   '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="5"/><path d="M12 12l7-7"/>',
+ 'rodovia': '<path d="M5 21L9 3M19 21L15 3M12 5v3M12 11v3M12 17v3"/>',
  'elos':    '<path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/>',
 }
 
@@ -55,6 +56,7 @@ MENU = [
  ('Segurança e inspeção', [
    ('seguranca-alimentos.html', 'Segurança de alimentos', 'xicara'),
    ('nrs.html', 'Atendimento a NRs', 'folha'),
+   ('seguranca-viaria.html', 'Segurança viária', 'rodovia'),
    ('inspecoes.html', 'Inspeções de produto e de fábrica', 'lupa'),
    ('produtos-inspecionamos.html', 'Produtos que inspecionamos', 'caixa')]),
  ('Estudos e pesquisa aplicada', [
@@ -82,7 +84,7 @@ LATERAL = [
  ('Padrões e sustentabilidade', [('padroes-mercado.html', 'Padrões de mercado'),
    ('ifc-performance-standards.html', 'IFC Performance Standards'), ('sedex-smeta.html', 'SEDEX/SMETA'),
    ('gestao-carbono.html', 'Gestão de carbono'), ('esg.html', 'ESG')]),
- ('Segurança e inspeção', [('seguranca-alimentos.html', 'Segurança de alimentos'), ('nrs.html', 'Atendimento a NRs'),
+ ('Segurança e inspeção', [('seguranca-alimentos.html', 'Segurança de alimentos'), ('nrs.html', 'Atendimento a NRs'), ('seguranca-viaria.html', 'Segurança viária'),
    ('inspecoes.html', 'Inspeções'), ('produtos-inspecionamos.html', 'Produtos que inspecionamos')]),
  ('Estudos e pesquisa aplicada', [('estudos-pesquisa.html', 'Visão geral'), ('estudos-regulatorios.html', 'Estudos regulatórios'),
    ('estudos-setoriais.html', 'Estudos setoriais'), ('observatorio-setorial.html', 'Observatório setorial'),
