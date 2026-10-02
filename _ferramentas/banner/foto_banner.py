@@ -81,15 +81,32 @@ def da_receita(cru, saida, receita, prova=None):
 
         python _ferramentas/banner/foto_banner.py --receita receita.json <cru.jpg> <saida-lum.webp> [--prova prova.png]
 
-    Mesma conta da aba: enquadramento (zoom, px, py) no 3:1, luminancia Rec.709, suavizar, nitidez, exposicao,
+    Mesma conta da aba: enquadramento (espelhar, inclinar, zoom, px, py) no 3:1, luminancia Rec.709, suavizar, nitidez, exposicao,
     gama, contraste, piso, teto, brilho, e a passagem para o creme (inicio, fim, suave)."""
     import json
     R = json.load(open(receita, encoding='utf-8')) if isinstance(receita, str) else receita
     q, f, a = R['tamanho_e_posicao'], R['passagem_para_o_creme'], R['ajustes_da_foto']
     im = Image.open(cru).convert('RGB')
-    e = max(LARG / im.width, ALT / im.height) * q.get('zoom', 1)
-    ox, oy = (LARG - im.width * e) * q.get('px', 50) / 100, (ALT - im.height * e) * q.get('py', 50) / 100
-    im = im.resize((LARG, ALT), Image.LANCZOS, box=(-ox / e, -oy / e, (LARG - ox) / e, (ALT - oy) / e))
+    if q.get('espelhar'): im = im.transpose(Image.FLIP_LEFT_RIGHT)      # o enquadramento vale sobre a foto ja espelhada
+    ang = q.get('inclinar', 0)
+    if not ang:
+        e = max(LARG / im.width, ALT / im.height) * q.get('zoom', 1)
+        ox, oy = (LARG - im.width * e) * q.get('px', 50) / 100, (ALT - im.height * e) * q.get('py', 50) / 100
+        im = im.resize((LARG, ALT), Image.LANCZOS, box=(-ox / e, -oy / e, (LARG - ox) / e, (ALT - oy) / e))
+    else:
+        # inclinada: gira em torno do centro da faixa e cresce o bastante para nao sobrar canto vazio (a `poe` da aba)
+        import math
+        co, si = math.cos(math.radians(ang)), math.sin(math.radians(ang))
+        rw, rh = LARG * abs(co) + ALT * abs(si), LARG * abs(si) + ALT * abs(co)
+        e = max(rw / im.width, rh / im.height) * q.get('zoom', 1)
+        dw, dh = im.width * e, im.height * e
+        if e < 1:                                   # reduz antes, para a rotacao nao serrilhar
+            im = im.resize((max(1, round(dw)), max(1, round(dh))), Image.LANCZOS)
+        kx, ky = im.width / dw, im.height / dh
+        ox, oy = (.5 - q.get('px', 50) / 100) * (dw - rw), (.5 - q.get('py', 50) / 100) * (dh - rh)
+        im = im.transform((LARG, ALT), Image.AFFINE, (
+            co * kx, si * kx, (-co * LARG / 2 - si * ALT / 2 - ox + dw / 2) * kx,
+            -si * ky, co * ky, (si * LARG / 2 - co * ALT / 2 - oy + dh / 2) * ky), resample=Image.BICUBIC)
     c = np.asarray(im, dtype=np.float64) / 255
     Y = .2126 * c[..., 0] + .7152 * c[..., 1] + .0722 * c[..., 2]
     if a.get('suavizar', 0) > 0:
