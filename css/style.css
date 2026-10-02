@@ -452,7 +452,7 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
   letter-spacing: 0.4px;
   color: var(--color-text);
-  margin: 32px 0 10px;
+  margin: 56px 0 10px;                   /* 02/10/2026: secao a secao, 56 px (era 32) */
   padding-top: 22px;
   border-top: 1px solid var(--border-gray);
   text-wrap: pretty;
@@ -475,7 +475,7 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--mid-gray);
-  margin: 26px 0 10px;
+  margin: 44px 0 12px;                   /* 02/10/2026: titulo de secao mais afastado do bloco de cima (era 26) */
 }
 .content h4 {
   font-size: 14px;
@@ -502,7 +502,9 @@ img { max-width: 100%; display: block; }
   border: 1.5px solid var(--accent-red);
   border-radius: 2px;
 }
-.section-divider { border: none; border-top: 1px solid var(--border-gray); margin: 32px 0; }
+/* 02/10/2026: ESPACAMENTO CANONICO. Secao a secao: 56 px ate o fio e 44 px dele ao titulo (era 32 e 32).
+   Bloco (grade de cards, fotos, numeros, figura, icones) ate o texto ou o bloco seguinte: 28 px. */
+.section-divider { border: none; border-top: 1px solid var(--border-gray); margin: 56px 0 44px; }
 .highlight-box {                         /* sem faixa lateral; card transparente de borda fina */
   background: transparent;
   padding: 20px 24px;
@@ -776,7 +778,7 @@ img { max-width: 100%; display: block; }
 .numbered-item p { font-size: 15px; color: var(--text-light); line-height: 1.35; }
 /* o ultimo paragrafo do card nao leva a margem do texto corrido; a lista solta do texto que vem depois */
 .numbered-item p:last-child, .pos-card p:last-child { margin-bottom: 0; }
-.numbered-items { margin-bottom: 18px; }
+.numbered-items { margin-bottom: 28px; }
 
 /* ========== RODAPE ==========
    Portado da home (index-completo). O rodape antigo, de tres colunas de
@@ -2602,7 +2604,7 @@ img { max-width: 100%; display: block; }
 .pos-cta-wrap { text-align: center; margin-top: 34px; }
 .pos-cta { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-red); border: 1px solid rgba(51,102,153,0.4); border-radius: 3px; padding: 12px 28px; transition: background 0.25s, color 0.25s, border-color 0.25s; }
 .pos-cta:hover { background: var(--accent-red); color: #fff; border-color: var(--accent-red); }
-.fact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; margin: 22px 0 10px; }
+.fact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; margin: 22px 0 28px; }
 @media (max-width: 760px) { .pos-grid { grid-template-columns: 1fr; } }
 
 /* ===== Faixa de clientes / prova ===== */
@@ -3730,13 +3732,13 @@ html.js .content > .in-view { opacity: 1; transform: none; }
    Dois desenhos quebram a leitura: o percurso do trabalho e a roda dos oito
    padroes, com o PS1 no meio. Tudo em linha fina e tinta da casa, sem cor nova. */
 /* 02/10/2026: «cards nao encostados uns nos outros, com 3px de canto, pequeno gap» (padrao do site) */
-.ifc-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 22px 0 6px; }
+.ifc-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 22px 0 28px; }
 .ifc-cel { background: var(--color-bg-alt); border: 1px solid rgba(20,48,76,.14); border-radius: 3px; padding: 18px 20px 20px; }
 .ifc-cel .ifc-rot { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
   letter-spacing: .2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 8px; }
 .ifc-cel h4 { font-size: 15px; font-weight: 700; line-height: 1.25; color: var(--color-primary); margin: 0 0 6px; }
 .ifc-cel p { font-size: 15px; line-height: 1.35; color: var(--mid-gray); margin: 0; }   /* 02/10: a linha que quebra sozinha fica mais junta (era 1,5) */
-.ifc-fig { margin: 30px 0 8px; }
+.ifc-fig { margin: 30px 0 28px; }
 .ifc-fig svg { display: block; width: 100%; height: auto; }
 .ifc-fig figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .2em;
   text-transform: uppercase; color: var(--mid-gray); margin-top: 12px; }

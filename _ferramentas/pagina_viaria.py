@@ -55,14 +55,15 @@ CSS = '''<style>
 .vi-num b{display:block;font:700 31px/1 'IBM Plex Sans Condensed',sans-serif;color:var(--color-primary);letter-spacing:-.01em;white-space:nowrap}
 .vi-num span{display:block;margin-top:9px;font-size:14px;line-height:1.3;color:var(--color-primary)}
 .content p.vi-fonte{font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.6;letter-spacing:.04em;margin:8px 0 0}
-.vi-fotos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0 14px}
+.content .vi-nums + p.vi-fonte{margin-bottom:28px}   /* 02/10: a fonte dos numeros fica junto deles; a lista que vem depois, a 28 px */
+.vi-fotos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0 28px}
 .vi-foto{margin:0}
 .vi-quadro{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--color-bg-alt)}
 .vi-quadro img,.vi-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .vi-quadro img{object-fit:cover}
 .vi-quadro.gl-on img{visibility:hidden}
 .vi-foto figcaption{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-primary);margin-top:10px}
-.vi-ods{margin:22px 0 12px}
+.vi-ods{margin:22px 0 28px}
 .vi-ods-linha{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
 .vi-ods-bt{appearance:none;-webkit-appearance:none;border:0;padding:0;background:none;cursor:pointer;width:128px;line-height:0;border-radius:3px;
   transition:transform .35s cubic-bezier(.4,0,.2,1),box-shadow .3s}
@@ -73,7 +74,7 @@ CSS = '''<style>
 .vi-ods-painel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.4,0,.2,1)}
 .vi-ods-painel.on{grid-template-rows:1fr}
 .vi-ods-painel>div{overflow:hidden;min-height:0}
-.vi-ods-sub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:16px}
+.vi-ods-sub{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:28px}
 @media (max-width:760px){.vi-nums{grid-template-columns:repeat(2,minmax(0,1fr))}.vi-fotos{grid-template-columns:1fr}.vi-ods-sub{grid-template-columns:1fr}.vi-ods-bt{width:96px}.vi-ods-dica{flex-basis:100%;margin-left:0}}
 </style>'''
 
