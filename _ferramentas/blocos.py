@@ -40,55 +40,60 @@ IC = {  # icones do mega-menu, os mesmos tracos finos que o site ja usa
  'radar':   '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="5"/><path d="M12 12l7-7"/>',
  'rodovia': '<path d="M5 21L9 3M19 21L15 3M12 5v3M12 11v3M12 17v3"/>',
  'elos':    '<path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/>',
+ 'traco':   '<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/>',
+ 'gota':    '<path d="M12 22c4-4 8-8 8-13a8 8 0 10-16 0c0 5 4 9 8 13z"/>',
+ 'ifc':     '<path d="M3 21h18M5 21V9l7-6 7 6v12"/><path d="M9 21v-6h6v6"/>',
+ 'visao':   '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/>',
 }
 
-# (rotulo da coluna, [(arquivo, rotulo no menu, icone)])
+# 02/10/2026: UMA lista para os tres menus (topo, celular e lateral). Cada item: (arquivo, rotulo, icone).
+# O rotulo junta o tema e a norma na mesma linha («Qualidade · ISO 9001»), para a pagina ser achada pelos dois nomes.
 MENU = [
  ('Sistemas de gestão', [
    ('implantacao-iso.html', 'Implantação ISO', 'check'),
+   ('norma-iso-9001.html', 'Qualidade · ISO 9001', 'traco'),
+   ('norma-iso-14001.html', 'Meio ambiente · ISO 14001', 'gota'),
+   ('norma-iso-45001.html', 'Saúde e segurança · ISO 45001', 'escudo'),
+   ('seguranca-viaria.html', 'Segurança viária · ISO 39001', 'rodovia'),      # 02/10: sistema de gestao ISO, sai de «Seguranca e inspecao»
    ('compliance-seguranca-informacao.html', 'Compliance e segurança da informação', 'cadeado'),
-   ('suporte.html', 'Suporte ao sistema de gestão', 'escudo')]),
+   ('suporte.html', 'Suporte ao sistema de gestão', 'folha'),
+   ]),
  ('Padrões e sustentabilidade', [
    ('padroes-mercado.html', 'Padrões de mercado', 'grade'),
+   ('ifc-performance-standards.html', 'IFC Performance Standards', 'ifc'),
    ('sedex-smeta.html', 'SEDEX/SMETA', 'pessoa'),
    ('gestao-carbono.html', 'Gestão de carbono', 'relogio'),
-   ('esg.html', 'ESG', 'hexa')]),
+   ('esg.html', 'ESG', 'hexa'),
+   ]),
  ('Segurança e inspeção', [
    ('seguranca-alimentos.html', 'Segurança de alimentos', 'xicara'),
    ('nrs.html', 'Atendimento a NRs', 'folha'),
-   ('seguranca-viaria.html', 'Segurança viária', 'rodovia'),
-   ('inspecoes.html', 'Inspeções de produto e de fábrica', 'lupa'),
-   ('produtos-inspecionamos.html', 'Produtos que inspecionamos', 'caixa')]),
+   ('inspecoes.html', 'Inspeções', 'lupa'),
+   ('produtos-inspecionamos.html', 'Produtos que inspecionamos', 'caixa'),
+   ]),
  ('Estudos e pesquisa aplicada', [
+   ('estudos-pesquisa.html', 'Visão geral', 'visao'),
    ('estudos-regulatorios.html', 'Estudos regulatórios', 'balanca'),
-   ('estudos-setoriais.html', 'Estudos setoriais e políticas públicas', 'barras'),
+   ('estudos-setoriais.html', 'Estudos setoriais', 'barras'),
    ('observatorio-setorial.html', 'Observatório setorial', 'radar'),
-   ('rastreabilidade-cadeia.html', 'Rastreabilidade de cadeia', 'elos')]),
+   ('rastreabilidade-cadeia.html', 'Rastreabilidade de cadeia', 'elos'),
+   ]),
 ]
 
 def mega():
     cols = []
     for titulo, itens in MENU:
-        links = '\n'.join(
-            '          <a href="%s"><span class="mega-icon"><svg viewBox="0 0 24 24">%s</svg></span>%s</a>' % (f, IC[i], r)
-            for f, r, i in itens)
-        cols.append('        <div class="mega-menu-col">\n          <h4>%s</h4>\n%s\n        </div>' % (titulo, links))
-    return '<div class="mega-menu">\n' + '\n'.join(cols) + '\n      </div>'
+        links = '\n'.join('    <a href="%s"><span class="mega-icon"><svg viewBox="0 0 24 24">%s</svg></span>%s</a>' % (f, IC[i], r) for f, r, i in itens)
+        cols.append('  <div class="mega-menu-col">\n    <h4>%s</h4>\n%s\n  </div>' % (titulo, links))
+    return '<div class="mega-menu" id="megaMenu" aria-label="Todos os serviços">\n' + '\n'.join(cols) + '\n</div>'
 
-# navegacao lateral: as mesmas quatro colunas, mais as normas e o institucional
-LATERAL = [
- ('Sistemas de gestão', [('implantacao-iso.html', 'Implantação ISO'), ('norma-iso-9001.html', 'ISO 9001'),
-   ('norma-iso-14001.html', 'ISO 14001'), ('norma-iso-45001.html', 'ISO 45001'),
-   ('compliance-seguranca-informacao.html', 'Compliance e segurança da informação'),
-   ('suporte.html', 'Suporte ao sistema de gestão')]),
- ('Padrões e sustentabilidade', [('padroes-mercado.html', 'Padrões de mercado'),
-   ('ifc-performance-standards.html', 'IFC Performance Standards'), ('sedex-smeta.html', 'SEDEX/SMETA'),
-   ('gestao-carbono.html', 'Gestão de carbono'), ('esg.html', 'ESG')]),
- ('Segurança e inspeção', [('seguranca-alimentos.html', 'Segurança de alimentos'), ('nrs.html', 'Atendimento a NRs'), ('seguranca-viaria.html', 'Segurança viária'),
-   ('inspecoes.html', 'Inspeções'), ('produtos-inspecionamos.html', 'Produtos que inspecionamos')]),
- ('Estudos e pesquisa aplicada', [('estudos-pesquisa.html', 'Visão geral'), ('estudos-regulatorios.html', 'Estudos regulatórios'),
-   ('estudos-setoriais.html', 'Estudos setoriais'), ('observatorio-setorial.html', 'Observatório setorial'),
-   ('rastreabilidade-cadeia.html', 'Rastreabilidade de cadeia')]),
+def veu():
+    """O mapa de temas do menu do celular (o «Todos os serviços» do veu)."""
+    cols = ['  <div><h3>%s</h3>%s</div>' % (titulo, ''.join('<a href="%s">%s</a>' % (f, r) for f, r, i in itens)) for titulo, itens in MENU]
+    return '  <div class="veu-mapa" id="veuMapa" aria-label="Todos os temas" hidden>\n' + '\n'.join(cols) + '\n  </div>'
+
+# navegacao lateral: as mesmas colunas do menu, mais o institucional
+LATERAL = [(t, [(f, r) for f, r, i in itens]) for t, itens in MENU] + [
  ('Institucional', [('index.html', 'Página inicial'), ('servicos.html', 'Todos os serviços'), ('sobre.html', 'Quem somos'),
    ('como-trabalhamos.html', 'Como trabalhamos'), ('clientes.html', 'Clientes de destaque'),
    ('blog.html', 'Conteúdo'), ('contato.html', 'Contato')]),
@@ -129,6 +134,7 @@ LEGAL_NOVO   = '© 2026 Ideal Metrics Ltda · CNPJ 69.202.916/0001-20'
 CRED_VELHO   = 'Ideal Metrics · Desde 1998 · São Paulo, Brasil'
 CRED_NOVO    = 'Ideal Metrics · Equipe em atuação desde 1998 · São Paulo, Brasil'
 
-RE_MEGA  = re.compile(r'<div class="mega-menu">.*?</div>\n      </div>', re.S)
+RE_MEGA  = re.compile(r'<div class="mega-menu" id="megaMenu"[^>]*>\n.*?\n</div>', re.S)
+RE_VEU   = re.compile(r'  <div class="veu-mapa" id="veuMapa"[^>]*>\n.*?\n  </div>', re.S)
 RE_LAT   = re.compile(r'<nav class="sidenav".*?</nav>', re.S)
 RE_FT_AB = re.compile(r'    <ul class="ft-col ft-col-a" role="menu">.*?</ul>\n    <ul class="ft-col ft-col-b" role="menu">.*?</ul>', re.S)

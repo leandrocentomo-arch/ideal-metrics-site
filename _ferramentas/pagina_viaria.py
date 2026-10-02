@@ -245,9 +245,9 @@ assert n == 1
 s = s.replace('<a href="ifc-performance-standards.html" class="active" aria-current="page">IFC Performance Standards</a>',
               '<a href="ifc-performance-standards.html">IFC Performance Standards</a>')
 # a navegacao lateral marca esta pagina (o link ja esta na casca, posto pelo menu do site)
-x = '    <a href="seguranca-viaria.html">Segurança viária</a>'
+x = '    <a href="seguranca-viaria.html">Segurança viária · ISO 39001</a>'
 assert s.count(x) == 1, 'falta o link da pagina na navegacao lateral da casca'
-s = s.replace(x, '    <a href="seguranca-viaria.html" class="active" aria-current="page">Segurança viária</a>')
+s = s.replace(x, '    <a href="seguranca-viaria.html" class="active" aria-current="page">Segurança viária · ISO 39001</a>')
 i = s.index('<div class="content">') + len('<div class="content">')
 j = s.index('</div>\n</div>\n<footer')
 s = s[:i] + '\n' + MIOLO + s[j:]
