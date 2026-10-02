@@ -44,7 +44,7 @@ s = casca.replace('\r\n', '\n')
 ARQ = 'seguranca-viaria.html'
 V = '02102026h'                                 # versao das fotos desta pagina
 TITULO = 'Gestão da Segurança Viária'
-SUB = 'Apoio na implantação do sistema de gestão da segurança viária, para a certificação ISO 39001.'
+SUB = 'ISO 39001'                                # 02/10: «sempre o titulo da gestao e no subtitulo a norma»
 DESC = ('Consultoria para implantação da ISO 39001: sistema de gestão da segurança viária, análise de risco viário, '
         'metas, indicadores e preparação para a certificação. Para concessionárias de rodovias, frotas e transporte.')
 
