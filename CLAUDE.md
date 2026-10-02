@@ -25,12 +25,12 @@
 Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro. Ao receber uma correção, aplicar em todas as páginas que têm o mesmo elemento e registrar aqui.
 
 ### Página de serviço
-- **Ordem de toda página:** (1) frase de abertura que diz o serviço, maior que o texto (`<p class="abre">`, 22 px, tinta); (2) um texto curto, de dois parágrafos no máximo, sobre como o trabalho é feito e o que a organização ganha; (3) os diagramas, em linha fina; (4) o conteúdo em seções. A abertura começa por «A Ideal Metrics ...» e nomeia a norma, não «a norma».
+- **Ordem de toda página:** (1) frase de abertura que diz o serviço, maior que o texto (`<p class="abre">`, 22 px, peso 500, na cor do texto); (2) um texto curto, de dois parágrafos no máximo, sobre como o trabalho é feito e o que a organização ganha; (3) os diagramas, em linha fina; (4) o conteúdo em seções. A abertura começa por «A Ideal Metrics ...» e nomeia a norma, não «a norma».
 - Vende consultoria, não ensina a norma. Quem entra quer saber se a Ideal Metrics presta o serviço de apoio à implantação para a certificação. Abrir pelo serviço, tópicos de uma linha, parágrafo de uma ou duas frases, sem seção que explique a norma.
 - A Ideal Metrics implanta e prepara para a certificação. Nunca escrever «auditoria de certificação» nem algo que sugira que ela audita para certificar.
 - Sem palavra de trocadilho com o tema («percurso», «caminho», «ponto de partida») e sem usar o objeto do tema como diagrama. Diagrama em linha fina, como o da página do IFC.
 - Credencial sem floreio («Consultores: formação internacional de Auditor Líder (Lead Auditor) em ISO 39001»). Norma de apoio só a que ele usa (na segurança viária, a ISO 39002).
-- **Sujeito sempre nomeado:** frase nunca começa por pronome («Ela organiza...», «Ele estabelece...») nem com o sujeito oculto que retoma a frase anterior («... no mundo. Organiza processos...»). Escrever o sujeito: «A norma traz a implantação de um sistema de gestão da qualidade que organiza processos, reduz retrabalho e falhas...» (correção de 02/10/2026).
+- **Sujeito sempre nomeado:** frase nunca começa por pronome («Ela organiza...», «Ele estabelece...») nem com o sujeito oculto que retoma a frase anterior («... no mundo. Organiza processos...»). Escrever o sujeito, e o sujeito é o sistema, não «a norma»: «Um sistema de gestão da qualidade traz processos organizados, menos retrabalho e menos falhas...» (correções de 02/10/2026).
 - Nunca «auditoria de certificação», nem como «preparação para a auditoria de certificação»: escrever «preparação para a certificação».
 - Título de seção «Aplicação», não «Para quem é». Título da página de segurança viária: «Gestão da Segurança Viária», não «de».
 - Molde: `seguranca-viaria.html`, gerada por `_ferramentas/pagina_viaria.py`.
@@ -47,6 +47,7 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - **Card:** solto, nunca colado no vizinho nem separado por fio; borda fina própria `rgba(20,48,76,.14)`, canto de 3 px, vão de 8 px na grade. Classes que seguem: `.ifc-cel`, `.pos-card`, `.numbered-item`, `.cl-cel` da home. O acordeão de serviços e a malha de notícias da home não são cards.
 - **Entrelinha:** texto que quebra sozinho dentro de card, 1,35; título de card, 1,25. O espaço entre título e texto (o «enter») não muda. Texto corrido da página, 1,5.
 - **Espaçamento:** seção a seção, 56 px até o fio (`.section-divider`) e 44 px do fio ao título; título de seção (`.content h3`) a 44 px do bloco de cima; `h2` a 56 px. Bloco (grade de cards, fotos, números, figura, ícones) até o texto ou o bloco seguinte: 28 px. A linha de fonte fica colada nos números e a 28 px da lista que vem depois.
+- **Cor do texto:** o escuro da Ideal Metrics, `#14304C` (`--text-light`), no texto corrido, nas listas, nos cards, na abertura e na navegação lateral (era `#315275`). Rótulos e títulos pequenos de seção continuam em `--mid-gray`.
 - Canto de 3 px em campo, botão e card.
 - **Rodapé:** 352 px de branco entre o fim do conteúdo e o rodapé (`.page-layout`, padding de baixo).
 - **Diagrama:** SVG em linha fina com `viewBox` de 900 de largura (a coluna de texto tem ~890 px), para o texto do desenho sair no tamanho de leitura. Desenho mais largo encolhe a letra.

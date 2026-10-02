@@ -23,7 +23,7 @@ img { max-width: 100%; display: block; }
   --accent-red-text: #315275;   /* vermelho escuro p/ texto pequeno (passa WCAG AA) */
   --white: #ffffff;
   --text-dark: #14304C;
-  --text-light: #315275;   /* era #315275; escurecido ~9pt de luminosidade a pedido */
+  --text-light: #14304C;   /* 02/10/2026: o texto padrao do site e o escuro da Ideal Metrics (era #315275) */
   --blue-medium: #336699;
   --blue-light: #9FC5F0;
   --lavender: #F2F1F5;
@@ -484,7 +484,7 @@ img { max-width: 100%; display: block; }
 }
 .content p { margin-bottom: 10px; font-size: 15px; line-height: 1.5; color: var(--text-light); }
 /* 02/10/2026: TODA PAGINA ABRE POR UMA FRASE, maior que o texto, que diz o servico; depois um texto, depois os diagramas */
-.content p.abre { font-size: 22px; line-height: 1.35; color: var(--color-primary); margin: 0 0 20px; text-wrap: pretty; }
+.content p.abre { font-size: 22px; font-weight: 500; line-height: 1.35; color: var(--text-light); margin: 0 0 20px; text-wrap: pretty; }   /* 02/10: a cor do texto, ligeiramente bold */
 .content p.abre + p { margin-top: 0; }
 .content ul { margin: 8px 0 18px 2px; }
 .content ul li {
@@ -2602,8 +2602,8 @@ img { max-width: 100%; display: block; }
 .pos-card { border: 1px solid rgba(20,48,76,.14); border-radius: 3px; padding: 18px 20px 20px; background: var(--color-bg-alt); transition: border-color 0.3s; }
 .pos-card:hover { border-color: rgba(20,48,76,.32); }
 .pos-num { display: block; font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--accent-red); margin-bottom: 14px; }
-.pos-card h4 { font-size: 16px; font-weight: 700; color: #315275; line-height: 1.25; margin-bottom: 6px; text-wrap: pretty; }
-.pos-card p { font-size: 13.5px; color: #336699; line-height: 1.35; }
+.pos-card h4 { font-size: 16px; font-weight: 700; color: var(--text-light); line-height: 1.25; margin-bottom: 6px; text-wrap: pretty; }
+.pos-card p { font-size: 13.5px; color: var(--text-light); line-height: 1.35; }
 .pos-cta-wrap { text-align: center; margin-top: 34px; }
 .pos-cta { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-red); border: 1px solid rgba(51,102,153,0.4); border-radius: 3px; padding: 12px 28px; transition: background 0.25s, color 0.25s, border-color 0.25s; }
 .pos-cta:hover { background: var(--accent-red); color: #fff; border-color: var(--accent-red); }
@@ -3740,7 +3740,7 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 .ifc-cel .ifc-rot { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
   letter-spacing: .2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 8px; }
 .ifc-cel h4 { font-size: 15px; font-weight: 700; line-height: 1.25; color: var(--color-primary); margin: 0 0 6px; }
-.ifc-cel p { font-size: 15px; line-height: 1.35; color: var(--mid-gray); margin: 0; }   /* 02/10: a linha que quebra sozinha fica mais junta (era 1,5) */
+.ifc-cel p { font-size: 15px; line-height: 1.35; color: var(--text-light); margin: 0; }   /* 02/10: a linha que quebra sozinha fica mais junta (era 1,5) */
 .ifc-fig { margin: 30px 0 28px; }
 .ifc-fig svg { display: block; width: 100%; height: auto; }
 .ifc-fig figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .2em;
