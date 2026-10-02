@@ -27,32 +27,44 @@ PARES = [('5.4 · Consulta e participação', 'NR-05 · CIPA'),
          ('8.2 · Emergências', 'NR-01 · preparação para emergências'),
          ('9.1 · Monitoramento', 'NR-07 · PCMSO · NR-09 · exposições'),
          ('10.2 · Incidentes e ação corretiva', 'NR-01 · análise de acidentes e doenças')]
+# 02/10: caixas na largura do texto mais longo da coluna (182 e 234 px medidos) + 24 px de cada lado
+PAD, LIGA = 24, 120
+WL, WR = 182 + 2 * PAD, 234 + 2 * PAD
+XR = WL + LIGA; W = XR + WR
 f = ['<figure class="ifc-fig">',
-     '<svg viewBox="0 0 900 300" role="img" aria-label="A ISO 45001 e as Normas Regulamentadoras no mesmo sistema">',
-     '<text class="ifc-svg-n" x="165" y="22">ISO 45001</text>',
-     '<text class="ifc-svg-n" x="735" y="22">NORMAS REGULAMENTADORAS</text>']
+     '<svg viewBox="0 0 %d 300" style="max-width:%dpx" role="img" aria-label="A ISO 45001 e as Normas Regulamentadoras no mesmo sistema">' % (W + 1, W + 1),
+     '<text class="ifc-svg-n" x="%d" y="22">ISO 45001</text>' % (WL // 2),
+     '<text class="ifc-svg-n" x="%d" y="22">NORMAS REGULAMENTADORAS</text>' % (XR + WR // 2)]
 for i, (iso, nr) in enumerate(PARES):
     y = 40 + i * 44; cy = y + 17
-    f += ['<rect class="ifc-aro ifc-aro--f" x="1" y="%d" width="329" height="34" rx="3"/>' % y,
-          '<rect class="ifc-aro ifc-aro--f" x="570" y="%d" width="329" height="34" rx="3"/>' % y,
-          '<text class="ifc-svg-t" x="165" y="%d">%s</text>' % (cy + 5, iso),
-          '<text class="ifc-svg-t" x="735" y="%d">%s</text>' % (cy + 5, nr),
-          '<line class="ifc-linha" x1="336" y1="%d" x2="564" y2="%d"/>' % (cy, cy),
-          '<circle cx="336" cy="%d" r="3.5" fill="#14304C"/>' % cy,
-          '<circle cx="564" cy="%d" r="3.5" fill="#14304C"/>' % cy]
+    f += ['<rect class="ifc-aro ifc-aro--f" x="0.5" y="%d" width="%d" height="34" rx="3"/>' % (y, WL),
+          '<rect class="ifc-aro ifc-aro--f" x="%.1f" y="%d" width="%d" height="34" rx="3"/>' % (XR + .5, y, WR),
+          '<text class="ifc-svg-t" x="%d" y="%d">%s</text>' % (WL // 2, cy + 5, iso),
+          '<text class="ifc-svg-t" x="%d" y="%d">%s</text>' % (XR + WR // 2, cy + 5, nr),
+          '<line class="ifc-linha" x1="%d" y1="%d" x2="%d" y2="%d"/>' % (WL + 6, cy, XR - 6, cy),
+          '<circle cx="%d" cy="%d" r="3.5" fill="#14304C"/>' % (WL + 6, cy),
+          '<circle cx="%d" cy="%d" r="3.5" fill="#14304C"/>' % (XR - 6, cy)]
 f += ['</svg>', '<figcaption>A ISO 45001 e as NRs no mesmo sistema</figcaption>', '</figure>']
 FIG_NR = '\n'.join(f)
 
 # ---------------------------------------------------------------- diagrama 2: a hierarquia de controle (ISO 45001, 8.1.2)
 NIVEIS = ['Eliminar o perigo', 'Substituir processo, material ou equipamento', 'Controles de engenharia e reorganização do trabalho',
           'Controles administrativos, inclusive treinamento', 'Equipamento de proteção individual']
+# 02/10: cada degrau na largura do proprio texto + numero e folga (texto medido: 92, 249, 287, 265, 197 px), e a escada
+# continua descendo 28 px de cada lado
+TXT = [92, 249, 287, 265, 197]
+req = [t + 2 * 56 for t in TXT]
+larg = [0] * 5; larg[4] = req[4]
+for i in range(3, -1, -1):
+    larg[i] = max(req[i], larg[i + 1] + 56)
+W = larg[0] + 2
 f = ['<figure class="ifc-fig">',
-     '<svg viewBox="0 0 900 250" role="img" aria-label="Hierarquia de controle da ISO 45001, do mais eficaz ao menos eficaz">']
+     '<svg viewBox="0 0 %d 250" style="max-width:%dpx" role="img" aria-label="Hierarquia de controle da ISO 45001, do mais eficaz ao menos eficaz">' % (W, W)]
 for i, t in enumerate(NIVEIS):
-    w = 900 - i * 110; x = (900 - w) / 2; y = 10 + i * 46
-    f += ['<rect class="ifc-aro ifc-aro--f" x="%.1f" y="%d" width="%.1f" height="38" rx="3"/>' % (x + 1, y, w - 2),
+    w = larg[i]; x = (W - w) / 2; y = 10 + i * 46
+    f += ['<rect class="ifc-aro ifc-aro--f" x="%.1f" y="%d" width="%d" height="38" rx="3"/>' % (x, y, w),
           '<text class="ifc-svg-n" x="%.1f" y="%d">0%d</text>' % (x + 26, y + 23, i + 1),
-          '<text class="ifc-svg-t" x="450" y="%d">%s</text>' % (y + 24, t)]
+          '<text class="ifc-svg-t" x="%.1f" y="%d">%s</text>' % (W / 2, y + 24, t)]
 f += ['</svg>', '<figcaption>Hierarquia de controle: do mais eficaz ao menos eficaz (ISO 45001, 8.1.2)</figcaption>', '</figure>']
 FIG_HC = '\n'.join(f)
 
@@ -64,7 +76,7 @@ NUMS = [('742 mil', 'acidentes de trabalho notificados no Brasil em 2024'),
 nums = ('<div class="vi-nums">\n' + '\n'.join('  <div class="vi-num"><b>%s</b><span>%s</span></div>' % n for n in NUMS) + '\n</div>\n'
         '<p class="vi-fonte">Fontes: Observatório de Segurança e Saúde no Trabalho (MPT e OIT), 2024 · ISO Survey 2024 · Portaria MTE 1.419/2024.</p>')
 
-MIOLO = '''<p class="abre">A Ideal Metrics apoia a sua organização na implantação do <strong>sistema de gestão de saúde e segurança ocupacional</strong> e na preparação para a <strong>certificação ISO 45001</strong>.</p>
+MIOLO = '''<p class="abre">A Ideal Metrics apoia a sua organização na implantação do sistema de gestão de saúde e segurança ocupacional e na preparação para a certificação ISO 45001.</p>
 <p>O trabalho começa pelos perigos reais da operação: tarefas, máquinas, produtos químicos, trabalho em altura e em espaço confinado, contratadas e a rotina de cada área. Levantamos o que já existe, mostramos o que falta para a norma e para as NRs, e montamos com a sua equipe o inventário de riscos, os controles, a consulta aos trabalhadores e a rotina que o organismo certificador vai verificar.</p>
 <p>Um sistema de gestão de saúde e segurança ocupacional traz para o mesmo lugar o que as Normas Regulamentadoras já exigem: o gerenciamento de riscos ocupacionais da NR-01, com o inventário de riscos e o plano de ação, o PCMSO da NR-07, a CIPA da NR-05 e as NRs da operação. O resultado são menos acidentes e afastamentos, e evidência organizada para a fiscalização, os clientes e o organismo certificador.</p>
 

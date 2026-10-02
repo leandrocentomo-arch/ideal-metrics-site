@@ -25,7 +25,7 @@
 Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro. Ao receber uma correção, aplicar em todas as páginas que têm o mesmo elemento e registrar aqui.
 
 ### Página de serviço
-- **Ordem de toda página:** (1) frase de abertura que diz o serviço, maior que o texto (`<p class="abre">`, 22 px, peso 500, na cor do texto); (2) um texto curto, de dois parágrafos no máximo, sobre como o trabalho é feito e o que a organização ganha; (3) os diagramas, em linha fina; (4) o conteúdo em seções. A abertura começa por «A Ideal Metrics ...» e nomeia a norma, não «a norma».
+- **Ordem de toda página:** (1) frase de abertura que diz o serviço, maior que o texto (`<p class="abre">`, na letra da chamada do Spirit, ver «Frase de abertura» em Layout); (2) um texto curto, de dois parágrafos no máximo, sobre como o trabalho é feito e o que a organização ganha; (3) os diagramas, em linha fina; (4) o conteúdo em seções. A abertura começa por «A Ideal Metrics ...» e nomeia a norma, não «a norma».
 - Vende consultoria, não ensina a norma. Quem entra quer saber se a Ideal Metrics presta o serviço de apoio à implantação para a certificação. Abrir pelo serviço, tópicos de uma linha, parágrafo de uma ou duas frases, sem seção que explique a norma.
 - A Ideal Metrics implanta e prepara para a certificação. Nunca escrever «auditoria de certificação» nem algo que sugira que ela audita para certificar.
 - Sem palavra de trocadilho com o tema («percurso», «caminho», «ponto de partida») e sem usar o objeto do tema como diagrama. Diagrama em linha fina, como o da página do IFC.
@@ -50,8 +50,12 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - **Espaçamento:** seção a seção, 56 px até o fio (`.section-divider`) e 44 px do fio ao título; título de seção (`.content h3`) a 44 px do bloco de cima; `h2` a 56 px. Bloco (grade de cards, fotos, números, figura, ícones) até o texto ou o bloco seguinte: 28 px. A linha de fonte fica colada nos números e a 28 px da lista que vem depois.
 - **Cor do texto:** o escuro da Ideal Metrics, `#14304C` (`--text-light`), no texto corrido, nas listas, nos cards, na abertura e na navegação lateral (era `#315275`). Rótulos e títulos pequenos de seção continuam em `--mid-gray`.
 - **Título da faixa:** entrelinha 1,04 (era 1,16), para o título de duas linhas ficar junto.
+- **Monograma maior antes de rolar, em todas as páginas** (85,1 px; 69 px depois de 40 px de rolagem), como na home (02/10/2026).
 - **Monograma (cartão do topo e rodapé):** o pássaro do 18Asset 13 a 88% e centrado sobre o «ideal·m™», o nome intacto (02/10/2026, «repare que no logo que eu coloquei o pássaro é menor»). Grupo `#passaro-proporcao` em `img/monograma-ideal-m-limpo.svg` e `img/monograma-ideal-m.svg`.
 - Canto de 3 px em campo, botão e card.
 - **Rodapé:** 352 px de branco entre o fim do conteúdo e o rodapé (`.page-layout`, padding de baixo).
+- **Entre dois diagramas:** 72 px (`.ifc-fig + .ifc-fig`).
+- **Caixa de diagrama:** largura do texto mais longo da coluna + 24 px de cada lado (medir com `getComputedTextLength` no navegador). O SVG fica no tamanho real (`style="max-width:<largura>px"`), sem esticar até a borda da coluna.
+- **Frase de abertura:** a letra da chamada do Spirit ([ 02 ] Visual): IBM Plex Sans Condensed, bold 700 por inteiro, `clamp(20px, 2.2vw, 28px)`, entrelinha 1,2, espaçamento -0,012em, largura até 800 px. Sem variar bold e não bold dentro da frase.
 - **Diagrama:** SVG em linha fina com `viewBox` de 900 de largura (a coluna de texto tem ~890 px), para o texto do desenho sair no tamanho de leitura. Desenho mais largo encolhe a letra.
 - CSS novo: subir `css/style.css?v=` em todas as páginas.

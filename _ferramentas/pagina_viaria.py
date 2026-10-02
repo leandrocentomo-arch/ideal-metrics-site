@@ -114,21 +114,25 @@ EXPO = ['Distância percorrida', 'Volume de tráfego', 'Volume do serviço']
 INTER = ['Via e velocidade seguras', 'Via adequada ao veículo', 'Equipamento de proteção', 'Velocidade de condução', 'Aptidão do condutor',
          'Planejamento da viagem', 'Segurança do veículo', 'Habilitação adequada', 'Inapto fora da via', 'Resposta pós-sinistro']
 FINAL = ['Mortes e lesões graves', 'nos sinistros que a', 'organização influencia']
+# 02/10: caixas na largura do texto mais longo (exposicao 100, intermediarios 2 colunas de 122, final 108 px) + 24 de cada lado
+PAD, SETA, VAO = 24, 46, 40
+WE, WI, WF = 100 + 2 * PAD, 2 * 122 + VAO + 2 * PAD, 108 + 2 * PAD
+XI = WE + SETA; XF = XI + WI + SETA; W = XF + WF + 1
 f2 = ['<figure class="ifc-fig">',
-      '<svg viewBox="0 0 900 252" role="img" aria-label="O que o sistema passa a medir: exposição ao risco, dez fatores intermediários e o resultado final, mortes e lesões graves">']
-for x, w, num, tit in ((1, 196, '01', 'Exposição ao risco'), (250, 400, '02', 'Fatores intermediários'), (703, 196, '03', 'Resultado final')):
-    cx = x + w // 2
-    f2 += ['<rect class="ifc-aro ifc-aro--f" x="%d" y="10" width="%d" height="240" rx="3"/>' % (x, w),
-           '<text class="ifc-svg-n" x="%d" y="42">%s</text>' % (cx, num),
-           '<text class="ifc-svg-t" x="%d" y="70">%s</text>' % (cx, tit),
-           '<line class="ifc-linha" x1="%d" y1="88" x2="%d" y2="88"/>' % (cx - 40, cx + 40)]
+      '<svg viewBox="0 0 %d 252" style="max-width:%dpx" role="img" aria-label="O que o sistema passa a medir: exposição ao risco, dez fatores intermediários e o resultado final, mortes e lesões graves">' % (W, W)]
+for x, w, num, tit in ((0.5, WE, '01', 'Exposição ao risco'), (XI + .5, WI, '02', 'Fatores intermediários'), (XF + .5, WF, '03', 'Resultado final')):
+    cx = x + w / 2
+    f2 += ['<rect class="ifc-aro ifc-aro--f" x="%.1f" y="10" width="%d" height="240" rx="3"/>' % (x, w),
+           '<text class="ifc-svg-n" x="%.1f" y="42">%s</text>' % (cx, num),
+           '<text class="ifc-svg-t" x="%.1f" y="70">%s</text>' % (cx, tit),
+           '<line class="ifc-linha" x1="%.1f" y1="88" x2="%.1f" y2="88"/>' % (cx - 30, cx + 30)]
 for i, t in enumerate(EXPO):
-    f2.append('<text class="ifc-svg-p" x="99" y="%d">%s</text>' % (122 + i * 26, t))
+    f2.append('<text class="ifc-svg-p" x="%.1f" y="%d">%s</text>' % (WE / 2, 122 + i * 26, t))
 for i, t in enumerate(INTER):
-    f2.append('<text class="ifc-svg-p" x="%d" y="%d">%s</text>' % (350 if i < 5 else 550, 122 + (i % 5) * 26, t))
+    f2.append('<text class="ifc-svg-p" x="%.1f" y="%d">%s</text>' % (XI + PAD + 61 + (0 if i < 5 else 122 + VAO), 122 + (i % 5) * 26, t))
 for i, t in enumerate(FINAL):
-    f2.append('<text class="ifc-svg-p" x="801" y="%d">%s</text>' % (122 + i * 26, t))
-for x1, x2 in ((200, 244), (653, 697)):
+    f2.append('<text class="ifc-svg-p" x="%.1f" y="%d">%s</text>' % (XF + WF / 2, 122 + i * 26, t))
+for x1, x2 in ((WE + 4, XI - 4), (XI + WI + 4, XF - 4)):
     f2 += ['<line class="ifc-linha" x1="%d" y1="152" x2="%d" y2="152"/>' % (x1, x2),
            '<polyline class="ifc-linha" points="%d,146 %d,152 %d,158"/>' % (x2 - 6, x2, x2 - 6)]
 f2 += ['</svg>', '<figcaption>O que o sistema passa a medir</figcaption>', '</figure>']
@@ -188,7 +192,7 @@ for n, _ in FOTOS:
 
 # ---------------------------------------------------------------- o miolo: curto, em topicos, com o peso no servico
 # 02/10 (5a volta): «toda pagina comeca por esta frase, em tamanho maior; depois um texto, depois diagramas e o conteudo atual»
-MIOLO = '''<p class="abre">A Ideal Metrics apoia a sua organização na implantação do <strong>sistema de gestão da segurança viária</strong> e na preparação para a <strong>certificação ISO 39001</strong>.</p>
+MIOLO = '''<p class="abre">A Ideal Metrics apoia a sua organização na implantação do sistema de gestão da segurança viária e na preparação para a certificação ISO 39001.</p>
 <p>O trabalho começa pela operação real: rotas, frota, condutores, contratadas e a via sob a sua responsabilidade. Levantamos o que já existe, mostramos o que falta para a norma e montamos com a sua equipe os controles, os indicadores e a rotina que o organismo certificador vai verificar.</p>
 <p>O sistema passa a medir o que reduz mortes e lesões graves: a exposição ao risco, os fatores intermediários, como velocidade, jornada, condição do veículo e aptidão do condutor, e o resultado final. Com esses números, a direção decide onde investir, e a organização chega à certificação com evidência de resultado.</p>
 
