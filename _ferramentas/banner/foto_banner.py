@@ -129,9 +129,14 @@ def da_receita(cru, saida, receita, prova=None):
     import json
     R = json.load(open(receita, encoding='utf-8')) if isinstance(receita, str) else receita
     f = R['passagem_para_o_creme']
-    foto = luz_da_receita(cru, R, LARG, ALT)
+    # 03/10/2026: a foto ocupa so a parte da direita do banner (area, 2/3 nas receitas novas do Spirit; sem a chave,
+    # a largura toda, como nas receitas antigas). A passagem para o creme e medida na largura da foto.
+    area = f.get('area', 1.0)
+    PW = int(round(LARG * area)); X0 = LARG - PW
+    foto = np.ones((ALT, LARG))
+    foto[:, X0:] = luz_da_receita(cru, R, PW, ALT)
     ini = f.get('inicio', INICIO); fim = max(ini + .02, f.get('fim', FIM))
-    x = (np.arange(LARG) + .5) / LARG
+    x = (np.arange(LARG) + .5 - X0) / PW
     t = np.clip((x - ini) / (fim - ini), 0, 1)
     t = (t * t * (3 - 2 * t)) ** f.get('suave', 1)
     lum = 1 - t[None, :] * (1 - foto)
