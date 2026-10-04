@@ -50,6 +50,11 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - **Entrelinha:** texto que quebra sozinho dentro de card, 1,35; título de card, 1,25. O espaço entre título e texto (o «enter») não muda. Texto corrido da página, 1,5.
 - **Espaçamento:** seção a seção, 56 px até o fio (`.section-divider`) e 44 px do fio ao título; título de seção (`.content h3`) a 44 px do bloco de cima; `h2` a 56 px. Bloco (grade de cards, fotos, números, figura, ícones) até o texto ou o bloco seguinte: 28 px. A linha de fonte fica colada nos números e a 28 px da lista que vem depois.
 - **Cor do texto:** o escuro da Ideal Metrics, `#14304C` (`--text-light`), no texto corrido, nas listas, nos cards, na abertura e na navegação lateral (era `#315275`). Rótulos e títulos pequenos de seção continuam em `--mid-gray`.
+- **Cremes da paleta oficial (registrados em 04/10/2026, ainda sem uso no site):**
+  - Linho `#F3F0E9` (243, 240, 233): um passo abaixo do creme `#FAF9F5`, quase imperceptível.
+  - Areia `#EDE8DE` (237, 232, 222): já lê como bege; `#336699` sobre ele dá 4,9 : 1, no limite.
+  - Os dois ficam no tom quente (87° e 85° em OKLCH, contra 95° do `#FAF9F5`), longe do verde.
+  - Registro não é troca: só aplicar onde o Leandro pedir. O `#F1EFE6` que já existe no site fica como está.
 - **Título da faixa:** entrelinha 1,04 (era 1,16), para o título de duas linhas ficar junto.
 - **Monograma maior antes de rolar, em todas as páginas** (85,1 px; 69 px depois de 40 px de rolagem), como na home (02/10/2026).
 - **Marca oficial desde 04/10/2026, os SVGs exportados pelo Leandro:**
