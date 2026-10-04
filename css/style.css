@@ -997,6 +997,11 @@ img { max-width: 100%; display: block; }
 .ft-legal{display:flex;align-items:center;gap:14px}
 .ft-mono{height:34px;width:auto;flex:none;display:block;border-radius:2px}
 @media (max-width:880px){.ft-mono{height:28px}}
+/* 04/10/2026: o logo vertical (18Asset 208, placa Linho #F3F0E9), pequeno, na base da coluna do meio do rodape,
+   alinhado pela base com os creditos da direita. No celular, entre o contato e os creditos. */
+.ft-selo{grid-column:1/4;height:185px;padding-left:13px;display:flex;align-items:flex-end}
+.ft-selo img{height:40px;width:auto;display:block;border-radius:2px}
+@media (max-width:880px){.ft-selo{grid-column:1;height:auto;padding-left:0;margin-top:0}.ft-selo img{height:34px}}
 
 /* ========== WHATSAPP FLOATING ========== */
 .whatsapp-float {

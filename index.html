@@ -1794,6 +1794,11 @@ body>*{position:relative;z-index:1}
 @media (max-width:880px){ .ft-powered{margin-left:0;width:100%;margin-top:8px} }
 .ft-mono{height:34px;width:auto;flex:none;display:block;border-radius:2px}
 @media (max-width:880px){.ft-mono{height:28px}}
+/* 04/10/2026: o logo vertical (18Asset 208, placa Linho #F3F0E9), pequeno, na base da coluna do meio do rodape,
+   alinhado pela base com os creditos da direita. No celular, entre o contato e os creditos. */
+.ft-selo{grid-column:1/4;height:185px;padding-left:13px;display:flex;align-items:flex-end}
+.ft-selo img{height:40px;width:auto;display:block;border-radius:2px}
+@media (max-width:880px){.ft-selo{grid-column:1;height:auto;padding-left:0;margin-top:0}.ft-selo img{height:34px}}
 
 /* o selo ocupa o vao que sobrava a esquerda dos paragrafos mono */
 .ia-selo{grid-column:1 / 4;align-self:end;width:min(178px,100%);height:auto;
@@ -3490,6 +3495,7 @@ body>*{position:relative;z-index:1}
         </div>
       </form>
     </div>
+    <div class="ft-selo" aria-hidden="true"><img src="img/marca-vertical-ideal-m.svg?v=04102026c" alt="" width="177" height="225" loading="lazy"></div>
     <ul class="ft-col ft-credits">
       <li>Ideal Metrics · Equipe em atuação desde 1998 · São Paulo, Brasil</li>
     </ul>
