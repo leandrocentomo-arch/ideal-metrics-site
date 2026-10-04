@@ -119,6 +119,41 @@ def luz_da_receita(cru, R, LARG, ALT):
     return foto
 
 
+TOM_BANNER = {'brilhoTom': .35, 'gama': .86, 'ctr': 1.55, 'escuro': 0.0}      # o padrao do js/banner.js
+
+
+def tom_da_receita(R):
+    """O tom com que o site trama o banner: o da receita, se foi ajustado no Spirit; senao o padrao do banner."""
+    g = R.get('tingimento')
+    if isinstance(g, dict):
+        return {'brilhoTom': g.get('brilho_do_tom', .35), 'gama': g.get('gama', .86), 'ctr': g.get('contraste', 1.55), 'escuro': g.get('escuro', 0) or 0}
+    return dict(TOM_BANNER)
+
+
+def curva_tom(L, T):
+    """A funcao tom() do js/trama.js (e a curvaTom do Spirit): luz 0..1 -> tom 0..1 antes da trama."""
+    v = np.clip(np.power(np.maximum(L, 0), T['gama']), 1e-6, 1 - 1e-6)
+    a, b = v ** T['ctr'], (1 - v) ** T['ctr']
+    w = np.clip(a / (a + b) + T['brilhoTom'], 0, 1)
+    if T['escuro'] > 0:
+        w = np.where(w < .78, .78 * (w / .78) ** (1 + 2 * T['escuro']), w)
+    return w
+
+
+def passagem_no_tom(foto, t, T):
+    """04/10/2026: «quero o esmaecimento mais longo, deixar menos evidente a fronteira da foto».
+    A passagem na LUZ (1 - t*(1 - luz)) perde a primeira metade: o tom do banner clareia +0,35, entao toda luz acima
+    de ~55% ja e creme puro, e a foto so aparece quando t passa de ~0,6, de uma vez, numa faixa curta. Aqui a passagem
+    e feita no TOM, como opacidade da foto ja tingida sobre o creme: tom final = 1 - t*(1 - tom(foto)). A luz gravada
+    e a inversa da curva desse tom, entao o motor do site, que aplica a curva, chega exatamente nele."""
+    Ls = np.linspace(0, 1, 4097)
+    Ts = curva_tom(Ls, T)                                   # crescente; achata em 1 a partir do joelho
+    alvo = 1 - t * (1 - curva_tom(foto, T))
+    i = np.clip(np.searchsorted(Ts, alvo, side='left'), 0, 4096)
+    lum = Ls[i]
+    return np.where(alvo >= 1 - 1e-9, 1 - t * (1 - foto), lum)   # tom 1 (creme): a luz de sempre
+
+
 def da_receita(cru, saida, receita, prova=None):
     """02/10/2026: o banner pela RECEITA da aba [ 08 ] Banner de pagina do Spirit («copiar receita para o Claude»).
 
@@ -139,7 +174,11 @@ def da_receita(cru, saida, receita, prova=None):
     x = (np.arange(LARG) + .5 - X0) / PW
     t = np.clip((x - ini) / (fim - ini), 0, 1)
     t = (t * t * (3 - 2 * t)) ** f.get('suave', 1)
-    lum = 1 - t[None, :] * (1 - foto)
+    # 04/10/2026: receita nova do Spirit traz medida_no_tom; sem a chave, a passagem na luz, como nas receitas antigas
+    if f.get('medida_no_tom'):
+        lum = passagem_no_tom(foto, np.broadcast_to(t[None, :], foto.shape), tom_da_receita(R))
+    else:
+        lum = 1 - t[None, :] * (1 - foto)
     Image.fromarray((lum * 255).round().astype(np.uint8), 'L').save(saida, lossless=True)
     print('%s: %d x %d, pela receita do Spirit' % (os.path.basename(saida), LARG, ALT))
     if prova:
