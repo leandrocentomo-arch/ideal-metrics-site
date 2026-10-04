@@ -58,7 +58,8 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - **Título da faixa:** entrelinha 1,04 (era 1,16), para o título de duas linhas ficar junto.
 - **Monograma maior antes de rolar, em todas as páginas** (85,1 px; 69 px depois de 40 px de rolagem), como na home (02/10/2026).
 - **Marca oficial desde 04/10/2026, os SVGs exportados pelo Leandro:**
-  - Logo chapado = `18Asset 199` (583,62 × 234,91, `#14304C`), em `img/logo-ideal-m.svg` e `img/logo-ideal-m-escuro.svg`.
+  - Logo chapado = `18Asset 209` (499,17 × 200,92, `#14304C`; o mesmo desenho do `18Asset 199`, agrupado em pássaro, «ideal» e «metrics»), em `img/logo-ideal-m.svg` e `img/logo-ideal-m-escuro.svg`.
+  - Trocou logo ou monograma: refazer também o Spirit (`python ideal-metrics-spirit-assets.py` na pasta Ideal Metrics, que lê `Ideal Metrics Logo/`, e subir o `?v=` do `ideal-metrics-spirit-assets.js` no Spirit). Sem isso, a aba [ 01 ] Logo continua no desenho antigo.
   - Logo prata = `18Asset 201` (499,17 × 200,92, a mesma forma e a mesma razão 2,484 do 199, um degradê por forma), em `img/logo-ideal-m-prata.svg`. Prata não se deriva do chapado: usar o arquivo dele.
   - Monograma = `18Asset 200` (141,46 × 100,87), em `img/monograma-ideal-m-limpo.svg` e `img/monograma-ideal-m.svg`, grupo `#monograma-200` descido 8,37 no quadro de sempre (-13,02 -60 167,5 189,24).
   - Os nomes dos arquivos não mudam; a troca vai pelo `?v=` (`04102026a`; prata `04102026b`).
