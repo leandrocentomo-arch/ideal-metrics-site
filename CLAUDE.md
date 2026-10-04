@@ -52,7 +52,12 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - **Cor do texto:** o escuro da Ideal Metrics, `#14304C` (`--text-light`), no texto corrido, nas listas, nos cards, na abertura e na navegação lateral (era `#315275`). Rótulos e títulos pequenos de seção continuam em `--mid-gray`.
 - **Título da faixa:** entrelinha 1,04 (era 1,16), para o título de duas linhas ficar junto.
 - **Monograma maior antes de rolar, em todas as páginas** (85,1 px; 69 px depois de 40 px de rolagem), como na home (02/10/2026).
-- **Monograma (cartão do topo e rodapé):** o desenho é o `18Asset 195` do Leandro (03/10/2026; pássaro menor que no 18Asset 13, o mesmo «ideal·m™»), em `img/monograma-ideal-m-limpo.svg` e `img/monograma-ideal-m.svg`, grupo `#monograma-195` descido 8,29 no quadro de sempre (-13,02 -60 167,5 189,24). Logo novo: pedir o arquivo, nunca medir em imagem colada.
+- **Marca oficial desde 04/10/2026, os SVGs exportados pelo Leandro:**
+  - Logo chapado = `18Asset 199` (583,62 × 234,91, `#14304C`), em `img/logo-ideal-m.svg` e `img/logo-ideal-m-escuro.svg`.
+  - Logo prata = `18Asset 201` (499,17 × 200,92, a mesma forma e a mesma razão 2,484 do 199, um degradê por forma), em `img/logo-ideal-m-prata.svg`. Prata não se deriva do chapado: usar o arquivo dele.
+  - Monograma = `18Asset 200` (141,46 × 100,87), em `img/monograma-ideal-m-limpo.svg` e `img/monograma-ideal-m.svg`, grupo `#monograma-200` descido 8,37 no quadro de sempre (-13,02 -60 167,5 189,24).
+  - Os nomes dos arquivos não mudam; a troca vai pelo `?v=` (`04102026a`; prata `04102026b`).
+  - Logo novo: pedir o arquivo SVG, nunca medir em imagem colada nem corrigir a partir de PNG.
 - Canto de 3 px em campo, botão e card.
 - **Rodapé:** 352 px de branco entre o fim do conteúdo e o rodapé (`.page-layout`, padding de baixo).
 - **Entre dois diagramas:** 72 px (`.ifc-fig + .ifc-fig`).
