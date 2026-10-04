@@ -1,29 +1,54 @@
 {
  "modulo": "Spirit [ 08 ] Banner de página",
+ "tipo": "banner",
  "arquivo": "banner-viaria-lum.webp",
- "foto_original": "_tingir-fotos/FOTOS/rodovia-aerea-entroncamento-flow-03.jpg (Vehicles_driving_on_motorway_int…_20261002110940.jpg)",
+ "foto_original": "_tingir-fotos/FOTOS/SGSV (61).png",
+ "receita_de": "04/10/2026, terceira receita do Leandro (curva com placas de chevron); no Spirit o arquivo saiu como banner-sgsv-62-lum.webp",
+ "titulo": "Implantação ISO 39001",
+ "subtitulo": "Sistema de Gestão da Segurança Viária ",
  "tamanho_e_posicao": {
-  "zoom": 1.1025,
-  "px": 38.717214577598035,
-  "py": 0,
-  "espelhar": true,
-  "inclinar": 0
+  "zoom": 1,
+  "px": 53,
+  "py": 42,
+  "espelhar": false,
+  "inclinar": -2,
+  "corte_esq": 0,
+  "corte_dir": 0,
+  "corte_topo": 0,
+  "corte_base": 0
  },
  "passagem_para_o_creme": {
+  "area": 0.53,
   "inicio": 0,
-  "fim": 0.83,
-  "suave": 1.6
+  "fim": 0.7,
+  "suave": 1.9,
+  "medida_no_tom": true
  },
  "ajustes_da_foto": {
   "exposicao": 0,
-  "gama": 1.23,
+  "gama": 1.4,
   "ctr": 1,
-  "brilho": -0.07,
+  "brilho": -0.04,
   "piso": 0,
-  "teto": 0.91,
+  "teto": 1,
   "nitidez": 0,
   "suavizar": 0
  },
- "tingimento": "padrão do banner do site",
+ "tingimento": {
+  "brilho_do_tom": 0.46,
+  "gama": 0.7,
+  "contraste": 1.9,
+  "escuro": 0.15,
+  "veu_creme": 0.05,
+  "rampa": ["#153351", "#183858", "#6792BD", "#FAF9F5"],
+  "data_tom": {
+   "brilhoTom": 0.46,
+   "gama": 0.7,
+   "ctr": 1.9,
+   "escuro": 0.15,
+   "lavaRepouso": 0.05,
+   "cores": ["#153351", "#183858", "#6792BD", "#FAF9F5"]
+  }
+ },
  "tela_da_previa": 1536
 }

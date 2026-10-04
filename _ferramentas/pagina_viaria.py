@@ -34,7 +34,7 @@ FONTES (conferidas em 02/10/2026):
   - PL 710/2024 (Senado): aprovado no Senado e enviado a Camara;
   - experiencia e formacao: atestado de capacidade tecnica e certificado do curso, na pasta de projetos do vault.
 Nomes de cliente nao entram na pagina."""
-import os, re, io
+import os, re, io, json
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 casca = io.open(os.path.join(SITE, 'ifc-performance-standards.html'), encoding='utf-8', newline='').read()
@@ -43,6 +43,10 @@ s = casca.replace('\r\n', '\n')
 
 ARQ = 'seguranca-viaria.html'
 V = '02102026h'                                 # versao das fotos desta pagina
+VB = '04102026a'                                # versao do banner (04/10: terceira receita, foto SGSV (61), passagem no tom)
+# 04/10/2026: o tom do banner vem da receita do Spirit (tingimento ajustado -> data-tom so neste banner)
+_RB = json.load(io.open(os.path.join(SITE, '_ferramentas', 'banner', 'receita-banner-viaria.json'), encoding='utf-8'))
+TOM_BANNER = json.dumps(_RB['tingimento']['data_tom'], separators=(',', ':')) if isinstance(_RB.get('tingimento'), dict) else ''
 TITULO = 'Gestão da Segurança Viária'
 SUB = 'ISO 39001'                                # 02/10: «sempre o titulo da gestao e no subtitulo a norma»
 DESC = ('Consultoria para implantação da ISO 39001: sistema de gestão da segurança viária, análise de risco viário, '
@@ -274,7 +278,7 @@ assert n == 1
 assert s.count('</head>') == 1
 s = s.replace('</head>', CSS + '\n</head>')
 s, n = re.subn(r'<div class="page-banner"[^>]*>.*?</div>',
-               '<div class="page-banner" data-lum="img/banner-viaria-lum.webp?v=%s"><h1>%s</h1><p>%s</p></div>' % (V, TITULO, SUB),
+               '<div class="page-banner" data-lum="img/banner-viaria-lum.webp?v=%s"%s><h1>%s</h1><p>%s</p></div>' % (VB, (" data-tom='%s'" % TOM_BANNER) if TOM_BANNER else '', TITULO, SUB),
                s, count=1, flags=re.S)
 assert n == 1
 s, n = re.subn(r'<div class="breadcrumb">.*?</div>',
