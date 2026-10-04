@@ -63,7 +63,7 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
   - Monograma = `18Asset 200` (141,46 × 100,87), em `img/monograma-ideal-m-limpo.svg` e `img/monograma-ideal-m.svg`, grupo `#monograma-200` descido 8,37 no quadro de sempre (-13,02 -60 167,5 189,24).
   - Os nomes dos arquivos não mudam; a troca vai pelo `?v=` (`04102026a`; prata `04102026b`).
   - Logo novo: pedir o arquivo SVG, nunca medir em imagem colada nem corrigir a partir de PNG.
-  - Rodapé: o logo vertical `18Asset 208` (placa Linho `#F3F0E9`, 177,13 × 224,57) em `img/marca-vertical-ideal-m.svg`, pequeno e discreto: 40 px de altura na base da coluna do meio (`.ft-selo`, antes de `.ft-credits`), alinhado pela base com os créditos; 34 px no celular, entre o contato e os créditos. Página nova com rodapé leva o `.ft-selo`.
+  - Fim do rodapé (linha do CNPJ, `.ft-mono`): o logo vertical `18Asset 208` em `img/marca-vertical-ideal-m.svg`, como veio, com a placa Linho `#F3F0E9` do próprio arquivo. Nunca tingir nem trocar a placa (era o monograma com placa em degradê azulado). 34 px de altura, 28 px no celular. O monograma continua só no cartão do topo.
 - Canto de 3 px em campo, botão e card.
 - **Rodapé:** 352 px de branco entre o fim do conteúdo e o rodapé (`.page-layout`, padding de baixo).
 - **Entre dois diagramas:** 72 px (`.ifc-fig + .ifc-fig`).
