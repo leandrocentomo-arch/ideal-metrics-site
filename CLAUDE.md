@@ -25,7 +25,20 @@
 Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro. Ao receber uma correção, aplicar em todas as páginas que têm o mesmo elemento e registrar aqui.
 
 ### Página de serviço
-- **Ordem de toda página:** (1) frase de abertura que diz o serviço, maior que o texto (`<p class="abre">`, na letra da chamada do Spirit, ver «Frase de abertura» em Layout); (2) um texto curto, de dois parágrafos no máximo, sobre como o trabalho é feito e o que a organização ganha; (3) os diagramas, em linha fina; (4) o conteúdo em seções. A abertura começa por «A Ideal Metrics ...» e nomeia a norma, não «a norma».
+- **ESTRUTURA GERAL de página de serviço (aprovada em 05/10/2026; molde `norma-iso-45001.html`, gerador `_ferramentas/pagina_45001.py`):**
+  1. Abertura: frase que diz o serviço, maior que o texto (`<p class="abre">`, começa por «A Ideal Metrics ...» e nomeia a norma), um parágrafo, um diagrama da norma em linha fina e a chamada «fale com a gente».
+  2. Por que implantar agora: números com fonte, linha do tempo da revisão da norma (datas do iso.org), tabela «edição atual × nova edição» por cláusula, três motivos em tópicos.
+  3. O que fazemos: tabela das ferramentas, cada uma na cláusula da norma e com «o que a organização recebe».
+  4. Como implantamos: o diagrama das cinco etapas (diagnóstico, plano diretor, implantação, auditoria interna e análise crítica, organização pronta para a certificação) e os quatro cards «como trabalhamos» (homens/dia, cerca de 6 meses, até 5 visitas por mês, reuniões online), com link para `como-trabalhamos.html`.
+  5. Por que a Ideal Metrics: cinco tópicos de uma linha.
+  6. Aplicação: três fotos no motor e a lista de onde o sistema se aplica.
+  7. Bloco do tema: o que só aquela norma tem (na 45001: ISO × NRs, hierarquia de controle, indicadores da ISO 45004).
+  8. Perguntas frequentes: quatro cards, sem preço.
+  9. Normas de referência: norma do título com revisão vigente e emendas, nova edição se houver, normas de apoio que ele usa, e a data da conferência no iso.org.
+  10. Contato.
+- **Diagramas e tabelas, não texto:** «gosto de diagramas e tabelas de comparação, não de texto pesado; aqui não é Wikipedia». Todo diagrama sai do conteúdo da norma (a Figura 1 da norma em anel PDCA, a hierarquia de controle, cláusula × NR) ou de dado com fonte (linha do tempo do iso.org, ISO Survey). Caixa genérica sem conteúdo da norma foi recusada («muito ruim na forma e no conteúdo»). A página apresenta a Ideal Metrics acima de tudo.
+- **Tabela de linha fina `.im-tab`** (nasceu na 45001; ao repetir numa segunda página, promover ao `style.css`): cabeçalho mono em caixa alta, coluna de cláusula mono, linhas da MESMA altura (60 px). No celular (≤ 760 px) cada linha vira um cartão com o rótulo da coluna acima do valor (`data-th`).
+- **Responsivo:** diagrama largo rola de lado no celular (`.vi-rola`, largura mínima 700 px para os de 900 e 480 para os menores) em vez de encolher o texto; `.page-layout>*{min-width:0}` para a coluna não esticar. Conferir a 390 px: a largura do documento tem de ser 390.
 - Vende consultoria, não ensina a norma. Quem entra quer saber se a Ideal Metrics presta o serviço de apoio à implantação para a certificação. Abrir pelo serviço, tópicos de uma linha, parágrafo de uma ou duas frases, sem seção que explique a norma.
 - A Ideal Metrics implanta e prepara para a certificação. Nunca escrever «auditoria de certificação» nem algo que sugira que ela audita para certificar.
 - Sem palavra de trocadilho com o tema («percurso», «caminho», «ponto de partida») e sem usar o objeto do tema como diagrama. Diagrama em linha fina, como o da página do IFC.
@@ -35,7 +48,7 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - **Foto do banner em 2/3 (03/10/2026):** a foto ocupa só a parte da direita da faixa (2/3 por padrão, controle «Largura da foto» na aba [ 08 ] do Spirit); o terço da esquerda é creme, para o texto. A passagem para o creme é medida na largura da foto. Na receita, `passagem_para_o_creme.area`; receita sem `area` usa a largura toda (as antigas).
 - **Faixa do topo (banner):** o título é o tema da gestão e o subtítulo é a norma. «Gestão da Qualidade» / «ISO 9001»; «Gestão Ambiental» / «ISO 14001»; «Gestão da Saúde e Segurança Ocupacional» / «ISO 45001»; «Gestão da Segurança Viária» / «ISO 39001»; «Gestão da Segurança de Alimentos» / «ISO 22000 · FSSC 22000». O `<title>` vira «Tema | Norma | Ideal Metrics» e a trilha usa o tema (combinado em 02/10/2026).
 - Título de seção «Aplicação», não «Para quem é». Título da página de segurança viária: «Gestão da Segurança Viária», não «de».
-- Molde: `seguranca-viaria.html`, gerada por `_ferramentas/pagina_viaria.py`.
+- Molde: `norma-iso-45001.html` (`_ferramentas/pagina_45001.py`); a `seguranca-viaria.html` (`pagina_viaria.py`) é a versão anterior e ainda vai para a estrutura geral.
 - **Página nova entra no menu na mesma entrega, sem ele pedir.** Com norma, o rótulo leva tema e norma na mesma linha: «Qualidade · ISO 9001», «Segurança viária · ISO 39001». Sistema de gestão ISO fica em «Sistemas de gestão». Editar `MENU` em `_ferramentas/blocos.py` e rodar `python _ferramentas/menu.py` (regrava menu do topo, do celular e lateral em todas as páginas, home incluída); depois `cp index.html index-azul.html` e `python _ferramentas/busca.py`. Entra também no card de `servicos.html`.
 
 ### Fotos
