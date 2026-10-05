@@ -80,27 +80,44 @@ SIGMA_MASC = .035          # 05/10: a borda da foto com zoom abaixo de 1 esmaece
 CREME_RGB = (250, 249, 245)
 
 
-def mascara_zoom(q, w0, h0, LARG, ALT, encosta_direita=False):
-    """05/10/2026: «zoom negativo». Com zoom abaixo de 1 a foto fica menor que o espaco dela (LARG x ALT). Devolve a
-    mascara 0..1 (1 = foto, 0 = creme), com a borda desfocada: lado dentro do espaco recua 2 sigma e esmaece; lado
-    encostado no limite avanca 3 sigma e fica reto. A mesma conta da `mascara` da aba [ 08 ] do Spirit.
-    w0, h0 = tamanho da foto ja recortada. Sem zoom abaixo de 1, devolve None."""
-    if not q.get('zoom', 1) < 1:
-        return None
+def posicao(q, w0, h0, LARG, ALT):
+    """O enquadramento da aba [ 08 ] (a `poe` do Spirit): angulo, caixa girada (rw, rh), escala, tamanho da foto (dw, dh)
+    e o deslocamento do centro da foto (ox, oy) no espaco local. 05/10/2026: receita com `vertical` (% da altura do
+    espaco, 0 = centro) tem o vertical livre; sem a chave, o py de antes (alinhamento 0..100)."""
     import math
-    from PIL import ImageDraw, ImageFilter
     a = math.radians(q.get('inclinar', 0) or 0); co, si = abs(math.cos(a)), abs(math.sin(a))
     rw, rh = LARG * co + ALT * si, LARG * si + ALT * co
-    e = max(rw / w0, rh / h0) * q['zoom']; dw, dh = w0 * e, h0 * e
-    ox, oy = (.5 - q.get('px', 50) / 100) * (dw - rw), (.5 - q.get('py', 50) / 100) * (dh - rh)
+    e = max(rw / w0, rh / h0) * q.get('zoom', 1); dw, dh = w0 * e, h0 * e
+    ox = (.5 - q.get('px', 50) / 100) * (dw - rw)
+    oy = q['vertical'] / 100 * ALT if 'vertical' in q else (.5 - q.get('py', 50) / 100) * (dh - rh)
+    return a, rw, rh, e, dw, dh, ox, oy
+
+
+def mascara_zoom(q, w0, h0, LARG, ALT, encosta_direita=False):
+    """05/10/2026: com zoom abaixo de 1 ou com o vertical livre, a foto pode nao cobrir o espaco (LARG x ALT). Devolve a
+    mascara 0..1 (1 = foto, 0 = creme), com a borda desfocada: lado dentro do espaco recua 2 sigma e esmaece; lado
+    encostado no limite avanca 3 sigma e fica reto. A mesma conta da `mascara` da aba [ 08 ] do Spirit.
+    w0, h0 = tamanho da foto ja recortada. Se a foto cobre o espaco inteiro, devolve None."""
+    import math
+    from PIL import ImageDraw, ImageFilter
+    a, rw, rh, e, dw, dh, ox, oy = posicao(q, w0, h0, LARG, ALT)
     sg = SIGMA_MASC * ALT; tol = .005 * max(LARG, ALT)
     dl = dr = dt = db = 2 * sg
     if not a:
         L, Rr, T, B = LARG / 2 + ox - dw / 2, LARG / 2 + ox + dw / 2, ALT / 2 + oy - dh / 2, ALT / 2 + oy + dh / 2
+        cobre = L <= tol and Rr >= LARG - tol and T <= tol and B >= ALT - tol
         if L <= tol: dl = -3 * sg
         if Rr >= LARG - tol: dr = -3 * sg
         if T <= tol: dt = -3 * sg
         if B >= ALT - tol: db = -3 * sg
+    else:                                       # inclinada: cobre se os quatro cantos do espaco caem dentro da foto
+        ca, sa = math.cos(a), math.sin(a); cobre = True
+        for px_, py_ in ((-1, -1), (1, -1), (1, 1), (-1, 1)):
+            X, Y = px_ * LARG / 2, py_ * ALT / 2
+            lx, ly = X * ca + Y * sa, -X * sa + Y * ca
+            if abs(lx - ox) > dw / 2 + tol or abs(ly - oy) > dh / 2 + tol: cobre = False
+    if cobre:
+        return None
     if encosta_direita: dr = -3 * sg          # 05/10: no banner a foto encosta a direita, e essa borda nao esmaece
     # o retangulo da foto no espaco local (o espelho nao muda a caixa) e girado como no canvas: x' = x cos - y sin
     cx, cy, ca, sa = LARG / 2, ALT / 2, math.cos(a), math.sin(a)
@@ -114,7 +131,7 @@ def mascara_zoom(q, w0, h0, LARG, ALT, encosta_direita=False):
 def luz_da_receita(cru, R, LARG, ALT, com_mascara=False, encosta_direita=False):
     """A foto enquadrada e ajustada pela receita do Spirit, em luminancia 0..1, no tamanho LARG x ALT.
     Serve ao banner (2400 x 800, depois vem a passagem para o creme) e a foto do corpo da pagina (foto_azul.py).
-    05/10: zoom abaixo de 1 encolhe a foto no espaco, com creme em volta; com com_mascara=True devolve (foto, mascara)."""
+    05/10: zoom abaixo de 1 e vertical livre podem deixar creme em volta; com com_mascara=True devolve (foto, mascara)."""
     q, a = R['tamanho_e_posicao'], R['ajustes_da_foto']
     im = Image.open(cru).convert('RGB')
     cl, cr, ct, cb = [q.get(k, 0) / 100 for k in ('corte_esq', 'corte_dir', 'corte_topo', 'corte_base')]
@@ -123,29 +140,23 @@ def luz_da_receita(cru, R, LARG, ALT, com_mascara=False, encosta_direita=False):
                       max(round(ct * im.height) + 1, round((1 - cb) * im.height))))
     masc = mascara_zoom(q, im.width, im.height, LARG, ALT, encosta_direita)
     if q.get('espelhar'): im = im.transpose(Image.FLIP_LEFT_RIGHT)      # o enquadramento vale sobre a foto ja espelhada
-    ang = q.get('inclinar', 0)
-    if not ang and q.get('zoom', 1) < 1:
-        # 05/10: zoom negativo, a foto inteira menor que o espaco: creme em volta, foto colada na posicao (px, py)
-        e = max(LARG / im.width, ALT / im.height) * q['zoom']
-        dw, dh = max(1, round(im.width * e)), max(1, round(im.height * e))
-        tela = Image.new('RGB', (LARG, ALT), CREME_RGB)
-        tela.paste(im.resize((dw, dh), Image.LANCZOS), (round((LARG - dw) * q.get('px', 50) / 100), round((ALT - dh) * q.get('py', 50) / 100)))
-        im = tela
-    elif not ang:
-        e = max(LARG / im.width, ALT / im.height) * q.get('zoom', 1)
-        ox, oy = (LARG - im.width * e) * q.get('px', 50) / 100, (ALT - im.height * e) * q.get('py', 50) / 100
-        im = im.resize((LARG, ALT), Image.LANCZOS, box=(-ox / e, -oy / e, (LARG - ox) / e, (ALT - oy) / e))
+    ang, rw, rh, e, dw, dh, ox, oy = posicao(q, im.width, im.height, LARG, ALT)
+    if not ang:
+        esq, topo = LARG / 2 + ox - dw / 2, ALT / 2 + oy - dh / 2      # o canto da foto no espaco
+        if esq <= .5 and topo <= .5 and esq + dw >= LARG - .5 and topo + dh >= ALT - .5:
+            im = im.resize((LARG, ALT), Image.LANCZOS, box=(-esq / e, -topo / e, (LARG - esq) / e, (ALT - topo) / e))
+        else:
+            # 05/10: a foto nao cobre o espaco (zoom abaixo de 1 ou vertical livre): creme em volta, foto colada no lugar
+            tela = Image.new('RGB', (LARG, ALT), CREME_RGB)
+            tela.paste(im.resize((max(1, round(dw)), max(1, round(dh))), Image.LANCZOS), (round(esq), round(topo)))
+            im = tela
     else:
-        # inclinada: gira em torno do centro da faixa e cresce o bastante para nao sobrar canto vazio (a `poe` da aba)
+        # inclinada: gira em torno do centro da faixa (a `poe` da aba)
         import math
-        co, si = math.cos(math.radians(ang)), math.sin(math.radians(ang))
-        rw, rh = LARG * abs(co) + ALT * abs(si), LARG * abs(si) + ALT * abs(co)
-        e = max(rw / im.width, rh / im.height) * q.get('zoom', 1)
-        dw, dh = im.width * e, im.height * e
+        co, si = math.cos(ang), math.sin(ang)
         if e < 1:                                   # reduz antes, para a rotacao nao serrilhar
             im = im.resize((max(1, round(dw)), max(1, round(dh))), Image.LANCZOS)
         kx, ky = im.width / dw, im.height / dh
-        ox, oy = (.5 - q.get('px', 50) / 100) * (dw - rw), (.5 - q.get('py', 50) / 100) * (dh - rh)
         im = im.transform((LARG, ALT), Image.AFFINE, (
             co * kx, si * kx, (-co * LARG / 2 - si * ALT / 2 - ox + dw / 2) * kx,
             -si * ky, co * ky, (si * LARG / 2 - co * ALT / 2 - oy + dh / 2) * ky), resample=Image.BICUBIC, fillcolor=CREME_RGB)
