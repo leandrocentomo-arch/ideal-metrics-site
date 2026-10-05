@@ -76,18 +76,61 @@ def _caixa(a, r):
     return a
 
 
-def luz_da_receita(cru, R, LARG, ALT):
+SIGMA_MASC = .035          # 05/10: a borda da foto com zoom abaixo de 1 esmaece com sigma = 3,5% da altura do espaco (a aba [ 08 ])
+CREME_RGB = (250, 249, 245)
+
+
+def mascara_zoom(q, w0, h0, LARG, ALT):
+    """05/10/2026: «zoom negativo». Com zoom abaixo de 1 a foto fica menor que o espaco dela (LARG x ALT). Devolve a
+    mascara 0..1 (1 = foto, 0 = creme), com a borda desfocada: lado dentro do espaco recua 2 sigma e esmaece; lado
+    encostado no limite avanca 3 sigma e fica reto. A mesma conta da `mascara` da aba [ 08 ] do Spirit.
+    w0, h0 = tamanho da foto ja recortada. Sem zoom abaixo de 1, devolve None."""
+    if not q.get('zoom', 1) < 1:
+        return None
+    import math
+    from PIL import ImageDraw, ImageFilter
+    a = math.radians(q.get('inclinar', 0) or 0); co, si = abs(math.cos(a)), abs(math.sin(a))
+    rw, rh = LARG * co + ALT * si, LARG * si + ALT * co
+    e = max(rw / w0, rh / h0) * q['zoom']; dw, dh = w0 * e, h0 * e
+    ox, oy = (.5 - q.get('px', 50) / 100) * (dw - rw), (.5 - q.get('py', 50) / 100) * (dh - rh)
+    sg = SIGMA_MASC * ALT; tol = .005 * max(LARG, ALT)
+    dl = dr = dt = db = 2 * sg
+    if not a:
+        L, Rr, T, B = LARG / 2 + ox - dw / 2, LARG / 2 + ox + dw / 2, ALT / 2 + oy - dh / 2, ALT / 2 + oy + dh / 2
+        if L <= tol: dl = -3 * sg
+        if Rr >= LARG - tol: dr = -3 * sg
+        if T <= tol: dt = -3 * sg
+        if B >= ALT - tol: db = -3 * sg
+    # o retangulo da foto no espaco local (o espelho nao muda a caixa) e girado como no canvas: x' = x cos - y sin
+    cx, cy, ca, sa = LARG / 2, ALT / 2, math.cos(a), math.sin(a)
+    x0, x1, y0, y1 = ox - dw / 2 + dl, ox + dw / 2 - dr, oy - dh / 2 + dt, oy + dh / 2 - db
+    pts = [(cx + x * ca - y * sa, cy + x * sa + y * ca) for x, y in ((x0, y0), (x1, y0), (x1, y1), (x0, y1))]
+    m = Image.new('L', (LARG, ALT), 0); ImageDraw.Draw(m).polygon(pts, fill=255)
+    m = m.filter(ImageFilter.GaussianBlur(sg))
+    return np.asarray(m, np.float64) / 255
+
+
+def luz_da_receita(cru, R, LARG, ALT, com_mascara=False):
     """A foto enquadrada e ajustada pela receita do Spirit, em luminancia 0..1, no tamanho LARG x ALT.
-    Serve ao banner (2400 x 800, depois vem a passagem para o creme) e a foto do corpo da pagina (foto_azul.py)."""
+    Serve ao banner (2400 x 800, depois vem a passagem para o creme) e a foto do corpo da pagina (foto_azul.py).
+    05/10: zoom abaixo de 1 encolhe a foto no espaco, com creme em volta; com com_mascara=True devolve (foto, mascara)."""
     q, a = R['tamanho_e_posicao'], R['ajustes_da_foto']
     im = Image.open(cru).convert('RGB')
     cl, cr, ct, cb = [q.get(k, 0) / 100 for k in ('corte_esq', 'corte_dir', 'corte_topo', 'corte_base')]
     if cl or cr or ct or cb:                                            # o recorte vem antes de tudo
         im = im.crop((round(cl * im.width), round(ct * im.height), max(round(cl * im.width) + 1, round((1 - cr) * im.width)),
                       max(round(ct * im.height) + 1, round((1 - cb) * im.height))))
+    masc = mascara_zoom(q, im.width, im.height, LARG, ALT)
     if q.get('espelhar'): im = im.transpose(Image.FLIP_LEFT_RIGHT)      # o enquadramento vale sobre a foto ja espelhada
     ang = q.get('inclinar', 0)
-    if not ang:
+    if not ang and q.get('zoom', 1) < 1:
+        # 05/10: zoom negativo, a foto inteira menor que o espaco: creme em volta, foto colada na posicao (px, py)
+        e = max(LARG / im.width, ALT / im.height) * q['zoom']
+        dw, dh = max(1, round(im.width * e)), max(1, round(im.height * e))
+        tela = Image.new('RGB', (LARG, ALT), CREME_RGB)
+        tela.paste(im.resize((dw, dh), Image.LANCZOS), (round((LARG - dw) * q.get('px', 50) / 100), round((ALT - dh) * q.get('py', 50) / 100)))
+        im = tela
+    elif not ang:
         e = max(LARG / im.width, ALT / im.height) * q.get('zoom', 1)
         ox, oy = (LARG - im.width * e) * q.get('px', 50) / 100, (ALT - im.height * e) * q.get('py', 50) / 100
         im = im.resize((LARG, ALT), Image.LANCZOS, box=(-ox / e, -oy / e, (LARG - ox) / e, (ALT - oy) / e))
@@ -104,7 +147,7 @@ def luz_da_receita(cru, R, LARG, ALT):
         ox, oy = (.5 - q.get('px', 50) / 100) * (dw - rw), (.5 - q.get('py', 50) / 100) * (dh - rh)
         im = im.transform((LARG, ALT), Image.AFFINE, (
             co * kx, si * kx, (-co * LARG / 2 - si * ALT / 2 - ox + dw / 2) * kx,
-            -si * ky, co * ky, (si * LARG / 2 - co * ALT / 2 - oy + dh / 2) * ky), resample=Image.BICUBIC)
+            -si * ky, co * ky, (si * LARG / 2 - co * ALT / 2 - oy + dh / 2) * ky), resample=Image.BICUBIC, fillcolor=CREME_RGB)
     c = np.asarray(im, dtype=np.float64) / 255
     Y = .2126 * c[..., 0] + .7152 * c[..., 1] + .0722 * c[..., 2]
     if a.get('suavizar', 0) > 0:
@@ -116,7 +159,7 @@ def luz_da_receita(cru, R, LARG, ALT):
     if k != 1: v = v ** k / (v ** k + (1 - v) ** k)
     piso, teto = a.get('piso', 0), a.get('teto', 1)
     foto = np.clip(piso + (teto - piso) * v + a.get('brilho', 0), 0, 1)
-    return foto
+    return (foto, masc) if com_mascara else foto
 
 
 TOM_BANNER = {'brilhoTom': .35, 'gama': .86, 'ctr': 1.55, 'escuro': 0.0}      # o padrao do js/banner.js
@@ -169,16 +212,19 @@ def da_receita(cru, saida, receita, prova=None):
     area = f.get('area', 1.0)
     PW = int(round(LARG * area)); X0 = LARG - PW
     foto = np.ones((ALT, LARG))
-    foto[:, X0:] = luz_da_receita(cru, R, PW, ALT)
+    foto[:, X0:], masc = luz_da_receita(cru, R, PW, ALT, com_mascara=True)
     ini = f.get('inicio', INICIO); fim = max(ini + .02, f.get('fim', FIM))
     x = (np.arange(LARG) + .5 - X0) / PW
     t = np.clip((x - ini) / (fim - ini), 0, 1)
     t = (t * t * (3 - 2 * t)) ** f.get('suave', 1)
+    tt = np.broadcast_to(t[None, :], foto.shape)
+    if masc is not None:                    # 05/10: zoom negativo, a borda da foto esmaece junto com a passagem
+        M = np.zeros(foto.shape); M[:, X0:] = masc; tt = tt * M
     # 04/10/2026: receita nova do Spirit traz medida_no_tom; sem a chave, a passagem na luz, como nas receitas antigas
-    if f.get('medida_no_tom'):
-        lum = passagem_no_tom(foto, np.broadcast_to(t[None, :], foto.shape), tom_da_receita(R))
+    if f.get('medida_no_tom') or masc is not None:
+        lum = passagem_no_tom(foto, tt, tom_da_receita(R))
     else:
-        lum = 1 - t[None, :] * (1 - foto)
+        lum = 1 - tt * (1 - foto)
     Image.fromarray((lum * 255).round().astype(np.uint8), 'L').save(saida, lossless=True)
     print('%s: %d x %d, pela receita do Spirit' % (os.path.basename(saida), LARG, ALT))
     if prova:

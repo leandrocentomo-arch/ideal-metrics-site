@@ -60,7 +60,11 @@ def da_receita(receita, cru, nome):
     R = json.load(open(receita, encoding='utf-8'))
     W, H = R.get('vaga', [562, 422])
     wl, hl = round(W * 1.6), round(H * 1.6)
-    g = foto_banner.luz_da_receita(cru, R, wl, hl)
+    g, masc = foto_banner.luz_da_receita(cru, R, wl, hl, com_mascara=True)
+    if masc is not None:      # 05/10: zoom negativo, a borda da foto esmaece para o creme, no tom das fotos do site
+        tg = R.get('tingimento')
+        T = foto_banner.tom_da_receita(R) if isinstance(tg, dict) else {'brilhoTom': TOM['brilhoTom'], 'gama': TOM['gama'], 'ctr': TOM['ctr'], 'escuro': TOM.get('escuro', 0)}
+        g = foto_banner.passagem_no_tom(g, masc, T)
     L = Image.fromarray(np.uint8(np.clip(np.rint(g * 255), 0, 255)), 'L')
     L.convert('RGB').save(os.path.join(SITE, 'img', nome + '-lum.webp'), 'WEBP', quality=90, method=6)
     v = tom(np.asarray(L.resize((W, H), Image.LANCZOS), np.float32) / 255.0)
