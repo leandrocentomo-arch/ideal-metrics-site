@@ -2,10 +2,10 @@
  "modulo": "Spirit [ 08 ] Banner de página",
  "tipo": "banner",
  "arquivo": "banner-45001-lum.webp",
- "foto_original": "5c334eb1ac3fc-min.png (ainda nao guardada em _tingir-fotos/FOTOS/; o arquivo do site veio pronto do Spirit, 05/10/2026)",
+ "foto_original": "5c33562054ec9-min.png (ainda nao guardada em _tingir-fotos/FOTOS/; o arquivo do site veio pronto do Spirit, 05/10/2026, segunda foto)",
  "tamanho_e_posicao": {
-  "zoom": 0.9377381203605837,
-  "px": 100,
+  "zoom": 1.5681005622749928,
+  "px": 79.1930880594154,
   "py": 0,
   "espelhar": false,
   "inclinar": 0,
@@ -32,10 +32,10 @@
   "suavizar": 0
  },
  "tingimento": {
-  "brilho_do_tom": 0.41,
-  "gama": 0.88,
-  "contraste": 0.85,
-  "escuro": 0.5,
+  "brilho_do_tom": 0.48,
+  "gama": 0.79,
+  "contraste": 1.05,
+  "escuro": 0.65,
   "veu_creme": 0.04,
   "rampa": [
    "#153351",
@@ -44,10 +44,10 @@
    "#FAF9F5"
   ],
   "data_tom": {
-   "brilhoTom": 0.41,
-   "gama": 0.88,
-   "ctr": 0.85,
-   "escuro": 0.5,
+   "brilhoTom": 0.48,
+   "gama": 0.79,
+   "ctr": 1.05,
+   "escuro": 0.65,
    "lavaRepouso": 0.04,
    "cores": [
     "#153351",
