@@ -1,0 +1,61 @@
+{
+ "modulo": "Spirit [ 08 ] Banner de página",
+ "tipo": "banner",
+ "arquivo": "banner-45001-lum.webp",
+ "foto_original": "5c334eb1ac3fc-min.png (ainda nao guardada em _tingir-fotos/FOTOS/; o arquivo do site veio pronto do Spirit, 05/10/2026)",
+ "tamanho_e_posicao": {
+  "zoom": 0.9377381203605837,
+  "px": 100,
+  "py": 0,
+  "espelhar": false,
+  "inclinar": 0,
+  "corte_esq": 0,
+  "corte_dir": 0,
+  "corte_topo": 0,
+  "corte_base": 0
+ },
+ "passagem_para_o_creme": {
+  "area": 0.59,
+  "inicio": 0,
+  "fim": 0.99,
+  "suave": 1.1,
+  "medida_no_tom": true
+ },
+ "ajustes_da_foto": {
+  "exposicao": -0.25,
+  "gama": 1.4,
+  "ctr": 1.75,
+  "brilho": 0,
+  "piso": 0,
+  "teto": 0.96,
+  "nitidez": 0,
+  "suavizar": 0
+ },
+ "tingimento": {
+  "brilho_do_tom": 0.41,
+  "gama": 0.88,
+  "contraste": 0.85,
+  "escuro": 0.5,
+  "veu_creme": 0.04,
+  "rampa": [
+   "#153351",
+   "#183858",
+   "#6792BD",
+   "#FAF9F5"
+  ],
+  "data_tom": {
+   "brilhoTom": 0.41,
+   "gama": 0.88,
+   "ctr": 0.85,
+   "escuro": 0.5,
+   "lavaRepouso": 0.04,
+   "cores": [
+    "#153351",
+    "#183858",
+    "#6792BD",
+    "#FAF9F5"
+   ]
+  }
+ },
+ "tela_da_previa": 1536
+}
