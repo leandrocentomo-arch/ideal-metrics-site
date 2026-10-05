@@ -11,7 +11,8 @@ Fatos e fontes:
 - Credencial: Lead Auditor ISO 45001 (memoria user-leandro-competencia-auditor).
 - NR-01, GRO e PGR (Portaria SEPRT 6.730/2020); riscos psicossociais pela Portaria MTE 1.419/2024, com fiscalizacao
   punitiva desde 26/05/2026: vault, — CQT/✱ Padroes/Gestao de Perigos e Riscos de SST/.
-- ISO 45001 em revisao, DIS em 2026: mesma pasta (marco regulatorio).
+- ISO 45001 em revisao: ISO/DIS 45001 (ed. 2), votacao encerrada em 09/09/2026, publicacao prevista no 1o semestre de 2027;
+  ISO 45001:2018/Amd 1:2024 (acoes climaticas). iso.org, conferido em 05/10/2026.
 - 742.214 acidentes de trabalho notificados em 2024: Observatorio de Seguranca e Saude no Trabalho (MPT e OIT).
 - 542.527 certificados ISO 45001 em 2024, 190.429 em 2020: ISO Survey 2024.
 - Hierarquia de controle: ISO 45001, 8.1.2, alineas a) a e)."""
@@ -191,13 +192,18 @@ __FIG_NR__
 <ul>
 __NORMAS__
 </ul>
+<p class="vi-fonte">Situação das normas conferida no catálogo da ISO (iso.org) em 05/10/2026.</p>
 
 <hr class="section-divider">
 <p>A certificação é concedida por organismo acreditado. Para implantar a ISO 45001 na sua operação, <a href="contato.html">fale com a gente</a>.</p>
 '''
-# 05/10: a confirmar na pesquisa no iso.org (revisao em curso e emenda)
-REVISAO = 'a ISO 45001 está em revisão, com o texto em consulta (DIS) em 2026. Quem implanta agora já sai preparado para a transição.'
-NORMAS = ['ISO 45001:2018: sistemas de gestão de saúde e segurança ocupacional.',
+# 05/10: conferido no iso.org em 05/10/2026: ISO 45001:2018 (63787) com a Amd 1:2024 «Climate action changes» (88428,
+# publicada em 2024-02); ISO/DIS 45001, edicao 2 (89698), estagio 40.60, votacao encerrada em 2026-09-09, «expected to
+# replace ISO 45001:2018 in the first half of 2027».
+REVISAO = ('a segunda edição da ISO 45001 teve o texto em consulta (DIS) votado em setembro de 2026 e deve ser publicada '
+           'no primeiro semestre de 2027. Quem implanta agora já sai preparado para a transição.')
+NORMAS = ['ISO 45001:2018, com a Emenda 1:2024 (ações climáticas): sistemas de gestão de saúde e segurança ocupacional.',
+          'ISO/DIS 45001: a segunda edição, com publicação prevista para o primeiro semestre de 2027.',
           'NR-01: gerenciamento de riscos ocupacionais (GRO e PGR), com os fatores de risco psicossociais (Portaria MTE 1.419/2024).',
           'NR-05 (CIPA), NR-07 (PCMSO) e as NRs da operação.']
 for k, v in (('__FIG_NR__', FIG_NR), ('__FIG_HC__', FIG_HC), ('__NUMS__', nums), ('__FIG_MEDE__', FIG_MEDE), ('__FIG_PASSOS__', FIG_PASSOS),
