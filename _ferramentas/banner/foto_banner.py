@@ -80,7 +80,7 @@ SIGMA_MASC = .035          # 05/10: a borda da foto com zoom abaixo de 1 esmaece
 CREME_RGB = (250, 249, 245)
 
 
-def mascara_zoom(q, w0, h0, LARG, ALT):
+def mascara_zoom(q, w0, h0, LARG, ALT, encosta_direita=False):
     """05/10/2026: «zoom negativo». Com zoom abaixo de 1 a foto fica menor que o espaco dela (LARG x ALT). Devolve a
     mascara 0..1 (1 = foto, 0 = creme), com a borda desfocada: lado dentro do espaco recua 2 sigma e esmaece; lado
     encostado no limite avanca 3 sigma e fica reto. A mesma conta da `mascara` da aba [ 08 ] do Spirit.
@@ -101,6 +101,7 @@ def mascara_zoom(q, w0, h0, LARG, ALT):
         if Rr >= LARG - tol: dr = -3 * sg
         if T <= tol: dt = -3 * sg
         if B >= ALT - tol: db = -3 * sg
+    if encosta_direita: dr = -3 * sg          # 05/10: no banner a foto encosta a direita, e essa borda nao esmaece
     # o retangulo da foto no espaco local (o espelho nao muda a caixa) e girado como no canvas: x' = x cos - y sin
     cx, cy, ca, sa = LARG / 2, ALT / 2, math.cos(a), math.sin(a)
     x0, x1, y0, y1 = ox - dw / 2 + dl, ox + dw / 2 - dr, oy - dh / 2 + dt, oy + dh / 2 - db
@@ -110,7 +111,7 @@ def mascara_zoom(q, w0, h0, LARG, ALT):
     return np.asarray(m, np.float64) / 255
 
 
-def luz_da_receita(cru, R, LARG, ALT, com_mascara=False):
+def luz_da_receita(cru, R, LARG, ALT, com_mascara=False, encosta_direita=False):
     """A foto enquadrada e ajustada pela receita do Spirit, em luminancia 0..1, no tamanho LARG x ALT.
     Serve ao banner (2400 x 800, depois vem a passagem para o creme) e a foto do corpo da pagina (foto_azul.py).
     05/10: zoom abaixo de 1 encolhe a foto no espaco, com creme em volta; com com_mascara=True devolve (foto, mascara)."""
@@ -120,7 +121,7 @@ def luz_da_receita(cru, R, LARG, ALT, com_mascara=False):
     if cl or cr or ct or cb:                                            # o recorte vem antes de tudo
         im = im.crop((round(cl * im.width), round(ct * im.height), max(round(cl * im.width) + 1, round((1 - cr) * im.width)),
                       max(round(ct * im.height) + 1, round((1 - cb) * im.height))))
-    masc = mascara_zoom(q, im.width, im.height, LARG, ALT)
+    masc = mascara_zoom(q, im.width, im.height, LARG, ALT, encosta_direita)
     if q.get('espelhar'): im = im.transpose(Image.FLIP_LEFT_RIGHT)      # o enquadramento vale sobre a foto ja espelhada
     ang = q.get('inclinar', 0)
     if not ang and q.get('zoom', 1) < 1:
@@ -207,12 +208,17 @@ def da_receita(cru, saida, receita, prova=None):
     import json
     R = json.load(open(receita, encoding='utf-8')) if isinstance(receita, str) else receita
     f = R['passagem_para_o_creme']
+    # 05/10/2026: «uma foto deve estar sempre encostada do lado direito no banner, isso vai valer para todas». Com zoom
+    # abaixo de 1 a foto e menor que o espaco: o horizontal vai a 100, encostada a direita (a aba [ 08 ] faz o mesmo).
+    q0 = R['tamanho_e_posicao']
+    if q0.get('zoom', 1) < 1 and q0.get('px', 50) != 100:
+        R = dict(R, tamanho_e_posicao=dict(q0, px=100))
     # 03/10/2026: a foto ocupa so a parte da direita do banner (area, 2/3 nas receitas novas do Spirit; sem a chave,
     # a largura toda, como nas receitas antigas). A passagem para o creme e medida na largura da foto.
     area = f.get('area', 1.0)
     PW = int(round(LARG * area)); X0 = LARG - PW
     foto = np.ones((ALT, LARG))
-    foto[:, X0:], masc = luz_da_receita(cru, R, PW, ALT, com_mascara=True)
+    foto[:, X0:], masc = luz_da_receita(cru, R, PW, ALT, com_mascara=True, encosta_direita=True)
     ini = f.get('inicio', INICIO); fim = max(ini + .02, f.get('fim', FIM))
     x = (np.arange(LARG) + .5 - X0) / PW
     t = np.clip((x - ini) / (fim - ini), 0, 1)
