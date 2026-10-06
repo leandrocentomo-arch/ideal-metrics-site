@@ -159,19 +159,33 @@ FIG_LINHA = fig(L, 'A nova edição da ISO 45001: de onde veio e quando chega', 
                 'Linha do tempo da revisão da ISO 45001: primeira edição em 2018, emenda em 2024, revisão aprovada em 2024, texto do comitê em 2025, DIS aprovado e votado em 2026, publicação prevista para o primeiro semestre de 2027 e transição depois')
 
 # ---------------------------------------------------------------- 3. as cinco etapas da implantacao (as mesmas de toda pagina)
-PASSOS = [('01', 'Diagnóstico', 'a operação contra', 'a ISO 45001 e as NRs'),
-          ('02', 'Plano diretor', 'prazo, responsável', 'e capacitação'),
-          ('03', 'Implantação', 'perigos, controles', 'e indicadores'),
-          ('04', 'Auditoria interna', 'e análise crítica', 'pela direção'),
-          ('05', 'Organização pronta', 'para a certificação', 'ISO 45001')]
-L = ['<line class="ifc-linha" x1="90" y1="66" x2="810" y2="66"/>']
-for i, (n, t, p1, p2) in enumerate(PASSOS):
-    x = 90 + i * 180
-    L += ['<circle class="ifc-aro ifc-aro--f" cx="%d" cy="66" r="13"/>' % x, '<circle cx="%d" cy="66" r="3.5" fill="#14304C"/>' % x,
-          '<text class="ifc-svg-n" x="%d" y="38">%s</text>' % (x, n), '<text class="ifc-svg-t" x="%d" y="110">%s</text>' % (x, t),
-          '<text class="ifc-svg-p" x="%d" y="132">%s</text>' % (x, p1), '<text class="ifc-svg-p" x="%d" y="148">%s</text>' % (x, p2)]
-FIG_PASSOS = fig(L, 'As cinco etapas da implantação', 900, 170,
-                 'As cinco etapas da implantação: diagnóstico, plano diretor, implantação, auditoria interna e organização pronta para a certificação')
+# 05/10: «o diagrama de como implantamos esta identico a linha do tempo, faca diferente». Vira CRONOGRAMA: as cinco
+# etapas em barras sobre os seis meses tipicos de projeto (como-trabalhamos.html: «projetos de cerca de 6 meses"),
+# com o que corre em paralelo; a ultima etapa e um marco (losango) no fim do sexto mes.
+PASSOS = [('01', 'Diagnóstico', 'a operação contra a norma e as NRs', 0.0, 1.0),
+          ('02', 'Plano diretor', 'prazo, responsável e capacitação', 0.75, 1.75),
+          ('03', 'Implantação', 'perigos, controles, PAE e indicadores', 1.5, 5.0),
+          ('04', 'Auditoria interna', 'e análise crítica pela direção', 4.75, 5.75),
+          ('05', 'Organização pronta', 'para a certificação ISO 45001', 6.0, 6.0)]
+X0, MES, Y0, LIN = 270, 100, 46, 46               # coluna de rotulos ate 270 (o losango do fim cabe no 900); seis meses de 100 px; linhas de 46 px
+L = []
+for m in range(7):                                 # grade dos meses
+    x = X0 + m * MES
+    L.append('<line class="ifc-aro" x1="%d" y1="%d" x2="%d" y2="%d"/>' % (x, Y0 - 12, x, Y0 + 5 * LIN - 6))
+    if m < 6: L.append('<text class="ifc-svg-n" x="%d" y="%d">MÊS %d</text>' % (x + MES // 2, Y0 - 20, m + 1))
+for i, (n, t, sub, a, b) in enumerate(PASSOS):
+    y = Y0 + i * LIN; cy = y + 17
+    L += ['<text class="ifc-svg-n" x="0" y="%d" style="text-anchor:start">%s</text>' % (cy - 2, n),
+          '<text class="ifc-svg-t" x="30" y="%d" style="text-anchor:start">%s</text>' % (cy - 3, t),
+          '<text class="ifc-svg-p" x="30" y="%d" style="text-anchor:start">%s</text>' % (cy + 13, sub)]
+    if b > a:
+        L.append('<rect x="%.1f" y="%d" width="%.1f" height="22" rx="3" fill="rgba(51,102,153,.22)" stroke="rgba(20,48,76,.35)" stroke-width="1" vector-effect="non-scaling-stroke"/>'
+                 % (X0 + a * MES + 3, cy - 11, (b - a) * MES - 6))
+    else:
+        xm = X0 + a * MES
+        L.append('<polygon points="%.1f,%d %.1f,%d %.1f,%d %.1f,%d" fill="#14304C"/>' % (xm, cy - 11, xm + 11, cy, xm, cy + 11, xm - 11, cy))
+FIG_PASSOS = fig(L, 'As cinco etapas num projeto típico de 6 meses', 900, Y0 + 5 * LIN,
+                 'Cronograma típico de 6 meses: diagnóstico no primeiro mês, plano diretor do fim do primeiro ao segundo mês, implantação do segundo ao quinto mês, auditoria interna e análise crítica no fim do quinto e no sexto mês, e a organização pronta para a certificação no fim do sexto mês')
 
 # ---------------------------------------------------------------- 4. a ISO 45001 e as NRs no mesmo sistema
 PARES = [('5.4 · Consulta e participação', 'NR-05 · CIPA'),
