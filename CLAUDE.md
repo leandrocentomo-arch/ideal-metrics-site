@@ -74,8 +74,8 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
   - Logo chapado = `18Asset 209` (499,17 × 200,92, `#14304C`; o mesmo desenho do `18Asset 199`, agrupado em pássaro, «ideal» e «metrics»), em `img/logo-ideal-m.svg` e `img/logo-ideal-m-escuro.svg`.
   - Trocou logo ou monograma: refazer também o Spirit (`python ideal-metrics-spirit-assets.py` na pasta Ideal Metrics, que lê `Ideal Metrics Logo/`, e subir o `?v=` do `ideal-metrics-spirit-assets.js` no Spirit). Sem isso, a aba [ 01 ] Logo continua no desenho antigo.
   - Logo prata = `18Asset 201` (499,17 × 200,92, a mesma forma e a mesma razão 2,484 do 199, um degradê por forma), em `img/logo-ideal-m-prata.svg`. Prata não se deriva do chapado: usar o arquivo dele.
-  - Monograma = `18Asset 200` (141,46 × 100,87), em `img/monograma-ideal-m-limpo.svg` e `img/monograma-ideal-m.svg`, grupo `#monograma-200` descido 8,37 no quadro de sempre (-13,02 -60 167,5 189,24).
-  - Os nomes dos arquivos não mudam; a troca vai pelo `?v=` (`04102026a`; prata `04102026b`).
+  - Monograma = `18Asset 213` (177,68 × 122,54; oficial desde 06/10/2026, era o `18Asset 200`), em `img/monograma-ideal-m-limpo.svg` e `img/monograma-ideal-m.svg`, grupo `#monograma-213` com `translate(0 11.68) scale(0.79615)` no quadro de sempre (-13,02 -60 167,5 189,24): a mesma largura do 200 (141,46) e o mesmo pé (109,24), então o cartão do topo não muda de tamanho.
+  - Os nomes dos arquivos não mudam; a troca vai pelo `?v=` (logo `04102026a`; prata `04102026b`; monograma `06102026b`).
   - Logo novo: pedir o arquivo SVG, nunca medir em imagem colada nem corrigir a partir de PNG.
   - Fim do rodapé (linha do CNPJ, `.ft-mono`): o logo vertical `18Asset 208` em `img/marca-vertical-ideal-m.svg`, como veio, com a placa Linho `#F3F0E9` do próprio arquivo. Nunca tingir nem trocar a placa (era o monograma com placa em degradê azulado). 34 px de altura, 28 px no celular. O monograma continua só no cartão do topo.
 - Canto de 3 px em campo, botão e card.
