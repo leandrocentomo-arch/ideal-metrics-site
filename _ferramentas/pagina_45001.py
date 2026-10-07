@@ -74,6 +74,13 @@ CSS = '''<style>
   .content .vi-rola{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;max-width:100%}
   .content .vi-rola svg{min-width:var(--vi-min,0px)}
 }
+/* PDCA animado (06/10): ponto e rotulo das fases; o js esconde e revela */
+.pd-ponto{fill:var(--primary,#14304C)}
+.pd-rot{transition:opacity .45s ease}
+[data-pdca].pd-pronto .pd-rot{opacity:0}
+[data-pdca].pd-pronto .pd-rot.on{opacity:1}
+[data-pdca] .pd-traco{transition:stroke-dashoffset .6s ease}
+@media (prefers-reduced-motion:reduce){.pd-rot,[data-pdca] .pd-traco{transition:none}}
 /* fim 45001 css */
 </style>'''
 
@@ -106,35 +113,57 @@ def seta(x1, y1, x2, y2):
 
 
 # ---------------------------------------------------------------- 1. como a ISO 45001 organiza o sistema (Figura 1 da norma, PDCA)
+# 06/10/2026, refeito («isto aqui está horroroso»): no modelo do ciclo animado do Leandro (ciclo-processo-demo.html).
+# Um anel so, continuo; as quatro fases em pontos nas DIAGONAIS (P em cima a direita, sentido horario), com o rotulo
+# para fora; assim o eixo horizontal fica livre para as entradas (4.1 e 4.2) chegarem pela esquerda e os resultados
+# sairem pela direita, sem cruzar nada. Duas setas no proprio anel (topo e base) dizem o sentido.
+# Movimento (js da pagina): os pontos saem do topo e abrem em leque no sentido horario; cada fase aparece quando o
+# primeiro ponto passa por ela. Sem js, a figura ja esta no estado final.
 import math
-CX, CY, R = 500, 218, 150                             # o anel do ciclo (raio folgado: o circulo central nao cobre os blocos laterais)
-L = ['<rect class="ifc-aro" x="0.5" y="10" width="899" height="404" rx="3"/>',
-     '<text class="ifc-svg-n" x="20" y="31" style="text-anchor:start">CONTEXTO DA ORGANIZAÇÃO (4)</text>']
-# o anel em quatro arcos, cada um terminando numa seta no sentido horario (entre uma caixa e a seguinte)
-for k in range(4):
-    a0 = math.radians(-90 + 90 * k + 16); a1 = math.radians(-90 + 90 * (k + 1) - 16)
-    x0, y0 = CX + R * math.cos(a0), CY + R * math.sin(a0); x1, y1 = CX + R * math.cos(a1), CY + R * math.sin(a1)
-    L.append('<path class="ifc-linha" d="M%.1f,%.1f A%d,%d 0 0 1 %.1f,%.1f"/>' % (x0, y0, R, R, x1, y1))
-    tx, ty = -math.sin(a1), math.cos(a1)                # tangente no sentido horario
-    nx, ny = math.cos(a1), math.sin(a1)
-    L.append('<polyline class="ifc-linha" points="%.1f,%.1f %.1f,%.1f %.1f,%.1f"/>' % (x1 - 7 * tx + 4 * nx, y1 - 7 * ty + 4 * ny, x1, y1, x1 - 7 * tx - 4 * nx, y1 - 7 * ty - 4 * ny))
-# as quatro caixas nos pontos cardeais do anel; o rotulo mono diz a fase
-L += caixa(CX - 100, CY - R - 23, 200, 46, ['Planejamento (6)'], 'P · PLANEJAR')
-L += caixa(CX + R - 75, CY - 31, 150, 62, ['Suporte (7)', 'e operação (8)'], 'D · FAZER')
-L += caixa(CX - 100, CY + R - 23, 200, 46, ['Avaliação de desempenho (9)'], 'C · CHECAR')
-L += caixa(CX - R - 70, CY - 23, 140, 46, ['Melhoria (10)'], 'A · AGIR')
-# no centro, quem sustenta o ciclo
-L += ['<circle class="ifc-aro ifc-aro--f" cx="%d" cy="%d" r="62"/>' % (CX, CY),
-      '<text class="ifc-svg-t" x="%d" y="%d">Liderança e</text>' % (CX, CY - 12), '<text class="ifc-svg-t" x="%d" y="%d">participação dos</text>' % (CX, CY + 4),
+CX, CY, R = 450, 232, 128
+def no_anel(g, r=R):                                   # g em graus a partir do topo, sentido horario
+    a = math.radians(g); return CX + r * math.sin(a), CY - r * math.cos(a)
+def cabeca(g):                                         # ponta de seta sobre o anel, no sentido horario
+    x, y = no_anel(g); a = math.radians(g); tx, ty = math.cos(a), math.sin(a); nx, ny = math.sin(a), -math.cos(a)
+    return '<polyline class="ifc-linha" points="%.1f,%.1f %.1f,%.1f %.1f,%.1f"/>' % (x - 7 * tx + 4 * nx, y - 7 * ty + 4 * ny, x, y, x - 7 * tx - 4 * nx, y - 7 * ty - 4 * ny)
+L = ['<rect class="ifc-aro" x="0.5" y="10" width="899" height="432" rx="3"/>',
+     '<text class="ifc-svg-n" x="20" y="31" style="text-anchor:start">CONTEXTO DA ORGANIZAÇÃO (4)</text>',
+     '<circle class="ifc-linha" cx="%d" cy="%d" r="%d"/>' % (CX, CY, R), cabeca(0), cabeca(180)]
+# o centro: quem sustenta o ciclo
+L += ['<circle class="ifc-aro ifc-aro--f" cx="%d" cy="%d" r="70"/>' % (CX, CY),
+      '<text class="ifc-svg-t" x="%d" y="%d">Liderança e</text>' % (CX, CY - 12),
+      '<text class="ifc-svg-t" x="%d" y="%d">participação dos</text>' % (CX, CY + 4),
       '<text class="ifc-svg-t" x="%d" y="%d">trabalhadores (5)</text>' % (CX, CY + 20)]
-# entradas a esquerda, resultados a direita
-L += caixa(16, CY - 86, 196, 50, ['Questões internas', 'e externas (4.1)'])
-L += caixa(16, CY + 36, 196, 50, ['Trabalhadores e outras', 'partes interessadas (4.2)'])
-L += seta(212, CY - 61, CX - R - 74, CY - 61 + 24) + seta(212, CY + 61, CX - R - 74, CY + 61 - 24)
-L += seta(CX + R + 79, CY, 754, CY)
-L += caixa(756, CY - 36, 128, 72, ['Resultados', 'pretendidos', 'do sistema'])
-FIG_PDCA = fig(L, 'Como a ISO 45001 organiza o sistema (Figura 1 da norma)', 900, 424,
+# as quatro fases: ponto no anel, rotulo para fora (mono da fase + clausula)
+FASES = [(45, 'P · PLANEJAR', 'Planejamento (6)'), (135, 'D · FAZER', 'Suporte (7) e operação (8)'),
+         (225, 'C · CHECAR', 'Avaliação de desempenho (9)'), (315, 'A · AGIR', 'Melhoria (10)')]
+for g, mono, tit in FASES:
+    x, y = no_anel(g); lx, ly = no_anel(g, R + 22)
+    anc = 'start' if g < 180 else 'end'
+    ty = ly - 14 if g in (45, 315) else ly + 10            # em cima, o texto sobe; embaixo, desce
+    L += ['<circle class="pd-ponto" data-g="%d" cx="%.1f" cy="%.1f" r="4.2"/>' % (g, x, y),
+          '<g class="pd-rot" data-g="%d"><text class="ifc-svg-n" x="%.1f" y="%.1f" style="text-anchor:%s">%s</text>'
+          '<text class="ifc-svg-t" x="%.1f" y="%.1f" style="text-anchor:%s">%s</text></g>' % (g, lx, ty, anc, mono, lx, ty + 18, anc, tit)]
+# entradas pela esquerda: as duas questoes da clausula 4 juntam numa chave e entram no anel
+xe = CX - R
+L += ['<g class="pd-lado"><text class="ifc-svg-n" x="40" y="%d" style="text-anchor:start">4.1</text>' % (CY - 44),
+      '<text class="ifc-svg-t" x="40" y="%d" style="text-anchor:start">Questões internas e externas</text>' % (CY - 26),
+      '<text class="ifc-svg-n" x="40" y="%d" style="text-anchor:start">4.2</text>' % (CY + 18),
+      '<text class="ifc-svg-t" x="40" y="%d" style="text-anchor:start">Trabalhadores e outras</text>' % (CY + 36),
+      '<text class="ifc-svg-t" x="40" y="%d" style="text-anchor:start">partes interessadas</text>' % (CY + 52),
+      '<path class="ifc-linha" d="M236,%d H252 V%d H236"/>' % (CY - 31, CY + 47),
+      '<path class="ifc-linha pd-traco" d="M252,%d H%d"/>' % (CY, xe - 4),
+      '<polyline class="ifc-linha" points="%d,%d %d,%d %d,%d"/></g>' % (xe - 11, CY - 4, xe - 4, CY, xe - 11, CY + 4)]
+# resultados pela direita
+xs = CX + R
+L += ['<g class="pd-lado"><path class="ifc-linha pd-traco" d="M%d,%d H%d"/>' % (xs + 4, CY, 668),
+      '<polyline class="ifc-linha" points="661,%d 668,%d 661,%d"/>' % (CY - 4, CY, CY + 4),
+      '<text class="ifc-svg-n" x="684" y="%d" style="text-anchor:start">SAÍDA</text>' % (CY - 18),
+      '<text class="ifc-svg-t" x="684" y="%d" style="text-anchor:start">Resultados pretendidos</text>' % CY,
+      '<text class="ifc-svg-t" x="684" y="%d" style="text-anchor:start">do sistema</text></g>' % (CY + 16)]
+FIG_PDCA = fig(L, 'Como a ISO 45001 organiza o sistema (Figura 1 da norma)', 900, 452,
                'Como a ISO 45001 organiza o sistema: no contexto da organização, o ciclo planejar, fazer, checar e agir gira em torno da liderança e da participação dos trabalhadores, das questões e partes interessadas aos resultados pretendidos')
+FIG_PDCA = FIG_PDCA.replace('<svg viewBox=', '<svg data-pdca="%d,%d,%d" viewBox=' % (CX, CY, R), 1)
 
 # ---------------------------------------------------------------- 2. linha do tempo da nova edicao
 MARCOS = [('mar 2018', 'Publicação da', '1ª edição'),
@@ -396,6 +425,40 @@ JS = '''<script>
     var im = q.querySelector('img'); if(!im) return;
     window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});
+  });
+})();
+/* PDCA (06/10), no modelo do ciclo animado do Leandro: os pontos saem do topo e abrem em leque no sentido
+   horario (ease-in-out cubica, 1,4 s); cada fase aparece quando o primeiro ponto passa por ela; depois as setas
+   de entrada e de saida se desenham. Roda uma vez, quando a figura entra na tela. */
+(function(){
+  [].forEach.call(document.querySelectorAll('svg[data-pdca]'), function(svg){
+    var p = svg.getAttribute('data-pdca').split(',').map(Number), CX = p[0], CY = p[1], R = p[2];
+    var pontos = [].slice.call(svg.querySelectorAll('.pd-ponto')), rots = [].slice.call(svg.querySelectorAll('.pd-rot'));
+    var tracos = [].slice.call(svg.querySelectorAll('.pd-traco'));
+    var alvos = pontos.map(function(c){ return +c.getAttribute('data-g'); }), maxG = Math.max.apply(null, alvos);
+    function noAnel(g){ var a = g * Math.PI / 180; return [CX + R * Math.sin(a), CY - R * Math.cos(a)]; }
+    function suave(t){ return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    function desenha(e){
+      pontos.forEach(function(c, i){ var q = noAnel(alvos[i] * e); c.setAttribute('cx', q[0].toFixed(1)); c.setAttribute('cy', q[1].toFixed(1)); });
+      rots.forEach(function(r){ if (+r.getAttribute('data-g') <= maxG * e + .5) r.classList.add('on'); });
+    }
+    var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduz || !('IntersectionObserver' in window)) return;      /* a figura ja esta no estado final */
+    svg.classList.add('pd-pronto');
+    tracos.forEach(function(t){ var L = t.getTotalLength(); t.style.strokeDasharray = L; t.style.strokeDashoffset = L; });
+    desenha(0);
+    function anima(){
+      var ini = null, DUR = 1400, ESPERA = 150;
+      function quadro(agora){
+        if (ini === null) ini = agora + ESPERA;
+        var t = Math.min(Math.max((agora - ini) / DUR, 0), 1); desenha(suave(t));
+        if (t < 1) requestAnimationFrame(quadro);
+        else tracos.forEach(function(tr){ tr.style.strokeDashoffset = 0; });
+      }
+      requestAnimationFrame(quadro);
+    }
+    var ob = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting){ ob.disconnect(); anima(); } }); }, {threshold:.45});
+    ob.observe(svg);
   });
 })();
 /* fim 45001 js */

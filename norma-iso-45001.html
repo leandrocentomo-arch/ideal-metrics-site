@@ -47,6 +47,13 @@
   .content .vi-rola{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;max-width:100%}
   .content .vi-rola svg{min-width:var(--vi-min,0px)}
 }
+/* PDCA animado (06/10): ponto e rotulo das fases; o js esconde e revela */
+.pd-ponto{fill:var(--primary,#14304C)}
+.pd-rot{transition:opacity .45s ease}
+[data-pdca].pd-pronto .pd-rot{opacity:0}
+[data-pdca].pd-pronto .pd-rot.on{opacity:1}
+[data-pdca] .pd-traco{transition:stroke-dashoffset .6s ease}
+@media (prefers-reduced-motion:reduce){.pd-rot,[data-pdca] .pd-traco{transition:none}}
 /* fim 45001 css */
 </style>
 </head>
@@ -180,50 +187,37 @@
 <p>O trabalho começa pelos perigos reais da operação: tarefas, máquinas, produtos químicos, trabalho em altura e em espaço confinado, contratadas e a rotina de cada área. Levantamos o que já existe, mostramos o que falta para a norma e para as NRs, e montamos com a sua equipe o sistema que o organismo certificador vai verificar.</p>
 
 <figure class="ifc-fig vi-rola">
-<svg viewBox="0 0 900 424" style="max-width:900px;--vi-min:700px" role="img" aria-label="Como a ISO 45001 organiza o sistema: no contexto da organização, o ciclo planejar, fazer, checar e agir gira em torno da liderança e da participação dos trabalhadores, das questões e partes interessadas aos resultados pretendidos">
-<rect class="ifc-aro" x="0.5" y="10" width="899" height="404" rx="3"/>
+<svg data-pdca="450,232,128" viewBox="0 0 900 452" style="max-width:900px;--vi-min:700px" role="img" aria-label="Como a ISO 45001 organiza o sistema: no contexto da organização, o ciclo planejar, fazer, checar e agir gira em torno da liderança e da participação dos trabalhadores, das questões e partes interessadas aos resultados pretendidos">
+<rect class="ifc-aro" x="0.5" y="10" width="899" height="432" rx="3"/>
 <text class="ifc-svg-n" x="20" y="31" style="text-anchor:start">CONTEXTO DA ORGANIZAÇÃO (4)</text>
-<path class="ifc-linha" d="M541.3,73.8 A150,150 0 0 1 644.2,176.7"/>
-<polyline class="ifc-linha" points="646.1,168.8 644.2,176.7 638.4,171.0"/>
-<path class="ifc-linha" d="M644.2,259.3 A150,150 0 0 1 541.3,362.2"/>
-<polyline class="ifc-linha" points="549.2,364.1 541.3,362.2 547.0,356.4"/>
-<path class="ifc-linha" d="M458.7,362.2 A150,150 0 0 1 355.8,259.3"/>
-<polyline class="ifc-linha" points="353.9,267.2 355.8,259.3 361.6,265.0"/>
-<path class="ifc-linha" d="M355.8,176.7 A150,150 0 0 1 458.7,73.8"/>
-<polyline class="ifc-linha" points="450.8,71.9 458.7,73.8 453.0,79.6"/>
-<rect class="ifc-aro ifc-aro--f" x="400.0" y="45.0" width="200.0" height="46.0" rx="3"/>
-<text class="ifc-svg-n" x="500.0" y="62.0">P · PLANEJAR</text>
-<text class="ifc-svg-t" x="500.0" y="77.0">Planejamento (6)</text>
-<rect class="ifc-aro ifc-aro--f" x="575.0" y="187.0" width="150.0" height="62.0" rx="3"/>
-<text class="ifc-svg-n" x="650.0" y="204.0">D · FAZER</text>
-<text class="ifc-svg-t" x="650.0" y="219.0">Suporte (7)</text>
-<text class="ifc-svg-t" x="650.0" y="235.0">e operação (8)</text>
-<rect class="ifc-aro ifc-aro--f" x="400.0" y="345.0" width="200.0" height="46.0" rx="3"/>
-<text class="ifc-svg-n" x="500.0" y="362.0">C · CHECAR</text>
-<text class="ifc-svg-t" x="500.0" y="377.0">Avaliação de desempenho (9)</text>
-<rect class="ifc-aro ifc-aro--f" x="280.0" y="195.0" width="140.0" height="46.0" rx="3"/>
-<text class="ifc-svg-n" x="350.0" y="212.0">A · AGIR</text>
-<text class="ifc-svg-t" x="350.0" y="227.0">Melhoria (10)</text>
-<circle class="ifc-aro ifc-aro--f" cx="500" cy="218" r="62"/>
-<text class="ifc-svg-t" x="500" y="206">Liderança e</text>
-<text class="ifc-svg-t" x="500" y="222">participação dos</text>
-<text class="ifc-svg-t" x="500" y="238">trabalhadores (5)</text>
-<rect class="ifc-aro ifc-aro--f" x="16.0" y="132.0" width="196.0" height="50.0" rx="3"/>
-<text class="ifc-svg-t" x="114.0" y="153.0">Questões internas</text>
-<text class="ifc-svg-t" x="114.0" y="169.0">e externas (4.1)</text>
-<rect class="ifc-aro ifc-aro--f" x="16.0" y="254.0" width="196.0" height="50.0" rx="3"/>
-<text class="ifc-svg-t" x="114.0" y="275.0">Trabalhadores e outras</text>
-<text class="ifc-svg-t" x="114.0" y="291.0">partes interessadas (4.2)</text>
-<line class="ifc-linha" x1="212.0" y1="157.0" x2="276.0" y2="181.0"/>
-<polyline class="ifc-linha" points="270.1,181.8 276.0,181.0 272.1,176.5"/>
-<line class="ifc-linha" x1="212.0" y1="279.0" x2="276.0" y2="255.0"/>
-<polyline class="ifc-linha" points="272.1,259.5 276.0,255.0 270.1,254.2"/>
-<line class="ifc-linha" x1="729.0" y1="218.0" x2="754.0" y2="218.0"/>
-<polyline class="ifc-linha" points="748.7,220.9 754.0,218.0 748.7,215.1"/>
-<rect class="ifc-aro ifc-aro--f" x="756.0" y="182.0" width="128.0" height="72.0" rx="3"/>
-<text class="ifc-svg-t" x="820.0" y="206.0">Resultados</text>
-<text class="ifc-svg-t" x="820.0" y="222.0">pretendidos</text>
-<text class="ifc-svg-t" x="820.0" y="238.0">do sistema</text>
+<circle class="ifc-linha" cx="450" cy="232" r="128"/>
+<polyline class="ifc-linha" points="443.0,100.0 450.0,104.0 443.0,108.0"/>
+<polyline class="ifc-linha" points="457.0,364.0 450.0,360.0 457.0,356.0"/>
+<circle class="ifc-aro ifc-aro--f" cx="450" cy="232" r="70"/>
+<text class="ifc-svg-t" x="450" y="220">Liderança e</text>
+<text class="ifc-svg-t" x="450" y="236">participação dos</text>
+<text class="ifc-svg-t" x="450" y="252">trabalhadores (5)</text>
+<circle class="pd-ponto" data-g="45" cx="540.5" cy="141.5" r="4.2"/>
+<g class="pd-rot" data-g="45"><text class="ifc-svg-n" x="556.1" y="111.9" style="text-anchor:start">P · PLANEJAR</text><text class="ifc-svg-t" x="556.1" y="129.9" style="text-anchor:start">Planejamento (6)</text></g>
+<circle class="pd-ponto" data-g="135" cx="540.5" cy="322.5" r="4.2"/>
+<g class="pd-rot" data-g="135"><text class="ifc-svg-n" x="556.1" y="348.1" style="text-anchor:start">D · FAZER</text><text class="ifc-svg-t" x="556.1" y="366.1" style="text-anchor:start">Suporte (7) e operação (8)</text></g>
+<circle class="pd-ponto" data-g="225" cx="359.5" cy="322.5" r="4.2"/>
+<g class="pd-rot" data-g="225"><text class="ifc-svg-n" x="343.9" y="348.1" style="text-anchor:end">C · CHECAR</text><text class="ifc-svg-t" x="343.9" y="366.1" style="text-anchor:end">Avaliação de desempenho (9)</text></g>
+<circle class="pd-ponto" data-g="315" cx="359.5" cy="141.5" r="4.2"/>
+<g class="pd-rot" data-g="315"><text class="ifc-svg-n" x="343.9" y="111.9" style="text-anchor:end">A · AGIR</text><text class="ifc-svg-t" x="343.9" y="129.9" style="text-anchor:end">Melhoria (10)</text></g>
+<g class="pd-lado"><text class="ifc-svg-n" x="40" y="188" style="text-anchor:start">4.1</text>
+<text class="ifc-svg-t" x="40" y="206" style="text-anchor:start">Questões internas e externas</text>
+<text class="ifc-svg-n" x="40" y="250" style="text-anchor:start">4.2</text>
+<text class="ifc-svg-t" x="40" y="268" style="text-anchor:start">Trabalhadores e outras</text>
+<text class="ifc-svg-t" x="40" y="284" style="text-anchor:start">partes interessadas</text>
+<path class="ifc-linha" d="M236,201 H252 V279 H236"/>
+<path class="ifc-linha pd-traco" d="M252,232 H318"/>
+<polyline class="ifc-linha" points="311,228 318,232 311,236"/></g>
+<g class="pd-lado"><path class="ifc-linha pd-traco" d="M582,232 H668"/>
+<polyline class="ifc-linha" points="661,228 668,232 661,236"/>
+<text class="ifc-svg-n" x="684" y="214" style="text-anchor:start">SAÍDA</text>
+<text class="ifc-svg-t" x="684" y="232" style="text-anchor:start">Resultados pretendidos</text>
+<text class="ifc-svg-t" x="684" y="248" style="text-anchor:start">do sistema</text></g>
 </svg>
 <figcaption>Como a ISO 45001 organiza o sistema (Figura 1 da norma)</figcaption>
 </figure>
@@ -599,6 +593,40 @@
     var im = q.querySelector('img'); if(!im) return;
     window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});
+  });
+})();
+/* PDCA (06/10), no modelo do ciclo animado do Leandro: os pontos saem do topo e abrem em leque no sentido
+   horario (ease-in-out cubica, 1,4 s); cada fase aparece quando o primeiro ponto passa por ela; depois as setas
+   de entrada e de saida se desenham. Roda uma vez, quando a figura entra na tela. */
+(function(){
+  [].forEach.call(document.querySelectorAll('svg[data-pdca]'), function(svg){
+    var p = svg.getAttribute('data-pdca').split(',').map(Number), CX = p[0], CY = p[1], R = p[2];
+    var pontos = [].slice.call(svg.querySelectorAll('.pd-ponto')), rots = [].slice.call(svg.querySelectorAll('.pd-rot'));
+    var tracos = [].slice.call(svg.querySelectorAll('.pd-traco'));
+    var alvos = pontos.map(function(c){ return +c.getAttribute('data-g'); }), maxG = Math.max.apply(null, alvos);
+    function noAnel(g){ var a = g * Math.PI / 180; return [CX + R * Math.sin(a), CY - R * Math.cos(a)]; }
+    function suave(t){ return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+    function desenha(e){
+      pontos.forEach(function(c, i){ var q = noAnel(alvos[i] * e); c.setAttribute('cx', q[0].toFixed(1)); c.setAttribute('cy', q[1].toFixed(1)); });
+      rots.forEach(function(r){ if (+r.getAttribute('data-g') <= maxG * e + .5) r.classList.add('on'); });
+    }
+    var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduz || !('IntersectionObserver' in window)) return;      /* a figura ja esta no estado final */
+    svg.classList.add('pd-pronto');
+    tracos.forEach(function(t){ var L = t.getTotalLength(); t.style.strokeDasharray = L; t.style.strokeDashoffset = L; });
+    desenha(0);
+    function anima(){
+      var ini = null, DUR = 1400, ESPERA = 150;
+      function quadro(agora){
+        if (ini === null) ini = agora + ESPERA;
+        var t = Math.min(Math.max((agora - ini) / DUR, 0), 1); desenha(suave(t));
+        if (t < 1) requestAnimationFrame(quadro);
+        else tracos.forEach(function(tr){ tr.style.strokeDashoffset = 0; });
+      }
+      requestAnimationFrame(quadro);
+    }
+    var ob = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting){ ob.disconnect(); anima(); } }); }, {threshold:.45});
+    ob.observe(svg);
   });
 })();
 /* fim 45001 js */
