@@ -166,7 +166,7 @@
     function tecla(){
       if(i >= texto.length){ el.classList.remove('digitando'); el.classList.add('qc-feita');   /* 08/10/2026: era 'pronta', que colide com o body.pronta da abertura */ el.style.minHeight = ''; if(aoFim) aoFim(); return; }
       var c = texto.charAt(i++); alvo.textContent += c;
-      setTimeout(tecla, (c === '.' || c === ',') ? 130 : 30);   /* 28/09: 22/90, depois 36/160 («mais devagar»), depois «um pouco mais rapido» */
+      setTimeout(tecla, (c === '.' || c === ',') ? 149.5 : 34.5);   /* 08/10/2026: 15% mais lento (era 130/30) */   /* 28/09: 22/90, depois 36/160 («mais devagar»), depois «um pouco mais rapido» */
     }
     var obs = new IntersectionObserver(function(es){
       es.forEach(function(e){ if(e.isIntersecting && !rodando){ rodando = true; el.classList.add('digitando'); obs.disconnect(); setTimeout(tecla, 250); } });
