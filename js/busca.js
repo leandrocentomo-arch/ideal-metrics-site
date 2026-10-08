@@ -164,7 +164,7 @@
     el.textContent = ''; el.appendChild(alvo); el.appendChild(cur);
     var i = 0, rodando = false;
     function tecla(){
-      if(i >= texto.length){ el.classList.remove('digitando'); el.classList.add('pronta'); el.style.minHeight = ''; if(aoFim) aoFim(); return; }
+      if(i >= texto.length){ el.classList.remove('digitando'); el.classList.add('qc-feita');   /* 08/10/2026: era 'pronta', que colide com o body.pronta da abertura */ el.style.minHeight = ''; if(aoFim) aoFim(); return; }
       var c = texto.charAt(i++); alvo.textContent += c;
       setTimeout(tecla, (c === '.' || c === ',') ? 130 : 30);   /* 28/09: 22/90, depois 36/160 («mais devagar»), depois «um pouco mais rapido» */
     }

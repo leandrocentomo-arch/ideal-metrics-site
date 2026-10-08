@@ -1567,7 +1567,9 @@ body>*{position:relative;z-index:1}
 .qc-cur{display:inline-block;width:.5em;height:1em;background:#14304C;
   vertical-align:-.12em;margin-left:.06em;animation:qcPisca .7s steps(2,start) infinite}
 .digitando .qc-cur{animation:none}   /* enquanto digita, o cursor fica aceso */
-.pronta .qc-cur{display:none}   /* 28/09: terminou, o cursor some (nao pisca) e passa a vez ao traco da busca */
+.qc-feita .qc-cur{display:none}   /* 28/09: terminou, o cursor some (nao pisca) e passa a vez ao traco da busca.
+   08/10/2026: a classe era .pronta, a mesma que a abertura poe no <body> quando sai; com isso o cursor
+   ficava escondido desde o inicio e a frase era digitada sem ele. */
 @media (prefers-reduced-motion:reduce){ .qc-cur{display:none} }
 /* 28/09: enquanto digita, sem text-wrap:balance (ele rearranjaria as linhas a cada letra) */
 .digitando{text-wrap:wrap}
@@ -4256,7 +4258,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   })();
 })();
 </script>
-<script src="js/busca.js?v=9"></script>
+<script src="js/busca.js?v=10"></script>
 <script>
 /* CONHECIMENTO: frente. No SVG quem e pintado por ultimo fica por cima, e o tema
    que cresce no mouse precisa cobrir os vizinhos: o grupo vai para o fim. */
