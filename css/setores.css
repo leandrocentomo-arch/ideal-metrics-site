@@ -151,6 +151,10 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-mat.hov .q,.qc-mat.hov .q.t{opacity:.15}
 .qc-mat.hov .q.on,.qc-mat.hov .q.t.on{opacity:1;fill:#14304C}
 .qc-mat .co.on text,.qc-mat .li.on .rs{fill:#336699;font-weight:600}
+/* 09/10/2026 (noite): a explicacao saiu; esta linha mostra, sob o mouse, a norma com a revisao vigente e o titulo */
+.qc-mat-info{min-height:2.7em;margin:12px 0 0;font-family:'IBM Plex Sans Condensed',sans-serif;font-size:15px;line-height:1.35;color:#14304C}
+.qc-mat-info b{font-weight:700}
+.qc-mat-info span{color:#315275}
 .qc-mat figcaption{margin:10px 0 0;font-family:'IBM Plex Sans Condensed',sans-serif;font-size:13.5px;line-height:1.35;color:#315275}
 @media (max-width:880px){ .qc-abre-linha>.qc-abre-cauda,.qc-abre-linha>.qc-mos{flex:0 0 100%} }
 @media (max-width:560px){ .qc-mat-topo{font-size:9.5px;letter-spacing:.14em} }

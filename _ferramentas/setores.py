@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '19', '9'
+CSS_V, JS_V = '20', '10'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -133,6 +133,18 @@ TRANSVERSAIS = ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso5
 
 # so valem fora dos seis setores (rotulo da linha «Outros setores» do grafico)
 FORA = {'iso41001': 'Facilities', 'iso21001': 'Educação', 'iso17025': 'Laboratórios'}
+
+# id: (designacao com a revisao vigente, titulo oficial em portugues ou, sem ele, no original). Conferido em fonte
+# primaria; o arquivo _ferramentas/setores-revisoes.json guarda a fonte de cada linha. Sem entrada, o grafico mostra
+# o nome e a descricao de NORMAS.
+REVISOES_ARQ = os.path.join(AQUI, 'setores-revisoes.json')
+REVISOES = json.load(open(REVISOES_ARQ, encoding='utf-8')) if os.path.exists(REVISOES_ARQ) else {}
+
+
+def info(k):
+    r = REVISOES.get(k) or {}
+    return (r.get('designacao') or NORMAS[k][0], r.get('titulo') or NORMAS[k][1])
+
 
 TEXTOS = json.load(open(os.path.join(AQUI, 'setores-textos.json'), encoding='utf-8'))
 ORDEM_G = [g[0] for g in GRUPOS]
@@ -250,7 +262,8 @@ def matriz():
     for k, cx in cols:
         nome, _, _, pg = NORMAS[k]
         txt = '<text transform="translate(%s %s) rotate(-90)">%s</text>' % (cx + 3.5, TOPO - 8, esc(CURTO_N.get(k, nome)))
-        o.append('    <g class="co" data-n="%s">%s</g>' % (k, ('<a href="%s">%s</a>' % (pg, txt)) if pg else txt))
+        dz, tt = info(k)
+        o.append('    <g class="co" data-n="%s" data-rev="%s" data-tit="%s">%s</g>' % (k, esc(dz).replace('"', '&quot;'), esc(tt).replace('"', '&quot;'), ('<a href="%s">%s</a>' % (pg, txt)) if pg else txt))
     for r, (i, pg, normas) in enumerate(linhas):
         y = TOPO + r * LIN_H
         rot = ('<a href="%s"><text class="rs" x="0" y="%s">%s</text></a>' % (pg, y + 17, esc(TEXTOS[i]['nome']))) if pg else \
@@ -270,7 +283,7 @@ def matriz():
     o.append('  <button class="qc-mat-aba" id="qcMatAba" type="button" aria-expanded="false" aria-controls="qcMat">'
              '<svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg>'
              '<span class="qc-mat-aba-txt"><b>[ %02d ]</b>&nbsp;&nbsp;<i class="qc-mat-abre">Expandir</i><i class="qc-mat-fecha">Recolher</i></span></button>' % len(cols))
-    o.append('  <figcaption>Cada quadrado liga um setor a uma norma ou padrão; o quadro claro é o que vale para qualquer setor; a última linha traz o que é só de facilities, educação e laboratórios. Role de lado ou use a etiqueta para abrir a grade inteira; o mouse acende a linha e a coluna, e os nomes levam às páginas.</figcaption>')
+    o.append('  <p class="qc-mat-info" id="qcMatInfo" aria-live="polite"></p>')
     o.append('</figure>')
     return '<!-- relacao setor norma -->\n' + '\n'.join(o) + '\n<!-- fim relacao setor norma -->'
 

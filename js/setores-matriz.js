@@ -3,7 +3,17 @@
 (function(){
   var fig = document.querySelector('.qc-mat'); if(!fig) return;
   var linhas = fig.querySelectorAll('.li'), cols = fig.querySelectorAll('.co'), qs = fig.querySelectorAll('.q');
-  function limpa(){ fig.classList.remove('hov'); [].forEach.call(fig.querySelectorAll('.on'), function(e){ e.classList.remove('on'); }); }
+  var linhaInfo = document.getElementById('qcMatInfo');
+  function mostra(norma){
+    if(!linhaInfo) return;
+    linhaInfo.textContent = '';
+    if(!norma) return;
+    var c = fig.querySelector('.co[data-n="' + norma + '"]'); if(!c) return;
+    var b = document.createElement('b'); b.textContent = c.getAttribute('data-rev');
+    var sp = document.createElement('span'); sp.textContent = '  ·  ' + c.getAttribute('data-tit');
+    linhaInfo.appendChild(b); linhaInfo.appendChild(sp);
+  }
+  function limpa(){ mostra(null); fig.classList.remove('hov'); [].forEach.call(fig.querySelectorAll('.on'), function(e){ e.classList.remove('on'); }); }
   function acende(setor, norma){
     limpa();
     [].forEach.call(linhas, function(l){ if(setor && l.getAttribute('data-s') === setor) l.classList.add('on'); });
@@ -13,6 +23,7 @@
       if(ok) q.classList.add('on');
     });
     fig.classList.add('hov');
+    mostra(norma);
   }
   [].forEach.call(linhas, function(l){ l.addEventListener('mouseenter', function(){ acende(l.getAttribute('data-s'), null); }); });
   [].forEach.call(cols, function(c){ c.addEventListener('mouseenter', function(){ acende(null, c.getAttribute('data-n')); }); });
