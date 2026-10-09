@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '14', '5'
+CSS_V, JS_V = '16', '6'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -242,7 +242,7 @@ def matriz():
     linhas = list(SETORES) + [('-', None, list(FORA))]
     larg = int(x - GAP + 6); alt = TOPO + LIN_H * len(linhas) + 4
     esc = lambda s: s.replace('&', '&amp;')
-    o = ['<figure class="qc-mat" aria-labelledby="qcMatTit">',
+    o = ['<figure class="qc-mat" id="qcMat" aria-labelledby="qcMatTit">',
          '  <div class="qc-mat-topo"><span id="qcMatTit">Normas e padrões por setor</span><span>[ IM.S ]</span></div>',
          '  <div class="qc-mat-rola"><svg viewBox="0 0 %d %d" width="%d" height="%d" role="img" aria-label="Grade que liga cada setor às normas e padrões aplicáveis">' % (larg, alt, larg, alt)]
     for rot, x0, x1 in grupos:
@@ -267,7 +267,10 @@ def matriz():
         o.append('    </g>')
     o.append('    <path class="fio" d="M0 %s H%s"/>' % (TOPO + LIN_H * len(linhas), larg))
     o.append('  </svg></div>')
-    o.append('  <figcaption>Cada quadrado liga um setor a uma norma ou padrão; o quadro claro é o que vale para qualquer setor; a última linha traz o que é só de facilities, educação e laboratórios. Passe o mouse ou toque para ler a linha e a coluna; os nomes levam às páginas.</figcaption>')
+    o.append('  <button class="qc-mat-aba" id="qcMatAba" type="button" aria-expanded="false" aria-controls="qcMat">'
+             '<svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg>'
+             '<span class="qc-mat-aba-txt"><b>[ %02d ]</b>&nbsp;&nbsp;<i class="qc-mat-abre">Expandir</i><i class="qc-mat-fecha">Recolher</i></span></button>' % len(cols))
+    o.append('  <figcaption>Cada quadrado liga um setor a uma norma ou padrão; o quadro claro é o que vale para qualquer setor; a última linha traz o que é só de facilities, educação e laboratórios. Role de lado ou use a etiqueta para abrir a grade inteira; o mouse acende a linha e a coluna, e os nomes levam às páginas.</figcaption>')
     o.append('</figure>')
     return '<!-- relacao setor norma -->\n' + '\n'.join(o) + '\n<!-- fim relacao setor norma -->'
 

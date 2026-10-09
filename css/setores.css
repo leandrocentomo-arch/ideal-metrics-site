@@ -101,14 +101,32 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .stp-chips li,.stf-cl li{margin:0;padding:6px 10px!important;background:none}
 
 /* ---------- modelo 1: matriz setor x norma, na largura da pagina (home, abaixo da frase de O que fazemos) ---------- */
-.qc-abre-linha>.qc-mat{flex:0 0 100%;min-width:0;max-width:100%;margin:34px 0 0}
+/* 09/10/2026 (2): a grade divide o terco direito com os «Temas de gestao» logo abaixo. Recolhida, mostra parte das
+   colunas em tamanho real e rola de lado; a etiqueta na parede direita (a mesma dos cards da primeira secao) abre a
+   grade na largura da pagina e fecha de novo. */
+.qc-abre-linha>.qc-mat{position:relative;flex:0 1 58%;min-width:0;max-width:100%;margin:34px 0 0 auto;padding-right:47px;
+  transition:flex-basis .5s cubic-bezier(.4,0,.2,1)}
+.qc-abre-linha>.qc-mat.aberto{flex:0 0 100%;margin-left:0}
+.qc-mat:not(.aberto) .qc-mat-rola svg{width:auto;max-width:none;min-width:0}
+.qc-mat-aba{position:absolute;right:0;top:40px;bottom:46px;width:39px;padding:18px 0 16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;
+  background:#FAF9F5;color:#14304C;border:1px solid rgba(20,48,76,.42);border-right:none;border-radius:3px 0 0 3px;
+  box-shadow:-6px 0 18px -8px rgba(20,48,76,.35);transition:width .35s cubic-bezier(.4,0,.2,1),background .3s,color .3s}
+.qc-mat-aba:hover,.qc-mat-aba:focus-visible{width:47px;background:#14304C;color:#FAF9F5;outline:none}
+.qc-mat-aba svg{width:18px;height:11px;fill:currentColor;flex:none}
+.qc-mat-aba-txt{writing-mode:vertical-rl;transform:rotate(180deg);font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
+.qc-mat-aba-txt b{font-weight:600;letter-spacing:.16em}
+.qc-mat-aba-txt i{font-style:normal}
+.qc-mat-fecha,.qc-mat.aberto .qc-mat-abre{display:none}
+.qc-mat.aberto .qc-mat-fecha{display:inline}
+@media (max-width:880px){ .qc-abre-linha>.qc-mat{flex:0 0 100%;padding-right:0} .qc-mat-aba{display:none} }
 .qc-abre-linha>.qc-abre-cauda{flex:0 1 58%;min-width:280px;margin-left:auto}
 .qc-abre-linha>.qc-mos{flex:0 1 58%;min-width:280px;margin-left:auto;max-width:none}
 .qc-mat-topo{display:flex;justify-content:space-between;gap:12px;padding:0 0 8px;border-bottom:1px solid rgba(20,48,76,.2);
   font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#315275}
 .qc-mat-topo span{white-space:nowrap}
 .qc-mat-rola{overflow-x:auto;padding:12px 0 0}
-.qc-mat svg{display:block;width:100%;min-width:900px;height:auto;overflow:visible}
+.qc-mat-rola svg{display:block;width:100%;min-width:900px;height:auto;overflow:visible}
 .qc-mat text{font-family:'IBM Plex Mono',monospace;fill:#14304C}
 .qc-mat .gr text{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;fill:#315275}
 .qc-mat .gr path{stroke:#14304C;stroke-width:1;opacity:.5;fill:none}

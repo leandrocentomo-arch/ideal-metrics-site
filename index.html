@@ -2584,7 +2584,7 @@ body>*{position:relative;z-index:1}
 .nt-gl{z-index:1}
 .nt-midia.gl-on .nt-layer{visibility:hidden}
 </style>
-<link rel="stylesheet" href="css/setores.css?v=14">
+<link rel="stylesheet" href="css/setores.css?v=16">
 </head>
 <body class="carga inicio">
 <!-- filtro das quatro fotos: +6% de brilho com TETO no creme do site (ver .sh-foto) -->
@@ -2836,7 +2836,7 @@ body>*{position:relative;z-index:1}
           <p class="qc-lead" id="qcLead" data-texto="Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
         </div>
 <!-- relacao setor norma -->
-<figure class="qc-mat" aria-labelledby="qcMatTit">
+<figure class="qc-mat" id="qcMat" aria-labelledby="qcMatTit">
   <div class="qc-mat-topo"><span id="qcMatTit">Normas e padrões por setor</span><span>[ IM.S ]</span></div>
   <div class="qc-mat-rola"><svg viewBox="0 0 1469 351" width="1469" height="351" role="img" aria-label="Grade que liga cada setor às normas e padrões aplicáveis">
     <g class="gr"><text x="120" y="11">Sistemas de gestão ISO</text><path d="M120 17H555"/></g>
@@ -3397,7 +3397,8 @@ body>*{position:relative;z-index:1}
     </g>
     <path class="fio" d="M0 347 H1469"/>
   </svg></div>
-  <figcaption>Cada quadrado liga um setor a uma norma ou padrão; o quadro claro é o que vale para qualquer setor; a última linha traz o que é só de facilities, educação e laboratórios. Passe o mouse ou toque para ler a linha e a coluna; os nomes levam às páginas.</figcaption>
+  <button class="qc-mat-aba" id="qcMatAba" type="button" aria-expanded="false" aria-controls="qcMat"><svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg><span class="qc-mat-aba-txt"><b>[ 67 ]</b>&nbsp;&nbsp;<i class="qc-mat-abre">Expandir</i><i class="qc-mat-fecha">Recolher</i></span></button>
+  <figcaption>Cada quadrado liga um setor a uma norma ou padrão; o quadro claro é o que vale para qualquer setor; a última linha traz o que é só de facilities, educação e laboratórios. Role de lado ou use a etiqueta para abrir a grade inteira; o mouse acende a linha e a coluna, e os nomes levam às páginas.</figcaption>
 </figure>
 <!-- fim relacao setor norma -->
         <div class="qc-abre-cauda">
@@ -4892,8 +4893,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   });
 })();
 </script>
-<script src="js/setores-dados.js?v=5"></script>
-<script src="js/setores-filtro.js?v=5"></script>
-<script src="js/setores-matriz.js?v=5"></script>
+<script src="js/setores-dados.js?v=6"></script>
+<script src="js/setores-filtro.js?v=6"></script>
+<script src="js/setores-matriz.js?v=6"></script>
 </body>
 </html>

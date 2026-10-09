@@ -19,3 +19,13 @@
   [].forEach.call(qs, function(q){ q.addEventListener('mouseenter', function(){ acende(q.parentNode.getAttribute('data-s'), q.getAttribute('data-n')); }); });
   fig.querySelector('svg').addEventListener('mouseleave', limpa);
 })();
+
+/* 09/10/2026: a etiqueta da parede direita abre a grade na largura da pagina e fecha de novo */
+(function(){
+  var fig = document.getElementById('qcMat'), aba = document.getElementById('qcMatAba'); if(!fig || !aba) return;
+  aba.addEventListener('click', function(){
+    var abre = !fig.classList.contains('aberto');
+    fig.classList.toggle('aberto', abre); aba.setAttribute('aria-expanded', abre ? 'true' : 'false');
+    var r = fig.querySelector('.qc-mat-rola'); if(r) r.scrollLeft = 0;
+  });
+})();
