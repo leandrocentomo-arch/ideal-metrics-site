@@ -23,9 +23,16 @@
 /* 09/10/2026: a etiqueta da parede direita abre a grade na largura da pagina e fecha de novo */
 (function(){
   var fig = document.getElementById('qcMat'), aba = document.getElementById('qcMatAba'); if(!fig || !aba) return;
+  var linha = fig.parentNode, cauda = linha.querySelector('.qc-abre-cauda');
   aba.addEventListener('click', function(){
     var abre = !fig.classList.contains('aberto');
-    fig.classList.toggle('aberto', abre); aba.setAttribute('aria-expanded', abre ? 'true' : 'false');
+    if(abre && cauda){ linha.style.setProperty('--cauda-w', cauda.offsetWidth + 'px'); linha.classList.add('mat-ok'); }
+    fig.classList.toggle('aberto', abre); linha.classList.toggle('mat-aberto', abre);
+    aba.setAttribute('aria-expanded', abre ? 'true' : 'false');
     var r = fig.querySelector('.qc-mat-rola'); if(r) r.scrollLeft = 0;
+  });
+  /* recolhida de novo: solta a largura guardada quando a coluna termina de voltar */
+  if(cauda) cauda.addEventListener('transitionend', function(e){
+    if(e.propertyName === 'flex-basis' && !linha.classList.contains('mat-aberto')){ linha.classList.remove('mat-ok'); linha.style.removeProperty('--cauda-w'); }
   });
 })();

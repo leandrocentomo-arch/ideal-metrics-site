@@ -108,7 +108,13 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
    que ficava vazio embaixo da busca; as duas comecam na mesma altura. A soma fecha com o vao de 40px da linha. */
 .qc-abre-linha>.qc-mat{position:relative;flex:0 0 calc(42% - 40px);min-width:0;max-width:100%;margin:40px 0 0;padding-right:47px;
   transition:flex-basis .5s cubic-bezier(.4,0,.2,1)}
-.qc-abre-linha>.qc-mat.aberto{flex:0 0 100%;margin-left:0}
+/* 09/10/2026 (4): aberta, a grade NAO desce de linha nem empurra nada para baixo: cresce para a direita e a coluna
+   dos temas e comprimida ate sumir, e volta ao recolher. O conteudo da coluna guarda a largura que tinha (--cauda-w,
+   medida pelo js), para o texto nao se reorganizar enquanto ela fecha. */
+.qc-abre-linha>.qc-abre-cauda{transition:flex-basis .5s cubic-bezier(.4,0,.2,1),opacity .35s}
+.qc-abre-linha.mat-aberto>.qc-mat{flex:0 0 calc(100% - 41px)}
+.qc-abre-linha.mat-aberto>.qc-abre-cauda{flex:0 0 0%;min-width:0;opacity:0;overflow:hidden;pointer-events:none}
+.qc-abre-linha.mat-ok>.qc-abre-cauda>.qc-temas{width:var(--cauda-w);max-width:none}
 .qc-mat:not(.aberto) .qc-mat-rola svg{width:auto;max-width:none;min-width:0}
 .qc-mat-aba{position:absolute;right:0;top:40px;bottom:46px;width:39px;padding:18px 0 16px;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;
