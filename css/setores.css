@@ -115,7 +115,6 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-abre-linha.mat-aberto>.qc-mat{flex:0 0 calc(100% - 41px)}
 .qc-abre-linha.mat-aberto>.qc-abre-cauda{flex:0 0 0%;min-width:0;opacity:0;overflow:hidden;pointer-events:none}
 .qc-abre-linha.mat-ok>.qc-abre-cauda>.qc-temas{width:var(--cauda-w);max-width:none}
-.qc-mat:not(.aberto) .qc-mat-rola svg{width:auto;max-width:none;min-width:0}
 .qc-mat-aba{position:absolute;right:0;top:40px;bottom:46px;width:39px;padding:18px 0 16px;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;
   background:#FAF9F5;color:#14304C;border:1px solid rgba(20,48,76,.42);border-right:none;border-radius:3px 0 0 3px;
@@ -134,7 +133,10 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
   font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#315275}
 .qc-mat-topo span{white-space:nowrap}
 .qc-mat-rola{overflow-x:auto;padding:12px 0 0}
-.qc-mat-rola svg{display:block;width:100%;min-width:900px;height:auto;overflow:visible}
+/* 09/10/2026 (5): o desenho tem UM tamanho so, recolhido ou aberto (--mat-w, medido pelo js = largura da grade aberta).
+   Recolhida, a janela mostra parte dele e rola; aberta, a janela cresce ate ele caber. Sem trocar de escala no meio,
+   a abertura e um deslizar continuo, sem o encolher-e-crescer de antes. */
+.qc-mat-rola svg{display:block;width:var(--mat-w,auto);max-width:none;min-width:0;height:auto;overflow:visible}
 .qc-mat text{font-family:'IBM Plex Mono',monospace;fill:#14304C}
 .qc-mat .gr text{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;fill:#315275}
 .qc-mat .gr path{stroke:#14304C;stroke-width:1;opacity:.5;fill:none}

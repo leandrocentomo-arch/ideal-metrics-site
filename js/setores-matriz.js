@@ -24,6 +24,16 @@
 (function(){
   var fig = document.getElementById('qcMat'), aba = document.getElementById('qcMatAba'); if(!fig || !aba) return;
   var linha = fig.parentNode, cauda = linha.querySelector('.qc-abre-cauda');
+  var rola = fig.querySelector('.qc-mat-rola');
+  /* o desenho fica sempre do tamanho que tera aberto, e a janela recolhida guarda a altura com a barra de rolagem,
+     para nada mudar de tamanho nem de lugar durante a abertura */
+  function medir(){
+    if(window.innerWidth <= 880){ fig.style.removeProperty('--mat-w'); if(rola) rola.style.height = ''; return; }
+    fig.style.setProperty('--mat-w', (linha.clientWidth - 41 - 47 - 2) + 'px');
+    if(rola && !fig.classList.contains('aberto')){ rola.style.height = ''; rola.style.height = rola.offsetHeight + 'px'; }
+  }
+  medir();
+  var tm = null; window.addEventListener('resize', function(){ clearTimeout(tm); tm = setTimeout(medir, 150); });
   aba.addEventListener('click', function(){
     var abre = !fig.classList.contains('aberto');
     if(abre && cauda){ linha.style.setProperty('--cauda-w', cauda.offsetWidth + 'px'); linha.classList.add('mat-ok'); }
