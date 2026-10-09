@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '14', '4'
+CSS_V, JS_V = '14', '5'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -79,7 +79,6 @@ NORMAS = {
  'ecovadis': ('EcoVadis', 'Avaliação de desempenho em sustentabilidade', 'social', PADR),
  'fsc': ('FSC', 'Forest Stewardship Council, manejo florestal', 'social', PADR),
  'rainforest': ('Rainforest Alliance', 'Selo de certificação agrícola sustentável', 'social', PADR),
- 'iqg': ('IQG', 'Instituto Qualisa de Gestão: acreditação e certificação em qualidade na saúde', 'mercado', PADR),
  'abntpr1004': ('ABNT PR 1004-1', 'Operação segura em organizações durante pandemias (diretrizes gerais, 2020)', 'legal', PADR),
  'abntpr2030': ('ABNT PR 2030', 'ESG: conceitos, relato e avaliação', 'social', 'esg.html'),
  # clima e carbono
@@ -121,7 +120,7 @@ SETORES = [
  ('industria', 'setor-industria.html', ['iso9001', 'iatf16949', 'iso14001', 'iso45001', 'iso50001', 'iso14064', 'nr12', 'nr10', 'atuacao', 'cbam', 'sbce', 'fsc']),
  ('logistica', 'setor-logistica.html', ['iso9001', 'iso39001', 'iso14001', 'iso45001', 'iso28000', 'sassmaq', 'oea']),
  ('alimentos', 'setor-alimentos.html', ['iso9001', 'iso14001', 'iso45001', 'iso22000', 'fssc22000', 'haccp', 'brcgs', 'ppr', 'fooddefense', 'ifs', 'sqf', 'eudr', 'rainforest']),
- ('saude', 'setor-saude.html', ['iso9001', 'iso14001', 'iso45001', 'iso13485', 'iso15189', 'iso14971', 'iso27001', 'ona', 'iqg']),
+ ('saude', 'setor-saude.html', ['iso9001', 'iso14001', 'iso45001', 'iso13485', 'iso15189', 'iso14971', 'iso27001', 'ona']),
  ('tecnologia', 'setor-tecnologia.html', ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso200001', 'iso56002', 'iso42001']),
  ('energia', 'setor-energia.html', ['iso9001', 'iso14001', 'iso45001', 'iso50001', 'iso29001', 'iso14064', 'nr37', 'cbam', 'sbce']),
 ]
