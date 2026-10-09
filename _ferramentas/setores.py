@@ -19,7 +19,11 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '9', '2'
+CSS_V, JS_V = '11', '3'
+# Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
+#   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
+#   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
+MODELO_HOME = 'matriz'
 
 GRUPOS = [
  ('iso', 'Sistemas de gestão ISO', 'Normas ISO que a organização pode certificar.'),
@@ -216,6 +220,54 @@ def liga_css(s):
     return s.replace('</head>', tag + '\n</head>', 1)
 
 
+def matriz():
+    """Modelo 1 do grafico da home: grade estatica (SVG), setores nas linhas e normas nas colunas, agrupadas; um
+    quadrado liga o setor a norma. Ultima linha = o que vale para qualquer setor (quadrado mais claro). Largura da
+    pagina inteira. So quadrados e linha fina (sem circulos). Rotulo de linha leva a pagina do setor; rotulo de coluna, a
+    pagina do servico quando existe. js/setores-matriz.js acende a linha e a coluna sob o mouse."""
+    PASSO, QUAD, ROT_L, TOPO, LIN_H, GAP = 19, 13, 120, 172, 25, 14
+    CURTO_G = {'iso': 'Sistemas de gestão ISO', 'alimentos': 'Alimentos', 'social': 'Social e ética', 'clima': 'Clima e carbono',
+               'mercado': 'Mercado', 'legal': 'Trabalho e legal'}
+    CURTO_N = {'ifc': 'IFC Perf. Standards', 'fooddefense': 'Food Defense', 'atuacao': 'Atuação Responsável'}
+    cols = []; x = ROT_L; grupos = []
+    for g, _rot, _ in GRUPOS:
+        ids = [k for k in ordem() if NORMAS[k][2] == g]
+        x0 = x
+        for k in ids:
+            cols.append((k, x + PASSO / 2)); x += PASSO
+        grupos.append((CURTO_G[g], x0, x - 2))
+        x += GAP
+    linhas = [(i, pg, setores_da_lista) for i, pg, setores_da_lista in SETORES] + [('*', None, TRANSVERSAIS)]
+    larg = int(x - GAP + 6); alt = TOPO + LIN_H * len(linhas) + 4
+    esc = lambda s: s.replace('&', '&amp;')
+    o = ['<figure class="qc-mat" aria-labelledby="qcMatTit">',
+         '  <div class="qc-mat-topo"><span id="qcMatTit">Normas e padrões por setor</span><span>[ IM.S ]</span></div>',
+         '  <div class="qc-mat-rola"><svg viewBox="0 0 %d %d" width="%d" height="%d" role="img" aria-label="Grade que liga cada setor às normas e padrões aplicáveis">' % (larg, alt, larg, alt)]
+    for rot, x0, x1 in grupos:
+        o.append('    <g class="gr"><text x="%s" y="11">%s</text><path d="M%s 17H%s"/></g>' % (x0, esc(rot), x0, x1))
+    for k, cx in cols:
+        nome, _, _, pg = NORMAS[k]
+        txt = '<text transform="translate(%s %s) rotate(-90)">%s</text>' % (cx + 3.5, TOPO - 8, esc(CURTO_N.get(k, nome)))
+        o.append('    <g class="co" data-n="%s">%s</g>' % (k, ('<a href="%s">%s</a>' % (pg, txt)) if pg else txt))
+    for r, (i, pg, normas) in enumerate(linhas):
+        y = TOPO + r * LIN_H
+        rot = ('<a href="%s"><text class="rs" x="0" y="%s">%s</text></a>' % (pg, y + 17, esc(TEXTOS[i]['nome']))) if pg else \
+              '<text class="rs" x="0" y="%s">Qualquer setor</text>' % (y + 17)
+        o.append('    <g class="li%s" data-s="%s"><path class="fio" d="M0 %s H%s"/>%s' % (' tr' if i == '*' else '', i, y, larg, rot))
+        for k, cx in cols:
+            nome_s = TEXTOS[i]['nome'] if i != '*' else 'Qualquer setor'
+            if k in normas:
+                o.append('      <rect class="q" data-n="%s" x="%s" y="%s" width="%d" height="%d" rx="3"><title>%s: %s</title></rect>' % (k, cx - QUAD / 2, y + (LIN_H - QUAD) / 2, QUAD, QUAD, esc(nome_s), esc(NORMAS[k][0])))
+            else:
+                o.append('      <rect class="v" x="%s" y="%s" width="2" height="2"/>' % (cx - 1, y + LIN_H / 2 - 1))
+        o.append('    </g>')
+    o.append('    <path class="fio" d="M0 %s H%s"/>' % (TOPO + LIN_H * len(linhas), larg))
+    o.append('  </svg></div>')
+    o.append('  <figcaption>Cada quadrado liga um setor a uma norma ou padrão; a última linha mostra o que vale para qualquer setor. Passe o mouse ou toque para ler a linha e a coluna; os nomes levam às páginas.</figcaption>')
+    o.append('</figure>')
+    return '<!-- relacao setor norma -->\n' + '\n'.join(o) + '\n<!-- fim relacao setor norma -->'
+
+
 def mosaico():
     """Grafico da home: todas as normas e padroes em retangulos, agrupados; os botoes acendem o que vale para o setor.
     Escuro = especifico do setor; contorno forte = vale para qualquer setor. So retangulos, sem circulos."""
@@ -240,13 +292,23 @@ def mosaico():
     return '<!-- relacao setor norma -->\n' + '\n'.join(o) + '\n<!-- fim relacao setor norma -->'
 
 
-def poe_mosaico(s):
+def estrutura(s):
+    """A frase de «O que fazemos» fecha a coluna do texto; o grafico entra na linha inteira logo abaixo; a figura dos
+    temas e o logo vertical passam para a cauda (terco direito). Idempotente."""
+    if 'qc-abre-cauda' in s: return s
+    i = s.index('<p class="qc-lead"'); j = s.index('</p>', i) + 4
+    return s[:j] + '\n        </div>\n        <div class="qc-abre-cauda">' + s[j:]
+
+
+def poe_relacao(s):
+    s = estrutura(s)
     s = re.sub(r'[ \t]*<!-- relacao setor norma -->.*?<!-- fim relacao setor norma -->\n?', '', s, flags=re.S)
-    ancora = '<figure class="qc-temas"'
+    ancora = '        <div class="qc-abre-cauda">'
     assert s.count(ancora) == 1
-    s = s.replace(ancora, mosaico() + '\n          ' + ancora, 1)
+    bloco, js = (matriz(), 'setores-matriz') if MODELO_HOME == 'matriz' else (mosaico(), 'setores-mosaico')
+    s = s.replace(ancora, bloco + '\n' + ancora, 1)
     s = re.sub(r'<script src="js/setores-(?:matriz|mosaico)\.js[^>]*></script>\n?', '', s)
-    return s.replace('</body>', '<script src="js/setores-mosaico.js?v=%s"></script>\n</body>' % JS_V, 1)
+    return s.replace('</body>', '<script src="js/%s.js?v=%s"></script>\n</body>' % (js, JS_V), 1)
 
 
 FILTRO = '''<!-- filtro setor norma -->
@@ -285,7 +347,7 @@ def main():
     s = ler('index.html')
     s = liga_css(s)
     s = poe_filtro(s, '<p class="st-lead">Atendemos os mais diversos segmentos produtivos.</p>', True)
-    s = poe_mosaico(s)
+    s = poe_relacao(s)
     gravar('index.html', s)
     s = ler('servicos.html')
     s = liga_css(s)

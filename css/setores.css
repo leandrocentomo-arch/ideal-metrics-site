@@ -99,3 +99,30 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 /* o style.css poe marcador e recuo em todo li de .content: zera nas listas de chips */
 .stp-chips li::before,.stf-cl li::before{content:none!important;display:none}
 .stp-chips li,.stf-cl li{margin:0;padding:6px 10px!important;background:none}
+
+/* ---------- modelo 1: matriz setor x norma, na largura da pagina (home, abaixo da frase de O que fazemos) ---------- */
+.qc-abre-linha>.qc-mat{flex:0 0 100%;max-width:none;margin:34px 0 0}
+.qc-abre-linha>.qc-abre-cauda{flex:0 1 58%;min-width:280px;margin-left:auto}
+.qc-abre-linha>.qc-mos{flex:0 1 58%;min-width:280px;margin-left:auto;max-width:none}
+.qc-mat-topo{display:flex;justify-content:space-between;gap:12px;padding:0 0 8px;border-bottom:1px solid rgba(20,48,76,.2);
+  font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#315275}
+.qc-mat-topo span{white-space:nowrap}
+.qc-mat-rola{overflow-x:auto;padding:12px 0 0}
+.qc-mat svg{display:block;width:100%;min-width:900px;height:auto;overflow:visible}
+.qc-mat text{font-family:'IBM Plex Mono',monospace;fill:#14304C}
+.qc-mat .gr text{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;fill:#315275}
+.qc-mat .gr path{stroke:#14304C;stroke-width:1;opacity:.5;fill:none}
+.qc-mat .co text{font-size:10.5px;letter-spacing:.04em}
+.qc-mat .rs{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.qc-mat a{text-decoration:none}
+.qc-mat a:hover text,.qc-mat a:focus-visible text{text-decoration:underline}
+.qc-mat .fio{stroke:rgba(20,48,76,.14);stroke-width:1;fill:none}
+.qc-mat .q{fill:#336699;transition:fill .15s,opacity .15s}
+.qc-mat .li.tr .q{fill:#336699;opacity:.5}
+.qc-mat .v{fill:rgba(20,48,76,.3)}
+.qc-mat.hov .q{opacity:.2}
+.qc-mat.hov .q.on{opacity:1;fill:#14304C}
+.qc-mat .co.on text,.qc-mat .li.on .rs{fill:#336699;font-weight:600}
+.qc-mat figcaption{margin:10px 0 0;font-family:'IBM Plex Sans Condensed',sans-serif;font-size:13.5px;line-height:1.35;color:#315275}
+@media (max-width:880px){ .qc-abre-linha>.qc-abre-cauda,.qc-abre-linha>.qc-mos{flex:0 0 100%} }
+@media (max-width:560px){ .qc-mat-topo{font-size:9.5px;letter-spacing:.14em} }
