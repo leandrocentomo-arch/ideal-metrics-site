@@ -104,7 +104,9 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 /* 09/10/2026 (2): a grade divide o terco direito com os «Temas de gestao» logo abaixo. Recolhida, mostra parte das
    colunas em tamanho real e rola de lado; a etiqueta na parede direita (a mesma dos cards da primeira secao) abre a
    grade na largura da pagina e fecha de novo. */
-.qc-abre-linha>.qc-mat{position:relative;flex:0 1 58%;min-width:0;max-width:100%;margin:34px 0 0 auto;padding-right:47px;
+/* 09/10/2026 (3): a grade ocupa a metade esquerda da secao, ao lado dos «Temas de gestao» (terco direito), no espaco
+   que ficava vazio embaixo da busca; as duas comecam na mesma altura. A soma fecha com o vao de 40px da linha. */
+.qc-abre-linha>.qc-mat{position:relative;flex:0 0 calc(42% - 40px);min-width:0;max-width:100%;margin:40px 0 0;padding-right:47px;
   transition:flex-basis .5s cubic-bezier(.4,0,.2,1)}
 .qc-abre-linha>.qc-mat.aberto{flex:0 0 100%;margin-left:0}
 .qc-mat:not(.aberto) .qc-mat-rola svg{width:auto;max-width:none;min-width:0}
