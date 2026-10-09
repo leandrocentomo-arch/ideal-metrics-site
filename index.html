@@ -1573,10 +1573,20 @@ body>*{position:relative;z-index:1}
 /* 09/10/2026: os quatro circulos da primeira versao do site (Imagens em circulos.png, 04/07), cortados da imagem
    original, um ao lado do outro. 09/10/2026: metade do tamanho (80 px, eram 160) e 50% mais juntos (16 px de vao, eram 32);
    o limite do Leandro era 2 polegadas, 192 px */
-.qc-circ{position:relative;flex:0 1 80px;min-width:0;width:100%;max-width:80px;aspect-ratio:1;border-radius:50%;overflow:hidden;display:block;background:var(--mercurio)}
-/* 09/10/2026: os circulos passam pelo tingimento oficial e pelo motor da trama, como toda foto do site (era o tingimento antigo da 1a versao) */
-.qc-circ img,.qc-circ-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
-.qc-circ.gl-on img{visibility:hidden}
+/* 09/10/2026 (noite): no lugar dos circulos, o pedido de orcamento direto no WhatsApp (com o logo) ou por e-mail.
+   Dois botoes irmaos da mesma largura, fio fino, canto de 3 px; o logo do WhatsApp no verde que o site ja usa. */
+.qc-temas-quadro.qc-orc{display:block;padding:18px 20px 20px}
+.qc-orc-tit{margin:0 0 14px;font-family:var(--sans);font-weight:500;font-size:16px;line-height:1.3;color:var(--azul)}
+.qc-orc-bts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.qc-orc-bt{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid rgba(20,48,76,.22);border-radius:3px;
+  color:var(--azul);text-decoration:none;transition:border-color .25s,background .25s}
+.qc-orc-bt:hover,.qc-orc-bt:focus-visible{border-color:var(--azul);background:rgba(51,102,153,.06);outline:none}
+.qc-orc-bt span{display:flex;flex-direction:column;gap:5px;min-width:0}
+.qc-orc-bt b{font-family:var(--sans);font-weight:600;font-size:16px;line-height:1.1}
+.qc-orc-bt i{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--azul-escuro);overflow-wrap:anywhere}
+.qc-orc-wa{width:30px;height:30px;flex:none;fill:#188755}
+.qc-orc-mail{width:30px;height:21px;flex:none;fill:none;stroke:var(--azul);stroke-width:1.3;stroke-linejoin:round}
+@media (max-width:560px){ .qc-orc-bts{grid-template-columns:1fr} }
 @media (max-width:560px){ .qc-temas-quadro{padding:14px 12px;gap:8px} }
 .qc-temas figcaption{margin:0}
 .qc-temas-frase{margin:18px 0 14px;font-family:var(--sans);font-weight:600;font-size:clamp(17px,1.5vw,20px);line-height:1.25;color:var(--azul)}
@@ -2106,6 +2116,10 @@ body>*{position:relative;z-index:1}
 .qc-todos:hover,.qc-todos:focus-visible{background:var(--azul);color:var(--mercurio);border-color:var(--azul);outline:none}
 .qc-todos-ic{width:10px;height:6px;flex:none;fill:currentColor;transition:transform .3s cubic-bezier(.4,0,.2,1)}
 .qc-todos:hover .qc-todos-ic{transform:translateX(3px)}
+/* 09/10/2026 (noite): a frase de «O que fazemos» desce 46 px para ficar no meio, na vertical, entre o fio do alto da
+   secao e a faixa da grade e dos temas (34 + 46 = 80 em cima, os mesmos 80 de baixo). Os lados nao mudam. */
+.qc-abre-linha>.qc-abre-texto{margin-top:46px}
+@media (max-width:880px){ .qc-abre-linha>.qc-abre-texto{margin-top:0} }
 /* 17/09, 2a volta: o rodape pequeno deixou de ser absoluto no pe da coluna e
    passou a ser a primeira linha escrita debaixo do titulo, acima da lista do
    hover. Ele fica sempre visivel; a lista e que entra e sai. */
@@ -3417,7 +3431,13 @@ body>*{position:relative;z-index:1}
         <div class="qc-abre-cauda">
           <figure class="qc-temas" aria-labelledby="qcTemasFrase">
             <div class="qc-temas-topo"><span>Temas de gestão</span><span>[ 06 ]</span></div>
-            <div class="qc-temas-quadro"><span class="qc-circ"><img src="img/tema-circulo-usina-bayer.webp?v=09102026b" data-lum="img/tema-circulo-usina-lum.webp?v=09102026b" alt="Usina com chaminés sobre campo coberto de neve" width="80" height="80" loading="lazy"></span><span class="qc-circ"><img src="img/tema-circulo-trabalhadores-bayer.webp?v=09102026b" data-lum="img/tema-circulo-trabalhadores-lum.webp?v=09102026b" alt="Trabalhadores de capacete reunidos" width="80" height="80" loading="lazy"></span><span class="qc-circ"><img src="img/tema-circulo-globo-bayer.webp?v=09102026b" data-lum="img/tema-circulo-globo-lum.webp?v=09102026b" alt="Globo em malha de quadrados" width="80" height="80" loading="lazy"></span><span class="qc-circ"><img src="img/tema-circulo-refinaria-bayer.webp?v=09102026b" data-lum="img/tema-circulo-refinaria-lum.webp?v=09102026b" alt="Refinaria com capacete de segurança sobreposto" width="80" height="80" loading="lazy"></span></div>
+            <div class="qc-temas-quadro qc-orc">
+              <p class="qc-orc-tit">Solicite um orçamento: fale direto com a nossa equipe técnica.</p>
+              <div class="qc-orc-bts">
+                <a class="qc-orc-bt" href="https://wa.me/5511954684086?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20%C3%A0%20Ideal%20Metrics." target="_blank" rel="noopener"><svg class="qc-orc-wa" viewBox="0 0 63.13 63.13" aria-hidden="true"><path d="M63.13,30.75c0,16.98-13.88,30.75-30.99,30.75-5.44,0-10.54-1.39-14.98-3.83L0,63.13l5.59-16.5c-2.82-4.63-4.45-10.07-4.45-15.88C1.15,13.77,15.02,0,32.14,0s30.99,13.77,30.99,30.75h0ZM32.14,4.9c-14.37,0-26.06,11.6-26.06,25.86,0,5.650,1.84,10.9,4.96,15.16l-3.25,9.6,10.01-3.18c4.11,2.7,9.040,4.27,14.34,4.27,14.37,0,26.06-11.6,26.06-25.85S46.51,4.9,32.14,4.9h0ZM47.79,37.84c-.19-.31-.7-.5-1.46-.88-.76-.38-4.5-2.2-5.19-2.45-.7-.25-1.21-.38-1.71.38-.51.75-1.96,2.45-2.41,2.96-.44.5-.88.57-1.64.19-.76-.38-3.21-1.17-6.11-3.74-2.26-2-3.78-4.47-4.23-5.22-.44-.75-.04-1.16.33-1.54.34-.34.76-.88,1.14-1.32.38-.44.51-.76.76-1.26.25-.5.13-.94-.06-1.32-.19-.38-1.71-4.090-2.34-5.6-.63-1.51-1.26-1.45-1.71-1.45s-1.26.13-1.26.13c0,0-1.52.19-2.22.94-.7.75-2.66,2.58-2.66,6.29s2.72,7.3,3.1,7.8c.38.5,5.25,8.36,12.98,11.38,7.72,3.02,7.72,2.01,9.12,1.88,1.39-.12,4.49-1.82,5.13-3.58.63-1.76.63-3.27.45-3.58h0Z"/></svg><span><b>WhatsApp</b><i>+55 11 95468-4086</i></span></a>
+                <a class="qc-orc-bt" href="mailto:info@ideal-metrics.com?subject=Solicita%C3%A7%C3%A3o%20de%20or%C3%A7amento"><svg class="qc-orc-mail" viewBox="0 0 26 18" aria-hidden="true"><rect x="1" y="1" width="24" height="16" rx="1.5"/><path d="M1.6 2 13 10.4 24.4 2"/></svg><span><b>E-mail</b><i>info@ideal-metrics.com</i></span></a>
+              </div>
+            </div>
             <figcaption>
               <p class="qc-temas-frase" id="qcTemasFrase">Trabalhamos com diversos temas de gestão, integrados num único sistema.</p>
               <ul class="qc-temas-lista">
@@ -3426,7 +3446,6 @@ body>*{position:relative;z-index:1}
               </ul>
             </figcaption>
           </figure>
-          <img class="qc-selo" src="img/marca-vertical-ideal-m-azul.webp?v=08102026c" alt="Ideal Metrics" width="288" height="365" loading="lazy">
         </div>
       </div>
     </div>
@@ -4762,17 +4781,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
 <script src="js/trama.js?v=26"></script>
-<script>
-/* 09/10/2026: os quatro circulos dos Temas de gestao no motor da trama, no tom azul do site e com o efeito de mouse */
-(function(){
-  if(!window.ditherVivo) return;
-  [].forEach.call(document.querySelectorAll('.qc-circ'), function(q){
-    var im = q.querySelector('img'); if(!im) return;
-    window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'qc-circ-gl', revelar:'visivel',
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});
-  });
-})();
-</script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
