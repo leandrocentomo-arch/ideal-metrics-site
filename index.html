@@ -1558,6 +1558,29 @@ body>*{position:relative;z-index:1}
    _tingir-fotos/logos-azul/marca-vertical-azul-receita.json). 96 px de largura, como na previa «em uso» da aba. */
 .qc-selo{display:block;height:122px;width:auto;margin:34px 0 0}
 @media (max-width:880px){ .qc-selo{height:100px;margin-top:24px} }
+/* 08/10/2026 (noite): abaixo da frase, a foto das paginas em leque num quadro dentro de outro quadro.
+   Quadro de fora: fio fino, cabecalho mono e duas cruzes de registro nos cantos (a linguagem de documento
+   tecnico do site). Quadro de dentro: a foto no motor da trama, com o efeito de mouse. Embaixo, a frase e
+   os seis temas numerados. */
+.qc-temas{position:relative;margin:40px 0 0;max-width:820px;padding:12px 14px 6px;border:1px solid var(--fio);border-radius:3px}
+.qc-temas::before,.qc-temas::after{content:'';position:absolute;width:11px;height:11px;pointer-events:none;
+  background:linear-gradient(var(--azul),var(--azul)) center/11px 1px no-repeat,linear-gradient(var(--azul),var(--azul)) center/1px 11px no-repeat}
+.qc-temas::before{left:-6px;top:-6px}
+.qc-temas::after{right:-6px;bottom:-6px}
+.qc-temas-topo{display:flex;justify-content:space-between;margin:0 0 12px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
+.qc-temas-quadro{position:relative;aspect-ratio:2/1;overflow:hidden;border:1px solid var(--fio);border-radius:3px;background:var(--mercurio)}
+.qc-temas-quadro img,.qc-temas-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.qc-temas-quadro img{object-fit:cover}
+.qc-temas-quadro.gl-on img{visibility:hidden}
+.qc-temas figcaption{margin:0}
+.qc-temas-frase{margin:18px 0 14px;font-family:var(--sans);font-weight:600;font-size:clamp(17px,1.5vw,20px);line-height:1.25;color:var(--azul)}
+.qc-temas-lista{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:18px}
+.qc-temas-lista li{display:flex;gap:10px;align-items:baseline;padding:10px 0;border-top:1px solid var(--fio);
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul);white-space:nowrap}
+.qc-temas-lista b{font-weight:500;color:var(--azul-escuro);opacity:.7}
+@media (max-width:880px){ .qc-temas{margin-top:28px} .qc-temas-lista{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .qc-temas-lista{grid-template-columns:1fr} }
 @media (max-width:880px){ .qc-abre-logo{height:52px;margin-bottom:18px} }
 /* maquina de escrever: a frase entra letra a letra quando a secao aparece;
    .qc-cursor e o cursor, que pisca e some no fim. */
@@ -2805,6 +2828,17 @@ body>*{position:relative;z-index:1}
         <div class="qc-abre-texto">
           <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
           <p class="qc-lead" id="qcLead" data-texto="Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
+          <figure class="qc-temas" aria-labelledby="qcTemasFrase">
+            <div class="qc-temas-topo"><span>Temas de gestão</span><span>[ 06 ]</span></div>
+            <div class="qc-temas-quadro"><img src="img/temas-gestao-bayer.webp?v=08102026" data-lum="img/temas-gestao-lum.webp?v=08102026" alt="" width="780" height="390" loading="lazy"></div>
+            <figcaption>
+              <p class="qc-temas-frase" id="qcTemasFrase">Trabalhamos com diversos temas de gestão, integrados num único sistema.</p>
+              <ul class="qc-temas-lista">
+                <li><b>01</b>Qualidade</li><li><b>02</b>Meio ambiente</li><li><b>03</b>Saúde e segurança</li>
+                <li><b>04</b>Compliance</li><li><b>05</b>Sustentabilidade</li><li><b>06</b>Pesquisa aplicada</li>
+              </ul>
+            </figcaption>
+          </figure>
           <img class="qc-selo" src="img/marca-vertical-ideal-m-azul.webp?v=08102026c" alt="Ideal Metrics" width="288" height="365" loading="lazy">
         </div>
       </div>
@@ -4128,6 +4162,15 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
 <script src="js/trama.js?v=26"></script>
+<script>
+/* 08/10/2026: a foto dos temas (secao Frentes) no motor da trama, no tom azul do site e com o efeito de mouse */
+(function(){
+  var q = document.querySelector('.qc-temas-quadro'), im = q && q.querySelector('img');
+  if(!q || !im || !window.ditherVivo) return;
+  window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'qc-temas-gl', revelar:'visivel',
+    cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});
+})();
+</script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
