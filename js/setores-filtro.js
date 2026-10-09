@@ -67,8 +67,9 @@
         ids.forEach(function(id){ var n = D.normas[id]; grade.appendChild(cartao(n.nome, n.desc, n.pagina, 'Ver serviço →')); });
         res.appendChild(grade);
       });
-      res.appendChild(no('p', 'stf-rot', 'Valem para qualquer setor'));
-      res.appendChild(lista(D.ordemNormas.filter(function(id){ return D.normas[id].todos; })));
+      var outras = D.ordemNormas.filter(function(id){ return D.normas[id].todos && s.normas.indexOf(id) < 0; });
+      res.appendChild(no('p', 'stf-rot', 'Outros padrões que valem para qualquer setor'));
+      res.appendChild(lista(outras));
     } else {
       var n = D.normas[sel];
       cab.appendChild(no('h3', null, n.nome));
@@ -79,6 +80,8 @@
       if(n.todos){
         res.appendChild(no('p', 'stf-sub', 'Vale para qualquer setor. Veja as páginas de setor:'));
         D.setores.forEach(function(x){ grade2.appendChild(cartao(x.nome, x.resumo, x.pagina, 'Ver setor →')); });
+      } else if(n.fora){
+        res.appendChild(no('p', 'stf-sub', 'Aplica-se a ' + n.fora.toLowerCase() + ', fora dos seis setores listados.'));
       } else if(n.setores.length){
         D.setores.filter(function(x){ return n.setores.indexOf(x.id) >= 0; }).forEach(function(x){ grade2.appendChild(cartao(x.nome, x.resumo, x.pagina, 'Ver setor →')); });
       } else {

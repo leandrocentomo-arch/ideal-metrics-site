@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '12', '3'
+CSS_V, JS_V = '13', '4'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -115,22 +115,25 @@ NORMAS = {
  'eudr': ('EUDR', 'Regulamento da União Europeia contra o desmatamento', 'legal', 'estudos-regulatorios.html'),
 }
 
-# normas de cada setor (as seis paginas ja existiam; ver # NOVO acima)
+# normas em destaque na pagina de cada setor (lista curada). Quem esta em TRANSVERSAIS vale para todos os setores,
+# mesmo sem aparecer na lista: o grafico, o filtro e o mosaico mostram nos seis.
 SETORES = [
- ('industria', 'setor-industria.html', ['iso9001', 'iatf16949', 'iso14001', 'iso45001', 'iso50001', 'iso14064', 'nr12', 'nr10', 'atuacao']),
+ ('industria', 'setor-industria.html', ['iso9001', 'iatf16949', 'iso14001', 'iso45001', 'iso50001', 'iso14064', 'nr12', 'nr10', 'atuacao', 'cbam', 'sbce', 'fsc']),
  ('logistica', 'setor-logistica.html', ['iso9001', 'iso39001', 'iso14001', 'iso45001', 'iso28000', 'sassmaq', 'oea']),
- ('alimentos', 'setor-alimentos.html', ['iso22000', 'fssc22000', 'haccp', 'brcgs', 'ppr', 'fooddefense', 'ifs', 'sqf', 'eudr']),
- ('saude', 'setor-saude.html', ['iso13485', 'iso9001', 'iso15189', 'iso14971', 'iso27001', 'ona']),
- ('tecnologia', 'setor-tecnologia.html', ['iso27001', 'iso27701', 'iso200001', 'iso9001', 'iso56002', 'iso42001']),
- ('energia', 'setor-energia.html', ['iso50001', 'iso29001', 'iso14001', 'iso45001', 'nr37', 'iso14064']),
+ ('alimentos', 'setor-alimentos.html', ['iso9001', 'iso14001', 'iso45001', 'iso22000', 'fssc22000', 'haccp', 'brcgs', 'ppr', 'fooddefense', 'ifs', 'sqf', 'eudr', 'rainforest']),
+ ('saude', 'setor-saude.html', ['iso9001', 'iso14001', 'iso45001', 'iso13485', 'iso15189', 'iso14971', 'iso27001', 'ona']),
+ ('tecnologia', 'setor-tecnologia.html', ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso200001', 'iso56002', 'iso42001']),
+ ('energia', 'setor-energia.html', ['iso9001', 'iso14001', 'iso45001', 'iso50001', 'iso29001', 'iso14064', 'nr37', 'cbam', 'sbce']),
 ]
 
-# valem para qualquer setor (nao pertencem a um setor so)
-TRANSVERSAIS = ['iso41001', 'iso37001', 'iso37301', 'iso55001', 'iso22301', 'iso31000', 'iso31022', 'smeta', 'sa8000', 'ifc',
-                'ecovadis', 'fsc', 'rainforest', 'iqg', 'abntpr1004', 'abntpr2030', 'ghgprotocol', 'iso14067', 'iso14040',
-                'iso14025', 'iso14068', 'pas2060', 'cdp', 'gri', 'sbti', 'verra', 'goldstandard', 'sbce', 'cbam',
-                'nr01', 'nr17', 'esocial', 'lgpd']
-# ISO 21001 (educacao) e ISO/IEC 17025 (laboratorios) ficam fora dos seis setores: nem lista de setor nem transversal.
+# valem para qualquer setor: normas genericas de sistema de gestao, programas de cadeia, clima e requisitos legais gerais
+TRANSVERSAIS = ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso50001', 'iso56002', 'iso42001', 'iso14064',
+                'iso37001', 'iso37301', 'iso55001', 'iso22301', 'iso31000', 'iso31022', 'smeta', 'sa8000', 'ifc',
+                'ecovadis', 'iqg', 'abntpr1004', 'abntpr2030', 'ghgprotocol', 'iso14067', 'iso14040', 'iso14025',
+                'iso14068', 'pas2060', 'cdp', 'gri', 'sbti', 'verra', 'goldstandard', 'nr01', 'nr17', 'esocial', 'lgpd']
+
+# so valem fora dos seis setores (rotulo da linha «Outros setores» do grafico)
+FORA = {'iso41001': 'Facilities', 'iso21001': 'Educação', 'iso17025': 'Laboratórios'}
 
 TEXTOS = json.load(open(os.path.join(AQUI, 'setores-textos.json'), encoding='utf-8'))
 ORDEM_G = [g[0] for g in GRUPOS]
@@ -154,7 +157,7 @@ def setores_da(k):
 
 def dados_js():
     setores = [{'id': i, 'nome': TEXTOS[i]['nome'], 'pagina': pg, 'resumo': TEXTOS[i]['resumo'], 'normas': ns} for i, pg, ns in SETORES]
-    normas = {k: {'nome': v[0], 'desc': v[1], 'grupo': v[2], 'pagina': v[3], 'setores': setores_da(k), 'todos': k in TRANSVERSAIS}
+    normas = {k: {'nome': v[0], 'desc': v[1], 'grupo': v[2], 'pagina': v[3], 'setores': setores_da(k), 'todos': k in TRANSVERSAIS, 'fora': FORA.get(k, '')}
               for k, v in NORMAS.items()}
     obj = {'setores': setores, 'normas': normas, 'ordemNormas': ordem(), 'transversais': TRANSVERSAIS,
            'grupos': [{'id': g, 'nome': n} for g, n, _ in GRUPOS]}
@@ -189,9 +192,9 @@ def miolo(i, pg, normas):
         h.append('<div class="stp-grade">')
         h.extend('  ' + cartao_norma(k) for k in ks)
         h.append('</div>')
-    tr = [k for k in ordem() if k in TRANSVERSAIS]
+    tr = [k for k in ordem() if k in TRANSVERSAIS and k not in normas]
     h.append('<details class="stp-transv"><summary><span>Valem para qualquer setor</span><em>%02d</em></summary>' % len(tr))
-    h.append('<p class="stp-nota">Padrões que a Ideal Metrics atende em organizações de qualquer setor, como SEDEX/SMETA, IFC, EcoVadis, normas de carbono e a LGPD.</p>')
+    h.append('<p class="stp-nota">Outros padrões que a Ideal Metrics atende em organizações de qualquer setor, como SEDEX/SMETA, IFC, EcoVadis, normas de carbono e a LGPD.</p>')
     h.append('<ul class="stp-chips">' + ''.join(chip_norma(k) for k in tr) + '</ul></details>')
     h.append('<h3>O que a Ideal Metrics entrega</h3>')
     h.append('<div class="numbered-items">')
@@ -237,7 +240,7 @@ def matriz():
             cols.append((k, x + PASSO / 2)); x += PASSO
         grupos.append((CURTO_G[g], x0, x - 2))
         x += GAP
-    linhas = [(i, pg, setores_da_lista) for i, pg, setores_da_lista in SETORES] + [('*', None, TRANSVERSAIS)]
+    linhas = list(SETORES) + [('-', None, list(FORA))]
     larg = int(x - GAP + 6); alt = TOPO + LIN_H * len(linhas) + 4
     esc = lambda s: s.replace('&', '&amp;')
     o = ['<figure class="qc-mat" aria-labelledby="qcMatTit">',
@@ -252,18 +255,20 @@ def matriz():
     for r, (i, pg, normas) in enumerate(linhas):
         y = TOPO + r * LIN_H
         rot = ('<a href="%s"><text class="rs" x="0" y="%s">%s</text></a>' % (pg, y + 17, esc(TEXTOS[i]['nome']))) if pg else \
-              '<text class="rs" x="0" y="%s">Qualquer setor</text>' % (y + 17)
-        o.append('    <g class="li%s" data-s="%s"><path class="fio" d="M0 %s H%s"/>%s' % (' tr' if i == '*' else '', i, y, larg, rot))
+              '<text class="rs" x="0" y="%s">Outros setores</text>' % (y + 17)
+        o.append('    <g class="li" data-s="%s"><path class="fio" d="M0 %s H%s"/>%s' % (i, y, larg, rot))
         for k, cx in cols:
-            nome_s = TEXTOS[i]['nome'] if i != '*' else 'Qualquer setor'
+            nome_s = TEXTOS[i]['nome'] if pg else FORA.get(k, 'Outros setores')
             if k in normas:
                 o.append('      <rect class="q" data-n="%s" x="%s" y="%s" width="%d" height="%d" rx="3"><title>%s: %s</title></rect>' % (k, cx - QUAD / 2, y + (LIN_H - QUAD) / 2, QUAD, QUAD, esc(nome_s), esc(NORMAS[k][0])))
+            elif pg and k in TRANSVERSAIS:
+                o.append('      <rect class="q t" data-n="%s" x="%s" y="%s" width="%d" height="%d" rx="3"><title>%s: %s (vale para qualquer setor)</title></rect>' % (k, cx - QUAD / 2, y + (LIN_H - QUAD) / 2, QUAD, QUAD, esc(nome_s), esc(NORMAS[k][0])))
             else:
                 o.append('      <rect class="v" x="%s" y="%s" width="2" height="2"/>' % (cx - 1, y + LIN_H / 2 - 1))
         o.append('    </g>')
     o.append('    <path class="fio" d="M0 %s H%s"/>' % (TOPO + LIN_H * len(linhas), larg))
     o.append('  </svg></div>')
-    o.append('  <figcaption>Cada quadrado liga um setor a uma norma ou padrão; a última linha mostra o que vale para qualquer setor. Passe o mouse ou toque para ler a linha e a coluna; os nomes levam às páginas.</figcaption>')
+    o.append('  <figcaption>Cada quadrado liga um setor a uma norma ou padrão; o quadro claro é o que vale para qualquer setor; a última linha traz o que é só de facilities, educação e laboratórios. Passe o mouse ou toque para ler a linha e a coluna; os nomes levam às páginas.</figcaption>')
     o.append('</figure>')
     return '<!-- relacao setor norma -->\n' + '\n'.join(o) + '\n<!-- fim relacao setor norma -->'
 
@@ -284,6 +289,7 @@ def mosaico():
         for k in ks:
             nome, desc, _, pg = NORMAS[k]
             ds = '*' if k in TRANSVERSAIS else (' '.join(setores_da(k)) or '-')
+            desc = desc + (' (só para ' + FORA[k].lower() + ')' if k in FORA else '')
             conteudo = ('<a href="%s">%s</a>' % (pg, nome)) if pg else nome
             o.append('    <li data-s="%s" title="%s">%s</li>' % (ds, desc.replace('"', '&quot;'), conteudo))
         o.append('  </ul></div>')
