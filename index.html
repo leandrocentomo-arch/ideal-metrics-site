@@ -1575,18 +1575,19 @@ body>*{position:relative;z-index:1}
    o limite do Leandro era 2 polegadas, 192 px */
 /* 09/10/2026 (noite): no lugar dos circulos, o pedido de orcamento direto no WhatsApp (com o logo) ou por e-mail.
    Dois botoes irmaos da mesma largura, fio fino, canto de 3 px; o logo do WhatsApp no verde que o site ja usa. */
-.qc-temas-quadro.qc-orc{display:block;padding:18px 20px 20px}
-.qc-orc-tit{margin:0 0 14px;font-family:var(--sans);font-weight:500;font-size:16px;line-height:1.3;color:var(--azul)}
-.qc-orc-bts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.qc-orc-bt{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid rgba(20,48,76,.22);border-radius:3px;
-  color:var(--azul);text-decoration:none;transition:border-color .25s,background .25s}
-.qc-orc-bt:hover,.qc-orc-bt:focus-visible{border-color:var(--azul);background:rgba(51,102,153,.06);outline:none}
-.qc-orc-bt span{display:flex;flex-direction:column;gap:5px;min-width:0}
-.qc-orc-bt b{font-family:var(--sans);font-weight:600;font-size:16px;line-height:1.1}
-.qc-orc-bt i{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--azul-escuro);overflow-wrap:anywhere}
-.qc-orc-wa{width:30px;height:30px;flex:none;fill:#188755}
-.qc-orc-mail{width:30px;height:21px;flex:none;fill:none;stroke:var(--azul);stroke-width:1.3;stroke-linejoin:round}
-@media (max-width:560px){ .qc-orc-bts{grid-template-columns:1fr} }
+.qc-temas-quadro.qc-orc{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding:16px 18px}
+/* 09/10/2026 (noite, 2): «botoes pequenos, um abaixo do outro, no canto, sem o numero»: coluna estreita a direita,
+   irmaos da mesma largura, na caixa alta espacada do botao «Todos os servicos» */
+.qc-orc-tit{margin:2px 0 0;font-family:var(--sans);font-weight:500;font-size:16px;line-height:1.3;color:var(--azul)}
+.qc-orc-bts{display:flex;flex-direction:column;gap:6px;flex:none;width:148px}
+.qc-orc-bt{display:flex;align-items:center;gap:10px;padding:7px 12px;border:1px solid rgba(20,48,76,.42);border-radius:3px;
+  color:var(--azul);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;
+  transition:background .3s,color .3s,border-color .3s}
+.qc-orc-bt:hover,.qc-orc-bt:focus-visible{background:var(--azul);color:var(--mercurio);border-color:var(--azul);outline:none}
+.qc-orc-wa{width:16px;height:16px;flex:none;fill:#188755}
+.qc-orc-bt:hover .qc-orc-wa,.qc-orc-bt:focus-visible .qc-orc-wa{fill:var(--mercurio)}
+.qc-orc-mail{width:16px;height:11px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
+@media (max-width:560px){ .qc-temas-quadro.qc-orc{flex-direction:column} }
 @media (max-width:560px){ .qc-temas-quadro{padding:14px 12px;gap:8px} }
 .qc-temas figcaption{margin:0}
 .qc-temas-frase{margin:18px 0 14px;font-family:var(--sans);font-weight:600;font-size:clamp(17px,1.5vw,20px);line-height:1.25;color:var(--azul)}
@@ -2118,7 +2119,7 @@ body>*{position:relative;z-index:1}
 .qc-todos:hover .qc-todos-ic{transform:translateX(3px)}
 /* 09/10/2026 (noite): a frase de «O que fazemos» desce 46 px para ficar no meio, na vertical, entre o fio do alto da
    secao e a faixa da grade e dos temas (34 + 46 = 80 em cima, os mesmos 80 de baixo). Os lados nao mudam. */
-.qc-abre-linha>.qc-abre-texto{margin-top:96px}   /* 09/10 (noite, 2): «aumente este espaco», 46 -> 96 px acima de «O que fazemos» */
+.qc-abre-linha>.qc-abre-texto{margin-top:136px;margin-bottom:48px}   /* 09/10 (noite, 3): mais espaco acima (96 -> 136) e abaixo do botao (+48) */   /* 09/10 (noite, 2): «aumente este espaco», 46 -> 96 px acima de «O que fazemos» */
 @media (max-width:880px){ .qc-abre-linha>.qc-abre-texto{margin-top:0} }
 /* 17/09, 2a volta: o rodape pequeno deixou de ser absoluto no pe da coluna e
    passou a ser a primeira linha escrita debaixo do titulo, acima da lista do
@@ -2865,13 +2866,13 @@ body>*{position:relative;z-index:1}
 <!-- relacao setor norma -->
 <figure class="qc-mat" id="qcMat" aria-labelledby="qcMatTit">
   <div class="qc-mat-topo"><span id="qcMatTit">Normas e padrões por setor</span><span>[ IM.S ]</span></div>
-  <div class="qc-mat-rola"><svg viewBox="0 0 1469 351" width="1469" height="351" role="img" aria-label="Grade que liga cada setor às normas e padrões aplicáveis">
+  <div class="qc-mat-rola"><svg viewBox="0 0 1450 351" width="1450" height="351" role="img" aria-label="Grade que liga cada setor às normas e padrões aplicáveis">
     <g class="gr"><text x="120" y="11">Sistemas de gestão ISO</text><path d="M120 17H555"/></g>
     <g class="gr"><text x="571" y="11">Alimentos</text><path d="M571 17H721"/></g>
     <g class="gr"><text x="737" y="11">Social e ética</text><path d="M737 17H868"/></g>
-    <g class="gr"><text x="884" y="11">Clima e carbono</text><path d="M884 17H1148"/></g>
-    <g class="gr"><text x="1164" y="11">Mercado</text><path d="M1164 17H1257"/></g>
-    <g class="gr"><text x="1273" y="11">Trabalho e legal</text><path d="M1273 17H1461"/></g>
+    <g class="gr"><text x="884" y="11">Clima e carbono</text><path d="M884 17H1129"/></g>
+    <g class="gr"><text x="1145" y="11">Mercado</text><path d="M1145 17H1238"/></g>
+    <g class="gr"><text x="1254" y="11">Trabalho e legal</text><path d="M1254 17H1442"/></g>
     <g class="co" data-n="iso9001" data-rev="ISO 9001:2026" data-tit="Sistemas de gestão da qualidade: requisitos"><a href="norma-iso-9001.html"><text transform="translate(133.0 164) rotate(-90)">ISO 9001</text></a></g>
     <g class="co" data-n="iso14001" data-rev="ABNT NBR ISO 14001:2026" data-tit="Sistemas de gestão ambiental: requisitos com orientações para uso"><a href="norma-iso-14001.html"><text transform="translate(152.0 164) rotate(-90)">ISO 14001</text></a></g>
     <g class="co" data-n="iso45001" data-rev="ABNT NBR ISO 45001:2024 (com Emenda 1:2025)" data-tit="Sistemas de gestão de saúde e segurança ocupacional: requisitos com orientações para uso"><a href="norma-iso-45001.html"><text transform="translate(171.0 164) rotate(-90)">ISO 45001</text></a></g>
@@ -2915,31 +2916,30 @@ body>*{position:relative;z-index:1}
     <g class="co" data-n="iso14067" data-rev="ABNT NBR ISO 14067:2023" data-tit="Gases de efeito estufa: pegada de carbono de produtos: requisitos e orientações sobre quantificação"><a href="carbono-pegada-produto.html"><text transform="translate(935.0 164) rotate(-90)">ISO 14067</text></a></g>
     <g class="co" data-n="iso14040" data-rev="ABNT NBR ISO 14040:2025" data-tit="Gestão ambiental: avaliação do ciclo de vida: princípios e estrutura"><a href="carbono-pegada-produto.html"><text transform="translate(954.0 164) rotate(-90)">ISO 14040</text></a></g>
     <g class="co" data-n="iso14025" data-rev="ISO 14025:2026" data-tit="Environmental statements and programmes for products: environmental product declarations (EPDs)"><a href="carbono-pegada-produto.html"><text transform="translate(973.0 164) rotate(-90)">ISO 14025</text></a></g>
-    <g class="co" data-n="iso14068" data-rev="ISO 14068:2026" data-tit="Climate change management: carbon neutrality"><a href="carbono-neutralizacao.html"><text transform="translate(992.0 164) rotate(-90)">ISO 14068</text></a></g>
-    <g class="co" data-n="pas2060" data-rev="PAS 2060:2014 (retirada em 30/11/2025)" data-tit="Specification for the demonstration of carbon neutrality"><a href="carbono-neutralizacao.html"><text transform="translate(1011.0 164) rotate(-90)">PAS 2060</text></a></g>
-    <g class="co" data-n="cdp" data-rev="CDP, questionário corporativo, ciclo 2026" data-tit="CDP Corporate Questionnaire 2026 (clima, florestas, água, plásticos, biodiversidade e oceanos)"><a href="carbono-inventario-gee.html"><text transform="translate(1030.0 164) rotate(-90)">CDP</text></a></g>
-    <g class="co" data-n="gri" data-rev="GRI Standards (Universais 2021; GRI 101 Biodiversity 2024; GRI 102 Climate Change 2025)" data-tit="Normas GRI"><a href="carbono-inventario-gee.html"><text transform="translate(1049.0 164) rotate(-90)">GRI</text></a></g>
-    <g class="co" data-n="sbti" data-rev="SBTi Corporate Net-Zero Standard V2.0" data-tit="SBTi Corporate Net-Zero Standard, Version 2.0"><a href="carbono-descarbonizacao.html"><text transform="translate(1068.0 164) rotate(-90)">SBTi</text></a></g>
-    <g class="co" data-n="verra" data-rev="VCS Standard v5.0" data-tit="Verified Carbon Standard (VCS) Program, Version 5"><a href="carbono-creditos.html"><text transform="translate(1087.0 164) rotate(-90)">Verra (VCS)</text></a></g>
-    <g class="co" data-n="goldstandard" data-rev="Gold Standard for the Global Goals, Principles &amp; Requirements v2.0" data-tit="Gold Standard for the Global Goals: Principles &amp; Requirements"><a href="carbono-creditos.html"><text transform="translate(1106.0 164) rotate(-90)">Gold Standard</text></a></g>
-    <g class="co" data-n="sbce" data-rev="Lei nº 15.042/2024" data-tit="Institui o Sistema Brasileiro de Comércio de Emissões de Gases de Efeito Estufa (SBCE)"><a href="carbono-mercado-regulado.html"><text transform="translate(1125.0 164) rotate(-90)">SBCE</text></a></g>
-    <g class="co" data-n="cbam" data-rev="Regulamento (UE) 2023/956, alterado pelo Regulamento (UE) 2025/2083" data-tit="Mecanismo de ajustamento carbónico fronteiriço (CBAM)"><a href="carbono-mercado-regulado.html"><text transform="translate(1144.0 164) rotate(-90)">CBAM</text></a></g>
-    <g class="co" data-n="iatf16949" data-rev="IATF 16949:2016" data-tit="Quality management system requirements for automotive production and relevant service parts organizations"><a href="implantacao-iso.html"><text transform="translate(1177.0 164) rotate(-90)">IATF 16949</text></a></g>
-    <g class="co" data-n="sassmaq" data-rev="SASSMAQ (Abiquim)" data-tit="Sistema de Avaliação de Segurança, Saúde, Meio Ambiente e Qualidade"><text transform="translate(1196.0 164) rotate(-90)">SASSMAQ</text></g>
-    <g class="co" data-n="atuacao" data-rev="Atuação Responsável (Abiquim)" data-tit="Programa Atuação Responsável (Responsible Care)"><a href="padroes-mercado.html"><text transform="translate(1215.0 164) rotate(-90)">Atuação Responsável</text></a></g>
-    <g class="co" data-n="oea" data-rev="IN RFB nº 2.318/2026" data-tit="Programa Brasileiro de Operador Econômico Autorizado (Programa OEA)"><text transform="translate(1234.0 164) rotate(-90)">OEA</text></g>
-    <g class="co" data-n="ona" data-rev="Manual Brasileiro de Acreditação OPSS 2026" data-tit="Manual Brasileiro de Acreditação: Organizações Prestadoras de Serviços de Saúde"><text transform="translate(1253.0 164) rotate(-90)">ONA</text></g>
-    <g class="co" data-n="abntpr1004" data-rev="ABNT PR 1004-1:2020" data-tit="Operação segura em organizações durante situações de pandemia: parte 1: diretrizes gerais"><a href="padroes-mercado.html"><text transform="translate(1286.0 164) rotate(-90)">ABNT PR 1004-1</text></a></g>
-    <g class="co" data-n="nr01" data-rev="NR-01 (Portaria SEPRT nº 6.730/2020; capítulo 1.5 pela Portaria MTE nº 1.419/2024)" data-tit="Disposições gerais e gerenciamento de riscos ocupacionais"><a href="nrs.html"><text transform="translate(1305.0 164) rotate(-90)">NR-01 / PGR</text></a></g>
-    <g class="co" data-n="nr10" data-rev="NR-10 (nova redação pela Portaria MTE nº 737/2026, vigente a partir de 01/06/2027)" data-tit="Segurança em instalações e serviços em eletricidade"><a href="nrs.html"><text transform="translate(1324.0 164) rotate(-90)">NR-10</text></a></g>
-    <g class="co" data-n="nr12" data-rev="NR-12 (Portaria SEPRT nº 916/2019, com alterações)" data-tit="Segurança no trabalho em máquinas e equipamentos"><a href="nrs.html"><text transform="translate(1343.0 164) rotate(-90)">NR-12</text></a></g>
-    <g class="co" data-n="nr17" data-rev="NR-17 (Portaria MTP nº 423/2021)" data-tit="Ergonomia"><a href="nrs.html"><text transform="translate(1362.0 164) rotate(-90)">NR-17</text></a></g>
-    <g class="co" data-n="nr37" data-rev="NR-37 (Portaria MTP nº 90/2022, alterada pela Portaria MTP nº 4.219/2022)" data-tit="Segurança e saúde em plataformas de petróleo"><a href="nrs.html"><text transform="translate(1381.0 164) rotate(-90)">NR-37</text></a></g>
-    <g class="co" data-n="esocial" data-rev="eSocial, leiaute S-1.3" data-tit="Eventos de SST: S-2210 comunicação de acidente de trabalho; S-2220 monitoramento da saúde do trabalhador; S-2240 condições ambientais do trabalho"><a href="nrs.html"><text transform="translate(1400.0 164) rotate(-90)">e-Social SST</text></a></g>
-    <g class="co" data-n="iso31022" data-rev="ABNT NBR ISO 31022:2020" data-tit="Gestão de riscos: diretrizes para a gestão de riscos legais"><a href="nrs.html"><text transform="translate(1419.0 164) rotate(-90)">ISO 31022</text></a></g>
-    <g class="co" data-n="lgpd" data-rev="Lei nº 13.709/2018 (LGPD)" data-tit="Lei Geral de Proteção de Dados Pessoais"><a href="compliance-seguranca-informacao.html"><text transform="translate(1438.0 164) rotate(-90)">LGPD</text></a></g>
-    <g class="co" data-n="eudr" data-rev="Regulamento (UE) 2023/1115, alterado pelos Regulamentos (UE) 2024/3234 e 2025/2650" data-tit="Produtos associados à desflorestação e à degradação florestal"><a href="estudos-regulatorios.html"><text transform="translate(1457.0 164) rotate(-90)">EUDR</text></a></g>
-    <g class="li" data-s="industria"><path class="fio" d="M0 172 H1469"/><a href="setor-industria.html"><text class="rs" x="0" y="189">Indústria</text></a>
+    <g class="co" data-n="iso14068" data-rev="ISO 14068:2026" data-tit="Climate change management: carbon neutrality (sucessora da PAS 2060)"><a href="carbono-neutralizacao.html"><text transform="translate(992.0 164) rotate(-90)">ISO 14068</text></a></g>
+    <g class="co" data-n="cdp" data-rev="CDP, questionário corporativo, ciclo 2026" data-tit="CDP Corporate Questionnaire 2026 (clima, florestas, água, plásticos, biodiversidade e oceanos)"><a href="carbono-inventario-gee.html"><text transform="translate(1011.0 164) rotate(-90)">CDP</text></a></g>
+    <g class="co" data-n="gri" data-rev="GRI Standards (Universais 2021; GRI 101 Biodiversity 2024; GRI 102 Climate Change 2025)" data-tit="Normas GRI"><a href="carbono-inventario-gee.html"><text transform="translate(1030.0 164) rotate(-90)">GRI</text></a></g>
+    <g class="co" data-n="sbti" data-rev="SBTi Corporate Net-Zero Standard V2.0" data-tit="SBTi Corporate Net-Zero Standard, Version 2.0"><a href="carbono-descarbonizacao.html"><text transform="translate(1049.0 164) rotate(-90)">SBTi</text></a></g>
+    <g class="co" data-n="verra" data-rev="VCS Standard v5.0" data-tit="Verified Carbon Standard (VCS) Program, Version 5"><a href="carbono-creditos.html"><text transform="translate(1068.0 164) rotate(-90)">Verra (VCS)</text></a></g>
+    <g class="co" data-n="goldstandard" data-rev="Gold Standard for the Global Goals, Principles &amp; Requirements v2.0" data-tit="Gold Standard for the Global Goals: Principles &amp; Requirements"><a href="carbono-creditos.html"><text transform="translate(1087.0 164) rotate(-90)">Gold Standard</text></a></g>
+    <g class="co" data-n="sbce" data-rev="Lei nº 15.042/2024" data-tit="Institui o Sistema Brasileiro de Comércio de Emissões de Gases de Efeito Estufa (SBCE)"><a href="carbono-mercado-regulado.html"><text transform="translate(1106.0 164) rotate(-90)">SBCE</text></a></g>
+    <g class="co" data-n="cbam" data-rev="Regulamento (UE) 2023/956, alterado pelo Regulamento (UE) 2025/2083" data-tit="Mecanismo de ajustamento carbónico fronteiriço (CBAM)"><a href="carbono-mercado-regulado.html"><text transform="translate(1125.0 164) rotate(-90)">CBAM</text></a></g>
+    <g class="co" data-n="iatf16949" data-rev="IATF 16949:2016" data-tit="Quality management system requirements for automotive production and relevant service parts organizations"><a href="implantacao-iso.html"><text transform="translate(1158.0 164) rotate(-90)">IATF 16949</text></a></g>
+    <g class="co" data-n="sassmaq" data-rev="SASSMAQ (Abiquim)" data-tit="Sistema de Avaliação de Segurança, Saúde, Meio Ambiente e Qualidade"><text transform="translate(1177.0 164) rotate(-90)">SASSMAQ</text></g>
+    <g class="co" data-n="atuacao" data-rev="Atuação Responsável (Abiquim)" data-tit="Programa Atuação Responsável (Responsible Care)"><a href="padroes-mercado.html"><text transform="translate(1196.0 164) rotate(-90)">Atuação Responsável</text></a></g>
+    <g class="co" data-n="oea" data-rev="IN RFB nº 2.318/2026" data-tit="Programa Brasileiro de Operador Econômico Autorizado (Programa OEA)"><text transform="translate(1215.0 164) rotate(-90)">OEA</text></g>
+    <g class="co" data-n="ona" data-rev="Manual Brasileiro de Acreditação OPSS 2026" data-tit="Manual Brasileiro de Acreditação: Organizações Prestadoras de Serviços de Saúde"><text transform="translate(1234.0 164) rotate(-90)">ONA</text></g>
+    <g class="co" data-n="abntpr1004" data-rev="ABNT PR 1004-1:2020" data-tit="Operação segura em organizações durante situações de pandemia: parte 1: diretrizes gerais"><a href="padroes-mercado.html"><text transform="translate(1267.0 164) rotate(-90)">ABNT PR 1004-1</text></a></g>
+    <g class="co" data-n="nr01" data-rev="NR-01 (Portaria SEPRT nº 6.730/2020; capítulo 1.5 pela Portaria MTE nº 1.419/2024)" data-tit="Disposições gerais e gerenciamento de riscos ocupacionais"><a href="nrs.html"><text transform="translate(1286.0 164) rotate(-90)">NR-01 / PGR</text></a></g>
+    <g class="co" data-n="nr10" data-rev="NR-10 (nova redação pela Portaria MTE nº 737/2026, vigente a partir de 01/06/2027)" data-tit="Segurança em instalações e serviços em eletricidade"><a href="nrs.html"><text transform="translate(1305.0 164) rotate(-90)">NR-10</text></a></g>
+    <g class="co" data-n="nr12" data-rev="NR-12 (Portaria SEPRT nº 916/2019, com alterações)" data-tit="Segurança no trabalho em máquinas e equipamentos"><a href="nrs.html"><text transform="translate(1324.0 164) rotate(-90)">NR-12</text></a></g>
+    <g class="co" data-n="nr17" data-rev="NR-17 (Portaria MTP nº 423/2021)" data-tit="Ergonomia"><a href="nrs.html"><text transform="translate(1343.0 164) rotate(-90)">NR-17</text></a></g>
+    <g class="co" data-n="nr37" data-rev="NR-37 (Portaria MTP nº 90/2022, alterada pela Portaria MTP nº 4.219/2022)" data-tit="Segurança e saúde em plataformas de petróleo"><a href="nrs.html"><text transform="translate(1362.0 164) rotate(-90)">NR-37</text></a></g>
+    <g class="co" data-n="esocial" data-rev="eSocial, leiaute S-1.3" data-tit="Eventos de SST: S-2210 comunicação de acidente de trabalho; S-2220 monitoramento da saúde do trabalhador; S-2240 condições ambientais do trabalho"><a href="nrs.html"><text transform="translate(1381.0 164) rotate(-90)">e-Social SST</text></a></g>
+    <g class="co" data-n="iso31022" data-rev="ABNT NBR ISO 31022:2020" data-tit="Gestão de riscos: diretrizes para a gestão de riscos legais"><a href="nrs.html"><text transform="translate(1400.0 164) rotate(-90)">ISO 31022</text></a></g>
+    <g class="co" data-n="lgpd" data-rev="Lei nº 13.709/2018 (LGPD)" data-tit="Lei Geral de Proteção de Dados Pessoais"><a href="compliance-seguranca-informacao.html"><text transform="translate(1419.0 164) rotate(-90)">LGPD</text></a></g>
+    <g class="co" data-n="eudr" data-rev="Regulamento (UE) 2023/1115, alterado pelos Regulamentos (UE) 2024/3234 e 2025/2650" data-tit="Produtos associados à desflorestação e à degradação florestal"><a href="estudos-regulatorios.html"><text transform="translate(1438.0 164) rotate(-90)">EUDR</text></a></g>
+    <g class="li" data-s="industria"><path class="fio" d="M0 172 H1450"/><a href="setor-industria.html"><text class="rs" x="0" y="189">Indústria</text></a>
       <rect class="q" data-n="iso9001" x="123.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: ISO 9001</title></rect>
       <rect class="q" data-n="iso14001" x="142.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: ISO 14001</title></rect>
       <rect class="q" data-n="iso45001" x="161.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: ISO 45001</title></rect>
@@ -2984,31 +2984,30 @@ body>*{position:relative;z-index:1}
       <rect class="q t" data-n="iso14040" x="944.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: ISO 14040 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14025" x="963.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: ISO 14025 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14068" x="982.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: ISO 14068 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="pas2060" x="1001.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: PAS 2060 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="cdp" x="1020.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: CDP (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="gri" x="1039.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: GRI (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="sbti" x="1058.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: SBTi (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="verra" x="1077.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: Verra (VCS) (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="goldstandard" x="1096.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: Gold Standard (vale para qualquer setor)</title></rect>
-      <rect class="q" data-n="sbce" x="1115.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: SBCE</title></rect>
-      <rect class="q" data-n="cbam" x="1134.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: CBAM</title></rect>
-      <rect class="q" data-n="iatf16949" x="1167.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: IATF 16949</title></rect>
-      <rect class="v" x="1191.5" y="183.5" width="2" height="2"/>
-      <rect class="q" data-n="atuacao" x="1205.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: Atuação Responsável</title></rect>
+      <rect class="q t" data-n="cdp" x="1001.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: CDP (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="gri" x="1020.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: GRI (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="sbti" x="1039.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: SBTi (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="verra" x="1058.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: Verra (VCS) (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="goldstandard" x="1077.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: Gold Standard (vale para qualquer setor)</title></rect>
+      <rect class="q" data-n="sbce" x="1096.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: SBCE</title></rect>
+      <rect class="q" data-n="cbam" x="1115.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: CBAM</title></rect>
+      <rect class="q" data-n="iatf16949" x="1148.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: IATF 16949</title></rect>
+      <rect class="v" x="1172.5" y="183.5" width="2" height="2"/>
+      <rect class="q" data-n="atuacao" x="1186.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: Atuação Responsável</title></rect>
+      <rect class="v" x="1210.5" y="183.5" width="2" height="2"/>
       <rect class="v" x="1229.5" y="183.5" width="2" height="2"/>
-      <rect class="v" x="1248.5" y="183.5" width="2" height="2"/>
-      <rect class="q t" data-n="abntpr1004" x="1276.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="nr01" x="1295.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: NR-01 / PGR (vale para qualquer setor)</title></rect>
-      <rect class="q" data-n="nr10" x="1314.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: NR-10</title></rect>
-      <rect class="q" data-n="nr12" x="1333.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: NR-12</title></rect>
-      <rect class="q t" data-n="nr17" x="1352.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: NR-17 (vale para qualquer setor)</title></rect>
-      <rect class="v" x="1376.5" y="183.5" width="2" height="2"/>
-      <rect class="q t" data-n="esocial" x="1390.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: e-Social SST (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="iso31022" x="1409.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: ISO 31022 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="lgpd" x="1428.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: LGPD (vale para qualquer setor)</title></rect>
-      <rect class="v" x="1452.5" y="183.5" width="2" height="2"/>
+      <rect class="q t" data-n="abntpr1004" x="1257.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="nr01" x="1276.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="q" data-n="nr10" x="1295.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: NR-10</title></rect>
+      <rect class="q" data-n="nr12" x="1314.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: NR-12</title></rect>
+      <rect class="q t" data-n="nr17" x="1333.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: NR-17 (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1357.5" y="183.5" width="2" height="2"/>
+      <rect class="q t" data-n="esocial" x="1371.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: e-Social SST (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="iso31022" x="1390.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: ISO 31022 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="lgpd" x="1409.0" y="178.0" width="13" height="13" rx="3"><title>Indústria: LGPD (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1433.5" y="183.5" width="2" height="2"/>
     </g>
-    <g class="li" data-s="logistica"><path class="fio" d="M0 197 H1469"/><a href="setor-logistica.html"><text class="rs" x="0" y="214">Logística</text></a>
+    <g class="li" data-s="logistica"><path class="fio" d="M0 197 H1450"/><a href="setor-logistica.html"><text class="rs" x="0" y="214">Logística</text></a>
       <rect class="q" data-n="iso9001" x="123.0" y="203.0" width="13" height="13" rx="3"><title>Logística: ISO 9001</title></rect>
       <rect class="q" data-n="iso14001" x="142.0" y="203.0" width="13" height="13" rx="3"><title>Logística: ISO 14001</title></rect>
       <rect class="q" data-n="iso45001" x="161.0" y="203.0" width="13" height="13" rx="3"><title>Logística: ISO 45001</title></rect>
@@ -3053,31 +3052,30 @@ body>*{position:relative;z-index:1}
       <rect class="q t" data-n="iso14040" x="944.0" y="203.0" width="13" height="13" rx="3"><title>Logística: ISO 14040 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14025" x="963.0" y="203.0" width="13" height="13" rx="3"><title>Logística: ISO 14025 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14068" x="982.0" y="203.0" width="13" height="13" rx="3"><title>Logística: ISO 14068 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="pas2060" x="1001.0" y="203.0" width="13" height="13" rx="3"><title>Logística: PAS 2060 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="cdp" x="1020.0" y="203.0" width="13" height="13" rx="3"><title>Logística: CDP (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="gri" x="1039.0" y="203.0" width="13" height="13" rx="3"><title>Logística: GRI (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="sbti" x="1058.0" y="203.0" width="13" height="13" rx="3"><title>Logística: SBTi (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="verra" x="1077.0" y="203.0" width="13" height="13" rx="3"><title>Logística: Verra (VCS) (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="goldstandard" x="1096.0" y="203.0" width="13" height="13" rx="3"><title>Logística: Gold Standard (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="cdp" x="1001.0" y="203.0" width="13" height="13" rx="3"><title>Logística: CDP (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="gri" x="1020.0" y="203.0" width="13" height="13" rx="3"><title>Logística: GRI (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="sbti" x="1039.0" y="203.0" width="13" height="13" rx="3"><title>Logística: SBTi (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="verra" x="1058.0" y="203.0" width="13" height="13" rx="3"><title>Logística: Verra (VCS) (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="goldstandard" x="1077.0" y="203.0" width="13" height="13" rx="3"><title>Logística: Gold Standard (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1101.5" y="208.5" width="2" height="2"/>
       <rect class="v" x="1120.5" y="208.5" width="2" height="2"/>
-      <rect class="v" x="1139.5" y="208.5" width="2" height="2"/>
-      <rect class="v" x="1172.5" y="208.5" width="2" height="2"/>
-      <rect class="q" data-n="sassmaq" x="1186.0" y="203.0" width="13" height="13" rx="3"><title>Logística: SASSMAQ</title></rect>
-      <rect class="v" x="1210.5" y="208.5" width="2" height="2"/>
-      <rect class="q" data-n="oea" x="1224.0" y="203.0" width="13" height="13" rx="3"><title>Logística: OEA</title></rect>
-      <rect class="v" x="1248.5" y="208.5" width="2" height="2"/>
-      <rect class="q t" data-n="abntpr1004" x="1276.0" y="203.0" width="13" height="13" rx="3"><title>Logística: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="nr01" x="1295.0" y="203.0" width="13" height="13" rx="3"><title>Logística: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1153.5" y="208.5" width="2" height="2"/>
+      <rect class="q" data-n="sassmaq" x="1167.0" y="203.0" width="13" height="13" rx="3"><title>Logística: SASSMAQ</title></rect>
+      <rect class="v" x="1191.5" y="208.5" width="2" height="2"/>
+      <rect class="q" data-n="oea" x="1205.0" y="203.0" width="13" height="13" rx="3"><title>Logística: OEA</title></rect>
+      <rect class="v" x="1229.5" y="208.5" width="2" height="2"/>
+      <rect class="q t" data-n="abntpr1004" x="1257.0" y="203.0" width="13" height="13" rx="3"><title>Logística: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="nr01" x="1276.0" y="203.0" width="13" height="13" rx="3"><title>Logística: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1300.5" y="208.5" width="2" height="2"/>
       <rect class="v" x="1319.5" y="208.5" width="2" height="2"/>
-      <rect class="v" x="1338.5" y="208.5" width="2" height="2"/>
-      <rect class="q t" data-n="nr17" x="1352.0" y="203.0" width="13" height="13" rx="3"><title>Logística: NR-17 (vale para qualquer setor)</title></rect>
-      <rect class="v" x="1376.5" y="208.5" width="2" height="2"/>
-      <rect class="q t" data-n="esocial" x="1390.0" y="203.0" width="13" height="13" rx="3"><title>Logística: e-Social SST (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="iso31022" x="1409.0" y="203.0" width="13" height="13" rx="3"><title>Logística: ISO 31022 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="lgpd" x="1428.0" y="203.0" width="13" height="13" rx="3"><title>Logística: LGPD (vale para qualquer setor)</title></rect>
-      <rect class="v" x="1452.5" y="208.5" width="2" height="2"/>
+      <rect class="q t" data-n="nr17" x="1333.0" y="203.0" width="13" height="13" rx="3"><title>Logística: NR-17 (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1357.5" y="208.5" width="2" height="2"/>
+      <rect class="q t" data-n="esocial" x="1371.0" y="203.0" width="13" height="13" rx="3"><title>Logística: e-Social SST (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="iso31022" x="1390.0" y="203.0" width="13" height="13" rx="3"><title>Logística: ISO 31022 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="lgpd" x="1409.0" y="203.0" width="13" height="13" rx="3"><title>Logística: LGPD (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1433.5" y="208.5" width="2" height="2"/>
     </g>
-    <g class="li" data-s="alimentos"><path class="fio" d="M0 222 H1469"/><a href="setor-alimentos.html"><text class="rs" x="0" y="239">Alimentos</text></a>
+    <g class="li" data-s="alimentos"><path class="fio" d="M0 222 H1450"/><a href="setor-alimentos.html"><text class="rs" x="0" y="239">Alimentos</text></a>
       <rect class="q" data-n="iso9001" x="123.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: ISO 9001</title></rect>
       <rect class="q" data-n="iso14001" x="142.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: ISO 14001</title></rect>
       <rect class="q" data-n="iso45001" x="161.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: ISO 45001</title></rect>
@@ -3122,31 +3120,30 @@ body>*{position:relative;z-index:1}
       <rect class="q t" data-n="iso14040" x="944.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: ISO 14040 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14025" x="963.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: ISO 14025 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14068" x="982.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: ISO 14068 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="pas2060" x="1001.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: PAS 2060 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="cdp" x="1020.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: CDP (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="gri" x="1039.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: GRI (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="sbti" x="1058.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: SBTi (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="verra" x="1077.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: Verra (VCS) (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="goldstandard" x="1096.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: Gold Standard (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="cdp" x="1001.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: CDP (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="gri" x="1020.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: GRI (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="sbti" x="1039.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: SBTi (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="verra" x="1058.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: Verra (VCS) (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="goldstandard" x="1077.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: Gold Standard (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1101.5" y="233.5" width="2" height="2"/>
       <rect class="v" x="1120.5" y="233.5" width="2" height="2"/>
-      <rect class="v" x="1139.5" y="233.5" width="2" height="2"/>
+      <rect class="v" x="1153.5" y="233.5" width="2" height="2"/>
       <rect class="v" x="1172.5" y="233.5" width="2" height="2"/>
       <rect class="v" x="1191.5" y="233.5" width="2" height="2"/>
       <rect class="v" x="1210.5" y="233.5" width="2" height="2"/>
       <rect class="v" x="1229.5" y="233.5" width="2" height="2"/>
-      <rect class="v" x="1248.5" y="233.5" width="2" height="2"/>
-      <rect class="q t" data-n="abntpr1004" x="1276.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="nr01" x="1295.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="abntpr1004" x="1257.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="nr01" x="1276.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1300.5" y="233.5" width="2" height="2"/>
       <rect class="v" x="1319.5" y="233.5" width="2" height="2"/>
-      <rect class="v" x="1338.5" y="233.5" width="2" height="2"/>
-      <rect class="q t" data-n="nr17" x="1352.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: NR-17 (vale para qualquer setor)</title></rect>
-      <rect class="v" x="1376.5" y="233.5" width="2" height="2"/>
-      <rect class="q t" data-n="esocial" x="1390.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: e-Social SST (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="iso31022" x="1409.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: ISO 31022 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="lgpd" x="1428.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: LGPD (vale para qualquer setor)</title></rect>
-      <rect class="q" data-n="eudr" x="1447.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: EUDR</title></rect>
+      <rect class="q t" data-n="nr17" x="1333.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: NR-17 (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1357.5" y="233.5" width="2" height="2"/>
+      <rect class="q t" data-n="esocial" x="1371.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: e-Social SST (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="iso31022" x="1390.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: ISO 31022 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="lgpd" x="1409.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: LGPD (vale para qualquer setor)</title></rect>
+      <rect class="q" data-n="eudr" x="1428.0" y="228.0" width="13" height="13" rx="3"><title>Alimentos: EUDR</title></rect>
     </g>
-    <g class="li" data-s="saude"><path class="fio" d="M0 247 H1469"/><a href="setor-saude.html"><text class="rs" x="0" y="264">Saúde</text></a>
+    <g class="li" data-s="saude"><path class="fio" d="M0 247 H1450"/><a href="setor-saude.html"><text class="rs" x="0" y="264">Saúde</text></a>
       <rect class="q" data-n="iso9001" x="123.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ISO 9001</title></rect>
       <rect class="q" data-n="iso14001" x="142.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ISO 14001</title></rect>
       <rect class="q" data-n="iso45001" x="161.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ISO 45001</title></rect>
@@ -3191,31 +3188,30 @@ body>*{position:relative;z-index:1}
       <rect class="q t" data-n="iso14040" x="944.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ISO 14040 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14025" x="963.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ISO 14025 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14068" x="982.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ISO 14068 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="pas2060" x="1001.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: PAS 2060 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="cdp" x="1020.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: CDP (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="gri" x="1039.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: GRI (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="sbti" x="1058.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: SBTi (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="verra" x="1077.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: Verra (VCS) (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="goldstandard" x="1096.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: Gold Standard (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="cdp" x="1001.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: CDP (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="gri" x="1020.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: GRI (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="sbti" x="1039.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: SBTi (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="verra" x="1058.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: Verra (VCS) (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="goldstandard" x="1077.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: Gold Standard (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1101.5" y="258.5" width="2" height="2"/>
       <rect class="v" x="1120.5" y="258.5" width="2" height="2"/>
-      <rect class="v" x="1139.5" y="258.5" width="2" height="2"/>
+      <rect class="v" x="1153.5" y="258.5" width="2" height="2"/>
       <rect class="v" x="1172.5" y="258.5" width="2" height="2"/>
       <rect class="v" x="1191.5" y="258.5" width="2" height="2"/>
       <rect class="v" x="1210.5" y="258.5" width="2" height="2"/>
-      <rect class="v" x="1229.5" y="258.5" width="2" height="2"/>
-      <rect class="q" data-n="ona" x="1243.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ONA</title></rect>
-      <rect class="q t" data-n="abntpr1004" x="1276.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="nr01" x="1295.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="q" data-n="ona" x="1224.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ONA</title></rect>
+      <rect class="q t" data-n="abntpr1004" x="1257.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="nr01" x="1276.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1300.5" y="258.5" width="2" height="2"/>
       <rect class="v" x="1319.5" y="258.5" width="2" height="2"/>
-      <rect class="v" x="1338.5" y="258.5" width="2" height="2"/>
-      <rect class="q t" data-n="nr17" x="1352.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: NR-17 (vale para qualquer setor)</title></rect>
-      <rect class="v" x="1376.5" y="258.5" width="2" height="2"/>
-      <rect class="q t" data-n="esocial" x="1390.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: e-Social SST (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="iso31022" x="1409.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ISO 31022 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="lgpd" x="1428.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: LGPD (vale para qualquer setor)</title></rect>
-      <rect class="v" x="1452.5" y="258.5" width="2" height="2"/>
+      <rect class="q t" data-n="nr17" x="1333.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: NR-17 (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1357.5" y="258.5" width="2" height="2"/>
+      <rect class="q t" data-n="esocial" x="1371.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: e-Social SST (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="iso31022" x="1390.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: ISO 31022 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="lgpd" x="1409.0" y="253.0" width="13" height="13" rx="3"><title>Saúde: LGPD (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1433.5" y="258.5" width="2" height="2"/>
     </g>
-    <g class="li" data-s="tecnologia"><path class="fio" d="M0 272 H1469"/><a href="setor-tecnologia.html"><text class="rs" x="0" y="289">Tecnologia</text></a>
+    <g class="li" data-s="tecnologia"><path class="fio" d="M0 272 H1450"/><a href="setor-tecnologia.html"><text class="rs" x="0" y="289">Tecnologia</text></a>
       <rect class="q" data-n="iso9001" x="123.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: ISO 9001</title></rect>
       <rect class="q" data-n="iso14001" x="142.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: ISO 14001</title></rect>
       <rect class="q" data-n="iso45001" x="161.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: ISO 45001</title></rect>
@@ -3260,31 +3256,30 @@ body>*{position:relative;z-index:1}
       <rect class="q t" data-n="iso14040" x="944.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: ISO 14040 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14025" x="963.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: ISO 14025 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14068" x="982.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: ISO 14068 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="pas2060" x="1001.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: PAS 2060 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="cdp" x="1020.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: CDP (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="gri" x="1039.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: GRI (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="sbti" x="1058.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: SBTi (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="verra" x="1077.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: Verra (VCS) (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="goldstandard" x="1096.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: Gold Standard (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="cdp" x="1001.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: CDP (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="gri" x="1020.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: GRI (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="sbti" x="1039.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: SBTi (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="verra" x="1058.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: Verra (VCS) (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="goldstandard" x="1077.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: Gold Standard (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1101.5" y="283.5" width="2" height="2"/>
       <rect class="v" x="1120.5" y="283.5" width="2" height="2"/>
-      <rect class="v" x="1139.5" y="283.5" width="2" height="2"/>
+      <rect class="v" x="1153.5" y="283.5" width="2" height="2"/>
       <rect class="v" x="1172.5" y="283.5" width="2" height="2"/>
       <rect class="v" x="1191.5" y="283.5" width="2" height="2"/>
       <rect class="v" x="1210.5" y="283.5" width="2" height="2"/>
       <rect class="v" x="1229.5" y="283.5" width="2" height="2"/>
-      <rect class="v" x="1248.5" y="283.5" width="2" height="2"/>
-      <rect class="q t" data-n="abntpr1004" x="1276.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="nr01" x="1295.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="abntpr1004" x="1257.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="nr01" x="1276.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1300.5" y="283.5" width="2" height="2"/>
       <rect class="v" x="1319.5" y="283.5" width="2" height="2"/>
-      <rect class="v" x="1338.5" y="283.5" width="2" height="2"/>
-      <rect class="q t" data-n="nr17" x="1352.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: NR-17 (vale para qualquer setor)</title></rect>
-      <rect class="v" x="1376.5" y="283.5" width="2" height="2"/>
-      <rect class="q t" data-n="esocial" x="1390.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: e-Social SST (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="iso31022" x="1409.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: ISO 31022 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="lgpd" x="1428.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: LGPD (vale para qualquer setor)</title></rect>
-      <rect class="v" x="1452.5" y="283.5" width="2" height="2"/>
+      <rect class="q t" data-n="nr17" x="1333.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: NR-17 (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1357.5" y="283.5" width="2" height="2"/>
+      <rect class="q t" data-n="esocial" x="1371.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: e-Social SST (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="iso31022" x="1390.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: ISO 31022 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="lgpd" x="1409.0" y="278.0" width="13" height="13" rx="3"><title>Tecnologia: LGPD (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1433.5" y="283.5" width="2" height="2"/>
     </g>
-    <g class="li" data-s="energia"><path class="fio" d="M0 297 H1469"/><a href="setor-energia.html"><text class="rs" x="0" y="314">Energia</text></a>
+    <g class="li" data-s="energia"><path class="fio" d="M0 297 H1450"/><a href="setor-energia.html"><text class="rs" x="0" y="314">Energia</text></a>
       <rect class="q" data-n="iso9001" x="123.0" y="303.0" width="13" height="13" rx="3"><title>Energia: ISO 9001</title></rect>
       <rect class="q" data-n="iso14001" x="142.0" y="303.0" width="13" height="13" rx="3"><title>Energia: ISO 14001</title></rect>
       <rect class="q" data-n="iso45001" x="161.0" y="303.0" width="13" height="13" rx="3"><title>Energia: ISO 45001</title></rect>
@@ -3329,31 +3324,30 @@ body>*{position:relative;z-index:1}
       <rect class="q t" data-n="iso14040" x="944.0" y="303.0" width="13" height="13" rx="3"><title>Energia: ISO 14040 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14025" x="963.0" y="303.0" width="13" height="13" rx="3"><title>Energia: ISO 14025 (vale para qualquer setor)</title></rect>
       <rect class="q t" data-n="iso14068" x="982.0" y="303.0" width="13" height="13" rx="3"><title>Energia: ISO 14068 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="pas2060" x="1001.0" y="303.0" width="13" height="13" rx="3"><title>Energia: PAS 2060 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="cdp" x="1020.0" y="303.0" width="13" height="13" rx="3"><title>Energia: CDP (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="gri" x="1039.0" y="303.0" width="13" height="13" rx="3"><title>Energia: GRI (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="sbti" x="1058.0" y="303.0" width="13" height="13" rx="3"><title>Energia: SBTi (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="verra" x="1077.0" y="303.0" width="13" height="13" rx="3"><title>Energia: Verra (VCS) (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="goldstandard" x="1096.0" y="303.0" width="13" height="13" rx="3"><title>Energia: Gold Standard (vale para qualquer setor)</title></rect>
-      <rect class="q" data-n="sbce" x="1115.0" y="303.0" width="13" height="13" rx="3"><title>Energia: SBCE</title></rect>
-      <rect class="q" data-n="cbam" x="1134.0" y="303.0" width="13" height="13" rx="3"><title>Energia: CBAM</title></rect>
+      <rect class="q t" data-n="cdp" x="1001.0" y="303.0" width="13" height="13" rx="3"><title>Energia: CDP (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="gri" x="1020.0" y="303.0" width="13" height="13" rx="3"><title>Energia: GRI (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="sbti" x="1039.0" y="303.0" width="13" height="13" rx="3"><title>Energia: SBTi (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="verra" x="1058.0" y="303.0" width="13" height="13" rx="3"><title>Energia: Verra (VCS) (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="goldstandard" x="1077.0" y="303.0" width="13" height="13" rx="3"><title>Energia: Gold Standard (vale para qualquer setor)</title></rect>
+      <rect class="q" data-n="sbce" x="1096.0" y="303.0" width="13" height="13" rx="3"><title>Energia: SBCE</title></rect>
+      <rect class="q" data-n="cbam" x="1115.0" y="303.0" width="13" height="13" rx="3"><title>Energia: CBAM</title></rect>
+      <rect class="v" x="1153.5" y="308.5" width="2" height="2"/>
       <rect class="v" x="1172.5" y="308.5" width="2" height="2"/>
       <rect class="v" x="1191.5" y="308.5" width="2" height="2"/>
       <rect class="v" x="1210.5" y="308.5" width="2" height="2"/>
       <rect class="v" x="1229.5" y="308.5" width="2" height="2"/>
-      <rect class="v" x="1248.5" y="308.5" width="2" height="2"/>
-      <rect class="q t" data-n="abntpr1004" x="1276.0" y="303.0" width="13" height="13" rx="3"><title>Energia: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="nr01" x="1295.0" y="303.0" width="13" height="13" rx="3"><title>Energia: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="abntpr1004" x="1257.0" y="303.0" width="13" height="13" rx="3"><title>Energia: ABNT PR 1004-1 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="nr01" x="1276.0" y="303.0" width="13" height="13" rx="3"><title>Energia: NR-01 / PGR (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1300.5" y="308.5" width="2" height="2"/>
       <rect class="v" x="1319.5" y="308.5" width="2" height="2"/>
-      <rect class="v" x="1338.5" y="308.5" width="2" height="2"/>
-      <rect class="q t" data-n="nr17" x="1352.0" y="303.0" width="13" height="13" rx="3"><title>Energia: NR-17 (vale para qualquer setor)</title></rect>
-      <rect class="q" data-n="nr37" x="1371.0" y="303.0" width="13" height="13" rx="3"><title>Energia: NR-37</title></rect>
-      <rect class="q t" data-n="esocial" x="1390.0" y="303.0" width="13" height="13" rx="3"><title>Energia: e-Social SST (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="iso31022" x="1409.0" y="303.0" width="13" height="13" rx="3"><title>Energia: ISO 31022 (vale para qualquer setor)</title></rect>
-      <rect class="q t" data-n="lgpd" x="1428.0" y="303.0" width="13" height="13" rx="3"><title>Energia: LGPD (vale para qualquer setor)</title></rect>
-      <rect class="v" x="1452.5" y="308.5" width="2" height="2"/>
+      <rect class="q t" data-n="nr17" x="1333.0" y="303.0" width="13" height="13" rx="3"><title>Energia: NR-17 (vale para qualquer setor)</title></rect>
+      <rect class="q" data-n="nr37" x="1352.0" y="303.0" width="13" height="13" rx="3"><title>Energia: NR-37</title></rect>
+      <rect class="q t" data-n="esocial" x="1371.0" y="303.0" width="13" height="13" rx="3"><title>Energia: e-Social SST (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="iso31022" x="1390.0" y="303.0" width="13" height="13" rx="3"><title>Energia: ISO 31022 (vale para qualquer setor)</title></rect>
+      <rect class="q t" data-n="lgpd" x="1409.0" y="303.0" width="13" height="13" rx="3"><title>Energia: LGPD (vale para qualquer setor)</title></rect>
+      <rect class="v" x="1433.5" y="308.5" width="2" height="2"/>
     </g>
-    <g class="li" data-s="-"><path class="fio" d="M0 322 H1469"/><text class="rs" x="0" y="339">Outros setores</text>
+    <g class="li" data-s="-"><path class="fio" d="M0 322 H1450"/><text class="rs" x="0" y="339">Outros setores</text>
       <rect class="v" x="128.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="147.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="166.5" y="333.5" width="2" height="2"/>
@@ -3405,12 +3399,12 @@ body>*{position:relative;z-index:1}
       <rect class="v" x="1082.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1101.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1120.5" y="333.5" width="2" height="2"/>
-      <rect class="v" x="1139.5" y="333.5" width="2" height="2"/>
+      <rect class="v" x="1153.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1172.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1191.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1210.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1229.5" y="333.5" width="2" height="2"/>
-      <rect class="v" x="1248.5" y="333.5" width="2" height="2"/>
+      <rect class="v" x="1262.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1281.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1300.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1319.5" y="333.5" width="2" height="2"/>
@@ -3420,11 +3414,10 @@ body>*{position:relative;z-index:1}
       <rect class="v" x="1395.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1414.5" y="333.5" width="2" height="2"/>
       <rect class="v" x="1433.5" y="333.5" width="2" height="2"/>
-      <rect class="v" x="1452.5" y="333.5" width="2" height="2"/>
     </g>
-    <path class="fio" d="M0 347 H1469"/>
+    <path class="fio" d="M0 347 H1450"/>
   </svg></div>
-  <button class="qc-mat-aba" id="qcMatAba" type="button" aria-expanded="false" aria-controls="qcMat"><svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg><span class="qc-mat-aba-txt"><b>[ 67 ]</b>&nbsp;&nbsp;<i class="qc-mat-abre">Expandir</i><i class="qc-mat-fecha">Recolher</i></span></button>
+  <button class="qc-mat-aba" id="qcMatAba" type="button" aria-expanded="false" aria-controls="qcMat"><svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg><span class="qc-mat-aba-txt"><b>[ 66 ]</b>&nbsp;&nbsp;<i class="qc-mat-abre">Expandir</i><i class="qc-mat-fecha">Recolher</i></span></button>
   <p class="qc-mat-info" id="qcMatInfo" aria-live="polite"></p>
 </figure>
 <!-- fim relacao setor norma -->
@@ -3434,8 +3427,8 @@ body>*{position:relative;z-index:1}
             <div class="qc-temas-quadro qc-orc">
               <p class="qc-orc-tit">Solicite um orçamento: fale direto com a nossa equipe técnica.</p>
               <div class="qc-orc-bts">
-                <a class="qc-orc-bt" href="https://wa.me/5511954684086?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20%C3%A0%20Ideal%20Metrics." target="_blank" rel="noopener"><svg class="qc-orc-wa" viewBox="0 0 63.13 63.13" aria-hidden="true"><path d="M63.13,30.75c0,16.98-13.88,30.75-30.99,30.75-5.44,0-10.54-1.39-14.98-3.83L0,63.13l5.59-16.5c-2.82-4.63-4.45-10.07-4.45-15.88C1.15,13.77,15.02,0,32.14,0s30.99,13.77,30.99,30.75h0ZM32.14,4.9c-14.37,0-26.06,11.6-26.06,25.86,0,5.650,1.84,10.9,4.96,15.16l-3.25,9.6,10.01-3.18c4.11,2.7,9.040,4.27,14.34,4.27,14.37,0,26.06-11.6,26.06-25.85S46.51,4.9,32.14,4.9h0ZM47.79,37.84c-.19-.31-.7-.5-1.46-.88-.76-.38-4.5-2.2-5.19-2.45-.7-.25-1.21-.38-1.71.38-.51.75-1.96,2.45-2.41,2.96-.44.5-.88.57-1.64.19-.76-.38-3.21-1.17-6.11-3.74-2.26-2-3.78-4.47-4.23-5.22-.44-.75-.04-1.16.33-1.54.34-.34.76-.88,1.14-1.32.38-.44.51-.76.76-1.26.25-.5.13-.94-.06-1.32-.19-.38-1.71-4.090-2.34-5.6-.63-1.51-1.26-1.45-1.71-1.45s-1.26.13-1.26.13c0,0-1.52.19-2.22.94-.7.75-2.66,2.58-2.66,6.29s2.72,7.3,3.1,7.8c.38.5,5.25,8.36,12.98,11.38,7.72,3.02,7.72,2.01,9.12,1.88,1.39-.12,4.49-1.82,5.13-3.58.63-1.76.63-3.27.45-3.58h0Z"/></svg><span><b>WhatsApp</b><i>+55 11 95468-4086</i></span></a>
-                <a class="qc-orc-bt" href="mailto:info@ideal-metrics.com?subject=Solicita%C3%A7%C3%A3o%20de%20or%C3%A7amento"><svg class="qc-orc-mail" viewBox="0 0 26 18" aria-hidden="true"><rect x="1" y="1" width="24" height="16" rx="1.5"/><path d="M1.6 2 13 10.4 24.4 2"/></svg><span><b>E-mail</b><i>info@ideal-metrics.com</i></span></a>
+                <a class="qc-orc-bt" href="https://wa.me/5511954684086?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20%C3%A0%20Ideal%20Metrics." target="_blank" rel="noopener"><svg class="qc-orc-wa" viewBox="0 0 63.13 63.13" aria-hidden="true"><path d="M63.13,30.75c0,16.98-13.88,30.75-30.99,30.75-5.44,0-10.54-1.39-14.98-3.83L0,63.13l5.59-16.5c-2.82-4.63-4.45-10.07-4.45-15.88C1.15,13.77,15.02,0,32.14,0s30.99,13.77,30.99,30.75h0ZM32.14,4.9c-14.37,0-26.06,11.6-26.06,25.86,0,5.650,1.84,10.9,4.96,15.16l-3.25,9.6,10.01-3.18c4.11,2.7,9.040,4.27,14.34,4.27,14.37,0,26.06-11.6,26.06-25.85S46.51,4.9,32.14,4.9h0ZM47.79,37.84c-.19-.31-.7-.5-1.46-.88-.76-.38-4.5-2.2-5.19-2.45-.7-.25-1.21-.38-1.71.38-.51.75-1.96,2.45-2.41,2.96-.44.5-.88.57-1.64.19-.76-.38-3.21-1.17-6.11-3.74-2.26-2-3.78-4.47-4.23-5.22-.44-.75-.04-1.16.33-1.54.34-.34.76-.88,1.14-1.32.38-.44.51-.76.76-1.26.25-.5.13-.94-.06-1.32-.19-.38-1.71-4.090-2.34-5.6-.63-1.51-1.26-1.45-1.71-1.45s-1.26.13-1.26.13c0,0-1.52.19-2.22.94-.7.75-2.66,2.58-2.66,6.29s2.72,7.3,3.1,7.8c.38.5,5.25,8.36,12.98,11.38,7.72,3.02,7.72,2.01,9.12,1.88,1.39-.12,4.49-1.82,5.13-3.58.63-1.76.63-3.27.45-3.58h0Z"/></svg><span>WhatsApp</span></a>
+                <a class="qc-orc-bt" href="mailto:info@ideal-metrics.com?subject=Solicita%C3%A7%C3%A3o%20de%20or%C3%A7amento"><svg class="qc-orc-mail" viewBox="0 0 26 18" aria-hidden="true"><rect x="1" y="1" width="24" height="16" rx="1.5"/><path d="M1.6 2 13 10.4 24.4 2"/></svg><span>E-mail</span></a>
               </div>
             </div>
             <figcaption>
@@ -3555,11 +3548,11 @@ body>*{position:relative;z-index:1}
 <g class="ar-orb" style="--gira:-13.17deg"><g class="ar-pil ar-pil--eco" data-dono="compliance" data-par="iso" aria-hidden="true"><rect x="-100.1" y="62.3" width="62.0" height="20" rx="3"/><text x="-69.1" y="76.0">ISO 37001</text></g></g>
 <g class="ar-orb" style="--gira:19.42deg"><g class="ar-pil ar-pil--eco" data-dono="alimentos" data-par="iso" aria-hidden="true"><rect x="45.6" y="54.3" width="62.0" height="20" rx="3"/><text x="76.6" y="68.0">ISO 22000</text></g></g>
 </a>
-<a class="ar-tema" data-t="carbono" href="gestao-carbono.html" aria-label="Gestão de carbono: GHG Protocol, ISO 14068-1, SBTi, ISO 14064" style="--cx:275.00px;--cy:195.00px">
+<a class="ar-tema" data-t="carbono" href="gestao-carbono.html" aria-label="Gestão de carbono: GHG Protocol, ISO 14068, SBTi, ISO 14064" style="--cx:275.00px;--cy:195.00px">
 <circle class="ar-alvo" r="70"/>
 <text class="ar-tit" x="0" y="-6.2" aria-hidden="true"><tspan x="0" dy="0">Gestão</tspan><tspan x="0" dy="12.5">de carbono</tspan></text>
 <g class="ar-orb" style="--gira:0.00deg"><g class="ar-pil" aria-hidden="true"><rect x="-32.2" y="-80.0" width="64.5" height="20" rx="3"/><text x="0.0" y="-66.3">GHG Protocol</text></g></g>
-<g class="ar-orb" style="--gira:0.00deg"><g class="ar-pil" aria-hidden="true"><rect x="38.7" y="-10.0" width="62.5" height="20" rx="3"/><text x="70.0" y="3.7">ISO 14068-1</text></g></g>
+<g class="ar-orb" style="--gira:0.00deg"><g class="ar-pil" aria-hidden="true"><rect x="39.0" y="-10.0" width="62.0" height="20" rx="3"/><text x="70.0" y="3.7">ISO 14068</text></g></g>
 <g class="ar-orb" style="--gira:0.00deg"><g class="ar-pil" aria-hidden="true"><rect x="-31.0" y="60.0" width="62.0" height="20" rx="3"/><text x="0.0" y="73.7">SBTi</text></g></g>
 <g class="ar-orb" style="--gira:0.00deg"><g class="ar-pil" aria-hidden="true"><rect x="-101.0" y="-10.0" width="62.0" height="20" rx="3"/><text x="-70.0" y="3.7">ISO 14064</text></g></g>
 </a>
@@ -3620,7 +3613,7 @@ body>*{position:relative;z-index:1}
 </g></svg>
 <ul class="ar-lista">
 <li class="ar-item"><a href="implantacao-iso.html">Sistemas de gestão ISO</a><span class="ar-normas"><span>ISO 9001</span><span>ISO 41001</span><span>ISO 50001</span><span>ISO 45001</span><span>ISO/IEC 27001</span><span>ISO 37001</span><span>ISO 22000</span></span></li>
-<li class="ar-item"><a href="gestao-carbono.html">Gestão de carbono</a><span class="ar-normas"><span>GHG Protocol</span><span>ISO 14068-1</span><span>SBTi</span><span>ISO 14064</span></span></li>
+<li class="ar-item"><a href="gestao-carbono.html">Gestão de carbono</a><span class="ar-normas"><span>GHG Protocol</span><span>ISO 14068</span><span>SBTi</span><span>ISO 14064</span></span></li>
 <li class="ar-item"><a href="compliance-seguranca-informacao.html">Segurança da informação</a><span class="ar-normas"><span>LGPD</span><span>SGSI</span><span>ISO/IEC 27001</span></span></li>
 <li class="ar-item"><a href="compliance-seguranca-informacao.html">Gestão de compliance</a><span class="ar-normas"><span>ISO 37301</span><span>ISO 37001</span></span></li>
 <li class="ar-item"><a href="seguranca-alimentos.html">Segurança de alimentos</a><span class="ar-normas"><span>FSSC 22000</span><span>ISO 22000</span></span></li>
@@ -4883,14 +4876,14 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var im = m.querySelector('img'); if(!im) return;
     /* 22/09: o rastro nesta secao escurecia a ponto de atrapalhar a leitura das
        etiquetas por baixo dele: biasReacao 0,07 no lugar dos 0,20 das outras pecas */
-    ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
+    ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, biasReacao:.07});
     /* a foto do terco direito (foto.py; ja sai na proporcao da vaga).
        22/09: o cometa fica, mas SO SOBRE A FIGURA (trilhaSoNaFigura). No branco
        em volta da piramide ele acendia pontos e desenhava a quina do retangulo
        da foto; agora o rastro anda sobre os bonecos e some no branco. */
     var f = document.querySelector('.ar-foto'), fi = f && f.querySelector('img');
-    if(f && fi) ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:f, planos:[{el:f, lum:fi.getAttribute('data-lum')}], classeCanvas:'af-gl', revelar:'visivel',
+    if(f && fi) ditherVivo({raiz:f, planos:[{el:f, lum:fi.getAttribute('data-lum')}], classeCanvas:'af-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, trilhaSoNaFigura:true, biasReacao:.10});
   })();
   /* ---------------- fim CONHECIMENTO manchas ---------------- */
@@ -4925,8 +4918,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   });
 })();
 </script>
-<script src="js/setores-dados.js?v=10"></script>
-<script src="js/setores-filtro.js?v=10"></script>
-<script src="js/setores-matriz.js?v=10"></script>
+<script src="js/setores-dados.js?v=11"></script>
+<script src="js/setores-filtro.js?v=11"></script>
+<script src="js/setores-matriz.js?v=11"></script>
 </body>
 </html>

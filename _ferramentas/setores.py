@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '21', '10'
+CSS_V, JS_V = '21', '11'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -87,8 +87,7 @@ NORMAS = {
  'iso14067': ('ISO 14067', 'Pegada de carbono de produto', 'clima', 'carbono-pegada-produto.html'),
  'iso14040': ('ISO 14040', 'Avaliação do ciclo de vida', 'clima', 'carbono-pegada-produto.html'),
  'iso14025': ('ISO 14025', 'Declaração ambiental de produto', 'clima', 'carbono-pegada-produto.html'),
- 'iso14068': ('ISO 14068', 'Neutralidade de carbono', 'clima', 'carbono-neutralizacao.html'),   # 09/10/2026: a ISO 14068:2026 substituiu a 14068-1:2023
- 'pas2060': ('PAS 2060', 'Neutralidade de carbono', 'clima', 'carbono-neutralizacao.html'),
+ 'iso14068': ('ISO 14068', 'Neutralidade de carbono (sucessora da PAS 2060)', 'clima', 'carbono-neutralizacao.html'),   # 09/10/2026: a ISO 14068:2026 substituiu a 14068-1:2023
  'cdp': ('CDP', 'Relato ambiental a investidores e clientes', 'clima', 'carbono-inventario-gee.html'),
  'gri': ('GRI', 'Relato de sustentabilidade', 'clima', 'carbono-inventario-gee.html'),
  'sbti': ('SBTi', 'Metas de redução baseadas na ciência', 'clima', 'carbono-descarbonizacao.html'),
@@ -129,7 +128,7 @@ SETORES = [
 TRANSVERSAIS = ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso50001', 'iso56002', 'iso42001', 'iso14064', 'iso28000', 'iso39001', 'iso200001',
                 'iso37001', 'iso37301', 'iso55001', 'iso22301', 'iso31000', 'iso31022', 'smeta', 'sa8000', 'ifc',
                 'ecovadis', 'abntpr1004', 'abntpr2030', 'ghgprotocol', 'iso14067', 'iso14040', 'iso14025',
-                'iso14068', 'pas2060', 'cdp', 'gri', 'sbti', 'verra', 'goldstandard', 'nr01', 'nr17', 'esocial', 'lgpd']
+                'iso14068', 'cdp', 'gri', 'sbti', 'verra', 'goldstandard', 'nr01', 'nr17', 'esocial', 'lgpd']
 
 # so valem fora dos seis setores (rotulo da linha «Outros setores» do grafico)
 FORA = {'iso41001': 'Facilities', 'iso21001': 'Educação', 'iso17025': 'Laboratórios'}
