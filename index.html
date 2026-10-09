@@ -2546,7 +2546,10 @@ body>*{position:relative;z-index:1}
 /* 29/09: SOMBRA entre os cards, do lado esquerdo de cada um (modelo URS): cada coluna, a partir da
    segunda, projeta uma sombra macia sobre a vizinha da esquerda, como folhas sobrepostas. A coluna
    pinta por cima da anterior (mesmo z-index, ordem do HTML), entao a sombra cai sobre ela. */
-.sh-tira--flow .sh-col + .sh-col{box-shadow:-10px 0 22px -6px rgba(20,48,76,.19)}   /* 30/09: 50% menor (era ,28); depois «ligeiramente mais forte», .14 a .19 */
+.sh-tira--flow .sh-col + .sh-col{box-shadow:-10px 0 22px -6px rgba(20,48,76,.27)}   /* 30/09: 50% menor (era ,28); depois «ligeiramente mais forte», .14 a .19; 09/10: «um pouquinho mais forte», .19 a .27, nos oito cards */
+/* 09/10: o fio de 1px entre os cards (.16) sobe para .26, para dividir mais sem mexer na foto */
+.sh-tira--flow .sh-col{border-right-color:rgba(20,48,76,.26)}
+.sh-tira--flow .sh-col:last-of-type{border-right:none}
 /* 30/09 (2a): ENTRADA «a trama se forma, card a card». A tira nasce lisa, no creme (o motor
    com o veu de cada foto em 1 e a trama por revelar). Depois da tela de abertura (JS: .anima/
    .entrou), cada card surge da esquerda para a direita, 0,22 s um do outro: o veu da foto
