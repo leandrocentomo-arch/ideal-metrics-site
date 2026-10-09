@@ -1573,7 +1573,10 @@ body>*{position:relative;z-index:1}
 /* 09/10/2026: os quatro circulos da primeira versao do site (Imagens em circulos.png, 04/07), cortados da imagem
    original, um ao lado do outro. 09/10/2026: metade do tamanho (80 px, eram 160) e 50% mais juntos (16 px de vao, eram 32);
    o limite do Leandro era 2 polegadas, 192 px */
-.qc-temas-quadro img{flex:0 1 80px;min-width:0;width:100%;max-width:80px;height:auto;aspect-ratio:1;display:block}
+.qc-circ{position:relative;flex:0 1 80px;min-width:0;width:100%;max-width:80px;aspect-ratio:1;border-radius:50%;overflow:hidden;display:block;background:var(--mercurio)}
+/* 09/10/2026: os circulos passam pelo tingimento oficial e pelo motor da trama, como toda foto do site (era o tingimento antigo da 1a versao) */
+.qc-circ img,.qc-circ-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.qc-circ.gl-on img{visibility:hidden}
 @media (max-width:560px){ .qc-temas-quadro{padding:14px 12px;gap:8px} }
 .qc-temas figcaption{margin:0}
 .qc-temas-frase{margin:18px 0 14px;font-family:var(--sans);font-weight:600;font-size:clamp(17px,1.5vw,20px);line-height:1.25;color:var(--azul)}
@@ -2094,6 +2097,15 @@ body>*{position:relative;z-index:1}
      precisa se sustentar sozinho contra a foto crua. */
   background:rgba(250,249,245,.92);transition:background .3s,color .3s,border-color .3s}
 .sh-cta:hover{background:var(--azul);color:var(--mercurio);border-color:var(--azul)}
+/* 09/10/2026: abaixo da frase de «O que fazemos», o botao para Todos os servicos, no desenho do «Acesse» dos cards
+   (fio fino, canto de 3 px, caixa alta espacada e os seis losangos); hover azul cheio */
+.qc-todos{display:inline-flex;align-items:center;gap:10px;width:fit-content;margin:26px 0 0;padding:8px 20px;
+  border:1px solid rgba(20,48,76,.42);border-radius:3px;background:transparent;color:var(--azul);text-decoration:none;
+  font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;
+  transition:background .3s,color .3s,border-color .3s}
+.qc-todos:hover,.qc-todos:focus-visible{background:var(--azul);color:var(--mercurio);border-color:var(--azul);outline:none}
+.qc-todos-ic{width:10px;height:6px;flex:none;fill:currentColor;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.qc-todos:hover .qc-todos-ic{transform:translateX(3px)}
 /* 17/09, 2a volta: o rodape pequeno deixou de ser absoluto no pe da coluna e
    passou a ser a primeira linha escrita debaixo do titulo, acima da lista do
    hover. Ele fica sempre visivel; a lista e que entra e sai. */
@@ -2834,6 +2846,7 @@ body>*{position:relative;z-index:1}
         <div class="qc-abre-texto">
           <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
           <p class="qc-lead" id="qcLead" data-texto="Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
+          <a class="qc-todos" href="servicos.html"><span class="js-scramble">Todos os serviços</span><svg class="qc-todos-ic" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></a>
         </div>
 <!-- relacao setor norma -->
 <figure class="qc-mat" id="qcMat" aria-labelledby="qcMatTit">
@@ -3404,7 +3417,7 @@ body>*{position:relative;z-index:1}
         <div class="qc-abre-cauda">
           <figure class="qc-temas" aria-labelledby="qcTemasFrase">
             <div class="qc-temas-topo"><span>Temas de gestão</span><span>[ 06 ]</span></div>
-            <div class="qc-temas-quadro"><img src="img/tema-circulo-usina.webp?v=09102026" alt="Usina com chaminés sobre campo coberto de neve" width="80" height="80" loading="lazy"><img src="img/tema-circulo-trabalhadores.webp?v=09102026" alt="Trabalhadores de capacete reunidos" width="80" height="80" loading="lazy"><img src="img/tema-circulo-globo.webp?v=09102026" alt="Globo em malha de quadrados" width="80" height="80" loading="lazy"><img src="img/tema-circulo-refinaria.webp?v=09102026" alt="Refinaria com capacete de segurança sobreposto" width="80" height="80" loading="lazy"></div>
+            <div class="qc-temas-quadro"><span class="qc-circ"><img src="img/tema-circulo-usina-bayer.webp?v=09102026b" data-lum="img/tema-circulo-usina-lum.webp?v=09102026b" alt="Usina com chaminés sobre campo coberto de neve" width="80" height="80" loading="lazy"></span><span class="qc-circ"><img src="img/tema-circulo-trabalhadores-bayer.webp?v=09102026b" data-lum="img/tema-circulo-trabalhadores-lum.webp?v=09102026b" alt="Trabalhadores de capacete reunidos" width="80" height="80" loading="lazy"></span><span class="qc-circ"><img src="img/tema-circulo-globo-bayer.webp?v=09102026b" data-lum="img/tema-circulo-globo-lum.webp?v=09102026b" alt="Globo em malha de quadrados" width="80" height="80" loading="lazy"></span><span class="qc-circ"><img src="img/tema-circulo-refinaria-bayer.webp?v=09102026b" data-lum="img/tema-circulo-refinaria-lum.webp?v=09102026b" alt="Refinaria com capacete de segurança sobreposto" width="80" height="80" loading="lazy"></span></div>
             <figcaption>
               <p class="qc-temas-frase" id="qcTemasFrase">Trabalhamos com diversos temas de gestão, integrados num único sistema.</p>
               <ul class="qc-temas-lista">
@@ -4749,6 +4762,17 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
 <script src="js/trama.js?v=26"></script>
+<script>
+/* 09/10/2026: os quatro circulos dos Temas de gestao no motor da trama, no tom azul do site e com o efeito de mouse */
+(function(){
+  if(!window.ditherVivo) return;
+  [].forEach.call(document.querySelectorAll('.qc-circ'), function(q){
+    var im = q.querySelector('img'); if(!im) return;
+    window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'qc-circ-gl', revelar:'visivel',
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});
+  });
+})();
+</script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
