@@ -51,6 +51,13 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - Molde: `norma-iso-45001.html` (`_ferramentas/pagina_45001.py`); a `seguranca-viaria.html` (`pagina_viaria.py`) é a versão anterior e ainda vai para a estrutura geral.
 - **Página nova entra no menu na mesma entrega, sem ele pedir.** Com norma, o rótulo leva tema e norma na mesma linha: «Qualidade · ISO 9001», «Segurança viária · ISO 39001». Sistema de gestão ISO fica em «Sistemas de gestão». Editar `MENU` em `_ferramentas/blocos.py` e rodar `python _ferramentas/menu.py` (regrava menu do topo, do celular e lateral em todas as páginas, home incluída); depois `cp index.html index-azul.html` e `python _ferramentas/busca.py`. Entra também no card de `servicos.html`.
 
+### Página de setor e filtro setor x norma (09/10/2026)
+- **Fonte única:** `_ferramentas/setores.py` (setores, normas, relação entre eles, tipo de cada norma e página do serviço). Rodar `python _ferramentas/setores.py` regrava `js/setores-dados.js`, as seis `setor-*.html` e o filtro da home e de `servicos.html`; depois `python _ferramentas/busca.py`. Textos de abertura, entregas e estudos de cada setor: `_ferramentas/setores-textos.json`.
+- **Estrutura da página de setor:** abertura (`abre`) e parágrafo do que o setor exige; «Certificações e reconhecimentos do setor» em três grupos (Sistemas de gestão, Esquemas e programas de mercado, Requisitos técnicos e legais), cada norma um cartão; «O que a Ideal Metrics entrega»; estudos e pesquisa aplicada para o setor; «Outros setores»; contato. Norma com página de serviço leva link («Ver serviço»); sem página, o cartão fica sem link até a página existir (pôr o endereço em `NORMAS` e rodar de novo).
+- **Filtro** (`css/setores.css`, `js/setores-filtro.js`): «Por setor» mostra as normas aplicáveis com link; «Por norma» mostra os setores com link. Fica na seção Setores de atuação da home e em Todos os serviços.
+- Itens marcados `# NOVO` em `setores.py` entraram em 09/10/2026 e dependem da conferência do Leandro: ISO/IEC 42001, IFS Food, SQF, OEA e ONA.
+- As páginas de setor ainda usam o banner antigo (imagem externa do Wix), fora do padrão de banner de 05/10/2026.
+
 ### Fotos
 - Tingimento azul oficial do site, tom padrão em `_ferramentas/tom_azul.json` (brilho 0,35, gama 0,88, contraste 1,55, escuro 0,35, véu 0,12). O banner das páginas internas tem o tom dele (0,35 · 0,86 · 1,55), salvo `data-tom`.
 - Toda foto posta no site leva o efeito de mouse (motor `ditherVivo`, `pincel:.7, zoomHover:1.035`).

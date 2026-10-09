@@ -1,0 +1,49 @@
+/* Setores x normas (09/10/2026): filtro interativo (home e Todos os servicos) e blocos das paginas de setor.
+   Dados em js/setores-dados.js, gerado por _ferramentas/setores.py. Cores e fontes escritas por extenso para
+   funcionar na home (variaveis proprias) e nas paginas internas (style.css). Canto de 3 px em tudo. */
+
+/* ---------- filtro ---------- */
+.stf{margin:0 0 44px;padding:16px 18px 18px;border:1px solid rgba(20,48,76,.14);border-radius:3px;max-width:1040px}
+.stf-topo{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 14px}
+.stf-tit{margin:0;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#315275}
+.stf-modos{display:flex;gap:6px}
+.stf-modo{width:112px;padding:7px 0;border:1px solid rgba(20,48,76,.22);border-radius:3px;background:transparent;color:#14304C;
+  font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:500;font-size:14px;line-height:1;cursor:pointer}
+.stf-modo[aria-selected="true"]{background:#14304C;border-color:#14304C;color:#FAF9F5}
+.stf-chips{display:flex;flex-wrap:wrap;gap:6px}
+.stf-chip{padding:7px 12px;border:1px solid rgba(20,48,76,.22);border-radius:3px;background:transparent;color:#14304C;
+  font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:500;font-size:14px;line-height:1;cursor:pointer}
+.stf-chip:hover{border-color:rgba(20,48,76,.5)}
+.stf-chip[aria-pressed="true"]{background:#336699;border-color:#336699;color:#FAF9F5}
+.stf-modo:focus-visible,.stf-chip:focus-visible,.stf-card:focus-visible,.stf-ir:focus-visible{outline:2px solid #336699;outline-offset:2px}
+.stf-res{margin:16px 0 0;padding:16px 0 0;border-top:1px solid rgba(20,48,76,.14)}
+.stf-dica{margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#315275}
+.stf-cab{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.stf-cab h3{margin:0;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:20px;line-height:1.2;color:#14304C}
+.stf-ir{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#336699;text-decoration:none}
+.stf-ir:hover{text-decoration:underline}
+.stf-sub{margin:6px 0 0;font-family:'IBM Plex Sans Condensed',sans-serif;font-size:15px;line-height:1.35;color:#14304C}
+.stf-rot{margin:18px 0 0;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#315275}
+.stf-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:12px 0 0}
+.stf-card{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid rgba(20,48,76,.14);border-radius:3px;color:#14304C;text-decoration:none}
+.stf-card b{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:16px;line-height:1.25}
+.stf-card span{font-family:'IBM Plex Sans Condensed',sans-serif;font-size:13.5px;line-height:1.35}
+.stf-card i{margin-top:6px;font-style:normal;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#336699}
+a.stf-card:hover{border-color:rgba(20,48,76,.4)}
+@media (max-width:560px){ .stf{padding:14px 12px 16px} .stf-modo{width:50%} .stf-modos{width:100%} }
+
+/* o style.css das paginas internas estiliza todo h3 de .content (caixa alta, mono, margem de cima): zera aqui */
+.stf .stf-tit{margin:0;padding:0;border:0;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:11px;line-height:1.4;letter-spacing:.2em;text-transform:uppercase;color:#315275}
+.stf .stf-cab h3{margin:0;padding:0;border:0;font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:600;font-size:20px;line-height:1.2;letter-spacing:0;text-transform:none;color:#14304C}
+
+/* ---------- pagina de setor ---------- */
+.stp-grupo{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:30px 0 0;padding:0 0 8px;border-bottom:1px solid rgba(20,48,76,.14);
+  font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#315275}
+.stp-grupo em{font-style:normal;letter-spacing:.14em;opacity:.8}
+.stp-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin:14px 0 8px}
+.stp-nota{margin:10px 0 0;font-family:'IBM Plex Sans Condensed',sans-serif;font-size:14.5px;line-height:1.4;color:#14304C}
+.stp-outros{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:14px 0 28px}
+.stp-outros a{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid rgba(20,48,76,.14);border-radius:3px;color:#14304C;text-decoration:none}
+.stp-outros a:hover{border-color:rgba(20,48,76,.4)}
+.stp-outros b{font-family:'IBM Plex Sans Condensed',sans-serif;font-weight:700;font-size:16px;line-height:1.25}
+.stp-outros span{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#315275}

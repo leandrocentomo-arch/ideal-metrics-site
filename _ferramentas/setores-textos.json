@@ -1,0 +1,184 @@
+{
+ "industria": {
+  "nome": "Indústria",
+  "resumo": "Manufatura, metalurgia, plásticos e automotivo.",
+  "abre": "A Ideal Metrics implanta esses sistemas de forma integrada e, quando o produto vem de fora, inspeciona fábrica e fornecedores na fonte.",
+  "para": "A indústria de transformação lida com exigências simultâneas de qualidade, meio ambiente e segurança do trabalho, além da pressão crescente de clientes por conformidade ao longo da cadeia.",
+  "entregas": [
+   [
+    "Sistema de gestão integrado",
+    "Implantação de ISO 9001, 14001 e 45001 num único sistema, com uma documentação e um cronograma."
+   ],
+   [
+    "Cadeia automotiva",
+    "Preparação para a IATF 16949 e para os requisitos das montadoras."
+   ],
+   [
+    "Inspeção e auditoria de fornecedores",
+    "Inspeção de fábrica e auditoria de fornecedores, no Brasil e no exterior."
+   ],
+   [
+    "Atendimento a NRs",
+    "Adequação a NR-12, NR-10 e demais normas regulamentadoras aplicáveis."
+   ],
+   [
+    "Carbono",
+    "Inventário de GEE e preparação para metas de redução."
+   ]
+  ],
+  "estudos": [
+   "Nota técnica de exposição ao ajuste de carbono na fronteira da União Europeia (CBAM), por planta e por código NCM.",
+   "Radar do mercado regulado de carbono brasileiro (SBCE)."
+  ],
+  "banner": "https://static.wixstatic.com/media/b83354_b43ecda9b87347b4af5c1ec036f7bd8b~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
+ },
+ "logistica": {
+  "nome": "Logística",
+  "resumo": "Transporte, armazenagem e cadeia de suprimentos.",
+  "abre": "A Ideal Metrics estrutura esses sistemas e apoia a conformidade exigida por clientes e contratantes.",
+  "para": "Operações logísticas respondem por segurança viária, gestão ambiental e continuidade da cadeia, muitas vezes sob auditoria dos embarcadores que atendem.",
+  "entregas": [
+   [
+    "Sistema de gestão integrado",
+    "Implantação de ISO 9001, 14001 e 45001 para operadores logísticos e transportadoras."
+   ],
+   [
+    "Segurança viária",
+    "Implantação da ISO 39001 para frotas e gestão de risco no trânsito."
+   ],
+   [
+    "Adequação SASSMAQ",
+    "Preparação para a avaliação de transporte de produtos químicos."
+   ],
+   [
+    "Auditoria de fornecedores",
+    "Auditoria e qualificação de prestadores e da cadeia."
+   ],
+   [
+    "Inspeção de recebimento",
+    "Verificação de mercadorias e conformidade no recebimento."
+   ]
+  ],
+  "estudos": [
+   "Matriz de requisitos de segurança viária e de transporte de produtos perigosos.",
+   "Obrigações de documentação fiscal e logística na cadeia de grãos."
+  ],
+  "banner": "https://static.wixstatic.com/media/b83354_6f7e745146274df7a366bd2151541dde~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
+ },
+ "alimentos": {
+  "nome": "Alimentos",
+  "resumo": "Processamento, distribuição e food service.",
+  "abre": "A Ideal Metrics implanta os sistemas de gestão de segurança de alimentos e prepara a organização para a auditoria.",
+  "para": "Segurança de alimentos é requisito de acesso a mercado: redes, exportadores e food service exigem certificação reconhecida pela GFSI.",
+  "entregas": [
+   [
+    "Implantação FSSC / ISO 22000",
+    "Estruturação do sistema de gestão de segurança de alimentos."
+   ],
+   [
+    "HACCP / APPCC e PPR",
+    "Elaboração do plano APPCC e dos programas de pré-requisitos."
+   ],
+   [
+    "Preparação BRCGS",
+    "Adequação ao padrão exigido por redes e exportadores."
+   ],
+   [
+    "Treinamento",
+    "Capacitação das equipes, incluindo Food Defense."
+   ]
+  ],
+  "estudos": [
+   "Matriz de obrigações do regulamento europeu contra o desmatamento (EUDR) por elo, para café, cacau e soja.",
+   "Radar da agenda regulatória da ANVISA."
+  ],
+  "banner": "https://static.wixstatic.com/media/b83354_5f2601577e634d57a6f7cd06f09536e5~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
+ },
+ "saude": {
+  "nome": "Saúde",
+  "resumo": "Hospitais, laboratórios e dispositivos médicos.",
+  "abre": "A Ideal Metrics implanta os sistemas exigidos de fabricantes de dispositivos, laboratórios e serviços de saúde.",
+  "para": "O setor de saúde combina qualidade, gestão de risco e proteção de dados sensíveis, com forte peso regulatório.",
+  "entregas": [
+   [
+    "Implantação ISO 13485",
+    "Sistema de gestão para fabricantes e importadores de dispositivos médicos."
+   ],
+   [
+    "Gestão de risco",
+    "Aplicação da ISO 14971 ao ciclo de vida do produto."
+   ],
+   [
+    "Qualidade em serviços de saúde",
+    "ISO 9001 para clínicas, laboratórios e prestadores."
+   ],
+   [
+    "Proteção de dados",
+    "Adequação da segurança da informação e da LGPD com base na ISO 27001."
+   ]
+  ],
+  "estudos": [
+   "Radar dos temas da agenda regulatória da ANVISA, filtrado por segmento.",
+   "Matriz de verificação da NR-1 para riscos psicossociais."
+  ],
+  "banner": "https://static.wixstatic.com/media/b83354_95524123dbea4056bd884d3c1938ea8c~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
+ },
+ "tecnologia": {
+  "nome": "Tecnologia",
+  "resumo": "Software, TI e serviços digitais.",
+  "abre": "A Ideal Metrics implanta os sistemas que abrem essas portas.",
+  "para": "Empresas de tecnologia vendem confiança: clientes corporativos e contratos públicos exigem segurança da informação, privacidade e gestão de serviços comprovadas.",
+  "entregas": [
+   [
+    "Implantação ISO 27001",
+    "Sistema de gestão de segurança da informação, do escopo à preparação para a auditoria."
+   ],
+   [
+    "Privacidade e LGPD",
+    "Adequação com base na ISO 27701, alinhada à LGPD."
+   ],
+   [
+    "Gestão de serviços de TI",
+    "Implantação da ISO 20000-1."
+   ],
+   [
+    "Gestão da inovação",
+    "Estruturação com base na ISO 56002."
+   ]
+  ],
+  "estudos": [
+   "Radar de normas de inteligência artificial e de segurança da informação, dos comitês ISO/IEC JTC 1/SC 27 e SC 42."
+  ],
+  "banner": "https://static.wixstatic.com/media/b83354_38a0348727e54c02aef4e90bf0d8fa47~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
+ },
+ "energia": {
+  "nome": "Energia",
+  "resumo": "Petróleo, gás, renováveis e utilities.",
+  "abre": "A Ideal Metrics implanta esses sistemas e atende às normas regulamentadoras do setor.",
+  "para": "O setor de energia opera sob rigor de segurança, eficiência energética e requisitos específicos de óleo e gás, incluindo o ambiente offshore.",
+  "entregas": [
+   [
+    "Gestão de energia",
+    "Implantação da ISO 50001 e identificação de oportunidades de eficiência."
+   ],
+   [
+    "Óleo e gás",
+    "Preparação para a ISO 29001 e requisitos da cadeia."
+   ],
+   [
+    "Offshore (NR-37)",
+    "Adequação de sistemas à NR-37 e ISO 22000 para hotelaria em plataformas."
+   ],
+   [
+    "Carbono",
+    "Inventário de GEE e preparação para metas de descarbonização."
+   ]
+  ],
+  "estudos": [
+   "Radar regulatório do setor elétrico.",
+   "Estudo de fluxos de financiamento da transição energética.",
+   "Painel executivo de plano de transição."
+  ],
+  "banner": "https://static.wixstatic.com/media/b83354_d16f148a500f40f7ab5825381a148de2~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
+ }
+}
