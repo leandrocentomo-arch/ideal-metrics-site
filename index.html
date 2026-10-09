@@ -1569,10 +1569,11 @@ body>*{position:relative;z-index:1}
 .qc-temas::after{right:-6px;bottom:-6px}
 .qc-temas-topo{display:flex;justify-content:space-between;margin:0 0 12px;font-family:var(--mono);font-size:10.5px;
   letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
-.qc-temas-quadro{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:18px 22px;border:1px solid var(--fio);border-radius:3px;background:var(--mercurio)}
+.qc-temas-quadro{display:flex;justify-content:flex-start;align-items:center;gap:16px;padding:18px 22px;border:1px solid var(--fio);border-radius:3px;background:var(--mercurio)}
 /* 09/10/2026: os quatro circulos da primeira versao do site (Imagens em circulos.png, 04/07), cortados da imagem
-   original, um ao lado do outro; 160 px de altura (limite do Leandro: 2 polegadas, 192 px) */
-.qc-temas-quadro img{flex:0 1 160px;min-width:0;width:100%;max-width:160px;height:auto;aspect-ratio:1;display:block}
+   original, um ao lado do outro. 09/10/2026: metade do tamanho (80 px, eram 160) e 50% mais juntos (16 px de vao, eram 32);
+   o limite do Leandro era 2 polegadas, 192 px */
+.qc-temas-quadro img{flex:0 1 80px;min-width:0;width:100%;max-width:80px;height:auto;aspect-ratio:1;display:block}
 @media (max-width:560px){ .qc-temas-quadro{padding:14px 12px;gap:8px} }
 .qc-temas figcaption{margin:0}
 .qc-temas-frase{margin:18px 0 14px;font-family:var(--sans);font-weight:600;font-size:clamp(17px,1.5vw,20px);line-height:1.25;color:var(--azul)}
@@ -2831,7 +2832,7 @@ body>*{position:relative;z-index:1}
           <p class="qc-lead" id="qcLead" data-texto="Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.">Reunimos as exigências legais, os requisitos normativos e as exigências das partes interessadas do seu negócio num sistema auditável.</p>
           <figure class="qc-temas" aria-labelledby="qcTemasFrase">
             <div class="qc-temas-topo"><span>Temas de gestão</span><span>[ 06 ]</span></div>
-            <div class="qc-temas-quadro"><img src="img/tema-circulo-usina.webp?v=09102026" alt="Usina com chaminés sobre campo coberto de neve" width="160" height="160" loading="lazy"><img src="img/tema-circulo-trabalhadores.webp?v=09102026" alt="Trabalhadores de capacete reunidos" width="160" height="160" loading="lazy"><img src="img/tema-circulo-globo.webp?v=09102026" alt="Globo em malha de quadrados" width="160" height="160" loading="lazy"><img src="img/tema-circulo-refinaria.webp?v=09102026" alt="Refinaria com capacete de segurança sobreposto" width="160" height="160" loading="lazy"></div>
+            <div class="qc-temas-quadro"><img src="img/tema-circulo-usina.webp?v=09102026" alt="Usina com chaminés sobre campo coberto de neve" width="80" height="80" loading="lazy"><img src="img/tema-circulo-trabalhadores.webp?v=09102026" alt="Trabalhadores de capacete reunidos" width="80" height="80" loading="lazy"><img src="img/tema-circulo-globo.webp?v=09102026" alt="Globo em malha de quadrados" width="80" height="80" loading="lazy"><img src="img/tema-circulo-refinaria.webp?v=09102026" alt="Refinaria com capacete de segurança sobreposto" width="80" height="80" loading="lazy"></div>
             <figcaption>
               <p class="qc-temas-frase" id="qcTemasFrase">Trabalhamos com diversos temas de gestão, integrados num único sistema.</p>
               <ul class="qc-temas-lista">
