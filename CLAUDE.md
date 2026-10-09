@@ -61,7 +61,7 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
   - `'matriz'` (em uso): grade de quadrados, setores nas linhas e normas nas colunas por grupo (quadro escuro = destaque do setor, claro = vale para qualquer setor), mais a linha «Outros setores»; largura da página inteira, logo abaixo da frase de «O que fazemos» (`js/setores-matriz.js` acende linha e coluna).
   - `'mosaico'`: retângulos por norma, agrupados, com botão por setor (escuro = só do setor, contorno = qualquer setor), no terço direito (`js/setores-mosaico.js`).
   - Nos dois: só quadrados e retângulos, sem círculos (pedido do Leandro). A frase fecha a coluna do texto e a figura dos temas e o logo vertical ficam na `.qc-abre-cauda` (terço direito), abaixo do gráfico.
-- Itens `# NOVO` em `setores.py` entraram em 09/10/2026 e dependem da conferência do Leandro (ISO/IEC 42001, IFS Food, SQF, OEA, ONA); `# CONFERIR` marca descrição a validar (IQG, ABNT PR 1004-1).
+- Itens `# NOVO` em `setores.py` entraram em 09/10/2026 e dependem da conferência do Leandro (ISO/IEC 42001, IFS Food, SQF, OEA, ONA). Conferidos em fonte primária em 09/10/2026: IQG = Instituto Qualisa de Gestão (saúde, ISO 7101), logo do setor Saúde; ABNT PR 1004-1 = operação segura em organizações durante pandemias, qualquer setor; ISO 28000:2022 (todos os tipos e tamanhos de organização, iso.org), ISO 39001 (organizações que interagem com o sistema viário) e ISO/IEC 20000-1 valem para qualquer setor, com destaque em Logística e Tecnologia.
 - As páginas de setor ainda usam o banner antigo (imagem externa do Wix), fora do padrão de banner de 05/10/2026.
 
 ### Fotos
