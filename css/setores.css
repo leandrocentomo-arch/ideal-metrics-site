@@ -101,7 +101,7 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .stp-chips li,.stf-cl li{margin:0;padding:6px 10px!important;background:none}
 
 /* ---------- modelo 1: matriz setor x norma, na largura da pagina (home, abaixo da frase de O que fazemos) ---------- */
-.qc-abre-linha>.qc-mat{flex:0 0 100%;max-width:none;margin:34px 0 0}
+.qc-abre-linha>.qc-mat{flex:0 0 100%;min-width:0;max-width:100%;margin:34px 0 0}
 .qc-abre-linha>.qc-abre-cauda{flex:0 1 58%;min-width:280px;margin-left:auto}
 .qc-abre-linha>.qc-mos{flex:0 1 58%;min-width:280px;margin-left:auto;max-width:none}
 .qc-mat-topo{display:flex;justify-content:space-between;gap:12px;padding:0 0 8px;border-bottom:1px solid rgba(20,48,76,.2);
