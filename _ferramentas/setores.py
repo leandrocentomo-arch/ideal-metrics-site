@@ -16,7 +16,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '3', '1'
+CSS_V, JS_V = '7', '1'
 
 TIPOS = [('gestao', 'Sistemas de gestão', 'Normas ISO que a organização pode certificar.'),
          ('mercado', 'Esquemas e programas de mercado', 'Exigidos por redes, montadoras, embarcadores, contratantes e órgãos de acreditação.'),
@@ -136,6 +136,63 @@ def liga_css(s):
     return s.replace('</head>', tag + '\n</head>', 1)
 
 
+def relacao():
+    """09/10/2026: grafico estatico (SVG) da relacao setor x norma, logo abaixo da frase de «O que fazemos» na home.
+    Linhas = setores, colunas = normas agrupadas por tipo; um quadrado liga o setor a norma. So quadrados e linha fina
+    (sem circulos). Rotulo de linha leva a pagina do setor; rotulo de coluna, a pagina do servico quando existe.
+    js/setores-matriz.js acende a linha e a coluna sob o mouse."""
+    PASSO, QUAD, ROT_L, TOPO, LIN_H, GAP = 19, 13, 112, 128, 25, 14
+    cols = []                                    # (id, x do centro)
+    x = ROT_L; grupos = []
+    CURTO = {'gestao': 'Sistemas de gestão', 'mercado': 'Mercado', 'tecnico': 'Técnico e legal'}
+    for tipo, _rot, _ in TIPOS:
+        rot = CURTO[tipo]
+        ids = [k for k in dados_ordem() if NORMAS[k][2] == tipo]
+        x0 = x
+        for k in ids:
+            cols.append((k, x + PASSO / 2)); x += PASSO
+        grupos.append((rot, x0, x - 2))
+        x += GAP
+    larg = int(x - GAP + 6); alt = TOPO + LIN_H * len(SETORES) + 4
+    esc = lambda s: s.replace('&', '&amp;')
+    o = ['<figure class="qc-mat" aria-labelledby="qcMatTit">',
+         '  <div class="qc-mat-topo"><span id="qcMatTit">Normas e padrões por setor</span><span>[ IM.S ]</span></div>',
+         '  <div class="qc-mat-rola"><svg viewBox="0 0 %d %d" width="%d" height="%d" role="img" aria-label="Grade que liga cada setor às normas e padrões aplicáveis">' % (larg, alt, larg, alt)]
+    for rot, x0, x1 in grupos:
+        o.append('    <g class="gr"><text x="%s" y="11">%s</text><path d="M%s 17H%s"/></g>' % (x0, esc(rot), x0, x1))
+    for k, cx in cols:
+        nome, _, _, pg = NORMAS[k]
+        txt = '<text transform="translate(%s %s) rotate(-90)">%s</text>' % (cx + 3.5, TOPO - 8, esc(nome))
+        o.append('    <g class="co" data-n="%s">%s</g>' % (k, ('<a href="%s">%s</a>' % (pg, txt)) if pg else txt))
+    for r, (i, pg, normas) in enumerate(SETORES):
+        y = TOPO + r * LIN_H
+        o.append('    <g class="li" data-s="%s"><path class="fio" d="M0 %s H%s"/><a href="%s"><text class="rs" x="0" y="%s">%s</text></a>' % (i, y, larg, pg, y + 17, esc(TEXTOS[i]['nome'])))
+        for k, cx in cols:
+            if k in normas:
+                o.append('      <rect class="q" data-n="%s" x="%s" y="%s" width="%d" height="%d" rx="3"><title>%s: %s</title></rect>' % (k, cx - QUAD / 2, y + (LIN_H - QUAD) / 2, QUAD, QUAD, esc(TEXTOS[i]['nome']), esc(NORMAS[k][0])))
+            else:
+                o.append('      <rect class="v" x="%s" y="%s" width="2" height="2"/>' % (cx - 1, y + LIN_H / 2 - 1))
+        o.append('    </g>')
+    o.append('    <path class="fio" d="M0 %s H%s"/>' % (TOPO + LIN_H * len(SETORES), larg))
+    o.append('  </svg></div>')
+    o.append('  <figcaption>Cada quadrado liga um setor a uma norma ou padrão. Passe o mouse ou toque para ler a linha e a coluna; os nomes levam às páginas.</figcaption>')
+    o.append('</figure>')
+    return '<!-- relacao setor norma -->\n' + '\n'.join(o) + '\n<!-- fim relacao setor norma -->'
+
+
+def dados_ordem():
+    return sorted(NORMAS, key=lambda k: ([t[0] for t in TIPOS].index(NORMAS[k][2]), list(NORMAS).index(k)))
+
+
+def poe_relacao(s):
+    s = re.sub(r'[ \t]*<!-- relacao setor norma -->.*?<!-- fim relacao setor norma -->\n?', '', s, flags=re.S)
+    ancora = '<figure class="qc-temas"'
+    assert s.count(ancora) == 1
+    s = s.replace(ancora, relacao() + '\n          ' + ancora, 1)
+    s = re.sub(r'<script src="js/setores-matriz\.js[^>]*></script>\n?', '', s)
+    return s.replace('</body>', '<script src="js/setores-matriz.js?v=%s"></script>\n</body>' % JS_V, 1)
+
+
 FILTRO = '''<!-- filtro setor norma -->
 <section class="stf" id="stf" aria-labelledby="stfTit">
   <div class="stf-topo">
@@ -174,6 +231,7 @@ def main():
     s = ler('index.html')
     s = liga_css(s)
     s = poe_filtro(s, '<p class="st-lead">Atendemos os mais diversos segmentos produtivos.</p>', True)
+    s = poe_relacao(s)
     gravar('index.html', s)
     s = ler('servicos.html')
     s = liga_css(s)
