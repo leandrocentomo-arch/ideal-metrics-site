@@ -2036,6 +2036,13 @@ body>*{position:relative;z-index:1}
 .sh-faixa{display:flex;width:200%;transition:transform .9s cubic-bezier(.4,0,.2,1)}
 .sh-faixa.avancou{transform:translateX(-50%)}
 .sh-faixa .sh-tira{width:50%;flex:none}
+/* 10/10/2026: a junta entre o card 04 e o 05 (fim da primeira tira, comeco da segunda) nao tinha sombra nem fio:
+   a sombra de cada card cai sobre o vizinho da esquerda, e a tira corta o que passa da borda dela. A junta e uma
+   peca da faixa, por cima das duas tiras, com a mesma sombra (.27) e o mesmo fio (.26) dos outros cards. */
+.sh-faixa{position:relative}
+.sh-junta{position:absolute;top:0;bottom:0;left:50%;width:60px;z-index:4;pointer-events:none;   /* largura de 60px: com 1px a sombra de -6px de espalhamento sumia */
+  border-left:1px solid rgba(20,48,76,.26);box-shadow:-10px 0 22px -6px rgba(20,48,76,.27)}
+@media (max-width:880px){ .sh-junta{display:none} }
 /* 01/10 (noite): ABA DE FICHARIO entre as duas partes (no lugar da espia com foto). Presa na borda da tira,
    centrada na altura, creme com fio azul de 1 px e canto de 3 px so do lado de fora; texto vertical em mono;
    os seis losangos do «Acesse» como seta. No hover a aba sai 10 px, como quando se puxa a aba do fichario. */
@@ -2780,6 +2787,7 @@ body>*{position:relative;z-index:1}
         </div>
       </article>
     </div>
+    <span class="sh-junta" aria-hidden="true"></span>
     <div class="sh-tira sh-tira--flow sh-tira--2">
       <article class="sh-col sh-col--nrs">
         <img class="sh-foto" src="img/tira2-nrs-bayer.webp?v=02102026g" data-lum="img/tira2-panorama-lum.webp?v=02102026g" alt="" loading="lazy" decoding="async">
@@ -4803,7 +4811,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
         [0,1,2,3].forEach(function(i){ setTimeout(function(){ pecaTira.lavar(i, repouso, 1400); }, i*220); });   /* 01/10: o mesmo para a 2a tira, quando a seta a traz para a tela */
       }
       if(!saiu) window.addEventListener('im:pronta', function(){ setTimeout(function(){ saiu = true; tenta(); }, 900); }, {once:true});
-      var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ vista = true; io.disconnect(); tenta(); } }); }, {threshold:.3});
+      var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ vista = true; io.disconnect(); tenta(); } }); }, {threshold:.05});   /* 10/10: era .3; com o «+1» so um card (25%) da 2a tira entra na tela e ela ficava em branco */
       io.observe(tira);
     }
     /* 30/09: PANORAMA. Os quatro cards apontam para a MESMA imagem (a mestra); o motor a prende
