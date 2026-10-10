@@ -111,10 +111,7 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 /* 09/10/2026 (4): aberta, a grade NAO desce de linha nem empurra nada para baixo: cresce para a direita e a coluna
    dos temas e comprimida ate sumir, e volta ao recolher. O conteudo da coluna guarda a largura que tinha (--cauda-w,
    medida pelo js), para o texto nao se reorganizar enquanto ela fecha. */
-.qc-abre-linha>.qc-abre-cauda{transition:flex-basis .5s cubic-bezier(.4,0,.2,1),opacity .35s}
 .qc-abre-linha.mat-aberto>.qc-mat{flex:0 0 calc(100% - 41px)}
-.qc-abre-linha.mat-aberto>.qc-abre-cauda{flex:0 0 0%;min-width:0;opacity:0;overflow:hidden;pointer-events:none}
-.qc-abre-linha.mat-ok>.qc-abre-cauda>.qc-temas{width:var(--cauda-w);max-width:none}
 .qc-mat-aba{position:absolute;right:0;top:40px;bottom:46px;width:39px;padding:18px 0 16px;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;
   background:#FAF9F5;color:#14304C;border:1px solid rgba(20,48,76,.42);border-right:none;border-radius:3px 0 0 3px;
@@ -127,7 +124,6 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-mat-fecha,.qc-mat.aberto .qc-mat-abre{display:none}
 .qc-mat.aberto .qc-mat-fecha{display:inline}
 @media (max-width:880px){ .qc-abre-linha>.qc-mat{flex:0 0 100%;padding-right:0} .qc-mat-aba{display:none} }
-.qc-abre-linha>.qc-abre-cauda{flex:0 1 58%;min-width:280px;margin-left:auto}
 .qc-abre-linha>.qc-mos{flex:0 1 58%;min-width:280px;margin-left:auto;max-width:none}
 .qc-mat-topo{display:flex;justify-content:space-between;gap:12px;padding:0 0 8px;border-bottom:1px solid rgba(20,48,76,.2);
   font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#315275}
@@ -158,3 +154,22 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-mat figcaption{margin:10px 0 0;font-family:'IBM Plex Sans Condensed',sans-serif;font-size:13.5px;line-height:1.35;color:#315275}
 @media (max-width:880px){ .qc-abre-linha>.qc-abre-cauda,.qc-abre-linha>.qc-mos{flex:0 0 100%} }
 @media (max-width:560px){ .qc-mat-topo{font-size:9.5px;letter-spacing:.14em} }
+
+/* ---------- secao Frentes, 10/10/2026: «O que fazemos ao lado de Normas e padroes por setor, na mesma secao; Temas de
+   gestao e Solicite um orcamento numa secao abaixo, ocupando 2/3, do lado esquerdo». Ordem visual:
+   (1) logo e busca, sozinhos na primeira linha; (2) a grade (esquerda) e a frase com o botao (direita), lado a lado;
+   (3) a figura dos temas com o orcamento, em 2/3 a esquerda, com 96 px de espaco acima.
+   Aberta, a grade cresce para a direita e quem e comprimida agora e a frase. ---------- */
+.qc-abre-linha>.qc-busca{order:1;flex:0 0 50%;width:50%;max-width:none;margin-right:calc(50% - 40px)}   /* 10/10: «busca ocupando metade da secao» */
+.qc-abre-linha>.qc-mat{order:2}
+.qc-abre-linha>.qc-abre-texto{order:3;flex:0 1 58%;min-width:0;margin:40px 0 0;
+  transition:flex-basis .5s cubic-bezier(.4,0,.2,1),opacity .35s}
+.qc-abre-linha>.qc-abre-cauda{order:4;flex:0 0 66.6667%;min-width:0;margin:96px auto 0 0}
+.qc-abre-linha.mat-aberto>.qc-abre-texto{flex:0 0 0%;min-width:0;opacity:0;overflow:hidden;pointer-events:none}
+.qc-abre-linha.mat-ok>.qc-abre-texto>*{width:var(--cauda-w);max-width:none}
+@media (max-width:880px){
+  .qc-abre-linha>.qc-busca{flex:0 0 100%;width:100%;margin-right:0}
+  .qc-abre-linha>.qc-abre-texto{order:2;flex:0 0 100%;margin-top:28px}
+  .qc-abre-linha>.qc-mat{order:3}
+  .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin-top:56px}
+}

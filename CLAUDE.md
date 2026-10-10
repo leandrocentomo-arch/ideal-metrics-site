@@ -64,6 +64,10 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - Itens `# NOVO` em `setores.py` entraram em 09/10/2026 e dependem da conferência do Leandro (ISO/IEC 42001, IFS Food, SQF, OEA, ONA). Conferidos em fonte primária em 09/10/2026: IQG saiu do site em 09/10/2026 (o Leandro avisou que não existe mais; saiu também da lista de `padroes-mercado.html`); ABNT PR 1004-1 = operação segura em organizações durante pandemias, qualquer setor; ISO 28000:2022 (todos os tipos e tamanhos de organização, iso.org), ISO 39001 (organizações que interagem com o sistema viário) e ISO/IEC 20000-1 valem para qualquer setor, com destaque em Logística e Tecnologia.
 - As páginas de setor ainda usam o banner antigo (imagem externa do Wix), fora do padrão de banner de 05/10/2026.
 
+### Seção Frentes da home (10/10/2026)
+- Ordem: (1) logo e busca, a busca ocupando metade da seção; (2) a grade «Normas e padrões por setor» à esquerda e «O que fazemos» com o botão «Todos os serviços» à direita, na mesma linha; (3) «Temas de gestão» com «Solicite um orçamento» (WhatsApp e e-mail, botões pequenos empilhados no canto) em 2/3 à esquerda, com 96 px de espaço acima. Regras em `css/setores.css` (bloco «secao Frentes»).
+- A grade expandida cresce para a direita e comprime a coluna de «O que fazemos», sem pular de linha.
+
 ### Fotos
 - Tingimento azul oficial do site, tom padrão em `_ferramentas/tom_azul.json` (brilho 0,35, gama 0,88, contraste 1,55, escuro 0,35, véu 0,12). O banner das páginas internas tem o tom dele (0,35 · 0,86 · 1,55), salvo `data-tom`.
 - Toda foto posta no site leva o efeito de mouse (motor `ditherVivo`, `pincel:.7, zoomHover:1.035`).

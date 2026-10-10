@@ -34,7 +34,7 @@
 /* 09/10/2026: a etiqueta da parede direita abre a grade na largura da pagina e fecha de novo */
 (function(){
   var fig = document.getElementById('qcMat'), aba = document.getElementById('qcMatAba'); if(!fig || !aba) return;
-  var linha = fig.parentNode, cauda = linha.querySelector('.qc-abre-cauda');
+  var linha = fig.parentNode, cauda = linha.querySelector('.qc-abre-texto');   /* 10/10: a coluna que fecha e a da frase */
   var rola = fig.querySelector('.qc-mat-rola');
   /* o desenho fica sempre do tamanho que tera aberto, e a janela recolhida guarda a altura com a barra de rolagem,
      para nada mudar de tamanho nem de lugar durante a abertura */
