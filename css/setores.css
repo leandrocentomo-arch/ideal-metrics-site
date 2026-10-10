@@ -172,19 +172,13 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-abre-linha>.qc-abre-texto{margin-left:20px;flex-basis:calc(58% - 20px);transition:flex-basis .5s cubic-bezier(.4,0,.2,1),opacity .35s,margin-left .5s cubic-bezier(.4,0,.2,1)}
 .qc-abre-linha.mat-aberto>.qc-abre-texto{margin-left:0}
 .qc-abre-texto>.qc-lead{position:relative}
-/* 10/10, pelo modelo do Leandro: o traco entra na secao, alinhado ao titulo e ao botao, e a frase recua.
-   Traco de 17 px, 18 px ate a frase; degrade prata amostrado da imagem que ele mandou (escuro, branco no meio, escuro). */
-.qc-abre-texto>.qc-lead{padding-left:35px}
-.qc-abre-texto>.qc-lead::before{content:"";position:absolute;left:0;top:0;bottom:0;width:17px;border-radius:3px;
-  background:linear-gradient(176deg,#C9CACB 0%,#D6D7D7 10%,#E0E1E2 20%,#EBEBEC 30%,#F6F6F6 40%,#FEFEFE 50%,#F3F3F3 60%,#E8E9E9 70%,#DDDEDF 80%,#D3D4D5 90%,#C7C8C8 100%)}
+/* 10/10 (noite): «tire a linha vertical»: o traco prata ao lado da frase saiu, e a frase volta a alinhar com o titulo e o botao. */
 /* 10/10: «o selo discreto logo abaixo» da frase e do botao: o selo prata (18Asset 241), pequeno.
    Fica fora da largura forcada da coluna enquanto a grade abre. */
 .qc-abre-texto>.qc-selo-frase,.qc-abre-linha.mat-ok>.qc-abre-texto>.qc-selo-frase{display:block;width:84px;height:auto;max-width:none;margin:44px 0 0;opacity:.9}
 @media (max-width:880px){
   .qc-abre-linha>.qc-busca{flex:0 0 100%;width:100%;margin-right:0}
   .qc-abre-linha>.qc-abre-texto{order:2;flex:0 0 100%;margin-top:62px;margin-left:0}
-  .qc-abre-texto>.qc-lead{padding-left:24px}
-  .qc-abre-texto>.qc-lead::before{width:12px}
   .qc-abre-texto>.qc-selo-frase{width:72px;margin-top:32px}
   .qc-abre-linha>.qc-mat{order:3}
   .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin-top:104px}
