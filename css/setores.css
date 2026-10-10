@@ -175,11 +175,15 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 /* 10/10: «mais grossa e no tom prateado degrade»: 10 px, prata escovada (claro, escuro, brilho, escuro, claro) */
 .qc-abre-texto>.qc-lead::before{content:"";position:absolute;left:-30px;top:.12em;bottom:.12em;width:10px;border-radius:3px;
   background:linear-gradient(180deg,#EEF0F3 0%,#B9C0C9 22%,#8C949E 45%,#DCE0E5 62%,#9AA2AC 82%,#C8CDD4 100%)}
+/* 10/10: «o selo discreto logo abaixo» da frase e do botao: o selo prata (18Asset 241), pequeno.
+   Fica fora da largura forcada da coluna enquanto a grade abre. */
+.qc-abre-texto>.qc-selo-frase,.qc-abre-linha.mat-ok>.qc-abre-texto>.qc-selo-frase{display:block;width:84px;height:auto;max-width:none;margin:44px 0 0;opacity:.9}
 @media (max-width:880px){
   .qc-abre-linha>.qc-busca{flex:0 0 100%;width:100%;margin-right:0}
   .qc-abre-linha>.qc-abre-texto{order:2;flex:0 0 100%;margin-top:62px;margin-left:0}
   .qc-abre-texto>.qc-lead{padding-left:24px}
   .qc-abre-texto>.qc-lead::before{left:0}
+  .qc-abre-texto>.qc-selo-frase{width:72px;margin-top:32px}
   .qc-abre-linha>.qc-mat{order:3}
   .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin-top:104px}
 }
