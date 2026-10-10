@@ -2062,8 +2062,8 @@ body>*{position:relative;z-index:1}
 /* 10/10/2026: a aba da direita virou duas. A de cima («[ +1 ] Proximo») traz um card por vez (1/8 da faixa por clique);
    a de baixo («[ 05 a 08 ] Mais») traz a segunda parte inteira, como antes. As duas somem quando o card 08 encosta na
    borda; «Voltar» leva de novo ao 01. */
-.sh-aba--um{top:12%;height:30%}
-#shAvanca{top:46%;height:42%}
+.sh-aba--um{top:8%;height:auto}   /* 10/10: altura pelo conteudo; com 30% o «[ +1 ]» saia pela base da aba */
+#shAvanca{top:auto;bottom:9%;height:auto}
 .sh-cta--breve{cursor:default;opacity:.72}
 .sh-cta--breve:hover{background:rgba(250,249,245,.5);color:var(--azul);border-color:rgba(20,48,76,.42)}
 .sh-col--nrs      {background:linear-gradient(160deg,rgba(250,249,245,.22) 0%,rgba(238,243,249,.19) 100%)}
