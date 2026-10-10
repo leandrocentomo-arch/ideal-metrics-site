@@ -34,50 +34,54 @@
  },
  "construcao": {
   "nome": "Construção e infraestrutura",
-  "resumo": "Construtoras, engenharia, concessões e obras de infraestrutura.",
-  "abre": "A Ideal Metrics implanta os sistemas que contratantes, financiadores e o poder concedente exigem de construtoras, projetistas e concessionárias.",
-  "para": "Obras e concessões respondem por qualidade de execução, segurança do trabalho no canteiro, integridade nos contratos com o poder público e, nas rodovias, pela segurança de quem trafega.",
+  "resumo": "Construtoras, incorporadoras, engenharia, projeto e obras de infraestrutura.",
+  "abre": "A Ideal Metrics implanta os sistemas que contratantes, financiadores e o poder público exigem de construtoras, incorporadoras e empresas de engenharia.",
+  "para": "Obras respondem por qualidade de execução, segurança do trabalho no canteiro e integridade nos contratos com o poder público, com o PBQP-H exigido em financiamento habitacional e em obras públicas.",
   "entregas": [
    [
     "Sistema de gestão integrado",
-    "ISO 9001, 14001 e 45001 para construtoras, projetistas e concessionárias, com uma documentação e um cronograma."
+    "ISO 9001, 14001 e 45001 para construtoras, incorporadoras e empresas de engenharia, com uma documentação e um cronograma."
    ],
    [
     "PBQP-H / SiAC",
     "Preparação para a avaliação de conformidade exigida em financiamento habitacional e em obras públicas."
    ],
    [
-    "Segurança viária na concessão",
-    "ISO 39001 para quem administra a via, integrada ao Programa de Redução de Acidentes do contrato."
-   ],
-   [
     "Integridade e compliance",
-    "ISO 37001 e ISO 37301 para contratos com o poder público, concessões e estatais."
+    "ISO 37001 e ISO 37301 para contratos com o poder público e estatais."
    ],
    [
     "Segurança no canteiro",
     "Adequação a NR-18, NR-35 e NR-01."
+   ],
+   [
+    "Obras e conservação viária",
+    "ISO 39001 para empresas que constroem e conservam rodovias."
    ]
   ],
   "estudos": [
-   "Matriz de obrigações de segurança viária dos contratos de concessão rodoviária.",
-   "Radar do PL 710/2024 e das exigências de sistema de gestão em rodovias."
+   "Matriz de requisitos de SST para obras (NR-18, NR-35 e NR-01).",
+   "Radar das exigências de sistema de gestão em licitações de obras (Lei 14.133/2021)."
   ],
   "banner": "img/banner-construcao-bayer.webp?v=10102026"
  },
  "transporte": {
-  "nome": "Transporte e logística",
-  "resumo": "Carga, passageiros, armazenagem, portos e aeroportos.",
-  "abre": "A Ideal Metrics estrutura esses sistemas e apoia a conformidade exigida por clientes, embarcadores e contratantes.",
-  "para": "Transportadoras, operadores de ônibus e fretamento, operadores logísticos e terminais respondem por segurança viária, gestão ambiental e continuidade da cadeia, muitas vezes sob auditoria de quem os contrata.",
+  "nome": "Transporte e rodovias",
+  "resumo": "Carga, passageiros, logística, concessões de rodovias, portos e aeroportos.",
+  "abre": "A Ideal Metrics estrutura esses sistemas para quem opera frotas e para quem administra a via, e apoia a conformidade exigida por contratantes e pelo poder concedente.",
+  "para": "Transportadoras, operadores de ônibus e fretamento, operadores logísticos, terminais e concessionárias de rodovias respondem pela segurança de quem trafega, pela gestão ambiental e pela continuidade da operação, sob auditoria de embarcadores e sob as metas do contrato de concessão.",
   "entregas": [
    [
     "Sistema de gestão integrado",
-    "Implantação de ISO 9001, 14001 e 45001 para operadores logísticos e transportadoras."
+    "Implantação de ISO 9001, 14001 e 45001 para transportadoras, operadores logísticos e concessionárias."
    ],
    [
     "Segurança viária",
-    "Implantação da ISO 39001 para frotas de carga e de passageiros e gestão de risco no trânsito."
+    "Implantação da ISO 39001 para frotas de carga e de passageiros e para a gestão de risco no trânsito."
+   ],
+   [
+    "Concessões rodoviárias",
+    "ISO 39001 integrada ao Programa de Redução de Acidentes do contrato, ISO 37001 e 37301 para a relação com o poder concedente e ISO 55001 para os ativos da via."
    ],
    [
     "Adequação SASSMAQ",
@@ -93,7 +97,9 @@
    ]
   ],
   "estudos": [
-   "Matriz de requisitos de segurança viária e de transporte de produtos perigosos.",
+   "Matriz de obrigações de segurança viária dos contratos de concessão rodoviária.",
+   "Radar do PL 710/2024 e das exigências de sistema de gestão em rodovias.",
+   "Matriz de requisitos de transporte de produtos perigosos.",
    "Obrigações de documentação fiscal e logística na cadeia de grãos."
   ],
   "banner": "https://static.wixstatic.com/media/b83354_6f7e745146274df7a366bd2151541dde~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"

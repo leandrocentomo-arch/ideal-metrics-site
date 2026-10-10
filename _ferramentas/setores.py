@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '30', '13'
+CSS_V, JS_V = '30', '14'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -130,8 +130,8 @@ NORMAS = {
 # mesmo sem aparecer na lista: o grafico, o filtro e o mosaico mostram em todos.
 SETORES = [   # 10/10/2026: nove setores (aprovados pelo Leandro)
  ('industria', 'setor-industria.html', ['iso9001', 'iso14001', 'iso45001', 'iatf16949', 'iso50001', 'iso13485', 'iso22000', 'atuacao', 'iso37301', 'iso14064', 'iso14067', 'cbam', 'sbce', 'nr12', 'nr10', 'smeta', 'fsc', 'iso17025']),
- ('construcao', 'setor-construcao-infraestrutura.html', ['iso9001', 'iso14001', 'iso45001', 'pbqph', 'iso39001', 'iso37001', 'iso37301', 'iso55001', 'nr18', 'nr35', 'nr01', 'iso14064']),
- ('transporte', 'setor-transporte-logistica.html', ['iso9001', 'iso14001', 'iso45001', 'iso39001', 'sassmaq', 'iso28000', 'oea', 'iso22301']),
+ ('construcao', 'setor-construcao-infraestrutura.html', ['iso9001', 'iso14001', 'iso45001', 'pbqph', 'iso37001', 'iso37301', 'nr18', 'nr35', 'nr01', 'iso39001', 'iso14064']),
+ ('transporte', 'setor-transporte-rodovias.html', ['iso9001', 'iso14001', 'iso45001', 'iso39001', 'iso37001', 'iso37301', 'iso55001', 'iso22301', 'iso28000', 'sassmaq', 'oea']),   # 10/10: concessao de rodovia e transporte (CNAE 5221-4/00, secao H; EA 31)
  ('alimentos', 'setor-alimentos.html', ['iso9001', 'iso14001', 'iso45001', 'iso22000', 'fssc22000', 'haccp', 'ppr', 'brcgs', 'ifs', 'sqf', 'fooddefense', 'smeta', 'iso50001', 'eudr', 'rainforest']),
  ('agro', 'setor-agro-florestal.html', ['iso9001', 'iso14001', 'iso45001', 'fsc', 'cerflor', 'rtrs', 'bonsucro', 'globalgap', 'rainforest', 'eudr', 'iso14064', 'iso14067', 'smeta']),
  ('saude', 'setor-saude.html', ['iso9001', 'iso14001', 'iso45001', 'iso13485', 'iso14971', 'iso15189', 'iso27001', 'ona', 'lgpd']),
@@ -259,7 +259,7 @@ def matriz():
     PASSO, QUAD, ROT_L, TOPO, LIN_H, GAP = 19, 13, 206, 172, 25, 14   # 10/10: rotulo de linha mais largo (nove setores)
     CURTO_G = {'qualidade': 'Qualidade', 'ambiente': 'Meio ambiente', 'sst': 'Saúde e segurança', 'viaria': 'Viária', 'clima': 'Clima e carbono',
                'esg': 'ESG', 'social': 'Social e cadeia', 'alimentos': 'Alimentos', 'infosec': 'Informação', 'compliance': 'Compliance e riscos'}
-    CURTO_S = {'industria': 'Indústria', 'construcao': 'Construção e infra', 'transporte': 'Transporte e logística', 'alimentos': 'Alimentos',
+    CURTO_S = {'industria': 'Indústria', 'construcao': 'Construção e infra', 'transporte': 'Transporte e rodovias', 'alimentos': 'Alimentos',
                'agro': 'Agro e florestal', 'saude': 'Saúde', 'energia': 'Energia e utilities', 'tecnologia': 'Tecnologia e financeiro', 'servicos': 'Serviços e setor público'}
     CURTO_N = {'ifc': 'IFC Perf. Standards', 'fooddefense': 'Food Defense', 'atuacao': 'Atuação Responsável'}
     cols = []; x = ROT_L; grupos = []

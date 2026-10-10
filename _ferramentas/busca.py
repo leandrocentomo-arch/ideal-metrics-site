@@ -21,7 +21,7 @@ O JSON sai compacto, sem espacos, e hoje pesa cerca de 160 KB, e so baixa quando
 import json, os, re, subprocess
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FORA = {'index.html', 'painel-placas.html', 'pegada-carbono.html'}
+FORA = {'index.html', 'painel-placas.html', 'pegada-carbono.html', 'setor-logistica.html', 'setor-transporte-logistica.html'}   # 10/10: redirecionamentos
 
 
 def texto(html):
