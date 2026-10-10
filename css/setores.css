@@ -167,9 +167,19 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-abre-linha>.qc-abre-cauda{order:4;flex:0 0 66.6667%;min-width:0;margin:164px auto 0 0}
 .qc-abre-linha.mat-aberto>.qc-abre-texto{flex:0 0 0%;min-width:0;opacity:0;overflow:hidden;pointer-events:none}
 .qc-abre-linha.mat-ok>.qc-abre-texto>*{width:var(--cauda-w);max-width:none}
+/* 10/10: espaco entre a grade e a frase +50% (40 -> 60 px) e, nesse espaco, um traco vertical na tinta da frase,
+   da altura da frase (cresce junto com a digitacao). A margem sai quando a grade abre, para a linha nao quebrar. */
+.qc-abre-linha>.qc-abre-texto{margin-left:20px;flex-basis:calc(58% - 20px);transition:flex-basis .5s cubic-bezier(.4,0,.2,1),opacity .35s,margin-left .5s cubic-bezier(.4,0,.2,1)}
+.qc-abre-linha.mat-aberto>.qc-abre-texto{margin-left:0}
+.qc-abre-texto>.qc-lead{position:relative}
+/* 10/10: «mais grossa e no tom prateado degrade»: 10 px, prata escovada (claro, escuro, brilho, escuro, claro) */
+.qc-abre-texto>.qc-lead::before{content:"";position:absolute;left:-30px;top:.12em;bottom:.12em;width:10px;border-radius:3px;
+  background:linear-gradient(180deg,#EEF0F3 0%,#B9C0C9 22%,#8C949E 45%,#DCE0E5 62%,#9AA2AC 82%,#C8CDD4 100%)}
 @media (max-width:880px){
   .qc-abre-linha>.qc-busca{flex:0 0 100%;width:100%;margin-right:0}
-  .qc-abre-linha>.qc-abre-texto{order:2;flex:0 0 100%;margin-top:62px}
+  .qc-abre-linha>.qc-abre-texto{order:2;flex:0 0 100%;margin-top:62px;margin-left:0}
+  .qc-abre-texto>.qc-lead{padding-left:24px}
+  .qc-abre-texto>.qc-lead::before{left:0}
   .qc-abre-linha>.qc-mat{order:3}
   .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin-top:104px}
 }
