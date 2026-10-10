@@ -2051,7 +2051,12 @@ body>*{position:relative;z-index:1}
 .sh-aba--volta{right:auto;left:0;border-right:1px solid rgba(20,48,76,.42);border-left:none;border-radius:0 3px 3px 0;box-shadow:6px 0 18px -8px rgba(20,48,76,.35)}
 .sh-aba--volta svg{transform:scaleX(-1)}
 .sh-aba--volta:hover svg{transform:scaleX(-1) translateX(3px)}
-.sh-rolo:not(.avancou) .sh-aba--volta,.sh-rolo.avancou #shAvanca{opacity:0;pointer-events:none}
+.sh-rolo:not(.avancou) .sh-aba--volta,.sh-rolo.fim #shAvanca,.sh-rolo.fim #shUm{opacity:0;pointer-events:none}
+/* 10/10/2026: a aba da direita virou duas. A de cima («[ +1 ] Proximo») traz um card por vez (1/8 da faixa por clique);
+   a de baixo («[ 05 a 08 ] Mais») traz a segunda parte inteira, como antes. As duas somem quando o card 08 encosta na
+   borda; «Voltar» leva de novo ao 01. */
+.sh-aba--um{top:12%;height:30%}
+#shAvanca{top:46%;height:42%}
 .sh-cta--breve{cursor:default;opacity:.72}
 .sh-cta--breve:hover{background:rgba(250,249,245,.5);color:var(--azul);border-color:rgba(20,48,76,.42)}
 .sh-col--nrs      {background:linear-gradient(160deg,rgba(250,249,245,.22) 0%,rgba(238,243,249,.19) 100%)}
@@ -2842,6 +2847,7 @@ body>*{position:relative;z-index:1}
       </article>
     </div>
     </div>
+    <button class="sh-aba sh-aba--um" id="shUm" type="button" aria-label="Próximo card"><svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg><span class="sh-aba-txt"><b>[ +1 ]</b>&nbsp;&nbsp;Próximo</span></button>
     <button class="sh-aba" id="shAvanca" type="button" aria-label="Mais serviços: cards 05 a 08"><svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg><span class="sh-aba-txt"><b>[ 05 a 08 ]</b>&nbsp;&nbsp;Mais</span></button>
     <button class="sh-aba sh-aba--volta" id="shVolta" type="button" aria-label="Voltar: cards 01 a 04"><svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg><span class="sh-aba-txt"><b>[ 01 a 04 ]</b>&nbsp;&nbsp;Voltar</span></button>
     </div>
@@ -4827,9 +4833,16 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   /* 01/10: a SETA do rolo: desliza a faixa meio rolo (cards 05 a 08) e volta */
   (function(){
     var rolo = document.getElementById('shRolo'), faixa = document.getElementById('shFaixa'); if(!rolo || !faixa) return;
-    function vai(av){ faixa.classList.toggle('avancou', av); rolo.classList.toggle('avancou', av); }
-    document.getElementById('shAvanca').addEventListener('click', function(){ vai(true); });
-    document.getElementById('shVolta').addEventListener('click', function(){ vai(false); });
+    /* 10/10: k = quantos cards a faixa andou (0 a 4); cada card e 1/8 da faixa, 12,5% */
+    var k = 0, MAX = 4;
+    function vai(n){
+      k = Math.max(0, Math.min(MAX, n));
+      faixa.style.transform = k ? 'translateX(-' + (k * 12.5) + '%)' : '';
+      faixa.classList.toggle('avancou', k === MAX); rolo.classList.toggle('avancou', k > 0); rolo.classList.toggle('fim', k === MAX);
+    }
+    var um = document.getElementById('shUm'); if(um) um.addEventListener('click', function(){ vai(k + 1); });
+    document.getElementById('shAvanca').addEventListener('click', function(){ vai(MAX); });
+    document.getElementById('shVolta').addEventListener('click', function(){ vai(0); });
   })();
 
   /* ---------------- a folha do painel Demandas ---------------- */
