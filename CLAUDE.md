@@ -65,7 +65,7 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - As páginas de setor ainda usam o banner antigo (imagem externa do Wix), fora do padrão de banner de 05/10/2026.
 
 ### Seção Frentes da home (10/10/2026)
-- Ordem: (1) logo e busca, a busca ocupando metade da seção; (2) a grade «Normas e padrões por setor» à esquerda e «O que fazemos» com o botão «Todos os serviços» à direita, na mesma linha; (3) «Temas de gestão» com «Solicite um orçamento» (WhatsApp e e-mail, botões pequenos empilhados no canto) em 2/3 à esquerda, com 96 px de espaço acima. Regras em `css/setores.css` (bloco «secao Frentes»).
+- Ordem: (1) logo e busca, a busca ocupando metade da seção; (2) a grade «Normas e padrões por setor» à esquerda e «O que fazemos» com o botão «Todos os serviços» à direita, na mesma linha; (3) «Temas de gestão» com «Solicite um orçamento» (WhatsApp e e-mail, botões pequenos empilhados no canto) em 2/3 à esquerda, com 204 px de espaço entre a grade e os temas e 120 px entre a busca e a grade (aumentados em 50% em 10/10). Regras em `css/setores.css` (bloco «secao Frentes»).
 - A grade expandida cresce para a direita e comprime a coluna de «O que fazemos», sem pular de linha.
 
 ### Fotos

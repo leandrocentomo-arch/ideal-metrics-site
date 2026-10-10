@@ -158,18 +158,18 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 /* ---------- secao Frentes, 10/10/2026: «O que fazemos ao lado de Normas e padroes por setor, na mesma secao; Temas de
    gestao e Solicite um orcamento numa secao abaixo, ocupando 2/3, do lado esquerdo». Ordem visual:
    (1) logo e busca, sozinhos na primeira linha; (2) a grade (esquerda) e a frase com o botao (direita), lado a lado;
-   (3) a figura dos temas com o orcamento, em 2/3 a esquerda, com 96 px de espaco acima.
+   (3) a figura dos temas com o orcamento, em 2/3 a esquerda, com 164 px de espaco acima.
    Aberta, a grade cresce para a direita e quem e comprimida agora e a frase. ---------- */
 .qc-abre-linha>.qc-busca{order:1;flex:0 0 50%;width:50%;max-width:none;margin-right:calc(50% - 40px)}   /* 10/10: «busca ocupando metade da secao» */
-.qc-abre-linha>.qc-mat{order:2}
-.qc-abre-linha>.qc-abre-texto{order:3;flex:0 1 58%;min-width:0;margin:40px 0 0;
+.qc-abre-linha>.qc-mat{order:2;margin-top:80px}   /* 10/10: espacos entre os blocos +50% (80 -> 120 px; 136 -> 204 px) */
+.qc-abre-linha>.qc-abre-texto{order:3;flex:0 1 58%;min-width:0;margin:80px 0 0;
   transition:flex-basis .5s cubic-bezier(.4,0,.2,1),opacity .35s}
-.qc-abre-linha>.qc-abre-cauda{order:4;flex:0 0 66.6667%;min-width:0;margin:96px auto 0 0}
+.qc-abre-linha>.qc-abre-cauda{order:4;flex:0 0 66.6667%;min-width:0;margin:164px auto 0 0}
 .qc-abre-linha.mat-aberto>.qc-abre-texto{flex:0 0 0%;min-width:0;opacity:0;overflow:hidden;pointer-events:none}
 .qc-abre-linha.mat-ok>.qc-abre-texto>*{width:var(--cauda-w);max-width:none}
 @media (max-width:880px){
   .qc-abre-linha>.qc-busca{flex:0 0 100%;width:100%;margin-right:0}
-  .qc-abre-linha>.qc-abre-texto{order:2;flex:0 0 100%;margin-top:28px}
+  .qc-abre-linha>.qc-abre-texto{order:2;flex:0 0 100%;margin-top:62px}
   .qc-abre-linha>.qc-mat{order:3}
-  .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin-top:56px}
+  .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin-top:104px}
 }
