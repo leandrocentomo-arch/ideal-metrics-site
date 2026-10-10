@@ -5,13 +5,13 @@
 
 Faz, de forma idempotente:
   1. grava js/setores-dados.js (window.IM_SETORES), lido pelo filtro (js/setores-filtro.js);
-  2. reescreve o miolo (<div class="content">) das seis paginas setor-*.html;
+  2. reescreve o miolo (<div class="content">) das nove paginas setor-*.html;
   3. poe o filtro na home (secao Setores de atuacao) e em servicos.html, entre marcadores;
   4. poe na home, logo abaixo da frase de «O que fazemos», o mosaico de normas e padroes (js/setores-mosaico.js);
   5. liga css/setores.css nas oito paginas e os scripts onde cabem.
 
 Tres situacoes para cada norma: de um ou mais setores (lista em SETORES), de qualquer setor (TRANSVERSAIS) ou de
-nenhum dos seis (as demais). O catalogo inteiro vem do que o proprio site ja cita: implantacao-iso, padroes-mercado,
+nenhum dos nove (as demais). O catalogo inteiro vem do que o proprio site ja cita: implantacao-iso, padroes-mercado,
 compliance, NRs, ESG, carbono e seguranca de alimentos. Os textos de abertura, entregas e estudos de cada setor vem de
 _ferramentas/setores-textos.json. Norma sem pagina de servico aparece sem link; quando a pagina nascer, basta pôr o
 endereco em NORMAS e rodar de novo. Itens # NOVO entraram em 09/10/2026 e # CONFERIR tem descricao a validar."""
@@ -19,19 +19,23 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '29', '12'
+CSS_V, JS_V = '30', '13'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
 MODELO_HOME = 'matriz'
 
-GRUPOS = [
- ('iso', 'Sistemas de gestão ISO', 'Normas ISO que a organização pode certificar.'),
+GRUPOS = [   # 10/10/2026: os dez TEMAS (disciplinas), no lugar dos seis grupos de instrumento. Ver Ideal Metrics/levantamento-setores-normas-temas-2026-10-10.md
+ ('qualidade', 'Qualidade', 'Sistema de gestão da qualidade e os padrões de qualidade de cada setor.'),
+ ('ambiente', 'Meio ambiente', 'Gestão ambiental, licenciamento, manejo e rastreabilidade da cadeia.'),
+ ('sst', 'Saúde e segurança do trabalho', 'Sistema de gestão de SST e as normas regulamentadoras.'),
+ ('viaria', 'Segurança viária', 'Sistema de gestão da segurança viária para frotas e para quem administra a via.'),
+ ('clima', 'Clima e carbono', 'Inventário, pegada, neutralização, energia, metas, créditos e mercado regulado.'),
+ ('esg', 'Sustentabilidade e ESG', 'Avaliação, relato e padrões de desempenho exigidos por investidores e financiadores.'),
+ ('social', 'Responsabilidade social e cadeia de valor', 'Auditoria social e ética exigida por clientes e cadeias de suprimento.'),
  ('alimentos', 'Segurança de alimentos', 'Normas, esquemas reconhecidos pela GFSI e programas técnicos.'),
- ('social', 'Social, ética e sustentabilidade', 'Programas e padrões exigidos por clientes, investidores e financiadores.'),
- ('clima', 'Clima e carbono', 'Inventário, pegada, neutralização, metas, créditos e mercado regulado.'),
- ('mercado', 'Programas setoriais e de mercado', 'Exigidos por montadoras, embarcadores, contratantes e órgãos de acreditação.'),
- ('legal', 'Segurança do trabalho e requisitos legais', 'Obrigações legais e regulamentos que sustentam os sistemas acima.'),
+ ('infosec', 'Segurança da informação e privacidade', 'Segurança da informação, privacidade, serviços de TI e inteligência artificial.'),
+ ('compliance', 'Compliance, riscos e continuidade', 'Antissuborno, compliance, riscos, continuidade, ativos e programas de mercado.'),
 ]
 
 IMPL, COMP, SEG, PADR, NRS = ('implantacao-iso.html', 'compliance-seguranca-informacao.html', 'seguranca-alimentos.html',
@@ -40,29 +44,29 @@ IMPL, COMP, SEG, PADR, NRS = ('implantacao-iso.html', 'compliance-seguranca-info
 # id: (nome, descricao, grupo, pagina do servico ou None)
 NORMAS = {
  # sistemas de gestao ISO
- 'iso9001': ('ISO 9001', 'Gestão da qualidade', 'iso', 'norma-iso-9001.html'),
- 'iso14001': ('ISO 14001', 'Gestão ambiental', 'iso', 'norma-iso-14001.html'),
- 'iso45001': ('ISO 45001', 'Saúde e segurança ocupacional', 'iso', 'norma-iso-45001.html'),
- 'iso39001': ('ISO 39001', 'Segurança viária', 'iso', 'seguranca-viaria.html'),
- 'iso41001': ('ISO 41001', 'Gestão de facilities', 'iso', IMPL),
- 'iso37001': ('ISO 37001', 'Gestão antissuborno', 'iso', COMP),
- 'iso37301': ('ISO 37301', 'Gestão de compliance', 'iso', COMP),
- 'iso56002': ('ISO 56002', 'Gestão da inovação', 'iso', IMPL),
- 'iso50001': ('ISO 50001', 'Gestão de energia', 'iso', IMPL),
- 'iso55001': ('ISO 55001', 'Gestão de ativos', 'iso', IMPL),
- 'iso27001': ('ISO/IEC 27001', 'Segurança da informação', 'iso', COMP),
- 'iso27701': ('ISO/IEC 27701', 'Gestão da privacidade da informação', 'iso', None),
- 'iso200001': ('ISO/IEC 20000-1', 'Gestão de serviços de TI', 'iso', None),
- 'iso42001': ('ISO/IEC 42001', 'Gestão de sistemas de inteligência artificial', 'iso', None),            # NOVO
- 'iso13485': ('ISO 13485', 'Gestão da qualidade de dispositivos médicos', 'iso', IMPL),
- 'iso15189': ('ISO 15189', 'Qualidade e competência de laboratórios clínicos', 'iso', None),
- 'iso14971': ('ISO 14971', 'Gestão de riscos de dispositivos médicos', 'iso', None),
- 'iso28000': ('ISO 28000', 'Gestão de segurança, nascida na cadeia de suprimentos', 'iso', None),
- 'iso29001': ('ISO 29001', 'Gestão da qualidade em petróleo, petroquímica e gás natural', 'iso', None),
- 'iso21001': ('ISO 21001', 'Gestão de organizações educacionais', 'iso', IMPL),
- 'iso17025': ('ISO/IEC 17025', 'Competência de laboratórios de ensaio e calibração', 'iso', IMPL),
- 'iso22301': ('ISO 22301', 'Continuidade de negócios', 'iso', COMP),
- 'iso31000': ('ISO 31000', 'Gestão de riscos', 'iso', COMP),
+ 'iso9001': ('ISO 9001', 'Gestão da qualidade', 'qualidade', 'norma-iso-9001.html'),
+ 'iso14001': ('ISO 14001', 'Gestão ambiental', 'ambiente', 'norma-iso-14001.html'),
+ 'iso45001': ('ISO 45001', 'Saúde e segurança ocupacional', 'sst', 'norma-iso-45001.html'),
+ 'iso39001': ('ISO 39001', 'Segurança viária', 'viaria', 'seguranca-viaria.html'),
+ 'iso41001': ('ISO 41001', 'Gestão de facilities', 'qualidade', IMPL),
+ 'iso37001': ('ISO 37001', 'Gestão antissuborno', 'compliance', COMP),
+ 'iso37301': ('ISO 37301', 'Gestão de compliance', 'compliance', COMP),
+ 'iso56002': ('ISO 56002', 'Gestão da inovação', 'qualidade', IMPL),
+ 'iso50001': ('ISO 50001', 'Gestão de energia', 'clima', IMPL),
+ 'iso55001': ('ISO 55001', 'Gestão de ativos', 'compliance', IMPL),
+ 'iso27001': ('ISO/IEC 27001', 'Segurança da informação', 'infosec', COMP),
+ 'iso27701': ('ISO/IEC 27701', 'Gestão da privacidade da informação', 'infosec', None),
+ 'iso200001': ('ISO/IEC 20000-1', 'Gestão de serviços de TI', 'infosec', None),
+ 'iso42001': ('ISO/IEC 42001', 'Gestão de sistemas de inteligência artificial', 'infosec', None),            # NOVO
+ 'iso13485': ('ISO 13485', 'Gestão da qualidade de dispositivos médicos', 'qualidade', IMPL),
+ 'iso15189': ('ISO 15189', 'Qualidade e competência de laboratórios clínicos', 'qualidade', None),
+ 'iso14971': ('ISO 14971', 'Gestão de riscos de dispositivos médicos', 'qualidade', None),
+ 'iso28000': ('ISO 28000', 'Gestão de segurança, nascida na cadeia de suprimentos', 'compliance', None),
+ 'iso29001': ('ISO 29001', 'Gestão da qualidade em petróleo, petroquímica e gás natural', 'qualidade', None),
+ 'iso21001': ('ISO 21001', 'Gestão de organizações educacionais', 'qualidade', IMPL),
+ 'iso17025': ('ISO/IEC 17025', 'Competência de laboratórios de ensaio e calibração', 'qualidade', IMPL),
+ 'iso22301': ('ISO 22301', 'Continuidade de negócios', 'compliance', COMP),
+ 'iso31000': ('ISO 31000', 'Gestão de riscos', 'compliance', COMP),
  # seguranca de alimentos
  'iso22000': ('ISO 22000', 'Gestão da segurança de alimentos', 'alimentos', SEG),
  'fssc22000': ('FSSC 22000', 'Certificação reconhecida pela GFSI', 'alimentos', SEG),
@@ -75,12 +79,12 @@ NORMAS = {
  # social, etica e sustentabilidade
  'smeta': ('SEDEX / SMETA', 'Auditoria ética da cadeia de suprimentos', 'social', 'sedex-smeta.html'),
  'sa8000': ('SA 8000', 'Responsabilidade social no trabalho', 'social', IMPL),
- 'ifc': ('IFC Performance Standards', 'Padrão ambiental e social de bancos de desenvolvimento e financiadores', 'social', 'ifc-performance-standards.html'),
- 'ecovadis': ('EcoVadis', 'Avaliação de desempenho em sustentabilidade', 'social', PADR),
- 'fsc': ('FSC', 'Forest Stewardship Council, manejo florestal', 'social', PADR),
- 'rainforest': ('Rainforest Alliance', 'Selo de certificação agrícola sustentável', 'social', PADR),
- 'abntpr1004': ('ABNT PR 1004-1', 'Operação segura em organizações durante pandemias (diretrizes gerais, 2020)', 'legal', PADR),
- 'abntpr2030': ('ABNT PR 2030', 'ESG: conceitos, relato e avaliação', 'social', 'esg.html'),
+ 'ifc': ('IFC Performance Standards', 'Padrão ambiental e social de bancos de desenvolvimento e financiadores', 'esg', 'ifc-performance-standards.html'),
+ 'ecovadis': ('EcoVadis', 'Avaliação de desempenho em sustentabilidade', 'esg', PADR),
+ 'fsc': ('FSC', 'Forest Stewardship Council, manejo florestal', 'ambiente', PADR),
+ 'rainforest': ('Rainforest Alliance', 'Selo de certificação agrícola sustentável', 'ambiente', PADR),
+ 'abntpr1004': ('ABNT PR 1004-1', 'Operação segura em organizações durante pandemias (diretrizes gerais, 2020)', 'compliance', PADR),
+ 'abntpr2030': ('ABNT PR 2030', 'ESG: conceitos, relato e avaliação', 'esg', 'esg.html'),
  # clima e carbono
  'ghgprotocol': ('GHG Protocol', 'Inventário de emissões e Programa Brasileiro GHG Protocol', 'clima', 'carbono-inventario-gee.html'),
  'iso14064': ('ISO 14064', 'Inventário e verificação de gases de efeito estufa', 'clima', 'carbono-inventario-gee.html'),
@@ -89,49 +93,63 @@ NORMAS = {
  'iso14025': ('ISO 14025', 'Declaração ambiental de produto', 'clima', 'carbono-pegada-produto.html'),
  'iso14068': ('ISO 14068', 'Neutralidade de carbono (sucessora da PAS 2060)', 'clima', 'carbono-neutralizacao.html'),   # 09/10/2026: a ISO 14068:2026 substituiu a 14068-1:2023
  'cdp': ('CDP', 'Relato ambiental a investidores e clientes', 'clima', 'carbono-inventario-gee.html'),
- 'gri': ('GRI', 'Relato de sustentabilidade', 'clima', 'carbono-inventario-gee.html'),
+ 'gri': ('GRI', 'Relato de sustentabilidade', 'esg', 'carbono-inventario-gee.html'),
  'sbti': ('SBTi', 'Metas de redução baseadas na ciência', 'clima', 'carbono-descarbonizacao.html'),
  'verra': ('Verra (VCS)', 'Padrão de créditos de carbono', 'clima', 'carbono-creditos.html'),
  'goldstandard': ('Gold Standard', 'Padrão de créditos de carbono', 'clima', 'carbono-creditos.html'),
  'sbce': ('SBCE', 'Sistema Brasileiro de Comércio de Emissões (Lei 15.042/2024)', 'clima', 'carbono-mercado-regulado.html'),
  'cbam': ('CBAM', 'Ajuste de carbono na fronteira da União Europeia', 'clima', 'carbono-mercado-regulado.html'),
  # programas setoriais e de mercado
- 'iatf16949': ('IATF 16949', 'Qualidade na cadeia automotiva (autopeças)', 'mercado', IMPL),
- 'sassmaq': ('SASSMAQ', 'Avaliação de segurança, saúde, meio ambiente e qualidade no transporte de químicos (Abiquim)', 'mercado', None),
- 'atuacao': ('Atuação Responsável', 'Programa da Abiquim para a indústria química', 'mercado', PADR),
- 'oea': ('OEA', 'Operador Econômico Autorizado, programa da Receita Federal para a cadeia logística', 'mercado', None),   # NOVO
- 'ona': ('ONA', 'Acreditação de serviços de saúde (Organização Nacional de Acreditação)', 'mercado', None),             # NOVO
+ 'iatf16949': ('IATF 16949', 'Qualidade na cadeia automotiva (autopeças)', 'qualidade', IMPL),
+ 'sassmaq': ('SASSMAQ', 'Avaliação de segurança, saúde, meio ambiente e qualidade no transporte de químicos (Abiquim)', 'compliance', None),
+ 'atuacao': ('Atuação Responsável', 'Programa da Abiquim para a indústria química', 'compliance', PADR),
+ 'oea': ('OEA', 'Operador Econômico Autorizado, programa da Receita Federal para a cadeia logística', 'compliance', None),   # NOVO
+ 'ona': ('ONA', 'Acreditação de serviços de saúde (Organização Nacional de Acreditação)', 'qualidade', None),             # NOVO
  # seguranca do trabalho e requisitos legais
- 'nr01': ('NR-01 / PGR', 'Gerenciamento de riscos ocupacionais', 'legal', NRS),
- 'nr10': ('NR-10', 'Segurança em instalações elétricas', 'legal', NRS),
- 'nr12': ('NR-12', 'Segurança em máquinas e equipamentos', 'legal', NRS),
- 'nr17': ('NR-17', 'Ergonomia', 'legal', NRS),
- 'nr37': ('NR-37', 'Segurança e saúde em plataformas de petróleo', 'legal', NRS),
- 'esocial': ('e-Social SST', 'Auditoria dos dados de saúde e segurança do trabalho', 'legal', NRS),
- 'iso31022': ('ISO 31022', 'Gestão de riscos legais', 'legal', NRS),
- 'lgpd': ('LGPD', 'Proteção de dados pessoais (Lei 13.709/2018)', 'legal', COMP),
- 'eudr': ('EUDR', 'Regulamento da União Europeia contra o desmatamento', 'legal', 'estudos-regulatorios.html'),
+ 'nr01': ('NR-01 / PGR', 'Gerenciamento de riscos ocupacionais', 'sst', NRS),
+ 'nr10': ('NR-10', 'Segurança em instalações elétricas', 'sst', NRS),
+ 'nr12': ('NR-12', 'Segurança em máquinas e equipamentos', 'sst', NRS),
+ 'nr17': ('NR-17', 'Ergonomia', 'sst', NRS),
+ 'nr37': ('NR-37', 'Segurança e saúde em plataformas de petróleo', 'sst', NRS),
+ 'esocial': ('e-Social SST', 'Auditoria dos dados de saúde e segurança do trabalho', 'sst', NRS),
+ 'iso31022': ('ISO 31022', 'Gestão de riscos legais', 'compliance', NRS),
+ 'lgpd': ('LGPD', 'Proteção de dados pessoais (Lei 13.709/2018)', 'infosec', COMP),
+ 'eudr': ('EUDR', 'Regulamento da União Europeia contra o desmatamento', 'ambiente', 'estudos-regulatorios.html'),
+ # 10/10/2026: entraram com os setores novos (construcao e infraestrutura; agro e florestal). Sem entrada em
+ # setores-revisoes.json ate a revisao vigente ser conferida em fonte primaria.
+ 'pbqph': ('PBQP-H / SiAC', 'Avaliação da conformidade de empresas de serviços e obras (Ministério das Cidades)', 'qualidade', None),
+ 'nr18': ('NR-18', 'Segurança e saúde na indústria da construção', 'sst', NRS),
+ 'nr35': ('NR-35', 'Trabalho em altura', 'sst', NRS),
+ 'cerflor': ('Cerflor / PEFC', 'Certificação florestal brasileira, reconhecida pelo PEFC', 'ambiente', None),
+ 'rtrs': ('RTRS', 'Soja responsável (Round Table on Responsible Soy)', 'ambiente', None),
+ 'bonsucro': ('Bonsucro', 'Cana-de-açúcar e derivados produzidos de forma sustentável', 'ambiente', None),
+ 'globalgap': ('GlobalG.A.P.', 'Boas práticas agrícolas na produção primária', 'ambiente', None),
 }
 
 # normas em destaque na pagina de cada setor (lista curada). Quem esta em TRANSVERSAIS vale para todos os setores,
-# mesmo sem aparecer na lista: o grafico, o filtro e o mosaico mostram nos seis.
-SETORES = [
- ('industria', 'setor-industria.html', ['iso9001', 'iatf16949', 'iso14001', 'iso45001', 'iso50001', 'iso14064', 'nr12', 'nr10', 'atuacao', 'cbam', 'sbce', 'fsc']),
- ('logistica', 'setor-logistica.html', ['iso9001', 'iso39001', 'iso14001', 'iso45001', 'iso28000', 'sassmaq', 'oea']),
- ('alimentos', 'setor-alimentos.html', ['iso9001', 'iso14001', 'iso45001', 'iso22000', 'fssc22000', 'haccp', 'brcgs', 'ppr', 'fooddefense', 'ifs', 'sqf', 'eudr', 'rainforest']),
- ('saude', 'setor-saude.html', ['iso9001', 'iso14001', 'iso45001', 'iso13485', 'iso15189', 'iso14971', 'iso27001', 'ona']),
- ('tecnologia', 'setor-tecnologia.html', ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso200001', 'iso56002', 'iso42001']),
- ('energia', 'setor-energia.html', ['iso9001', 'iso14001', 'iso45001', 'iso50001', 'iso29001', 'iso14064', 'nr37', 'cbam', 'sbce']),
+# mesmo sem aparecer na lista: o grafico, o filtro e o mosaico mostram em todos.
+SETORES = [   # 10/10/2026: nove setores (aprovados pelo Leandro)
+ ('industria', 'setor-industria.html', ['iso9001', 'iso14001', 'iso45001', 'iatf16949', 'iso50001', 'iso13485', 'iso22000', 'atuacao', 'iso37301', 'iso14064', 'iso14067', 'cbam', 'sbce', 'nr12', 'nr10', 'smeta', 'fsc', 'iso17025']),
+ ('construcao', 'setor-construcao-infraestrutura.html', ['iso9001', 'iso14001', 'iso45001', 'pbqph', 'iso39001', 'iso37001', 'iso37301', 'iso55001', 'nr18', 'nr35', 'nr01', 'iso14064']),
+ ('transporte', 'setor-transporte-logistica.html', ['iso9001', 'iso14001', 'iso45001', 'iso39001', 'sassmaq', 'iso28000', 'oea', 'iso22301']),
+ ('alimentos', 'setor-alimentos.html', ['iso9001', 'iso14001', 'iso45001', 'iso22000', 'fssc22000', 'haccp', 'ppr', 'brcgs', 'ifs', 'sqf', 'fooddefense', 'smeta', 'iso50001', 'eudr', 'rainforest']),
+ ('agro', 'setor-agro-florestal.html', ['iso9001', 'iso14001', 'iso45001', 'fsc', 'cerflor', 'rtrs', 'bonsucro', 'globalgap', 'rainforest', 'eudr', 'iso14064', 'iso14067', 'smeta']),
+ ('saude', 'setor-saude.html', ['iso9001', 'iso14001', 'iso45001', 'iso13485', 'iso14971', 'iso15189', 'iso27001', 'ona', 'lgpd']),
+ ('energia', 'setor-energia.html', ['iso9001', 'iso14001', 'iso45001', 'iso50001', 'iso55001', 'iso29001', 'iso37001', 'nr10', 'nr37', 'iso14064', 'sbce', 'cbam']),
+ ('tecnologia', 'setor-tecnologia.html', ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso200001', 'iso42001', 'iso22301', 'lgpd', 'iso56002']),
+ ('servicos', 'setor-servicos-setor-publico.html', ['iso9001', 'iso14001', 'iso45001', 'iso37001', 'iso37301', 'iso41001', 'iso21001', 'iso17025', 'sa8000', 'smeta', 'nr01', 'lgpd']),
 ]
 
 # valem para qualquer setor: normas genericas de sistema de gestao, programas de cadeia, clima e requisitos legais gerais
-TRANSVERSAIS = ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso50001', 'iso56002', 'iso42001', 'iso14064', 'iso28000', 'iso39001', 'iso200001',
+TRANSVERSAIS = ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso50001', 'iso56002', 'iso14064', 'iso28000',
                 'iso37001', 'iso37301', 'iso55001', 'iso22301', 'iso31000', 'iso31022', 'smeta', 'sa8000', 'ifc',
                 'ecovadis', 'abntpr1004', 'abntpr2030', 'ghgprotocol', 'iso14067', 'iso14040', 'iso14025',
                 'iso14068', 'cdp', 'gri', 'sbti', 'verra', 'goldstandard', 'nr01', 'nr17', 'esocial', 'lgpd']
+# 10/10/2026: ISO 39001, ISO/IEC 20000-1 e ISO/IEC 42001 sairam das transversais. O ISO Survey 2025 mostra 96% da
+# 20000-1 e 92% da 42001 em TI, e a 39001 em transporte (50%) e construcao (17%): ficam so nos setores em destaque.
 
-# so valem fora dos seis setores (rotulo da linha «Outros setores» do grafico)
-FORA = {'iso41001': 'Facilities', 'iso21001': 'Educação', 'iso17025': 'Laboratórios'}
+# 10/10/2026: a linha «Outros setores» acabou; facilities, educacao e laboratorios entraram em Servicos e setor publico
+FORA = {}
 
 # id: (designacao com a revisao vigente, titulo oficial em portugues ou, sem ele, no original). Conferido em fonte
 # primaria; o arquivo _ferramentas/setores-revisoes.json guarda a fonte de cada linha. Sem entrada, o grafico mostra
@@ -238,9 +256,11 @@ def matriz():
     quadrado liga o setor a norma. Ultima linha = o que vale para qualquer setor (quadrado mais claro). Largura da
     pagina inteira. So quadrados e linha fina (sem circulos). Rotulo de linha leva a pagina do setor; rotulo de coluna, a
     pagina do servico quando existe. js/setores-matriz.js acende a linha e a coluna sob o mouse."""
-    PASSO, QUAD, ROT_L, TOPO, LIN_H, GAP = 19, 13, 120, 172, 25, 14
-    CURTO_G = {'iso': 'Sistemas de gestão ISO', 'alimentos': 'Alimentos', 'social': 'Social e ética', 'clima': 'Clima e carbono',
-               'mercado': 'Mercado', 'legal': 'Trabalho e legal'}
+    PASSO, QUAD, ROT_L, TOPO, LIN_H, GAP = 19, 13, 206, 172, 25, 14   # 10/10: rotulo de linha mais largo (nove setores)
+    CURTO_G = {'qualidade': 'Qualidade', 'ambiente': 'Meio ambiente', 'sst': 'Saúde e segurança', 'viaria': 'Viária', 'clima': 'Clima e carbono',
+               'esg': 'ESG', 'social': 'Social e cadeia', 'alimentos': 'Alimentos', 'infosec': 'Informação', 'compliance': 'Compliance e riscos'}
+    CURTO_S = {'industria': 'Indústria', 'construcao': 'Construção e infra', 'transporte': 'Transporte e logística', 'alimentos': 'Alimentos',
+               'agro': 'Agro e florestal', 'saude': 'Saúde', 'energia': 'Energia e utilities', 'tecnologia': 'Tecnologia e financeiro', 'servicos': 'Serviços e setor público'}
     CURTO_N = {'ifc': 'IFC Perf. Standards', 'fooddefense': 'Food Defense', 'atuacao': 'Atuação Responsável'}
     cols = []; x = ROT_L; grupos = []
     for g, _rot, _ in GRUPOS:
@@ -250,7 +270,7 @@ def matriz():
             cols.append((k, x + PASSO / 2)); x += PASSO
         grupos.append((CURTO_G[g], x0, x - 2))
         x += GAP
-    linhas = list(SETORES) + [('-', None, list(FORA))]
+    linhas = list(SETORES)   # 10/10: sem a linha «Outros setores»
     larg = int(x - GAP + 6); alt = TOPO + LIN_H * len(linhas) + 4
     esc = lambda s: s.replace('&', '&amp;')
     o = ['<figure class="qc-mat" id="qcMat" aria-labelledby="qcMatTit">',
@@ -265,7 +285,7 @@ def matriz():
         o.append('    <g class="co" data-n="%s" data-rev="%s" data-tit="%s">%s</g>' % (k, esc(dz).replace('"', '&quot;'), esc(tt).replace('"', '&quot;'), ('<a href="%s">%s</a>' % (pg, txt)) if pg else txt))
     for r, (i, pg, normas) in enumerate(linhas):
         y = TOPO + r * LIN_H
-        rot = ('<a href="%s"><text class="rs" x="0" y="%s">%s</text></a>' % (pg, y + 17, esc(TEXTOS[i]['nome']))) if pg else \
+        rot = ('<a href="%s"><text class="rs" x="0" y="%s">%s</text></a>' % (pg, y + 17, esc(CURTO_S.get(i, TEXTOS[i]['nome'])))) if pg else \
               '<text class="rs" x="0" y="%s">Outros setores</text>' % (y + 17)
         o.append('    <g class="li" data-s="%s"><path class="fio" d="M0 %s H%s"/>%s' % (i, y, larg, rot))
         for k, cx in cols:

@@ -81,11 +81,11 @@
         res.appendChild(no('p', 'stf-sub', 'Vale para qualquer setor. Veja as páginas de setor:'));
         D.setores.forEach(function(x){ grade2.appendChild(cartao(x.nome, x.resumo, x.pagina, 'Ver setor →')); });
       } else if(n.fora){
-        res.appendChild(no('p', 'stf-sub', 'Aplica-se a ' + n.fora.toLowerCase() + ', fora dos seis setores listados.'));
+        res.appendChild(no('p', 'stf-sub', 'Aplica-se a ' + n.fora.toLowerCase() + ', fora dos setores listados.'));
       } else if(n.setores.length){
         D.setores.filter(function(x){ return n.setores.indexOf(x.id) >= 0; }).forEach(function(x){ grade2.appendChild(cartao(x.nome, x.resumo, x.pagina, 'Ver setor →')); });
       } else {
-        res.appendChild(no('p', 'stf-sub', 'Atendida fora dos seis setores listados.'));
+        res.appendChild(no('p', 'stf-sub', 'Atendida fora dos setores listados.'));
       }
       res.appendChild(grade2);
     }
