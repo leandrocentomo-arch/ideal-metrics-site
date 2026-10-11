@@ -171,7 +171,7 @@ o = ['<div class="vi-ods">', '  <div class="vi-ods-linha" role="tablist" aria-la
 for k, (n, alt, _) in enumerate(ODS):
     o.append('    <button class="vi-ods-bt%s" type="button" role="tab" id="ods-t%s" aria-controls="ods-p%s" aria-selected="%s"><img src="img/ods-%s.svg?v=%s" alt="%s" width="720" height="720"></button>'
              % (' on' if k == 0 else '', n, n, 'true' if k == 0 else 'false', n, V, alt))
-o.append('    <span class="vi-ods-dica">Clique num ODS para abrir a meta e o indicador</span>')
+o.append('    <span class="vi-ods-dica">Cada ODS abre a meta e o indicador</span>')
 o.append('  </div>')
 for k, (n, alt, sub) in enumerate(ODS):
     o.append('  <div class="vi-ods-painel%s" role="tabpanel" id="ods-p%s" aria-labelledby="ods-t%s"><div><div class="vi-ods-sub">' % (' on' if k == 0 else '', n, n))
@@ -196,8 +196,8 @@ for n, _ in FOTOS:
 
 # ---------------------------------------------------------------- o miolo: curto, em topicos, com o peso no servico
 # 02/10 (5a volta): «toda pagina comeca por esta frase, em tamanho maior; depois um texto, depois diagramas e o conteudo atual»
-MIOLO = '''<p class="abre">A Ideal Metrics apoia a sua organização na implantação do sistema de gestão da segurança viária e na preparação para a certificação ISO 39001.</p>
-<p>O trabalho começa pela operação real: rotas, frota, condutores, contratadas e a via sob a sua responsabilidade. Levantamos o que já existe, mostramos o que falta para a norma e montamos com a sua equipe os controles, os indicadores e a rotina que o organismo certificador vai verificar.</p>
+MIOLO = '''<p class="abre">A Ideal Metrics apoia organizações na implantação do sistema de gestão da segurança viária e na preparação para a certificação ISO 39001.</p>
+<p>O trabalho começa pela operação real: rotas, frota, condutores, contratadas e a via sob responsabilidade da organização. Levantamos o que já existe, mostramos o que falta para a norma e montamos com a equipe da organização os controles, os indicadores e a rotina que o organismo certificador vai verificar.</p>
 <p>O sistema passa a medir o que reduz mortes e lesões graves: a exposição ao risco, os fatores intermediários, como velocidade, jornada, condição do veículo e aptidão do condutor, e o resultado final. Com esses números, a direção decide onde investir, e a organização chega à certificação com evidência de resultado.</p>
 
 __FIG1__
@@ -246,7 +246,7 @@ __FIG3__
 <p class="vi-fonte">Ícones dos ODS: Nações Unidas, <a href="https://www.un.org/sustainabledevelopment/" target="_blank" rel="noopener">un.org/sustainabledevelopment</a>. O conteúdo desta página não foi aprovado pelas Nações Unidas e não reflete as opiniões das Nações Unidas, de seus funcionários ou dos Estados-Membros.</p>
 
 <hr class="section-divider">
-<p>Para implantar a ISO 39001 na sua operação, <a href="contato.html">fale com a gente</a>.</p>
+<p>Para a implantação da ISO 39001: <a href="contato.html">contato com a equipe técnica</a>.</p>
 '''
 for k, v in (('__NUMS__', nums), ('__FIG1__', FIG1), ('__FIG2__', FIG2), ('__FIG3__', FIG3), ('__GRADE__', grade), ('__FOTOS__', fotos)):
     MIOLO = MIOLO.replace(k, v)

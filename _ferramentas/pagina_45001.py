@@ -332,11 +332,11 @@ NORMAS = ['ISO 45001:2018, com a Emenda 1:2024 (ações climáticas): sistemas d
           'NR-05 (CIPA), NR-07 (PCMSO) e as NRs da operação.']
 
 # ====================================================================== o miolo
-MIOLO = '''<p class="abre">A Ideal Metrics apoia a sua organização na implantação do sistema de gestão de saúde e segurança ocupacional e na preparação para a certificação ISO 45001.</p>
-<p>O trabalho começa pelos perigos reais da operação: tarefas, máquinas, produtos químicos, trabalho em altura e em espaço confinado, contratadas e a rotina de cada área. Levantamos o que já existe, mostramos o que falta para a norma e para as NRs, e montamos com a sua equipe o sistema que o organismo certificador vai verificar.</p>
+MIOLO = '''<p class="abre">A Ideal Metrics apoia organizações na implantação do sistema de gestão de saúde e segurança ocupacional e na preparação para a certificação ISO 45001.</p>
+<p>O trabalho começa pelos perigos reais da operação: tarefas, máquinas, produtos químicos, trabalho em altura e em espaço confinado, contratadas e a rotina de cada área. Levantamos o que já existe, mostramos o que falta para a norma e para as NRs, e montamos com a equipe da organização o sistema que o organismo certificador vai verificar.</p>
 
 __FIG_PDCA__
-<p class="vi-chamada">Para falar do seu projeto, <a href="contato.html">fale com a gente</a>.</p>
+<p class="vi-chamada">Para tratar do projeto: <a href="contato.html">contato com a equipe técnica</a>.</p>
 
 <hr class="section-divider">
 <h3>Por que implantar agora</h3>
@@ -406,7 +406,7 @@ __NORMAS__
 <p class="vi-fonte">Situação das normas conferida no catálogo da ISO (iso.org) em __CONFERIDO__.</p>
 
 <hr class="section-divider">
-<p>A certificação é concedida por organismo acreditado. Para implantar a ISO 45001 na sua operação, <a href="contato.html">fale com a gente</a>.</p>
+<p>A certificação é concedida por organismo acreditado. Para a implantação da ISO 45001: <a href="contato.html">contato com a equipe técnica</a>.</p>
 '''
 for k, v in (('__FIG_PDCA__', FIG_PDCA), ('__FIG_LINHA__', FIG_LINHA), ('__FIG_PASSOS__', FIG_PASSOS), ('__FIG_NR__', FIG_NR), ('__FIG_HC__', FIG_HC),
              ('__NUMS__', NUMS_HTML), ('__TAB_MUDA__', TAB_MUDA), ('__TAB_FERR__', TAB_FERR), ('__TAB_IND__', TAB_IND), ('__MODELO__', MODELO_HTML),

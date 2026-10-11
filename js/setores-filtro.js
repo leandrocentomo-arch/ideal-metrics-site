@@ -52,7 +52,7 @@
 
   function desenhaRes(){
     res.textContent = '';
-    if(!sel){ res.appendChild(no('p', 'stf-dica', modo === 'setor' ? 'Escolha um setor para ver as normas e os padrões aplicáveis.' : 'Escolha uma norma ou um padrão para ver os setores em que ele se aplica.')); return; }
+    if(!sel){ res.appendChild(no('p', 'stf-dica', modo === 'setor' ? 'Com um setor selecionado, aparecem as normas e os padrões aplicáveis.' : 'Com uma norma ou um padrão selecionado, aparecem os setores em que se aplica.')); return; }
     var cab = no('div', 'stf-cab');
     if(modo === 'setor'){
       var s = D.setores.filter(function(x){ return x.id === sel; })[0];
@@ -78,7 +78,7 @@
       res.appendChild(no('p', 'stf-rot', 'Setores em que se aplica'));
       var grade2 = no('div', 'stf-grade');
       if(n.todos){
-        res.appendChild(no('p', 'stf-sub', 'Vale para qualquer setor. Veja as páginas de setor:'));
+        res.appendChild(no('p', 'stf-sub', 'Vale para qualquer setor. Páginas de setor:'));
         D.setores.forEach(function(x){ grade2.appendChild(cartao(x.nome, x.resumo, x.pagina, 'Ver setor →')); });
       } else if(n.fora){
         res.appendChild(no('p', 'stf-sub', 'Aplica-se a ' + n.fora.toLowerCase() + ', fora dos setores listados.'));

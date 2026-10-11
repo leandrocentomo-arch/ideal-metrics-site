@@ -226,18 +226,18 @@ def miolo(i, pg, normas):
     for n, (tit, txt) in enumerate(t['entregas'], 1):
         h.append('<div class="numbered-item"><div class="num">%02d</div><div><h4>%s</h4><p>%s</p></div></div>' % (n, tit, txt))
     h.append('</div>')
-    h.append('<p><a href="como-trabalhamos.html">Veja como trabalhamos</a>.</p>')
+    h.append('<p>Mais em <a href="como-trabalhamos.html">Como trabalhamos</a>.</p>')
     h.append('<h3>Estudos e pesquisa aplicada para o setor</h3>')
     h.append('<ul>')
     h.extend('  <li>%s</li>' % e for e in t['estudos'])
     h.append('</ul>')
-    h.append('<p><a href="estudos-pesquisa.html">Conheça a divisão de estudos e pesquisa aplicada</a>.</p>')
+    h.append('<p>Mais na <a href="estudos-pesquisa.html">divisão de estudos e pesquisa aplicada</a>.</p>')
     h.append('<h3>Outros setores</h3>')
     h.append('<div class="stp-outros">')
     for j, pg2, _ in SETORES:
         if j != i: h.append('  <a href="%s"><b>%s</b><span>Ver setor</span></a>' % (pg2, TEXTOS[j]['nome']))
     h.append('</div>')
-    h.append('<a href="contato.html" class="link-arrow">Fale com a nossa equipe técnica &rarr;</a>')
+    h.append('<a href="contato.html" class="link-arrow">Contato com a equipe técnica &rarr;</a>')
     h.append('</div>')
     return '\n'.join(h)
 
@@ -324,7 +324,7 @@ def mosaico():
             conteudo = ('<a href="%s">%s</a>' % (pg, nome)) if pg else nome
             o.append('    <li data-s="%s" title="%s">%s</li>' % (ds, desc.replace('"', '&quot;'), conteudo))
         o.append('  </ul></div>')
-    o.append('  <figcaption>Escolha um setor: o quadro escuro é o que vale só para ele; o contorno, o que vale para qualquer setor. Os nomes levam às páginas dos serviços.</figcaption>')
+    o.append('  <figcaption>Com um setor selecionado, o quadro escuro é o que vale só para ele; o contorno, o que vale para qualquer setor. Os nomes levam às páginas dos serviços.</figcaption>')
     o.append('</figure>')
     return '<!-- relacao setor norma -->\n' + '\n'.join(o) + '\n<!-- fim relacao setor norma -->'
 
@@ -351,7 +351,7 @@ def poe_relacao(s):
 FILTRO = '''<!-- filtro setor norma -->
 <section class="stf" id="stf" aria-labelledby="stfTit">
   <div class="stf-topo">
-    <h3 class="stf-tit" id="stfTit">Encontre pelo setor ou pela norma</h3>
+    <h3 class="stf-tit" id="stfTit">Busca por setor ou por norma</h3>
     <div class="stf-modos" role="tablist" aria-label="Modo de busca">
       <button type="button" class="stf-modo" role="tab" data-modo="setor" aria-selected="true">Por setor</button>
       <button type="button" class="stf-modo" role="tab" data-modo="norma" aria-selected="false">Por norma</button>
