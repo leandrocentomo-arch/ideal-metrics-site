@@ -328,12 +328,14 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
   .sx-btn{width:85px;height:85px}
 }
 
-/* ---------- secao Frentes, 11/10/2026: o mosaico em L (Ideal Metrics/mosaicos/parede-mosaico-simbolos-L-01.svg) na vaga
-   a direita dos Temas de gestao, na altura da figura, no motor da trama (index.html, bloco FRENTES). ---------- */
-.qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;display:flex;justify-content:space-between;align-items:stretch;gap:24px}
-.qc-abre-cauda>.qc-temas{flex:0 0 820px;max-width:820px}   /* os temas nao encolhem; quem cede e o mosaico */
-.qc-ml{position:relative;flex:0 1 640px;min-width:0;margin-top:40px;overflow:hidden;background:var(--mercurio,#FAF9F5)}
-.qc-ml img,.qc-ml-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:left center}
-.qc-ml.gl-on img{visibility:hidden}
-@media (max-width:1300px){ .qc-ml{display:none} }   /* abaixo disso a vaga fica com menos de ~310 px e o L some */
-@media (max-width:880px){ .qc-abre-cauda>.qc-temas{flex:0 1 100%} }
+/* ---------- secao Frentes, 11/10/2026 (tarde): «tire esta parte (Temas de gestao, orcamento e o mosaico em L), guarde;
+   insira e-mail e contato embaixo da frase de O que fazemos, uma frase de contato, discreta; um pouco mais abaixo».
+   A cauda virou a linha do contato: na coluna da frase (58%), encostada a direita, logo abaixo da grade. Os temas e o
+   mosaico estao em Ideal Metrics/secoes-guardadas/frentes-temas-orcamento-mosaico-l.html. ---------- */
+.qc-abre-linha>.qc-abre-cauda{order:4;flex:0 0 calc(58% - 20px);min-width:0;margin:0 0 0 auto}   /* a linha de cima ja termina ~50 px abaixo da grade (a .qc-mat-info reserva 4,1em) */
+.qc-contato-frase{margin:0;font-family:var(--sans);font-size:15px;line-height:1.35;color:var(--azul-escuro)}
+.qc-contato-canais{margin:8px 0 0;font-family:var(--mono);font-size:11px;line-height:1.5;letter-spacing:.12em;text-transform:uppercase;color:var(--azul)}
+.qc-contato-canais a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+.qc-contato-canais a:hover,.qc-contato-canais a:focus-visible{border-bottom-color:currentColor;outline:none}
+.qc-contato-canais span{margin:0 10px;opacity:.5}
+@media (max-width:880px){ .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin:40px 0 0} }
