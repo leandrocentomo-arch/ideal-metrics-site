@@ -74,6 +74,11 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - Ordem: (1) logo e busca, a busca ocupando metade da seção; (2) a grade «Normas e padrões por setor» à esquerda e «O que fazemos» com o botão «Todos os serviços» à direita, na mesma linha; (3) «Temas de gestão» com «Solicite um orçamento» (WhatsApp e e-mail, botões pequenos empilhados no canto) em 2/3 à esquerda, com 204 px de espaço entre a grade e os temas e 120 px entre a busca e a grade (aumentados em 50% em 10/10). Regras em `css/setores.css` (bloco «secao Frentes»).
 - A grade expandida cresce para a direita e comprime a coluna de «O que fazemos», sem pular de linha.
 
+### Seção Guia da home (10/10/2026)
+- Entre Frentes e Demandas (`id="guia"`). Ordem: título institucional, fluxo «Setor → Tema de gestão → Norma ou padrão → Página do serviço», a grade dos setores no desenho de «Conteúdo de destaque» (`.sx-*`, `js/guia-foto.js`: foto menor em 4 de 12 colunas, nove casas 3×3, a casa sob o mouse fica azul e a foto troca no motor da trama, modo empilhado), a tabela das três entradas (`.mp-*`) e o rodapé com Todos os serviços, busca e contato.
+- A «Rota por setor» (setor → temas → normas por fios finos, `js/guia-rota.js`) fica em `servicos.html`, logo depois do filtro.
+- Texto na voz institucional: sem «você», sem «seu/sua» dirigido ao leitor, sem imperativo (regra do Leandro de 10/10/2026, varredura no site inteiro no commit 9e884ac).
+
 ### Fotos
 - Tingimento azul oficial do site, tom padrão em `_ferramentas/tom_azul.json` (brilho 0,35, gama 0,88, contraste 1,55, escuro 0,35, véu 0,12). O banner das páginas internas tem o tom dele (0,35 · 0,86 · 1,55), salvo `data-tom`.
 - Toda foto posta no site leva o efeito de mouse (motor `ditherVivo`, `pincel:.7, zoomHover:1.035`).

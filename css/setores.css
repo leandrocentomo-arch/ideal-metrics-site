@@ -253,38 +253,6 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
   .mr-fios{display:none}
 }
 
-/* ---------- Guia, «Setores em foco» (10/10/2026): lista dos setores e uma foto que troca no hover (js/guia-foto.js) ---------- */
-.sf{margin-top:96px}
-.sf-cab{display:flex;justify-content:space-between;border-top:1px solid var(--fio);padding-top:12px;font-family:var(--mono);
-  font-size:12px;line-height:1;letter-spacing:.02em;text-transform:uppercase;color:var(--azul)}
-.sf-corpo{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,6vw,96px);margin-top:34px;align-items:start}
-.sf-lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--fio)}
-.sf-item{display:flex;align-items:baseline;gap:18px;padding:13px 4px;border-bottom:1px solid var(--fio);color:var(--azul);
-  text-decoration:none;transition:padding .35s cubic-bezier(.4,0,.2,1)}
-.sf-n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--azul-escuro)}
-.sf-nome{font-family:var(--sans);font-weight:600;font-size:clamp(18px,1.6vw,24px);line-height:1.2;opacity:.4;transition:opacity .25s}
-.sf-item:hover .sf-nome,.sf-item:focus-visible .sf-nome,.sf-item.on .sf-nome{opacity:1}
-.sf-item.on{padding-left:14px}
-.sf-item:focus-visible{outline:1px solid var(--azul);outline-offset:2px}
-.sf-fig{margin:0;position:sticky;top:120px}
-.sf-midia{position:relative;display:grid;grid-template-areas:"stack";aspect-ratio:4/3;overflow:hidden;border-radius:3px;background:var(--mercurio)}
-.sf-layer{grid-area:stack;opacity:0;transition:opacity .5s cubic-bezier(.4,0,.2,1)}
-.sf-layer-ativa{opacity:1}
-.sf-layer img{width:100%;height:100%;object-fit:cover;display:block}
-.sf-gl{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:1;background:var(--mercurio)}
-.sf-midia.gl-on .sf-layer{visibility:hidden}
-.sf-leg{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 24px;margin-top:16px;align-items:center}
-.sf-resumo{margin:0;font-family:var(--sans);font-weight:500;font-size:17px;line-height:1.35;color:var(--azul)}
-.sf-temas{grid-column:1;margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--azul-escuro);min-height:1.4em}
-.sf-ir{grid-column:2;grid-row:1 / span 2;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--azul);text-decoration:none;border:1px solid rgba(20,48,76,.42);border-radius:3px;padding:10px 14px;white-space:nowrap}
-.sf-ir:hover{border-color:var(--azul)}
-@media (max-width:880px){
-  .sf-corpo{grid-template-columns:1fr;gap:24px}
-  .sf-fig{position:static;order:-1}
-  .sf-leg{grid-template-columns:1fr}
-  .sf-ir{grid-column:1;grid-row:auto;justify-self:start}
-}
 /* a Rota em Todos os servicos: dentro da coluna de texto, com menos vao entre as colunas */
 .content .mr{margin:56px 0 28px}
 .content .mr-grade{gap:0 48px}
@@ -294,3 +262,39 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
 .content .mr li::before,.content .mr li::marker{content:none;display:none}
 .content .mr p.mr-col-tit{margin:0 0 10px;font-family:var(--mono);font-size:11px;line-height:1.3;letter-spacing:.14em}
 .content .mr p.mr-lead{font-size:16px}
+
+/* ---------- Guia, «Setores» no desenho de Conteudo de destaque (10/10/2026): foto menor a esquerda (4 de 12 colunas) e
+   grade 3x3 dos nove setores; a casa sob o mouse fica azul e a foto troca (js/guia-foto.js). Substitui «Setores em foco». ---------- */
+.sx{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:15px;margin-top:44px}
+.sx-fig{grid-column:1 / span 4;margin:0;align-self:start}
+.sx-midia{position:relative;display:grid;grid-template-areas:"stack";aspect-ratio:1/1;overflow:hidden;background:var(--mercurio)}
+.sx-layer{grid-area:stack;width:100%;height:100%;overflow:hidden;opacity:0;transition:opacity .8s cubic-bezier(0.83,0,0.17,1)}
+.sx-layer-ativa{opacity:1}
+.sx-layer img{width:100%;height:100%;object-fit:cover;display:block}
+.sx-gl{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:1;background:var(--mercurio)}
+.sx-midia.gl-on .sx-layer{visibility:hidden}
+.sx-leg{margin:14px 0 0}
+.sx-resumo{margin:0;font-family:var(--sans);font-weight:500;font-size:16px;line-height:1.35;color:var(--azul)}
+.sx-temas{margin:8px 0 0;font-family:var(--mono);font-size:10.5px;line-height:1.5;letter-spacing:.06em;text-transform:uppercase;color:var(--azul-escuro);min-height:1.5em}
+.sx-grade{grid-column:5 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid rgba(20,48,76,.2)}
+.sx-card{position:relative;aspect-ratio:4/3;min-height:150px;padding:16px 52px 20px 20px;display:flex;flex-direction:column;
+  justify-content:space-between;color:var(--azul);border-bottom:1px solid rgba(20,48,76,.2);
+  transition:background .3s cubic-bezier(.4,0,.2,1),color .3s cubic-bezier(.4,0,.2,1)}
+.sx-card:not(:nth-child(3n+1))::before{content:"";position:absolute;top:0;bottom:0;left:0;width:1px;background:rgba(20,48,76,.2)}
+.sx-num{font-family:var(--sans);font-size:18px;line-height:1}
+.sx-cat{display:block;font-family:var(--mono);font-size:10px;line-height:1;text-transform:uppercase}
+.sx-nome{margin:12px 0 0;font-family:var(--sans);font-size:18px;font-weight:400;line-height:1.1;text-wrap:pretty}
+.sx-btn{position:absolute;top:0;right:0;width:44px;height:44px;box-sizing:border-box;background:var(--mercurio);border:1px solid var(--azul);
+  display:flex;align-items:center;justify-content:center;color:var(--azul)}
+.sx-btn svg{transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.sx-card:hover .sx-btn svg,.sx-card:focus-within .sx-btn svg{transform:translateX(3px)}
+.sx-card.on{background:var(--fundo,#336699);color:var(--mercurio)}
+.sx-link{position:absolute;inset:0;z-index:1}
+.sx-link:focus-visible{outline:1px solid var(--azul);outline-offset:-1px}
+.sx-card.on .sx-link:focus-visible{outline-color:var(--mercurio)}
+@media (max-width:880px){
+  .sx-fig{grid-column:1 / -1}
+  .sx-grade{grid-column:1 / -1;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:24px}
+  .sx-card:not(:nth-child(3n+1))::before{display:none}
+  .sx-card:nth-child(2n)::before{content:"";display:block;position:absolute;top:0;bottom:0;left:0;width:1px;background:rgba(20,48,76,.2)}
+}
