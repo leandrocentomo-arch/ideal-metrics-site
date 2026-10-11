@@ -184,7 +184,7 @@ for i, (data, a, b) in enumerate(MARCOS):
           '<text class="ifc-svg-p" x="%d" y="108">%s</text>' % (x, a), '<text class="ifc-svg-p" x="%d" y="124">%s</text>' % (x, b)]
 xh = 60 + 5 * 110 + 30                                   # hoje: entre a votacao encerrada e a publicacao
 L += ['<line class="ifc-linha" x1="%d" y1="52" x2="%d" y2="88"/>' % (xh, xh), '<text class="ifc-svg-n" x="%d" y="150">HOJE · OUT 2026</text>' % xh]
-FIG_LINHA = fig(L, 'A nova edição da ISO 45001: de onde veio e quando chega', 900, 165,
+FIG_LINHA = fig(L, 'Linha do tempo da nova edição da ISO 45001', 900, 165,
                 'Linha do tempo da revisão da ISO 45001: primeira edição em 2018, emenda em 2024, revisão aprovada em 2024, texto do comitê em 2025, DIS aprovado e votado em 2026, publicação prevista para o primeiro semestre de 2027 e transição depois')
 
 # ---------------------------------------------------------------- 3. as cinco etapas da implantacao (as mesmas de toda pagina)
@@ -249,7 +249,7 @@ for i, t in enumerate(NIVEIS):
     w = larg[i]; x = (W - w) / 2; y = 10 + i * 46
     L += ['<rect class="ifc-aro ifc-aro--f" x="%.1f" y="%d" width="%d" height="38" rx="3"/>' % (x, y, w),
           '<text class="ifc-svg-n" x="%.1f" y="%d">0%d</text>' % (x + 26, y + 23, i + 1), '<text class="ifc-svg-t" x="%.1f" y="%d">%s</text>' % (W / 2, y + 24, t)]
-FIG_HC = fig(L, 'Hierarquia de controle: do mais eficaz ao menos eficaz (ISO 45001, 8.1.2)', W, 250, 'Hierarquia de controle da ISO 45001, do mais eficaz ao menos eficaz')
+FIG_HC = fig(L, 'Hierarquia de controle (ISO 45001, 8.1.2)', W, 250, 'Hierarquia de controle da ISO 45001, do mais eficaz ao menos eficaz')
 
 # ====================================================================== tabelas
 def tabela(cab, linhas, cls='', col_n=True, rot_de=2):
@@ -268,34 +268,34 @@ def tabela(cab, linhas, cls='', col_n=True, rot_de=2):
 
 
 # as nove ferramentas (lista do Leandro, 05/10/2026), cada uma na clausula da ISO 45001:2018 e com o que a organizacao recebe
-FERRAMENTAS = [('6.2 · 9.1', 'Objetivos, metas e indicadores de SST', 'Objetivos com meta, indicador e responsável, e o painel de acompanhamento.'),
-               ('6.1.3 · 9.1.2', 'Interpretação e atendimento legal', 'Matriz de requisitos legais, com a evidência de cada obrigação e a avaliação da conformidade.'),
-               ('6.1.2 · 8.1.2', 'Identificação de perigos e controle de riscos', 'Inventário de riscos e plano de ação do GRO da NR-01, com os riscos psicossociais.'),
-               ('8.1', 'Controles operacionais alinhados às NRs', 'Procedimentos, permissões de trabalho e os controles das NRs da operação.'),
-               ('7.2 · 7.3', 'Treinamento do pessoal', 'Matriz de competências, treinamentos realizados e registros.'),
-               ('8.2', 'Plano de atendimento a emergências (PAE)', 'PAE, equipes de resposta, simulados e registros.'),
-               ('9.2', 'Auditoria interna', 'Auditores internos formados, programa de auditoria e relatório.'),
-               ('9.3', 'Análise crítica pela direção', 'Reunião com as entradas da norma, decisões e registro.'),
-               ('10.2', 'Tratamento de não conformidades', 'Investigação de incidentes, causa, ação corretiva e verificação da eficácia.')]
+FERRAMENTAS = [('6.2 · 9.1', 'Objetivos, metas e indicadores de SST', 'Metas, indicadores, responsáveis e painel.'),
+               ('6.1.3 · 9.1.2', 'Interpretação e atendimento legal', 'Matriz de requisitos legais com evidência por obrigação.'),
+               ('6.1.2 · 8.1.2', 'Identificação de perigos e controle de riscos', 'Inventário e plano de ação do GRO (NR-01), com riscos psicossociais.'),
+               ('8.1', 'Controles operacionais alinhados às NRs', 'Procedimentos, permissões de trabalho e controles das NRs.'),
+               ('7.2 · 7.3', 'Treinamento do pessoal', 'Matriz de competências e registros.'),
+               ('8.2', 'Plano de atendimento a emergências (PAE)', 'PAE, equipes de resposta e simulados.'),
+               ('9.2', 'Auditoria interna', 'Auditores internos formados, programa e relatório.'),
+               ('9.3', 'Análise crítica pela direção', 'Reunião com as entradas da norma e decisões registradas.'),
+               ('10.2', 'Tratamento de não conformidades', 'Investigação, causa, ação corretiva e eficácia.')]
 TAB_FERR = tabela(['Cláusula', 'Ferramenta', 'O que a organização recebe'], [(c, '<b>%s</b>' % f, e) for c, f, e in FERRAMENTAS])
 
 # o que muda da edicao de 2018 para a nova (sumarios e texto do DIS, lidos em 05/10/2026)
-MUDA = [('4.1', 'Mudança climática', 'Entra pela Emenda 1:2024', 'No texto: a organização determina se a mudança climática é questão pertinente'),
-        ('4.2', 'Diversidade dos trabalhadores', 'Sem menção', 'Considerada ao determinar necessidades e expectativas'),
-        ('6.1.2', 'Perigos psicossociais e climáticos', 'Psicossociais na lista de perigos', 'Psicossociais detalhados; eventos climáticos extremos entram na lista'),
-        ('6.3', 'Planejamento de mudanças', 'Só a gestão da mudança, na operação (8.1.3)', 'Cláusula nova: riscos avaliados antes de qualquer mudança'),
-        ('8.1.3', 'Saúde ocupacional', 'Sem cláusula própria', 'Cláusula nova: prevenção, detecção precoce e acesso a serviços de saúde'),
-        ('8.1.4', 'Retorno ao trabalho', 'Sem cláusula própria', 'Cláusula nova: reintegração após lesão ou doença, com ajuste de funções'),
-        ('8.1.6', 'Contratadas e fornecedores', '8.1.4 Aquisição, contratados e terceirização', 'Processos, produtos e serviços providos externamente, com grau de controle pelo risco'),
-        ('9.3', 'Análise crítica pela direção', 'Um bloco único', 'Entradas e resultados em subcláusulas próprias'),
-        ('10', 'Melhoria', '10.2 Incidente, não conformidade e ação corretiva; 10.3 Melhoria contínua', 'Melhoria contínua passa a 10.1; não conformidade e ação corretiva, a 10.2')]
+MUDA = [('4.1', 'Mudança climática', 'Emenda 1:2024', 'No texto da cláusula'),
+        ('4.2', 'Diversidade dos trabalhadores', 'Sem menção', 'Nas necessidades e expectativas'),
+        ('6.1.2', 'Perigos psicossociais e climáticos', 'Psicossociais na lista', 'Psicossociais detalhados; eventos climáticos extremos'),
+        ('6.3', 'Planejamento de mudanças', 'Só na operação (8.1.3)', 'Cláusula nova'),
+        ('8.1.3', 'Saúde ocupacional', 'Sem cláusula própria', 'Cláusula nova'),
+        ('8.1.4', 'Retorno ao trabalho', 'Sem cláusula própria', 'Cláusula nova'),
+        ('8.1.6', 'Contratadas e fornecedores', '8.1.4 Aquisição', 'Controle pelo risco'),
+        ('9.3', 'Análise crítica pela direção', 'Bloco único', 'Subcláusulas de entradas e resultados'),
+        ('10', 'Melhoria', '10.2 Ação corretiva; 10.3 Melhoria contínua', '10.1 Melhoria contínua; 10.2 Ação corretiva')]
 TAB_MUDA = tabela(['Cláusula', 'Tema', 'ISO 45001:2018', 'ISO/DIS 45001 (nova edição)'], [(c, '<b>%s</b>' % t, a, b) for c, t, a, b in MUDA])
 
 # indicadores proativos e reativos (ISO 45004:2024, Tabela 3)
 TAB_IND = tabela(['', 'Indicadores proativos', 'Indicadores reativos'], col_n=False, rot_de=1, linhas=
                  [('O que medem', 'Ações que influenciam o desempenho futuro', 'Resultados e eventos passados'),
-                  ('Exemplos', 'Treinamento dos trabalhadores em perigos e controles, com a eficácia verificada; preocupações e sugestões registradas pelos trabalhadores',
-                   'Taxas de lesões, doenças ocupacionais, incidentes e não conformidades')])
+                  ('Exemplos', 'Treinamento com eficácia verificada; sugestões dos trabalhadores',
+                   'Taxas de lesões, doenças, incidentes e não conformidades')])
 
 # ====================================================================== numeros, fotos, como trabalhamos, perguntas
 NUMS = [('742 mil', 'acidentes de trabalho notificados no Brasil em 2024'),
@@ -313,27 +313,31 @@ for n, _ in FOTOS:
     for t in ('lum', 'bayer'):
         assert os.path.exists(os.path.join(SITE, 'img', '%s-%s.webp' % (n, t))), 'falta a foto img/%s-%s.webp (rodar _ferramentas/foto_azul.py)' % (n, t)
 
-MODELO = [('01', 'Consultoria por homens/dia', 'Dias dimensionados ao que o projeto exige.'),
-          ('02', 'Cerca de 6 meses', 'Do diagnóstico à organização pronta para a certificação.'),
-          ('03', 'Até 5 visitas por mês', 'Presença na operação, na frequência que o cronograma pede.'),
-          ('04', 'Reuniões online', 'Entre as visitas, pelo Microsoft Teams, com registro do que foi tratado.')]
+MODELO = [('01', 'Consultoria por homens/dia', 'Dias dimensionados ao projeto.'),
+          ('02', 'Cerca de 6 meses', 'Do diagnóstico à certificação.'),
+          ('03', 'Até 5 visitas por mês', 'Conforme o cronograma.'),
+          ('04', 'Reuniões online', 'Pelo Microsoft Teams, entre as visitas.')]
 MODELO_HTML = '<div class="vi-4">\n' + '\n'.join('  <div class="ifc-cel"><span class="ifc-rot">%s</span><h4>%s</h4><p>%s</p></div>' % m for m in MODELO) + '\n</div>'
 
-FAQ = [('Quanto tempo leva a implantação?', 'Cerca de 6 meses, do diagnóstico à organização pronta para a certificação. O prazo depende do porte da operação e do que já existe.'),
-       ('Quem participa pela organização?', 'A direção, a área de segurança (SESMT), a CIPA e os líderes de área. A Ideal Metrics conduz, e a equipe constrói o sistema junto.'),
-       ('O que o organismo certificador verifica?', 'Na primeira fase, a documentação e a prontidão. Na segunda, o sistema em funcionamento, com a auditoria interna e a análise crítica já realizadas.'),
+# 11/10/2026: pedido do Leandro, paginas mais simples. O que explicava a norma no corpo virou pergunta, no componente
+# unico do site (.faq / .faq-item, css/style.css), no lugar dos quatro cards .vi-faq
+FAQ = [('O que é a ISO 45001?', 'A ISO 45001 é a norma internacional de sistemas de gestão de saúde e segurança ocupacional, de 2018, com a Emenda 1:2024 sobre ações climáticas. A segunda edição está em votação, com publicação prevista para o primeiro semestre de 2027. Na edição de 2018, o IAF deu três anos para a transição.'),
+       ('Quanto tempo leva a implantação?', 'Cerca de 6 meses, do diagnóstico à organização pronta para a certificação. O prazo depende do porte da operação e do que já existe.'),
+       ('Quem participa pela organização?', 'A direção, a área de segurança (SESMT), a CIPA e os líderes de área. A Ideal Metrics conduz o projeto, e a equipe da organização constrói o sistema junto.'),
+       ('Como a ISO 45001 se relaciona com as NRs?', 'Um sistema de gestão de saúde e segurança ocupacional reúne o que as NRs já exigem: o GRO da NR-01, com inventário de riscos e plano de ação, o PCMSO da NR-07, a CIPA da NR-05 e as NRs da operação. Desde 26/05/2026 a fiscalização cobra os riscos psicossociais no GRO.'),
+       ('Quem certifica e o que é verificado?', 'A certificação é concedida por organismo acreditado, e a Ideal Metrics implanta e prepara a organização para ela. Na primeira fase o organismo verifica a documentação e a prontidão; na segunda, o sistema em funcionamento, com auditoria interna e análise crítica já realizadas.'),
        ('A ISO 45001 se integra à ISO 9001 e à ISO 14001?', 'Sim. As três têm a mesma estrutura, e política, riscos, auditoria interna e análise crítica podem ser um processo só.')]
-FAQ_HTML = '<div class="vi-faq">\n' + '\n'.join('  <div class="ifc-cel"><h4>%s</h4><p>%s</p></div>' % f for f in FAQ) + '\n</div>'
+FAQ_HTML = '<div class="faq">\n' + '\n'.join('  <details class="faq-item"><summary>%s</summary><p>%s</p></details>' % f for f in FAQ) + '\n</div>'
 
-NORMAS = ['ISO 45001:2018, com a Emenda 1:2024 (ações climáticas): sistemas de gestão de saúde e segurança ocupacional.',
-          'ISO/DIS 45001: a segunda edição, com publicação prevista para o primeiro semestre de 2027.',
-          'ISO 45004:2024: diretrizes para a avaliação do desempenho de saúde e segurança ocupacional.',
-          'NR-01: gerenciamento de riscos ocupacionais (GRO e PGR), com os fatores de risco psicossociais (Portaria MTE 1.419/2024).',
+NORMAS = ['ISO 45001:2018, com a Emenda 1:2024 (ações climáticas).',
+          'ISO/DIS 45001: segunda edição, publicação prevista para o primeiro semestre de 2027.',
+          'ISO 45004:2024: avaliação do desempenho de saúde e segurança ocupacional.',
+          'NR-01: GRO e PGR, com os fatores de risco psicossociais (Portaria MTE 1.419/2024).',
           'NR-05 (CIPA), NR-07 (PCMSO) e as NRs da operação.']
 
 # ====================================================================== o miolo
 MIOLO = '''<p class="abre">A Ideal Metrics apoia organizações na implantação do sistema de gestão de saúde e segurança ocupacional e na preparação para a certificação ISO 45001.</p>
-<p>O trabalho começa pelos perigos reais da operação: tarefas, máquinas, produtos químicos, trabalho em altura e em espaço confinado, contratadas e a rotina de cada área. Levantamos o que já existe, mostramos o que falta para a norma e para as NRs, e montamos com a equipe da organização o sistema que o organismo certificador vai verificar.</p>
+<p>O sistema é montado com a equipe da organização, a partir dos perigos reais da operação.</p>
 
 __FIG_PDCA__
 <p class="vi-chamada">Para tratar do projeto: <a href="contato.html">contato com a equipe técnica</a>.</p>
@@ -342,19 +346,18 @@ __FIG_PDCA__
 <h3>Por que implantar agora</h3>
 __NUMS__
 __FIG_LINHA__
-<p class="vi-fonte">Fontes: catálogo da ISO (iso.org) e ISO/TC 283, formulário 8A N 762, abril de 2026, conferidos em __CONFERIDO__. Na edição de 2018, o IAF deu três anos para a transição.</p>
+<p class="vi-fonte">Fontes: catálogo da ISO (iso.org) e ISO/TC 283, formulário 8A N 762, abril de 2026, conferidos em __CONFERIDO__.</p>
 <h4 class="vi-sub">O que muda na nova edição</h4>
 __TAB_MUDA__
-<p class="vi-fonte">Comparação dos sumários e do texto do ISO/DIS 45001 (2026) com a ISO 45001:2018. O texto está em votação, e a lista oficial de mudanças ainda não foi publicada pela ISO.</p>
+<p class="vi-fonte">ISO/DIS 45001 (2026), em votação, comparado à ISO 45001:2018; lista oficial de mudanças ainda não publicada.</p>
 <ul>
-<li><strong>Riscos psicossociais:</strong> desde 26/05/2026 a fiscalização cobra a avaliação dos fatores de risco psicossociais no gerenciamento de riscos da NR-01. Quem tem o sistema implantado já tem o processo para incluí-los no inventário.</li>
-<li><strong>Exigência de contratantes:</strong> a qualificação de fornecedores e de contratadas costuma pedir gestão de saúde e segurança com evidência.</li>
-<li><strong>Nova edição em 2027:</strong> quem implanta agora pela edição de 2018 já sai com saúde ocupacional, retorno ao trabalho e planejamento de mudanças no sistema, e faz a transição sem refazer o trabalho.</li>
+<li><strong>Riscos psicossociais:</strong> cobrados no GRO da NR-01 desde 26/05/2026.</li>
+<li><strong>Contratantes:</strong> pedem gestão de saúde e segurança com evidência.</li>
+<li><strong>Nova edição em 2027:</strong> transição sem refazer o sistema implantado agora.</li>
 </ul>
 
 <hr class="section-divider">
 <h3>O que fazemos</h3>
-<p>Nove ferramentas, cada uma ligada à cláusula da ISO 45001 que a exige, e o que fica na organização ao fim do projeto.</p>
 __TAB_FERR__
 
 <hr class="section-divider">
@@ -362,15 +365,15 @@ __TAB_FERR__
 __FIG_PASSOS__
 <h4 class="vi-sub">Como trabalhamos</h4>
 __MODELO__
-<p class="vi-chamada">O modelo completo está em <a href="como-trabalhamos.html">Como trabalhamos</a>.</p>
+<p class="vi-chamada">Detalhes em <a href="como-trabalhamos.html">Como trabalhamos</a>.</p>
 
 <hr class="section-divider">
 <h3>Por que a Ideal Metrics</h3>
 <ul>
 <li><strong>Consultores:</strong> formação internacional de Auditor Líder (Lead Auditor) em ISO 45001.</li>
-<li><strong>NRs no mesmo sistema:</strong> GRO e PGR da NR-01, inclusive os riscos psicossociais, PCMSO e CIPA integrados à ISO 45001.</li>
-<li><strong>Hierarquia de controle aplicada:</strong> eliminar, substituir, controlar na fonte e só então o equipamento de proteção individual.</li>
-<li><strong>Sistema integrado:</strong> a ISO 45001 entra no sistema que já atende <a href="norma-iso-9001.html">ISO 9001</a> e <a href="norma-iso-14001.html">ISO 14001</a>.</li>
+<li><strong>NRs no mesmo sistema:</strong> GRO, PGR, PCMSO e CIPA.</li>
+<li><strong>Hierarquia de controle:</strong> eliminar e substituir antes do EPI.</li>
+<li><strong>Sistema integrado</strong> com a <a href="norma-iso-9001.html">ISO 9001</a> e a <a href="norma-iso-14001.html">ISO 14001</a>.</li>
 <li><strong>Equipe em atuação desde 1998.</strong></li>
 </ul>
 
@@ -378,16 +381,15 @@ __MODELO__
 <h3>Aplicação</h3>
 __FOTOS__
 <ul>
-<li>Indústrias com máquinas, produtos químicos, trabalho em altura e em espaço confinado.</li>
-<li>Construção, montagem e manutenção, com contratadas no mesmo local.</li>
-<li>Logística, armazenagem e operações com frota.</li>
-<li>Empresas de serviço com equipes nas instalações dos clientes.</li>
-<li>Organizações que precisam revisar o PGR para os riscos psicossociais.</li>
+<li>Indústrias com máquinas, químicos, altura e espaço confinado.</li>
+<li>Montagem e manutenção com contratadas.</li>
+<li>Logística, armazenagem e frota.</li>
+<li>Serviços com equipes nas instalações dos clientes.</li>
+<li>Revisão do PGR para riscos psicossociais.</li>
 </ul>
 
 <hr class="section-divider">
 <h3>A ISO 45001 na prática</h3>
-<p>Um sistema de gestão de saúde e segurança ocupacional traz para o mesmo lugar o que as NRs já exigem: o GRO da NR-01, com o inventário de riscos e o plano de ação, o PCMSO da NR-07, a CIPA da NR-05 e as NRs da operação.</p>
 __FIG_NR__
 __FIG_HC__
 <h4 class="vi-sub">Os indicadores que o sistema acompanha</h4>
@@ -395,7 +397,7 @@ __TAB_IND__
 <p class="vi-fonte">Fonte: ISO 45004:2024, Tabela 3.</p>
 
 <hr class="section-divider">
-<h3>Perguntas frequentes</h3>
+<h3 id="perguntas">Perguntas frequentes</h3>
 __FAQ__
 
 <hr class="section-divider">
@@ -406,7 +408,7 @@ __NORMAS__
 <p class="vi-fonte">Situação das normas conferida no catálogo da ISO (iso.org) em __CONFERIDO__.</p>
 
 <hr class="section-divider">
-<p>A certificação é concedida por organismo acreditado. Para a implantação da ISO 45001: <a href="contato.html">contato com a equipe técnica</a>.</p>
+<p>Implantação da ISO 45001: <a href="contato.html">contato com a equipe técnica</a>.</p>
 '''
 for k, v in (('__FIG_PDCA__', FIG_PDCA), ('__FIG_LINHA__', FIG_LINHA), ('__FIG_PASSOS__', FIG_PASSOS), ('__FIG_NR__', FIG_NR), ('__FIG_HC__', FIG_HC),
              ('__NUMS__', NUMS_HTML), ('__TAB_MUDA__', TAB_MUDA), ('__TAB_FERR__', TAB_FERR), ('__TAB_IND__', TAB_IND), ('__MODELO__', MODELO_HTML),

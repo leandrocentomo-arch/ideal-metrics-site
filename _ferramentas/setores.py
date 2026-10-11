@@ -203,35 +203,35 @@ def chip_norma(k):
 
 
 def miolo(i, pg, normas):
+    """Pagina de setor enxuta (11/10/2026, pedido do Leandro: «menos conteudo escrito» e as explicacoes num FAQ no fim).
+    Abertura de uma frase e paragrafo curto; cartoes das normas por tema, so com o rotulo do grupo; recolhivel das
+    transversais; entregas de uma linha; uma linha para os estudos (a lista de `estudos` do json fica guardada, fora da
+    pagina); perguntas frequentes (campo `faq`) no componente unico do site (.faq / .faq-item); outros setores; contato."""
     t = TEXTOS[i]
     h = ['<div class="content">',
          '<p class="abre">%s</p>' % t['abre'],
          '<p>%s</p>' % t['para'],
-         '<h3>Certificações e reconhecimentos do setor</h3>',
-         '<p class="stp-nota">Programas que clientes, contratantes e órgãos reguladores esperam das organizações do setor. A Ideal Metrics implanta cada um e prepara a organização para a avaliação. Os cartões com seta levam à página do serviço.</p>']
-    for g, rot, sub in GRUPOS:
+         '<h3>Certificações e reconhecimentos do setor</h3>']
+    for g, rot, _sub in GRUPOS:
         ks = [k for k in normas if NORMAS[k][2] == g]
         if not ks: continue
         h.append('<div class="stp-grupo"><span>%s</span><em>%02d</em></div>' % (rot, len(ks)))
-        h.append('<p class="stp-nota">%s</p>' % sub)
         h.append('<div class="stp-grade">')
         h.extend('  ' + cartao_norma(k) for k in ks)
         h.append('</div>')
     tr = [k for k in ordem() if k in TRANSVERSAIS and k not in normas]
     h.append('<details class="stp-transv"><summary><span>Valem para qualquer setor</span><em>%02d</em></summary>' % len(tr))
-    h.append('<p class="stp-nota">Outros padrões que a Ideal Metrics atende em organizações de qualquer setor, como SEDEX/SMETA, IFC, EcoVadis, normas de carbono e a LGPD.</p>')
     h.append('<ul class="stp-chips">' + ''.join(chip_norma(k) for k in tr) + '</ul></details>')
     h.append('<h3>O que a Ideal Metrics entrega</h3>')
     h.append('<div class="numbered-items">')
     for n, (tit, txt) in enumerate(t['entregas'], 1):
         h.append('<div class="numbered-item"><div class="num">%02d</div><div><h4>%s</h4><p>%s</p></div></div>' % (n, tit, txt))
     h.append('</div>')
-    h.append('<p>Mais em <a href="como-trabalhamos.html">Como trabalhamos</a>.</p>')
-    h.append('<h3>Estudos e pesquisa aplicada para o setor</h3>')
-    h.append('<ul>')
-    h.extend('  <li>%s</li>' % e for e in t['estudos'])
-    h.append('</ul>')
-    h.append('<p>Mais na <a href="estudos-pesquisa.html">divisão de estudos e pesquisa aplicada</a>.</p>')
+    h.append('<p>Estudos e pesquisa aplicada para o setor: <a href="estudos-pesquisa.html">divisão de Estudos e Pesquisa Aplicada</a>. Método de trabalho: <a href="como-trabalhamos.html">Como trabalhamos</a>.</p>')
+    h.append('<h3 id="perguntas">Perguntas frequentes</h3>')
+    h.append('<div class="faq">')
+    h.extend('  <details class="faq-item"><summary>%s</summary><p>%s</p></details>' % (q, r) for q, r in t['faq'])
+    h.append('</div>')
     h.append('<h3>Outros setores</h3>')
     h.append('<div class="stp-outros">')
     for j, pg2, _ in SETORES:

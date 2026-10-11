@@ -18,6 +18,9 @@ E O MOLDE DAS PAGINAS DE SERVICO. O que o Leandro ensinou ao ver a primeira vers
     e foi lida como policial dando multa;
   - cara de infografico: numeros com fonte, fotos aereas, diagrama dos ODS da ONU (os quadros dos ODS ficam nas
     cores oficiais; o resto, na tinta da casa).
+  - 11/10/2026: «paginas mais simples, com menos texto, e um FAQ no fim; nao estou falando para uma pessoa,
+    estou apresentando os servicos». Abertura de uma frase e um paragrafo curto; o que explica a norma foi para
+    as perguntas frequentes (componente .faq do css/style.css); voz institucional, sem «voce» nem imperativo.
 
 A CASCA (cabecalho, menus, navegacao lateral, rodape, scripts) vem da ifc-performance-standards.html; aqui fica
 so o miolo. As figuras sao SVG em linha fina, com as classes .ifc-* do css/style.css; o que e so desta pagina
@@ -83,12 +86,12 @@ CSS = '''<style>
 </style>'''
 
 # ---------------------------------------------------------------- o que fazemos (grade de seis, uma linha cada)
-CEL = [('01', 'Diagnóstico e plano diretor', 'O que falta para a ISO 39001, com prazo e responsável.'),
+CEL = [('01', 'Diagnóstico e plano diretor', 'Lacunas para a ISO 39001, com prazo e responsável.'),
        ('02', 'Análise de risco viário', 'Perigos por rota, veículo, condutor e jornada.'),
-       ('03', 'Metas e indicadores', 'Fatores de desempenho da segurança viária, com meta para cada um.'),
-       ('04', 'Procedimentos e emergência', 'Controles para condutores, frota e contratadas, e plano de emergência.'),
-       ('05', 'Investigação de sinistros', 'Método de análise de causa e ação corretiva.'),
-       ('06', 'Auditoria interna', 'Formação de auditores, auditoria interna e análise crítica pela direção.')]
+       ('03', 'Metas e indicadores', 'Meta para cada fator de desempenho.'),
+       ('04', 'Procedimentos e emergência', 'Controles de condutores, frota e contratadas.'),
+       ('05', 'Investigação de sinistros', 'Análise de causa e ação corretiva.'),
+       ('06', 'Auditoria interna', 'Auditores formados e análise crítica pela direção.')]
 grade = '<div class="ifc-grade">\n' + '\n'.join(
     '  <div class="ifc-cel"><span class="ifc-rot">%s</span><h4>%s</h4><p>%s</p></div>' % c for c in CEL) + '\n</div>'
 
@@ -144,9 +147,9 @@ FIG2 = '\n'.join(f2)
 
 # ---------------------------------------------------------------- numeros
 NUMS = [('1,19 milhão', 'de mortes no trânsito por ano, no mundo'),
-        ('5 a 29 anos', 'faixa de idade em que o trânsito é a principal causa de morte'),
-        ('50%', 'de redução de mortes e feridos até 2030: a meta da ONU'),
-        ('36 países', 'participam do comitê da ISO que mantém a ISO 39001')]
+        ('5 a 29 anos', 'idade em que o trânsito é a principal causa de morte'),
+        ('50%', 'menos mortes e feridos até 2030: meta da ONU'),
+        ('36 países', 'no comitê da ISO que mantém a norma')]
 nums = ('<div class="vi-nums">\n' + '\n'.join('  <div class="vi-num"><b>%s</b><span>%s</span></div>' % n for n in NUMS) + '\n</div>\n'
         '<p class="vi-fonte">Fontes: OMS, Global status report on road safety 2023 · Assembleia Geral da ONU, Resolução 74/299 · ISO/TC 241, outubro de 2026.</p>')
 
@@ -158,15 +161,15 @@ nums = ('<div class="vi-nums">\n' + '\n'.join('  <div class="vi-num"><b>%s</b><s
 ODS = [('03', 'ODS 3: Saúde e bem-estar',
         [('Meta 3.6', 'Reduzir pela metade as mortes e os ferimentos por acidentes em estradas.'),
          ('Indicador 3.6.1', 'Taxa de mortalidade por acidentes de trânsito.'),
-         ('Na ISO 39001', 'É o resultado final que o sistema mede e reduz: mortes e lesões graves.')]),
+         ('Na ISO 39001', 'Resultado final do sistema: mortes e lesões graves.')]),
        ('11', 'ODS 11: Cidades e comunidades sustentáveis',
         [('Meta 11.2', 'Até 2030, transporte seguro, acessível e sustentável para todos, com melhoria da segurança rodoviária.'),
          ('Indicador 11.2.1', 'Proporção da população com acesso adequado a transporte público.'),
-         ('Na ISO 39001', 'Operação de vias e de transporte com os riscos viários sob controle.')]),
+         ('Na ISO 39001', 'Riscos viários sob controle em vias e transporte.')]),
        ('12', 'ODS 12: Consumo e produção responsáveis',
         [('Meta 12.6', 'Empresas com práticas sustentáveis e com essa informação nos seus relatórios.'),
          ('Indicador 12.6.1', 'Número de empresas que publicam relatórios de sustentabilidade.'),
-         ('Na ISO 39001', 'Metas e indicadores de segurança viária prontos para o relatório de sustentabilidade.')])]
+         ('Na ISO 39001', 'Indicadores prontos para o relatório de sustentabilidade.')])]
 o = ['<div class="vi-ods">', '  <div class="vi-ods-linha" role="tablist" aria-label="ODS ligados à ISO 39001">']
 for k, (n, alt, _) in enumerate(ODS):
     o.append('    <button class="vi-ods-bt%s" type="button" role="tab" id="ods-t%s" aria-controls="ods-p%s" aria-selected="%s"><img src="img/ods-%s.svg?v=%s" alt="%s" width="720" height="720"></button>'
@@ -197,8 +200,6 @@ for n, _ in FOTOS:
 # ---------------------------------------------------------------- o miolo: curto, em topicos, com o peso no servico
 # 02/10 (5a volta): «toda pagina comeca por esta frase, em tamanho maior; depois um texto, depois diagramas e o conteudo atual»
 MIOLO = '''<p class="abre">A Ideal Metrics apoia organizações na implantação do sistema de gestão da segurança viária e na preparação para a certificação ISO 39001.</p>
-<p>O trabalho começa pela operação real: rotas, frota, condutores, contratadas e a via sob responsabilidade da organização. Levantamos o que já existe, mostramos o que falta para a norma e montamos com a equipe da organização os controles, os indicadores e a rotina que o organismo certificador vai verificar.</p>
-<p>O sistema passa a medir o que reduz mortes e lesões graves: a exposição ao risco, os fatores intermediários, como velocidade, jornada, condição do veículo e aptidão do condutor, e o resultado final. Com esses números, a direção decide onde investir, e a organização chega à certificação com evidência de resultado.</p>
 
 __FIG1__
 
@@ -211,10 +212,9 @@ __GRADE__
 <hr class="section-divider">
 <h3>Por que a Ideal Metrics</h3>
 <ul>
-<li><strong>Experiência em concessão rodoviária de grande porte:</strong> sistema implantado e certificado na ISO 39001.</li>
+<li><strong>Concessão rodoviária de grande porte:</strong> sistema certificado na ISO 39001.</li>
 <li><strong>Consultores:</strong> formação internacional de Auditor Líder (Lead Auditor) em ISO 39001.</li>
-<li><strong>Ferramentas prontas:</strong> análise de risco viário e demais instrumentos montados com apoio da ISO 39002.</li>
-<li><strong>Sistema integrado:</strong> a ISO 39001 entra no sistema que já atende <a href="norma-iso-9001.html">ISO 9001</a>, <a href="norma-iso-14001.html">ISO 14001</a> e <a href="norma-iso-45001.html">ISO 45001</a>.</li>
+<li><strong>Ferramentas prontas:</strong> análise de risco viário com base na ISO 39002.</li>
 <li><strong>Equipe em atuação desde 1998.</strong></li>
 </ul>
 
@@ -222,28 +222,33 @@ __GRADE__
 <h3>Aplicação</h3>
 __FOTOS__
 <ul>
-<li>Concessionárias de rodovias e operadores de infraestrutura viária.</li>
-<li>Transportadoras de cargas e operadores logísticos.</li>
-<li>Transporte de passageiros: urbano, rodoviário e fretamento.</li>
-<li>Empresas com frota própria ou terceirizada.</li>
-<li>Embarcadores que exigem segurança viária dos transportadores contratados.</li>
+<li>Concessionárias de rodovias e infraestrutura viária.</li>
+<li>Transportadoras e operadores logísticos.</li>
+<li>Transporte de passageiros.</li>
+<li>Frotas próprias ou terceirizadas.</li>
+<li>Embarcadores que exigem segurança viária dos transportadores.</li>
 </ul>
+<p>Página do setor: <a href="setor-transporte-rodovias.html">Transporte e rodovias</a>.</p>
 
 <hr class="section-divider">
 <h3>Por que implantar agora</h3>
 __NUMS__
-<ul>
-<li><strong>Exigência de contrato:</strong> concessões rodoviárias já trazem a certificação ISO 39001 como obrigação com prazo.</li>
-<li><strong>Exigência em lei:</strong> o PL 710/2024, aprovado no Senado, obriga a administração de rodovias a ter sistema de gestão de qualidade e de segurança.</li>
-<li><strong>Norma em revisão:</strong> a segunda edição da ISO 39001 está em elaboração. Quem implanta agora já sai preparado para a transição.</li>
-</ul>
 
 <hr class="section-divider">
 <h3>ISO 39001 e os ODS da ONU</h3>
-<p>Com o sistema implantado, a organização mostra resultado em três Objetivos de Desenvolvimento Sustentável.</p>
 __FIG3__
-<p class="vi-fonte">A ISO relaciona a norma aos ODS 3, 11 e 12. No ODS 12 ela não indica meta: a 12.6 é a leitura da Ideal Metrics. O prazo da meta 3.6 foi renovado para 2030 pela Resolução 74/299 da ONU.</p>
 <p class="vi-fonte">Ícones dos ODS: Nações Unidas, <a href="https://www.un.org/sustainabledevelopment/" target="_blank" rel="noopener">un.org/sustainabledevelopment</a>. O conteúdo desta página não foi aprovado pelas Nações Unidas e não reflete as opiniões das Nações Unidas, de seus funcionários ou dos Estados-Membros.</p>
+
+<hr class="section-divider">
+<h3 id="perguntas">Perguntas frequentes</h3>
+<div class="faq">
+  <details class="faq-item"><summary>O que é a ISO 39001?</summary><p>A ISO 39001 é a norma do sistema de gestão da segurança viária, para organizações que interagem com o sistema viário. A edição vigente é a ISO 39001:2012, com a Emenda 1 de 2024, mantida pelo comitê ISO/TC 241.</p></details>
+  <details class="faq-item"><summary>O que o sistema passa a medir?</summary><p>O sistema mede a exposição ao risco, os fatores intermediários (como velocidade, jornada, condição do veículo e aptidão do condutor) e o resultado final: mortes e lesões graves. Com esses números, a direção decide onde investir.</p></details>
+  <details class="faq-item"><summary>Quem certifica?</summary><p>A certificação é feita por organismo certificador acreditado. A Ideal Metrics implanta o sistema a partir da operação real (rotas, frota, condutores, contratadas e a via sob responsabilidade da organização) e prepara os controles, os indicadores e a rotina que o organismo certificador vai verificar.</p></details>
+  <details class="faq-item"><summary>Por que implantar agora?</summary><p>Concessões rodoviárias já exigem a certificação ISO 39001 com prazo. O PL 710/2024, aprovado no Senado, exige sistema de gestão de qualidade e de segurança na administração de rodovias. A segunda edição da ISO 39001 está em elaboração, e um sistema implantado agora sai preparado para a transição.</p></details>
+  <details class="faq-item"><summary>Como a ISO 39001 se integra a outras normas?</summary><p>A ISO 39001 entra no sistema que já atende <a href="norma-iso-9001.html">ISO 9001</a>, <a href="norma-iso-14001.html">ISO 14001</a> e <a href="norma-iso-45001.html">ISO 45001</a>.</p></details>
+  <details class="faq-item"><summary>Quais ODS a ISO 39001 atende?</summary><p>A ISO relaciona a norma aos ODS 3, 11 e 12. No ODS 12 a ISO não indica meta: a 12.6 é a leitura da Ideal Metrics. O prazo da meta 3.6 foi renovado para 2030 pela Resolução 74/299 da ONU.</p></details>
+</div>
 
 <hr class="section-divider">
 <p>Para a implantação da ISO 39001: <a href="contato.html">contato com a equipe técnica</a>.</p>

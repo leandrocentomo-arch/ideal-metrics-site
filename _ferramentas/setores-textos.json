@@ -2,12 +2,12 @@
  "industria": {
   "nome": "Indústria",
   "resumo": "Manufatura, metalurgia, plásticos e automotivo.",
-  "abre": "A Ideal Metrics implanta esses sistemas de forma integrada e, quando o produto vem de fora, inspeciona fábrica e fornecedores na fonte.",
-  "para": "A indústria de transformação lida com exigências simultâneas de qualidade, meio ambiente e segurança do trabalho, além da pressão crescente de clientes por conformidade ao longo da cadeia.",
+  "abre": "A Ideal Metrics implanta sistemas de gestão integrados na indústria e inspeciona fábricas e fornecedores na fonte.",
+  "para": "A indústria responde ao mesmo tempo por qualidade, meio ambiente e segurança do trabalho, e os clientes cobram conformidade ao longo da cadeia.",
   "entregas": [
    [
     "Sistema de gestão integrado",
-    "Implantação de ISO 9001, 14001 e 45001 num único sistema, com uma documentação e um cronograma."
+    "ISO 9001, 14001 e 45001 num único sistema, com uma documentação e um cronograma."
    ],
    [
     "Cadeia automotiva",
@@ -18,8 +18,8 @@
     "Inspeção de fábrica e auditoria de fornecedores, no Brasil e no exterior."
    ],
    [
-    "Atendimento a NRs",
-    "Adequação a NR-12, NR-10 e demais normas regulamentadoras aplicáveis."
+    "Normas regulamentadoras",
+    "Adequação à NR-12, à NR-10 e às demais NRs aplicáveis."
    ],
    [
     "Carbono",
@@ -30,28 +30,50 @@
    "Nota técnica de exposição ao ajuste de carbono na fronteira da União Europeia (CBAM), por planta e por código NCM.",
    "Radar do mercado regulado de carbono brasileiro (SBCE)."
   ],
+  "faq": [
+   [
+    "O que a indústria precisa comprovar?",
+    "A indústria comprova conformidade em qualidade, meio ambiente e segurança do trabalho a clientes que cobram toda a cadeia. Na cadeia automotiva, entram os requisitos das montadoras e a IATF 16949. Em máquinas e instalações elétricas, entram a NR-12 e a NR-10."
+   ],
+   [
+    "O que a Ideal Metrics entrega para a indústria?",
+    "A Ideal Metrics implanta as ISO 9001, 14001 e 45001 num sistema integrado, prepara para a IATF 16949, adequa a operação às NRs e faz o inventário de GEE. Quando o produto vem de fora, a Ideal Metrics inspeciona a fábrica e audita fornecedores, no Brasil e no exterior."
+   ],
+   [
+    "Quais normas e padrões se aplicam ao setor?",
+    "Além das ISO 9001, 14001 e 45001, a página destaca IATF 16949, ISO 50001, ISO 13485, ISO 22000, Atuação Responsável, ISO 37301 e ISO/IEC 17025. No clima e carbono, a página destaca ISO 14064, ISO 14067, CBAM e SBCE; na cadeia, SEDEX/SMETA e FSC; na segurança do trabalho, NR-12 e NR-10."
+   ],
+   [
+    "Quais as principais dificuldades?",
+    "A principal dificuldade é manter qualidade, meio ambiente e segurança do trabalho em sistemas separados, cada um com documentação e cronograma próprios. A integração num único sistema elimina essa duplicidade. A outra frente é o fornecedor no exterior, verificado na fonte antes do embarque."
+   ],
+   [
+    "Como começa o trabalho?",
+    "O trabalho começa pelo diagnóstico da organização frente às normas escolhidas e segue com o plano diretor, a implantação, a auditoria interna e a análise crítica, até a organização ficar pronta para a certificação. Um projeto de implantação dura cerca de 6 meses, com até 5 visitas por mês e reuniões online, e é contratado em homens/dia."
+   ]
+  ],
   "banner": "https://static.wixstatic.com/media/b83354_b43ecda9b87347b4af5c1ec036f7bd8b~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
  },
  "transporte": {
   "nome": "Transporte e rodovias",
   "resumo": "Carga, passageiros, logística, concessões de rodovias, portos e aeroportos.",
-  "abre": "A Ideal Metrics estrutura esses sistemas para quem opera frotas e para quem administra a via, e apoia a conformidade exigida por contratantes e pelo poder concedente.",
-  "para": "Transportadoras, operadores de ônibus e fretamento, operadores logísticos, terminais e concessionárias de rodovias respondem pela segurança de quem trafega, pela gestão ambiental e pela continuidade da operação, sob auditoria de embarcadores e sob as metas do contrato de concessão.",
+  "abre": "A Ideal Metrics implanta sistemas de gestão para quem opera frotas e para quem administra a via.",
+  "para": "Transportadoras, operadores logísticos, terminais e concessionárias de rodovias respondem pela segurança de quem trafega, pelo meio ambiente e pela continuidade da operação. A cobrança vem dos embarcadores e das metas do contrato de concessão.",
   "entregas": [
    [
     "Sistema de gestão integrado",
-    "Implantação de ISO 9001, 14001 e 45001 para transportadoras, operadores logísticos e concessionárias."
+    "ISO 9001, 14001 e 45001 para transportadoras, operadores logísticos e concessionárias."
    ],
    [
     "Segurança viária",
-    "Implantação da ISO 39001 para frotas de carga e de passageiros e para a gestão de risco no trânsito."
+    "ISO 39001 para frotas de carga e de passageiros."
    ],
    [
     "Concessões rodoviárias",
-    "ISO 39001 integrada ao Programa de Redução de Acidentes do contrato, ISO 37001 e 37301 para a relação com o poder concedente e ISO 55001 para os ativos da via."
+    "ISO 39001 ligada ao Programa de Redução de Acidentes, com ISO 37001, 37301 e 55001."
    ],
    [
-    "Adequação SASSMAQ",
+    "SASSMAQ",
     "Preparação para a avaliação de transporte de produtos químicos."
    ],
    [
@@ -60,7 +82,7 @@
    ],
    [
     "Inspeção de recebimento",
-    "Verificação de mercadorias e conformidade no recebimento."
+    "Verificação de mercadorias e da conformidade no recebimento."
    ]
   ],
   "estudos": [
@@ -69,57 +91,101 @@
    "Matriz de requisitos de transporte de produtos perigosos.",
    "Obrigações de documentação fiscal e logística na cadeia de grãos."
   ],
+  "faq": [
+   [
+    "O que o setor de transporte e rodovias precisa comprovar?",
+    "Transportadoras e operadores logísticos comprovam segurança, gestão ambiental e continuidade da operação nas auditorias dos embarcadores. Concessionárias de rodovias respondem às metas do contrato de concessão e ao poder concedente. O transporte de produtos químicos passa pela avaliação SASSMAQ."
+   ],
+   [
+    "O que a Ideal Metrics entrega para o setor?",
+    "A Ideal Metrics implanta as ISO 9001, 14001 e 45001 e a ISO 39001 para frotas e para a via, prepara para o SASSMAQ, audita fornecedores e inspeciona o recebimento. Nas concessões, a ISO 39001 entra ligada ao Programa de Redução de Acidentes do contrato, com ISO 37001, 37301 e 55001."
+   ],
+   [
+    "Quais normas e padrões se aplicam ao setor?",
+    "Além das ISO 9001, 14001 e 45001, a página destaca ISO 39001 (segurança viária), ISO 37001, ISO 37301, ISO 55001, ISO 22301 e ISO 28000. Também entram o SASSMAQ, da Abiquim, e o OEA, programa de Operador Econômico Autorizado da Receita Federal."
+   ],
+   [
+    "Quais as principais dificuldades?",
+    "A principal dificuldade é responder ao mesmo tempo às auditorias dos embarcadores e às metas do contrato de concessão. Nas concessões, a ISO 39001 precisa conversar com o Programa de Redução de Acidentes que o contrato já exige."
+   ],
+   [
+    "Como começa o trabalho?",
+    "O trabalho começa pelo diagnóstico da organização frente às normas escolhidas e segue com o plano diretor, a implantação, a auditoria interna e a análise crítica, até a organização ficar pronta para a certificação. Um projeto de implantação dura cerca de 6 meses, com até 5 visitas por mês e reuniões online, e é contratado em homens/dia."
+   ]
+  ],
   "banner": "https://static.wixstatic.com/media/b83354_6f7e745146274df7a366bd2151541dde~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
  },
  "facilities": {
   "nome": "Facilities",
   "resumo": "Gestão de facilities, manutenção predial, serviços integrados e operação de edifícios.",
-  "abre": "A Ideal Metrics implanta o sistema de gestão de facility management pela ISO 41001 e o integra aos sistemas de qualidade, meio ambiente e saúde e segurança.",
-  "para": "Empresas de facilities, gestoras de propriedades e áreas corporativas de facilities respondem pelo funcionamento do ambiente de trabalho do cliente (manutenção, limpeza, segurança, alimentação e energia), sob contratos com indicadores de desempenho.",
+  "abre": "A Ideal Metrics implanta a ISO 41001, sistema de gestão de facilities, integrada às ISO 9001, 14001 e 45001.",
+  "para": "Empresas de facilities, gestoras de propriedades e áreas corporativas de facilities respondem por manutenção, limpeza, segurança, alimentação e energia no ambiente de trabalho do cliente, sob contratos com indicadores de desempenho.",
   "entregas": [
    [
     "Implantação ISO 41001",
-    "Sistema de gestão de facility management, do escopo à preparação para a certificação."
+    "Do escopo à preparação para a certificação."
    ],
    [
     "Sistema de gestão integrado",
-    "ISO 41001 integrada às ISO 9001, 14001 e 45001, com uma documentação e um cronograma."
+    "ISO 41001 integrada às ISO 9001, 14001 e 45001."
    ],
    [
     "Nova edição da ISO 41001",
-    "Acompanhamento da revisão da norma (DIS de 2026) e plano de transição para a organização certificada."
+    "Acompanhamento do DIS de 2026 e plano de transição para a organização certificada."
    ],
    [
-    "Ativos e energia do edifício",
-    "ISO 55001 para os ativos do edifício e ISO 50001 para o consumo de energia."
+    "Ativos e energia",
+    "ISO 55001 para os ativos do edifício e ISO 50001 para a energia."
    ],
    [
     "Saúde e segurança em contratos",
-    "ISO 45001 e NR-01 para equipes alocadas em instalações do cliente."
+    "ISO 45001 e NR-01 para equipes alocadas no cliente."
    ]
   ],
   "estudos": [
    "Comparação entre a ABNT NBR ISO 41001:2020 e o DIS 41001:2026, cláusula a cláusula.",
    "Matriz de verificação da NR-1 para equipes de serviços em instalações de terceiros."
   ],
+  "faq": [
+   [
+    "O que o setor de facilities precisa comprovar?",
+    "Empresas de facilities comprovam o desempenho contratado nos indicadores do contrato, em manutenção, limpeza, segurança, alimentação e energia. Equipes alocadas em instalações do cliente exigem gestão de saúde e segurança, pela ISO 45001 e pela NR-01."
+   ],
+   [
+    "O que a Ideal Metrics entrega para o setor?",
+    "A Ideal Metrics implanta a ISO 41001, do escopo à preparação para a certificação, integrada às ISO 9001, 14001 e 45001. Para os ativos e a energia do edifício, a Ideal Metrics implanta a ISO 55001 e a ISO 50001."
+   ],
+   [
+    "Quais normas e padrões se aplicam ao setor?",
+    "A ISO 41001, de gestão de facilities, é a norma central do setor. Também se aplicam: ISO 9001, 14001 e 45001, ISO 55001, ISO 50001, ISO 22301, NR-01, NR-10 e ISO 14064."
+   ],
+   [
+    "Quais as principais dificuldades?",
+    "A principal dificuldade é integrar a ISO 41001 aos sistemas de qualidade, meio ambiente e saúde e segurança que a organização já mantém. A organização certificada também precisa planejar a transição para a nova edição da norma, em revisão (DIS de 2026). Para isso, a Ideal Metrics compara a ABNT NBR ISO 41001:2020 com o DIS 41001:2026 cláusula a cláusula."
+   ],
+   [
+    "Como começa o trabalho?",
+    "O trabalho começa pelo diagnóstico da organização frente às normas escolhidas e segue com o plano diretor, a implantação, a auditoria interna e a análise crítica, até a organização ficar pronta para a certificação. Um projeto de implantação dura cerca de 6 meses, com até 5 visitas por mês e reuniões online, e é contratado em homens/dia."
+   ]
+  ],
   "banner": "img/banner-facilities-bayer.webp?v=10102026b"
  },
  "alimentos": {
   "nome": "Alimentos e serviços de alimentação",
   "resumo": "Indústria de alimentos, ingredientes, food service e distribuição.",
-  "abre": "A Ideal Metrics implanta os sistemas de gestão de segurança de alimentos e prepara a organização para a auditoria.",
-  "para": "Segurança de alimentos é requisito de acesso a mercado: redes, exportadores, restaurantes corporativos e food service exigem certificação reconhecida pela GFSI.",
+  "abre": "A Ideal Metrics implanta sistemas de gestão de segurança de alimentos e prepara a organização para a certificação.",
+  "para": "Redes, exportadores, restaurantes corporativos e food service exigem certificação reconhecida pela GFSI. Segurança de alimentos é condição de acesso a mercado.",
   "entregas": [
    [
-    "Implantação FSSC / ISO 22000",
+    "FSSC 22000 e ISO 22000",
     "Estruturação do sistema de gestão de segurança de alimentos."
    ],
    [
-    "HACCP / APPCC e PPR",
-    "Elaboração do plano APPCC e dos programas de pré-requisitos."
+    "APPCC e PPR",
+    "Plano APPCC e programas de pré-requisitos."
    ],
    [
-    "Preparação BRCGS",
+    "BRCGS",
     "Adequação ao padrão exigido por redes e exportadores."
    ],
    [
@@ -131,21 +197,43 @@
    "Matriz de obrigações do regulamento europeu contra o desmatamento (EUDR) por elo, para café, cacau e soja.",
    "Radar da agenda regulatória da ANVISA."
   ],
+  "faq": [
+   [
+    "O que o setor de alimentos precisa comprovar?",
+    "A organização do setor comprova segurança de alimentos com certificação reconhecida pela GFSI, exigida por redes, exportadores, restaurantes corporativos e food service. A base do sistema é o plano APPCC com os programas de pré-requisitos."
+   ],
+   [
+    "O que a Ideal Metrics entrega para o setor?",
+    "A Ideal Metrics estrutura o sistema de gestão pela FSSC 22000 ou pela ISO 22000, elabora o plano APPCC e os PPR, adequa a organização ao BRCGS e capacita as equipes, inclusive em Food Defense."
+   ],
+   [
+    "Quais normas e padrões se aplicam ao setor?",
+    "O núcleo do setor é ISO 22000, FSSC 22000, BRCGS, IFS Food e SQF, com HACCP/APPCC, PPR e Food Defense. Também se aplicam: ISO 9001, 14001, 45001 e 50001, SEDEX/SMETA e Rainforest Alliance. Na exportação de café, cacau e soja para a União Europeia, entra o regulamento contra o desmatamento (EUDR)."
+   ],
+   [
+    "Quais as principais dificuldades?",
+    "A primeira dificuldade é escolher o esquema certo entre FSSC 22000, BRCGS, IFS Food e SQF, conforme o que o comprador exige. A segunda é manter o plano APPCC e os programas de pré-requisitos coerentes com a operação real."
+   ],
+   [
+    "Como começa o trabalho?",
+    "O trabalho começa pelo diagnóstico da organização frente às normas escolhidas e segue com o plano diretor, a implantação, a auditoria interna e a análise crítica, até a organização ficar pronta para a certificação. Um projeto de implantação dura cerca de 6 meses, com até 5 visitas por mês e reuniões online, e é contratado em homens/dia."
+   ]
+  ],
   "banner": "https://static.wixstatic.com/media/b83354_5f2601577e634d57a6f7cd06f09536e5~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
  },
  "agro": {
   "nome": "Agro e florestal",
   "resumo": "Produção agrícola, cadeias de commodities, silvicultura, celulose e papel.",
-  "abre": "A Ideal Metrics prepara produtores, agroindústrias e empresas florestais para as certificações que o mercado comprador exige.",
-  "para": "Quem vende soja, cana, café, cacau, madeira ou celulose responde a padrões de manejo e de rastreabilidade definidos pelo comprador e pelo regulador, inclusive fora do país.",
+  "abre": "A Ideal Metrics prepara produtores, agroindústrias e empresas florestais para as certificações que o comprador exige.",
+  "para": "Produtores de soja, cana, café, cacau, madeira e celulose respondem a padrões de manejo e de rastreabilidade definidos pelo comprador e pelo regulador, inclusive no exterior.",
   "entregas": [
    [
     "Certificação florestal",
-    "Preparação para FSC e Cerflor/PEFC, no manejo e na cadeia de custódia."
+    "FSC e Cerflor/PEFC, no manejo e na cadeia de custódia."
    ],
    [
     "Padrões da cadeia agrícola",
-    "Preparação para RTRS, Bonsucro, Rainforest Alliance e GlobalG.A.P."
+    "RTRS, Bonsucro, Rainforest Alliance e GlobalG.A.P."
    ],
    [
     "Sistema de gestão",
@@ -164,13 +252,35 @@
    "Matriz de obrigações do regulamento europeu contra o desmatamento (EUDR) por elo, para café, cacau e soja.",
    "Estudo de fluxos de financiamento da restauração e da bioeconomia."
   ],
+  "faq": [
+   [
+    "O que o agro e o setor florestal precisam comprovar?",
+    "O produtor comprova manejo e rastreabilidade conforme o padrão definido pelo comprador e pelo regulador. Na venda de café, cacau e soja para a União Europeia, o regulamento contra o desmatamento (EUDR) pede due diligence por elo da cadeia."
+   ],
+   [
+    "O que a Ideal Metrics entrega para o setor?",
+    "A Ideal Metrics prepara para FSC, Cerflor/PEFC, RTRS, Bonsucro, Rainforest Alliance e GlobalG.A.P., implanta ISO 14001 e ISO 45001 e monta o protocolo de due diligence do EUDR. No carbono, a Ideal Metrics faz o inventário de GEE e a pegada de carbono de produto."
+   ],
+   [
+    "Quais normas e padrões se aplicam ao setor?",
+    "Na floresta, FSC e Cerflor/PEFC; na lavoura, RTRS (soja), Bonsucro (cana), GlobalG.A.P. e Rainforest Alliance. Também se aplicam: EUDR, ISO 14064, ISO 14067, SEDEX/SMETA e as ISO 9001, 14001 e 45001."
+   ],
+   [
+    "Quais as principais dificuldades?",
+    "Cada cadeia tem o próprio padrão, e o comprador define qual exige. A rastreabilidade do EUDR é feita por elo da cadeia, com protocolo de due diligence e plano de monitoramento."
+   ],
+   [
+    "Como começa o trabalho?",
+    "O trabalho começa pelo diagnóstico da organização frente às normas escolhidas e segue com o plano diretor, a implantação, a auditoria interna e a análise crítica, até a organização ficar pronta para a certificação. Um projeto de implantação dura cerca de 6 meses, com até 5 visitas por mês e reuniões online, e é contratado em homens/dia."
+   ]
+  ],
   "banner": "img/banner-agro-bayer.webp?v=10102026"
  },
  "saude": {
   "nome": "Saúde",
   "resumo": "Hospitais, laboratórios e dispositivos médicos.",
-  "abre": "A Ideal Metrics implanta os sistemas exigidos de fabricantes de dispositivos, laboratórios e serviços de saúde.",
-  "para": "O setor de saúde combina qualidade, gestão de risco e proteção de dados sensíveis, com forte peso regulatório.",
+  "abre": "A Ideal Metrics implanta os sistemas exigidos de fabricantes de dispositivos médicos, laboratórios e serviços de saúde.",
+  "para": "O setor de saúde combina qualidade, gestão de risco e proteção de dados sensíveis, sob forte peso regulatório.",
   "entregas": [
    [
     "Implantação ISO 13485",
@@ -178,7 +288,7 @@
    ],
    [
     "Gestão de risco",
-    "Aplicação da ISO 14971 ao ciclo de vida do produto."
+    "ISO 14971 aplicada ao ciclo de vida do produto."
    ],
    [
     "Qualidade em serviços de saúde",
@@ -186,36 +296,58 @@
    ],
    [
     "Proteção de dados",
-    "Adequação da segurança da informação e da LGPD com base na ISO 27001."
+    "Segurança da informação e LGPD com base na ISO 27001."
    ]
   ],
   "estudos": [
    "Radar dos temas da agenda regulatória da ANVISA, filtrado por segmento.",
    "Matriz de verificação da NR-1 para riscos psicossociais."
   ],
+  "faq": [
+   [
+    "O que o setor de saúde precisa comprovar?",
+    "Fabricantes e importadores de dispositivos médicos comprovam gestão da qualidade pela ISO 13485 e gestão de risco do produto pela ISO 14971. Laboratórios clínicos têm a ISO 15189, e serviços de saúde, a acreditação ONA. Todo o setor trata dados pessoais sensíveis, sob a LGPD."
+   ],
+   [
+    "O que a Ideal Metrics entrega para o setor?",
+    "A Ideal Metrics implanta a ISO 13485, aplica a ISO 14971 ao ciclo de vida do produto, implanta a ISO 9001 em clínicas, laboratórios e prestadores e adequa a segurança da informação e a LGPD com base na ISO 27001."
+   ],
+   [
+    "Quais normas e padrões se aplicam ao setor?",
+    "Em destaque no setor: ISO 13485, ISO 14971, ISO 15189, ONA, ISO/IEC 27001 e LGPD, além das ISO 9001, 14001 e 45001."
+   ],
+   [
+    "Quais as principais dificuldades?",
+    "A principal dificuldade é conciliar qualidade, gestão de risco e proteção de dados num setor de forte peso regulatório. A agenda regulatória da ANVISA e a NR-1, com os riscos psicossociais, entram no acompanhamento."
+   ],
+   [
+    "Como começa o trabalho?",
+    "O trabalho começa pelo diagnóstico da organização frente às normas escolhidas e segue com o plano diretor, a implantação, a auditoria interna e a análise crítica, até a organização ficar pronta para a certificação. Um projeto de implantação dura cerca de 6 meses, com até 5 visitas por mês e reuniões online, e é contratado em homens/dia."
+   ]
+  ],
   "banner": "https://static.wixstatic.com/media/b83354_95524123dbea4056bd884d3c1938ea8c~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
  },
  "energia": {
   "nome": "Energia e utilities",
   "resumo": "Eletricidade, gás, óleo e gás, renováveis, água e saneamento.",
-  "abre": "A Ideal Metrics implanta esses sistemas e atende às normas regulamentadoras do setor.",
-  "para": "Geradoras, distribuidoras, empresas de óleo e gás, renováveis e saneamento operam sob rigor de segurança, eficiência energética, gestão de ativos e requisitos específicos, incluindo o ambiente offshore.",
+  "abre": "A Ideal Metrics implanta sistemas de gestão em energia e utilities e adequa a operação às normas regulamentadoras do setor.",
+  "para": "Geradoras, distribuidoras, empresas de óleo e gás, renováveis e saneamento operam sob exigências de segurança, eficiência energética e gestão de ativos, inclusive offshore.",
   "entregas": [
    [
     "Gestão de energia",
-    "Implantação da ISO 50001 e identificação de oportunidades de eficiência."
+    "ISO 50001 e identificação de oportunidades de eficiência."
    ],
    [
     "Gestão de ativos",
-    "Implantação da ISO 55001 para ativos de geração, redes e saneamento."
+    "ISO 55001 para ativos de geração, redes e saneamento."
    ],
    [
     "Óleo e gás",
     "Preparação para a ISO 29001 e requisitos da cadeia."
    ],
    [
-    "Offshore (NR-37)",
-    "Adequação de sistemas à NR-37 e ISO 22000 para hotelaria em plataformas."
+    "Offshore",
+    "NR-37 e ISO 22000 para a hotelaria em plataformas."
    ],
    [
     "Carbono",
@@ -227,29 +359,51 @@
    "Estudo de fluxos de financiamento da transição energética.",
    "Painel executivo de plano de transição."
   ],
+  "faq": [
+   [
+    "O que o setor de energia e utilities precisa comprovar?",
+    "O setor comprova segurança, eficiência energética e gestão de ativos. Em instalações elétricas vale a NR-10; nas plataformas de petróleo, a NR-37."
+   ],
+   [
+    "O que a Ideal Metrics entrega para o setor?",
+    "A Ideal Metrics implanta a ISO 50001 e a ISO 55001, prepara para a ISO 29001 em óleo e gás, adequa sistemas à NR-37 e implanta a ISO 22000 na hotelaria das plataformas. No carbono, a Ideal Metrics faz o inventário de GEE e prepara metas de descarbonização."
+   ],
+   [
+    "Quais normas e padrões se aplicam ao setor?",
+    "Além das ISO 9001, 14001 e 45001, a página destaca ISO 50001, ISO 55001, ISO 29001, ISO 37001, NR-10, NR-37, ISO 14064, SBCE e CBAM."
+   ],
+   [
+    "Quais as principais dificuldades?",
+    "A principal dificuldade é gerir ativos de geração, redes e saneamento junto com segurança e eficiência energética, com o ambiente offshore como caso mais exigente. O mercado regulado de carbono (SBCE, Lei 15.042/2024) e o CBAM europeu entram na conta das emissões."
+   ],
+   [
+    "Como começa o trabalho?",
+    "O trabalho começa pelo diagnóstico da organização frente às normas escolhidas e segue com o plano diretor, a implantação, a auditoria interna e a análise crítica, até a organização ficar pronta para a certificação. Um projeto de implantação dura cerca de 6 meses, com até 5 visitas por mês e reuniões online, e é contratado em homens/dia."
+   ]
+  ],
   "banner": "https://static.wixstatic.com/media/b83354_d16f148a500f40f7ab5825381a148de2~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
  },
  "tecnologia": {
   "nome": "Tecnologia e serviços financeiros",
   "resumo": "Software, TI, data centers, fintechs, bancos e seguradoras.",
-  "abre": "A Ideal Metrics implanta os sistemas que abrem essas portas.",
-  "para": "Empresas de tecnologia e instituições financeiras vendem confiança: clientes corporativos, contratos públicos e o regulador exigem segurança da informação, privacidade, continuidade e gestão de serviços comprovadas.",
+  "abre": "A Ideal Metrics implanta os sistemas de segurança da informação, privacidade e continuidade exigidos de empresas de tecnologia e instituições financeiras.",
+  "para": "Clientes corporativos, contratos públicos e o regulador cobram segurança da informação, privacidade, continuidade e gestão de serviços comprovadas.",
   "entregas": [
    [
     "Implantação ISO 27001",
-    "Sistema de gestão de segurança da informação, do escopo à preparação para a auditoria."
+    "Do escopo à preparação para a certificação."
    ],
    [
     "Privacidade e LGPD",
-    "Adequação com base na ISO 27701, alinhada à LGPD."
+    "ISO 27701 alinhada à LGPD."
    ],
    [
     "Continuidade de negócios",
-    "Implantação da ISO 22301 para meios de pagamento, fintechs e serviços críticos."
+    "ISO 22301 para meios de pagamento, fintechs e serviços críticos."
    ],
    [
     "Gestão de serviços de TI",
-    "Implantação da ISO 20000-1."
+    "Implantação da ISO/IEC 20000-1."
    ],
    [
     "Gestão da inovação",
@@ -259,13 +413,35 @@
   "estudos": [
    "Radar de normas de inteligência artificial e de segurança da informação, dos comitês ISO/IEC JTC 1/SC 27 e SC 42."
   ],
+  "faq": [
+   [
+    "O que o setor de tecnologia e serviços financeiros precisa comprovar?",
+    "Empresas de tecnologia e instituições financeiras comprovam segurança da informação, privacidade, continuidade e gestão de serviços a clientes corporativos, em contratos públicos e ao regulador."
+   ],
+   [
+    "O que a Ideal Metrics entrega para o setor?",
+    "A Ideal Metrics implanta a ISO 27001, do escopo à preparação para a certificação, a ISO 27701 alinhada à LGPD, a ISO 22301, a ISO/IEC 20000-1 e a ISO 56002."
+   ],
+   [
+    "Quais normas e padrões se aplicam ao setor?",
+    "Em destaque no setor: ISO/IEC 27001, ISO/IEC 27701, ISO/IEC 20000-1, ISO/IEC 42001 (sistemas de inteligência artificial), ISO 22301, ISO 56002 e LGPD, além das ISO 9001, 14001 e 45001."
+   ],
+   [
+    "Quais as principais dificuldades?",
+    "A principal dificuldade é definir o escopo do sistema de segurança da informação e levar privacidade e LGPD para dentro dele. Com uma base única, a organização responde a clientes corporativos, contratos públicos e regulador."
+   ],
+   [
+    "Como começa o trabalho?",
+    "O trabalho começa pelo diagnóstico da organização frente às normas escolhidas e segue com o plano diretor, a implantação, a auditoria interna e a análise crítica, até a organização ficar pronta para a certificação. Um projeto de implantação dura cerca de 6 meses, com até 5 visitas por mês e reuniões online, e é contratado em homens/dia."
+   ]
+  ],
   "banner": "https://static.wixstatic.com/media/b83354_38a0348727e54c02aef4e90bf0d8fa47~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
  },
  "servicos": {
   "nome": "Serviços e setor público",
   "resumo": "Terceirização, serviços profissionais, administração pública, estatais e educação.",
   "abre": "A Ideal Metrics implanta os sistemas que contratantes, órgãos de controle e a lei exigem de prestadores de serviço, estatais e órgãos públicos.",
-  "para": "Prestadores de serviço, concessionárias de veículos, estatais e órgãos públicos respondem por qualidade de atendimento, integridade nos contratos e segurança de quem trabalha, com a Lei 13.303/2016 e a Lei 14.133/2021 como pano de fundo.",
+  "para": "Prestadores de serviço, estatais e órgãos públicos respondem por qualidade de atendimento, integridade nos contratos e segurança de quem trabalha, com a Lei 13.303/2016 e a Lei 14.133/2021 como pano de fundo.",
   "entregas": [
    [
     "Integridade e compliance",
@@ -281,12 +457,34 @@
    ],
    [
     "Responsabilidade social",
-    "SA 8000 e SMETA para quem presta serviço a cadeias auditadas."
+    "SA 8000 e SMETA para prestadores de cadeias auditadas."
    ]
   ],
   "estudos": [
    "Avaliação de políticas e programas públicos.",
    "Matriz de verificação da NR-1 para riscos psicossociais em editais de prefeituras e tribunais."
+  ],
+  "faq": [
+   [
+    "O que o setor de serviços e o setor público precisam comprovar?",
+    "Estatais, concessionárias e fornecedores do poder público comprovam integridade nos contratos, com a Lei 13.303/2016 e a Lei 14.133/2021 como referência. Prestadores que atendem cadeias auditadas passam por auditoria social, e equipes em instalações de terceiros exigem gestão de saúde e segurança."
+   ],
+   [
+    "O que a Ideal Metrics entrega para o setor?",
+    "A Ideal Metrics implanta ISO 37001 e ISO 37301 para integridade e compliance, ISO 9001 para o atendimento, ISO 45001 e NR-01 para equipes em campo, e prepara para SA 8000 e SMETA."
+   ],
+   [
+    "Quais normas e padrões se aplicam ao setor?",
+    "Além das ISO 9001, 14001 e 45001, a página destaca ISO 37001, ISO 37301, SA 8000, SEDEX/SMETA, NR-01 e LGPD. Para instituições de ensino, a página destaca a ISO 21001; para laboratórios de ensaio e calibração, a ISO/IEC 17025."
+   ],
+   [
+    "Quais as principais dificuldades?",
+    "A principal dificuldade é comprovar integridade nos contratos públicos e, ao mesmo tempo, a segurança de equipes que trabalham em instalações de terceiros. A NR-1, com os riscos psicossociais, chega também aos editais de prefeituras e tribunais."
+   ],
+   [
+    "Como começa o trabalho?",
+    "O trabalho começa pelo diagnóstico da organização frente às normas escolhidas e segue com o plano diretor, a implantação, a auditoria interna e a análise crítica, até a organização ficar pronta para a certificação. Um projeto de implantação dura cerca de 6 meses, com até 5 visitas por mês e reuniões online, e é contratado em homens/dia."
+   ]
   ],
   "banner": "img/banner-servicos-bayer.webp?v=10102026"
  }
