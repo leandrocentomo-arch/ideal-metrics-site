@@ -3990,3 +3990,21 @@ html.js .content > .in-view { opacity: 1; transform: none; }
   .barra-marca{margin-top:0;padding:3.15px} }
 .barra-espaco{height:92px}
 /* ===== fim BARRA DA HOME ===== */
+
+/* ===== PERGUNTAS FREQUENTES (11/10/2026): componente unico do site. O Leandro pediu paginas mais simples, com o que
+   explica (o que e a norma, o que se entrega, as dificuldades) numa secao de perguntas no fim, e nao no texto. Sanfona:
+   so a pergunta aparece; a resposta abre no clique. Markup:
+   <h3 id="perguntas">Perguntas frequentes</h3>
+   <div class="faq"><details class="faq-item"><summary>Pergunta?</summary><p>Resposta.</p></details> ... </div> ===== */
+.faq{margin:22px 0 28px;border-top:1px solid rgba(20,48,76,.14)}
+.faq-item{border-bottom:1px solid rgba(20,48,76,.14)}
+.faq-item summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;
+  padding:14px 2px;font-family:var(--sans);font-weight:600;font-size:16px;line-height:1.3;color:var(--azul)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";flex:none;font-family:var(--mono);font-weight:400;font-size:18px;line-height:1;color:var(--azul);
+  transition:transform .25s ease}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item summary:focus-visible{outline:1px solid var(--azul);outline-offset:2px}
+.faq-item p,.content .faq-item p{margin:0 0 16px;padding:0 2px;font-size:15px;line-height:1.5;color:var(--text-light,#14304C)}
+.faq-item ul{margin:0 0 16px}
+/* ===== fim PERGUNTAS FREQUENTES ===== */
