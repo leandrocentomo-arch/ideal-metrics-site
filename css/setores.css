@@ -107,7 +107,7 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 /* 09/10/2026 (3): a grade ocupa a metade esquerda da secao, ao lado dos «Temas de gestao» (terco direito), no espaco
    que ficava vazio embaixo da busca; as duas comecam na mesma altura. A soma fecha com o vao de 40px da linha. */
 .qc-abre-linha>.qc-mat{position:relative;flex:0 0 calc(42% - 40px);min-width:0;max-width:100%;margin:40px 0 0;padding-right:47px;
-  transition:flex-basis .5s cubic-bezier(.4,0,.2,1)}
+  transition:flex-basis .8s cubic-bezier(.4,0,.2,1)}
 /* 09/10/2026 (4): aberta, a grade NAO desce de linha nem empurra nada para baixo: cresce para a direita e a coluna
    dos temas e comprimida ate sumir, e volta ao recolher. O conteudo da coluna guarda a largura que tinha (--cauda-w,
    medida pelo js), para o texto nao se reorganizar enquanto ela fecha. */
@@ -163,13 +163,13 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-abre-linha>.qc-busca{order:1;flex:0 0 50%;width:50%;max-width:none;margin-right:calc(50% - 40px)}   /* 10/10: «busca ocupando metade da secao» */
 .qc-abre-linha>.qc-mat{order:2;margin-top:80px}   /* 10/10: espacos entre os blocos +50% (80 -> 120 px; 136 -> 204 px) */
 .qc-abre-linha>.qc-abre-texto{order:3;flex:0 1 58%;min-width:0;margin:80px 0 0;
-  transition:flex-basis .5s cubic-bezier(.4,0,.2,1),opacity .35s}
+  transition:flex-basis .8s cubic-bezier(.4,0,.2,1),opacity .55s}
 .qc-abre-linha>.qc-abre-cauda{order:4;flex:0 0 66.6667%;min-width:0;margin:164px auto 0 0}
 .qc-abre-linha.mat-aberto>.qc-abre-texto{flex:0 0 0%;min-width:0;opacity:0;overflow:hidden;pointer-events:none}
 .qc-abre-linha.mat-ok>.qc-abre-texto>*{width:var(--cauda-w);max-width:none}
 /* 10/10: espaco entre a grade e a frase +50% (40 -> 60 px) e, nesse espaco, um traco vertical na tinta da frase,
    da altura da frase (cresce junto com a digitacao). A margem sai quando a grade abre, para a linha nao quebrar. */
-.qc-abre-linha>.qc-abre-texto{margin-left:20px;flex-basis:calc(58% - 20px);transition:flex-basis .5s cubic-bezier(.4,0,.2,1),opacity .35s,margin-left .5s cubic-bezier(.4,0,.2,1)}
+.qc-abre-linha>.qc-abre-texto{margin-left:20px;flex-basis:calc(58% - 20px);transition:flex-basis .8s cubic-bezier(.4,0,.2,1),opacity .55s,margin-left .8s cubic-bezier(.4,0,.2,1)}
 .qc-abre-linha.mat-aberto>.qc-abre-texto{margin-left:0}
 .qc-abre-texto>.qc-lead{position:relative}
 /* 10/10 (noite): «tire a linha vertical»: o traco prata ao lado da frase saiu, e a frase volta a alinhar com o titulo e o botao. */
@@ -334,8 +334,12 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
    mosaico estao em Ideal Metrics/secoes-guardadas/frentes-temas-orcamento-mosaico-l.html. ---------- */
 .qc-abre-linha>.qc-abre-cauda{order:4;flex:0 0 calc(58% - 20px);min-width:0;margin:0 0 0 auto}   /* a linha de cima ja termina ~50 px abaixo da grade (a .qc-mat-info reserva 4,1em) */
 .qc-contato-frase{margin:0;font-family:var(--sans);font-size:15px;line-height:1.35;color:var(--azul-escuro)}
-.qc-contato-canais{margin:8px 0 0;font-family:var(--mono);font-size:11px;line-height:1.5;letter-spacing:.12em;text-transform:uppercase;color:var(--azul)}
-.qc-contato-canais a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
-.qc-contato-canais a:hover,.qc-contato-canais a:focus-visible{border-bottom-color:currentColor;outline:none}
-.qc-contato-canais span{margin:0 10px;opacity:.5}
+.qc-contato-bts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.qc-contato-bt{display:flex;align-items:center;gap:10px;width:148px;padding:7px 12px;border:1px solid rgba(20,48,76,.42);border-radius:3px;
+  color:var(--azul);text-decoration:none;font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;
+  transition:background .3s,color .3s,border-color .3s}
+.qc-contato-bt:hover,.qc-contato-bt:focus-visible{background:var(--azul);color:var(--mercurio);border-color:var(--azul);outline:none}
+.qc-contato-wa{width:16px;height:16px;flex:none;fill:#188755}
+.qc-contato-bt:hover .qc-contato-wa,.qc-contato-bt:focus-visible .qc-contato-wa{fill:var(--mercurio)}
+.qc-contato-mail{width:16px;height:11px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
 @media (max-width:880px){ .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin:40px 0 0} }

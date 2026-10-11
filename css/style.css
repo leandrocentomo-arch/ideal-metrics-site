@@ -4008,3 +4008,13 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 .faq-item p,.content .faq-item p{margin:0 0 16px;padding:0 2px;font-size:15px;line-height:1.5;color:var(--text-light,#14304C)}
 .faq-item ul{margin:0 0 16px}
 /* ===== fim PERGUNTAS FREQUENTES ===== */
+
+/* ===== grade-guia de colunas atras de tudo (11/10/2026) =====
+   «gosto das linhas verticais, podem ser menos, finas e por todo site, para contemplar o estilo suico». A mesma grade
+   da home: 6 colunas entre as margens do cabecalho (--lado-guia = o --lado da home), fio de 1 px na tinta da marca a
+   8%, com a borda da direita. Fica atras do conteudo (z-index -1 no body sem contexto proprio); o que tem fundo
+   proprio (banner, cards, rodape) cobre a grade. */
+:root{--lado-guia:clamp(28px,4vw,64px)}
+body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);right:var(--lado-guia);z-index:-1;pointer-events:none;
+  background-image:linear-gradient(to right,rgba(20,48,76,.08) 1px,transparent 1px);background-size:calc(100%/6) 100%;
+  border-right:1px solid rgba(20,48,76,.08)}

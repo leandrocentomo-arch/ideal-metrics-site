@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '46', '16'
+CSS_V, JS_V = '47', '16'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -274,7 +274,14 @@ def matriz():
          '  <div class="qc-mat-topo"><span id="qcMatTit">Normas e padrões por setor</span><span>[ IM.S ]</span></div>',
          '  <div class="qc-mat-rola"><svg viewBox="0 0 %d %d" width="%d" height="%d" role="img" aria-label="Grade que liga cada setor às normas e padrões aplicáveis">' % (larg, alt, larg, alt)]
     for rot, x0, x1 in grupos:
-        o.append('    <g class="gr"><text x="%s" y="11">%s</text><path d="M%s 17H%s"/></g>' % (x0, esc(rot), x0, x1))
+        # 11/10/2026: «os topicos das colunas nao da pra ver tudo, algumas pode deixar abaixo da linha». O rotulo (mono 9,5 px,
+        # entreletra ,14em: ~7,05 px por letra) que nao cabe ate o rotulo do grupo seguinte desce para baixo da linha, onde
+        # os nomes das normas (girados) ainda nao chegam. Hoje: Viaria (1 coluna) e Social e cadeia (2 colunas).
+        cabe = (x1 + 2 + GAP - x0) - 6
+        if len(rot) * 7.05 > cabe:
+            o.append('    <g class="gr baixo"><text x="%s" y="30">%s</text><path d="M%s 17H%s"/></g>' % (x0, esc(rot), x0, x1))
+        else:
+            o.append('    <g class="gr"><text x="%s" y="11">%s</text><path d="M%s 17H%s"/></g>' % (x0, esc(rot), x0, x1))
     for k, cx in cols:
         nome, _, _, pg = NORMAS[k]
         txt = '<text transform="translate(%s %s) rotate(-90)">%s</text>' % (cx + 3.5, TOPO - 8, esc(CURTO_N.get(k, nome)))
