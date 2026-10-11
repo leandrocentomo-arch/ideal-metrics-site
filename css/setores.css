@@ -216,3 +216,39 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
   .mp-fluxo{flex-wrap:wrap;gap:8px 10px}
   .mp-fluxo i{flex:0 0 24px}
 }
+
+/* ---------- Guia, «Ou monte a sua rota» (10/10/2026): setor -> temas -> normas, ligados por fios finos (js/guia-rota.js) ---------- */
+.mr{margin-top:96px}
+.mr-cab{display:flex;justify-content:space-between;border-top:1px solid var(--fio);padding-top:12px;font-family:var(--mono);
+  font-size:12px;line-height:1;letter-spacing:.02em;text-transform:uppercase;color:var(--azul)}
+.mr-lead{margin:22px 0 0;font-family:var(--sans);font-weight:500;font-size:18px;line-height:1.35;color:var(--azul);max-width:62ch}
+.mr-grade{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(60px,9vw,150px);margin-top:30px}
+.mr-fios{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.mr-fios path{fill:none;stroke:var(--azul);stroke-width:.8;opacity:.55;transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1)}
+.mr-fios path.mr-fio2{opacity:.35}
+.mr-col{position:relative;z-index:1}
+.mr-col-tit{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul-escuro)}
+.mr-col ul{list-style:none;margin:0;padding:0}
+.mr-no{display:flex;align-items:center;gap:10px;width:100%;height:34px;box-sizing:border-box;padding:0 10px;margin:0 0 4px;
+  border:1px solid transparent;border-radius:3px;background:transparent;font-family:var(--sans);font-weight:500;font-size:15px;
+  color:var(--azul);text-align:left;text-decoration:none;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  transition:border-color .25s,opacity .25s,background .25s}
+.mr-no::before{content:"";flex:none;width:6px;height:6px;border:1px solid var(--azul);transform:rotate(45deg);transition:background .25s}
+.mr-no.on{border-color:rgba(20,48,76,.30);background:var(--mercurio)}
+.mr-no.on::before,.mr-no.foco::before{background:var(--azul)}
+.mr-no.foco{border-color:rgba(20,48,76,.55)}
+.mr-no.apagado{opacity:.32}
+.mr-no:focus-visible{outline:1px solid var(--azul);outline-offset:2px}
+.mr-norma{border-color:rgba(20,48,76,.30);background:var(--mercurio)}
+.mr-norma span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.mr-norma svg{flex:none;width:9px;height:9px;overflow:visible;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.mr-norma svg path{fill:none;stroke:currentColor;stroke-width:1}
+a.mr-norma:hover svg{transform:translateX(4px)}
+a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
+.mr-sem{cursor:default;color:var(--azul-escuro)}
+.mr-vazio{font-family:var(--mono);font-size:12px;color:var(--azul-escuro);padding:8px 0}
+.mr-info{margin:18px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--azul-escuro);min-height:1.4em}
+@media (max-width:880px){
+  .mr-grade{grid-template-columns:1fr;gap:26px}
+  .mr-fios{display:none}
+}
