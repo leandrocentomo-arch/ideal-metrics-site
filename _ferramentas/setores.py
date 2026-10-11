@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '31', '14'
+CSS_V, JS_V = '31', '15'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -115,11 +115,8 @@ NORMAS = {
  'iso31022': ('ISO 31022', 'Gestão de riscos legais', 'compliance', NRS),
  'lgpd': ('LGPD', 'Proteção de dados pessoais (Lei 13.709/2018)', 'infosec', COMP),
  'eudr': ('EUDR', 'Regulamento da União Europeia contra o desmatamento', 'ambiente', 'estudos-regulatorios.html'),
- # 10/10/2026: entraram com os setores novos (construcao e infraestrutura; agro e florestal). Sem entrada em
+ # 10/10/2026: entraram com o setor novo agro e florestal (PBQP-H, NR-18 e NR-35 sairam com Construcao). Sem entrada em
  # setores-revisoes.json ate a revisao vigente ser conferida em fonte primaria.
- 'pbqph': ('PBQP-H / SiAC', 'Avaliação da conformidade de empresas de serviços e obras (Ministério das Cidades)', 'qualidade', None),
- 'nr18': ('NR-18', 'Segurança e saúde na indústria da construção', 'sst', NRS),
- 'nr35': ('NR-35', 'Trabalho em altura', 'sst', NRS),
  'cerflor': ('Cerflor / PEFC', 'Certificação florestal brasileira, reconhecida pelo PEFC', 'ambiente', None),
  'rtrs': ('RTRS', 'Soja responsável (Round Table on Responsible Soy)', 'ambiente', None),
  'bonsucro': ('Bonsucro', 'Cana-de-açúcar e derivados produzidos de forma sustentável', 'ambiente', None),
@@ -130,14 +127,14 @@ NORMAS = {
 # mesmo sem aparecer na lista: o grafico, o filtro e o mosaico mostram em todos.
 SETORES = [   # 10/10/2026: nove setores (aprovados pelo Leandro)
  ('industria', 'setor-industria.html', ['iso9001', 'iso14001', 'iso45001', 'iatf16949', 'iso50001', 'iso13485', 'iso22000', 'atuacao', 'iso37301', 'iso14064', 'iso14067', 'cbam', 'sbce', 'nr12', 'nr10', 'smeta', 'fsc', 'iso17025']),
- ('construcao', 'setor-construcao-infraestrutura.html', ['iso9001', 'iso14001', 'iso45001', 'pbqph', 'iso37001', 'iso37301', 'nr18', 'nr35', 'nr01', 'iso39001', 'iso14064']),
+ ('facilities', 'setor-facilities.html', ['iso41001', 'iso9001', 'iso14001', 'iso45001', 'iso55001', 'iso50001', 'iso22301', 'nr01', 'nr10', 'iso14064']),   # 10/10 (noite): no lugar de Construcao («nao trabalho com isso»); ISO 41001 e a especialidade do Leandro
  ('transporte', 'setor-transporte-rodovias.html', ['iso9001', 'iso14001', 'iso45001', 'iso39001', 'iso37001', 'iso37301', 'iso55001', 'iso22301', 'iso28000', 'sassmaq', 'oea']),   # 10/10: concessao de rodovia e transporte (CNAE 5221-4/00, secao H; EA 31)
  ('alimentos', 'setor-alimentos.html', ['iso9001', 'iso14001', 'iso45001', 'iso22000', 'fssc22000', 'haccp', 'ppr', 'brcgs', 'ifs', 'sqf', 'fooddefense', 'smeta', 'iso50001', 'eudr', 'rainforest']),
  ('agro', 'setor-agro-florestal.html', ['iso9001', 'iso14001', 'iso45001', 'fsc', 'cerflor', 'rtrs', 'bonsucro', 'globalgap', 'rainforest', 'eudr', 'iso14064', 'iso14067', 'smeta']),
  ('saude', 'setor-saude.html', ['iso9001', 'iso14001', 'iso45001', 'iso13485', 'iso14971', 'iso15189', 'iso27001', 'ona', 'lgpd']),
  ('energia', 'setor-energia.html', ['iso9001', 'iso14001', 'iso45001', 'iso50001', 'iso55001', 'iso29001', 'iso37001', 'nr10', 'nr37', 'iso14064', 'sbce', 'cbam']),
  ('tecnologia', 'setor-tecnologia.html', ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso200001', 'iso42001', 'iso22301', 'lgpd', 'iso56002']),
- ('servicos', 'setor-servicos-setor-publico.html', ['iso9001', 'iso14001', 'iso45001', 'iso37001', 'iso37301', 'iso41001', 'iso21001', 'iso17025', 'sa8000', 'smeta', 'nr01', 'lgpd']),
+ ('servicos', 'setor-servicos-setor-publico.html', ['iso9001', 'iso14001', 'iso45001', 'iso37001', 'iso37301', 'iso21001', 'iso17025', 'sa8000', 'smeta', 'nr01', 'lgpd']),
 ]
 
 # valem para qualquer setor: normas genericas de sistema de gestao, programas de cadeia, clima e requisitos legais gerais
@@ -259,7 +256,7 @@ def matriz():
     PASSO, QUAD, ROT_L, TOPO, LIN_H, GAP = 19, 13, 206, 172, 25, 14   # 10/10: rotulo de linha mais largo (nove setores)
     CURTO_G = {'qualidade': 'Qualidade', 'ambiente': 'Meio ambiente', 'sst': 'Saúde e segurança', 'viaria': 'Viária', 'clima': 'Clima e carbono',
                'esg': 'ESG', 'social': 'Social e cadeia', 'alimentos': 'Alimentos', 'infosec': 'Informação', 'compliance': 'Compliance e riscos'}
-    CURTO_S = {'industria': 'Indústria', 'construcao': 'Construção e infra', 'transporte': 'Transporte e rodovias', 'alimentos': 'Alimentos',
+    CURTO_S = {'industria': 'Indústria', 'facilities': 'Facilities', 'transporte': 'Transporte e rodovias', 'alimentos': 'Alimentos',
                'agro': 'Agro e florestal', 'saude': 'Saúde', 'energia': 'Energia e utilities', 'tecnologia': 'Tecnologia e financeiro', 'servicos': 'Serviços e setor público'}
     CURTO_N = {'ifc': 'IFC Perf. Standards', 'fooddefense': 'Food Defense', 'atuacao': 'Atuação Responsável'}
     cols = []; x = ROT_L; grupos = []

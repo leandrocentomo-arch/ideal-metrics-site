@@ -32,38 +32,38 @@
   ],
   "banner": "https://static.wixstatic.com/media/b83354_b43ecda9b87347b4af5c1ec036f7bd8b~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
  },
- "construcao": {
-  "nome": "Construção e infraestrutura",
-  "resumo": "Construtoras, incorporadoras, engenharia, projeto e obras de infraestrutura.",
-  "abre": "A Ideal Metrics implanta os sistemas que contratantes, financiadores e o poder público exigem de construtoras, incorporadoras e empresas de engenharia.",
-  "para": "Obras respondem por qualidade de execução, segurança do trabalho no canteiro e integridade nos contratos com o poder público, com o PBQP-H exigido em financiamento habitacional e em obras públicas.",
+ "facilities": {
+  "nome": "Facilities",
+  "resumo": "Gestão de facilities, manutenção predial, serviços integrados e operação de edifícios.",
+  "abre": "A Ideal Metrics implanta o sistema de gestão de facility management pela ISO 41001 e o integra aos sistemas de qualidade, meio ambiente e saúde e segurança.",
+  "para": "Empresas de facilities, gestoras de propriedades e áreas corporativas de facilities respondem pelo funcionamento do ambiente de trabalho do cliente (manutenção, limpeza, segurança, alimentação e energia), sob contratos com indicadores de desempenho.",
   "entregas": [
    [
+    "Implantação ISO 41001",
+    "Sistema de gestão de facility management, do escopo à preparação para a certificação."
+   ],
+   [
     "Sistema de gestão integrado",
-    "ISO 9001, 14001 e 45001 para construtoras, incorporadoras e empresas de engenharia, com uma documentação e um cronograma."
+    "ISO 41001 integrada às ISO 9001, 14001 e 45001, com uma documentação e um cronograma."
    ],
    [
-    "PBQP-H / SiAC",
-    "Preparação para a avaliação de conformidade exigida em financiamento habitacional e em obras públicas."
+    "Nova edição da ISO 41001",
+    "Acompanhamento da revisão da norma (DIS de 2026) e plano de transição para a organização certificada."
    ],
    [
-    "Integridade e compliance",
-    "ISO 37001 e ISO 37301 para contratos com o poder público e estatais."
+    "Ativos e energia do edifício",
+    "ISO 55001 para os ativos do edifício e ISO 50001 para o consumo de energia."
    ],
    [
-    "Segurança no canteiro",
-    "Adequação a NR-18, NR-35 e NR-01."
-   ],
-   [
-    "Obras e conservação viária",
-    "ISO 39001 para empresas que constroem e conservam rodovias."
+    "Saúde e segurança em contratos",
+    "ISO 45001 e NR-01 para equipes alocadas em instalações do cliente."
    ]
   ],
   "estudos": [
-   "Matriz de requisitos de SST para obras (NR-18, NR-35 e NR-01).",
-   "Radar das exigências de sistema de gestão em licitações de obras (Lei 14.133/2021)."
+   "Comparação entre a ABNT NBR ISO 41001:2020 e o DIS 41001:2026, cláusula a cláusula.",
+   "Matriz de verificação da NR-1 para equipes de serviços em instalações de terceiros."
   ],
-  "banner": "img/banner-construcao-bayer.webp?v=10102026"
+  "banner": "img/banner-facilities-bayer.webp?v=10102026"
  },
  "transporte": {
   "nome": "Transporte e rodovias",
@@ -263,9 +263,9 @@
  },
  "servicos": {
   "nome": "Serviços e setor público",
-  "resumo": "Facilities, terceirização, administração pública, estatais e educação.",
+  "resumo": "Terceirização, serviços profissionais, administração pública, estatais e educação.",
   "abre": "A Ideal Metrics implanta os sistemas que contratantes, órgãos de controle e a lei exigem de prestadores de serviço, estatais e órgãos públicos.",
-  "para": "Prestadores de facilities, segurança e limpeza, concessionárias de veículos, estatais e órgãos públicos respondem por qualidade de atendimento, integridade nos contratos e segurança de quem trabalha, com a Lei 13.303/2016 e a Lei 14.133/2021 como pano de fundo.",
+  "para": "Prestadores de serviço, concessionárias de veículos, estatais e órgãos públicos respondem por qualidade de atendimento, integridade nos contratos e segurança de quem trabalha, com a Lei 13.303/2016 e a Lei 14.133/2021 como pano de fundo.",
   "entregas": [
    [
     "Integridade e compliance",
@@ -274,10 +274,6 @@
    [
     "Qualidade no atendimento",
     "ISO 9001 para serviços e para o atendimento ao cidadão."
-   ],
-   [
-    "Facilities",
-    "ISO 41001 para gestão de facilities e contratos de terceirização."
    ],
    [
     "Saúde e segurança",
