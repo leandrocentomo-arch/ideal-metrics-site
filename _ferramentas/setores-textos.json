@@ -32,39 +32,6 @@
   ],
   "banner": "https://static.wixstatic.com/media/b83354_b43ecda9b87347b4af5c1ec036f7bd8b~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
  },
- "facilities": {
-  "nome": "Facilities",
-  "resumo": "Gestão de facilities, manutenção predial, serviços integrados e operação de edifícios.",
-  "abre": "A Ideal Metrics implanta o sistema de gestão de facility management pela ISO 41001 e o integra aos sistemas de qualidade, meio ambiente e saúde e segurança.",
-  "para": "Empresas de facilities, gestoras de propriedades e áreas corporativas de facilities respondem pelo funcionamento do ambiente de trabalho do cliente (manutenção, limpeza, segurança, alimentação e energia), sob contratos com indicadores de desempenho.",
-  "entregas": [
-   [
-    "Implantação ISO 41001",
-    "Sistema de gestão de facility management, do escopo à preparação para a certificação."
-   ],
-   [
-    "Sistema de gestão integrado",
-    "ISO 41001 integrada às ISO 9001, 14001 e 45001, com uma documentação e um cronograma."
-   ],
-   [
-    "Nova edição da ISO 41001",
-    "Acompanhamento da revisão da norma (DIS de 2026) e plano de transição para a organização certificada."
-   ],
-   [
-    "Ativos e energia do edifício",
-    "ISO 55001 para os ativos do edifício e ISO 50001 para o consumo de energia."
-   ],
-   [
-    "Saúde e segurança em contratos",
-    "ISO 45001 e NR-01 para equipes alocadas em instalações do cliente."
-   ]
-  ],
-  "estudos": [
-   "Comparação entre a ABNT NBR ISO 41001:2020 e o DIS 41001:2026, cláusula a cláusula.",
-   "Matriz de verificação da NR-1 para equipes de serviços em instalações de terceiros."
-  ],
-  "banner": "img/banner-facilities-bayer.webp?v=10102026"
- },
  "transporte": {
   "nome": "Transporte e rodovias",
   "resumo": "Carga, passageiros, logística, concessões de rodovias, portos e aeroportos.",
@@ -103,6 +70,39 @@
    "Obrigações de documentação fiscal e logística na cadeia de grãos."
   ],
   "banner": "https://static.wixstatic.com/media/b83354_6f7e745146274df7a366bd2151541dde~mv2.png/v1/fill/w_1000,h_620,al_c,q_82,enc_auto/banner.jpg"
+ },
+ "facilities": {
+  "nome": "Facilities",
+  "resumo": "Gestão de facilities, manutenção predial, serviços integrados e operação de edifícios.",
+  "abre": "A Ideal Metrics implanta o sistema de gestão de facility management pela ISO 41001 e o integra aos sistemas de qualidade, meio ambiente e saúde e segurança.",
+  "para": "Empresas de facilities, gestoras de propriedades e áreas corporativas de facilities respondem pelo funcionamento do ambiente de trabalho do cliente (manutenção, limpeza, segurança, alimentação e energia), sob contratos com indicadores de desempenho.",
+  "entregas": [
+   [
+    "Implantação ISO 41001",
+    "Sistema de gestão de facility management, do escopo à preparação para a certificação."
+   ],
+   [
+    "Sistema de gestão integrado",
+    "ISO 41001 integrada às ISO 9001, 14001 e 45001, com uma documentação e um cronograma."
+   ],
+   [
+    "Nova edição da ISO 41001",
+    "Acompanhamento da revisão da norma (DIS de 2026) e plano de transição para a organização certificada."
+   ],
+   [
+    "Ativos e energia do edifício",
+    "ISO 55001 para os ativos do edifício e ISO 50001 para o consumo de energia."
+   ],
+   [
+    "Saúde e segurança em contratos",
+    "ISO 45001 e NR-01 para equipes alocadas em instalações do cliente."
+   ]
+  ],
+  "estudos": [
+   "Comparação entre a ABNT NBR ISO 41001:2020 e o DIS 41001:2026, cláusula a cláusula.",
+   "Matriz de verificação da NR-1 para equipes de serviços em instalações de terceiros."
+  ],
+  "banner": "img/banner-facilities-bayer.webp?v=10102026"
  },
  "alimentos": {
   "nome": "Alimentos e serviços de alimentação",

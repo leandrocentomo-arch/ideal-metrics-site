@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '32', '15'
+CSS_V, JS_V = '33', '16'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -127,8 +127,8 @@ NORMAS = {
 # mesmo sem aparecer na lista: o grafico, o filtro e o mosaico mostram em todos.
 SETORES = [   # 10/10/2026: nove setores (aprovados pelo Leandro)
  ('industria', 'setor-industria.html', ['iso9001', 'iso14001', 'iso45001', 'iatf16949', 'iso50001', 'iso13485', 'iso22000', 'atuacao', 'iso37301', 'iso14064', 'iso14067', 'cbam', 'sbce', 'nr12', 'nr10', 'smeta', 'fsc', 'iso17025']),
- ('facilities', 'setor-facilities.html', ['iso41001', 'iso9001', 'iso14001', 'iso45001', 'iso55001', 'iso50001', 'iso22301', 'nr01', 'nr10', 'iso14064']),   # 10/10 (noite): no lugar de Construcao («nao trabalho com isso»); ISO 41001 e a especialidade do Leandro
  ('transporte', 'setor-transporte-rodovias.html', ['iso9001', 'iso14001', 'iso45001', 'iso39001', 'iso37001', 'iso37301', 'iso55001', 'iso22301', 'iso28000', 'sassmaq', 'oea']),   # 10/10: concessao de rodovia e transporte (CNAE 5221-4/00, secao H; EA 31)
+ ('facilities', 'setor-facilities.html', ['iso41001', 'iso9001', 'iso14001', 'iso45001', 'iso55001', 'iso50001', 'iso22301', 'nr01', 'nr10', 'iso14064']),   # 10/10 (noite): no lugar de Construcao («nao trabalho com isso»); ISO 41001 e a especialidade do Leandro
  ('alimentos', 'setor-alimentos.html', ['iso9001', 'iso14001', 'iso45001', 'iso22000', 'fssc22000', 'haccp', 'ppr', 'brcgs', 'ifs', 'sqf', 'fooddefense', 'smeta', 'iso50001', 'eudr', 'rainforest']),
  ('agro', 'setor-agro-florestal.html', ['iso9001', 'iso14001', 'iso45001', 'fsc', 'cerflor', 'rtrs', 'bonsucro', 'globalgap', 'rainforest', 'eudr', 'iso14064', 'iso14067', 'smeta']),
  ('saude', 'setor-saude.html', ['iso9001', 'iso14001', 'iso45001', 'iso13485', 'iso14971', 'iso15189', 'iso27001', 'ona', 'lgpd']),

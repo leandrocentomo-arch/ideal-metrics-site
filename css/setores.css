@@ -116,7 +116,7 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;
   background:#FAF9F5;color:#14304C;border:1px solid rgba(20,48,76,.42);border-right:none;border-radius:3px 0 0 3px;
   box-shadow:-6px 0 18px -8px rgba(20,48,76,.35);transition:width .35s cubic-bezier(.4,0,.2,1),background .3s,color .3s}
-.qc-mat-aba:hover,.qc-mat-aba:focus-visible{width:47px;background:#14304C;color:#FAF9F5;outline:none}
+.qc-mat-aba:hover,.qc-mat-aba:focus-visible{width:47px;outline:none}   /* 10/10 (noite): «por que coloriu a tarja, se eu nao pedi?»: no hover so alarga, sem o azul */
 .qc-mat-aba svg{width:18px;height:11px;fill:currentColor;flex:none}
 .qc-mat-aba-txt{writing-mode:vertical-rl;transform:rotate(180deg);font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
 .qc-mat-aba-txt b{font-weight:600;letter-spacing:.16em}
