@@ -298,3 +298,13 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
   .sx-card:not(:nth-child(3n+1))::before{display:none}
   .sx-card:nth-child(2n)::before{content:"";display:block;position:absolute;top:0;bottom:0;left:0;width:1px;background:rgba(20,48,76,.2)}
 }
+
+/* ---------- secao Frentes, 11/10/2026: o mosaico em L (Ideal Metrics/mosaicos/parede-mosaico-simbolos-L-01.svg) na vaga
+   a direita dos Temas de gestao, na altura da figura, no motor da trama (index.html, bloco FRENTES). ---------- */
+.qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;display:flex;justify-content:space-between;align-items:stretch;gap:24px}
+.qc-abre-cauda>.qc-temas{flex:0 0 820px;max-width:820px}   /* os temas nao encolhem; quem cede e o mosaico */
+.qc-ml{position:relative;flex:0 1 640px;min-width:0;margin-top:40px;overflow:hidden;background:var(--mercurio,#FAF9F5)}
+.qc-ml img,.qc-ml-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:left center}
+.qc-ml.gl-on img{visibility:hidden}
+@media (max-width:1300px){ .qc-ml{display:none} }   /* abaixo disso a vaga fica com menos de ~310 px e o L some */
+@media (max-width:880px){ .qc-abre-cauda>.qc-temas{flex:0 1 100%} }

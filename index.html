@@ -2629,7 +2629,7 @@ body>*{position:relative;z-index:1}
 .nt-gl{z-index:1}
 .nt-midia.gl-on .nt-layer{visibility:hidden}
 </style>
-<link rel="stylesheet" href="css/setores.css?v=40">
+<link rel="stylesheet" href="css/setores.css?v=42">
 </head>
 <body class="carga inicio">
 <!-- filtro das quatro fotos: +6% de brilho com TETO no creme do site (ver .sh-foto) -->
@@ -3642,6 +3642,7 @@ body>*{position:relative;z-index:1}
               </ul>
             </figcaption>
           </figure>
+          <div class="qc-ml" aria-hidden="true"><img src="img/mosaico-l-bayer.webp?v=11102026" data-lum="img/mosaico-l-lum.webp?v=11102026" alt="" loading="lazy" decoding="async"></div>
         </div>
       </div>
     </div>
@@ -5184,6 +5185,24 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, trilhaSoNaFigura:true, biasReacao:.10});
   })();
   /* ---------------- fim CONHECIMENTO manchas ---------------- */
+  /* ---------------- FRENTES: o mosaico em L ao lado dos Temas de gestao (11/10/2026) ----------------
+     «colocar o mosaico que criamos em forma de L; garanta o efeito do mouse, trama». A luminancia
+     (_ferramentas/mosaico_l.py) ja traz cada tinta no tom certo, por isso o tom aqui e NEUTRO (gama 1,
+     contraste 1, brilho 0): o marinho sai chapado, os azuis medios e o claro saem tramados. O rastro so
+     anda sobre as figuras (trilhaSoNaFigura); ax 0 segura o braco vertical do L quando a vaga estreita.
+     O motor liga perto da tela e e destruido longe dela, pelo limite de contextos WebGL. */
+  (function(){
+    var m = document.querySelector('.qc-ml'), im = m && m.querySelector('img');
+    if(!im || !window.ditherVivo || !('IntersectionObserver' in window)) return;
+    var gl = null;
+    new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(e.isIntersecting && !gl) gl = ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum'), ax:0}], classeCanvas:'qc-ml-gl',
+        revelar:'visivel', gama:1, ctr:1, brilhoTom:0, cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]],
+        pincel:.7, zoomHover:1.03, trilhaSoNaFigura:true, biasReacao:.10});
+      else if(!e.isIntersecting && gl){ gl.destruir(); gl = null; }
+    }); }, {rootMargin:'60% 0px 60% 0px'}).observe(m);
+  })();
+  /* ---------------- fim FRENTES mosaico em L ---------------- */
   /* ---------------- a moldura de noticias: quatro camadas empilhadas ---------------- */
   (function(){
     var midia = document.querySelector('.nt-midia'); if(!midia) return;
