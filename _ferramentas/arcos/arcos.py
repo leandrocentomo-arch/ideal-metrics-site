@@ -39,48 +39,45 @@ ESC_TIT = TXT_TIT / 19          # os titulos de larguras.json foram medidos a 19
 # (id, pagina, divisao, cx, cy, r, linhas do titulo, [(norma, angulo em graus)])
 # angulo: 0 = direita, 90 = baixo (y do SVG cresce para baixo)
 TEMAS = [
- # 24/09/2026 (tarde): ISO 14064 saiu do eixo, porque nao e norma de sistema de
- # gestao certificavel; fica so no aro do carbono, que deixou de cruzar com o ISO.
- # Mais respiro: mesma largura, mais altura. Etiqueta propria nunca encosta em
- # aro alheio, nem no do vizinho que cruza (a ISO 41001 caia dentro do compliance).
- # 24/09/2026: o mosaico passou a contar uma HISTORIA, a pedido do Leandro.
- # «Sistemas de gestão ISO» e o eixo, no meio, e os temas cuja norma tambem e ISO
- # CRUZAM com ele: a etiqueta da norma fica no ponto onde os dois aros se
- # encontram, e por isso pertence aos dois ao mesmo tempo (ISO 14064 no carbono,
- # ISO/IEC 27001 na seguranca da informacao, ISO 37001 no compliance e ISO 22000
- # nos alimentos). Fora do eixo, SEDEX/SMETA cruza com Padroes de mercado, porque
- # o SMETA 7.0 e um padrao de mercado. As etiquetas proprias ficam DENTRO do aro.
- ('iso', 'implantacao-iso.html', 'p', 480, 300, 100, ['Sistemas de', 'gestão ISO'],
-    [('ISO 9001', -4), ('ISO 41001', 172), ('ISO 50001', -156), ('ISO 45001', -111)]),   # 24/09: a 41001 (era 79) ficava espremida entre a 37001 e a 22000, que sao fixas nos cruzamentos; 41001 e 50001 buscadas juntas: folga minima de 33 unidades
- ('carbono', 'gestao-carbono.html', 'p', 275, 195, 70, ['Gestão', 'de carbono'],
-    [('GHG Protocol', -90), ('ISO 14068', 0), ('SBTi', 90), ('ISO 14064', -180)]),   # 28/09: GHG Protocol no TOPO em repouso (a roda girou 90 graus; a ordem em volta ficou); este tema nao gira no hover (monta.py SEM_GIRO)
- ('si', 'compliance-seguranca-informacao.html', 'p', 590, 185, 66, ['Segurança da', 'informação'],
-    [('LGPD', 35), ('SGSI', -85), ('ISO/IEC 27001', 'cruza:iso:cima')]),
- ('compliance', 'compliance-seguranca-informacao.html', 'p', 370, 415, 66, ['Gestão de', 'compliance'],
-    [('ISO 37301', 150), ('ISO 37001', 'cruza:iso:baixo')]),
- ('alimentos', 'seguranca-alimentos.html', 'p', 605, 405, 64, ['Segurança', 'de alimentos'],
-    [('FSSC 22000', 32), ('ISO 22000', 'cruza:iso:baixo')]),
- ('smeta', 'sedex-smeta.html', 'p', 790, 120, 58, ['SEDEX', 'SMETA'],
-    [('SA 8000', -155), ('SMETA 7.0', 'cruza:padroes:cima')]),
- ('padroes', 'padroes-mercado.html', 'p', 870, 200, 62, ['Padrões', 'de mercado'],
-    [('EcoVadis', 65), ('IFC', 150), ('FSC', -30)]),
- ('esg', 'esg.html', 'p', 770, 390, 56, ['ESG'],
-    [('ABNT PR 2030', 0), ('GRI', 120), ('IFRS S1 e S2', -120)]),
- ('nrs', 'nrs.html', 'p', 195, 360, 68, ['Normas', 'Regulamentadoras'],
-    [('NR-01', 90), ('NR-12', -150), ('NR-17', -30)]),
- ('estudos', 'estudos-pesquisa.html', 'i', 905, 470, 66, ['Estudos e', 'pesquisa', 'aplicada'],
-    [('Nota técnica', 90), ('Observatório setorial', -145), ('EUDR', -25)]),
+ # 10/10/2026 (noite): OS DEZ TEMAS DO SITE (os mesmos da figura «Temas de gestao», da grade e do filtro), a pedido
+ # do Leandro. «Sistemas de gestao ISO» continua o EIXO no meio, sem etiqueta propria: oito temas ENCOSTAM nele
+ # (tangentes, a 45 graus um do outro) e a norma ISO de cada tema mora no ponto de contato (ISO 9001, 14001, 50001,
+ # 22000, 37001, 39001, 45001 e ISO/IEC 27001). Fora do eixo, Sustentabilidade e ESG encosta em Responsabilidade
+ # social pela SA 8000, e Estudos fica a parte. «Padroes de mercado» deixou de ser tema: FSC foi para Meio ambiente,
+ # EcoVadis e IFC para Sustentabilidade e ESG. Segurança viaria (ISO 39001) entrou.
+ ('iso', 'implantacao-iso.html', 'p', 420, 300, 120, ['Sistemas de', 'gestão ISO'], []),
+ ('qualidade', 'norma-iso-9001.html', 'p', 420, 128, 52, ['Qualidade'],
+    [('ISO 9001', 'cruza:iso:baixo'), ('ISO 41001', -135), ('IATF 16949', -45)]),
+ ('ambiente', 'norma-iso-14001.html', 'p', 547, 173, 60, ['Meio', 'ambiente'],
+    [('ISO 14001', 'cruza:iso:baixo'), ('FSC', -125), ('Rainforest Alliance', -40)]),
+ ('carbono', 'gestao-carbono.html', 'p', 604, 300, 64, ['Clima e', 'carbono'],
+    [('ISO 50001', 'cruza:iso:baixo'), ('GHG Protocol', -75), ('ISO 14064', -25), ('ISO 14068', 25), ('SBTi', 75)]),
+ ('alimentos', 'seguranca-alimentos.html', 'p', 541.6, 421.6, 52, ['Segurança', 'de alimentos'],
+    [('ISO 22000', 'cruza:iso:baixo'), ('FSSC 22000', 45)]),
+ ('compliance', 'compliance-seguranca-informacao.html', 'p', 420, 472, 52, ['Compliance', 'e riscos'],
+    [('ISO 37001', 'cruza:iso:baixo'), ('ISO 37301', 45), ('ISO 22301', 135)]),
+ ('viaria', 'seguranca-viaria.html', 'p', 298.4, 421.6, 52, ['Segurança', 'viária'],
+    [('ISO 39001', 'cruza:iso:baixo'), ('ISO 39002', 135)]),
+ ('nrs', 'norma-iso-45001.html', 'p', 236, 300, 64, ['Saúde e', 'segurança', 'do trabalho'],
+    [('ISO 45001', 'cruza:iso:baixo'), ('NR-01', 135), ('NR-12', 180), ('NR-17', -135)]),
+ ('si', 'compliance-seguranca-informacao.html', 'p', 293, 173, 60, ['Segurança da', 'informação'],
+    [('ISO/IEC 27001', 'cruza:iso:baixo'), ('ISO/IEC 27701', -150), ('LGPD', -100)]),
+ ('esg', 'esg.html', 'p', 800, 225, 74, ['Sustentabilidade', 'e ESG'],
+    [('ABNT PR 2030', -140), ('GRI', 140), ('IFRS S1 e S2', -90), ('EcoVadis', 90), ('IFC', 40)]),
+ ('smeta', 'sedex-smeta.html', 'p', 898, 142, 54, ['Responsabilidade', 'social'],
+    [('SA 8000', 'cruza:esg:baixo'), ('SMETA 7.0', -65)]),
+ ('estudos', 'estudos-pesquisa.html', 'i', 850, 455, 62, ['Estudos e', 'pesquisa', 'aplicada'],
+    [('Nota técnica', 90), ('Observatório setorial', -145), ('EUDR', -35)]),
 ]
 
-# os pares que se cruzam de proposito: a etiqueta da norma mora no encontro
-CRUZAM = {frozenset(('iso', 'si')), frozenset(('iso', 'compliance')),
-          frozenset(('iso', 'alimentos')), frozenset(('smeta', 'padroes'))}
+# os pares que se tocam de proposito: a etiqueta da norma mora no ponto de contato
+_SAT = ['qualidade', 'ambiente', 'carbono', 'alimentos', 'compliance', 'viaria', 'nrs', 'si']
+CRUZAM = {frozenset((t, 'iso')) for t in _SAT} | {frozenset(('smeta', 'esg'))}
 
-# 27/09/2026: «quero que encoste mas nao passe, apenas encoste os aros». Os pares
-# que se cruzavam passam a ser TANGENTES: o primeiro de cada par anda na linha dos
-# centros ate a distancia ser exatamente a soma dos raios; o segundo fica. A
-# etiqueta compartilhada mora no ponto onde os dois aros se tocam.
-ENCOSTAR = [('si', 'iso'), ('compliance', 'iso'), ('alimentos', 'iso'), ('smeta', 'padroes')]
+# 27/09/2026: «quero que encoste mas nao passe, apenas encoste os aros». O primeiro de cada par anda na linha dos
+# centros ate a distancia ser exatamente a soma dos raios; o segundo fica. 10/10: os oito temas do eixo e o par
+# Responsabilidade social / Sustentabilidade e ESG.
+ENCOSTAR = [(t, 'iso') for t in _SAT] + [('smeta', 'esg')]
 def _encosta():
     por = {t[0]: list(t) for t in TEMAS}
     for mov, fixo in ENCOSTAR:
@@ -94,7 +91,7 @@ TEMAS = _encosta()
 # manchas cheias por tras, independentes dos aros (como na referencia), todas
 # DENTRO da prancha: a primeira versao deixava uma sair por baixo
 # 22/09: manchas 20% menores e tudo mais junto (o esquema deixou de ocupar a largura da pagina)
-DISCOS = [(225, 290, 86), (520, 265, 80), (830, 165, 76), (420, 460, 62), (940, 445, 60)]   # 24/09: a de Estudos sai do contorno
+DISCOS = [(360, 250, 88), (530, 390, 72), (230, 375, 64), (825, 170, 70), (880, 462, 58)]   # 10/10: refeitas para o desenho dos dez temas
 # 21/09/2026: tres dos cinco discos em AZUL palido (o ISO, o do ESG com Padroes
 # de mercado e o de Estudos), a pedido do Leandro: «quero que tenha partes em
 # azul». Os outros dois ficam no bege da casa. Indices de DISCOS.
