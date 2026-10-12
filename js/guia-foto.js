@@ -172,11 +172,11 @@
     /* 12/10/2026: «uma outra trama ainda em cima, da cor do fundo (o creme), no estilo de mosaico de quadros; respeite a
        regra dos 3 px». Depois: «comece com quadrados maiores; todas as divisoes iguais; nada de retangulos; o que muda de um
        para o outro e o traco da trama, mais grosso». Um SVG por cima da foto: o creme cobre tudo menos as janelas. A grade
-       tem casas quadradas iguais (~48 px); cada quadro fica no centro da sua casa e encolhe por igual nos dois lados, entao
-       continua quadrado; o traco entre eles engrossa do canto de cima a esquerda (5 px) ao canto de baixo a direita (20 px).
+       tem casas quadradas iguais (~66 px); cada quadro fica no centro da sua casa e encolhe por igual nos dois lados, entao
+       continua quadrado; o traco entre eles afina do canto de cima a esquerda (20 px) ao canto de baixo a direita (5 px).
        Canto de 3 px. Medido em px reais (ResizeObserver). O mouse passa por baixo (pointer-events none). */
     (function(){
-      var NS = 'http://www.w3.org/2000/svg', CASA = 48, TRACO_MIN = 5, TRACO_MAX = 20, R = 3;
+      var NS = 'http://www.w3.org/2000/svg', CASA = 66, TRACO_MIN = 5, TRACO_MAX = 20, R = 3;   /* 12/10 (noite): casas maiores (eram 48) */
       var svg = document.createElementNS(NS, 'svg'), cam = document.createElementNS(NS, 'path');
       svg.setAttribute('class', 'sx-trama'); svg.setAttribute('aria-hidden', 'true'); svg.appendChild(cam); midia.appendChild(svg);
       function quadro(x, y, l){
@@ -191,7 +191,7 @@
         var n = Math.max(6, Math.round(W / CASA)), p = W / n, m = Math.max(1, Math.round(H / p)), q = H / m;
         var casa = Math.min(p, q), d = 'M0 0H' + W + 'V' + H + 'H0Z', fim = Math.max(1, n + m - 2);
         for(var j = 0; j < m; j++) for(var i = 0; i < n; i++){
-          var traco = TRACO_MIN + (TRACO_MAX - TRACO_MIN) * (i + j) / fim, l = casa - traco;
+          var traco = TRACO_MAX - (TRACO_MAX - TRACO_MIN) * (i + j) / fim, l = casa - traco;   /* 12/10 (noite): grosso no canto de cima a esquerda, fino no de baixo a direita */
           d += quadro(i * p + (p - l) / 2, j * q + (q - l) / 2, l);
         }
         cam.setAttribute('d', d);
