@@ -176,9 +176,15 @@
        continua quadrado; o traco entre eles afina do canto de cima a esquerda (20 px) ao canto de baixo a direita (5 px).
        Canto de 3 px. Medido em px reais (ResizeObserver). O mouse passa por baixo (pointer-events none). */
     (function(){
-      var NS = 'http://www.w3.org/2000/svg', CASA = 66, TRACO_MIN = 5, TRACO_MAX = 20, R = 3;   /* 12/10 (noite): casas maiores (eram 48) */
+      var NS = 'http://www.w3.org/2000/svg', CASA = 66, TRACO_MIN = 5, TRACO_MAX = 20, R = 3, LIMPO = .6;   /* 12/10 (noite): casas maiores (eram 48) */
       var svg = document.createElementNS(NS, 'svg'), cam = document.createElementNS(NS, 'path');
       svg.setAttribute('class', 'sx-trama'); svg.setAttribute('aria-hidden', 'true'); svg.appendChild(cam); midia.appendChild(svg);
+      function janela(x, y, w, h){   /* retangulo de canto 3 px (a area limpa do canto) */
+        var r = Math.min(R, w / 2, h / 2), f = function(n){ return Math.round(n * 100) / 100; };
+        return 'M' + f(x + r) + ' ' + f(y) + 'H' + f(x + w - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + w) + ' ' + f(y + r) +
+               'V' + f(y + h - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + w - r) + ' ' + f(y + h) + 'H' + f(x + r) +
+               'A' + r + ' ' + r + ' 0 0 1 ' + f(x) + ' ' + f(y + h - r) + 'V' + f(y + r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + r) + ' ' + f(y) + 'Z';
+      }
       function quadro(x, y, l){
         var r = Math.min(R, l / 2), f = function(n){ return Math.round(n * 100) / 100; };
         return 'M' + f(x + r) + ' ' + f(y) + 'H' + f(x + l - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + l) + ' ' + f(y + r) +
@@ -190,8 +196,15 @@
         svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
         var n = Math.max(6, Math.round(W / CASA)), p = W / n, m = Math.max(1, Math.round(H / p)), q = H / m;
         var casa = Math.min(p, q), d = 'M0 0H' + W + 'V' + H + 'H0Z', fim = Math.max(1, n + m - 2);
+        /* 12/10 (noite, 2): «como se fosse um L ao contrario: o canto superior esquerdo sem a trama». As primeiras
+           LIMPO x LIMPO casas (60% de cada lado) viram uma janela so, com a foto limpa; a trama fica no L invertido (a faixa
+           da direita e a de baixo). A janela para meio traco antes das casas vizinhas, como os quadros entre si. */
+        var cl = Math.floor(n * LIMPO), ml = Math.floor(m * LIMPO);
+        var tb = TRACO_MAX - (TRACO_MAX - TRACO_MIN) * Math.max(cl, ml) / fim;
+        if(cl && ml) d += janela(0, 0, cl * p - tb / 2, ml * q - tb / 2);
         for(var j = 0; j < m; j++) for(var i = 0; i < n; i++){
-          var traco = TRACO_MAX - (TRACO_MAX - TRACO_MIN) * (i + j) / fim, l = casa - traco;   /* 12/10 (noite): grosso no canto de cima a esquerda, fino no de baixo a direita */
+          if(i < cl && j < ml) continue;
+          var traco = TRACO_MAX - (TRACO_MAX - TRACO_MIN) * (i + j) / fim, l = casa - traco;   /* 12/10 (noite): grosso perto do canto de cima a esquerda, fino no de baixo a direita */
           d += quadro(i * p + (p - l) / 2, j * q + (q - l) / 2, l);
         }
         cam.setAttribute('d', d);
