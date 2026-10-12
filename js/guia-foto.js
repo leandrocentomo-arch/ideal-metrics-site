@@ -177,7 +177,7 @@
        a 5,5 casas, onde ficam os cantos de baixo e o de cima a esquerda. Excecao a regra dos 3 px («nao precisa respeitar»).
        SVG medido em px reais (ResizeObserver); o mouse passa por baixo (pointer-events none). */
     (function(){
-      var NS = 'http://www.w3.org/2000/svg', LADO = 9, VAO = 2, FOCO = [6, 3], R_FOCO = .45, ALCANCE = 5.5, CURVA = 1.3;
+      var NS = 'http://www.w3.org/2000/svg', LADO = 9, VAO = 1, FOCO = [6, 3], R_FOCO = .45, ALCANCE = 5.5, CURVA = 1.3;
       var foco = FOCO.slice(), alvo = FOCO.slice(), quadroAnim = 0;   /* 12/10 (noite, 2): «faca o foco seguir o mouse» */
       var svg = document.createElementNS(NS, 'svg'), cam = document.createElementNS(NS, 'path');
       svg.setAttribute('class', 'sx-trama'); svg.setAttribute('aria-hidden', 'true'); svg.appendChild(cam); midia.appendChild(svg);
