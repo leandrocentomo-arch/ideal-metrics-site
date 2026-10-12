@@ -345,15 +345,22 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
    a cauda ficou vazia (continua no HTML: e a ancora do setores.py) e some. A frase abre depois que a digitacao da
    frase de cima termina (js/busca.js poe .espera e troca por .aberta); sem js ou com movimento reduzido, ela ja
    aparece. «Um pouco menor» que a de cima: 19 px, seminegrito. */
+/* 12/10/2026 (fim da tarde): «coloque esta parte aqui, logo abaixo»: a frase e o contato voltam para a cauda, logo
+   abaixo da altura da grade, encostados a direita na largura da coluna de O que fazemos (alinhados a frase de cima). */
+.qc-abre-linha>.qc-abre-cauda{order:4;flex:0 0 calc(58% - 20px);min-width:0;margin:-50px 0 0 auto;transition:margin-top .8s cubic-bezier(.4,0,.2,1)}
+/* sobe 50 px para ficar logo abaixo da aba (a linha de cima termina na reserva da .qc-mat-info, ~60 px abaixo da grade);
+   com a grade aberta a .qc-mat-info ocupa a largura toda, entao a cauda volta para baixo dela */
+.qc-abre-linha.mat-aberto>.qc-abre-cauda{margin-top:0}
 .qc-abre-linha>.qc-abre-cauda:empty{display:none}
-.qc-lead-sub{margin:30px 0 0;max-width:36em;font-family:var(--sans);font-weight:600;font-size:clamp(16px,1.25vw,19px);line-height:1.35;
+@media (max-width:880px){ .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin:40px 0 0} }
+.qc-lead-sub{margin:0;max-width:36em;font-family:var(--sans);font-weight:600;font-size:clamp(16px,1.25vw,19px);line-height:1.35;
   letter-spacing:-.005em;color:var(--azul);text-wrap:pretty;
   transition:clip-path .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1),opacity .5s}
 .qc-lead-sub.espera{clip-path:inset(0 0 100% 0);transform:translateY(10px);opacity:0}
 .qc-lead-sub.aberta{clip-path:inset(0 0 0 0);transform:none;opacity:1}
-.qc-abre-texto>.qc-contato{margin:22px 0 0;transition:opacity .6s .25s,transform .6s .25s cubic-bezier(.22,1,.36,1)}
-.qc-abre-texto>.qc-contato.espera{opacity:0;transform:translateY(8px)}
-@media (prefers-reduced-motion:reduce){ .qc-lead-sub,.qc-abre-texto>.qc-contato{transition:none} }
+.qc-abre-cauda>.qc-contato{margin:22px 0 0;transition:opacity .6s .25s,transform .6s .25s cubic-bezier(.22,1,.36,1)}
+.qc-abre-cauda>.qc-contato.espera{opacity:0;transform:translateY(8px)}
+@media (prefers-reduced-motion:reduce){ .qc-lead-sub,.qc-abre-cauda>.qc-contato{transition:none} }
 .qc-contato-frase{margin:0;font-family:var(--sans);font-size:15px;line-height:1.35;color:var(--azul-escuro)}
 .qc-contato-bts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
 .qc-contato-bt{display:flex;align-items:center;gap:10px;width:148px;padding:7px 12px;border:1px solid rgba(20,48,76,.42);border-radius:3px;

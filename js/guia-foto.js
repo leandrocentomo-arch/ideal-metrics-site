@@ -169,33 +169,31 @@
     escuta(mqHover); escuta(mqEstreito); escuta(mqCalmo);
     if(temasEl) temasEl.textContent = temas(cartoes[0].getAttribute('data-s'));
 
-    /* 12/10/2026: «uma outra trama ainda em cima, da cor do fundo (o creme), no estilo de mosaico de quadros, mas
-       crescente no tamanho; respeite a regra dos 3 px». Um SVG por cima da foto: o creme cobre tudo menos as janelas,
-       quadros de canto 3 px separados por um vao de 4 px. As colunas crescem da esquerda para a direita e as linhas de
-       cima para baixo (progressao geometrica, 1,22 por passo, a partir de 8 px), e a ultima fecha na borda. Medido em px
-       reais (ResizeObserver), para o canto ser 3 px em qualquer tela. O mouse passa por baixo (pointer-events none). */
+    /* 12/10/2026: «uma outra trama ainda em cima, da cor do fundo (o creme), no estilo de mosaico de quadros; respeite a
+       regra dos 3 px». Depois: «comece com quadrados maiores; todas as divisoes iguais; nada de retangulos; o que muda de um
+       para o outro e o traco da trama, mais grosso». Um SVG por cima da foto: o creme cobre tudo menos as janelas. A grade
+       tem casas quadradas iguais (~48 px); cada quadro fica no centro da sua casa e encolhe por igual nos dois lados, entao
+       continua quadrado; o traco entre eles engrossa do canto de cima a esquerda (5 px) ao canto de baixo a direita (20 px).
+       Canto de 3 px. Medido em px reais (ResizeObserver). O mouse passa por baixo (pointer-events none). */
     (function(){
-      var NS = 'http://www.w3.org/2000/svg', VAO = 4, R = 3, MIN = 8, RAZAO = 1.22;
+      var NS = 'http://www.w3.org/2000/svg', CASA = 48, TRACO_MIN = 5, TRACO_MAX = 20, R = 3;
       var svg = document.createElementNS(NS, 'svg'), cam = document.createElementNS(NS, 'path');
       svg.setAttribute('class', 'sx-trama'); svg.setAttribute('aria-hidden', 'true'); svg.appendChild(cam); midia.appendChild(svg);
-      function medidas(total){
-        var s = [], soma = 0, t = MIN;
-        while(soma + t + VAO * s.length < total){ s.push(t); soma += t; t *= RAZAO; }
-        if(!s.length) return [total];
-        var k = (total - VAO * (s.length - 1)) / soma;   /* fecha exato na borda */
-        return s.map(function(v){ return v * k; });
-      }
-      function quadro(x, y, w, h){
-        var r = Math.min(R, w / 2, h / 2), f = function(n){ return Math.round(n * 100) / 100; };
-        return 'M' + f(x + r) + ' ' + f(y) + 'H' + f(x + w - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + w) + ' ' + f(y + r) +
-               'V' + f(y + h - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + w - r) + ' ' + f(y + h) + 'H' + f(x + r) +
-               'A' + r + ' ' + r + ' 0 0 1 ' + f(x) + ' ' + f(y + h - r) + 'V' + f(y + r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + r) + ' ' + f(y) + 'Z';
+      function quadro(x, y, l){
+        var r = Math.min(R, l / 2), f = function(n){ return Math.round(n * 100) / 100; };
+        return 'M' + f(x + r) + ' ' + f(y) + 'H' + f(x + l - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + l) + ' ' + f(y + r) +
+               'V' + f(y + l - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + l - r) + ' ' + f(y + l) + 'H' + f(x + r) +
+               'A' + r + ' ' + r + ' 0 0 1 ' + f(x) + ' ' + f(y + l - r) + 'V' + f(y + r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + r) + ' ' + f(y) + 'Z';
       }
       function desenha(){
         var W = midia.clientWidth, H = midia.clientHeight; if(!W || !H) return;
         svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-        var cs = medidas(W), ls = medidas(H), d = 'M0 0H' + W + 'V' + H + 'H0Z', y = 0;
-        ls.forEach(function(h){ var x = 0; cs.forEach(function(w){ d += quadro(x, y, w, h); x += w + VAO; }); y += h + VAO; });
+        var n = Math.max(6, Math.round(W / CASA)), p = W / n, m = Math.max(1, Math.round(H / p)), q = H / m;
+        var casa = Math.min(p, q), d = 'M0 0H' + W + 'V' + H + 'H0Z', fim = Math.max(1, n + m - 2);
+        for(var j = 0; j < m; j++) for(var i = 0; i < n; i++){
+          var traco = TRACO_MIN + (TRACO_MAX - TRACO_MIN) * (i + j) / fim, l = casa - traco;
+          d += quadro(i * p + (p - l) / 2, j * q + (q - l) / 2, l);
+        }
         cam.setAttribute('d', d);
       }
       desenha();
