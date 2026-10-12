@@ -177,7 +177,8 @@
        a 5,5 casas, onde ficam os cantos de baixo e o de cima a esquerda. Excecao a regra dos 3 px («nao precisa respeitar»).
        SVG medido em px reais (ResizeObserver); o mouse passa por baixo (pointer-events none). */
     (function(){
-      var NS = 'http://www.w3.org/2000/svg', LADO = 9, VAO = 4, FOCO = [6, 3], R_FOCO = .45, ALCANCE = 5.5, CURVA = 1.3;
+      var NS = 'http://www.w3.org/2000/svg', LADO = 9, VAO = 2, FOCO = [6, 3], R_FOCO = .45, ALCANCE = 5.5, CURVA = 1.3;
+      var foco = FOCO.slice(), alvo = FOCO.slice(), quadroAnim = 0;   /* 12/10 (noite, 2): «faca o foco seguir o mouse» */
       var svg = document.createElementNS(NS, 'svg'), cam = document.createElementNS(NS, 'path');
       svg.setAttribute('class', 'sx-trama'); svg.setAttribute('aria-hidden', 'true'); svg.appendChild(cam); midia.appendChild(svg);
       function tijolo(x, y, l, r){
@@ -192,7 +193,7 @@
         svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
         var passo = (Math.min(W, H) + VAO) / LADO, l = passo - VAO, d = 'M0 0H' + W + 'V' + H + 'H0Z';
         for(var j = 0; j < LADO; j++) for(var i = 0; i < LADO; i++){
-          var dist = Math.sqrt((i - FOCO[0]) * (i - FOCO[0]) + (j - FOCO[1]) * (j - FOCO[1]));
+          var dist = Math.sqrt((i - foco[0]) * (i - foco[0]) + (j - foco[1]) * (j - foco[1]));
           var r = R_FOCO * l * Math.pow(Math.max(0, 1 - dist / ALCANCE), CURVA);
           d += tijolo(i * passo, j * passo, l, r);
         }
@@ -201,6 +202,25 @@
       desenha();
       if('ResizeObserver' in window) new ResizeObserver(desenha).observe(midia);
       else window.addEventListener('resize', desenha);
+      /* o foco segue o mouse sobre a foto (em coordenadas de casa, continuas: o tijolo mais redondo e o que esta sob o
+         cursor), com atraso suave (18% do caminho por quadro); fora da foto, volta para o foco do desenho. Sem mouse
+         (toque) fica parado; com movimento reduzido, pula direto. */
+      var calmo = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function passo_(){ return (Math.min(midia.clientWidth, midia.clientHeight) + VAO) / LADO; }
+      function anima(){
+        quadroAnim = 0;
+        var dx = alvo[0] - foco[0], dy = alvo[1] - foco[1];
+        if(calmo || (Math.abs(dx) < .01 && Math.abs(dy) < .01)){ foco = alvo.slice(); desenha(); return; }
+        foco[0] += dx * .18; foco[1] += dy * .18; desenha();
+        quadroAnim = requestAnimationFrame(anima);
+      }
+      function vai(x, y){ alvo = [x, y]; if(!quadroAnim) quadroAnim = requestAnimationFrame(anima); }
+      midia.addEventListener('pointermove', function(e){
+        if(e.pointerType && e.pointerType !== 'mouse') return;
+        var b = midia.getBoundingClientRect(), pa = passo_();
+        vai((e.clientX - b.left) / pa - .5, (e.clientY - b.top) / pa - .5);
+      });
+      midia.addEventListener('pointerleave', function(){ vai(FOCO[0], FOCO[1]); });
     })();
 
     /* o motor da trama: liga perto da tela, e destruido longe dela */
