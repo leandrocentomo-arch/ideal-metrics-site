@@ -1,0 +1,11 @@
+{
+ "foto_original": "Mulher com prancheta Ideal M.jpg",
+ "vaga": [562, 422],
+ "vaga_spirit": "st",
+ "medidas": {"reserva": [562, 422], "luminancia": [900, 676]},
+ "tamanho_e_posicao": {"zoom": 1, "px": 100, "py": 48.09581215308162, "espelhar": false, "inclinar": 0, "corte_esq": 0, "corte_dir": 0, "corte_topo": 0, "corte_base": 0},
+ "enquadramento": {"zoom": 1, "px": 100, "py": 48.09581215308162, "espelhar": false, "inclinar": 0, "corte_esq": 0, "corte_dir": 0, "corte_topo": 0, "corte_base": 0},
+ "ajustes_da_foto": {"exposicao": -0.15, "gama": 1.12, "ctr": 0.95, "brilho": 0, "piso": 0, "teto": 1, "nitidez": 0, "suave": 0},
+ "tingimento": "padrão do site",
+ "clareamento_na_reserva": true
+}

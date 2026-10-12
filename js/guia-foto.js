@@ -174,7 +174,10 @@
 
     /* o motor da trama: liga perto da tela, e destruido longe dela */
     if(!window.ditherVivo || !('IntersectionObserver' in window)) return;
-    var planos = camadas.map(function(c){ return {el:midia, lum:c.querySelector('img').getAttribute('data-lum')}; });
+    /* 13/10/2026: data-ax na <img> ancora o recorte da foto na horizontal (0 = esquerda, 1 = direita; padrao o centro).
+       A foto de Facilities (a mulher com prancheta) ancora a direita, para o logo da camisa nao sair do quadro. */
+    var planos = camadas.map(function(c){ var im = c.querySelector('img'), ax = parseFloat(im.getAttribute('data-ax'));
+      return {el:midia, lum:im.getAttribute('data-lum'), ax: isNaN(ax) ? .5 : ax}; });
     new IntersectionObserver(function(es){
       es.forEach(function(e){
         if(e.isIntersecting && !gl){
