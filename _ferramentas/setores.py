@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '47', '16'
+CSS_V, JS_V = '50', '16'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -254,8 +254,8 @@ def matriz():
     pagina inteira. So quadrados e linha fina (sem circulos). Rotulo de linha leva a pagina do setor; rotulo de coluna, a
     pagina do servico quando existe. js/setores-matriz.js acende a linha e a coluna sob o mouse."""
     PASSO, QUAD, ROT_L, TOPO, LIN_H, GAP = 19, 13, 206, 172, 25, 14   # 10/10: rotulo de linha mais largo (nove setores)
-    CURTO_G = {'qualidade': 'Qualidade', 'ambiente': 'Meio ambiente', 'sst': 'Saúde e segurança', 'viaria': 'Viária', 'clima': 'Clima e carbono',
-               'esg': 'ESG', 'social': 'Social e cadeia', 'alimentos': 'Alimentos', 'infosec': 'Informação', 'compliance': 'Compliance e riscos'}
+    CURTO_G = {'qualidade': 'Qualidade', 'ambiente': 'Meio ambiente', 'sst': 'Saúde e segurança', 'viaria': 'Segurança viária', 'clima': 'Clima e carbono',
+               'esg': 'ESG', 'social': 'Social e cadeia', 'alimentos': 'Segurança de alimentos', 'infosec': 'Segurança da informação', 'compliance': 'Compliance e riscos'}
     CURTO_S = {'industria': 'Indústria', 'facilities': 'Facilities', 'transporte': 'Transporte e rodovias', 'alimentos': 'Alimentos',
                'agro': 'Agro e florestal', 'saude': 'Saúde', 'energia': 'Energia e utilities', 'tecnologia': 'Tecnologia e financeiro', 'servicos': 'Serviços e setor público'}
     CURTO_N = {'ifc': 'IFC Perf. Standards', 'fooddefense': 'Food Defense', 'atuacao': 'Atuação Responsável'}
@@ -273,13 +273,28 @@ def matriz():
     o = ['<figure class="qc-mat" id="qcMat" aria-labelledby="qcMatTit">',
          '  <div class="qc-mat-topo"><span id="qcMatTit">Normas e padrões por setor</span><span>[ IM.S ]</span></div>',
          '  <div class="qc-mat-rola"><svg viewBox="0 0 %d %d" width="%d" height="%d" role="img" aria-label="Grade que liga cada setor às normas e padrões aplicáveis">' % (larg, alt, larg, alt)]
+    # 12/10/2026: «os nomes que nao couberam nas colunas ficam acima, com um pequeno traco indicando a que se referem».
+    # O rotulo (mono 9,5 px, entreletra ,14em: ~7,05 px por letra) que nao cabe ate o rotulo do grupo seguinte sobe para
+    # uma linha nova acima dos rotulos (CHAMA px a mais no alto); um traco sai de um quadradinho na linha do grupo, sobe e
+    # vai para a direita ate o rotulo (so quadrados e retas, como o resto do grafico). Rotulos de chamada nao se encostam:
+    # cada um comeca depois do anterior.
+    CHAMA = 22
+    cabe_n = lambda rot, x0, x1: len(rot) * 7.05 <= (x1 + 2 + GAP - x0) - 10
+    chamadas = [(rot, x0, x1) for rot, x0, x1 in grupos if not cabe_n(rot, x0, x1)]
+    dy = CHAMA if chamadas else 0
+    if dy:
+        o[-1] = o[-1].replace('viewBox="0 0 %d %d" width="%d" height="%d"' % (larg, alt, larg, alt),
+                              'viewBox="0 0 %d %d" width="%d" height="%d"' % (larg, alt + dy, larg, alt + dy))
+        fim_ant = -1e9
+        for rot, x0, x1 in chamadas:
+            xa = x0 + min(8, (x1 - x0) / 2); xl = max(xa + 14, fim_ant + 18)
+            fim_ant = xl + 4 + len(rot) * 7.05
+            o.append('    <g class="gr chama"><rect x="%.1f" y="%.1f" width="3" height="3"/><path class="tr" d="M%.1f %.1fV7.5H%.1f"/>'
+                     '<text x="%.1f" y="11">%s</text></g>' % (xa - 1.5, dy + 15.5, xa, dy + 15.5, xl, xl + 4, esc(rot)))
+        o.append('    <g transform="translate(0 %d)">' % dy)
     for rot, x0, x1 in grupos:
-        # 11/10/2026: «os topicos das colunas nao da pra ver tudo, algumas pode deixar abaixo da linha». O rotulo (mono 9,5 px,
-        # entreletra ,14em: ~7,05 px por letra) que nao cabe ate o rotulo do grupo seguinte desce para baixo da linha, onde
-        # os nomes das normas (girados) ainda nao chegam. Hoje: Viaria (1 coluna) e Social e cadeia (2 colunas).
-        cabe = (x1 + 2 + GAP - x0) - 6
-        if len(rot) * 7.05 > cabe:
-            o.append('    <g class="gr baixo"><text x="%s" y="30">%s</text><path d="M%s 17H%s"/></g>' % (x0, esc(rot), x0, x1))
+        if (rot, x0, x1) in chamadas:
+            o.append('    <g class="gr"><path d="M%s 17H%s"/></g>' % (x0, x1))
         else:
             o.append('    <g class="gr"><text x="%s" y="11">%s</text><path d="M%s 17H%s"/></g>' % (x0, esc(rot), x0, x1))
     for k, cx in cols:
@@ -302,6 +317,7 @@ def matriz():
                 o.append('      <rect class="v" x="%s" y="%s" width="2" height="2"/>' % (cx - 1, y + LIN_H / 2 - 1))
         o.append('    </g>')
     o.append('    <path class="fio" d="M0 %s H%s"/>' % (TOPO + LIN_H * len(linhas), larg))
+    if dy: o.append('    </g>')
     o.append('  </svg></div>')
     o.append('  <button class="qc-mat-aba" id="qcMatAba" type="button" aria-expanded="false" aria-controls="qcMat">'
              '<svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg>'

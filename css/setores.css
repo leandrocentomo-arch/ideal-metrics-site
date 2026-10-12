@@ -136,6 +136,7 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-mat text{font-family:'IBM Plex Mono',monospace;fill:#14304C}
 .qc-mat .gr text{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;fill:#315275}
 .qc-mat .gr path{stroke:#14304C;stroke-width:1;opacity:.5;fill:none}
+.qc-mat .gr.chama rect{fill:#14304C;opacity:.6}   /* 12/10: a ponta do traco da chamada (quadrado, nao circulo: regra do grafico) */
 .qc-mat .co text{font-size:10.5px;letter-spacing:.04em}
 .qc-mat .rs{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
 .qc-mat a{text-decoration:none}
@@ -167,6 +168,11 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-abre-linha>.qc-abre-cauda{order:4;flex:0 0 66.6667%;min-width:0;margin:164px auto 0 0}
 .qc-abre-linha.mat-aberto>.qc-abre-texto{flex:0 0 0%;min-width:0;opacity:0;overflow:hidden;pointer-events:none}
 .qc-abre-linha.mat-ok>.qc-abre-texto>*{width:var(--cauda-w);max-width:none}
+/* 12/10/2026: «nao quero que o botao Todos os servicos estique dentro do efeito de esticar a tabela»: o botao fica na largura
+   do proprio texto, e a coluna corta o que sobra enquanto anima (sem isto, no recolher, a frase vazava para a direita
+   e a pagina ganhava rolagem lateral durante os 0,8 s). */
+.qc-abre-linha.mat-ok>.qc-abre-texto>.qc-todos{width:max-content;flex:none}
+.qc-abre-linha.mat-ok>.qc-abre-texto{overflow:hidden}
 /* 10/10: espaco entre a grade e a frase +50% (40 -> 60 px) e, nesse espaco, um traco vertical na tinta da frase,
    da altura da frase (cresce junto com a digitacao). A margem sai quando a grade abre, para a linha nao quebrar. */
 .qc-abre-linha>.qc-abre-texto{margin-left:20px;flex-basis:calc(58% - 20px);transition:flex-basis .8s cubic-bezier(.4,0,.2,1),opacity .55s,margin-left .8s cubic-bezier(.4,0,.2,1)}
