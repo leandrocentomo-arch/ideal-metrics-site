@@ -286,13 +286,15 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
 /* 11/10/2026: «o efeito aqui nao esta igual ao da secao de baixo». Cartao, numero, categoria, nome, fios e quadrado da
    seta com os MESMOS valores de .nt-* (index.html, secao Conteudo de destaque); so a proporcao do cartao (4:3) e a
    grade de tres colunas mudam. Fios: horizontais rgba(20,48,76,.2) a partir da 2a linha e embaixo da ultima;
-   vertical de 1 px na cor do fundo azul. */
+   verticais iguais aos horizontais (12/10/2026). */
 .sx-card{position:relative;aspect-ratio:4/3;min-height:200px;padding:18px 55px 28px 28px;display:flex;flex-direction:column;
   justify-content:space-between;font-family:var(--sans);font-size:18px;line-height:1.05;letter-spacing:0;color:var(--azul);
   transition:background .3s cubic-bezier(.4,0,.2,1),color .3s cubic-bezier(.4,0,.2,1)}
 .sx-card:nth-child(n+4){border-top:1px solid rgba(20,48,76,.2)}
 .sx-card:nth-child(n+7){border-bottom:1px solid rgba(20,48,76,.2)}
-.sx-card:not(:nth-child(3n+1))::before{content:"";position:absolute;top:0;bottom:0;left:0;width:1px;background:var(--fundo)}
+/* 12/10/2026: «as linhas da vertical devem ser iguais as linhas da horizontal». O fio vertical entre as colunas tem
+   a mesma cor e espessura dos horizontais (1 px, rgba(20,48,76,.2)), e e borda como eles (era fundo azul de 1 px). */
+.sx-card:not(:nth-child(3n+1))::before{content:"";position:absolute;top:0;bottom:0;left:0;width:0;border-left:1px solid rgba(20,48,76,.2)}
 .sx-num{font-size:18px;line-height:1}
 .sx-baixo{margin-top:24px}
 .sx-cat{display:block;font-family:var(--mono);font-size:10px;line-height:1;letter-spacing:0;text-transform:uppercase}
@@ -330,7 +332,7 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
   .sx-card:nth-child(n+7){border-bottom:0}
   .sx-card:last-child{border-bottom:1px solid rgba(20,48,76,.2)}
   .sx-card:not(:nth-child(3n+1))::before{display:none}
-  .sx-card:nth-child(2n)::before{content:"";display:block;position:absolute;top:0;bottom:0;left:0;width:1px;background:var(--fundo)}
+  .sx-card:nth-child(2n)::before{content:"";display:block;position:absolute;top:0;bottom:0;left:0;width:0;border-left:1px solid rgba(20,48,76,.2)}
   .sx-btn{width:85px;height:85px}
 }
 

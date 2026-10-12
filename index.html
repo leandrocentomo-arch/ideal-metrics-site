@@ -1006,8 +1006,8 @@ body>*{position:relative;z-index:1}
   top:0;
   bottom:0;
   left:0;
-  width:1px;
-  background:var(--fundo);
+  width:0;
+  border-left:1px solid rgba(20,48,76,.2);   /* 12/10/2026: igual aos fios horizontais («as linhas da vertical devem ser iguais as da horizontal»); era fundo azul de 1 px */
 }
 .nt-num{font-size:18px;line-height:1;}
 .nt-baixo{margin-top:24px;}
@@ -2594,7 +2594,7 @@ body>*{position:relative;z-index:1}
 /* 11/10/2026: grade-guia por toda a pagina. Estas secoes pintavam o creme do body por cima dela. */
 .qc-sec,.dm-sec,.ar-sec,.pr-sec,.df-secao{background:transparent}
 </style>
-<link rel="stylesheet" href="css/setores.css?v=56">
+<link rel="stylesheet" href="css/setores.css?v=58">
 </head>
 <body class="carga inicio">
 <!-- filtro das quatro fotos: +6% de brilho com TETO no creme do site (ver .sh-foto) -->
