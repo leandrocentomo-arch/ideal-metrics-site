@@ -169,17 +169,20 @@
     escuta(mqHover); escuta(mqEstreito); escuta(mqCalmo);
     if(temasEl) temasEl.textContent = temas(cartoes[0].getAttribute('data-s'));
 
-    /* 12/10/2026: a trama creme por cima da foto. Ultima versao («faca igual a figura que coloquei; nao precisa respeitar
-       os 3 px»): a figura de referencia e uma grade UNIFORME de quadros iguais sobre a foto inteira, com vao fino e constante
-       e canto bem arredondado, e a grade deslocada, com quadros cortados nas bordas. Aqui: 9 quadros por linha, vao de 4 px
-       na cor do fundo, canto de 1/6 do quadro, grade comecando 35% de um passo antes da borda de cima e da esquerda.
+    /* 12/10/2026: a trama creme por cima da foto, IGUAL a figura do Leandro («repare que, em volta do quadrado pintado, o
+       tijolo e mais redondo, e os ultimos tijolos dos cantos superior esquerdo, inferior esquerdo e inferior direito sao
+       praticamente quadrados; tem uma cadencia de arredondamento da ponta»). Grade 9 x 9 rente as bordas, casas iguais,
+       vao fino na cor do fundo. O canto de cada tijolo depende da distancia ao FOCO (o quadrado pintado: 7a coluna, 4a
+       linha): no foco quase circulo (raio de 45% do tijolo); cai com a distancia, em curva (expoente 1,3), e chega a zero
+       a 5,5 casas, onde ficam os cantos de baixo e o de cima a esquerda. Excecao a regra dos 3 px («nao precisa respeitar»).
        SVG medido em px reais (ResizeObserver); o mouse passa por baixo (pointer-events none). */
     (function(){
-      var NS = 'http://www.w3.org/2000/svg', POR_LINHA = 9, VAO = 4, CANTO = 1 / 6, DESLOCA = .35;
+      var NS = 'http://www.w3.org/2000/svg', LADO = 9, VAO = 4, FOCO = [6, 3], R_FOCO = .45, ALCANCE = 5.5, CURVA = 1.3;
       var svg = document.createElementNS(NS, 'svg'), cam = document.createElementNS(NS, 'path');
       svg.setAttribute('class', 'sx-trama'); svg.setAttribute('aria-hidden', 'true'); svg.appendChild(cam); midia.appendChild(svg);
-      function quadro(x, y, l, r){
+      function tijolo(x, y, l, r){
         var f = function(n){ return Math.round(n * 100) / 100; };
+        if(r < .3) return 'M' + f(x) + ' ' + f(y) + 'H' + f(x + l) + 'V' + f(y + l) + 'H' + f(x) + 'Z';
         return 'M' + f(x + r) + ' ' + f(y) + 'H' + f(x + l - r) + 'A' + f(r) + ' ' + f(r) + ' 0 0 1 ' + f(x + l) + ' ' + f(y + r) +
                'V' + f(y + l - r) + 'A' + f(r) + ' ' + f(r) + ' 0 0 1 ' + f(x + l - r) + ' ' + f(y + l) + 'H' + f(x + r) +
                'A' + f(r) + ' ' + f(r) + ' 0 0 1 ' + f(x) + ' ' + f(y + l - r) + 'V' + f(y + r) + 'A' + f(r) + ' ' + f(r) + ' 0 0 1 ' + f(x + r) + ' ' + f(y) + 'Z';
@@ -187,9 +190,12 @@
       function desenha(){
         var W = midia.clientWidth, H = midia.clientHeight; if(!W || !H) return;
         svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-        var passo = W / POR_LINHA, l = passo - VAO, r = l * CANTO, x0 = -DESLOCA * passo, y0 = -DESLOCA * passo;
-        var d = 'M0 0H' + W + 'V' + H + 'H0Z';
-        for(var y = y0; y < H; y += passo) for(var x = x0; x < W; x += passo) d += quadro(x + VAO / 2, y + VAO / 2, l, r);
+        var passo = (Math.min(W, H) + VAO) / LADO, l = passo - VAO, d = 'M0 0H' + W + 'V' + H + 'H0Z';
+        for(var j = 0; j < LADO; j++) for(var i = 0; i < LADO; i++){
+          var dist = Math.sqrt((i - FOCO[0]) * (i - FOCO[0]) + (j - FOCO[1]) * (j - FOCO[1]));
+          var r = R_FOCO * l * Math.pow(Math.max(0, 1 - dist / ALCANCE), CURVA);
+          d += tijolo(i * passo, j * passo, l, r);
+        }
         cam.setAttribute('d', d);
       }
       desenha();
