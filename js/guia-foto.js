@@ -169,6 +169,40 @@
     escuta(mqHover); escuta(mqEstreito); escuta(mqCalmo);
     if(temasEl) temasEl.textContent = temas(cartoes[0].getAttribute('data-s'));
 
+    /* 12/10/2026: «uma outra trama ainda em cima, da cor do fundo (o creme), no estilo de mosaico de quadros, mas
+       crescente no tamanho; respeite a regra dos 3 px». Um SVG por cima da foto: o creme cobre tudo menos as janelas,
+       quadros de canto 3 px separados por um vao de 4 px. As colunas crescem da esquerda para a direita e as linhas de
+       cima para baixo (progressao geometrica, 1,22 por passo, a partir de 8 px), e a ultima fecha na borda. Medido em px
+       reais (ResizeObserver), para o canto ser 3 px em qualquer tela. O mouse passa por baixo (pointer-events none). */
+    (function(){
+      var NS = 'http://www.w3.org/2000/svg', VAO = 4, R = 3, MIN = 8, RAZAO = 1.22;
+      var svg = document.createElementNS(NS, 'svg'), cam = document.createElementNS(NS, 'path');
+      svg.setAttribute('class', 'sx-trama'); svg.setAttribute('aria-hidden', 'true'); svg.appendChild(cam); midia.appendChild(svg);
+      function medidas(total){
+        var s = [], soma = 0, t = MIN;
+        while(soma + t + VAO * s.length < total){ s.push(t); soma += t; t *= RAZAO; }
+        if(!s.length) return [total];
+        var k = (total - VAO * (s.length - 1)) / soma;   /* fecha exato na borda */
+        return s.map(function(v){ return v * k; });
+      }
+      function quadro(x, y, w, h){
+        var r = Math.min(R, w / 2, h / 2), f = function(n){ return Math.round(n * 100) / 100; };
+        return 'M' + f(x + r) + ' ' + f(y) + 'H' + f(x + w - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + w) + ' ' + f(y + r) +
+               'V' + f(y + h - r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + w - r) + ' ' + f(y + h) + 'H' + f(x + r) +
+               'A' + r + ' ' + r + ' 0 0 1 ' + f(x) + ' ' + f(y + h - r) + 'V' + f(y + r) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(x + r) + ' ' + f(y) + 'Z';
+      }
+      function desenha(){
+        var W = midia.clientWidth, H = midia.clientHeight; if(!W || !H) return;
+        svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+        var cs = medidas(W), ls = medidas(H), d = 'M0 0H' + W + 'V' + H + 'H0Z', y = 0;
+        ls.forEach(function(h){ var x = 0; cs.forEach(function(w){ d += quadro(x, y, w, h); x += w + VAO; }); y += h + VAO; });
+        cam.setAttribute('d', d);
+      }
+      desenha();
+      if('ResizeObserver' in window) new ResizeObserver(desenha).observe(midia);
+      else window.addEventListener('resize', desenha);
+    })();
+
     /* o motor da trama: liga perto da tela, e destruido longe dela */
     if(!window.ditherVivo || !('IntersectionObserver' in window)) return;
     var planos = camadas.map(function(c){ return {el:midia, lum:c.querySelector('img').getAttribute('data-lum')}; });
