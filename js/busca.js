@@ -178,7 +178,13 @@
   if(lead){
     /* o traco da busca espera a frase terminar; sem o efeito, ele pisca desde sempre */
     if(caixa) caixa.classList.add('espera');
-    digita(lead, function(){ if(caixa) caixa.classList.remove('espera'); }, 0.6);
+    /* 12/10/2026: a frase de baixo e o contato abrem quando a digitacao termina */
+    var sub = document.getElementById('qcLeadSub'), ct = document.getElementById('qcContato');
+    if(sub) sub.classList.add('espera'); if(ct) ct.classList.add('espera');
+    digita(lead, function(){
+      if(caixa) caixa.classList.remove('espera');
+      setTimeout(function(){ if(sub){ sub.classList.remove('espera'); sub.classList.add('aberta'); } if(ct) ct.classList.remove('espera'); }, 180);
+    }, 0.6);
   }
   var dm = document.getElementById('dmLead');
   if(dm) digita(dm);

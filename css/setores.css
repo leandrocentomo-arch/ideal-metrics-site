@@ -338,11 +338,19 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
    insira e-mail e contato embaixo da frase de O que fazemos, uma frase de contato, discreta; um pouco mais abaixo».
    A cauda virou a linha do contato: na coluna da frase (58%), encostada a direita, logo abaixo da grade. Os temas e o
    mosaico estao em Ideal Metrics/secoes-guardadas/frentes-temas-orcamento-mosaico-l.html. ---------- */
-/* 12/10/2026: «logo abaixo da tabela, uma frase em letra menor que a de O que fazemos; dividir a secao de baixo meio a
-   meio com Orcamentos e duvidas». A cauda ocupa a linha toda em duas metades: a frase a esquerda, o contato a direita. */
-.qc-abre-linha>.qc-abre-cauda{order:4;flex:0 0 100%;min-width:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
-.qc-cauda-frase{margin:0;padding-right:40px;max-width:36em;font-family:var(--sans);font-weight:600;font-size:clamp(17px,1.45vw,21px);
-  line-height:1.3;letter-spacing:-.005em;color:var(--azul);text-wrap:pretty}
+/* 12/10/2026 (tarde): a frase e o contato subiram para a coluna de O que fazemos, abaixo do botao Todos os servicos;
+   a cauda ficou vazia (continua no HTML: e a ancora do setores.py) e some. A frase abre depois que a digitacao da
+   frase de cima termina (js/busca.js poe .espera e troca por .aberta); sem js ou com movimento reduzido, ela ja
+   aparece. «Um pouco menor» que a de cima: 19 px, seminegrito. */
+.qc-abre-linha>.qc-abre-cauda:empty{display:none}
+.qc-lead-sub{margin:30px 0 0;max-width:36em;font-family:var(--sans);font-weight:600;font-size:clamp(16px,1.25vw,19px);line-height:1.35;
+  letter-spacing:-.005em;color:var(--azul);text-wrap:pretty;
+  transition:clip-path .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1),opacity .5s}
+.qc-lead-sub.espera{clip-path:inset(0 0 100% 0);transform:translateY(10px);opacity:0}
+.qc-lead-sub.aberta{clip-path:inset(0 0 0 0);transform:none;opacity:1}
+.qc-abre-texto>.qc-contato{margin:22px 0 0;transition:opacity .6s .25s,transform .6s .25s cubic-bezier(.22,1,.36,1)}
+.qc-abre-texto>.qc-contato.espera{opacity:0;transform:translateY(8px)}
+@media (prefers-reduced-motion:reduce){ .qc-lead-sub,.qc-abre-texto>.qc-contato{transition:none} }
 .qc-contato-frase{margin:0;font-family:var(--sans);font-size:15px;line-height:1.35;color:var(--azul-escuro)}
 .qc-contato-bts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
 .qc-contato-bt{display:flex;align-items:center;gap:10px;width:148px;padding:7px 12px;border:1px solid rgba(20,48,76,.42);border-radius:3px;
@@ -352,7 +360,6 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
 .qc-contato-wa{width:16px;height:16px;flex:none;fill:#188755}
 .qc-contato-bt:hover .qc-contato-wa,.qc-contato-bt:focus-visible .qc-contato-wa{fill:var(--mercurio)}
 .qc-contato-mail{width:16px;height:11px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
-@media (max-width:880px){ .qc-abre-linha>.qc-abre-cauda{grid-template-columns:1fr;row-gap:32px;margin:40px 0 0} .qc-cauda-frase{padding-right:0} }
 /* 12/10/2026: a aba tambem se arrasta (js/setores-matriz.js): enquanto o mouse puxa, sem transicao; ao soltar, a de sempre */
 .qc-abre-linha .qc-mat-aba{cursor:grab;touch-action:none}
 .qc-abre-linha.mat-arrasta>.qc-mat,.qc-abre-linha.mat-arrasta>.qc-abre-texto{transition:none}
