@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '50', '16'
+CSS_V, JS_V = '51', '18'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
