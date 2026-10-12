@@ -169,12 +169,12 @@
     escuta(mqHover); escuta(mqEstreito); escuta(mqCalmo);
     if(temasEl) temasEl.textContent = temas(cartoes[0].getAttribute('data-s'));
 
-    /* 13/10/2026: a trama creme de tijolos que ficava por cima desta foto saiu («vou guardar para outro fim»): esta em
+    /* 12/10/2026: a trama creme de tijolos que ficava por cima desta foto saiu («vou guardar para outro fim»): esta em
        Ideal Metrics/secoes-guardadas/trama-lente-tijolos.html, como funcao tramaLente(el, opcoes). */
 
     /* o motor da trama: liga perto da tela, e destruido longe dela */
     if(!window.ditherVivo || !('IntersectionObserver' in window)) return;
-    /* 13/10/2026: data-ax na <img> ancora o recorte da foto na horizontal (0 = esquerda, 1 = direita; padrao o centro).
+    /* 12/10/2026: data-ax na <img> ancora o recorte da foto na horizontal (0 = esquerda, 1 = direita; padrao o centro).
        A foto de Facilities (a mulher com prancheta) ancora a direita, para o logo da camisa nao sair do quadro. */
     var planos = camadas.map(function(c){ var im = c.querySelector('img'), ax = parseFloat(im.getAttribute('data-ax'));
       return {el:midia, lum:im.getAttribute('data-lum'), ax: isNaN(ax) ? .5 : ax}; });

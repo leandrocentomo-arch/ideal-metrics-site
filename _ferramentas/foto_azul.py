@@ -58,7 +58,7 @@ def da_receita(receita, cru, nome):
     sys.path.insert(0, os.path.join(AQUI, 'banner'))
     import foto_banner
     R = json.load(open(receita, encoding='utf-8'))
-    # 13/10/2026: a receita nova do Spirit traz a vaga pelo NOME («st», «gs») com as medidas em medidas.reserva, e o
+    # 12/10/2026: a receita nova do Spirit traz a vaga pelo NOME («st», «gs») com as medidas em medidas.reserva, e o
     # enquadramento em «enquadramento» (a antiga: vaga em numeros e «tamanho_e_posicao»). Aceita as duas.
     if not isinstance(R.get('vaga'), list) and isinstance(R.get('medidas'), dict): R['vaga'] = R['medidas'].get('reserva', [562, 422])
     if 'tamanho_e_posicao' not in R and 'enquadramento' in R: R['tamanho_e_posicao'] = R['enquadramento']
