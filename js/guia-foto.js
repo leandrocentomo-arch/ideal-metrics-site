@@ -169,64 +169,8 @@
     escuta(mqHover); escuta(mqEstreito); escuta(mqCalmo);
     if(temasEl) temasEl.textContent = temas(cartoes[0].getAttribute('data-s'));
 
-    /* 12/10/2026: a trama creme por cima da foto, IGUAL a figura do Leandro («repare que, em volta do quadrado pintado, o
-       tijolo e mais redondo, e os ultimos tijolos dos cantos superior esquerdo, inferior esquerdo e inferior direito sao
-       praticamente quadrados; tem uma cadencia de arredondamento da ponta»). Grade 9 x 9 rente as bordas, casas iguais,
-       vao fino na cor do fundo. O canto de cada tijolo depende da distancia ao FOCO (o quadrado pintado: 7a coluna, 4a
-       linha): no foco quase circulo (raio de 45% do tijolo); cai com a distancia, em curva (expoente 1,3), e chega a zero
-       a 5,5 casas, onde ficam os cantos de baixo e o de cima a esquerda. Excecao a regra dos 3 px («nao precisa respeitar»).
-       SVG medido em px reais (ResizeObserver); o mouse passa por baixo (pointer-events none). */
-    (function(){
-      var NS = 'http://www.w3.org/2000/svg', LADO = 9, VAO = 1, FOCO = [6, 3], R_FOCO = .45, ALCANCE = 3.5, CURVA = 1.3;   /* 13/10: alcance 3,5 casas (era 5,5) */
-      var foco = FOCO.slice(), alvo = FOCO.slice(), quadroAnim = 0;   /* 12/10 (noite, 2): «faca o foco seguir o mouse» */
-      var svg = document.createElementNS(NS, 'svg'), cam = document.createElementNS(NS, 'path');
-      svg.setAttribute('class', 'sx-trama'); svg.setAttribute('aria-hidden', 'true'); svg.appendChild(cam); midia.appendChild(svg);
-      function tijolo(x, y, l, r){
-        var f = function(n){ return Math.round(n * 100) / 100; };
-        if(r < .3) return 'M' + f(x) + ' ' + f(y) + 'H' + f(x + l) + 'V' + f(y + l) + 'H' + f(x) + 'Z';
-        return 'M' + f(x + r) + ' ' + f(y) + 'H' + f(x + l - r) + 'A' + f(r) + ' ' + f(r) + ' 0 0 1 ' + f(x + l) + ' ' + f(y + r) +
-               'V' + f(y + l - r) + 'A' + f(r) + ' ' + f(r) + ' 0 0 1 ' + f(x + l - r) + ' ' + f(y + l) + 'H' + f(x + r) +
-               'A' + f(r) + ' ' + f(r) + ' 0 0 1 ' + f(x) + ' ' + f(y + l - r) + 'V' + f(y + r) + 'A' + f(r) + ' ' + f(r) + ' 0 0 1 ' + f(x + r) + ' ' + f(y) + 'Z';
-      }
-      /* 13/10/2026: «as tramas desaparecem assim que completam o tamanho normal, para nao cobrir toda a foto». Cada casa
-         desenha so a PROPRIA moldura creme (a casa menos o tijolo), e a moldura afina junto com o arredondamento: no foco,
-         vao de 1 px e canto de 45%; longe dele, o tijolo volta ao tamanho da casa, quadrado, e a moldura some. Fora do
-         alcance (3,5 casas) a foto fica limpa. */
-      function desenha(){
-        var W = midia.clientWidth, H = midia.clientHeight; if(!W || !H) return;
-        svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-        var passo = Math.min(W, H) / LADO, d = '', f2 = function(n){ return Math.round(n * 100) / 100; };
-        for(var j = 0; j < LADO; j++) for(var i = 0; i < LADO; i++){
-          var dist = Math.sqrt((i - foco[0]) * (i - foco[0]) + (j - foco[1]) * (j - foco[1]));
-          var k = Math.pow(Math.max(0, 1 - dist / ALCANCE), CURVA); if(k < .005) continue;
-          var vao = VAO * Math.sqrt(k), l = passo - vao, r = R_FOCO * l * k, x = i * passo, y = j * passo;
-          d += 'M' + f2(x) + ' ' + f2(y) + 'H' + f2(x + passo) + 'V' + f2(y + passo) + 'H' + f2(x) + 'Z' + tijolo(x + vao / 2, y + vao / 2, l, r);
-        }
-        cam.setAttribute('d', d);
-      }
-      desenha();
-      if('ResizeObserver' in window) new ResizeObserver(desenha).observe(midia);
-      else window.addEventListener('resize', desenha);
-      /* o foco segue o mouse sobre a foto (em coordenadas de casa, continuas: o tijolo mais redondo e o que esta sob o
-         cursor), com atraso suave (18% do caminho por quadro); fora da foto, volta para o foco do desenho. Sem mouse
-         (toque) fica parado; com movimento reduzido, pula direto. */
-      var calmo = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      function passo_(){ return Math.min(midia.clientWidth, midia.clientHeight) / LADO; }
-      function anima(){
-        quadroAnim = 0;
-        var dx = alvo[0] - foco[0], dy = alvo[1] - foco[1];
-        if(calmo || (Math.abs(dx) < .01 && Math.abs(dy) < .01)){ foco = alvo.slice(); desenha(); return; }
-        foco[0] += dx * .18; foco[1] += dy * .18; desenha();
-        quadroAnim = requestAnimationFrame(anima);
-      }
-      function vai(x, y){ alvo = [x, y]; if(!quadroAnim) quadroAnim = requestAnimationFrame(anima); }
-      midia.addEventListener('pointermove', function(e){
-        if(e.pointerType && e.pointerType !== 'mouse') return;
-        var b = midia.getBoundingClientRect(), pa = passo_();
-        vai((e.clientX - b.left) / pa - .5, (e.clientY - b.top) / pa - .5);
-      });
-      midia.addEventListener('pointerleave', function(){ vai(FOCO[0], FOCO[1]); });
-    })();
+    /* 13/10/2026: a trama creme de tijolos que ficava por cima desta foto saiu («vou guardar para outro fim»): esta em
+       Ideal Metrics/secoes-guardadas/trama-lente-tijolos.html, como funcao tramaLente(el, opcoes). */
 
     /* o motor da trama: liga perto da tela, e destruido longe dela */
     if(!window.ditherVivo || !('IntersectionObserver' in window)) return;
