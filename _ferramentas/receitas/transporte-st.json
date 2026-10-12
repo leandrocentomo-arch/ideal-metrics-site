@@ -1,0 +1,11 @@
+{
+ "foto_original": "entroncamento-viadutos-flow-01.jpg",
+ "vaga": [562, 422],
+ "vaga_spirit": "st",
+ "medidas": {"reserva": [562, 422], "luminancia": [900, 676]},
+ "tamanho_e_posicao": {"zoom": 1, "px": 50, "py": 50, "espelhar": false, "inclinar": 0, "corte_esq": 23, "corte_dir": 0, "corte_topo": 0, "corte_base": 0},
+ "enquadramento": {"zoom": 1, "px": 50, "py": 50, "espelhar": false, "inclinar": 0, "corte_esq": 23, "corte_dir": 0, "corte_topo": 0, "corte_base": 0},
+ "ajustes_da_foto": {"exposicao": -0.15, "gama": 1.12, "ctr": 0.95, "brilho": 0, "piso": 0, "teto": 1, "nitidez": 0, "suave": 0},
+ "tingimento": {"brilhoTom": 0.35, "gama": 0.88, "ctr": 1.55, "escuro": 0.6, "limiar": 0, "ponto": 1, "ruido": 0, "matriz": 4, "veu": 0.12, "cores": ["#153351", "#183858", "#6792BD", "#FAF9F5"]},
+ "clareamento_na_reserva": true
+}
