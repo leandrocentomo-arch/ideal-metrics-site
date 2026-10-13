@@ -367,11 +367,14 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
    da frase Construimos sistemas, e por isso continua subindo enquanto a grade fica parada: a frase e o contato chegam de
    baixo e terminam ao lado da parte de baixo da grade, quando ela se solta. A roleta saiu. No celular nada fica preso. */
 .qc-abre-linha>.qc-mat{position:sticky;top:120px}
-.qc-abre-texto>.qc-lead-sub{margin:clamp(240px,55vh,620px) 0 0}
-@media (max-width:880px){ .qc-abre-linha>.qc-mat{position:relative;top:auto} .qc-abre-texto>.qc-lead-sub{margin-top:34px} }
-.qc-abre-texto>.qc-contato{margin:22px 0 0;transition:opacity .6s .25s,transform .6s .25s cubic-bezier(.22,1,.36,1)}
-.qc-abre-texto>.qc-contato.espera{opacity:0;transform:translateY(8px)}
-@media (prefers-reduced-motion:reduce){ .qc-lead-sub,.qc-abre-texto>.qc-contato{transition:none} }
+/* 13/10/2026 (4): «pode esperar ate a frase Construimos chegar no topo, onde e O que fazemos». A frase e o contato
+   ficam num bloco (.qc-chega) da altura da grade (--mat-h, medida pelo js/setores-matriz.js): a grade so se solta
+   quando o pe do bloco encontra o pe dela, isto e, quando a frase chega ao alto da coluna, na altura de O que fazemos. */
+.qc-abre-texto>.qc-chega{margin:clamp(240px,55vh,620px) 0 0;min-height:var(--mat-h,0px)}
+.qc-chega>.qc-lead-sub{margin:0}
+@media (max-width:880px){ .qc-abre-linha>.qc-mat{position:relative;top:auto} .qc-abre-texto>.qc-chega{margin-top:34px;min-height:0} }
+.qc-chega>.qc-contato{margin:22px 0 0}
+@media (prefers-reduced-motion:reduce){ .qc-lead-sub{transition:none} }
 .qc-contato-frase{margin:0;font-family:var(--sans);font-size:15px;line-height:1.35;color:var(--azul-escuro)}
 .qc-contato-bts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
 .qc-contato-bt{display:flex;align-items:center;gap:10px;width:148px;padding:7px 12px;border:1px solid rgba(20,48,76,.42);border-radius:3px;

@@ -45,6 +45,11 @@
   }
   medir();
   var tm = null; window.addEventListener('resize', function(){ clearTimeout(tm); tm = setTimeout(medir, 150); });
+  /* 13/10/2026: a altura da grade vai para --mat-h; o bloco da frase Construimos (.qc-chega) tem essa altura, para a grade
+     (sticky) so se soltar quando a frase chegar ao alto da coluna */
+  function alturaGrade(){ linha.style.setProperty('--mat-h', fig.offsetHeight + 'px'); }
+  alturaGrade();
+  if('ResizeObserver' in window) new ResizeObserver(alturaGrade).observe(fig); else window.addEventListener('resize', alturaGrade);
   function guarda(){   /* a coluna da frase guarda a largura de recolhida, para o texto nao reflutuar enquanto fecha */
     if(cauda && !linha.classList.contains('mat-ok')){ linha.style.setProperty('--cauda-w', cauda.offsetWidth + 'px'); linha.classList.add('mat-ok'); }
   }
