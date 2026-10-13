@@ -29,6 +29,18 @@
     var midia = raiz.querySelector('.sx-midia');
     var resumo = raiz.querySelector('.sx-resumo'), temasEl = raiz.querySelector('.sx-temas');
     if(!grade || !cartoes.length || !midia) return;
+    /* 13/10/2026: «pode esperar ate a ultima fileira chegar no topo». A foto e sticky (css/setores.css, .sx-fig); a grade
+       ganha embaixo a sobra entre a altura da foto com a legenda e a de uma fileira, e a foto so se solta quando a
+       ultima fileira chega ao alto, na altura do topo da foto. No celular nada fica preso e a sobra sai. */
+    var fig = raiz.querySelector('.sx-fig');
+    function folga(){
+      if(!fig) return;
+      if(window.innerWidth <= 880){ grade.style.paddingBottom = ''; return; }
+      grade.style.paddingBottom = Math.max(0, fig.offsetHeight - cartoes[cartoes.length - 1].offsetHeight) + 'px';
+    }
+    folga();
+    if('ResizeObserver' in window){ var ro = new ResizeObserver(folga); ro.observe(fig); ro.observe(cartoes[cartoes.length - 1]); }
+    window.addEventListener('resize', folga);
     var gl = null, ativo = 0, dentro = false, mouseDentro = false;
 
     var temWAAPI = typeof Element !== 'undefined' && typeof Element.prototype.animate === 'function';

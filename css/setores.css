@@ -200,6 +200,9 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .mp-fluxo i::after{content:"";position:absolute;right:0;top:-3px;width:7px;height:7px;border-top:1px solid var(--azul-escuro);
   border-right:1px solid var(--azul-escuro);transform:rotate(45deg)}
 .mp-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 44px;margin-top:40px}
+/* 13/10/2026: «de um espaco maior, o tamanho do espaco das secoes, para comecar a secao de baixo»: entre a grade dos
+   setores e as tres entradas, o mesmo vao que separa a Frentes do Guia (230 px; no celular, 156 px) */
+.sx + .mp-grade{margin-top:230px}
 .mp-col-cab{border-bottom:1px solid var(--azul);padding-bottom:12px}
 .mp-n{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--azul-escuro)}
 .mp-col-tit{margin:10px 0 4px;font-family:var(--sans);font-weight:600;font-size:20px;line-height:1.2}
@@ -219,6 +222,7 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 @media (max-width:880px){
   .mp-sec{padding-top:80px}
   .mp-grade{grid-template-columns:1fr;gap:36px}
+  .sx + .mp-grade{margin-top:156px}
   .mp-fluxo{flex-wrap:wrap;gap:8px 10px}
   .mp-fluxo i{flex:0 0 24px}
 }

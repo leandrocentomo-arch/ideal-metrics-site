@@ -110,6 +110,9 @@ body>*{position:relative;z-index:1}
 .pronta .abertura .l-v{transform:scaleY(0)}
 .pronta .abertura .l-h{transform:scaleX(0)}
 .abertura.fora{display:none}
+/* 13/10/2026: «tire esta pagina de inicializacao, acho que eu nao gosto mais dela; pode deixar no modulo mobile»:
+   no computador (acima de 880 px) a abertura nao aparece; no celular continua igual. */
+@media (min-width:881px){ .abertura{display:none} }
 
 /* ---- placa fixa do logo + aba MENU ---- */
 /* a vaga do logotipo, no canto superior esquerdo. Sem fundo e sem
@@ -2599,7 +2602,8 @@ body>*{position:relative;z-index:1}
 
 
 
-<link rel="stylesheet" href="css/setores.css?v=66">
+
+<link rel="stylesheet" href="css/setores.css?v=67">
 </head>
 <body class="carga inicio">
 <!-- filtro das quatro fotos: +6% de brilho com TETO no creme do site (ver .sh-foto) -->
@@ -2860,6 +2864,7 @@ body>*{position:relative;z-index:1}
             </div>
           </div>
         </div>
+
 
 
 
@@ -3638,7 +3643,7 @@ body>*{position:relative;z-index:1}
       <article class="sx-card" data-s="tecnologia" data-resumo="Software, TI, data centers, fintechs, bancos e seguradoras."><div class="sx-btn" aria-hidden="true"><svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 8h19M13 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1"/></svg></div><span class="sx-num">08</span><div class="sx-baixo"><span class="sx-cat">Digital</span><h3 class="sx-nome">Tecnologia e serviços financeiros</h3></div><a class="sx-link" href="setor-tecnologia.html" aria-label="Setor Tecnologia e serviços financeiros"></a></article>
       <article class="sx-card" data-s="servicos" data-resumo="Terceirização, serviços profissionais, administração pública, estatais e educação."><div class="sx-btn" aria-hidden="true"><svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><path d="M0 8h19M13 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1"/></svg></div><span class="sx-num">09</span><div class="sx-baixo"><span class="sx-cat">Serviços</span><h3 class="sx-nome">Serviços e setor público</h3></div><a class="sx-link" href="setor-servicos-setor-publico.html" aria-label="Setor Serviços e setor público"></a></article>
     </div>
-    <script src="js/guia-foto.js?v=15" defer></script>
+    <script src="js/guia-foto.js?v=16" defer></script>
   </div>
   <!-- fim foco -->
   <div class="mp-grade">
@@ -4172,6 +4177,7 @@ body>*{position:relative;z-index:1}
 
 
 
+
     <div class="st-grade">
       <article class="st-card">
         <header class="st-cab"><span class="st-num">01</span><span class="st-cat">Manufatura</span></header>
@@ -4414,6 +4420,13 @@ body>*{position:relative;z-index:1}
 // loader: linhas cruzam, aro, logo gira suave, e o painel sobe (timing do modelo)
 window.addEventListener('load', function(){
   var ab = document.getElementById('abertura');
+  /* 13/10/2026: no computador a abertura saiu; a pagina fica pronta assim que carrega (os efeitos que esperam o
+     im:pronta disparam na hora). No celular, a abertura de sempre. */
+  if(!window.matchMedia('(max-width:880px)').matches){
+    ab.classList.add('fora'); document.body.classList.remove('carga');
+    document.body.classList.add('pronta'); window.dispatchEvent(new Event('im:pronta'));
+    return;
+  }
   ab.classList.add('arma');
   setTimeout(function(){
     document.body.classList.remove('carga');
@@ -5199,6 +5212,9 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 
 <script src="js/setores-dados.js?v=19"></script>
 <script src="js/setores-filtro.js?v=19"></script>
+
+<script src="js/setores-dados.js?v=20"></script>
+<script src="js/setores-filtro.js?v=20"></script>
 
 <script src="js/setores-dados.js?v=20"></script>
 <script src="js/setores-filtro.js?v=20"></script>
