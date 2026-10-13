@@ -175,46 +175,13 @@
     obs.observe(el);
   }
   var lead = document.getElementById('qcLead');
-  /* 13/10/2026 (2): «quero que apareca como em uma roleta, logo abaixo, tomando o lugar da frase acima, mas fazendo com
-     que a frase acima desapareca no fade». A rolagem da pagina gira o tambor: 0 com o topo da roleta a 62% da altura da
-     tela, 1 com o topo a 22% (40% da tela de rolagem). O quadro persegue a rolagem com inercia (8% do caminho por quadro),
-     para o giro ser lento e macio; volta ao rolar para cima. So gira depois que a digitacao da frase de cima termina. */
-  var roleta = document.getElementById('qcRoleta'), sub = document.getElementById('qcLeadSub'), ct = document.getElementById('qcContato');
-  var rodaRoleta = function(){};
-  if(roleta && lead && sub){
-    roleta.classList.add('ativa'); if(ct) ct.classList.add('rola');
-    var pronta = false, alvo = 0, atual = 0, quadro = 0;
-    var mede = function(){
-      var r = roleta.getBoundingClientRect(), vh = window.innerHeight;
-      return Math.max(0, Math.min(1, (0.62 * vh - r.top) / (0.40 * vh)));
-    };
-    var pinta = function(p){
-      var e = p * p * (3 - 2 * p);
-      lead.style.opacity = String(Math.max(0, 1 - e * 1.35));
-      lead.style.transform = 'translateY(' + (-e * 34).toFixed(2) + 'px) rotateX(' + (e * 58).toFixed(2) + 'deg)';
-      lead.style.pointerEvents = e > .5 ? 'none' : '';
-      sub.style.opacity = String(Math.max(0, Math.min(1, (e - .12) / .8)));
-      sub.style.transform = 'translateY(' + ((1 - e) * 78).toFixed(2) + 'px) rotateX(' + (-(1 - e) * 68).toFixed(2) + 'deg)';
-      sub.style.pointerEvents = e < .5 ? 'none' : '';
-      if(ct){ var c = Math.max(0, Math.min(1, (e - .72) / .28)); ct.style.opacity = String(c); ct.style.transform = 'translateY(' + ((1 - c) * 10).toFixed(2) + 'px)'; ct.style.visibility = c > 0 ? '' : 'hidden'; }
-    };
-    var passo = function(){
-      quadro = 0;
-      var d = alvo - atual;
-      if(Math.abs(d) < .0015){ atual = alvo; pinta(atual); return; }
-      atual += d * .08; pinta(atual);
-      quadro = requestAnimationFrame(passo);
-    };
-    rodaRoleta = function(){ alvo = pronta ? mede() : 0; if(!quadro) quadro = requestAnimationFrame(passo); };
-    pinta(0);
-    window.addEventListener('scroll', rodaRoleta, {passive: true});
-    window.addEventListener('resize', rodaRoleta);
-  }
   if(lead){
     /* o traco da busca espera a frase terminar; sem o efeito, ele pisca desde sempre */
     if(caixa) caixa.classList.add('espera');
-    digita(lead, function(){ if(caixa) caixa.classList.remove('espera'); pronta = true; rodaRoleta(); }, 0.6);
+    digita(lead, function(){ if(caixa) caixa.classList.remove('espera'); }, 0.6);
   }
+  /* 13/10/2026 (3): a roleta saiu; a frase Construimos sistemas e o contato chegam com a coluna, que continua subindo
+     enquanto a grade fica parada (css/setores.css, .qc-mat sticky) */
   var dm = document.getElementById('dmLead');
   if(dm) digita(dm);
 })();

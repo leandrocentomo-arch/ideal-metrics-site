@@ -361,17 +361,14 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
    voltaram para a coluna de O que fazemos, logo abaixo do botao Todos os servicos (a cauda ficou vazia de novo; continua
    no HTML, e a ancora do setores.py). Abrem quando entram na tela pela rolagem (js/busca.js), nao mais no fim da digitacao.
    Com a grade aberta, somem junto com a coluna. */
-/* 13/10/2026 (2): «aparece muito rapido; quero que apareca como em uma roleta, logo abaixo, tomando o lugar da frase
-   acima, mas fazendo com que a frase acima desapareca no fade». As duas frases dividem a mesma casa (.qc-roleta): com a
-   rolagem da pagina, a de baixo sobe girando como um tambor e toma o lugar da de cima, que some em fade; volta ao rolar
-   para cima. O js (busca.js) liga .ativa e pinta o quadro; sem js ou com movimento reduzido, a frase de baixo fica
-   simplesmente abaixo da de cima. O contato aparece no fim do giro. */
-.qc-roleta>.qc-lead-sub{margin:18px 0 0}
-/* a casa e a janela da roleta: a frase de baixo entra pela borda de baixo e nao passa por cima do botao */
-.qc-roleta.ativa{display:grid;perspective:1600px;perspective-origin:30% 50%;overflow:hidden;padding-bottom:6px}   /* 6 px: a janela nao corta a perna do g e do p */
-.qc-roleta.ativa>.qc-lead,.qc-roleta.ativa>.qc-lead-sub{grid-area:1/1;align-self:start;backface-visibility:hidden;transform-origin:50% 50% -40px;will-change:transform,opacity}
-.qc-roleta.ativa>.qc-lead-sub{margin:10px 0 0;transition:none}
-.qc-abre-texto>.qc-contato.rola{transition:none}
+/* 13/10/2026 (3): «ainda nao e isso; o que eu queria e aquele estilo do site do SESMT, onde a tabela fica parada e a
+   tela continua subindo do lado direito, onde estao as coisas escritas» (o mesmo do sedex-smeta-roteiro.html, .sticky-aside).
+   A grade e sticky logo abaixo do cabecalho (92 px + 28); a coluna de O que fazemos e mais alta que ela, com um vao antes
+   da frase Construimos sistemas, e por isso continua subindo enquanto a grade fica parada: a frase e o contato chegam de
+   baixo e terminam ao lado da parte de baixo da grade, quando ela se solta. A roleta saiu. No celular nada fica preso. */
+.qc-abre-linha>.qc-mat{position:sticky;top:120px}
+.qc-abre-texto>.qc-lead-sub{margin:clamp(240px,55vh,620px) 0 0}
+@media (max-width:880px){ .qc-abre-linha>.qc-mat{position:relative;top:auto} .qc-abre-texto>.qc-lead-sub{margin-top:34px} }
 .qc-abre-texto>.qc-contato{margin:22px 0 0;transition:opacity .6s .25s,transform .6s .25s cubic-bezier(.22,1,.36,1)}
 .qc-abre-texto>.qc-contato.espera{opacity:0;transform:translateY(8px)}
 @media (prefers-reduced-motion:reduce){ .qc-lead-sub,.qc-abre-texto>.qc-contato{transition:none} }
