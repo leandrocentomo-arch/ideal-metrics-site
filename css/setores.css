@@ -298,7 +298,9 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
 .sx-num{font-size:18px;line-height:1}
 .sx-baixo{margin-top:24px}
 .sx-cat{display:block;font-family:var(--mono);font-size:10px;line-height:1;letter-spacing:0;text-transform:uppercase}
-.sx-nome{margin:22px 0 0;font-size:18px;font-weight:400;line-height:1.05;text-wrap:pretty}
+/* 13/10/2026: «deixe mais escuros os titulos, mais bold»: o nome do setor sai em 600 (era 400), na tinta mais escura da
+   marca (#14304C, a mesma de antes; o peso e que escurece a leitura). Igual na manchete de Conteudo de destaque. */
+.sx-nome{margin:22px 0 0;font-size:18px;font-weight:600;line-height:1.05;text-wrap:pretty}
 .sx-btn{position:absolute;top:0;right:0;width:90px;height:90px;background:var(--mercurio);border:1px solid var(--azul);
   display:flex;align-items:center;justify-content:center;color:var(--azul);transform:scale(1);transform-origin:top right;
   transition:transform .4s cubic-bezier(.4,0,.2,1);will-change:transform}
