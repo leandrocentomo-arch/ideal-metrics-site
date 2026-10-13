@@ -48,6 +48,30 @@ def recorte(im, W, H, px, py):
     return r.crop((x0, y0, x0 + W, y0 + H))
 
 
+def _tom_motor(g, T):
+    """o tom do motor (js/trama.js, tom()): gama, contraste em sigmoide, brilho e o escuro abaixo de 78%"""
+    v = np.clip(np.power(np.clip(g, 0, 1), T['gama']), 1e-6, 1 - 1e-6)
+    p, q = np.power(v, T['ctr']), np.power(1 - v, T['ctr'])
+    w = np.clip(p / (p + q) + T['brilhoTom'], 0, 1)
+    e = T.get('escuro', 0) or 0
+    return np.where((e > 0) & (w < .78), .78 * np.power(w / .78, 1 + 2 * e), w)
+
+
+def assa_tingimento(g, tg):
+    """13/10/2026: a receita do Spirit pode trazer um tingimento proprio (ex.: gama 1,24 e escuro 0,9 na foto de Alimentos),
+    mas o motor de uma grade aplica UM tom so a todas as fotos dela (o padrao do site: gama 0,88, contraste 1,55, brilho 0,35,
+    escuro 0,35). Aqui a diferenca vai para dentro da luminancia: cada valor g vira o g' que, no tom padrao, da o mesmo tom
+    que g dava no tom da receita. Onde o tom da receita fica mais escuro do que o padrao consegue (abaixo de ~0,2), fica no
+    minimo do padrao, que na trama ja e a tinta mais escura. Receita com «padrão do site» passa direto."""
+    if not isinstance(tg, dict): return g
+    pad = {'brilhoTom': TOM['brilhoTom'], 'gama': TOM['gama'], 'ctr': TOM['ctr'], 'escuro': TOM.get('escuro', 0)}
+    rec = {k: float(tg.get(k, pad[k])) for k in pad}
+    if all(abs(rec[k] - pad[k]) < 1e-6 for k in pad): return g
+    x = np.linspace(0, 1, 4097)
+    alvo = _tom_motor(g, rec)
+    return np.interp(alvo, _tom_motor(x, pad), x).astype(np.float32)
+
+
 def da_receita(receita, cru, nome):
     """02/10/2026: a foto do corpo da pagina pela receita da aba [ 08 ] do Spirit (tipo «foto da página»).
 
@@ -69,6 +93,7 @@ def da_receita(receita, cru, nome):
         tg = R.get('tingimento')
         T = foto_banner.tom_da_receita(R) if isinstance(tg, dict) else {'brilhoTom': TOM['brilhoTom'], 'gama': TOM['gama'], 'ctr': TOM['ctr'], 'escuro': TOM.get('escuro', 0)}
         g = foto_banner.passagem_no_tom(g, masc, T)
+    g = assa_tingimento(g, R.get('tingimento'))
     L = Image.fromarray(np.uint8(np.clip(np.rint(g * 255), 0, 255)), 'L')
     L.convert('RGB').save(os.path.join(SITE, 'img', nome + '-lum.webp'), 'WEBP', quality=90, method=6)
     v = tom(np.asarray(L.resize((W, H), Image.LANCZOS), np.float32) / 255.0)
