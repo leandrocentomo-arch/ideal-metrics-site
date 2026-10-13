@@ -178,13 +178,25 @@
   if(lead){
     /* o traco da busca espera a frase terminar; sem o efeito, ele pisca desde sempre */
     if(caixa) caixa.classList.add('espera');
-    /* 12/10/2026: a frase de baixo e o contato abrem quando a digitacao termina */
-    var sub = document.getElementById('qcLeadSub'), ct = document.getElementById('qcContato');
-    if(sub) sub.classList.add('espera'); if(ct) ct.classList.add('espera');
-    digita(lead, function(){
-      if(caixa) caixa.classList.remove('espera');
-      setTimeout(function(){ if(sub){ sub.classList.remove('espera'); sub.classList.add('aberta'); } if(ct) ct.classList.remove('espera'); }, 180);
-    }, 0.6);
+    digita(lead, function(){ if(caixa) caixa.classList.remove('espera'); }, 0.6);
+  }
+  /* 13/10/2026: «quero que essa parte surja com o scroll do mouse, logo abaixo do O que fazemos»: a frase de baixo e o
+     contato abrem quando entram na tela pela rolagem (antes abriam no fim da digitacao da frase de cima). Uma vez so. */
+  var sub = document.getElementById('qcLeadSub'), ct = document.getElementById('qcContato');
+  /* o vigia olha o contato (ou o botao), nao a frase: a frase escondida tem clip-path de altura zero e o
+     IntersectionObserver a enxerga sem area nenhuma */
+  var alvo = ct || document.querySelector('.qc-todos');
+  if(sub && alvo && 'IntersectionObserver' in window){
+    sub.classList.add('espera'); if(ct) ct.classList.add('espera');
+    var vigia = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        vigia.disconnect();
+        sub.classList.remove('espera'); sub.classList.add('aberta');
+        if(ct) setTimeout(function(){ ct.classList.remove('espera'); }, 180);
+      });
+    }, {threshold: 0, rootMargin: '0px 0px -8% 0px'});
+    vigia.observe(alvo);
   }
   var dm = document.getElementById('dmLead');
   if(dm) digita(dm);

@@ -357,9 +357,14 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
   transition:clip-path .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1),opacity .5s}
 .qc-lead-sub.espera{clip-path:inset(0 0 100% 0);transform:translateY(10px);opacity:0}
 .qc-lead-sub.aberta{clip-path:inset(0 0 0 0);transform:none;opacity:1}
-.qc-abre-cauda>.qc-contato{margin:22px 0 0;transition:opacity .6s .25s,transform .6s .25s cubic-bezier(.22,1,.36,1)}
-.qc-abre-cauda>.qc-contato.espera{opacity:0;transform:translateY(8px)}
-@media (prefers-reduced-motion:reduce){ .qc-lead-sub,.qc-abre-cauda>.qc-contato{transition:none} }
+/* 13/10/2026: «quero que essa parte surja com o scroll do mouse, logo abaixo do O que fazemos»: a frase e o contato
+   voltaram para a coluna de O que fazemos, logo abaixo do botao Todos os servicos (a cauda ficou vazia de novo; continua
+   no HTML, e a ancora do setores.py). Abrem quando entram na tela pela rolagem (js/busca.js), nao mais no fim da digitacao.
+   Com a grade aberta, somem junto com a coluna. */
+.qc-abre-texto>.qc-lead-sub{margin:34px 0 0}
+.qc-abre-texto>.qc-contato{margin:22px 0 0;transition:opacity .6s .25s,transform .6s .25s cubic-bezier(.22,1,.36,1)}
+.qc-abre-texto>.qc-contato.espera{opacity:0;transform:translateY(8px)}
+@media (prefers-reduced-motion:reduce){ .qc-lead-sub,.qc-abre-texto>.qc-contato{transition:none} }
 .qc-contato-frase{margin:0;font-family:var(--sans);font-size:15px;line-height:1.35;color:var(--azul-escuro)}
 .qc-contato-bts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
 .qc-contato-bt{display:flex;align-items:center;gap:10px;width:148px;padding:7px 12px;border:1px solid rgba(20,48,76,.42);border-radius:3px;
