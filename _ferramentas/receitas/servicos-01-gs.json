@@ -1,0 +1,42 @@
+{
+ "foto_original": "49361815_23843315565560299_3014457160730935296_n-min.png",
+ "vaga": "gs",
+ "arquivos": {
+  "lum": "servicos-01-lum-gs.webp",
+  "bayer": "servicos-01-bayer-gs.webp"
+ },
+ "medidas": {
+  "reserva": [
+   600,
+   600
+  ],
+  "luminancia": [
+   960,
+   960
+  ]
+ },
+ "enquadramento": {
+  "zoom": 1,
+  "px": 50,
+  "py": 50,
+  "espelhar": false,
+  "inclinar": 0,
+  "corte_esq": 0,
+  "corte_dir": 0,
+  "corte_topo": 0,
+  "corte_base": 0
+ },
+ "ajustes_da_foto": {
+  "exposicao": -0.15,
+  "gama": 0.9,
+  "ctr": 1.55,
+  "brilho": 0.02,
+  "piso": 0,
+  "teto": 0.77,
+  "nitidez": 0,
+  "suave": 0
+ },
+ "tingimento": "padrão do site",
+ "clareamento_na_reserva": true,
+ "nota": "13/10/2026: Servicos e setor publico, card 09 do Guia. Arquivos no site: img/servicos-01-lum-gs.webp e -bayer-gs.webp. Tingimento padrao do site."
+}

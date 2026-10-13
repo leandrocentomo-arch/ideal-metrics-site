@@ -2,8 +2,8 @@
  "foto_original": "Tractors_planting_in_prepared_field_20261013080157.jpg",
  "vaga": "gs",
  "arquivos": {
-  "lum": "technical-plant-room-with-equipment-2026-lum-gs.webp",
-  "bayer": "technical-plant-room-with-equipment-2026-bayer-gs.webp"
+  "lum": "agro-02-lum-gs.webp",
+  "bayer": "agro-02-bayer-gs.webp"
  },
  "medidas": {
   "reserva": [
@@ -54,5 +54,5 @@
   ]
  },
  "clareamento_na_reserva": true,
- "nota": "13/10/2026: Agro e florestal, card 05 do Guia (tratores plantando, Google Flow), no lugar da colheitadeira. Arquivos no site: img/agro-tratores-lum-gs.webp e -bayer-gs.webp. Tingimento proprio (com limiar) embutido na luminancia (assa_tingimento)."
+ "nota": "13/10/2026: Agro e florestal, card 05 do Guia, no lugar da colheitadeira. Arquivos no site: img/agro-02-lum-gs.webp e -bayer-gs.webp. Tingimento proprio (com limiar) embutido na luminancia (assa_tingimento)."
 }

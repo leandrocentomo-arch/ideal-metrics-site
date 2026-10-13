@@ -23,18 +23,18 @@
  },
  "clareamento_na_reserva": true,
  "tom_no_motor": true,
- "foto_original": "Maritox-Asbestbestrijding-min.jpg",
+ "foto_original": "Asset  (5).jpg",
  "arquivos": {
-  "lum": "shutterstock-454851409-min-lum-gs.webp",
-  "bayer": "shutterstock-454851409-min-bayer-gs.webp"
+  "lum": "facilities-01-lum-gs.webp",
+  "bayer": "facilities-01-bayer-gs.webp"
  },
  "ajustes_da_foto": {
-  "exposicao": 0.05,
-  "gama": 1,
-  "ctr": 1,
-  "brilho": 0,
+  "exposicao": 0.1,
+  "gama": 1.06,
+  "ctr": 0.75,
+  "brilho": 0.04,
   "piso": 0,
-  "teto": 1,
+  "teto": 0.91,
   "nitidez": 0,
   "suave": 0
  },
@@ -43,7 +43,7 @@
   "gama": 1.13,
   "ctr": 1.7,
   "escuro": 0.4,
-  "limiar": 0.03,
+  "limiar": 0.07,
   "ponto": 1,
   "ruido": 0,
   "matriz": 4,
@@ -55,5 +55,5 @@
    "#FAF9F5"
   ]
  },
- "nota": "13/10/2026: Energia e utilities, card 07 do Guia (trabalhador na escada entre tanques). Arquivos no site: img/energia-escada-lum-gs.webp e -bayer-gs.webp. Tom e paleta proprios no motor (data-tom)."
+ "nota": "13/10/2026: Facilities, card 03 do Guia, no lugar da mulher com prancheta. Arquivos no site: img/facilities-01-lum-gs.webp e -bayer-gs.webp. Tom e paleta proprios no motor (data-tom)."
 }

@@ -2,8 +2,8 @@
  "foto_original": "Stainless_steel_processing_tanks_20261013075107.jpg",
  "vaga": "gs",
  "arquivos": {
-  "lum": "technical-plant-room-with-equipment-2026-lum-gs.webp",
-  "bayer": "technical-plant-room-with-equipment-2026-bayer-gs.webp"
+  "lum": "alimentos-01-lum-gs.webp",
+  "bayer": "alimentos-01-bayer-gs.webp"
  },
  "medidas": {
   "reserva": [
@@ -54,5 +54,5 @@
   ]
  },
  "clareamento_na_reserva": true,
- "nota": "13/10/2026: Alimentos, card 04 do Guia. Arquivos no site: img/alimentos-tanques-lum-gs.webp e -bayer-gs.webp. O tingimento proprio (gama 1,24, escuro 0,9) vai embutido na luminancia pelo foto_azul.py (assa_tingimento), porque o motor da grade usa um tom so."
+ "nota": "13/10/2026: Alimentos, card 04 do Guia. Arquivos no site: img/alimentos-01-lum-gs.webp e -bayer-gs.webp. O tingimento proprio (gama 1,24, escuro 0,9) vai embutido na luminancia pelo foto_azul.py (assa_tingimento), porque o motor da grade usa um tom so."
 }

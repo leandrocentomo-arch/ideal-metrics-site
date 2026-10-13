@@ -2,8 +2,8 @@
  "foto_original": "Combine_harvester_harvesting_soy…_20261013075904.jpg",
  "vaga": "gs",
  "arquivos": {
-  "lum": "technical-plant-room-with-equipment-2026-lum-gs.webp",
-  "bayer": "technical-plant-room-with-equipment-2026-bayer-gs.webp"
+  "lum": "agro-01-lum-gs.webp",
+  "bayer": "agro-01-bayer-gs.webp"
  },
  "medidas": {
   "reserva": [
@@ -54,5 +54,5 @@
   ]
  },
  "clareamento_na_reserva": true,
- "nota": "13/10/2026: Agro e florestal, card 05 do Guia (colheitadeira e caminhao na soja, Google Flow). Arquivos no site: img/agro-colheitadeira-lum-gs.webp e -bayer-gs.webp. Tingimento proprio embutido na luminancia (assa_tingimento)."
+ "nota": "13/10/2026: Agro e florestal, card 05 do Guia. Arquivos no site: img/agro-01-lum-gs.webp e -bayer-gs.webp. Tingimento proprio embutido na luminancia (assa_tingimento)."
 }
