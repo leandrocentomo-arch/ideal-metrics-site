@@ -273,6 +273,10 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
    grade 3x3 dos nove setores; a casa sob o mouse fica azul e a foto troca (js/guia-foto.js). Substitui «Setores em foco». ---------- */
 .sx{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:15px;margin-top:44px}
 .sx-fig{grid-column:1 / span 4;margin:0;align-self:start}
+/* 13/10/2026: «nesta secao eu quero o mesmo efeito (o da secao Frentes): segure a foto e passe os cards dos setores no
+   scroll do mouse». A foto com a legenda fica presa abaixo do cabecalho (92 px + 28) enquanto a grade dos nove setores
+   sobe ao lado; solta quando o pe da grade encontra o pe da legenda. No celular, nada fica preso. */
+.sx-fig{position:sticky;top:120px}
 .sx-midia{position:relative;display:grid;grid-template-areas:"stack";aspect-ratio:1/1;overflow:hidden;background:var(--mercurio)}
 .sx-layer{grid-area:stack;width:100%;height:100%;overflow:hidden;opacity:0;transition:opacity .8s cubic-bezier(0.83,0,0.17,1)}
 .sx-layer-ativa{opacity:1}
@@ -328,7 +332,7 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
 .sx-grade.sx-fluido .sx-bg > .sx-btn svg{transform-origin:50% 50%;will-change:transform}
 @media (prefers-reduced-motion:reduce){ .sx-grade.sx-fluido .sx-card{transition:none} .sx-layer{transition:none} }
 @media (max-width:880px){
-  .sx-fig{grid-column:1 / -1}
+  .sx-fig{grid-column:1 / -1;position:static}
   .sx-grade{grid-column:1 / -1;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:24px}
   .sx-card:nth-child(n+3){border-top:1px solid rgba(20,48,76,.2)}
   .sx-card:nth-child(n+7){border-bottom:0}
