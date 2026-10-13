@@ -1,0 +1,59 @@
+{
+ "foto_original": "Factory_workers_attending_wellbeing_2K_20260917115501.jpeg",
+ "vaga": "gs",
+ "arquivos": {
+  "lum": "servicos-02-lum-gs.webp",
+  "bayer": "servicos-02-bayer-gs.webp"
+ },
+ "medidas": {
+  "reserva": [
+   600,
+   600
+  ],
+  "luminancia": [
+   960,
+   960
+  ]
+ },
+ "enquadramento": {
+  "zoom": 1,
+  "px": 51.65736514129314,
+  "py": 75.9152011256091,
+  "espelhar": false,
+  "inclinar": 0,
+  "corte_esq": 0,
+  "corte_dir": 0,
+  "corte_topo": 0,
+  "corte_base": 0
+ },
+ "ajustes_da_foto": {
+  "exposicao": -0.25,
+  "gama": 0.82,
+  "ctr": 1,
+  "brilho": 0.03,
+  "piso": 0.1,
+  "teto": 0.89,
+  "nitidez": 0,
+  "suave": 0
+ },
+ "tingimento": {
+  "brilhoTom": 0.27,
+  "gama": 0.88,
+  "ctr": 1.55,
+  "escuro": 0.6,
+  "limiar": 0,
+  "ponto": 1,
+  "ruido": 0,
+  "matriz": 4,
+  "veu": 0.1,
+  "cores": [
+   "#153351",
+   "#183858",
+   "#6792BD",
+   "#FAF9F5"
+  ]
+ },
+ "clareamento_na_reserva": true,
+ "tom_no_motor": true,
+ "nota": "13/10/2026: Servicos e setor publico, card 09 do Guia, no lugar de servicos-01. Arquivos no site: img/servicos-02-lum-gs.webp e -bayer-gs.webp. Tom proprio no motor (data-tom)."
+}
