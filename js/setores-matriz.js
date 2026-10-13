@@ -70,14 +70,21 @@
      sem transicao. Ao soltar, a grade termina o caminho com a transicao de sempre (0,8 s): abre se passou de 25% do
      curso partindo de recolhida, fecha se voltou mais de 25% partindo de aberta. Sem mover (menos de 5 px) e clique. */
   var arr = null;
+  /* 13/10/2026: «quando estou empurrando a tabela de volta, a frase aparece embaixo». A linha tem vao de 40 px e a soma
+     grade + vao + margem + coluna fechava na largura exata da linha, sem folga; o clientWidth arredonda (linha de
+     1385,53 px dava 1386) e, com meio pixel a mais, «O que fazemos» descia para baixo da grade durante o arrasto.
+     Agora a largura e a exata (getBoundingClientRect) e a coluna fica com o que sobra da linha, menos 1 px de folga. */
   function medidas(){
-    var L = linha.clientWidth;
-    return {fechada: L * .42 - 40, aberta: L - 41, frase: L * .58 - 20};
+    var L = linha.getBoundingClientRect().width;
+    return {L: L, fechada: L * .42 - 40, aberta: L - 41, frase: L * .58 - 20};
   }
   function arrasta(p){
-    var m = arr.m;
-    fig.style.flexBasis = (m.fechada + p * (m.aberta - m.fechada)) + 'px';
-    if(cauda){ cauda.style.flexBasis = (m.frase * (1 - p)) + 'px'; cauda.style.marginLeft = (20 * (1 - p)) + 'px'; cauda.style.opacity = String(1 - p); }
+    var m = arr.m, f = m.fechada + p * (m.aberta - m.fechada), mg = 20 * (1 - p);
+    fig.style.flexBasis = f + 'px';
+    if(cauda){
+      cauda.style.flexBasis = Math.max(0, Math.min(m.frase * (1 - p), m.L - 40 - f - mg - 1)) + 'px';
+      cauda.style.marginLeft = mg + 'px'; cauda.style.opacity = String(1 - p);
+    }
     arr.p = p;
   }
   function limpa(){
