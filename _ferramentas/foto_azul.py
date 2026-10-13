@@ -66,9 +66,10 @@ def assa_tingimento(g, tg):
     if not isinstance(tg, dict): return g
     pad = {'brilhoTom': TOM['brilhoTom'], 'gama': TOM['gama'], 'ctr': TOM['ctr'], 'escuro': TOM.get('escuro', 0)}
     rec = {k: float(tg.get(k, pad[k])) for k in pad}
-    if all(abs(rec[k] - pad[k]) < 1e-6 for k in pad): return g
+    lim = float(tg.get('limiar', 0) or 0)   # o Spirit quantiza floor((v - limiar)*3 + T); no motor o limiar e 0
+    if all(abs(rec[k] - pad[k]) < 1e-6 for k in pad) and abs(lim) < 1e-6: return g
     x = np.linspace(0, 1, 4097)
-    alvo = _tom_motor(g, rec)
+    alvo = _tom_motor(g, rec) - lim
     return np.interp(alvo, _tom_motor(x, pad), x).astype(np.float32)
 
 

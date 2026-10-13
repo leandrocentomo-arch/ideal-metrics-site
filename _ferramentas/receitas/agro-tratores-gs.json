@@ -1,0 +1,58 @@
+{
+ "foto_original": "Tractors_planting_in_prepared_field_20261013080157.jpg",
+ "vaga": "gs",
+ "arquivos": {
+  "lum": "technical-plant-room-with-equipment-2026-lum-gs.webp",
+  "bayer": "technical-plant-room-with-equipment-2026-bayer-gs.webp"
+ },
+ "medidas": {
+  "reserva": [
+   600,
+   600
+  ],
+  "luminancia": [
+   960,
+   960
+  ]
+ },
+ "enquadramento": {
+  "zoom": 1,
+  "px": 50,
+  "py": 50,
+  "espelhar": false,
+  "inclinar": 0,
+  "corte_esq": 0,
+  "corte_dir": 0,
+  "corte_topo": 0,
+  "corte_base": 0
+ },
+ "ajustes_da_foto": {
+  "exposicao": 0.6,
+  "gama": 1,
+  "ctr": 1,
+  "brilho": 0,
+  "piso": 0,
+  "teto": 1,
+  "nitidez": 0,
+  "suave": 0
+ },
+ "tingimento": {
+  "brilhoTom": 0.13,
+  "gama": 1.13,
+  "ctr": 1.75,
+  "escuro": 0,
+  "limiar": -0.03,
+  "ponto": 1,
+  "ruido": 0,
+  "matriz": 4,
+  "veu": 0.12,
+  "cores": [
+   "#153351",
+   "#183858",
+   "#6792BD",
+   "#FAF9F5"
+  ]
+ },
+ "clareamento_na_reserva": true,
+ "nota": "13/10/2026: Agro e florestal, card 05 do Guia (tratores plantando, Google Flow), no lugar da colheitadeira. Arquivos no site: img/agro-tratores-lum-gs.webp e -bayer-gs.webp. Tingimento proprio (com limiar) embutido na luminancia (assa_tingimento)."
+}
