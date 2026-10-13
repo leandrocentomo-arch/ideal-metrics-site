@@ -265,10 +265,17 @@
       a.v = t >= 1 ? a.para : a.de + (a.para - a.de)*a.curva(t);
       return true;
     }
+    /* 13/10/2026: tom proprio por peca (pl.tom, a receita da aba [ 07 ] do Spirit): gama, contraste, brilho, escuro, limiar,
+       veu e a paleta de quatro cores. Sem pl.tom, a peca usa o tom da cfg, como sempre. */
+    function rgbDe(h){ if(Array.isArray(h)) return h; var v = parseInt(String(h).replace('#', ''), 16); return [v >> 16 & 255, v >> 8 & 255, v & 255]; }
     var planos = cfg.planos.map(function(pl, i){
-      return {el:pl.el, src:pl.lum, srcAzul:cfg.degrade ? pl.lumAzul : null, txA:null, ax:pl.ax == null ? .5 : pl.ax, espelha:pl.espelha ? 1 : 0, tx:null, w:1, h:1,
-              zoom:anima(1), lava:anima(cfg.lavaInicial != null ? cfg.lavaInicial : (cfg.lavaRepouso || 0)),   /* 30/09: lavaInicial = o veu com que a peca nasce */ opac:anima(cfg.empilhado ? (i === 0 ? 1 : 0) : 1)};
+      var tp = pl.tom || null;
+      if(tp && tp.cores && tp.cores.length === 4) tp.rgb = tp.cores.map(rgbDe);
+      var lava0 = tp && tp.veu != null ? +tp.veu : (cfg.lavaInicial != null ? cfg.lavaInicial : (cfg.lavaRepouso || 0));   /* 30/09: lavaInicial = o veu com que a peca nasce */
+      return {el:pl.el, src:pl.lum, srcAzul:cfg.degrade ? pl.lumAzul : null, txA:null, ax:pl.ax == null ? .5 : pl.ax, espelha:pl.espelha ? 1 : 0, tx:null, w:1, h:1, tom:tp,
+              zoom:anima(1), lava:anima(lava0), opac:anima(cfg.empilhado ? (i === 0 ? 1 : 0) : 1)};
     });
+    var tomPorPeca = planos.some(function(pl){ return !!pl.tom; });
     if(planos.some(function(pl){ return !pl.src || !pl.el; })) return null;
     if(cfg.degrade && planos.some(function(pl){ return !pl.srcAzul; })) cfg.degrade = null;   /* sem luminancia azul, sem degrade */
 
@@ -578,6 +585,14 @@
         else { gl.uniform4f(uF.uCol, x0, y, w, h); gl.uniform1f(uF.uAy, .5);
           gl.uniform1f(uF.uAx, pl.espelha ? 1 - pl.ax : pl.ax); gl.uniform1f(uF.uEspelha, pl.espelha); gl.uniform1f(uF.uZoom, pl.zoom.v); }
         gl.uniform2f(uF.uTex, pl.w, pl.h);
+        if(tomPorPeca){   /* 13/10/2026: o tom e a paleta desta peca (ou os da cfg); o limiar soma ao da entrada */
+          var tp = pl.tom || {}, PC = tp.rgb || C;
+          gl.uniform1f(uF.uGama, tp.gama != null ? +tp.gama : (cfg.gama || .86)); gl.uniform1f(uF.uCtr, tp.ctr != null ? +tp.ctr : (cfg.ctr || 1.55));
+          gl.uniform1f(uF.uBrilho, tp.brilhoTom != null ? +tp.brilhoTom : (cfg.brilhoTom == null ? .35 : cfg.brilhoTom)); gl.uniform1f(uF.uEscuro, tp.escuro != null ? +tp.escuro : (cfg.escuro || 0));
+          gl.uniform1f(uF.uBias, bias.v + (+tp.limiar || 0));
+          gl.uniform3f(uF.uC0, PC[0][0]/255, PC[0][1]/255, PC[0][2]/255); gl.uniform3f(uF.uC1, PC[1][0]/255, PC[1][1]/255, PC[1][2]/255);
+          gl.uniform3f(uF.uC2, PC[2][0]/255, PC[2][1]/255, PC[2][2]/255); gl.uniform3f(uF.uC3, PC[3][0]/255, PC[3][1]/255, PC[3][2]/255);
+        }
         gl.uniform1f(uF.uLava, pl.lava.v); gl.uniform1f(uF.uOpac, pl.opac.v/soma);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
       });

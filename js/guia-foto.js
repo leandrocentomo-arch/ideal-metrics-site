@@ -188,8 +188,10 @@
     if(!window.ditherVivo || !('IntersectionObserver' in window)) return;
     /* 12/10/2026: data-ax na <img> ancora o recorte da foto na horizontal (0 = esquerda, 1 = direita; padrao o centro).
        A foto de Facilities (a mulher com prancheta) ancora a direita, para o logo da camisa nao sair do quadro. */
-    var planos = camadas.map(function(c){ var im = c.querySelector('img'), ax = parseFloat(im.getAttribute('data-ax'));
-      return {el:midia, lum:im.getAttribute('data-lum'), ax: isNaN(ax) ? .5 : ax}; });
+    /* 13/10/2026: data-tom na <img> traz o tom proprio da foto (receita da aba [ 07 ] do Spirit), com a paleta e o veu */
+    var planos = camadas.map(function(c){ var im = c.querySelector('img'), ax = parseFloat(im.getAttribute('data-ax')), tom = null;
+      try { tom = JSON.parse(im.getAttribute('data-tom') || 'null'); } catch(e){}
+      return {el:midia, lum:im.getAttribute('data-lum'), ax: isNaN(ax) ? .5 : ax, tom: tom}; });
     new IntersectionObserver(function(es){
       es.forEach(function(e){
         if(e.isIntersecting && !gl){

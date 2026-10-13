@@ -98,9 +98,29 @@ def da_receita(receita, cru, nome):
             T = {'brilhoTom': float(tg.get('brilhoTom', tg.get('brilho_do_tom', T['brilhoTom']))), 'gama': float(tg.get('gama', T['gama'])),
                  'ctr': float(tg.get('ctr', tg.get('contraste', T['ctr']))), 'escuro': float(tg.get('escuro', T['escuro']) or 0)}
         g = foto_banner.passagem_no_tom(g, masc, T)
-    g = assa_tingimento(g, R.get('tingimento'))
+    tg = R.get('tingimento')
+    # 13/10/2026: «tom_no_motor»: o tom, a paleta, o limiar e o veu da receita vao para o motor da grade pela <img data-tom>
+    # (js/trama.js aceita tom por peca); entao a luminancia sai crua (sem assar) e a reserva sai no tom e na paleta da receita
+    no_motor = bool(R.get('tom_no_motor')) and isinstance(tg, dict)
+    if not no_motor: g = assa_tingimento(g, tg)
     L = Image.fromarray(np.uint8(np.clip(np.rint(g * 255), 0, 255)), 'L')
     L.convert('RGB').save(os.path.join(SITE, 'img', nome + '-lum.webp'), 'WEBP', quality=90, method=6)
+    if no_motor:
+        T = {'brilhoTom': float(tg.get('brilhoTom', TOM['brilhoTom'])), 'gama': float(tg.get('gama', TOM['gama'])),
+             'ctr': float(tg.get('ctr', TOM['ctr'])), 'escuro': float(tg.get('escuro', 0) or 0)}
+        w = _tom_motor(np.asarray(L.resize((W, H), Image.LANCZOS), np.float32) / 255.0, T) - float(tg.get('limiar', 0) or 0)
+        M = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32)
+        Tb = (M[np.arange(H) % 4][:, np.arange(W) % 4] + .5) / 16
+        k = np.clip(np.floor(w * 3 + Tb), 0, 3).astype(np.int32)
+        creme = np.array([250, 249, 245], np.float32); ve = float(tg.get('veu', .12))
+        C = np.array([[int(h.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4)] for h in tg.get('cores', ['#153351', '#183858', '#6792BD', '#FAF9F5'])], np.float32)
+        C = C * (1 - ve) + creme * ve
+        if R.get('clareamento_na_reserva', True): C = np.minimum(creme, C * 1.06)
+        Image.fromarray(np.uint8(np.rint(C[k])), 'RGB').save(os.path.join(SITE, 'img', nome + '-bayer.webp'), 'WEBP', lossless=True, quality=100, method=6)
+        for t in ('lum', 'bayer'):
+            f = os.path.join(SITE, 'img', '%s-%s.webp' % (nome, t))
+            print('%-28s %dx%d  %d KB' % (os.path.basename(f), *Image.open(f).size, os.path.getsize(f) // 1024))
+        return
     v = tom(np.asarray(L.resize((W, H), Image.LANCZOS), np.float32) / 255.0)
     M = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32)
     T = (M[np.arange(H) % 4][:, np.arange(W) % 4] + .5) / 16

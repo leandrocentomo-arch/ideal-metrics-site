@@ -1,0 +1,59 @@
+{
+ "vaga": "gs",
+ "medidas": {
+  "reserva": [
+   600,
+   600
+  ],
+  "luminancia": [
+   960,
+   960
+  ]
+ },
+ "enquadramento": {
+  "zoom": 1,
+  "px": 50,
+  "py": 50,
+  "espelhar": false,
+  "inclinar": 0,
+  "corte_esq": 0,
+  "corte_dir": 0,
+  "corte_topo": 0,
+  "corte_base": 0
+ },
+ "clareamento_na_reserva": true,
+ "tom_no_motor": true,
+ "foto_original": "Asset  (5).jpg",
+ "arquivos": {
+  "lum": "shutterstock-454851409-min-lum-gs.webp",
+  "bayer": "shutterstock-454851409-min-bayer-gs.webp"
+ },
+ "ajustes_da_foto": {
+  "exposicao": 0.1,
+  "gama": 1.06,
+  "ctr": 0.75,
+  "brilho": 0.04,
+  "piso": 0,
+  "teto": 0.91,
+  "nitidez": 0,
+  "suave": 0
+ },
+ "tingimento": {
+  "brilhoTom": 0.09,
+  "gama": 1.13,
+  "ctr": 1.7,
+  "escuro": 0.4,
+  "limiar": 0.07,
+  "ponto": 1,
+  "ruido": 0,
+  "matriz": 4,
+  "veu": 0.19,
+  "cores": [
+   "#14304C",
+   "#336699",
+   "#D3E2F2",
+   "#FAF9F5"
+  ]
+ },
+ "nota": "13/10/2026: Facilities, card 03 do Guia (dois tecnicos com prancheta num galpao de estrutura metalica), no lugar da mulher com prancheta. Arquivos no site: img/facilities-galpao-lum-gs.webp e -bayer-gs.webp. Tom e paleta proprios no motor (data-tom)."
+}

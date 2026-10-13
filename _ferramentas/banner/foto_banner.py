@@ -144,7 +144,8 @@ def luz_da_receita(cru, R, LARG, ALT, com_mascara=False, encosta_direita=False):
     if not ang:
         esq, topo = LARG / 2 + ox - dw / 2, ALT / 2 + oy - dh / 2      # o canto da foto no espaco
         if esq <= .5 and topo <= .5 and esq + dw >= LARG - .5 and topo + dh >= ALT - .5:
-            im = im.resize((LARG, ALT), Image.LANCZOS, box=(-esq / e, -topo / e, (LARG - esq) / e, (ALT - topo) / e))
+            # 13/10/2026: a caixa presa aos limites da foto (numa foto de 5722 px, esq dava +1e-13 e a caixa saia negativa)
+            im = im.resize((LARG, ALT), Image.LANCZOS, box=(max(0., -esq / e), max(0., -topo / e), min(im.width, (LARG - esq) / e), min(im.height, (ALT - topo) / e)))
         else:
             # 05/10: a foto nao cobre o espaco (zoom abaixo de 1 ou vertical livre): creme em volta, foto colada no lugar
             tela = Image.new('RGB', (LARG, ALT), CREME_RGB)
