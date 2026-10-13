@@ -92,7 +92,11 @@ def da_receita(receita, cru, nome):
     g, masc = foto_banner.luz_da_receita(cru, R, wl, hl, com_mascara=True)
     if masc is not None:      # 05/10: zoom negativo, a borda da foto esmaece para o creme, no tom das fotos do site
         tg = R.get('tingimento')
-        T = foto_banner.tom_da_receita(R) if isinstance(tg, dict) else {'brilhoTom': TOM['brilhoTom'], 'gama': TOM['gama'], 'ctr': TOM['ctr'], 'escuro': TOM.get('escuro', 0)}
+        # 13/10/2026: a receita da aba [ 07 ] chama brilhoTom e ctr (a da [ 08 ], brilho_do_tom e contraste); aceita as duas
+        T = {'brilhoTom': TOM['brilhoTom'], 'gama': TOM['gama'], 'ctr': TOM['ctr'], 'escuro': TOM.get('escuro', 0)}
+        if isinstance(tg, dict):
+            T = {'brilhoTom': float(tg.get('brilhoTom', tg.get('brilho_do_tom', T['brilhoTom']))), 'gama': float(tg.get('gama', T['gama'])),
+                 'ctr': float(tg.get('ctr', tg.get('contraste', T['ctr']))), 'escuro': float(tg.get('escuro', T['escuro']) or 0)}
         g = foto_banner.passagem_no_tom(g, masc, T)
     g = assa_tingimento(g, R.get('tingimento'))
     L = Image.fromarray(np.uint8(np.clip(np.rint(g * 255), 0, 255)), 'L')
