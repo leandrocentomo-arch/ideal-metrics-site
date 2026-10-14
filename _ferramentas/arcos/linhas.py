@@ -52,11 +52,10 @@ NF, EF, LH = 17, 18, 20       # nome do tema, nome do eixo e entrelinha dos nome
 ORDEM = ['qualidade', 'ambiente', 'carbono', 'alimentos', 'compliance', 'nrs', 'viaria', 'si']
 FAIXA = [('esg', 'smeta'), ('estudos',)]   # as linhas proprias: Padronizacao numa fileira, Inteligencia na outra
 LARG = arcos.larguras()
-# 14/10/2026: as tres linhas proprias foram a circulos («e se estes dois ficassem em circulo, com fundo e efeito dos
-# outros») e no mesmo dia voltaram: «tire os circulos, organize em fluxo». Agora sao ramais verticais como os do eixo,
-# com o nome em cima e a linha descendo pelas normas, nas colunas dos ramais 1, 3 e 5 (COLS).
-FLUXO = ('esg', 'smeta', 'estudos')
-COLS = (0, 2, 4)
+# 14/10/2026: as tres linhas proprias passaram por circulos («e se estes dois ficassem em circulo») e por ramais
+# verticais («tire os circulos, organize em fluxo») e voltaram a horizontal («acho que fica melhor na horizontal»):
+# a faixa (FAIXA) centralizada, como na versao vertical, com o nome em cima do comeco de cada linha; a piramide de
+# bonecos ficou no canto direito.
 FOTO_PROP = 480 / 867.0                    # img/conhecimento-foto-*.webp, a piramide de bonecos (foto.py)
 GEO = {}
 
@@ -186,35 +185,14 @@ class _Desenho:
             y += passo
         return y - passo
 
-    # ------------------------------------------------------------ 14/10/2026: as linhas proprias em FLUXO
-    def colunas(self, xs, yt, py, d0=0):
-        """ESG, Responsabilidade social e Estudos como ramais verticais sem eixo: o nome em cima (yt e a linha de base
-        da primeira linha do nome) e a linha descendo pelas normas, a py uma da outra; Estudos tracejada em vermelho.
-        Na entrada a linha cresce do nome para baixo e as normas brotam dele. Devolve o fim da linha mais longa."""
-        fim = yt
-        for j, (t, x) in enumerate(zip(FLUXO, xs)):
-            tit, pag, normas = titulo2(self.tem[t][6]), self.tem[t][1], self.de[t]
-            y1 = yt + LH * (len(tit) - 1) + 12          # a linha comeca logo abaixo do nome
-            ys = [y1 + 26 + py * m for m in range(len(normas))]
-            yl = ys[-1] + 26
-            d = d0 + 200 * j
-            self.abre(t, ' ln-i' if t == 'estudos' else '')
-            self.linha(x, y1, x, yl, pag=pag, d=d)
-            for m, n in enumerate(normas):
-                self.etiqueta(x, ys[m], n, de=(x, y1), d=d + 140 + 100 * m)
-            self.nome(x, yt, tit, pag, dy=6, d=d)
-            self.fecha()
-            fim = max(fim, yl)
-        return fim
-
     def svg(self, vb, cls, rotulo):
         return ('<svg class="ln-svg %s" viewBox="%s" role="group" aria-label="%s">' % (cls, vb, rotulo)
                 + '<g class="ln-linhas">' + ''.join(self.linhas) + '</g>' + ''.join(self.etiq) + '</svg>')
 
 
 def mapa_h():
-    """eixo horizontal com o nome a esquerda; ramais verticais alternando para cima e para baixo; embaixo, as linhas
-    proprias em fluxo (colunas()) e a piramide de bonecos no canto direito (camadas())"""
+    """eixo horizontal com o nome a esquerda; ramais verticais alternando para cima e para baixo; embaixo, a faixa das
+    linhas proprias, centralizada, e a piramide de bonecos no canto direito (camadas())"""
     D = _Desenho(); tem = D.tem
     X0, PY = 16, 40
     eixo = ['Sistemas de', 'gestão ISO']
@@ -244,11 +222,13 @@ def mapa_h():
         D.nome(x, yfim - 10 - LH * (len(tit) - 1) if s < 0 else yfim + 22, tit, tem[t][1], dy=-6 * s, d=d)
         D.fecha()
         if s > 0: fundo = max(fundo, yfim + 22 + LH * (len(tit) - 1))
-    # 14/10/2026: as linhas proprias em fluxo, nas colunas dos ramais (COLS); a piramide no canto direito, livre
-    # abaixo do ramal de Seguranca da informacao
-    fim = D.colunas([xs[c] for c in COLS], fundo + 90, PY, d0=520 + 80 * len(D.sat) + 200)
+    # as linhas proprias na faixa horizontal, CENTRALIZADA como na versao vertical («como feito no modulo vertical»),
+    # 116 abaixo dos ramais e 96 entre as fileiras («distancia maior»); a piramide no canto direito, livre abaixo do
+    # ramal de Seguranca da informacao
+    fim = D.faixa(fundo + 116, centro=691, d0=520 + 80 * len(D.sat) + 200) + PH / 2 + 2
     t_si = D.sat[-1]
     livre = Y0 + PY * len(D.resto(t_si)) + 28 + 22 + LH * (len(titulo2(tem[t_si][6])) - 1) + 24
+    fim = max(fim, livre + 280)              # a piramide com pelo menos 280 de altura (a faixa horizontal e baixa)
     fh = fim - livre; fw = fh * FOTO_PROP
     vb = (10, 6, 1362, fim + 8 - 6)
     GEO.update(vb=vb, foto=(1366 - fw, livre, fw, fh))
