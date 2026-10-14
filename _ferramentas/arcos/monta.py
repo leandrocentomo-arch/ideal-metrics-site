@@ -187,11 +187,11 @@ JS = r"""<script>
 # chamada do motor, inserida DENTRO do IIFE que define ditherVivo (ele nao e global)
 MOTOR = r"""  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---------------- */
   (function(){
-    var m = document.querySelector('.ar-manchas'); if(!m) return;
-    var im = m.querySelector('img'); if(!im) return;
+    /* 14/10/2026: as manchas sao opcionais (no site so ha a piramide; na pagina guardada, as duas) */
+    var m = document.querySelector('.ar-manchas'), im = m && m.querySelector('img');
     /* 22/09: o rastro nesta secao escurecia a ponto de atrapalhar a leitura das
        etiquetas por baixo dele: biasReacao 0,07 no lugar dos 0,20 das outras pecas */
-    ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
+    if(m && im) ditherVivo({raiz:m, planos:[{el:m, lum:im.getAttribute('data-lum')}], classeCanvas:'ar-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, biasReacao:.07});
     /* a foto do terco direito (foto.py; ja sai na proporcao da vaga).
        22/09: o cometa fica, mas SO SOBRE A FIGURA (trilhaSoNaFigura). No branco
@@ -362,8 +362,8 @@ def secao_circulos(L, img='img/'):
 
 
 def css():
-    """o site: cabecalho, lista do celular e o mapa de linhas (com a faixa em circulos)"""
-    return CSS_CAB + linhas.CSS + linhas.css_aros()
+    """o site: cabecalho, lista do celular e o mapa de linhas"""
+    return CSS_CAB + linhas.CSS
 
 
 def css_circulos():
@@ -441,12 +441,10 @@ if __name__ == '__main__':
         open(dst, 'w', encoding='utf-8').write(PREVIA % (css(), secao(L), JS))
         print('previa ->', dst)
     elif modo == 'site':
-        # 14/10/2026: a faixa em circulos voltou a ter manchas e a piramide, entao o MOTOR volta (ele acha a
-        # .ar-manchas e a .ar-foto do mapa); o JS e o da entrada do mapa e o da frente dos circulos (linhas.JS)
+        # 14/10/2026: a piramide voltou ao mapa, entao o MOTOR volta (sem manchas no site, ele so acha a .ar-foto);
+        # o JS e o da entrada do mapa (linhas.JS)
         import insere
-        html = secao(L)
-        linhas.gera_manchas()
-        insere.no_site(css(), html, linhas.JS, MOTOR)
+        insere.no_site(css(), secao(L), linhas.JS, MOTOR)
     elif modo == 'guardar':
         # as manchas e a foto continuam em img/ do site (as mesmas de 13/10/2026); para refaze-las,
         # python manchas.py. O motor vem do trama.js do site, que expoe window.ditherVivo.
