@@ -381,7 +381,10 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
 /* 13/10/2026 (4): «pode esperar ate a frase Construimos chegar no topo, onde e O que fazemos». A frase e o contato
    ficam num bloco (.qc-chega) da altura da grade (--mat-h, medida pelo js/setores-matriz.js): a grade so se solta
    quando o pe do bloco encontra o pe dela, isto e, quando a frase chega ao alto da coluna, na altura de O que fazemos. */
-.qc-abre-texto>.qc-chega{margin:clamp(240px,55vh,620px) 0 0;min-height:var(--mat-h,0px)}
+/* 14/10/2026 (2): «trave o scroll nesta linha, nao alinhado com o titulo da tabela»: o bloco fica 170 px mais baixo que
+   a grade, entao ela se solta quando a frase esta 170 px abaixo do alto dela (na altura dos rotulos das colunas), e nao
+   mais quando a frase chega ao titulo «Normas e padroes por setor» */
+.qc-abre-texto>.qc-chega{margin:clamp(240px,55vh,620px) 0 0;min-height:calc(var(--mat-h,0px) - 170px)}
 .qc-chega>.qc-lead-sub{margin:0}
 @media (max-width:880px){ .qc-abre-linha>.qc-mat{position:relative;top:auto} .qc-abre-texto>.qc-chega{margin-top:34px;min-height:0} }
 .qc-chega>.qc-contato{margin:22px 0 0}
