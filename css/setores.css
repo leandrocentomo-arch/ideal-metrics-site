@@ -383,9 +383,10 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
    quando o pe do bloco encontra o pe dela, isto e, quando a frase chega ao alto da coluna, na altura de O que fazemos. */
 /* 14/10/2026 (2): «trave o scroll nesta linha, nao alinhado com o titulo da tabela». Primeira leitura errada (170 px,
    a frase travava no meio dos rotulos das colunas); o print seguinte marcou «deve estar travado aqui»: logo abaixo do fio
-   do titulo «Normas e padroes por setor». O bloco fica 26 px (a altura da linha do titulo) mais baixo que a grade: ela
-   se solta quando o alto da frase encosta no fio de baixo do titulo. */
-.qc-abre-texto>.qc-chega{margin:clamp(240px,55vh,620px) 0 0;min-height:calc(var(--mat-h,0px) - 26px)}
+   do titulo «Normas e padroes por setor» (26 px); depois, «so um pouco abaixo, ali onde esta o traco azul»: o traco
+   saia do alto da alca da grade (.qc-mat-aba, 40 px abaixo do topo dela). O bloco fica 34 px mais baixo que a grade:
+   ela se solta quando o alto das letras da frase (7 px abaixo do topo da caixa) chega a linha do alto da alca. */
+.qc-abre-texto>.qc-chega{margin:clamp(240px,55vh,620px) 0 0;min-height:calc(var(--mat-h,0px) - 34px)}
 .qc-chega>.qc-lead-sub{margin:0}
 @media (max-width:880px){ .qc-abre-linha>.qc-mat{position:relative;top:auto} .qc-abre-texto>.qc-chega{margin-top:34px;min-height:0} }
 .qc-chega>.qc-contato{margin:22px 0 0}
