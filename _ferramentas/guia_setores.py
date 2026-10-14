@@ -8,9 +8,10 @@
 Pedido do Leandro: «nao estou satisfeito com esta secao; ja temos a divisao, e ja temos a foto, sugira outros esquemas»;
 das 14 maquetes (A a N), «substitua pelo H e pelo I, quero ver como fica».
 
-H, NOMES GRANDES COM FOTO QUE ACOMPANHA: os nove setores em letra grande, um por linha, como um sumario de revista; no
-mouse, os outros nomes recuam, o da linha mostra as normas proprias do setor e a foto aparece flutuando ao lado do
-ponteiro (do lado de la da tela, para nao cobrir as normas). A foto e a mesma pilha de nove do bloco antigo, no motor
+H, LISTA COM AS NORMAS EM ETIQUETAS: os nove setores um por linha, numero e nome em 24 (eram 44); no mouse, os outros
+nomes recuam e as normas proprias do setor surgem em etiquetas no fim da linha, uma depois da outra. A foto que flutuava
+ao lado do ponteiro saiu no mesmo dia («fonte menor, sem as fotos flutuando, aparecendo as normas tipo tag»). No celular
+as etiquetas ficam sempre a vista, embaixo do nome. A foto e a mesma pilha de nove do bloco antigo, no motor
 da trama (empilhado, com o tom de cada uma em data-tom). No celular nao ha foto: a lista fica com as normas embaixo.
 
 I, FIOS SETOR -> NORMA: a foto a esquerda e, a direita, os setores numa coluna, as normas proprias na outra e fios
@@ -28,7 +29,7 @@ SITE = os.path.dirname(AQUI)
 GUARDA = os.path.join(AQUI, 'guia_bloco_cartoes.html')
 FORA = {'SA 8000', 'ISO 39002'}
 TRANSV = {'ISO 9001', 'ISO 14001', 'ISO 45001'}
-JS_V = '1'
+JS_V = '2'
 
 # as nove fotos do bloco antigo (src, data-lum, data-tom) e as rubricas, na ordem dos setores
 FOTOS = [
@@ -75,15 +76,15 @@ def midia():
 
 
 def bloco_h(S):
-    o = ['  <div class="gx-rot"><span>Proposta H · nomes grandes</span><span>[ em teste ]</span></div>',
+    o = ['  <div class="gx-rot"><span>Proposta H · lista com as normas em etiquetas</span><span>[ em teste ]</span></div>',
          '  <div class="gh" id="guiaH">',
          '    <ol class="gh-lista">']
     for k, s in enumerate(S):
+        # 14/10/2026: «uma lista com a fonte menor, sem as fotos flutuando, aparecendo as normas tipo tag»
+        tags = ''.join('<span class="gh-tag" style="--k:%d">%s</span>' % (j, esc(n)) for j, (n, p) in enumerate(s['normas'][:4]))
         o.append('      <li><a class="gh-li" href="%s" data-i="%d"><span class="gh-n">%s</span><span class="gh-nome">%s</span>'
-                 '<span class="gh-normas">%s</span></a></li>'
-                 % (s['pag'], k, s['n'], esc(s['nome']), esc(' · '.join(n for n, p in s['normas'][:4]))))
+                 '<span class="gh-tags">%s</span></a></li>' % (s['pag'], k, s['n'], esc(s['nome']), tags))
     o += ['    </ol>',
-          '    <div class="gh-flut" aria-hidden="true"><div class="gh-flut-in">' + midia() + '</div></div>',
           '  </div>']
     return '\n'.join(o)
 
@@ -131,19 +132,19 @@ CSS = r"""/* ===== GUIA SETORES H e I (_ferramentas/guia_setores.py; em teste de
 /* H: nomes grandes; a foto flutua ao lado do ponteiro */
 .gh{position:relative;margin-top:16px}
 .gh-lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--fio)}
-.gh-li{display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:baseline;gap:20px;padding:12px 0 10px;
+.gh-li{display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:20px;padding:10px 0 9px;
   border-bottom:1px solid var(--fio);color:var(--azul);text-decoration:none}
 .gh-n{font-family:var(--mono);font-size:11px;letter-spacing:.14em}
-.gh-nome{font-family:var(--sans);font-weight:600;font-size:clamp(28px,3vw,44px);line-height:1.06;letter-spacing:-.015em;transition:color .35s ease}
-.gh-normas{font-family:var(--sans);font-size:14px;font-weight:500;opacity:0;transform:translateX(-8px);transition:opacity .35s ease,transform .35s ease}
+/* 14/10/2026: letra menor (era clamp(28px,3vw,44px)); sem a foto flutuando; as normas surgem em etiquetas no fim da linha */
+.gh-nome{font-family:var(--sans);font-weight:600;font-size:clamp(19px,1.6vw,24px);line-height:1.2;letter-spacing:-.005em;transition:color .35s ease}
 .gh-lista:hover .gh-nome{color:rgba(20,48,76,.26)}
 .gh-li:is(:hover,:focus-visible) .gh-nome{color:var(--azul)}
-.gh-li:is(:hover,:focus-visible) .gh-normas{opacity:1;transform:none}
 .gh-li:focus{outline:none}
-.gh-flut{position:absolute;left:0;top:0;width:300px;pointer-events:none;z-index:3;will-change:transform}
-.gh-flut-in{opacity:0;transform:scale(.88) rotate(-2deg);transition:opacity .3s ease,transform .45s cubic-bezier(.2,.8,.2,1);
-  box-shadow:0 18px 40px rgba(20,48,76,.22)}
-.gh-flut.on .gh-flut-in{opacity:1;transform:scale(1) rotate(-2deg)}
+.gh-tags{display:flex;gap:6px;justify-content:flex-end}
+.gh-tag{min-width:112px;padding:4px 10px;text-align:center;white-space:nowrap;border:1px solid rgba(20,48,76,.3);border-radius:3px;
+  background:var(--mercurio);font-family:var(--sans);font-size:13px;font-weight:500;color:var(--azul);
+  opacity:0;transform:translateX(-6px);transition:opacity .3s ease calc(var(--k) * 50ms),transform .3s ease calc(var(--k) * 50ms)}
+.gh-li:is(:hover,:focus-visible) .gh-tag{opacity:1;transform:none}
 /* I: fios setor -> norma, na linha fina do mapa da secao Conhecimento */
 .gi{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:15px;margin-top:16px}
 .gi-fig{grid-column:1 / span 4;margin:0;align-self:start}
@@ -165,9 +166,9 @@ CSS = r"""/* ===== GUIA SETORES H e I (_ferramentas/guia_setores.py; em teste de
 .gi-svg a:focus{outline:none}
 .gi ~ .mp-grade{margin-top:230px}   /* ~ e nao +: a tag do script fica entre os dois */
 @media (max-width:880px){
-  .gh-flut{display:none}
-  .gh-li{grid-template-columns:44px minmax(0,1fr);gap:4px 12px}
-  .gh-normas{grid-column:2;opacity:1;transform:none;font-size:13px}
+  .gh-li{grid-template-columns:44px minmax(0,1fr);gap:6px 12px}
+  .gh-tags{grid-column:2;justify-content:flex-start;flex-wrap:wrap}
+  .gh-tag{min-width:0;opacity:1;transform:none}
   .gh-lista:hover .gh-nome{color:var(--azul)}
   .gx-rot--i,.gi{display:none}
   .gi ~ .mp-grade{margin-top:156px}

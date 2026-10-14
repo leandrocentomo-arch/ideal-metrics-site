@@ -1,5 +1,5 @@
 /* Guia da home: o bloco dos setores em TESTE, propostas H e I (14/10/2026; marcacao e CSS em _ferramentas/guia_setores.py).
-   H: nomes grandes; a foto (a pilha de nove no motor da trama) flutua ao lado do ponteiro e troca com a linha.
+   H: lista dos setores; as normas surgem em etiquetas na linha do mouse (CSS). A foto flutuante saiu no mesmo dia.
    I: fios setor -> norma; no mouse sobre um setor os fios dele acendem e a foto troca; sobre uma norma, acendem os
    setores dela. O motor liga perto da tela e e destruido longe dela, como no bloco antigo (js/guia-foto.js). */
 (function(){
@@ -34,7 +34,8 @@
   /* ---------------- H ---------------- */
   function iniciaH(){
     var raiz = document.getElementById('guiaH'); if(!raiz) return;
-    var flut = raiz.querySelector('.gh-flut'), lista = raiz.querySelector('.gh-lista');
+    /* 14/10/2026: a foto flutuante saiu da H (as normas surgem em etiquetas, so CSS); o codigo fica para a volta */
+    var flut = raiz.querySelector('.gh-flut'), lista = raiz.querySelector('.gh-lista'); if(!flut) return;
     var P = pilha(flut.querySelector('.sx-midia'), {pincel:.0001});   /* a foto anda com o mouse: sem rastro */
     var alvo = {x:0, y:0}, pos = {x:0, y:0}, rodando = false, dentro = false;
     function passo(){
