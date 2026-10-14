@@ -330,7 +330,7 @@ def secao(L):
     return '\n'.join([
         '<section class="ar-sec" id="conhecimento" aria-labelledby="ar-titulo">',
         cabecalho(),
-        linhas.bloco(linhas.mapa_h()),
+        linhas.bloco(linhas.mapa_h(), camadas=linhas.camadas()),   # mapa_h antes: ele mede as camadas
         arcos.lista(fora=linhas.FORA),
         '</section>',
         '',
@@ -362,8 +362,8 @@ def secao_circulos(L, img='img/'):
 
 
 def css():
-    """o site: cabecalho, lista do celular e o mapa de linhas"""
-    return CSS_CAB + linhas.CSS
+    """o site: cabecalho, lista do celular e o mapa de linhas (com a faixa em circulos)"""
+    return CSS_CAB + linhas.CSS + linhas.css_aros()
 
 
 def css_circulos():
@@ -441,9 +441,12 @@ if __name__ == '__main__':
         open(dst, 'w', encoding='utf-8').write(PREVIA % (css(), secao(L), JS))
         print('previa ->', dst)
     elif modo == 'site':
-        # sem o motor das manchas (o insere tira o dos circulos); o JS e so o da entrada do mapa (linhas.JS)
+        # 14/10/2026: a faixa em circulos voltou a ter manchas e a piramide, entao o MOTOR volta (ele acha a
+        # .ar-manchas e a .ar-foto do mapa); o JS e o da entrada do mapa e o da frente dos circulos (linhas.JS)
         import insere
-        insere.no_site(css(), secao(L), linhas.JS, '')
+        html = secao(L)
+        linhas.gera_manchas()
+        insere.no_site(css(), html, linhas.JS, MOTOR)
     elif modo == 'guardar':
         # as manchas e a foto continuam em img/ do site (as mesmas de 13/10/2026); para refaze-las,
         # python manchas.py. O motor vem do trama.js do site, que expoe window.ditherVivo.
