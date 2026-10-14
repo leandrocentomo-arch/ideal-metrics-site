@@ -1,0 +1,59 @@
+{
+ "foto_original": "5cfb4adf35454-min (1).png",
+ "vaga": "gs",
+ "arquivos": {
+  "lum": "saude-01-lum-gs.webp",
+  "bayer": "saude-01-bayer-gs.webp"
+ },
+ "medidas": {
+  "reserva": [
+   600,
+   600
+  ],
+  "luminancia": [
+   960,
+   960
+  ]
+ },
+ "enquadramento": {
+  "zoom": 1,
+  "px": 50,
+  "py": 50,
+  "espelhar": false,
+  "inclinar": 0,
+  "corte_esq": 0,
+  "corte_dir": 0,
+  "corte_topo": 0,
+  "corte_base": 0
+ },
+ "ajustes_da_foto": {
+  "exposicao": 0,
+  "gama": 1,
+  "ctr": 0.75,
+  "brilho": 0.01,
+  "piso": 0.21,
+  "teto": 0.88,
+  "nitidez": 0,
+  "suave": 0
+ },
+ "tingimento": {
+  "brilhoTom": 0.21,
+  "gama": 0.82,
+  "ctr": 1.45,
+  "escuro": 1.7,
+  "limiar": 0,
+  "ponto": 1,
+  "ruido": 0,
+  "matriz": 4,
+  "veu": 0.08,
+  "cores": [
+   "#153351",
+   "#183858",
+   "#6792BD",
+   "#FAF9F5"
+  ]
+ },
+ "clareamento_na_reserva": true,
+ "tom_no_motor": true,
+ "nota": "13/10/2026: Saude, card 06 do Guia. Arquivos no site: img/saude-01-lum-gs.webp e -bayer-gs.webp. Tom proprio no motor (data-tom)."
+}
