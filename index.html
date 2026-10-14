@@ -409,19 +409,24 @@ body>*{position:relative;z-index:1}
   text-transform:uppercase;
 }
 
-/* Grid mestre 12 colunas, gap 15px, 90px abaixo do rótulo */
+/* Grid mestre 12 colunas, gap 15px, 90px abaixo do rótulo.
+   14/10/2026: «transforme esta secao na horizontal, encaixando um card do lado do outro; o 01 e o 02 em cima, e os tres
+   ao lado; a frase a esquerda, na mesma linha e antes do 01 e do 02». Tres colunas de 4: na primeira linha a frase
+   (com o titulo), o 01 e o 02; na segunda, o 03, o 04 e o 05. A coluna do meio cai entre os dois fios verticais. */
 .pr-grid{
   margin-top:90px;
   display:grid;
   grid-template-columns:repeat(12,1fr);
   column-gap:15px;
+  row-gap:32px;
 }
 
-/* Metade esquerda: colunas 1-6, subgrid interno de 6 */
+/* A primeira celula (colunas 1-4, primeira linha): o titulo e a frase */
 .pr-left{
-  grid-column:1/7;
+  grid-column:1/5;
+  grid-row:1;
   display:grid;
-  grid-template-columns:repeat(6,1fr);
+  grid-template-columns:repeat(4,1fr);
   column-gap:15px;
   align-content:start;
 }
@@ -445,11 +450,11 @@ body>*{position:relative;z-index:1}
   margin:0;
   font-family:var(--mono);font-weight:500;font-size:11px;line-height:1.4;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro);
 }
-/* Parágrafo mono deslocado: começa na coluna 2, ocupa 3 colunas */
+/* Parágrafo mono: a celula inteira, 18 px abaixo do titulo (era 46): a celula fica da altura dos cartoes */
 .pr-intro{
-  grid-column:2/5;
-  margin:46px 0 0;
-  padding-right:55px;
+  grid-column:1/-1;
+  margin:18px 0 0;
+  padding-right:40px;
   font-family:var(--mono);
   font-weight:400;
   font-size:14px;
@@ -458,26 +463,27 @@ body>*{position:relative;z-index:1}
   text-transform:uppercase;
 }
 
-/* Metade direita: colunas 7-12; cartões ocupam as 4 primeiras subcolunas (7-10) */
-.pr-cards{
-  grid-column:7/13;
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  column-gap:15px;
-  align-content:start;
-}
+/* Os cartoes entram direto na grade mestre (o .pr-cards so agrupa no HTML) */
+.pr-cards{display:contents}
 .pr-card{
-  grid-column:1/5;
   background:var(--branco);
   color:var(--azul);
   padding:10px 22px 22px;
+  display:flex;
+  flex-direction:column;
   --pr-p:0;
   --pr-s:1;
-  transform:translate3d(calc(var(--pr-p)*48px),0,0) rotate(calc(var(--pr-s)*var(--pr-p)*3deg));
+  /* o mesmo efeito de antes: inclinado e deslocado enquanto esta baixo na tela, reto quando chega; o deslocamento
+     agora e para baixo (eram 48 px para a direita), para os cartoes vizinhos nao se atropelarem */
+  transform:translate3d(0,calc(var(--pr-p)*48px),0) rotate(calc(var(--pr-s)*var(--pr-p)*3deg));
   box-shadow:0 18px 44px rgba(21,31,120,calc(var(--pr-p)*.18));
   will-change:transform;
 }
-.pr-card + .pr-card{margin-top:32px}
+.pr-card:nth-child(1){grid-column:5/9;grid-row:1}
+.pr-card:nth-child(2){grid-column:9/13;grid-row:1}
+.pr-card:nth-child(3){grid-column:1/5;grid-row:2}
+.pr-card:nth-child(4){grid-column:5/9;grid-row:2}
+.pr-card:nth-child(5){grid-column:9/13;grid-row:2}
 
 /* Cabeçalho do cartão: nome + número na mesma linha de 30px */
 .pr-card-head{
@@ -495,10 +501,10 @@ body>*{position:relative;z-index:1}
 
 .pr-card hr{border:0;border-top:1px solid rgba(20,48,76,.2);margin:0}
 .pr-hr1{margin-top:10px}
-.pr-card-body{margin-top:26px}
+.pr-card-body{margin-top:26px;flex:1}
 .pr-card-body p{
   margin:0;
-  padding-right:150px;
+  padding-right:40px;
   font-family:var(--mono);
   font-weight:400;
   font-size:14px;
@@ -516,13 +522,12 @@ body>*{position:relative;z-index:1}
 @media (max-width:880px){
   .pr-sec{padding-bottom:60px}
   .pr-rails{display:none}
-  .pr-grid{margin-top:50px;grid-template-columns:repeat(6,1fr);column-gap:10px}
-  .pr-left{grid-column:1/-1;column-gap:10px}
+  .pr-grid{margin-top:50px;grid-template-columns:repeat(6,1fr);column-gap:10px;row-gap:20px}
+  .pr-left{grid-column:1/-1;grid-template-columns:repeat(6,1fr);column-gap:10px}
   .pr-title{font-size:11px}
   .pr-intro{grid-column:2/-1;margin-top:80px;padding-right:0;font-size:12px;line-height:1.33}
-  .pr-cards{grid-column:1/-1;margin-top:66px;grid-template-columns:1fr}
-  .pr-card{grid-column:1/-1;padding:10px 16px 20px}
-  .pr-card + .pr-card{margin-top:20px}
+  .pr-card,.pr-card:nth-child(n){grid-column:1/-1;grid-row:auto;padding:10px 16px 20px}
+  .pr-card:nth-child(1){margin-top:46px}
   .pr-card-head{font-size:24px}
   .pr-hr1{margin-top:8px}
   .pr-card-body{margin-top:20px}
@@ -3904,7 +3909,7 @@ body>*{position:relative;z-index:1}
       <article class="pr-card">
         <div class="pr-card-head"><h3>Auditoria interna</h3><div class="pr-num">04</div></div>
         <hr class="pr-hr1">
-        <div class="pr-card-body"><p>Verificação da conformidade e preparação para a auditoria de certificação.</p></div>
+        <div class="pr-card-body"><p>Verificação da conformidade e preparação para a certificação.</p></div>
         <hr class="pr-hr2">
       </article>
       <article class="pr-card">
@@ -4355,9 +4360,13 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var vh = window.innerHeight || document.documentElement.clientHeight;
     var settle = vh * 0.35;   /* linha onde o cartão fica reto */
     var range  = vh * 0.65;   /* distância em que a rotação vai de 0 a 100% */
+    /* 14/10/2026: na horizontal, cartoes da mesma linha tem a mesma altura na tela; cada coluna a direita se endireita
+       um pouco depois (8% da tela), e eles se encaixam um ao lado do outro, da esquerda para a direita */
+    var x0 = sec.getBoundingClientRect().left, larg = sec.getBoundingClientRect().width || 1;
     cards.forEach(function(c){
       var r = c.getBoundingClientRect();
-      var p = (r.top + r.height / 2 - settle) / range;
+      var col = Math.max(0, Math.min(2, Math.floor((r.left + r.width / 2 - x0) / larg * 3)));
+      var p = (r.top + r.height / 2 - (settle - col * vh * 0.08)) / range;
       if(p < 0) p = 0;
       if(p > 1) p = 1;
       /* rotação e deslocamento são função contínua da posição na tela */
