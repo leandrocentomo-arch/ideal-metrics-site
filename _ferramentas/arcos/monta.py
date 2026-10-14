@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
-"""Monta o CSS, o HTML e o JS da secao «Conhecimento» a partir de arcos.py.
+"""Monta o CSS, o HTML e o JS da secao «Conhecimento» a partir de arcos.py e linhas.py.
 
     python monta.py previa     grava a previa isolada em scratchpad/passaro/
-    python monta.py site       insere no index.html do site
+    python monta.py site       insere no index.html do site (o mapa de linhas, horizontal e a vertical em teste)
+    python monta.py guardar    grava os circulos em Ideal Metrics/secoes-guardadas/conhecimento-circulos.html
+
+14/10/2026: os circulos sairam do site. No lugar entrou o mapa de linhas (linhas.py) com o mesmo cabecalho;
+os circulos, com as manchas, a foto da piramide e o carrossel das etiquetas, ficaram guardados numa pagina que
+nao vai ao ar («guarde os circulos em uma pagina que nao vai ao ar, mas que vamos guardar estes elementos para
+qualquer uso futuro»). O que esta abaixo sobre profundidade, manchas e etiquetas vale para a pagina guardada.
 
 PROFUNDIDADE. Na referencia as quatro camadas deslizam em velocidades
 diferentes, e com isso a pilula escorrega para fora do proprio aro nos
@@ -14,8 +20,13 @@ soltos sobem (34). Com 30 e 14 o curso medido foi de 7px, invisivel. Com prefers
 import sys, os, re, math
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import arcos
+import linhas   # 14/10/2026: o mapa de linhas no lugar dos circulos
 
-CSS = r"""
+SITE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+GUARDADA = os.path.join(os.path.dirname(SITE), 'secoes-guardadas', 'conhecimento-circulos.html')
+
+# cabecalho e lista do celular: comuns ao site (mapa de linhas) e a pagina guardada (circulos)
+CSS_CAB = r"""
 /* ===== CONHECIMENTO, 21/09/2026: esquema por arcos =====
    Referencia: catalystbehavioral.com/litigation-surveys. Tres camadas: discos
    cheios em #F0EFEA (o creme escurecido 4% da secao Demandas), aros de 1px e os
@@ -41,6 +52,25 @@ CSS = r"""
 .ar-legenda li{display:flex;align-items:center;gap:10px}
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
+.ar-legenda .ar-leg-i::before{border-top-color:var(--im-vermelho,#EF4545)}
+.ar-lista{display:none}
+@media (max-width:1000px){
+  .ar-sec{padding-top:70px;padding-bottom:78px}
+  .ar-lista{display:grid;grid-template-columns:1fr 1fr;gap:26px 28px;margin:14px 0 0;padding:0;list-style:none}
+  .ar-item{border-top:1px solid rgba(20,48,76,.16);padding-top:14px}
+  .ar-item--i{border-top-style:dashed}
+  .ar-item a{font-family:var(--sans);font-weight:600;font-size:18px;line-height:1.25;
+    color:var(--azul);text-decoration:none}
+  .ar-normas{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .ar-normas span{font-family:var(--sans);font-weight:500;font-size:11.5px;line-height:1;
+    padding:5px 8px;background:var(--mercurio);border:1px solid rgba(20,48,76,.18);
+    border-radius:3px;color:var(--azul-escuro)}
+}
+@media (max-width:600px){ .ar-lista{grid-template-columns:1fr} }
+"""
+
+# os circulos (pagina guardada)
+CSS = r"""
 /* 22/09: o esquema nos 2/3 da esquerda e a foto dos barquinhos no 1/3 da direita */
 /* 22/09: «esse mosaico 20% maior»: o esquema passa de 2/3 para 4/5 da largura
    (873 -> 1048 px numa tela de 1440) e a foto fica com o quinto restante */
@@ -73,7 +103,6 @@ CSS = r"""
    apontam para azul); este e o #EF4545 que a tarja do site usou. Um so ponto
    para trocar: --im-vermelho. */
 .ar-tema:is(:hover,:focus-visible) .ar-aro--i{stroke:var(--im-vermelho,#EF4545)}
-.ar-legenda .ar-leg-i::before{border-top-color:var(--im-vermelho,#EF4545)}
 /* 21/09 (noite): BOLAS PEQUENAS que crescem no mouse. Cada tema e um grupo
    (aro + titulo + pilulas) desenhado em torno do proprio centro e levado ao
    lugar por translate(--cx,--cy); o scale acontece nesse centro. O traco do aro
@@ -86,10 +115,6 @@ CSS = r"""
    temas (.ar-aros): assim nenhuma linha de aro, nem a do vizinho, passa por cima
    de etiqueta. Cada aro acompanha o seu tema pelo --cx/--cy e cresce junto no
    hover pela regra gerada em css() (.ar-svg:has(tema em hover) .ar-aro[data-t]). */
-/* 14/10/2026: a sombra de cada aro, um creme mais escuro e solido (cor no style, sorteada entre tres).
-   (2) «nao devem acompanhar o circulo quando expandido»: fica parada no hover, so apaga junto com os outros aros */
-.ar-aros .ar-sombra{stroke:none;transform:translate(var(--cx),var(--cy));transition:opacity .35s ease}
-.ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-sombra{opacity:.34}
 .ar-aros .ar-aro{transform:translate(var(--cx),var(--cy)) scale(1);
   transition:transform .45s cubic-bezier(.2,.7,.2,1),stroke .35s ease,opacity .35s ease}
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-aro{opacity:.34}
@@ -139,22 +164,10 @@ CSS = r"""
 .ar-tema:is(:hover,:focus-visible) .ar-pil--eco{opacity:1}
 %(ECO)s
 .ar-tema:focus-visible .ar-tit{text-decoration:underline;text-underline-offset:4px}
-.ar-lista{display:none}
 @media (max-width:1000px){
-  .ar-sec{padding-top:70px;padding-bottom:78px}
   .ar-svg,.ar-manchas{display:none}
   .ar-corpo{display:block;margin-top:14px} .ar-foto{display:none}
-  .ar-lista{display:grid;grid-template-columns:1fr 1fr;gap:26px 28px;margin:0;padding:0;list-style:none}
-  .ar-item{border-top:1px solid rgba(20,48,76,.16);padding-top:14px}
-  .ar-item--i{border-top-style:dashed}
-  .ar-item a{font-family:var(--sans);font-weight:600;font-size:18px;line-height:1.25;
-    color:var(--azul);text-decoration:none}
-  .ar-normas{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-  .ar-normas span{font-family:var(--sans);font-weight:500;font-size:11.5px;line-height:1;
-    padding:5px 8px;background:var(--mercurio);border:1px solid rgba(20,48,76,.18);
-    border-radius:3px;color:var(--azul-escuro)}
 }
-@media (max-width:600px){ .ar-lista{grid-template-columns:1fr} }
 """
 
 JS = r"""<script>
@@ -192,24 +205,6 @@ MOTOR = r"""  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---
 """
 
 
-SOMBRAS = ['#E8E2D6', '#E0D9CB', '#D7CFBF']   # cremes mais escuros que a Areia (#EDE8DE), que sumia num traco fino
-
-
-def meia_lua(tid, r):
-    """caminho da sombra do tema, em volta do centro (0,0): a parte do aro deslocado que fica fora do aro"""
-    # 14/10/2026 (2): «tem que ser bem finas»: espessura de 2,4 a 4,2 unidades do viewBox (2 a 6 px na tela), igual
-    # em todos os aros, em vez de 13% a 24% do raio
-    import random
-    g = random.Random('sombra:' + tid)
-    ang = math.radians(g.uniform(0, 360)); d = g.uniform(2.4, 4.2)
-    # 14/10/2026 (3): «a sombra e do lado de fora da linha»: a meia-lua e o aro deslocado d para o lado u MENOS o aro,
-    # entao fica por fora do contorno, colada nele
-    ux, uy = math.cos(ang), math.sin(ang); px, py = -uy, ux
-    mx, my = d / 2 * ux, d / 2 * uy; h = math.sqrt(r * r - d * d / 4)
-    ax, ay, bx, by = mx + h * px, my + h * py, mx - h * px, my - h * py
-    return 'M%.2f %.2fA%d %d 0 1 0 %.2f %.2fA%d %d 0 0 1 %.2f %.2fZ' % (ax, ay, r, r, bx, by, r, r, ax, ay)
-
-
 def svg(L):
     """o SVG do arcos.py com as camadas de profundidade separadas"""
     T = arcos.TEMAS
@@ -222,14 +217,6 @@ def svg(L):
     # 24/09: os aros numa camada propria, por baixo de todos os temas, para nenhuma
     # linha de aro passar por cima de etiqueta (ver o CSS de .ar-aros)
     o.append('<g class="ar-aros" aria-hidden="true">')
-    # 14/10/2026: «coloque sombra nos circulos, um creme mais escuro, solido, para dar a impressao de que estao
-    # inclinados; a inclinacao pode ser aleatoria». Dentro de cada aro, uma meia-lua (o circulo menos o mesmo circulo
-    # deslocado d para o lado oposto), como a borda de um disco inclinado. Lado e espessura sorteados por tema,
-    # com semente fixa (o nome do tema): o desenho nao muda a cada vez que o gerador roda.
-    for tid, pag, div, cx, cy, r, tit, normas in T:
-        # 14/10/2026 (2): «nao sei se deu certo fazer em uma cor so»: tres cremes, um por aro, sorteados como o lado
-        cor = SOMBRAS[__import__('random').Random('cor:' + tid).randrange(len(SOMBRAS))]
-        o.append('<path class="ar-sombra" data-t="%s" d="%s" style="--cx:%.2fpx;--cy:%.2fpx;fill:%s"/>' % (tid, meia_lua(tid, r), cx, cy, cor))
     for tid, pag, div, cx, cy, r, tit, normas in T:
         o.append('<circle class="ar-aro%s" data-t="%s" r="%d" style="--cx:%.2fpx;--cy:%.2fpx"/>'
                  % (' ar-aro--i' if div == 'i' else '', tid, r, cx, cy))
@@ -322,32 +309,64 @@ def svg(L):
     return '\n'.join(o)
 
 
-def secao(L):
+TITULO = 'A <b class="ar-marca">ideal-m</b> garante a adequação de organizações a normas e padrões setoriais'
+
+
+def cabecalho(rotulo='Conhecimento / [ IM.2 ]', hid='ar-titulo'):
     return '\n'.join([
-        '<section class="ar-sec" id="conhecimento" aria-labelledby="ar-titulo">',
         '  <div class="ar-cab">',
-        '    <p class="ar-rotulo">Conhecimento / [ IM.2 ]</p>',
+        '    <p class="ar-rotulo">%s</p>' % rotulo,
         '    <div class="ar-linha">',
-        '      <h2 class="ar-titulo" id="ar-titulo">A <b class="ar-marca">ideal-m</b> garante a adequação de organizações a normas e padrões setoriais</h2>',
+        '      <h2 class="ar-titulo" id="%s">%s</h2>' % (hid, TITULO),
         '      <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul>',
         '    </div>',
         '  </div>',
+    ])
+
+
+def secao(L):
+    """o site (14/10/2026): o mapa de linhas horizontal e, logo abaixo, a versao vertical em teste.
+    Abaixo de 1000 px os dois mapas somem e fica a lista (sem a SA 8000)."""
+    return '\n'.join([
+        '<section class="ar-sec" id="conhecimento" aria-labelledby="ar-titulo">',
+        cabecalho(),
+        linhas.bloco(linhas.mapa_h()),
+        arcos.lista(fora=linhas.FORA),
+        '</section>',
+        '',
+        '<section class="ar-sec ar-sec--teste" id="conhecimento-vertical" aria-labelledby="ar-titulo-v">',
+        cabecalho('Conhecimento / [ IM.2 ] / versão vertical, em teste', 'ar-titulo-v'),
+        linhas.bloco(linhas.mapa_v(), ' ln--v'),
+        '</section>',
+    ])
+
+
+def secao_circulos(L, img='img/'):
+    """os circulos de 13/10/2026 (commit c57269f), guardados fora do ar"""
+    return '\n'.join([
+        '<section class="ar-sec" id="conhecimento" aria-labelledby="ar-titulo">',
+        cabecalho(),
         '  <div class="ar-corpo">',
         '  <div class="ar-palco">',
-        '    <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp?v=10102026" '
-        'data-lum="img/conhecimento-manchas-lum.webp?v=10102026" alt="" width="1800" height="%d" loading="lazy" decoding="async"></div>'
-        % round(1800 * arcos.limites(L)[3] / arcos.limites(L)[2]),
+        '    <div class="ar-manchas" aria-hidden="true"><img src="%sconhecimento-manchas-bayer.webp?v=10102026" '
+        'data-lum="%sconhecimento-manchas-lum.webp?v=10102026" alt="" width="1800" height="%d" loading="lazy" decoding="async"></div>'
+        % (img, img, round(1800 * arcos.limites(L)[3] / arcos.limites(L)[2])),
         svg(L),
         arcos.lista(),
         '  </div>',
-        '  <div class="ar-foto" aria-hidden="true"><img src="img/conhecimento-foto-bayer.webp?v=7" '
-        'data-lum="img/conhecimento-foto-lum.webp?v=7" alt="" width="480" height="867" loading="lazy" decoding="async"></div>',
+        '  <div class="ar-foto" aria-hidden="true"><img src="%sconhecimento-foto-bayer.webp?v=7" '
+        'data-lum="%sconhecimento-foto-lum.webp?v=7" alt="" width="480" height="867" loading="lazy" decoding="async"></div>' % (img, img),
         '  </div>',
         '</section>',
     ])
 
 
 def css():
+    """o site: cabecalho, lista do celular e o mapa de linhas"""
+    return CSS_CAB + linhas.CSS
+
+
+def css_circulos():
     # quando o PAR de uma etiqueta compartilhada esta no hover, a copia do dono some
     # (a do par sobe no lugar dela), para nao ficar etiqueta dupla na tela
     regras = []
@@ -362,7 +381,7 @@ def css():
         cor = 'var(--im-vermelho,#EF4545)' if t[2] == 'i' else 'rgba(20,48,76,.5)'
         regras.append('.ar-svg:has(.ar-tema[data-t="%s"]:is(:hover,:focus-visible)) .ar-aro[data-t="%s"]'
                       '{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:%s;opacity:1}' % (t[0], t[0], cor))
-    return CSS.replace('%(ECO)s', chr(10).join(regras))
+    return CSS_CAB + CSS.replace('%(ECO)s', chr(10).join(regras))
 
 
 PREVIA = """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
@@ -380,6 +399,39 @@ body{margin:0;background:var(--mercurio)}
 %s
 </body></html>"""
 
+GUARDA = """<!doctype html>
+<!--
+  PECA GUARDADA: os circulos da secao Conhecimento da home (21/09 a 14/10/2026)
+  Tirados do site em 14/10/2026, quando o mapa de linhas entrou no lugar, a pedido do Leandro: «guarde os circulos em
+  uma pagina que nao vai ao ar, mas que vamos guardar estes elementos para qualquer uso futuro».
+
+  O que tem: doze temas em circulos com as normas em etiquetas sobre o aro; o tema cresce no mouse e as etiquetas
+  giram em volta do aro (carrossel); a norma comum a dois temas fica no encontro dos aros; Estudos e o aro tracejado
+  em vermelho. Por tras, as manchas pontilhadas desenhadas pelo motor da trama (ditherVivo) com o rastro do mouse, e a
+  foto da piramide no quinto da direita. Estado de 13/10/2026 (commit c57269f do site): sem sombras, manchas a .9.
+
+  Gerada por ideal-metrics-site/_ferramentas/arcos/monta.py (python monta.py guardar). Nao editar a mao: mudar o
+  gerador e rodar de novo. As imagens e o trama.js sao os do site (caminhos ../ideal-metrics-site/).
+-->
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Circulos do Conhecimento</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--azul:#14304C;--azul-escuro:#315275;--fio:rgba(20,48,76,.2);--lado:clamp(28px,4vw,64px);
+  --mercurio:#FAF9F5;--branco:#FFFFFF;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans Condensed',sans-serif}
+body{margin:0;background:var(--mercurio)}
+%s
+</style></head><body>
+%s
+%s
+<script src="%sjs/trama.js?v=27"></script>
+<script>
+(function(){ if(!window.ditherVivo) return; var ditherVivo = window.ditherVivo;
+%s})();
+</script>
+</body></html>
+"""
+
 if __name__ == '__main__':
     L = arcos.larguras()
     assert not arcos.colisoes(L), arcos.colisoes(L)
@@ -389,6 +441,13 @@ if __name__ == '__main__':
         open(dst, 'w', encoding='utf-8').write(PREVIA % (css(), secao(L), JS))
         print('previa ->', dst)
     elif modo == 'site':
-        import insere, manchas
-        manchas.main()
-        insere.no_site(css(), secao(L), JS, MOTOR)
+        # sem JS nem motor: o mapa de linhas e so SVG e CSS (o insere tira os dos circulos)
+        import insere
+        insere.no_site(css(), secao(L), '', '')
+    elif modo == 'guardar':
+        # as manchas e a foto continuam em img/ do site (as mesmas de 13/10/2026); para refaze-las,
+        # python manchas.py. O motor vem do trama.js do site, que expoe window.ditherVivo.
+        pre = '../ideal-metrics-site/'
+        html = GUARDA % (css_circulos(), secao_circulos(L, pre + 'img/'), JS, pre, MOTOR)
+        open(GUARDADA, 'w', encoding='utf-8', newline='\n').write(html)
+        print('guardada ->', GUARDADA)

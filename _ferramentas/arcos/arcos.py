@@ -260,13 +260,13 @@ def svg(L):
     return '\n'.join(o)
 
 
-def lista():
-    """a mesma informacao em lista, para tela estreita"""
+def lista(fora=()):
+    """a mesma informacao em lista, para tela estreita (fora: normas que nao entram; 14/10/2026, a SA 8000)"""
     o = ['<ul class="ar-lista">']
     for tid, pag, div, cx, cy, r, tit, normas in TEMAS:
         o.append('<li class="ar-item%s"><a href="%s">%s</a><span class="ar-normas">%s</span></li>'
                  % (' ar-item--i' if div == 'i' else '', pag, esc(' '.join(tit)),
-                    ''.join('<span>%s</span>' % esc(n) for n in normas_de(tid))))
+                    ''.join('<span>%s</span>' % esc(n) for n in normas_de(tid) if n not in fora)))
     o.append('</ul>')
     return '\n'.join(o)
 

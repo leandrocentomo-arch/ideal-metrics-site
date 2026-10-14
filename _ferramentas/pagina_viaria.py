@@ -12,7 +12,8 @@ E O MOLDE DAS PAGINAS DE SERVICO. O que o Leandro ensinou ao ver a primeira vers
   - sem palavra de trocadilho com o tema («percurso», «caminho», «ponto de partida») e sem a rodovia desenhada
     como diagrama; o diagrama de etapas e o de linha fina da pagina do IFC;
   - a linha dos consultores nao fala em «exame de aprovacao»;
-  - norma de apoio: so a que ele usa, a ISO 39002 (base de ferramentas como a analise de risco viario);
+  - norma de apoio: so a que ele usa, a ISO 39002. 14/10/2026: ela nao e certificavel e nao entra como norma do
+    tema (mapa da home, listas); aparece so aqui, como treinamento e base para a gestao de riscos de seguranca viaria;
   - titulo «Aplicacao», nao «Para quem e»;
   - foto do topo: vista aerea de rodovia (drone), sem gente; a primeira tinha um fiscal ao lado de uma viatura
     e foi lida como policial dando multa;
@@ -214,7 +215,7 @@ __GRADE__
 <ul>
 <li><strong>Concessão rodoviária de grande porte:</strong> sistema certificado na ISO 39001.</li>
 <li><strong>Consultores:</strong> formação internacional de Auditor Líder (Lead Auditor) em ISO 39001.</li>
-<li><strong>Ferramentas prontas:</strong> análise de risco viário com base na ISO 39002.</li>
+<li><strong>ISO 39002:</strong> treinamento e base para a elaboração da gestão de riscos de segurança viária.</li>
 <li><strong>Equipe em atuação desde 1998.</strong></li>
 </ul>
 

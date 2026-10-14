@@ -28,6 +28,8 @@ def no_site(css, secao, js, motor=''):
     # tira a versao anterior, se houver
     t = re.sub(r'/\* ===== CONHECIMENTO, .*?' + re.escape(FIM_CSS) + r'\n', '', t, flags=re.S)
     t = re.sub(r'<section class="ar-sec" id="conhecimento".*?</section>\n\n', '', t, flags=re.S)
+    # 14/10/2026: a versao vertical do mapa de linhas, em teste, logo abaixo
+    t = re.sub(r'<section class="ar-sec ar-sec--teste" id="conhecimento-vertical".*?</section>\n\n', '', t, flags=re.S)
     t = re.sub(r'<script>\n/\* CONHECIMENTO: .*?</script>\n', '', t, flags=re.S)
 
     ancora_css = '.sv{display:grid;'
