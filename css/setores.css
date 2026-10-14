@@ -362,7 +362,8 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
 .qc-abre-linha.mat-aberto>.qc-abre-cauda{margin-top:0}
 .qc-abre-linha>.qc-abre-cauda:empty{display:none}
 @media (max-width:880px){ .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin:40px 0 0} }
-.qc-lead-sub{margin:0;max-width:36em;font-family:var(--sans);font-weight:600;font-size:clamp(16px,1.25vw,19px);line-height:1.35;
+/* 14/10/2026: «faca essa fonte um pouquinho maior»: 19 -> 21 px no maximo (era clamp(16px,1.25vw,19px)) */
+.qc-lead-sub{margin:0;max-width:36em;font-family:var(--sans);font-weight:600;font-size:clamp(17px,1.4vw,21px);line-height:1.35;
   letter-spacing:-.005em;color:var(--azul);text-wrap:pretty;
   transition:clip-path .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1),opacity .5s}
 .qc-lead-sub.espera{clip-path:inset(0 0 100% 0);transform:translateY(10px);opacity:0}
