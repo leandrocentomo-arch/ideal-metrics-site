@@ -152,7 +152,7 @@ class _Desenho:
         return [n for n in self.de[t] if n in self.comp][0]
 
     # ------------------------------------------------------------ as tres linhas proprias, numa faixa embaixo
-    def faixa(self, y, x0=None, centro=None, passo=72, d0=0):
+    def faixa(self, y, x0=None, centro=None, passo=96, d0=0):   # 14/10/2026: «distancia maior» entre as fileiras (era 72)
         """cada fileira de FAIXA lado a lado, com o nome em cima do comeco da linha; x0 alinha a esquerda, centro
         centraliza a fileira. As normas brotam do comeco da linha, embaixo do nome. Devolve o y da ultima linha."""
         j = 0
@@ -216,7 +216,8 @@ def mapa_h():
         D.nome(x, yfim - 10 - LH * (len(tit) - 1) if s < 0 else yfim + 22, tit, tem[t][1], dy=-6 * s, d=d)
         D.fecha()
         if s > 0: fundo = max(fundo, yfim + 22 + LH * (len(tit) - 1))
-    yl = D.faixa(fundo + 76, x0=XL, d0=520 + 80 * len(D.sat) + 200)
+    yl = D.faixa(fundo + 116, x0=XL, d0=   # 14/10/2026: mais respiro entre os ramais e a faixa (era 76)
+                 520 + 80 * len(D.sat) + 200)
     return D.svg('10 6 1362 %d' % (yl + 18 - 6), 'ln-svg--h', 'Temas de gestão e normas, a partir do sistema de gestão ISO')
 
 
@@ -243,7 +244,7 @@ def mapa_v():
             D.etiqueta(c, y, nm, de=(x0, y), d=d + 140 + 100 * m)
         D.nome(x0, y - 22, [' '.join(tem[t][6])], tem[t][1], 'start' if s > 0 else 'end', dy=6, d=d)
         D.fecha()
-    yl = D.faixa(ys[-1] + 130, centro=XC, d0=520 + 80 * len(D.sat) + 200)
+    yl = D.faixa(ys[-1] + 160, centro=XC, d0=520 + 80 * len(D.sat) + 200)
     return D.svg('10 40 1362 %d' % (yl + 18 - 40), 'ln-svg--v', 'Temas de gestão e normas, versão vertical')
 
 
