@@ -54,10 +54,8 @@ FAIXA = [('esg', 'smeta'), ('estudos',)]   # as linhas proprias: Padronizacao nu
 LARG = arcos.larguras()
 # 14/10/2026: as tres linhas proprias passaram por circulos («e se estes dois ficassem em circulo») e por ramais
 # verticais («tire os circulos, organize em fluxo») e voltaram a horizontal («acho que fica melhor na horizontal»):
-# a faixa (FAIXA) centralizada, como na versao vertical, com o nome em cima do comeco de cada linha; a piramide de
-# bonecos ficou no canto direito.
-FOTO_PROP = 480 / 867.0                    # img/conhecimento-foto-*.webp, a piramide de bonecos (foto.py)
-GEO = {}
+# a faixa (FAIXA) centralizada, como na versao vertical, com o nome em cima do comeco de cada linha. A piramide de
+# bonecos que voltou junto com os circulos saiu no mesmo dia («pode tirar esta figura»).
 
 
 def _paginas_normas():
@@ -192,7 +190,7 @@ class _Desenho:
 
 def mapa_h():
     """eixo horizontal com o nome a esquerda; ramais verticais alternando para cima e para baixo; embaixo, a faixa das
-    linhas proprias, centralizada, e a piramide de bonecos no canto direito (camadas())"""
+    linhas proprias, centralizada"""
     D = _Desenho(); tem = D.tem
     X0, PY = 16, 40
     eixo = ['Sistemas de', 'gestão ISO']
@@ -223,15 +221,9 @@ def mapa_h():
         D.fecha()
         if s > 0: fundo = max(fundo, yfim + 22 + LH * (len(tit) - 1))
     # as linhas proprias na faixa horizontal, CENTRALIZADA como na versao vertical («como feito no modulo vertical»),
-    # 116 abaixo dos ramais e 96 entre as fileiras («distancia maior»); a piramide no canto direito, livre abaixo do
-    # ramal de Seguranca da informacao
+    # 116 abaixo dos ramais e 96 entre as fileiras («distancia maior»)
     fim = D.faixa(fundo + 116, centro=691, d0=520 + 80 * len(D.sat) + 200) + PH / 2 + 2
-    t_si = D.sat[-1]
-    livre = Y0 + PY * len(D.resto(t_si)) + 28 + 22 + LH * (len(titulo2(tem[t_si][6])) - 1) + 24
-    fim = max(fim, livre + 280)              # a piramide com pelo menos 280 de altura (a faixa horizontal e baixa)
-    fh = fim - livre; fw = fh * FOTO_PROP
     vb = (10, 6, 1362, fim + 8 - 6)
-    GEO.update(vb=vb, foto=(1366 - fw, livre, fw, fh))
     return D.svg('%d %d %d %d' % vb, 'ln-svg--h', 'Temas de gestão e normas, a partir do sistema de gestão ISO')
 
 
@@ -260,20 +252,6 @@ def mapa_v():
         D.fecha()
     yl = D.faixa(ys[-1] + 160, centro=XC, d0=520 + 80 * len(D.sat) + 200)
     return D.svg('10 40 1362 %d' % (yl + 18 - 40), 'ln-svg--v', 'Temas de gestão e normas, versão vertical')
-
-
-def _pct(x, y, w, h):
-    X, Y, W, H = GEO['vb']
-    return 'left:%.3f%%;top:%.3f%%;width:%.3f%%;height:%.3f%%' % ((x - X) / W * 100, (y - Y) / H * 100, w / W * 100, h / H * 100)
-
-
-def camadas():
-    """a camada por baixo do mapa horizontal (rodar depois de mapa_h): a piramide de bonecos, «aquela figura antiga
-    de fundo». A classe .ar-foto e a que o MOTOR do monta.py procura para o ditherVivo."""
-    fx, fy, fw, fh = GEO['foto']
-    return ('<div class="ar-foto" aria-hidden="true" style="%s"><img src="img/conhecimento-foto-bayer.webp?v=7" '
-            'data-lum="img/conhecimento-foto-lum.webp?v=7" alt="" width="480" height="867" loading="lazy" decoding="async"></div>'
-            % _pct(fx, fy, fw, fh))
 
 
 FRASE = 'Cada tema parte do sistema de gestão pela norma ISO que os une.'
@@ -329,19 +307,6 @@ CSS = r"""
 .ln-anima.ln-vivo .ln-b{opacity:1;transform:none;
   transition:opacity .5s ease var(--d,0ms),transform .8s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
 .ar-sec--teste{border-top:1px dashed rgba(20,48,76,.3)}
-/* 14/10/2026: a piramide de bonecos dos circulos antigos no canto direito do mapa (.ar-foto, pelo motor da trama,
-   com o rastro do mouse so sobre a figura). O motor pinta creme opaco e a secao (z-index 1) fica por cima da
-   grade-guia do body::before: dentro da foto a mesma grade e redesenhada por cima do canvas, presa a janela
-   (background-attachment:fixed), para as linhas verticais do site nao sumirem ali. */
-.ln-rola{position:relative}
-.ln-rola .ln-svg{position:relative;z-index:1}
-.ln-rola .ar-foto{position:absolute;z-index:0;overflow:hidden}
-.ln-rola .ar-foto::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(to right,rgba(20,48,76,.08) 1px,transparent 1px);
-  background-size:calc((100% - 2 * var(--lado)) / 6) 100%;background-position:var(--lado) 0;
-  background-position:round(var(--lado),1px) 0;background-attachment:fixed}   /* round: a caixa do body::before cai no pixel inteiro */
-.ar-foto img,.af-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
-.ar-foto.gl-on img{visibility:hidden}
 @media (max-width:1000px){ .ln-rola{display:none} .ar-sec--teste{display:none} }
 """
 

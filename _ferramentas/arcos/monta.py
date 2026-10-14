@@ -330,7 +330,7 @@ def secao(L):
     return '\n'.join([
         '<section class="ar-sec" id="conhecimento" aria-labelledby="ar-titulo">',
         cabecalho(),
-        linhas.bloco(linhas.mapa_h(), camadas=linhas.camadas()),   # mapa_h antes: ele mede as camadas
+        linhas.bloco(linhas.mapa_h()),
         arcos.lista(fora=linhas.FORA),
         '</section>',
         '',
@@ -441,10 +441,10 @@ if __name__ == '__main__':
         open(dst, 'w', encoding='utf-8').write(PREVIA % (css(), secao(L), JS))
         print('previa ->', dst)
     elif modo == 'site':
-        # 14/10/2026: a piramide voltou ao mapa, entao o MOTOR volta (sem manchas no site, ele so acha a .ar-foto);
-        # o JS e o da entrada do mapa (linhas.JS)
+        # sem o motor da trama (o mapa nao tem foto nem manchas; o insere tira o bloco antigo); o JS e o da entrada
+        # do mapa (linhas.JS)
         import insere
-        insere.no_site(css(), secao(L), linhas.JS, MOTOR)
+        insere.no_site(css(), secao(L), linhas.JS, '')
     elif modo == 'guardar':
         # as manchas e a foto continuam em img/ do site (as mesmas de 13/10/2026); para refaze-las,
         # python manchas.py. O motor vem do trama.js do site, que expoe window.ditherVivo.
