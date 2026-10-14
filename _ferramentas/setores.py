@@ -6,7 +6,7 @@
 Faz, de forma idempotente:
   1. grava js/setores-dados.js (window.IM_SETORES), lido pelo filtro (js/setores-filtro.js);
   2. reescreve o miolo (<div class="content">) das nove paginas setor-*.html;
-  3. poe o filtro na home (secao Setores de atuacao) e em servicos.html, entre marcadores;
+  3. poe o filtro em servicos.html, entre marcadores (na home saiu em 14/10/2026; ali ficam so os dados);
   4. poe na home, logo abaixo da frase de «O que fazemos», o mosaico de normas e padroes (js/setores-mosaico.js);
   5. liga css/setores.css nas oito paginas e os scripts onde cabem.
 
@@ -388,9 +388,18 @@ FILTRO = '''<!-- filtro setor norma -->
 SCRIPTS = ('<script src="js/setores-dados.js?v=%s"></script>\n<script src="js/setores-filtro.js?v=%s"></script>' % (JS_V, JS_V))
 
 
-def poe_filtro(s, ancora, depois):
-    s = re.sub(r'<!-- filtro setor norma -->.*?<!-- fim filtro setor norma -->\n?', '', s, flags=re.S)
-    s = re.sub(r'<script src="js/setores-dados\.js[^>]*></script>\n?<script src="js/setores-filtro\.js[^>]*></script>\n?', '', s)
+DADOS = '<script src="js/setores-dados.js?v=%s"></script>' % JS_V
+
+
+def poe_filtro(s, ancora, depois, filtro=True):
+    """filtro=False (a home, desde 14/10/2026: «pode tirar esta parte, Busca por setor ou por norma»): tira o filtro e
+    o script dele, mas deixa os dados, que a grade dos setores do Guia (js/guia-foto.js, js/guia-rota.js) usa.
+    Tira tambem as copias repetidas dos dois scripts que ficaram de rodadas antigas (com CRLF o padrao antigo nao
+    casava e cada rodada deixava mais um par)."""
+    s = re.sub(r'<!-- filtro setor norma -->.*?<!-- fim filtro setor norma -->\r?\n?', '', s, flags=re.S)
+    s = re.sub(r'(?:<script src="js/setores-(?:dados|filtro)\.js[^>]*></script>\s*)+', '', s)
+    if not filtro:
+        return s.replace('</body>', DADOS + '\n</body>', 1)
     assert s.count(ancora) == 1, ancora
     s = s.replace(ancora, ancora + '\n' + FILTRO if depois else FILTRO + '\n' + ancora, 1)
     return s.replace('</body>', SCRIPTS + '\n</body>', 1)
@@ -406,7 +415,7 @@ def main():
         gravar(pg, liga_css(s))
     s = ler('index.html')
     s = liga_css(s)
-    s = poe_filtro(s, '<p class="st-lead">Atendemos os mais diversos segmentos produtivos.</p>', True)
+    s = poe_filtro(s, '<p class="st-lead">Atendemos os mais diversos segmentos produtivos.</p>', True, filtro=False)
     s = poe_relacao(s)
     gravar('index.html', s)
     s = ler('servicos.html')
