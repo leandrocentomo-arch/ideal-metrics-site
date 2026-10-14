@@ -274,7 +274,7 @@ body>*{position:relative;z-index:1}
    a caixa exata do viewBox, entao cada mancha cai sob o seu circulo. Sem WebGL
    fica a <img> ja tramada. Sem movimento na rolagem: o canvas mede a propria
    caixa, e deslocar a caixa a cada quadro descasaria o rastro do ponteiro. */
-.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.75}   /* 24/09: eram .5 («50% mais transparentes»); depois «menos transparentes»: .75 */
+.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.9}   /* 24/09: eram .5 («50% mais transparentes»); depois «menos transparentes»: .75; 13/10/2026: «a parte azulada pode ficar ligeiramente mais escura»: .9 */
 .ar-manchas img,.ar-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ar-manchas.gl-on img{visibility:hidden}
 .ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.20);stroke-width:.55;   /* 24/09: aros um pouco mais escuros (era .10); 10/10: «linhas mais finas», 1 -> .55 px */
@@ -304,7 +304,7 @@ body>*{position:relative;z-index:1}
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-aro{opacity:.34}
 /* 27/09: no hover de um tema, as manchas pontilhadas ficam 15% mais transparentes
    (.75 -> .60), o titulo cresce e o nome da norma vai ao azul-tinta do titulo */
-.ar-palco:has(.ar-tema:is(:hover,:focus-visible)) .ar-manchas{opacity:.60}
+.ar-palco:has(.ar-tema:is(:hover,:focus-visible)) .ar-manchas{opacity:.72}   /* 13/10/2026: na mesma proporcao da subida (.60 -> .72) */
 .ar-manchas{transition:opacity .35s ease}
 .ar-tit{transition:opacity .35s ease,font-size .45s cubic-bezier(.2,.7,.2,1)}
 .ar-tema:is(:hover,:focus-visible) .ar-tit{font-size:13px}
