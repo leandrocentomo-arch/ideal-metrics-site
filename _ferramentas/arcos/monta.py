@@ -61,7 +61,7 @@ CSS = r"""
    a caixa exata do viewBox, entao cada mancha cai sob o seu circulo. Sem WebGL
    fica a <img> ja tramada. Sem movimento na rolagem: o canvas mede a propria
    caixa, e deslocar a caixa a cada quadro descasaria o rastro do ponteiro. */
-.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.75}   /* 24/09: eram .5 («50% mais transparentes»); depois «menos transparentes»: .75 */
+.ar-manchas{position:absolute;left:0;top:0;width:100%;height:100%;opacity:.9}   /* 24/09: eram .5 («50% mais transparentes»); depois «menos transparentes»: .75; 13/10/2026: «a parte azulada pode ficar ligeiramente mais escura»: .9 */
 .ar-manchas img,.ar-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ar-manchas.gl-on img{visibility:hidden}
 .ar-soltos circle,.ar-aro{fill:none;stroke:rgba(20,48,76,.20);stroke-width:.55;   /* 24/09: aros um pouco mais escuros (era .10); 10/10: «linhas mais finas», 1 -> .55 px */
@@ -86,12 +86,16 @@ CSS = r"""
    temas (.ar-aros): assim nenhuma linha de aro, nem a do vizinho, passa por cima
    de etiqueta. Cada aro acompanha o seu tema pelo --cx/--cy e cresce junto no
    hover pela regra gerada em css() (.ar-svg:has(tema em hover) .ar-aro[data-t]). */
+/* 14/10/2026: a sombra de cada aro, em Areia (#EDE8DE, creme mais escuro da paleta), solida, acompanha o aro no hover */
+.ar-aros .ar-sombra{fill:#EDE8DE;stroke:none;transform:translate(var(--cx),var(--cy)) scale(1);
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s ease}
+.ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-sombra{opacity:.34}
 .ar-aros .ar-aro{transform:translate(var(--cx),var(--cy)) scale(1);
   transition:transform .45s cubic-bezier(.2,.7,.2,1),stroke .35s ease,opacity .35s ease}
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-aro{opacity:.34}
 /* 27/09: no hover de um tema, as manchas pontilhadas ficam 15% mais transparentes
    (.75 -> .60), o titulo cresce e o nome da norma vai ao azul-tinta do titulo */
-.ar-palco:has(.ar-tema:is(:hover,:focus-visible)) .ar-manchas{opacity:.60}
+.ar-palco:has(.ar-tema:is(:hover,:focus-visible)) .ar-manchas{opacity:.72}   /* 13/10/2026: na mesma proporcao da subida (.60 -> .72) */
 .ar-manchas{transition:opacity .35s ease}
 .ar-tit{transition:opacity .35s ease,font-size .45s cubic-bezier(.2,.7,.2,1)}
 .ar-tema:is(:hover,:focus-visible) .ar-tit{font-size:13px}
@@ -188,6 +192,17 @@ MOTOR = r"""  /* ---------------- CONHECIMENTO: as manchas por tras dos aros ---
 """
 
 
+def meia_lua(tid, r):
+    """caminho da sombra do tema, em volta do centro (0,0): a parte do aro que fica fora do aro deslocado"""
+    import random
+    g = random.Random('sombra:' + tid)
+    ang = math.radians(g.uniform(0, 360)); d = r * g.uniform(.13, .24)
+    ux, uy = math.cos(ang), math.sin(ang); px, py = -uy, ux
+    mx, my = -d / 2 * ux, -d / 2 * uy; h = math.sqrt(r * r - d * d / 4)
+    ax, ay, bx, by = mx + h * px, my + h * py, mx - h * px, my - h * py
+    return 'M%.2f %.2fA%d %d 0 1 0 %.2f %.2fA%d %d 0 0 1 %.2f %.2fZ' % (ax, ay, r, r, bx, by, r, r, ax, ay)
+
+
 def svg(L):
     """o SVG do arcos.py com as camadas de profundidade separadas"""
     T = arcos.TEMAS
@@ -200,6 +215,12 @@ def svg(L):
     # 24/09: os aros numa camada propria, por baixo de todos os temas, para nenhuma
     # linha de aro passar por cima de etiqueta (ver o CSS de .ar-aros)
     o.append('<g class="ar-aros" aria-hidden="true">')
+    # 14/10/2026: «coloque sombra nos circulos, um creme mais escuro, solido, para dar a impressao de que estao
+    # inclinados; a inclinacao pode ser aleatoria». Dentro de cada aro, uma meia-lua (o circulo menos o mesmo circulo
+    # deslocado d para o lado oposto), como a borda de um disco inclinado. Lado e espessura sorteados por tema,
+    # com semente fixa (o nome do tema): o desenho nao muda a cada vez que o gerador roda.
+    for tid, pag, div, cx, cy, r, tit, normas in T:
+        o.append('<path class="ar-sombra" data-t="%s" d="%s" style="--cx:%.2fpx;--cy:%.2fpx"/>' % (tid, meia_lua(tid, r), cx, cy))
     for tid, pag, div, cx, cy, r, tit, normas in T:
         o.append('<circle class="ar-aro%s" data-t="%s" r="%d" style="--cx:%.2fpx;--cy:%.2fpx"/>'
                  % (' ar-aro--i' if div == 'i' else '', tid, r, cx, cy))
@@ -332,6 +353,8 @@ def css():
         cor = 'var(--im-vermelho,#EF4545)' if t[2] == 'i' else 'rgba(20,48,76,.5)'
         regras.append('.ar-svg:has(.ar-tema[data-t="%s"]:is(:hover,:focus-visible)) .ar-aro[data-t="%s"]'
                       '{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:%s;opacity:1}' % (t[0], t[0], cor))
+        regras.append('.ar-svg:has(.ar-tema[data-t="%s"]:is(:hover,:focus-visible)) .ar-sombra[data-t="%s"]'
+                      '{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}' % (t[0], t[0]))
     return CSS.replace('%(ECO)s', chr(10).join(regras))
 
 
