@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
-"""O bloco dos setores da secao Guia da home, em TESTE: as propostas H e I (14/10/2026).
+"""O bloco dos setores da secao Guia da home: SANFONA no estilo da tabela «Nossos servicos» (14/10/2026).
 
-    python _ferramentas/guia_setores.py            grava H e I, uma embaixo da outra, entre <!-- foco --> e <!-- fim foco -->
+    python _ferramentas/guia_setores.py            grava a sanfona dos setores entre <!-- foco --> e <!-- fim foco -->
     python _ferramentas/guia_setores.py cartoes    volta o bloco dos cartoes (3x3 com a foto presa), guardado em
-                                                   _ferramentas/guia_bloco_cartoes.html na primeira rodada
+                                                   _ferramentas/guia_bloco_cartoes.html
 
-Pedido do Leandro: «nao estou satisfeito com esta secao; ja temos a divisao, e ja temos a foto, sugira outros esquemas»;
-das 14 maquetes (A a N), «substitua pelo H e pelo I, quero ver como fica».
+Historia (14/10/2026): «nao estou satisfeito com esta secao; ja temos a divisao, e ja temos a foto, sugira outros
+esquemas»; das 14 maquetes (A a N), as propostas H (lista com as normas em etiquetas) e I (fios setor -> norma) foram
+para o site em teste (commits 7a49a20 e 0a72b50) e sairam no mesmo dia: «acho que gostei mais estilo esta tabela que
+ja existe, tire as outras, monte aqui», apontando a sanfona da secao Servicos.
 
-H, LISTA COM AS NORMAS EM ETIQUETAS: os nove setores um por linha, numero e nome em 24 (eram 44); no mouse, os outros
-nomes recuam e as normas proprias do setor surgem em etiquetas no fim da linha, uma depois da outra. A foto que flutuava
-ao lado do ponteiro saiu no mesmo dia («fonte menor, sem as fotos flutuando, aparecendo as normas tipo tag»). No celular
-as etiquetas ficam sempre a vista, embaixo do nome. A foto e a mesma pilha de nove do bloco antigo, no motor
-da trama (empilhado, com o tom de cada uma em data-tom). No celular nao ha foto: a lista fica com as normas embaixo.
-
-I, FIOS SETOR -> NORMA: a foto a esquerda e, a direita, os setores numa coluna, as normas proprias na outra e fios
-ligando cada setor as suas (tres por setor), na linha fina do mapa da secao Conhecimento, com a mesma entrada (.ln-svg).
-No mouse sobre um setor, os fios dele ficam azuis, a foto troca e a legenda traz o resumo; sobre uma norma, acendem os
-setores dela (mostra que uma norma serve a mais de um setor). Some abaixo de 880 px.
+A SANFONA usa as MESMAS classes da de Servicos (.sv-line, .sv-title, .sv-list, .sv-acc, .sv-item, .sv-panel, .sv-foto,
+.sv-texto, .sv-desc, .sv-more), entao herda tudo dela: o + que gira para x, o painel que abre em .5 s, a foto do setor
+a esquerda no motor da trama (que so liga com o item aberto), o zoom da foto no mouse, o «[ Detalhes -> ]» com a letra
+embaralhando. «Igual» e o comportamento inteiro (regra do site). O primeiro item nasce aberto, como la. No painel: o
+resumo do setor e, embaixo, as normas proprias dele, no mesmo mono; o «Detalhes» leva a pagina do setor.
+Duas mudancas no index.html que valem para as duas sanfonas (feitas aqui, de forma idempotente):
+  - o script da sanfona fechava TODOS os .sv-item da pagina; agora fecha so os irmaos da mesma sanfona;
+  - o motor das fotos da sanfona (perto()) passa a ler o data-tom da foto, para as fotos com tom proprio.
 
 As normas de cada setor vem de js/setores-dados.js (o setores.py), sem as que valem para qualquer setor (ISO 9001, 14001
 e 45001) e sem as que sairam do site (SA 8000, ISO 39002)."""
@@ -29,7 +29,6 @@ SITE = os.path.dirname(AQUI)
 GUARDA = os.path.join(AQUI, 'guia_bloco_cartoes.html')
 FORA = {'SA 8000', 'ISO 39002'}
 TRANSV = {'ISO 9001', 'ISO 14001', 'ISO 45001'}
-JS_V = '2'
 
 # as nove fotos do bloco antigo (src, data-lum, data-tom) e as rubricas, na ordem dos setores
 FOTOS = [
@@ -49,6 +48,10 @@ FOTOS = [
      '{"brilhoTom":0.27,"gama":0.86,"ctr":1.7,"escuro":1,"limiar":0,"veu":0.1,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}', 'Serviços'),
 ]
 
+PLUS = ('<svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/>'
+        '<line x1="0" y1="7.5" x2="15" y2="7.5"/></svg>')
+SETA = '<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg>'
+
 
 def esc(t):
     return t.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
@@ -61,120 +64,63 @@ def setores():
     for k, s in enumerate(D['setores']):
         ns = [n for n in s['normas'] if n in N and N[n]['nome'] not in FORA and N[n]['nome'] not in TRANSV]
         out.append(dict(n='%02d' % (k + 1), nome=s['nome'], pag=s['pagina'], resumo=s['resumo'], cat=FOTOS[k][3],
-                        normas=[(N[n]['nome'], N[n].get('pagina')) for n in ns]))
+                        normas=[N[n]['nome'] for n in ns]))
     assert len(out) == len(FOTOS), 'setores e fotos fora de ordem'
     return out
 
 
-def midia():
-    o = ['<div class="sx-midia" aria-hidden="true">']
-    for k, (src, lum, tom, cat) in enumerate(FOTOS):
-        o.append('<div class="sx-layer%s"><img src="%s" data-lum="%s"%s alt="" loading="lazy" decoding="async"></div>'
-                 % (' sx-layer-ativa' if k == 0 else '', src, lum, " data-tom='%s'" % tom if tom else ''))
-    o.append('</div>')
-    return ''.join(o)
-
-
-def bloco_h(S):
-    o = ['  <div class="gx-rot"><span>Proposta H · lista com as normas em etiquetas</span><span>[ em teste ]</span></div>',
-         '  <div class="gh" id="guiaH">',
-         '    <ol class="gh-lista">']
+def sanfona(S):
+    o = ['  <div class="gs" id="guiaSetores">',
+         '    <div class="sv-line" aria-hidden="true"></div>',
+         '    <div class="sv-title" aria-hidden="true"><div class="sv-title-a">Setores</div><div class="sv-title-b">atendidos</div></div>',
+         '    <div class="sv-list">',
+         '      <div class="sv-acc" role="presentation">']
     for k, s in enumerate(S):
-        # 14/10/2026: «uma lista com a fonte menor, sem as fotos flutuando, aparecendo as normas tipo tag»
-        tags = ''.join('<span class="gh-tag" style="--k:%d">%s</span>' % (j, esc(n)) for j, (n, p) in enumerate(s['normas'][:4]))
-        o.append('      <li><a class="gh-li" href="%s" data-i="%d"><span class="gh-n">%s</span><span class="gh-nome">%s</span>'
-                 '<span class="gh-tags">%s</span></a></li>' % (s['pag'], k, s['n'], esc(s['nome']), tags))
-    o += ['    </ol>',
-          '  </div>']
+        src, lum, tom, cat = FOTOS[k]
+        img = '<img src="%s" data-lum="%s"%s alt="" loading="lazy">' % (src, lum, " data-tom='%s'" % tom if tom else '')
+        o += ['',
+              '        <div class="sv-item%s">' % (' sv-open' if k == 0 else ''),
+              '          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-%d" aria-expanded="%s" '
+              'aria-controls="gs-panel-%d"><span>%s</span>%s</button></h3>' % (k, 'true' if k == 0 else 'false', k, esc(s['nome']), PLUS),
+              '          <div class="sv-panel" id="gs-panel-%d" role="region" aria-labelledby="gs-btn-%d">' % (k, k),
+              '            <div class="sv-panel-inner">',
+              '              <div class="sv-panel-body">',
+              '                <figure class="sv-foto">%s</figure>' % img,
+              '                <div class="sv-texto">',
+              '                <p class="sv-desc">%s</p>' % esc(s['resumo']),
+              '                <p class="sv-desc gs-normas">%s</p>' % esc(' · '.join(s['normas'][:5])),
+              '                <a class="sv-more" href="%s">[<span class="sv-more-in"><span class="js-scramble">Detalhes</span>%s</span>]</a>' % (s['pag'], SETA),
+              '              </div>',
+              '              </div>',
+              '            </div>',
+              '          </div>',
+              '        </div>']
+    o += ['', '      </div>', '    </div>', '  </div>']
     return '\n'.join(o)
 
 
-def bloco_i(S):
-    # a coluna das normas na ordem em que aparecem, de cima para baixo, para os fios cruzarem pouco
-    todas = []
-    for s in S:
-        for n, p in s['normas'][:3]:
-            if n not in [t[0] for t in todas]: todas.append((n, p))
-    W, XS, XN = 860, 290, 690
-    H = max(len(S) * 58, len(todas) * 24) + 24
-    ys = [28 + k * (H - 52) / (len(S) - 1) for k in range(len(S))]
-    yn = {n: 16 + j * (H - 32) / (len(todas) - 1) for j, (n, p) in enumerate(todas)}
-    ixn = {n: j for j, (n, p) in enumerate(todas)}
-    o = ['<svg class="ln-svg gi-svg" viewBox="0 0 %d %d" role="group" aria-label="Setores e normas próprias de cada um">' % (W, H)]
-    for k, s in enumerate(S):
-        for n, p in s['normas'][:3]:
-            y1, y2 = ys[k], yn[n]
-            o.append('<path class="ln-linha gi-fio" data-s="%d" data-n="%d" d="M%d %.1f C %d %.1f, %d %.1f, %d %.1f" '
-                     'style="--ox:%dpx;--oy:%.1fpx;--d:%d"/>' % (k, ixn[n], XS + 10, y1, 480, y1, 500, y2, XN - 10, y2, XS + 10, y1, 300 + 110 * k))
-    for k, s in enumerate(S):
-        o.append('<g class="ln-b" style="--dx:0px;--dy:0px;--d:%d"><a href="%s"><text class="gi-s" data-s="%d" x="%d" y="%.1f" '
-                 'text-anchor="end"><tspan class="gi-sn">%s</tspan> %s</text></a></g>'
-                 % (120 + 110 * k, s['pag'], k, XS, ys[k] + 6, s['n'], esc(s['nome'])))
-    for j, (n, p) in enumerate(todas):
-        t = '<text class="gi-n" data-n="%d" x="%d" y="%.1f">%s</text>' % (j, XN, yn[n] + 4.5, esc(n))
-        o.append('<g class="ln-b" style="--dx:-16px;--dy:0px;--d:%d">%s</g>' % (900 + 50 * j, '<a href="%s">%s</a>' % (p, t) if p else t))
-    o.append('</svg>')
-    s0 = S[0]
-    dados = ' '.join('data-r%d="%s" data-m%d="%s"' % (k, esc(s['resumo']), k, esc(' · '.join(n for n, p in s['normas'][:4])))
-                     for k, s in enumerate(S))
-    return '\n'.join([
-        '  <div class="gx-rot gx-rot--i"><span>Proposta I · fios setor → norma</span><span>[ em teste ]</span></div>',
-        '  <div class="gi" id="guiaI" %s>' % dados,
-        '    <figure class="gi-fig">' + midia() + '<figcaption><p class="gi-resumo">%s</p><p class="gi-normas">%s</p></figcaption></figure>'
-        % (esc(s0['resumo']), esc(' · '.join(n for n, p in s0['normas'][:4]))),
-        '    <div class="gi-mapa">' + ''.join(o) + '</div>',
-        '  </div>'])
-
-
-CSS = r"""/* ===== GUIA SETORES H e I (_ferramentas/guia_setores.py; em teste desde 14/10/2026) ===== */
-.gx-rot{display:flex;justify-content:space-between;margin-top:44px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul)}
-.gx-rot--i{margin-top:150px}
-/* H: nomes grandes; a foto flutua ao lado do ponteiro */
-.gh{position:relative;margin-top:16px}
-.gh-lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--fio)}
-.gh-li{display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:20px;padding:10px 0 9px;
-  border-bottom:1px solid var(--fio);color:var(--azul);text-decoration:none}
-.gh-n{font-family:var(--mono);font-size:11px;letter-spacing:.14em}
-/* 14/10/2026: letra menor (era clamp(28px,3vw,44px)); sem a foto flutuando; as normas surgem em etiquetas no fim da linha */
-.gh-nome{font-family:var(--sans);font-weight:600;font-size:clamp(19px,1.6vw,24px);line-height:1.2;letter-spacing:-.005em;transition:color .35s ease}
-.gh-lista:hover .gh-nome{color:rgba(20,48,76,.26)}
-.gh-li:is(:hover,:focus-visible) .gh-nome{color:var(--azul)}
-.gh-li:focus{outline:none}
-.gh-tags{display:flex;gap:6px;justify-content:flex-end}
-.gh-tag{min-width:112px;padding:4px 10px;text-align:center;white-space:nowrap;border:1px solid rgba(20,48,76,.3);border-radius:3px;
-  background:var(--mercurio);font-family:var(--sans);font-size:13px;font-weight:500;color:var(--azul);
-  opacity:0;transform:translateX(-6px);transition:opacity .3s ease calc(var(--k) * 50ms),transform .3s ease calc(var(--k) * 50ms)}
-.gh-li:is(:hover,:focus-visible) .gh-tag{opacity:1;transform:none}
-/* I: fios setor -> norma, na linha fina do mapa da secao Conhecimento */
-.gi{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:15px;margin-top:16px}
-.gi-fig{grid-column:1 / span 4;margin:0;align-self:start}
-.gi-fig figcaption{margin:14px 0 0}
-.gi-resumo{margin:0;font-family:var(--sans);font-weight:500;font-size:16px;line-height:1.35;color:var(--azul)}
-.gi-normas{margin:8px 0 0;font-family:var(--mono);font-size:10.5px;line-height:1.5;letter-spacing:.06em;text-transform:uppercase;color:var(--azul)}
-.gi-mapa{grid-column:5 / -1}
-.gi-svg{display:block;width:100%;height:auto}
-.gi-svg path{vector-effect:non-scaling-stroke}
-.gi-svg .gi-fio{fill:none;stroke:rgba(20,48,76,.22);stroke-width:.8;transition:stroke .25s ease,stroke-width .25s ease,opacity .25s ease}
-.gi-svg.gi-foco .gi-fio{opacity:.3}
-.gi-svg .gi-fio.on{stroke:#336699;stroke-width:1.3;opacity:1}
-.gi-s{font-family:var(--sans);font-size:17px;font-weight:600;fill:#14304C;transition:opacity .25s ease}
-.gi-sn{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em}
-.gi-n{font-family:var(--sans);font-size:13px;font-weight:500;fill:#14304C;transition:opacity .25s ease}
-.gi-svg.gi-foco :is(.gi-s,.gi-n){opacity:.3}
-.gi-svg.gi-foco :is(.gi-s,.gi-n).on{opacity:1}
-.gi-svg a{cursor:pointer}
-.gi-svg a:focus{outline:none}
-.gi ~ .mp-grade{margin-top:230px}   /* ~ e nao +: a tag do script fica entre os dois */
-@media (max-width:880px){
-  .gh-li{grid-template-columns:44px minmax(0,1fr);gap:6px 12px}
-  .gh-tags{grid-column:2;justify-content:flex-start;flex-wrap:wrap}
-  .gh-tag{min-width:0;opacity:1;transform:none}
-  .gh-lista:hover .gh-nome{color:var(--azul)}
-  .gx-rot--i,.gi{display:none}
-  .gi ~ .mp-grade{margin-top:156px}
-}
+CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/2026) ===== */
+/* a sanfona dos setores do Guia, com as classes da de Servicos (.sv-*): so a moldura e daqui */
+.gs{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:15px;margin-top:44px}
+.gs .sv-line{grid-row:1/3}
+.gs .sv-title{grid-row:1}
+.gs .sv-list{grid-row:2}
+.gs .sv-desc.gs-normas{margin-top:14px}
+.gs ~ .mp-grade{margin-top:230px}
+@media (max-width:880px){ .gs .sv-list{grid-row:auto;margin-top:30px} .gs ~ .mp-grade{margin-top:156px} }
 /* ===== fim GUIA SETORES ===== */
 """
+
+# o script da sanfona e o motor das fotos dela: ajustes para valer nas duas sanfonas
+TROCAS = [
+    ("      itens.forEach(function(o){ if (o !== item) abre(o, false); });",
+     "      /* 14/10/2026: so os irmaos da mesma sanfona (a dos setores do Guia usa as mesmas classes) */\n"
+     "      itens.forEach(function(o){ if (o !== item && o.parentNode === item.parentNode) abre(o, false); });"),
+    ("        if(quer && !gl) gl = ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:raiz, planos:[{el:raiz, lum:im.getAttribute('data-lum')}], classeCanvas:'vv-gl',",
+     "        /* 14/10/2026: a foto com tom proprio (data-tom, receita do Spirit) leva o tom para o motor */\n"
+     "        var tom = null; try { tom = JSON.parse(im.getAttribute('data-tom') || 'null'); } catch(e){}\n"
+     "        if(quer && !gl) gl = ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:raiz, planos:[{el:raiz, lum:im.getAttribute('data-lum'), tom:tom}], classeCanvas:'vv-gl',"),
+]
 
 
 def main():
@@ -186,19 +132,21 @@ def main():
     if 'id="sfSetores"' in atual and not os.path.exists(GUARDA):
         open(GUARDA, 'w', encoding='utf-8').write(atual)
         print('guardado o bloco dos cartoes em', GUARDA)
-    t = re.sub(r'/\* ===== GUIA SETORES H e I .*?/\* ===== fim GUIA SETORES ===== \*/\n', '', t, flags=re.S)
+    t = re.sub(r'/\* ===== GUIA SETORES.*?/\* ===== fim GUIA SETORES ===== \*/\n', '', t, flags=re.S)
+    for a, b in TROCAS:
+        if a in t: t = t.replace(a, b, 1)
+        assert b in t, 'ajuste nao aplicado: ' + a[:60]
     if len(sys.argv) > 1 and sys.argv[1] == 'cartoes':
         novo = open(GUARDA, encoding='utf-8').read()
     else:
-        S = setores()
-        novo = '\n' + bloco_h(S) + '\n' + bloco_i(S) + '\n  <script src="js/guia-setores.js?v=%s" defer></script>\n  ' % JS_V
+        novo = '\n' + sanfona(setores()) + '\n  '
         ancora = '/* ===== secao: processo ===== */'
         assert t.count(ancora) == 1
         t = t.replace(ancora, CSS + ancora, 1)
     i, j = t.index('<!-- foco -->'), t.index('<!-- fim foco -->')   # de novo: o CSS tirado ou posto mudou as posicoes
     t = t[:i + len('<!-- foco -->')] + novo + t[j:]
     open(p, 'wb').write((t.replace('\n', '\r\n') if crlf else t).encode('utf-8'))
-    print('index.html: bloco dos setores do Guia =', 'cartoes' if len(sys.argv) > 1 else 'H e I')
+    print('index.html: bloco dos setores do Guia =', 'cartoes' if len(sys.argv) > 1 else 'sanfona')
 
 
 if __name__ == '__main__':
