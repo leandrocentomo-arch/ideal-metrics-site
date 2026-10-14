@@ -26,11 +26,13 @@ inteligencia, linha tracejada em vermelho), cada uma com o nome em cima do comec
 (#14304C); a cor fica so nas linhas. No hover de um ramal os outros recuam pelo texto e pelo traco, nunca pelo fundo
 das etiquetas: o creme delas continua opaco e o eixo nao aparece por cima.
 
-ENTRADA (JS abaixo): quando o mapa entra na tela, o eixo se desenha da esquerda e as normas do encontro aparecem nele;
-em seguida cada tema surge no proprio nome e as normas BROTAM DELE: saem do ponto do nome, pequenas e transparentes, e
-deslizam pela linha ate o lugar, enquanto a linha cresce do nome ate o eixo. Cada peca leva no style o ponto de onde
-brota (--dx, --dy) e o atraso (--d); as linhas, o ponto de onde crescem (--ox, --oy). Sem JS, ou com movimento
-reduzido, o mapa aparece pronto.
+ENTRADA PELA ROLAGEM (JS abaixo; 14/10/2026: «gostaria que o efeito fosse avancando e retrocedendo na pagina»): o
+mapa se monta conforme a pagina desce e se desmonta quando ela sobe. O eixo se desenha da esquerda e as normas do
+encontro aparecem nele; em seguida cada tema surge no proprio nome e as normas BROTAM DELE: saem do ponto do nome,
+pequenas e transparentes, e deslizam pela linha ate o lugar, enquanto a linha cresce do nome ate o eixo. O JS so poe
+no SVG o progresso --p (0 a 1); cada peca leva no style o ponto de onde brota (--dx, --dy) e a sua vez na linha do
+tempo (--d, em milesimos de TEMPO); as linhas, o ponto de onde crescem (--ox, --oy). O CSS faz a conta. Sem JS, ou com
+movimento reduzido, --p fica 1 e o mapa aparece pronto.
 
 mapa_h(): eixo horizontal, ramais verticais (a secao da home). mapa_v(): eixo vertical, ramais horizontais (teste)."""
 
@@ -102,7 +104,7 @@ def _dados():
 
 def _vem(dx, dy, d):
     """o style da entrada: de onde a peca brota (relativo ao lugar final) e o atraso"""
-    return ' style="--dx:%.1fpx;--dy:%.1fpx;--d:%dms"' % (dx, dy, d)
+    return ' style="--dx:%.1fpx;--dy:%.1fpx;--d:%d"' % (dx, dy, d)
 
 
 class _Desenho:
@@ -115,7 +117,7 @@ class _Desenho:
     def linha(self, x1, y1, x2, y2, cls='ln-linha', pag=None, cresce=None, d=0):
         """cresce: o ponto de onde a linha nasce na entrada (o padrao e o comeco, x1 y1)"""
         ox, oy = cresce or (x1, y1)
-        l = ('<line class="%s" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" style="--ox:%.1fpx;--oy:%.1fpx;--d:%dms"/>'
+        l = ('<line class="%s" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" style="--ox:%.1fpx;--oy:%.1fpx;--d:%d"/>'
              % (cls, x1, y1, x2, y2, ox, oy, d))
         if pag:   # «que sejam clicaveis»: a linha leva a pagina do tema; a faixa invisivel de 18 facilita o clique
             l = ('<a class="ln-a" href="%s"><line class="ln-hit" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f"/>%s</a>'
@@ -266,9 +268,9 @@ def bloco(svg, extra='', camadas=''):
 
 CSS = r"""
 /* 14/10/2026: o mapa de linhas no lugar dos circulos (_ferramentas/arcos/linhas.py). Linhas finas e clicaveis, com
-   traco fixo em px de tela (non-scaling-stroke): eixo de 1 px na tinta, ramais de .6 px no azul, Estudos tracejado
+   traco fixo em px de tela (non-scaling-stroke): eixo de .6 px na tinta, ramais de .6 px no azul, Estudos tracejado
    em vermelho; faixa invisivel de 18 para o clique. Normas em etiquetas de largura unica sobre a linha, no desenho
-   das etiquetas da casa, 13 medio; a do encontro com o eixo com contorno na tinta e seminegrito; temas em 17
+   das etiquetas da casa, 13 medio; a do encontro com o eixo so com o contorno na tinta, mesma letra; temas em 17
    negrito; todo texto na tinta, sem cor. No hover de um ramal os outros recuam pelo texto e pelo traco; o fundo
    das etiquetas fica opaco, para o eixo nunca passar por cima delas. */
 .ln{margin:28px 0 0}
@@ -276,17 +278,16 @@ CSS = r"""
 .ln-rola{overflow-x:auto}
 .ln-svg{display:block;width:100%;height:auto}
 .ln-svg line,.ln-svg rect{vector-effect:non-scaling-stroke}
-.ln-eixo{stroke:#14304C;stroke-width:1;stroke-linecap:round}
+.ln-eixo{stroke:#14304C;stroke-width:.6;stroke-linecap:round}   /* 14/10/2026: «as linhas do centro mais finas» (era 1) */
 .ln-linha{stroke:#336699;stroke-width:.6;stroke-linecap:round;fill:none;transition:stroke .2s ease,stroke-width .2s ease,opacity .3s ease}
 .ln-hit{stroke:transparent;stroke-width:18;fill:none;pointer-events:stroke;vector-effect:none}
 .ln-a{cursor:pointer}
 .ln-a:is(:hover,:focus-visible) .ln-linha{stroke:#14304C;stroke-width:1}
-.ln-a:is(:hover,:focus-visible) .ln-eixo{stroke-width:1.4}
+.ln-a:is(:hover,:focus-visible) .ln-eixo{stroke-width:1}
 .ln-i .ln-linha{stroke:var(--im-vermelho,#EF4545);stroke-width:.8;stroke-dasharray:4 4;stroke-linecap:butt}
 .ln-et rect{fill:#FAF9F5;stroke:#14304C;stroke-opacity:.26;stroke-width:.6;transition:fill .2s ease,stroke-opacity .3s ease}
 .ln-et text{font-family:var(--sans);font-size:13px;font-weight:500;fill:#14304C;transition:opacity .3s ease}
-.ln-et-ponte rect{stroke-opacity:1;stroke-width:.8}
-.ln-et-ponte text{font-weight:600}
+.ln-et-ponte rect{stroke-opacity:1;stroke-width:.6}   /* 14/10/2026: «todas as normas com a mesma escrita»: sem negrito; contorno fino */
 .ln-svg a:is(:hover,:focus-visible) .ln-et rect{fill:#FFFFFF;stroke-opacity:1}
 .ln-nome,.ln-eixo-nome{font-family:var(--sans);font-weight:700;fill:#14304C;transition:opacity .3s ease}
 .ln-nome{font-size:17px}
@@ -295,33 +296,43 @@ CSS = r"""
 .ln-svg a:focus{outline:none}
 .ln-svg:has(.ln-ramal:hover) .ln-ramal:not(:hover) :is(text,.ln-linha){opacity:.28}
 .ln-svg:has(.ln-ramal:hover) .ln-ramal:not(:hover) rect{stroke-opacity:.1}
-/* ENTRADA: o JS poe .ln-anima (estado de antes) e, quando o mapa entra na tela, .ln-vivo. As linhas crescem a partir
-   de --ox/--oy; cada etiqueta e cada nome saem de --dx/--dy (o ponto do nome do tema), pequenos e transparentes, e
-   deslizam ate o lugar, com o atraso --d. O recuo do hover mexe no texto e no traco, que sao outros elementos. */
-.ln-anima :is(.ln-linha,.ln-eixo){transform-box:view-box;transform-origin:var(--ox) var(--oy);transform:scale(.001);stroke-opacity:0}
-.ln-anima .ln-b{opacity:0;transform-box:fill-box;transform-origin:center;transform:translate(var(--dx),var(--dy)) scale(.35)}
-.ln-anima .ln-b-nome{transform:translate(var(--dx),var(--dy))}
-/* stroke-opacity: sem ele a ponta redonda da linha ainda nao crescida aparece como um ponto antes da hora */
-.ln-anima.ln-vivo :is(.ln-linha,.ln-eixo){transform:none;stroke-opacity:1;
-  transition:transform .9s cubic-bezier(.3,.7,.2,1) var(--d,0ms),stroke-opacity 0s linear var(--d,0ms),stroke .2s ease,stroke-width .2s ease,opacity .3s ease}
-.ln-anima.ln-vivo .ln-b{opacity:1;transform:none;
-  transition:opacity .5s ease var(--d,0ms),transform .8s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
+/* ENTRADA PELA ROLAGEM: --p (0 a 1) vem do JS; sem ele, 1. Cada peca anda de 0 a 1 (--t) na sua janela da linha do
+   tempo de 3100: comeca em --d e dura 800 (as linhas, 900), com saida suave t(2 - t). As linhas crescem a partir de
+   --ox/--oy (stroke-opacity zero antes de comecar: sem ele a ponta redonda apareceria como um ponto); etiquetas e nomes
+   saem de --dx/--dy, pequenos e transparentes. Sem transicao: quem anda e a rolagem. O recuo do hover mexe no texto e
+   no traco (opacity), que nao sao os mesmos elementos nem as mesmas propriedades. */
+.ln-svg{--p:1}
+.ln-svg :is(.ln-linha,.ln-eixo){--t:clamp(0, calc((var(--p) * 3100 - var(--d)) / 900), 1);
+  transform-box:view-box;transform-origin:var(--ox) var(--oy);
+  transform:scale(calc(.001 + .999 * var(--t) * (2 - var(--t))));stroke-opacity:calc(var(--t) * 40)}
+.ln-b{--t:clamp(0, calc((var(--p) * 3100 - var(--d)) / 800), 1);--e:calc(var(--t) * (2 - var(--t)));
+  opacity:var(--t);transform-box:fill-box;transform-origin:center;
+  transform:translate(calc(var(--dx) * (1 - var(--e))), calc(var(--dy) * (1 - var(--e)))) scale(calc(.35 + .65 * var(--e)))}
+.ln-b-nome{transform:translate(calc(var(--dx) * (1 - var(--e))), calc(var(--dy) * (1 - var(--e))))}
 .ar-sec--teste{border-top:1px dashed rgba(20,48,76,.3)}
 @media (max-width:1000px){ .ln-rola{display:none} .ar-sec--teste{display:none} }
 """
 
 JS = r"""<script>
-/* CONHECIMENTO: entrada do mapa de linhas (_ferramentas/arcos/linhas.py). O mapa nasce pronto; com JS e sem
-   movimento reduzido, ganha .ln-anima (estado de antes) e, quando um quarto dele entra na tela, .ln-vivo: o eixo se
-   desenha e as normas brotam dos temas. Uma vez so. */
+/* CONHECIMENTO: entrada do mapa de linhas PELA ROLAGEM (_ferramentas/arcos/linhas.py). O progresso --p de cada mapa
+   vai de 0, quando o topo dele entra no pe da tela (95% da altura), a 1, quando o topo chega a 15%: o mapa se monta
+   descendo a pagina e se desmonta subindo. O valor anda atras da rolagem com um amortecimento (20% por quadro), para
+   a roda do mouse nao dar saltos. Com movimento reduzido nada roda e o CSS deixa --p em 1. */
 (function(){
-  var ss = document.querySelectorAll('.ln-svg');
-  if(!ss.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  /* terminada a entrada, as classes saem: o mapa fica no estado normal e o hover nao herda os atrasos dela */
-  var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ var s = e.target; s.classList.add('ln-vivo'); io.unobserve(s);
-      setTimeout(function(){ s.classList.remove('ln-anima', 'ln-vivo'); }, 4500); } });
-  }, {threshold:.25});
-  for(var i = 0; i < ss.length; i++){ ss[i].classList.add('ln-anima'); io.observe(ss[i]); }
+  var ss = [].slice.call(document.querySelectorAll('.ln-svg'));
+  if(!ss.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var alvo = [], atual = [], rodando = false;
+  function mede(){ var vh = window.innerHeight;
+    ss.forEach(function(s, i){ var r = s.getBoundingClientRect();
+      alvo[i] = r.height ? Math.max(0, Math.min(1, (vh * .95 - r.top) / (vh * .8))) : 1; }); }
+  function poe(i){ ss[i].style.setProperty('--p', atual[i].toFixed(4)); }
+  function passo(){ var mexe = false;
+    ss.forEach(function(s, i){ var d = alvo[i] - atual[i];
+      if(Math.abs(d) < .0015) atual[i] = alvo[i]; else { atual[i] += d * .2; mexe = true; } poe(i); });
+    if(mexe) requestAnimationFrame(passo); else rodando = false; }
+  function pede(){ mede(); if(!rodando){ rodando = true; requestAnimationFrame(passo); } }
+  mede(); ss.forEach(function(s, i){ atual[i] = alvo[i]; poe(i); });
+  window.addEventListener('scroll', pede, {passive:true});
+  window.addEventListener('resize', pede);
 })();
 </script>"""
