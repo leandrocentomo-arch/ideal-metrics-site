@@ -1,0 +1,187 @@
+# -*- coding: utf-8 -*-
+"""A secao «Processo» da home (index.html, [IM.3]) como DIAGRAMA, 14/10/2026.
+
+    python _ferramentas/processo.py        reescreve a secao, o CSS e o JS dela no index.html (idempotente)
+
+Historia: eram cinco cartoes empilhados que se inclinavam na rolagem; no mesmo dia foram para a horizontal («encaixando
+um card do lado do outro») e o Leandro nao gostou: «nao ficou bom, teria como trocar isso por um diagrama bem feito?».
+
+O DIAGRAMA, na linha fina do site (a das etapas das paginas de servico e a do mapa da secao Conhecimento):
+  - duas linhas paralelas: em baixo, o PROCESSO DO CLIENTE, com as cinco etapas em nos; em cima, o CONSULTOR DA IDEAL
+    METRICS, que desce ate cada etapa por um fio (a frase da secao: «conduzimos cada etapa com o consultor dentro do
+    processo do cliente»; o titulo: «Ao lado em cada etapa»);
+  - em cada etapa: o numero (mono) em cima, o nome (17, negrito) e duas linhas curtas embaixo, tiradas dos cartoes;
+  - embaixo, a chave «cerca de 6 meses», o prazo que as paginas de servico ja publicam («Cerca de 6 meses: do
+    diagnostico a certificacao»).
+  Nada de trocadilho nem de objeto do tema como desenho. Todo texto na tinta; a cor fica so no fio do consultor.
+
+ENTRADA: a mesma do mapa da secao Conhecimento (linhas.py): o SVG leva a classe .ln-svg, as linhas .ln-linha/.ln-eixo
+com --ox/--oy/--d e as pecas .ln-b com --dx/--dy/--d; o JS da entrada (o «CONHECIMENTO: entrada do mapa», inserido pelo
+monta.py) toca nos dois sentidos da rolagem. As linhas se desenham da esquerda, os fios descem do consultor e cada
+etapa sobe do seu no. Esse CSS e esse JS moram no bloco da secao Conhecimento: se ela sair, a entrada daqui para.
+
+No celular (ate 880 px) o desenho da lugar a uma lista numerada com o mesmo conteudo."""
+
+import os, sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+SITE = os.path.dirname(AQUI)
+
+TITULO = 'Ao lado em cada etapa'
+FRASE = 'Do diagnóstico à certificação, conduzimos cada etapa com o consultor dentro do processo do cliente.'
+# (numero, nome, linha 1, linha 2): o conteudo dos cartoes antigos, encurtado para caber embaixo do no
+ETAPAS = [('01', 'Diagnóstico', 'Situação atual e gaps', 'em relação às normas'),
+          ('02', 'Planejamento', 'Responsáveis, prazos e', 'entregas por visita'),
+          ('03', 'Implantação', 'Sistema de gestão integrado', 'à rotina da operação'),
+          ('04', 'Auditoria interna', 'Verificação da conformidade', 'e preparação para a certificação'),
+          ('05', 'Certificação', 'Acompanhamento da auditoria', 'até o certificado emitido')]
+# o texto inteiro de cada etapa, para a lista do celular e para quem le a tela
+TEXTO = ['Análise da situação atual e identificação de gaps em relação às normas.',
+         'Plano de implantação com responsáveis, prazos e entregas por visita.',
+         'Construção do sistema de gestão integrado à rotina da operação.',
+         'Verificação da conformidade e preparação para a certificação.',
+         'Acompanhamento da auditoria do organismo certificador até o certificado emitido.']
+PRAZO = 'Cerca de 6 meses'
+
+W = 1362                                  # o mesmo viewBox do mapa da secao Conhecimento (1 unidade ~ 1 px a 1536)
+XL, XR = 16, 1346                         # comeco e fim das duas linhas
+X1, XN = 340, 1262                        # o primeiro e o ultimo no
+YC, YP = 66, 146                          # a linha do consultor e a do processo
+YT, YD = 190, 211                         # nome e primeira linha da descricao (a segunda vai 18 abaixo)
+YK = 270                                  # a chave do prazo
+H = 306
+
+
+def esc(s):
+    return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+
+
+def _linha(x1, y1, x2, y2, cls, d, ox=None, oy=None):
+    ox = x1 if ox is None else ox; oy = y1 if oy is None else oy
+    return ('<line class="%s" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f" style="--ox:%.1fpx;--oy:%.1fpx;--d:%d"/>'
+            % (cls, x1, y1, x2, y2, ox, oy, d))
+
+
+def _b(conteudo, dx, dy, d):
+    return '<g class="ln-b" style="--dx:%.1fpx;--dy:%.1fpx;--d:%d">%s</g>' % (dx, dy, d, conteudo)
+
+
+def svg():
+    passo = (XN - X1) / (len(ETAPAS) - 1)
+    o = ['<svg class="ln-svg pr-svg" viewBox="0 0 %d %d" role="img" aria-label="%s">'
+         % (W, H, esc('As cinco etapas, do diagnóstico à certificação, com o consultor da Ideal Metrics em cada uma: '
+                      + '; '.join('%s %s' % (n, t) for n, t, a, b in ETAPAS)))]
+    # as duas linhas, desenhadas da esquerda, e os seus nomes em cima do comeco
+    o.append(_linha(XL, YC, XR, YC, 'ln-linha pr-consultor', 60))
+    o.append(_linha(XL, YP, XR, YP, 'ln-eixo', 0))
+    o.append(_b('<text class="pr-rot" x="%d" y="%d">Consultor da Ideal Metrics</text>' % (XL, YC - 14), 0, 6, 60))
+    o.append(_b('<text class="pr-rot" x="%d" y="%d">Processo do cliente</text>' % (XL, YP - 14), 0, 6, 0))
+    for k, (n, t, a, b) in enumerate(ETAPAS):
+        x = X1 + passo * k
+        d = 380 + 230 * k
+        # o fio do consultor desce ate a etapa
+        o.append(_linha(x, YC, x, YP - 10, 'ln-linha pr-fio', d))
+        o.append(_b('<circle class="pr-ponto" cx="%.1f" cy="%d" r="3.2"/>' % (x, YC), 0, 0, d))
+        o.append(_b('<text class="pr-n" x="%.1f" y="%d">%s</text>' % (x, YC - 14, n), 0, 6, d))
+        o.append(_b('<circle class="pr-no" cx="%.1f" cy="%d" r="10"/><circle class="pr-no-c" cx="%.1f" cy="%d" r="3.2"/>'
+                    % (x, YP, x, YP), 0, 0, d + 120))
+        # nome e descricao sobem do no
+        o.append(_b('<text class="pr-t" x="%.1f" y="%d">%s</text>'
+                    '<text class="pr-p" x="%.1f" y="%d">%s</text><text class="pr-p" x="%.1f" y="%d">%s</text>'
+                    % (x, YT, esc(t), x, YD, esc(a), x, YD + 18, esc(b)), 0, YP - YT, d + 180))
+    # a chave do prazo, do primeiro ao ultimo no
+    dk = 380 + 230 * len(ETAPAS) + 100
+    o.append(_linha(X1, YK, XN, YK, 'ln-linha pr-chave', dk))
+    o.append(_linha(X1, YK - 6, X1, YK, 'ln-linha pr-chave', dk))
+    o.append(_linha(XN, YK - 6, XN, YK, 'ln-linha pr-chave', dk, XN, YK))
+    o.append(_b('<text class="pr-rot pr-rot--meio" x="%.1f" y="%d">%s</text>' % ((X1 + XN) / 2, YK + 22, esc(PRAZO)), 0, -6, dk + 200))
+    o.append('</svg>')
+    return ''.join(o)
+
+
+def secao():
+    lista = '\n'.join('      <li><span class="pr-li-n">%s</span><b>%s</b><span>%s</span></li>' % (n, esc(t), esc(TEXTO[k]))
+                      for k, (n, t, a, b) in enumerate(ETAPAS))
+    return '\n'.join([
+        '<!-- ===== processo ===== -->',
+        '<!-- gerada por _ferramentas/processo.py: editar la e rodar de novo -->',
+        '<section class="pr-sec" id="pr-processo" aria-labelledby="pr-titulo">',
+        '  <div class="pr-label">',
+        '    <span>Processo</span>',
+        '    <span aria-hidden="true">[IM.3]</span>',
+        '  </div>',
+        '  <h2 class="pr-titulo" id="pr-titulo">%s</h2>' % TITULO,
+        '  <p class="pr-frase">%s</p>' % FRASE,
+        '  <div class="pr-rola">' + svg() + '</div>',
+        '  <ol class="pr-lista">',
+        lista,
+        '  </ol>',
+        '  <p class="pr-lista-prazo">%s, do diagnóstico à certificação.</p>' % PRAZO,
+        '</section>',
+        '',
+        '',
+    ])
+
+
+CSS = r"""/* ===== secao: processo ===== */
+/* 14/10/2026: o DIAGRAMA das cinco etapas no lugar dos cartoes (gerado por _ferramentas/processo.py; editar la).
+   Duas linhas paralelas em linha fina: o processo do cliente com as etapas em nos e, em cima, o consultor da Ideal
+   Metrics, que desce ate cada etapa. A entrada e a do mapa da secao Conhecimento (.ln-svg, .ln-b, .ln-linha). */
+.pr-sec{position:relative;z-index:1;color:var(--azul);padding:18px var(--lado) 110px}
+.pr-label{display:flex;justify-content:space-between;font-family:var(--mono);font-weight:400;font-size:12px;line-height:1;
+  letter-spacing:0;text-transform:uppercase}
+.pr-titulo{margin:72px 0 0;font-family:var(--sans);font-weight:700;font-size:clamp(20px,2.2vw,30px);line-height:1.2;
+  letter-spacing:-.012em;color:var(--azul);max-width:40ch;text-wrap:balance}
+.pr-frase{margin:12px 0 0;max-width:62ch;font-family:var(--sans);font-size:16px;line-height:1.4;color:var(--azul);text-wrap:pretty}
+.pr-rola{margin:44px 0 0}
+.pr-svg{display:block;width:100%;height:auto;overflow:visible}
+.pr-svg .ln-linha.pr-chave{stroke:rgba(20,48,76,.4)}
+.pr-ponto{fill:#336699}
+.pr-no{fill:#FAF9F5;stroke:#14304C;stroke-width:.8;vector-effect:non-scaling-stroke}
+.pr-no-c{fill:#14304C}
+.pr-n,.pr-rot{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;fill:#14304C}
+.pr-n{text-anchor:middle}
+.pr-rot--meio{text-anchor:middle}
+.pr-t{font-family:var(--sans);font-size:17px;font-weight:700;fill:#14304C;text-anchor:middle}
+.pr-p{font-family:var(--sans);font-size:13px;font-weight:500;fill:#14304C;text-anchor:middle}
+.pr-lista,.pr-lista-prazo{display:none}
+@media (max-width:880px){
+  .pr-sec{padding-bottom:70px}
+  .pr-titulo{margin-top:48px}
+  .pr-rola{display:none}
+  .pr-lista{display:block;margin:30px 0 0;padding:0;list-style:none;border-left:1px solid #336699}
+  .pr-lista li{position:relative;padding:0 0 22px 22px}
+  .pr-lista li::before{content:"";position:absolute;left:-4px;top:5px;width:7px;height:7px;border-radius:50%;background:#336699}
+  .pr-li-n{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--azul)}
+  .pr-lista b{display:block;margin:4px 0 4px;font-family:var(--sans);font-size:18px;font-weight:700;color:var(--azul)}
+  .pr-lista li>span:last-child{display:block;font-family:var(--sans);font-size:15px;line-height:1.35;color:var(--azul)}
+  .pr-lista-prazo{display:block;margin:6px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul)}
+}
+
+"""
+
+JS = """// ===== processo =====
+// 14/10/2026: sem JS proprio: a entrada do diagrama e a do mapa da secao Conhecimento (todas as .ln-svg)
+
+"""
+
+
+def troca_entre(t, ini, fim, novo):
+    i, j = t.index(ini), t.index(fim)
+    assert i < j and t.count(ini) == 1 and t.count(fim) == 1, (ini, fim)
+    return t[:i] + novo + t[j:]
+
+
+def main():
+    p = os.path.join(SITE, 'index.html')
+    raw = open(p, 'rb').read(); crlf = b'\r\n' in raw
+    t = raw.decode('utf-8').replace('\r\n', '\n')
+    t = troca_entre(t, '/* ===== secao: processo ===== */', '/* ===== secao: diferenciais ===== */', CSS)
+    t = troca_entre(t, '<!-- ===== processo ===== -->', '<!-- ===== diferenciais ===== -->', secao())
+    t = troca_entre(t, '// ===== processo =====', '// ===== diferenciais =====', JS)
+    open(p, 'wb').write((t.replace('\n', '\r\n') if crlf else t).encode('utf-8'))
+    print('index.html: secao Processo em diagrama')
+
+
+if __name__ == '__main__':
+    main()

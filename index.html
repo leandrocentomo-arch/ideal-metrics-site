@@ -368,171 +368,38 @@ body>*{position:relative;z-index:1}
 }
 
 /* ===== secao: processo ===== */
-/* ============ [IM.2] PROCESSO — reconstrução da seção home_process ============ */
-
-.pr-sec{
-  position:relative;
-  z-index:1;
-  overflow:hidden;
-  background:var(--mercurio);
-  color:var(--azul);
-  padding:18px var(--lado) 160px;
-}
-
-/* Fios verticais de 1px nas fronteiras das colunas 5 e 8 do grid de 12
-   (equivalente do col-start-5 col-span-4 b-x b-blue do modelo).
-   Alinhados ao grid COM gutter, para baterem nas colunas do conteúdo. */
-.pr-rails{
-  position:absolute;
-  inset:0;
-  padding-inline:var(--lado);
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  column-gap:15px;
-  pointer-events:none;
-}
-.pr-rail{
-  grid-column:5/9;
-  border-left:1px solid var(--azul);
-  border-right:1px solid var(--azul);
-}
-
-/* Rótulo mono superior: PROCESSO à esquerda, [IM.2] à direita */
-.pr-label{
-  display:flex;
-  justify-content:space-between;
-  font-family:var(--mono);
-  font-weight:400;
-  font-size:12px;
-  line-height:1;
-  letter-spacing:0;
-  text-transform:uppercase;
-}
-
-/* Grid mestre 12 colunas, gap 15px, 90px abaixo do rótulo.
-   14/10/2026: «transforme esta secao na horizontal, encaixando um card do lado do outro; o 01 e o 02 em cima, e os tres
-   ao lado; a frase a esquerda, na mesma linha e antes do 01 e do 02». Tres colunas de 4: na primeira linha a frase
-   (com o titulo), o 01 e o 02; na segunda, o 03, o 04 e o 05. A coluna do meio cai entre os dois fios verticais. */
-.pr-grid{
-  margin-top:90px;
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  column-gap:15px;
-  row-gap:32px;
-}
-
-/* A primeira celula (colunas 1-4, primeira linha): o titulo e a frase */
-.pr-left{
-  grid-column:1/5;
-  grid-row:1;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  column-gap:15px;
-  align-content:start;
-}
-.pr-titlewrap{
-  grid-column:1/-1;
-  position:relative;
-}
-/* Banda mercúrio: metade da altura do bloco do título, centrada na vertical,
-   mascara o fio vertical que passa atrás do título (bg-mercury h-1/2 center-y) */
-.pr-band{
-  position:absolute;
-  top:50%;
-  left:0;
-  width:100%;
-  height:50%;
-  transform:translateY(-50%);
-  background:var(--mercurio);
-}
-.pr-title{
-  position:relative;
-  margin:0;
-  font-family:var(--mono);font-weight:500;font-size:11px;line-height:1.4;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro);
-}
-/* Parágrafo mono: a celula inteira, 18 px abaixo do titulo (era 46): a celula fica da altura dos cartoes */
-.pr-intro{
-  grid-column:1/-1;
-  margin:18px 0 0;
-  padding-right:40px;
-  font-family:var(--mono);
-  font-weight:400;
-  font-size:14px;
-  line-height:1.21;
-  letter-spacing:0;
-  text-transform:uppercase;
-}
-
-/* Os cartoes entram direto na grade mestre (o .pr-cards so agrupa no HTML) */
-.pr-cards{display:contents}
-.pr-card{
-  background:var(--branco);
-  color:var(--azul);
-  padding:10px 22px 22px;
-  display:flex;
-  flex-direction:column;
-  --pr-p:0;
-  --pr-s:1;
-  /* o mesmo efeito de antes: inclinado e deslocado enquanto esta baixo na tela, reto quando chega; o deslocamento
-     agora e para baixo (eram 48 px para a direita), para os cartoes vizinhos nao se atropelarem */
-  transform:translate3d(0,calc(var(--pr-p)*48px),0) rotate(calc(var(--pr-s)*var(--pr-p)*3deg));
-  box-shadow:0 18px 44px rgba(21,31,120,calc(var(--pr-p)*.18));
-  will-change:transform;
-}
-.pr-card:nth-child(1){grid-column:5/9;grid-row:1}
-.pr-card:nth-child(2){grid-column:9/13;grid-row:1}
-.pr-card:nth-child(3){grid-column:1/5;grid-row:2}
-.pr-card:nth-child(4){grid-column:5/9;grid-row:2}
-.pr-card:nth-child(5){grid-column:9/13;grid-row:2}
-
-/* Cabeçalho do cartão: nome + número na mesma linha de 30px */
-.pr-card-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-family:var(--sans);
-  font-weight:400;
-  font-size:18px;
-  line-height:1;
-  letter-spacing:0;
-}
-.pr-card-head h3{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit}
-.pr-num{margin-right:8px}
-
-.pr-card hr{border:0;border-top:1px solid rgba(20,48,76,.2);margin:0}
-.pr-hr1{margin-top:10px}
-.pr-card-body{margin-top:26px;flex:1}
-.pr-card-body p{
-  margin:0;
-  padding-right:40px;
-  font-family:var(--mono);
-  font-weight:400;
-  font-size:14px;
-  line-height:1.21;
-  letter-spacing:0;
-  text-transform:uppercase;
-}
-.pr-hr2{margin-top:46px}
-
-@media (prefers-reduced-motion:reduce){
-  .pr-card{transform:none;box-shadow:none}
-}
-
-/* ============ Mobile (<=880px) ============ */
+/* 14/10/2026: o DIAGRAMA das cinco etapas no lugar dos cartoes (gerado por _ferramentas/processo.py; editar la).
+   Duas linhas paralelas em linha fina: o processo do cliente com as etapas em nos e, em cima, o consultor da Ideal
+   Metrics, que desce ate cada etapa. A entrada e a do mapa da secao Conhecimento (.ln-svg, .ln-b, .ln-linha). */
+.pr-sec{position:relative;z-index:1;color:var(--azul);padding:18px var(--lado) 110px}
+.pr-label{display:flex;justify-content:space-between;font-family:var(--mono);font-weight:400;font-size:12px;line-height:1;
+  letter-spacing:0;text-transform:uppercase}
+.pr-titulo{margin:72px 0 0;font-family:var(--sans);font-weight:700;font-size:clamp(20px,2.2vw,30px);line-height:1.2;
+  letter-spacing:-.012em;color:var(--azul);max-width:40ch;text-wrap:balance}
+.pr-frase{margin:12px 0 0;max-width:62ch;font-family:var(--sans);font-size:16px;line-height:1.4;color:var(--azul);text-wrap:pretty}
+.pr-rola{margin:44px 0 0}
+.pr-svg{display:block;width:100%;height:auto;overflow:visible}
+.pr-svg .ln-linha.pr-chave{stroke:rgba(20,48,76,.4)}
+.pr-ponto{fill:#336699}
+.pr-no{fill:#FAF9F5;stroke:#14304C;stroke-width:.8;vector-effect:non-scaling-stroke}
+.pr-no-c{fill:#14304C}
+.pr-n,.pr-rot{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;fill:#14304C}
+.pr-n{text-anchor:middle}
+.pr-rot--meio{text-anchor:middle}
+.pr-t{font-family:var(--sans);font-size:17px;font-weight:700;fill:#14304C;text-anchor:middle}
+.pr-p{font-family:var(--sans);font-size:13px;font-weight:500;fill:#14304C;text-anchor:middle}
+.pr-lista,.pr-lista-prazo{display:none}
 @media (max-width:880px){
-  .pr-sec{padding-bottom:60px}
-  .pr-rails{display:none}
-  .pr-grid{margin-top:50px;grid-template-columns:repeat(6,1fr);column-gap:10px;row-gap:20px}
-  .pr-left{grid-column:1/-1;grid-template-columns:repeat(6,1fr);column-gap:10px}
-  .pr-title{font-size:11px}
-  .pr-intro{grid-column:2/-1;margin-top:80px;padding-right:0;font-size:12px;line-height:1.33}
-  .pr-card,.pr-card:nth-child(n){grid-column:1/-1;grid-row:auto;padding:10px 16px 20px}
-  .pr-card:nth-child(1){margin-top:46px}
-  .pr-card-head{font-size:24px}
-  .pr-hr1{margin-top:8px}
-  .pr-card-body{margin-top:20px}
-  .pr-card-body p{padding-right:60px}
-  .pr-hr2{margin-top:28px}
+  .pr-sec{padding-bottom:70px}
+  .pr-titulo{margin-top:48px}
+  .pr-rola{display:none}
+  .pr-lista{display:block;margin:30px 0 0;padding:0;list-style:none;border-left:1px solid #336699}
+  .pr-lista li{position:relative;padding:0 0 22px 22px}
+  .pr-lista li::before{content:"";position:absolute;left:-4px;top:5px;width:7px;height:7px;border-radius:50%;background:#336699}
+  .pr-li-n{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--azul)}
+  .pr-lista b{display:block;margin:4px 0 4px;font-family:var(--sans);font-size:18px;font-weight:700;color:var(--azul)}
+  .pr-lista li>span:last-child{display:block;font-family:var(--sans);font-size:15px;line-height:1.35;color:var(--azul)}
+  .pr-lista-prazo{display:block;margin:6px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul)}
 }
 
 /* ===== secao: diferenciais ===== */
@@ -3873,53 +3740,23 @@ body>*{position:relative;z-index:1}
 </section>
 
 <!-- ===== processo ===== -->
-<section class="pr-sec" id="pr-processo">
-  <div class="pr-rails" aria-hidden="true"><div class="pr-rail"></div></div>
+<!-- gerada por _ferramentas/processo.py: editar la e rodar de novo -->
+<section class="pr-sec" id="pr-processo" aria-labelledby="pr-titulo">
   <div class="pr-label">
     <span>Processo</span>
     <span aria-hidden="true">[IM.3]</span>
   </div>
-  <div class="pr-grid">
-    <div class="pr-left">
-      <div class="pr-titlewrap">
-        <div class="pr-band" aria-hidden="true"></div>
-        <h2 class="pr-title">Ao lado<br>em cada<br>etapa</h2>
-      </div>
-      <p class="pr-intro">Do diagnóstico à certificação, conduzimos cada etapa com o consultor dentro do processo do cliente.</p>
-    </div>
-    <div class="pr-cards">
-      <article class="pr-card">
-        <div class="pr-card-head"><h3>Diagnóstico</h3><div class="pr-num">01</div></div>
-        <hr class="pr-hr1">
-        <div class="pr-card-body"><p>Análise da situação atual e identificação de gaps em relação às normas.</p></div>
-        <hr class="pr-hr2">
-      </article>
-      <article class="pr-card">
-        <div class="pr-card-head"><h3>Planejamento</h3><div class="pr-num">02</div></div>
-        <hr class="pr-hr1">
-        <div class="pr-card-body"><p>Plano de implantação com responsáveis, prazos e entregas por visita.</p></div>
-        <hr class="pr-hr2">
-      </article>
-      <article class="pr-card">
-        <div class="pr-card-head"><h3>Implantação</h3><div class="pr-num">03</div></div>
-        <hr class="pr-hr1">
-        <div class="pr-card-body"><p>Construção do sistema de gestão integrado à rotina da operação.</p></div>
-        <hr class="pr-hr2">
-      </article>
-      <article class="pr-card">
-        <div class="pr-card-head"><h3>Auditoria interna</h3><div class="pr-num">04</div></div>
-        <hr class="pr-hr1">
-        <div class="pr-card-body"><p>Verificação da conformidade e preparação para a certificação.</p></div>
-        <hr class="pr-hr2">
-      </article>
-      <article class="pr-card">
-        <div class="pr-card-head"><h3>Certificação</h3><div class="pr-num">05</div></div>
-        <hr class="pr-hr1">
-        <div class="pr-card-body"><p>Acompanhamento da auditoria do organismo certificador até o certificado emitido.</p></div>
-        <hr class="pr-hr2">
-      </article>
-    </div>
-  </div>
+  <h2 class="pr-titulo" id="pr-titulo">Ao lado em cada etapa</h2>
+  <p class="pr-frase">Do diagnóstico à certificação, conduzimos cada etapa com o consultor dentro do processo do cliente.</p>
+  <div class="pr-rola"><svg class="ln-svg pr-svg" viewBox="0 0 1362 306" role="img" aria-label="As cinco etapas, do diagnóstico à certificação, com o consultor da Ideal Metrics em cada uma: 01 Diagnóstico; 02 Planejamento; 03 Implantação; 04 Auditoria interna; 05 Certificação"><line class="ln-linha pr-consultor" x1="16.0" y1="66.0" x2="1346.0" y2="66.0" style="--ox:16.0px;--oy:66.0px;--d:60"/><line class="ln-eixo" x1="16.0" y1="146.0" x2="1346.0" y2="146.0" style="--ox:16.0px;--oy:146.0px;--d:0"/><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:60"><text class="pr-rot" x="16" y="52">Consultor da Ideal Metrics</text></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:0"><text class="pr-rot" x="16" y="132">Processo do cliente</text></g><line class="ln-linha pr-fio" x1="340.0" y1="66.0" x2="340.0" y2="136.0" style="--ox:340.0px;--oy:66.0px;--d:380"/><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:380"><circle class="pr-ponto" cx="340.0" cy="66" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:380"><text class="pr-n" x="340.0" y="52">01</text></g><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:500"><circle class="pr-no" cx="340.0" cy="146" r="10"/><circle class="pr-no-c" cx="340.0" cy="146" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:-44.0px;--d:560"><text class="pr-t" x="340.0" y="190">Diagnóstico</text><text class="pr-p" x="340.0" y="211">Situação atual e gaps</text><text class="pr-p" x="340.0" y="229">em relação às normas</text></g><line class="ln-linha pr-fio" x1="570.5" y1="66.0" x2="570.5" y2="136.0" style="--ox:570.5px;--oy:66.0px;--d:610"/><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:610"><circle class="pr-ponto" cx="570.5" cy="66" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:610"><text class="pr-n" x="570.5" y="52">02</text></g><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:730"><circle class="pr-no" cx="570.5" cy="146" r="10"/><circle class="pr-no-c" cx="570.5" cy="146" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:-44.0px;--d:790"><text class="pr-t" x="570.5" y="190">Planejamento</text><text class="pr-p" x="570.5" y="211">Responsáveis, prazos e</text><text class="pr-p" x="570.5" y="229">entregas por visita</text></g><line class="ln-linha pr-fio" x1="801.0" y1="66.0" x2="801.0" y2="136.0" style="--ox:801.0px;--oy:66.0px;--d:840"/><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:840"><circle class="pr-ponto" cx="801.0" cy="66" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:840"><text class="pr-n" x="801.0" y="52">03</text></g><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:960"><circle class="pr-no" cx="801.0" cy="146" r="10"/><circle class="pr-no-c" cx="801.0" cy="146" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:-44.0px;--d:1020"><text class="pr-t" x="801.0" y="190">Implantação</text><text class="pr-p" x="801.0" y="211">Sistema de gestão integrado</text><text class="pr-p" x="801.0" y="229">à rotina da operação</text></g><line class="ln-linha pr-fio" x1="1031.5" y1="66.0" x2="1031.5" y2="136.0" style="--ox:1031.5px;--oy:66.0px;--d:1070"/><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:1070"><circle class="pr-ponto" cx="1031.5" cy="66" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:1070"><text class="pr-n" x="1031.5" y="52">04</text></g><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:1190"><circle class="pr-no" cx="1031.5" cy="146" r="10"/><circle class="pr-no-c" cx="1031.5" cy="146" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:-44.0px;--d:1250"><text class="pr-t" x="1031.5" y="190">Auditoria interna</text><text class="pr-p" x="1031.5" y="211">Verificação da conformidade</text><text class="pr-p" x="1031.5" y="229">e preparação para a certificação</text></g><line class="ln-linha pr-fio" x1="1262.0" y1="66.0" x2="1262.0" y2="136.0" style="--ox:1262.0px;--oy:66.0px;--d:1300"/><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:1300"><circle class="pr-ponto" cx="1262.0" cy="66" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:1300"><text class="pr-n" x="1262.0" y="52">05</text></g><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:1420"><circle class="pr-no" cx="1262.0" cy="146" r="10"/><circle class="pr-no-c" cx="1262.0" cy="146" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:-44.0px;--d:1480"><text class="pr-t" x="1262.0" y="190">Certificação</text><text class="pr-p" x="1262.0" y="211">Acompanhamento da auditoria</text><text class="pr-p" x="1262.0" y="229">até o certificado emitido</text></g><line class="ln-linha pr-chave" x1="340.0" y1="270.0" x2="1262.0" y2="270.0" style="--ox:340.0px;--oy:270.0px;--d:1630"/><line class="ln-linha pr-chave" x1="340.0" y1="264.0" x2="340.0" y2="270.0" style="--ox:340.0px;--oy:264.0px;--d:1630"/><line class="ln-linha pr-chave" x1="1262.0" y1="264.0" x2="1262.0" y2="270.0" style="--ox:1262.0px;--oy:270.0px;--d:1630"/><g class="ln-b" style="--dx:0.0px;--dy:-6.0px;--d:1830"><text class="pr-rot pr-rot--meio" x="801.0" y="292">Cerca de 6 meses</text></g></svg></div>
+  <ol class="pr-lista">
+      <li><span class="pr-li-n">01</span><b>Diagnóstico</b><span>Análise da situação atual e identificação de gaps em relação às normas.</span></li>
+      <li><span class="pr-li-n">02</span><b>Planejamento</b><span>Plano de implantação com responsáveis, prazos e entregas por visita.</span></li>
+      <li><span class="pr-li-n">03</span><b>Implantação</b><span>Construção do sistema de gestão integrado à rotina da operação.</span></li>
+      <li><span class="pr-li-n">04</span><b>Auditoria interna</b><span>Verificação da conformidade e preparação para a certificação.</span></li>
+      <li><span class="pr-li-n">05</span><b>Certificação</b><span>Acompanhamento da auditoria do organismo certificador até o certificado emitido.</span></li>
+  </ol>
+  <p class="pr-lista-prazo">Cerca de 6 meses, do diagnóstico à certificação.</p>
 </section>
 
 <!-- ===== diferenciais ===== -->
@@ -4337,55 +4174,7 @@ var io = new IntersectionObserver(function(es){
 document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 
 // ===== processo =====
-(function(){
-  var sec = document.getElementById('pr-processo');
-  if(!sec) return;
-  var cards = Array.prototype.slice.call(sec.querySelectorAll('.pr-card'));
-  if(!cards.length) return;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-  /* Sinal alternado por cartão: +3deg, -3deg, +3deg... */
-  cards.forEach(function(c, i){
-    c.style.setProperty('--pr-s', (i % 2 === 0) ? '1' : '-1');
-  });
-
-  var ticking = false;
-
-  function update(){
-    ticking = false;
-    if(reduce.matches){
-      cards.forEach(function(c){ c.style.setProperty('--pr-p', '0'); });
-      return;
-    }
-    var vh = window.innerHeight || document.documentElement.clientHeight;
-    var settle = vh * 0.35;   /* linha onde o cartão fica reto */
-    var range  = vh * 0.65;   /* distância em que a rotação vai de 0 a 100% */
-    /* 14/10/2026: na horizontal, cartoes da mesma linha tem a mesma altura na tela; cada coluna a direita se endireita
-       um pouco depois (8% da tela), e eles se encaixam um ao lado do outro, da esquerda para a direita */
-    var x0 = sec.getBoundingClientRect().left, larg = sec.getBoundingClientRect().width || 1;
-    cards.forEach(function(c){
-      var r = c.getBoundingClientRect();
-      var col = Math.max(0, Math.min(2, Math.floor((r.left + r.width / 2 - x0) / larg * 3)));
-      var p = (r.top + r.height / 2 - (settle - col * vh * 0.08)) / range;
-      if(p < 0) p = 0;
-      if(p > 1) p = 1;
-      /* rotação e deslocamento são função contínua da posição na tela */
-      c.style.setProperty('--pr-p', p.toFixed(4));
-    });
-  }
-
-  function request(){
-    if(!ticking){
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-  }
-
-  window.addEventListener('scroll', request, { passive: true });
-  window.addEventListener('resize', request);
-  if(reduce.addEventListener){ reduce.addEventListener('change', request); }
-  update();
-})();
+// 14/10/2026: sem JS proprio: a entrada do diagrama e a do mapa da secao Conhecimento (todas as .ln-svg)
 
 // ===== diferenciais =====
 (function(){
