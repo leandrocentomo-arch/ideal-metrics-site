@@ -299,9 +299,9 @@ body>*{position:relative;z-index:1}
    temas (.ar-aros): assim nenhuma linha de aro, nem a do vizinho, passa por cima
    de etiqueta. Cada aro acompanha o seu tema pelo --cx/--cy e cresce junto no
    hover pela regra gerada em css() (.ar-svg:has(tema em hover) .ar-aro[data-t]). */
-/* 14/10/2026: a sombra de cada aro, em Areia (#EDE8DE, creme mais escuro da paleta), solida, acompanha o aro no hover */
-.ar-aros .ar-sombra{fill:#EDE8DE;stroke:none;transform:translate(var(--cx),var(--cy)) scale(1);
-  transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s ease}
+/* 14/10/2026: a sombra de cada aro, um creme mais escuro e solido (cor no style, sorteada entre tres).
+   (2) «nao devem acompanhar o circulo quando expandido»: fica parada no hover, so apaga junto com os outros aros */
+.ar-aros .ar-sombra{stroke:none;transform:translate(var(--cx),var(--cy));transition:opacity .35s ease}
 .ar-svg:has(.ar-tema:is(:hover,:focus-visible)) .ar-sombra{opacity:.34}
 .ar-aros .ar-aro{transform:translate(var(--cx),var(--cy)) scale(1);
   transition:transform .45s cubic-bezier(.2,.7,.2,1),stroke .35s ease,opacity .35s ease}
@@ -360,29 +360,17 @@ body>*{position:relative;z-index:1}
 .ar-svg:has(.ar-tema[data-t="iso"]:is(:hover,:focus-visible)) .ar-tema[data-t="si"] .ar-pil[data-par="iso"]:not(.ar-pil--eco){opacity:0}
 .ar-svg:has(.ar-tema[data-t="esg"]:is(:hover,:focus-visible)) .ar-tema[data-t="smeta"] .ar-pil[data-par="esg"]:not(.ar-pil--eco){opacity:0}
 .ar-svg:has(.ar-tema[data-t="iso"]:is(:hover,:focus-visible)) .ar-aro[data-t="iso"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="iso"]:is(:hover,:focus-visible)) .ar-sombra[data-t="iso"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="qualidade"]:is(:hover,:focus-visible)) .ar-aro[data-t="qualidade"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="qualidade"]:is(:hover,:focus-visible)) .ar-sombra[data-t="qualidade"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="ambiente"]:is(:hover,:focus-visible)) .ar-aro[data-t="ambiente"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="ambiente"]:is(:hover,:focus-visible)) .ar-sombra[data-t="ambiente"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="carbono"]:is(:hover,:focus-visible)) .ar-aro[data-t="carbono"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="carbono"]:is(:hover,:focus-visible)) .ar-sombra[data-t="carbono"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="alimentos"]:is(:hover,:focus-visible)) .ar-aro[data-t="alimentos"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="alimentos"]:is(:hover,:focus-visible)) .ar-sombra[data-t="alimentos"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="compliance"]:is(:hover,:focus-visible)) .ar-aro[data-t="compliance"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="compliance"]:is(:hover,:focus-visible)) .ar-sombra[data-t="compliance"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="viaria"]:is(:hover,:focus-visible)) .ar-aro[data-t="viaria"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="viaria"]:is(:hover,:focus-visible)) .ar-sombra[data-t="viaria"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="nrs"]:is(:hover,:focus-visible)) .ar-aro[data-t="nrs"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="nrs"]:is(:hover,:focus-visible)) .ar-sombra[data-t="nrs"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="si"]:is(:hover,:focus-visible)) .ar-aro[data-t="si"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="si"]:is(:hover,:focus-visible)) .ar-sombra[data-t="si"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="esg"]:is(:hover,:focus-visible)) .ar-aro[data-t="esg"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="esg"]:is(:hover,:focus-visible)) .ar-sombra[data-t="esg"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="smeta"]:is(:hover,:focus-visible)) .ar-aro[data-t="smeta"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:rgba(20,48,76,.5);opacity:1}
-.ar-svg:has(.ar-tema[data-t="smeta"]:is(:hover,:focus-visible)) .ar-sombra[data-t="smeta"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-svg:has(.ar-tema[data-t="estudos"]:is(:hover,:focus-visible)) .ar-aro[data-t="estudos"]{transform:translate(var(--cx),var(--cy)) scale(1.3);stroke:var(--im-vermelho,#EF4545);opacity:1}
-.ar-svg:has(.ar-tema[data-t="estudos"]:is(:hover,:focus-visible)) .ar-sombra[data-t="estudos"]{transform:translate(var(--cx),var(--cy)) scale(1.3);opacity:1}
 .ar-tema:focus-visible .ar-tit{text-decoration:underline;text-underline-offset:4px}
 .ar-lista{display:none}
 @media (max-width:1000px){
@@ -3761,18 +3749,18 @@ body>*{position:relative;z-index:1}
     <div class="ar-manchas" aria-hidden="true"><img src="img/conhecimento-manchas-bayer.webp?v=10102026" data-lum="img/conhecimento-manchas-lum.webp?v=10102026" alt="" width="1800" height="1021" loading="lazy" decoding="async"></div>
 <svg class="ar-svg" viewBox="131.0 66.0 830.7 471.0" aria-label="Temas e normas da Ideal Metrics">
 <g class="ar-aros" aria-hidden="true">
-<path class="ar-sombra" data-t="iso" d="M-99.74 -66.72A120 120 0 1 0 111.76 43.70A120 120 0 0 1 -99.74 -66.72Z" style="--cx:420.00px;--cy:300.00px"/>
-<path class="ar-sombra" data-t="qualidade" d="M33.00 40.18A52 52 0 1 0 -40.02 -33.20A52 52 0 0 1 33.00 40.18Z" style="--cx:420.00px;--cy:128.00px"/>
-<path class="ar-sombra" data-t="ambiente" d="M33.45 -49.81A60 60 0 1 0 -24.96 54.56A60 60 0 0 1 33.45 -49.81Z" style="--cx:547.28px;--cy:172.72px"/>
-<path class="ar-sombra" data-t="carbono" d="M-41.57 48.66A64 64 0 1 0 33.28 -54.67A64 64 0 0 1 -41.57 48.66Z" style="--cx:604.00px;--cy:300.00px"/>
-<path class="ar-sombra" data-t="alimentos" d="M22.29 46.98A52 52 0 1 0 -29.96 -42.50A52 52 0 0 1 22.29 46.98Z" style="--cx:541.62px;--cy:421.62px"/>
-<path class="ar-sombra" data-t="compliance" d="M14.60 49.91A52 52 0 1 0 -22.64 -46.81A52 52 0 0 1 14.60 49.91Z" style="--cx:420.00px;--cy:472.00px"/>
-<path class="ar-sombra" data-t="viaria" d="M26.84 -44.54A52 52 0 1 0 -19.32 48.28A52 52 0 0 1 26.84 -44.54Z" style="--cx:298.38px;--cy:421.62px"/>
-<path class="ar-sombra" data-t="nrs" d="M-33.06 -54.80A64 64 0 1 0 44.73 45.78A64 64 0 0 1 -33.06 -54.80Z" style="--cx:236.00px;--cy:300.00px"/>
-<path class="ar-sombra" data-t="si" d="M58.80 11.92A60 60 0 1 0 -59.97 1.82A60 60 0 0 1 58.80 11.92Z" style="--cx:292.72px;--cy:172.72px"/>
-<path class="ar-sombra" data-t="esg" d="M-1.68 -73.98A74 74 0 1 0 11.65 73.08A74 74 0 0 1 -1.68 -73.98Z" style="--cx:800.00px;--cy:225.00px"/>
-<path class="ar-sombra" data-t="smeta" d="M14.31 -52.07A54 54 0 1 0 -4.19 53.84A54 54 0 0 1 14.31 -52.07Z" style="--cx:897.68px;--cy:142.27px"/>
-<path class="ar-sombra" data-t="estudos" d="M23.51 -57.37A62 62 0 1 0 -13.93 60.41A62 62 0 0 1 23.51 -57.37Z" style="--cx:850.00px;--cy:455.00px"/>
+<path class="ar-sombra" data-t="iso" d="M-107.25 -53.84A120 120 0 1 0 105.48 57.22A120 120 0 0 1 -107.25 -53.84Z" style="--cx:420.00px;--cy:300.00px;fill:#D7CFBF"/>
+<path class="ar-sombra" data-t="qualidade" d="M37.86 35.64A52 52 0 1 0 -35.46 -38.03A52 52 0 0 1 37.86 35.64Z" style="--cx:420.00px;--cy:128.00px;fill:#E8E2D6"/>
+<path class="ar-sombra" data-t="ambiente" d="M28.02 -53.06A60 60 0 1 0 -30.57 51.63A60 60 0 0 1 28.02 -53.06Z" style="--cx:547.28px;--cy:172.72px;fill:#D7CFBF"/>
+<path class="ar-sombra" data-t="carbono" d="M-36.36 52.67A64 64 0 1 0 38.71 -50.97A64 64 0 0 1 -36.36 52.67Z" style="--cx:604.00px;--cy:300.00px;fill:#E0D9CB"/>
+<path class="ar-sombra" data-t="alimentos" d="M27.53 44.11A52 52 0 1 0 -24.88 -45.66A52 52 0 0 1 27.53 44.11Z" style="--cx:541.62px;--cy:421.62px;fill:#E0D9CB"/>
+<path class="ar-sombra" data-t="compliance" d="M20.07 47.97A52 52 0 1 0 -17.28 -49.04A52 52 0 0 1 20.07 47.97Z" style="--cx:420.00px;--cy:472.00px;fill:#E0D9CB"/>
+<path class="ar-sombra" data-t="viaria" d="M21.84 -47.19A52 52 0 1 0 -24.45 45.89A52 52 0 0 1 21.84 -47.19Z" style="--cx:298.38px;--cy:421.62px;fill:#D7CFBF"/>
+<path class="ar-sombra" data-t="nrs" d="M-40.74 -49.36A64 64 0 1 0 37.54 51.84A64 64 0 0 1 -40.74 -49.36Z" style="--cx:236.00px;--cy:300.00px;fill:#E0D9CB"/>
+<path class="ar-sombra" data-t="si" d="M59.92 3.07A60 60 0 1 0 -59.58 -7.09A60 60 0 0 1 59.92 3.07Z" style="--cx:292.72px;--cy:172.72px;fill:#E0D9CB"/>
+<path class="ar-sombra" data-t="esg" d="M-7.92 -73.57A74 74 0 1 0 5.45 73.80A74 74 0 0 1 -7.92 -73.57Z" style="--cx:800.00px;--cy:225.00px;fill:#E0D9CB"/>
+<path class="ar-sombra" data-t="smeta" d="M7.62 -53.46A54 54 0 1 0 -10.96 52.88A54 54 0 0 1 7.62 -53.46Z" style="--cx:897.68px;--cy:142.27px;fill:#E0D9CB"/>
+<path class="ar-sombra" data-t="estudos" d="M17.38 -59.51A62 62 0 1 0 -20.17 58.63A62 62 0 0 1 17.38 -59.51Z" style="--cx:850.00px;--cy:455.00px;fill:#E8E2D6"/>
 <circle class="ar-aro" data-t="iso" r="120" style="--cx:420.00px;--cy:300.00px"/>
 <circle class="ar-aro" data-t="qualidade" r="52" style="--cx:420.00px;--cy:128.00px"/>
 <circle class="ar-aro" data-t="ambiente" r="60" style="--cx:547.28px;--cy:172.72px"/>
