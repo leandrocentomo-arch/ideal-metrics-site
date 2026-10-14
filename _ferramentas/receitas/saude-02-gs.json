@@ -1,0 +1,59 @@
+{
+ "foto_original": "Empty_hospital_operating_room_20261013223726.jpg",
+ "vaga": "gs",
+ "arquivos": {
+  "lum": "saude-02-lum-gs.webp",
+  "bayer": "saude-02-bayer-gs.webp"
+ },
+ "medidas": {
+  "reserva": [
+   600,
+   600
+  ],
+  "luminancia": [
+   960,
+   960
+  ]
+ },
+ "enquadramento": {
+  "zoom": 1.64,
+  "px": 51.35601870957285,
+  "py": 64.91630351442474,
+  "espelhar": false,
+  "inclinar": 0,
+  "corte_esq": 0,
+  "corte_dir": 0,
+  "corte_topo": 0,
+  "corte_base": 0
+ },
+ "ajustes_da_foto": {
+  "exposicao": 0,
+  "gama": 1,
+  "ctr": 1,
+  "brilho": 0,
+  "piso": 0,
+  "teto": 1,
+  "nitidez": 0,
+  "suave": 0
+ },
+ "tingimento": {
+  "brilhoTom": 0.21,
+  "gama": 0.81,
+  "ctr": 1.9,
+  "escuro": 1.7,
+  "limiar": 0,
+  "ponto": 1,
+  "ruido": 0,
+  "matriz": 4,
+  "veu": 0.08,
+  "cores": [
+   "#153351",
+   "#183858",
+   "#6792BD",
+   "#FAF9F5"
+  ]
+ },
+ "clareamento_na_reserva": true,
+ "tom_no_motor": true,
+ "nota": "13/10/2026: Saude, card 06 do Guia, no lugar de saude-01. Arquivos no site: img/saude-02-lum-gs.webp e -bayer-gs.webp. Tom proprio no motor (data-tom)."
+}
