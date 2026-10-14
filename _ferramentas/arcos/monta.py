@@ -441,9 +441,9 @@ if __name__ == '__main__':
         open(dst, 'w', encoding='utf-8').write(PREVIA % (css(), secao(L), JS))
         print('previa ->', dst)
     elif modo == 'site':
-        # sem JS nem motor: o mapa de linhas e so SVG e CSS (o insere tira os dos circulos)
+        # sem o motor das manchas (o insere tira o dos circulos); o JS e so o da entrada do mapa (linhas.JS)
         import insere
-        insere.no_site(css(), secao(L), '', '')
+        insere.no_site(css(), secao(L), linhas.JS, '')
     elif modo == 'guardar':
         # as manchas e a foto continuam em img/ do site (as mesmas de 13/10/2026); para refaze-las,
         # python manchas.py. O motor vem do trama.js do site, que expoe window.ditherVivo.
