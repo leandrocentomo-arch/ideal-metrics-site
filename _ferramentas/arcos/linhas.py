@@ -26,13 +26,15 @@ inteligencia, linha tracejada em vermelho), cada uma com o nome em cima do comec
 (#14304C); a cor fica so nas linhas. No hover de um ramal os outros recuam pelo texto e pelo traco, nunca pelo fundo
 das etiquetas: o creme delas continua opaco e o eixo nao aparece por cima.
 
-ENTRADA PELA ROLAGEM (JS abaixo; 14/10/2026: «gostaria que o efeito fosse avancando e retrocedendo na pagina»): o
-mapa se monta conforme a pagina desce e se desmonta quando ela sobe. O eixo se desenha da esquerda e as normas do
-encontro aparecem nele; em seguida cada tema surge no proprio nome e as normas BROTAM DELE: saem do ponto do nome,
-pequenas e transparentes, e deslizam pela linha ate o lugar, enquanto a linha cresce do nome ate o eixo. O JS so poe
-no SVG o progresso --p (0 a 1); cada peca leva no style o ponto de onde brota (--dx, --dy) e a sua vez na linha do
-tempo (--d, em milesimos de TEMPO); as linhas, o ponto de onde crescem (--ox, --oy). O CSS faz a conta. Sem JS, ou com
-movimento reduzido, --p fica 1 e o mapa aparece pronto.
+ENTRADA NOS DOIS SENTIDOS (JS abaixo). 14/10/2026: primeiro tocava uma vez so; depois ficou presa a rolagem, mas
+«ficou muito rapido, mal da pra ver»; o pedido era outro: «que o efeito funcione quando estamos indo de cima pra baixo
+na pagina, e tambem o inverso, quando estamos indo de baixo para cima». Agora a entrada corre no TEMPO (3,6 s) toda
+vez que o mapa entra na tela, venha de cima ou de baixo, e volta ao comeco quando ele sai inteiro de vista. O eixo se
+desenha da esquerda e as normas do encontro aparecem nele; em seguida cada tema surge no proprio nome e as normas
+BROTAM DELE: saem do ponto do nome, pequenas e transparentes, e deslizam pela linha ate o lugar, enquanto a linha
+cresce do nome ate o eixo. O JS so poe no SVG o progresso --p (0 a 1); cada peca leva no style o ponto de onde brota
+(--dx, --dy) e a sua vez na linha do tempo (--d, em milesimos de 3100); as linhas, o ponto de onde crescem (--ox,
+--oy). O CSS faz a conta. Sem JS, ou com movimento reduzido, --p fica 1 e o mapa aparece pronto.
 
 mapa_h(): eixo horizontal, ramais verticais (a secao da home). mapa_v(): eixo vertical, ramais horizontais (teste)."""
 
@@ -296,10 +298,10 @@ CSS = r"""
 .ln-svg a:focus{outline:none}
 .ln-svg:has(.ln-ramal:hover) .ln-ramal:not(:hover) :is(text,.ln-linha){opacity:.28}
 .ln-svg:has(.ln-ramal:hover) .ln-ramal:not(:hover) rect{stroke-opacity:.1}
-/* ENTRADA PELA ROLAGEM: --p (0 a 1) vem do JS; sem ele, 1. Cada peca anda de 0 a 1 (--t) na sua janela da linha do
+/* ENTRADA: --p (0 a 1) vem do JS, que o leva de 0 a 1 em 3,6 s quando o mapa entra na tela; sem ele, 1. Cada peca anda de 0 a 1 (--t) na sua janela da linha do
    tempo de 3100: comeca em --d e dura 800 (as linhas, 900), com saida suave t(2 - t). As linhas crescem a partir de
    --ox/--oy (stroke-opacity zero antes de comecar: sem ele a ponta redonda apareceria como um ponto); etiquetas e nomes
-   saem de --dx/--dy, pequenos e transparentes. Sem transicao: quem anda e a rolagem. O recuo do hover mexe no texto e
+   saem de --dx/--dy, pequenos e transparentes. Sem transicao: quem anda e o --p. O recuo do hover mexe no texto e
    no traco (opacity), que nao sao os mesmos elementos nem as mesmas propriedades. */
 .ln-svg{--p:1}
 .ln-svg :is(.ln-linha,.ln-eixo){--t:clamp(0, calc((var(--p) * 3100 - var(--d)) / 900), 1);
@@ -314,25 +316,25 @@ CSS = r"""
 """
 
 JS = r"""<script>
-/* CONHECIMENTO: entrada do mapa de linhas PELA ROLAGEM (_ferramentas/arcos/linhas.py). O progresso --p de cada mapa
-   vai de 0, quando o topo dele entra no pe da tela (95% da altura), a 1, quando o topo chega a 15%: o mapa se monta
-   descendo a pagina e se desmonta subindo. O valor anda atras da rolagem com um amortecimento (20% por quadro), para
-   a roda do mouse nao dar saltos. Com movimento reduzido nada roda e o CSS deixa --p em 1. */
+/* CONHECIMENTO: entrada do mapa de linhas nos DOIS SENTIDOS (_ferramentas/arcos/linhas.py). Toda vez que um
+   mapa entra na tela (35% dele a vista), descendo ou subindo a pagina, o progresso --p corre de 0 a 1 em 3,6 s;
+   quando o mapa sai inteiro de vista, --p volta a 0 e a entrada fica pronta para tocar de novo. Com movimento
+   reduzido nada roda e o CSS deixa --p em 1. */
 (function(){
   var ss = [].slice.call(document.querySelectorAll('.ln-svg'));
-  if(!ss.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var alvo = [], atual = [], rodando = false;
-  function mede(){ var vh = window.innerHeight;
-    ss.forEach(function(s, i){ var r = s.getBoundingClientRect();
-      alvo[i] = r.height ? Math.max(0, Math.min(1, (vh * .95 - r.top) / (vh * .8))) : 1; }); }
-  function poe(i){ ss[i].style.setProperty('--p', atual[i].toFixed(4)); }
-  function passo(){ var mexe = false;
-    ss.forEach(function(s, i){ var d = alvo[i] - atual[i];
-      if(Math.abs(d) < .0015) atual[i] = alvo[i]; else { atual[i] += d * .2; mexe = true; } poe(i); });
-    if(mexe) requestAnimationFrame(passo); else rodando = false; }
-  function pede(){ mede(); if(!rodando){ rodando = true; requestAnimationFrame(passo); } }
-  mede(); ss.forEach(function(s, i){ atual[i] = alvo[i]; poe(i); });
-  window.addEventListener('scroll', pede, {passive:true});
-  window.addEventListener('resize', pede);
+  if(!ss.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var DUR = 3600;
+  ss.forEach(function(s){
+    var p = 0, t0 = 0, raf = 0, tocou = false;
+    function poe(){ s.style.setProperty('--p', p.toFixed(4)); }
+    function passo(t){ if(!t0) t0 = t - p * DUR; p = Math.min(1, (t - t0) / DUR); poe();
+      raf = p < 1 ? requestAnimationFrame(passo) : 0; }
+    function toca(){ if(tocou) return; tocou = true; t0 = 0; raf = requestAnimationFrame(passo); }
+    function zera(){ if(raf) cancelAnimationFrame(raf); raf = 0; tocou = false; p = 0; poe(); }
+    poe();
+    new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(!e.isIntersecting) zera(); else if(e.intersectionRatio >= .35) toca(); });
+    }, {threshold:[0, .35]}).observe(s);
+  });
 })();
 </script>"""

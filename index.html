@@ -299,10 +299,10 @@ body>*{position:relative;z-index:1}
 .ln-svg a:focus{outline:none}
 .ln-svg:has(.ln-ramal:hover) .ln-ramal:not(:hover) :is(text,.ln-linha){opacity:.28}
 .ln-svg:has(.ln-ramal:hover) .ln-ramal:not(:hover) rect{stroke-opacity:.1}
-/* ENTRADA PELA ROLAGEM: --p (0 a 1) vem do JS; sem ele, 1. Cada peca anda de 0 a 1 (--t) na sua janela da linha do
+/* ENTRADA: --p (0 a 1) vem do JS, que o leva de 0 a 1 em 3,6 s quando o mapa entra na tela; sem ele, 1. Cada peca anda de 0 a 1 (--t) na sua janela da linha do
    tempo de 3100: comeca em --d e dura 800 (as linhas, 900), com saida suave t(2 - t). As linhas crescem a partir de
    --ox/--oy (stroke-opacity zero antes de comecar: sem ele a ponta redonda apareceria como um ponto); etiquetas e nomes
-   saem de --dx/--dy, pequenos e transparentes. Sem transicao: quem anda e a rolagem. O recuo do hover mexe no texto e
+   saem de --dx/--dy, pequenos e transparentes. Sem transicao: quem anda e o --p. O recuo do hover mexe no texto e
    no traco (opacity), que nao sao os mesmos elementos nem as mesmas propriedades. */
 .ln-svg{--p:1}
 .ln-svg :is(.ln-linha,.ln-eixo){--t:clamp(0, calc((var(--p) * 3100 - var(--d)) / 900), 1);
@@ -5026,26 +5026,26 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 <script src="js/setores-filtro.js?v=20"></script>
 <script src="js/setores-matriz.js?v=20"></script>
 <script>
-/* CONHECIMENTO: entrada do mapa de linhas PELA ROLAGEM (_ferramentas/arcos/linhas.py). O progresso --p de cada mapa
-   vai de 0, quando o topo dele entra no pe da tela (95% da altura), a 1, quando o topo chega a 15%: o mapa se monta
-   descendo a pagina e se desmonta subindo. O valor anda atras da rolagem com um amortecimento (20% por quadro), para
-   a roda do mouse nao dar saltos. Com movimento reduzido nada roda e o CSS deixa --p em 1. */
+/* CONHECIMENTO: entrada do mapa de linhas nos DOIS SENTIDOS (_ferramentas/arcos/linhas.py). Toda vez que um
+   mapa entra na tela (35% dele a vista), descendo ou subindo a pagina, o progresso --p corre de 0 a 1 em 3,6 s;
+   quando o mapa sai inteiro de vista, --p volta a 0 e a entrada fica pronta para tocar de novo. Com movimento
+   reduzido nada roda e o CSS deixa --p em 1. */
 (function(){
   var ss = [].slice.call(document.querySelectorAll('.ln-svg'));
-  if(!ss.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var alvo = [], atual = [], rodando = false;
-  function mede(){ var vh = window.innerHeight;
-    ss.forEach(function(s, i){ var r = s.getBoundingClientRect();
-      alvo[i] = r.height ? Math.max(0, Math.min(1, (vh * .95 - r.top) / (vh * .8))) : 1; }); }
-  function poe(i){ ss[i].style.setProperty('--p', atual[i].toFixed(4)); }
-  function passo(){ var mexe = false;
-    ss.forEach(function(s, i){ var d = alvo[i] - atual[i];
-      if(Math.abs(d) < .0015) atual[i] = alvo[i]; else { atual[i] += d * .2; mexe = true; } poe(i); });
-    if(mexe) requestAnimationFrame(passo); else rodando = false; }
-  function pede(){ mede(); if(!rodando){ rodando = true; requestAnimationFrame(passo); } }
-  mede(); ss.forEach(function(s, i){ atual[i] = alvo[i]; poe(i); });
-  window.addEventListener('scroll', pede, {passive:true});
-  window.addEventListener('resize', pede);
+  if(!ss.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var DUR = 3600;
+  ss.forEach(function(s){
+    var p = 0, t0 = 0, raf = 0, tocou = false;
+    function poe(){ s.style.setProperty('--p', p.toFixed(4)); }
+    function passo(t){ if(!t0) t0 = t - p * DUR; p = Math.min(1, (t - t0) / DUR); poe();
+      raf = p < 1 ? requestAnimationFrame(passo) : 0; }
+    function toca(){ if(tocou) return; tocou = true; t0 = 0; raf = requestAnimationFrame(passo); }
+    function zera(){ if(raf) cancelAnimationFrame(raf); raf = 0; tocou = false; p = 0; poe(); }
+    poe();
+    new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(!e.isIntersecting) zera(); else if(e.intersectionRatio >= .35) toca(); });
+    }, {threshold:[0, .35]}).observe(s);
+  });
 })();
 </script>
 </body>
