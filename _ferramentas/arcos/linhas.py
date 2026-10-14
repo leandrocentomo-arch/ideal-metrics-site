@@ -28,7 +28,7 @@ das etiquetas: o creme delas continua opaco e o eixo nao aparece por cima.
 
 ENTRADA NOS DOIS SENTIDOS (JS abaixo). 14/10/2026: primeiro tocava uma vez so; depois ficou presa a rolagem, mas
 «ficou muito rapido, mal da pra ver»; o pedido era outro: «que o efeito funcione quando estamos indo de cima pra baixo
-na pagina, e tambem o inverso, quando estamos indo de baixo para cima». Agora a entrada corre no TEMPO (3,6 s) toda
+na pagina, e tambem o inverso, quando estamos indo de baixo para cima». Agora a entrada corre no TEMPO (3 s; era 3,6, «pode ser 20% mais rapido») toda
 vez que o mapa entra na tela, venha de cima ou de baixo, e volta ao comeco quando ele sai inteiro de vista. O eixo se
 desenha da esquerda e as normas do encontro aparecem nele; em seguida cada tema surge no proprio nome e as normas
 BROTAM DELE: saem do ponto do nome, pequenas e transparentes, e deslizam pela linha ate o lugar, enquanto a linha
@@ -298,7 +298,7 @@ CSS = r"""
 .ln-svg a:focus{outline:none}
 .ln-svg:has(.ln-ramal:hover) .ln-ramal:not(:hover) :is(text,.ln-linha){opacity:.28}
 .ln-svg:has(.ln-ramal:hover) .ln-ramal:not(:hover) rect{stroke-opacity:.1}
-/* ENTRADA: --p (0 a 1) vem do JS, que o leva de 0 a 1 em 3,6 s quando o mapa entra na tela; sem ele, 1. Cada peca anda de 0 a 1 (--t) na sua janela da linha do
+/* ENTRADA: --p (0 a 1) vem do JS, que o leva de 0 a 1 em 3 s quando o mapa entra na tela; sem ele, 1. Cada peca anda de 0 a 1 (--t) na sua janela da linha do
    tempo de 3100: comeca em --d e dura 800 (as linhas, 900), com saida suave t(2 - t). As linhas crescem a partir de
    --ox/--oy (stroke-opacity zero antes de comecar: sem ele a ponta redonda apareceria como um ponto); etiquetas e nomes
    saem de --dx/--dy, pequenos e transparentes. Sem transicao: quem anda e o --p. O recuo do hover mexe no texto e
@@ -317,13 +317,13 @@ CSS = r"""
 
 JS = r"""<script>
 /* CONHECIMENTO: entrada do mapa de linhas nos DOIS SENTIDOS (_ferramentas/arcos/linhas.py). Toda vez que um
-   mapa entra na tela (35% dele a vista), descendo ou subindo a pagina, o progresso --p corre de 0 a 1 em 3,6 s;
+   mapa entra na tela (35% dele a vista), descendo ou subindo a pagina, o progresso --p corre de 0 a 1 em 3 s;
    quando o mapa sai inteiro de vista, --p volta a 0 e a entrada fica pronta para tocar de novo. Com movimento
    reduzido nada roda e o CSS deixa --p em 1. */
 (function(){
   var ss = [].slice.call(document.querySelectorAll('.ln-svg'));
   if(!ss.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var DUR = 3600;
+  var DUR = 3000;   /* 14/10/2026: «20% mais rapido» (era 3600) */
   ss.forEach(function(s){
     var p = 0, t0 = 0, raf = 0, tocou = false;
     function poe(){ s.style.setProperty('--p', p.toFixed(4)); }
