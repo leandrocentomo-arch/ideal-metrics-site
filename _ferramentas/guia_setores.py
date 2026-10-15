@@ -189,9 +189,10 @@ CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/20
 
 # o script da sanfona e o motor das fotos dela: ajustes para valer nas duas sanfonas
 TROCAS = [
-    # 15/10/2026: «nesta tabela, deixe a fonte maior»: o titulo do item das duas sanfonas (Guia e Servicos) de 18 para 22
-    (".sv-item-title{width:100%;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 0;margin:0;background:none;border:0;cursor:pointer;text-align:left;font-family:var(--sans);font-weight:500;font-size:18px;line-height:1.1;letter-spacing:0;color:var(--azul)}",
-     ".sv-item-title{width:100%;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 0;margin:0;background:none;border:0;cursor:pointer;text-align:left;font-family:var(--sans);font-weight:500;font-size:22px;line-height:1.1;letter-spacing:0;color:var(--azul)}   /* 15/10/2026: «deixe a fonte maior» (era 18) */"),
+    # 15/10/2026: «nesta tabela, deixe a fonte maior» (18 -> 22) e, no mesmo dia, «faca as fontes ainda maiores» (22 -> 28):
+    # o titulo do item das duas sanfonas (Guia e Servicos)
+    (".sv-item-title{width:100%;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 0;margin:0;background:none;border:0;cursor:pointer;text-align:left;font-family:var(--sans);font-weight:500;font-size:22px;line-height:1.1;letter-spacing:0;color:var(--azul)}   /* 15/10/2026: «deixe a fonte maior» (era 18) */",
+     ".sv-item-title{width:100%;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 0;margin:0;background:none;border:0;cursor:pointer;text-align:left;font-family:var(--sans);font-weight:500;font-size:28px;line-height:1.1;letter-spacing:0;color:var(--azul)}   /* 15/10/2026: «deixe a fonte maior», depois «ainda maiores» (era 18, depois 22) */"),
     ("      itens.forEach(function(o){ if (o !== item) abre(o, false); });",
      "      /* 14/10/2026: so os irmaos da mesma sanfona (a dos setores do Guia usa as mesmas classes) */\n"
      "      itens.forEach(function(o){ if (o !== item && o.parentNode === item.parentNode) abre(o, false); });"),
