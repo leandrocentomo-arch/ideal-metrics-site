@@ -4813,9 +4813,20 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var b = item.querySelector('.sv-item-title'); if (!b) return;
     b.addEventListener('click', function(){
       var aberto = item.classList.contains('sv-open');
+      var t0 = b.getBoundingClientRect().top;   /* onde o titulo estava ao ser clicado (ver segura, abaixo) */
       /* 14/10/2026: so os irmaos da mesma sanfona (a dos setores do Guia usa as mesmas classes) */
       itens.forEach(function(o){ if (o !== item && o.parentNode === item.parentNode) abre(o, false); });
       abre(item, !aberto);
+      /* 15/10/2026: «quando abre, nao pode abrir para cima, mas para baixo». O item aberto acima do clicado fecha ao
+         mesmo tempo, a pagina encolhe e o titulo clicado subia na tela. Durante a transicao do painel (.5 s), a
+         rolagem compensa a cada quadro e o titulo fica parado onde foi clicado; o painel abre para baixo. Rolagem
+         instantanea: o html tem scroll-behavior:smooth, que atrasaria a compensacao. */
+      var fim = performance.now() + 700;
+      (function segura(){
+        var d = b.getBoundingClientRect().top - t0;
+        if (Math.abs(d) > .5) window.scrollTo({top: window.scrollY + d, behavior: 'instant'});
+        if (performance.now() < fim) requestAnimationFrame(segura);
+      })();
     });
   });
 })();
