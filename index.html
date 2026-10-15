@@ -1993,7 +1993,7 @@ body>*{position:relative;z-index:1}
    3. Sem sombra. O original levanta a folha e as etiquetas com sombra em
       quatro camadas; aqui quem separa e o contorno fino rgba(20,48,76,.10). */
 .dm-sec{
-  --dm-painel:#F0EFEA;                      /* o creme da casa escurecido 4% */
+  --dm-painel:var(--mercurio);              /* 15/10/2026: era #F0EFEA, o creme escurecido 4% («onde nao precisasse de fundo mais escuro»); o painel agora e o creme da pagina com fio fino */
   --dm-suave:cubic-bezier(.15,.9,.34,.95);  /* curva do hover no original */
   --dm-entra:cubic-bezier(.165,.84,.44,1);  /* power3.out do GSAP, aproximada */
   --dm-lh:40px;                             /* altura de linha do titulo = curso da subida */
@@ -2028,7 +2028,7 @@ body>*{position:relative;z-index:1}
   --dm-alt:clamp(520px,75svh,680px);
   --dm-passo:clamp(45px,calc((var(--dm-alt) - 80px - 54px)/9),58px);
   width:100%;max-width:min(1180px,75%);height:var(--dm-alt);padding:40px;
-  border-radius:3px;overflow:hidden;background:var(--dm-painel);color:var(--azul)}
+  border-radius:3px;overflow:hidden;background:var(--dm-painel);color:var(--azul);border:1px solid rgba(20,48,76,.14)}
 /* 18/09: a coluna da lista era 416px (o numero do Catalyst) e cobria a metade
    direita do desenho. Em 340 as pilulas param antes das etiquetas "Auditoria
    interna" e "Certificacao", e a coluna do titulo fica com a sobra. */
@@ -2056,7 +2056,7 @@ body>*{position:relative;z-index:1}
 .dm-lista > li{margin:0 0 calc(var(--dm-passo)*.172)} /* 10 dos 58px do original, na mesma proporcao */
 .dm-pilula{display:flex;justify-content:space-between;align-items:center;
   height:calc(var(--dm-passo)*.828);padding:0 12px 0 20px;border-radius:3px;
-  background:var(--mercurio);color:var(--azul);text-decoration:none; /* 18/09: o creme da pagina, nao branco */
+  background:var(--branco);border:1px solid rgba(20,48,76,.14);color:var(--azul);text-decoration:none; /* 15/10/2026: branco com fio fino, sobre o painel agora creme (era o creme sobre o painel escurecido) */
   font-family:var(--sans);font-weight:500;font-size:16px;line-height:1}
 .dm-txt{display:block;transition:transform .3s var(--dm-suave)}
 .dm-seta{flex:none;display:flex;align-items:center;justify-content:center;
@@ -2098,16 +2098,24 @@ body>*{position:relative;z-index:1}
    a faixa vazia do alto do desenho (ate y=257 de 680) acompanha o titulo sempre. */
 .dm-arte{position:absolute;left:0;bottom:0;height:100%;width:auto;aspect-ratio:1108/680;pointer-events:none}
 .dm-svg{display:block;width:100%;height:100%}
-/* a folha, em % da caixa do desenho: 190/1108, 344/680, 300/1108 e 390/680. Passa
-   da base de proposito (344+390 > 680): quem corta e o overflow do painel. */
-/* a folha: 190/1108 de recuo, 300/680 de topo, 300/1108 de largura e 390/680 de
-   altura, os mesmos numeros do desenho. Passa da base de proposito; quem corta e
-   o overflow do painel. */
-.dm-folha-foto{position:absolute;left:17.148%;top:44.118%;width:27.076%;height:57.353%;
-  border:1px solid rgba(20,48,76,.14);border-radius:3px;overflow:hidden;background:var(--mercurio)}
-.dm-folha-foto img,.dm-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
-.dm-folha-foto img{object-fit:cover}
-.dm-folha-foto.gl-on img{visibility:hidden}
+/* 15/10/2026: o relatorio em vetor (.dm-rel), no lugar da folha em imagem tramada. Letras do site, papel branco
+   com fio fino e uma segunda folha atras; as barras da conformidade crescem quando a sonda entra na tela. */
+.dm-rel-papel,.dm-rel-atras{fill:var(--branco);stroke:rgba(20,48,76,.16);stroke-width:1;vector-effect:non-scaling-stroke}
+.dm-rel-atras{stroke:rgba(20,48,76,.11)}
+.dm-rel-fio{fill:none;stroke:rgba(20,48,76,.16);stroke-width:1;vector-effect:non-scaling-stroke}
+.dm-rel-fio--leve{stroke:rgba(20,48,76,.08)}
+.dm-rel-mono{font-family:var(--mono);font-size:7.2px;letter-spacing:.12em;fill:var(--azul)}
+.dm-rel-tit{font-family:var(--sans);font-weight:600;font-size:15px;fill:var(--azul)}
+.dm-rel-sub{font-family:var(--sans);font-size:9.6px;fill:var(--azul-escuro)}
+.dm-rel-num{font-family:var(--sans);font-weight:600;font-size:20px;fill:var(--azul)}
+.dm-rel-txt{font-family:var(--sans);font-weight:500;font-size:9.6px;fill:var(--azul)}
+.dm-rel-trilho{fill:rgba(20,48,76,.08)}
+.dm-rel-barra{fill:var(--azul);transform-box:fill-box;transform-origin:0 50%}
+.dm-rel-barra--baixa{fill:#336699}
+.dm-rel-nc{fill:var(--im-vermelho,#EF4545)}
+.dm-rel-obs{fill:#336699;fill-opacity:.45}
+.dm-js .dm-rel-barra{transform:scaleX(0)}
+.dm-js .dm-sonda.dm-on ~ .dm-svg .dm-rel-barra{transform:scaleX(1);transition:transform 1.1s var(--dm-entra);transition-delay:calc(var(--i,0) * .08s)}
 /* 19/09: a folha e vetor chapado, nao mais foto tramada. O Leandro pediu
    "mais geometrico, este esta muito pixelado": a trama Bayer, que e otima na
    tira de fotos, virava serrilha nesta peca porque ela aparece com 300 px de
@@ -2215,7 +2223,6 @@ body>*{position:relative;z-index:1}
   .dm-svg{height:auto}
   .dm-svg--larga{display:none}
   .dm-svg--curta{display:block}
-  .dm-folha-foto{display:none}
   .dm-sonda{top:45%}
 }
 @media (prefers-reduced-motion:reduce){
@@ -2227,6 +2234,7 @@ body>*{position:relative;z-index:1}
   .dm-js .dm-etiqueta-fundo,.dm-js .dm-sobe,.dm-js .dm-barra{transform:none !important;transition:none !important}
   .dm-js .dm-etiqueta-txt,.dm-js .dm-sobe,.dm-js .dm-arte{opacity:1 !important;transition:none !important}
   .dm-js .dm-rosca{stroke-dashoffset:0 !important;transition:none !important}
+  .dm-js .dm-rel-barra{transform:none !important;transition:none !important}
 }
 
 /* ===== noticias em modo fluido (18/09/2026) ===== */
@@ -3649,17 +3657,51 @@ body>*{position:relative;z-index:1}
     <div class="dm-arte" data-dm-entra aria-hidden="true">
       <span class="dm-sonda" data-dm-entra></span>
 
-      <!-- A FOLHA E IMAGEM, nao vetor: o Leandro pediu que "a imagem do
-           relatorio" carregue o efeito das fotos do site, que e a trama Bayer
-           da casa. O desenho e o mesmo vetor geometrico deste painel,
-           rasterizado e tramado pelo gera-folha.py. A <img> e a versao ja
-           tramada, que vale em file://, no telefone e sem WebGL; o data-lum e
-           a luminancia que o shader trama ao vivo. -->
-      <div class="dm-folha-foto"><img src="img/demandas-folha-bayer.webp" data-lum="img/demandas-folha-lum.webp" alt="" width="375" height="488" loading="lazy" decoding="async"></div>
-
       <svg class="dm-svg dm-svg--larga" viewBox="0 0 1108 680" xmlns="http://www.w3.org/2000/svg" focusable="false">
         <defs><pattern id="dm-pontos" x="4.5" y="228.5" width="18" height="18" patternUnits="userSpaceOnUse"><circle class="dm-ponto" cx="9" cy="9" r=".5"/></pattern><radialGradient id="dm-esmaece"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="dm-mascara" maskUnits="userSpaceOnUse" x="0" y="0" width="1108" height="680"><ellipse cx="360" cy="500" rx="460" ry="300" fill="url(#dm-esmaece)"/></mask></defs>
         <g mask="url(#dm-mascara)"><rect x="4.5" y="228.5" width="840" height="450" fill="url(#dm-pontos)"/></g>
+        <!-- 15/10/2026: o relatorio em vetor, com as letras do site («um relatorio mais realista, onde nao precisasse
+             de fundo mais escuro, e que combinasse melhor com o estilo do site»). Ocupa a caixa da folha antiga
+             (190, 300, 300 de largura) e passa da base de proposito: quem corta e o painel. Numeros ilustrativos. -->
+        <g class="dm-rel" transform="translate(190 300)">
+          <rect class="dm-rel-atras" x="8.5" y="-7.5" width="283" height="420" rx="3"/>
+          <rect class="dm-rel-papel" x=".5" y=".5" width="299" height="420" rx="3"/>
+          <text class="dm-rel-mono" x="18" y="23">RELATÓRIO DE AUDITORIA INTERNA</text>
+          <text class="dm-rel-mono" x="282" y="23" text-anchor="end">REV. 02</text>
+          <path class="dm-rel-fio" d="M18 32.5H282"/>
+          <text class="dm-rel-tit" x="18" y="55">Sistema de gestão da qualidade</text>
+          <text class="dm-rel-sub" x="18" y="70">ISO 9001:2015 · ciclo 2026</text>
+          <text class="dm-rel-num" x="18" y="104">142</text><text class="dm-rel-mono" x="18" y="117">REQUISITOS</text>
+          <text class="dm-rel-num" x="112" y="104">131</text><text class="dm-rel-mono" x="112" y="117">CONFORMES</text>
+          <text class="dm-rel-num" x="206" y="104">11</text><text class="dm-rel-mono" x="206" y="117">AÇÕES ABERTAS</text>
+          <path class="dm-rel-fio" d="M101.5 86V119M195.5 86V119M18 131.5H282"/>
+          <text class="dm-rel-mono" x="18" y="150">CONFORMIDADE POR CLÁUSULA</text>
+          <text class="dm-rel-mono" x="18" y="171.5">4</text><text class="dm-rel-txt" x="34" y="171.5">Contexto da organização</text>
+          <rect class="dm-rel-trilho" x="176" y="166.5" width="74" height="4" rx="1"/><rect class="dm-rel-barra" style="--i:0" x="176" y="166.5" width="74.0" height="4" rx="1"/><text class="dm-rel-mono" x="282" y="171.5" text-anchor="end">100%</text>
+          <path class="dm-rel-fio dm-rel-fio--leve" d="M18 179.5H282"/>
+          <text class="dm-rel-mono" x="18" y="192.5">5</text><text class="dm-rel-txt" x="34" y="192.5">Liderança</text>
+          <rect class="dm-rel-trilho" x="176" y="187.5" width="74" height="4" rx="1"/><rect class="dm-rel-barra" style="--i:1" x="176" y="187.5" width="74.0" height="4" rx="1"/><text class="dm-rel-mono" x="282" y="192.5" text-anchor="end">100%</text>
+          <path class="dm-rel-fio dm-rel-fio--leve" d="M18 200.5H282"/>
+          <text class="dm-rel-mono" x="18" y="213.5">6</text><text class="dm-rel-txt" x="34" y="213.5">Planejamento</text>
+          <rect class="dm-rel-trilho" x="176" y="208.5" width="74" height="4" rx="1"/><rect class="dm-rel-barra dm-rel-barra--baixa" style="--i:2" x="176" y="208.5" width="63.6" height="4" rx="1"/><text class="dm-rel-mono" x="282" y="213.5" text-anchor="end">86%</text>
+          <path class="dm-rel-fio dm-rel-fio--leve" d="M18 221.5H282"/>
+          <text class="dm-rel-mono" x="18" y="234.5">7</text><text class="dm-rel-txt" x="34" y="234.5">Apoio</text>
+          <rect class="dm-rel-trilho" x="176" y="229.5" width="74" height="4" rx="1"/><rect class="dm-rel-barra" style="--i:3" x="176" y="229.5" width="68.8" height="4" rx="1"/><text class="dm-rel-mono" x="282" y="234.5" text-anchor="end">93%</text>
+          <path class="dm-rel-fio dm-rel-fio--leve" d="M18 242.5H282"/>
+          <text class="dm-rel-mono" x="18" y="255.5">8</text><text class="dm-rel-txt" x="34" y="255.5">Operação</text>
+          <rect class="dm-rel-trilho" x="176" y="250.5" width="74" height="4" rx="1"/><rect class="dm-rel-barra dm-rel-barra--baixa" style="--i:4" x="176" y="250.5" width="57.7" height="4" rx="1"/><text class="dm-rel-mono" x="282" y="255.5" text-anchor="end">78%</text>
+          <path class="dm-rel-fio dm-rel-fio--leve" d="M18 263.5H282"/>
+          <text class="dm-rel-mono" x="18" y="276.5">9</text><text class="dm-rel-txt" x="34" y="276.5">Avaliação de desempenho</text>
+          <rect class="dm-rel-trilho" x="176" y="271.5" width="74" height="4" rx="1"/><rect class="dm-rel-barra" style="--i:5" x="176" y="271.5" width="70.3" height="4" rx="1"/><text class="dm-rel-mono" x="282" y="276.5" text-anchor="end">95%</text>
+          <path class="dm-rel-fio dm-rel-fio--leve" d="M18 284.5H282"/>
+          <text class="dm-rel-mono" x="18" y="297.5">10</text><text class="dm-rel-txt" x="34" y="297.5">Melhoria</text>
+          <rect class="dm-rel-trilho" x="176" y="292.5" width="74" height="4" rx="1"/><rect class="dm-rel-barra dm-rel-barra--baixa" style="--i:6" x="176" y="292.5" width="65.9" height="4" rx="1"/><text class="dm-rel-mono" x="282" y="297.5" text-anchor="end">89%</text>
+          <path class="dm-rel-fio dm-rel-fio--leve" d="M18 305.5H282"/>
+          <text class="dm-rel-mono" x="18" y="328">PLANO DE AÇÃO</text>
+          <rect class="dm-rel-nc" x="18" y="338" width="7" height="7" rx="1.5"/><text class="dm-rel-txt" x="31" y="345">NC 01 · 8.5.1 Controle da produção</text><text class="dm-rel-mono" x="282" y="345" text-anchor="end">30 NOV</text>
+          <rect class="dm-rel-obs" x="18" y="356" width="7" height="7" rx="1.5"/><text class="dm-rel-txt" x="31" y="363">OBS 03 · 6.1 Riscos e oportunidades</text><text class="dm-rel-mono" x="282" y="363" text-anchor="end">15 DEZ</text>
+          <rect class="dm-rel-obs" x="18" y="374" width="7" height="7" rx="1.5"/><text class="dm-rel-txt" x="31" y="381">OBS 04 · 7.2 Competência</text><text class="dm-rel-mono" x="282" y="381" text-anchor="end">15 DEZ</text>
+        </g>
         <g class="dm-fios"><path d="M60.5 282V648M60.5 355.5H190M490 416.5H687.5A3 3 0 0 1 690.5 419.5V680M490 599.5H617.5A3 3 0 0 1 620.5 602.5V680"/></g>
         <g class="dm-marcas"><path d="M116.5 355.5h8M56.5 355.0h8M56.5 465.0h8M56.5 575.0h8M644 412.5v8M690.5 490v8M600.0 595.5v8"/></g>
         <g class="dm-tag"><rect x="23.5" y="286.5" width="74" height="27" rx="3"/><text x="60.5" y="303.7">Diagnóstico</text></g>
@@ -4570,14 +4612,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var um = document.getElementById('shUm'); if(um) um.addEventListener('click', function(){ vai(k + 1); });
     document.getElementById('shAvanca').addEventListener('click', function(){ vai(MAX); });
     document.getElementById('shVolta').addEventListener('click', function(){ vai(0); });
-  })();
-
-  /* ---------------- a folha do painel Demandas ---------------- */
-  (function(){
-    var folha = document.querySelector('.dm-folha-foto'); if(!folha) return;
-    var im = folha.querySelector('img'); if(!im) return;
-    ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:folha, planos:[{el:folha, lum:im.getAttribute('data-lum')}], classeCanvas:'dm-gl', revelar:'visivel',
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008, pixMul:2.2});
   })();
 
   /* ---------------- 25/09: Servicos, Diferenciais e Setores ao vivo ----------------
