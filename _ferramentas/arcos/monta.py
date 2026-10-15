@@ -325,18 +325,14 @@ def cabecalho(rotulo='Conhecimento / [ IM.2 ]', hid='ar-titulo'):
 
 
 def secao(L):
-    """o site (14/10/2026): o mapa de linhas horizontal e, logo abaixo, a versao vertical em teste.
-    Abaixo de 1000 px os dois mapas somem e fica a lista (sem a SA 8000)."""
+    """o site (14/10/2026): o mapa de linhas horizontal. Abaixo de 1000 px o mapa some e fica a lista (sem a SA 8000).
+    A versao vertical, em teste logo abaixo desde 14/10, saiu em 15/10/2026 («pode tirar a secao na vertical»); o
+    desenho continua em linhas.mapa_v()."""
     return '\n'.join([
         '<section class="ar-sec" id="conhecimento" aria-labelledby="ar-titulo">',
         cabecalho(),
         linhas.bloco(linhas.mapa_h()),
         arcos.lista(fora=linhas.FORA),
-        '</section>',
-        '',
-        '<section class="ar-sec ar-sec--teste" id="conhecimento-vertical" aria-labelledby="ar-titulo-v">',
-        cabecalho('Conhecimento / [ IM.2 ] / versão vertical, em teste', 'ar-titulo-v'),
-        linhas.bloco(linhas.mapa_v(), ' ln--v'),
         '</section>',
     ])
 

@@ -311,8 +311,7 @@ CSS = r"""
   opacity:var(--t);transform-box:fill-box;transform-origin:center;
   transform:translate(calc(var(--dx) * (1 - var(--e))), calc(var(--dy) * (1 - var(--e)))) scale(calc(.35 + .65 * var(--e)))}
 .ln-b-nome{transform:translate(calc(var(--dx) * (1 - var(--e))), calc(var(--dy) * (1 - var(--e))))}
-.ar-sec--teste{border-top:1px dashed rgba(20,48,76,.3)}
-@media (max-width:1000px){ .ln-rola{display:none} .ar-sec--teste{display:none} }
+@media (max-width:1000px){ .ln-rola{display:none} }
 """
 
 JS = r"""<script>

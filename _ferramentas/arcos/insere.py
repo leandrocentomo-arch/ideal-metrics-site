@@ -4,7 +4,7 @@ rodar duas vezes troca a versao anterior pela nova, sem duplicar nada.
 
 Tres pecas, tres ancoras:
   CSS   antes da regra `.sv{display:grid;` (a secao Servicos), entre marcadores
-  HTML  antes de <section class="sv" id="servicos">
+  HTML  antes de <section class="sv" id="servicos"> ou, sem ela (saiu em 15/10/2026), antes do marcador do Processo
   JS    antes de </body>
 
 A secao nova e a [ IM.2 ]; Servicos passa a [ IM.3 ].
@@ -37,7 +37,11 @@ def no_site(css, secao, js, motor=''):
     t = t.replace(ancora_css, css.strip('\n') + '\n' + FIM_CSS + '\n' + ancora_css, 1)
 
     ancora_html = '<section class="sv" id="servicos" aria-labelledby="sv-h2">'
-    assert t.count(ancora_html) == 1
+    if ancora_html not in t:
+        # 15/10/2026: «Nossos servicos» saiu da home (guardada em Ideal Metrics/secoes-guardadas/servicos-sanfona-im3.html);
+        # o Conhecimento fica antes do Processo
+        ancora_html = '<!-- ===== processo ===== -->'
+    assert t.count(ancora_html) == 1, 'ancora do HTML: %d' % t.count(ancora_html)
     t = t.replace(ancora_html, secao + '\n\n' + ancora_html, 1)
 
     # sem script (a profundidade por rolagem saiu em 21/09) nada entra: senao
@@ -59,4 +63,4 @@ def no_site(css, secao, js, motor=''):
 
     assert '\r' not in t
     open(p, 'wb').write(t.replace('\n', eol).encode('utf-8'))
-    print('index.html: secao Conhecimento antes de Servicos; Servicos e a IM.3')
+    print('index.html: secao Conhecimento antes de', 'Servicos (IM.3)' if 'id="servicos"' in t else 'Processo')
