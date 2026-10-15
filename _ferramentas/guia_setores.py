@@ -128,7 +128,7 @@ def bloco_n(S):
         o.append('    <a class="gn-item" data-fila="%d" href="%s"><span class="gn-foto" aria-hidden="true"><img src="%s" data-lum="%s"%s alt="" '
                  'loading="lazy"></span><span class="gn-txt"><span class="gn-top">%s · %s</span><span class="gn-nome">%s</span>'
                  '<span class="gn-normas">%s</span></span></a>'
-                 % (k // 3, s['pag'], src, lum, " data-tom='%s'" % tom if tom else '', s['n'], esc(cat), esc(s['nome']),
+                 % (k % 3, s['pag'], src, lum, " data-tom='%s'" % tom if tom else '', s['n'], esc(cat), esc(s['nome']),
                     esc(' · '.join(s['normas'][:3]))))
     o.append('  </div>')
     o.append('  </div></div>')
@@ -153,9 +153,10 @@ JS_N = r"""  <script>
       it.addEventListener('mouseenter', liga); it.addEventListener('focus', liga);
     });
   })();
-  /* 15/10/2026: «no scroll a primeira fileira fique, depois a segunda, depois a terceira, depois entao a tela continua;
-     nao precisa para o contrario, quando estamos subindo». O bloco fica preso no meio da tela (sticky) por tres passos
-     de rolagem e a cada passo entra uma fileira; no terceiro a pagina segue. Visto uma vez, nao volta: as fileiras
+  /* 15/10/2026: «no scroll a primeira fileira fique, depois a segunda, depois a terceira coluna, depois entao a tela
+     continua; nao precisa para o contrario, quando estamos subindo» e, corrigido, «uma coluna por vez, nao uma linha
+     por vez». O bloco fica preso no meio da tela (sticky) por tres passos de rolagem e a cada passo entra uma COLUNA
+     (data-fila = numero da coluna); no terceiro a pagina segue. Visto uma vez, nao volta: as colunas
      ficam e, com o bloco ja acima da tela e a rolagem parada, a trava sai (a altura extra sai e a rolagem e compensada
      na mesma conta, sem pulo), para a subida passar direto. No celular (uma coluna) e sem animacao, nada prende. */
   (function(){
@@ -215,7 +216,7 @@ CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/20
 /* propostas em teste (15/10/2026): N, lista com miniaturas (a L saiu no mesmo dia) */
 .gx-rot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul)}
 .gn-palco{margin-top:150px}
-/* as fileiras entrando na rolagem (so com o JS ligado, .gn-anima; 15/10/2026) */
+/* as colunas entrando na rolagem, uma por vez (so com o JS ligado, .gn-anima; 15/10/2026) */
 .gn-palco.gn-anima .gn-fixo{position:sticky;top:var(--gn-top,120px)}
 .gn-palco.gn-anima .gn-item{opacity:0;transform:translateY(28px);pointer-events:none;
   transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1),background .3s ease,color .3s ease,border-color .3s ease}
