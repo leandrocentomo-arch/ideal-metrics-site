@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""O bloco dos setores da secao Guia da home: SANFONA no estilo da tabela «Nossos servicos» (14/10/2026).
+"""O bloco dos setores da secao Guia da home: SANFONA no estilo da tabela «Nossos servicos» (14/10/2026), com o titulo
+e o fluxo da secao presos na metade esquerda enquanto a sanfona sobe a direita (15/10/2026).
 
     python _ferramentas/guia_setores.py            grava a sanfona dos setores entre <!-- foco --> e <!-- fim foco -->
     python _ferramentas/guia_setores.py cartoes    volta o bloco dos cartoes (3x3 com a foto presa), guardado em
@@ -48,6 +49,16 @@ FOTOS = [
      '{"brilhoTom":0.27,"gama":0.86,"ctr":1.7,"escuro":1,"limiar":0,"veu":0.1,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}', 'Serviços'),
 ]
 
+TITULO = ('O portfólio da Ideal Metrics se organiza em três entradas: o setor da organização, o tema de gestão e a norma '
+          'ou padrão a atender.')
+FLUXO = ('<div class="mp-fluxo" aria-hidden="true"><span>Setor</span><i></i><span>Tema de gestão</span><i></i>'
+         '<span>Norma ou padrão</span><i></i><span>Página do serviço</span></div>')
+ROTULO = '<p class="mp-rotulo"><span>Por onde começar</span><span>[ GUIA ]</span></p>'
+# o cabecalho da secao antes da sanfona (rotulo, titulo e fluxo, como era ate 14/10/2026), para o modo cartoes
+CAB_ORIGINAL = ('  <div class="mp-cab">\n    %s\n    <h2 class="mp-titulo" id="mp-titulo">%s</h2>\n  </div>\n  %s\n  '
+                % (ROTULO, TITULO, FLUXO))
+CAB_SANFONA = '  <div class="mp-cab">\n    %s\n  </div>\n  ' % ROTULO
+
 PLUS = ('<svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/>'
         '<line x1="0" y1="7.5" x2="15" y2="7.5"/></svg>')
 SETA = '<svg viewBox="0 0 14 10" aria-hidden="true"><path d="M0 5h13M9 1l4 4-4 4"/></svg>'
@@ -70,9 +81,15 @@ def setores():
 
 
 def sanfona(S):
+    # 15/10/2026: «aqui pode travar a parte escrita do lado esquerdo enquanto a parte direita sobe no scroll do mouse»:
+    # o titulo e o fluxo vem para a coluna da esquerda da sanfona (.gs-cab, sticky), e a sanfona sobe a direita
     o = ['  <div class="gs" id="guiaSetores">',
+         '    <div class="gs-cab">',
+         '      <h2 class="mp-titulo" id="mp-titulo">%s</h2>' % TITULO,
+         '      ' + FLUXO,
+         '    </div>',
          '    <div class="sv-line" aria-hidden="true"></div>',
-         '    <div class="sv-title" aria-hidden="true"><div class="sv-title-a">Setores</div><div class="sv-title-b">atendidos</div></div>',
+         '    <div class="sv-title" aria-hidden="true"><div class="sv-title-b">Setores atendidos</div></div>',
          '    <div class="sv-list">',
          '      <div class="sv-acc" role="presentation">']
     for k, s in enumerate(S):
@@ -101,13 +118,19 @@ def sanfona(S):
 
 CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/2026) ===== */
 /* a sanfona dos setores do Guia, com as classes da de Servicos (.sv-*): so a moldura e daqui */
-.gs{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:15px;margin-top:44px}
+.gs{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:15px;margin-top:34px}
+/* 15/10/2026: o titulo e o fluxo presos na metade esquerda (abaixo do cabecalho de 92 px + 28), a sanfona subindo a
+   direita; a coluna so se solta quando o fim da sanfona chega ao fim dela */
+.gs-cab{grid-column:1/7;grid-row:1/3;align-self:start;position:sticky;top:120px;padding-right:40px}
+.gs-cab .mp-titulo{margin-top:0}
 .gs .sv-line{grid-row:1/3}
-.gs .sv-title{grid-row:1}
+.gs .sv-title{grid-column:7/-1;grid-row:1;display:block;background:none;margin-top:6px}
 .gs .sv-list{grid-row:2}
 .gs .sv-desc.gs-normas{margin-top:14px}
 .gs ~ .mp-grade{margin-top:230px}
-@media (max-width:880px){ .gs .sv-list{grid-row:auto;margin-top:30px} .gs ~ .mp-grade{margin-top:156px} }
+@media (max-width:880px){ .gs-cab{position:static;grid-column:1/-1;grid-row:auto;padding-right:0}
+  .gs .sv-title{grid-column:1/-1;grid-row:auto;margin-top:40px} .gs .sv-list{grid-row:auto;margin-top:20px}
+  .gs ~ .mp-grade{margin-top:156px} }
 /* ===== fim GUIA SETORES ===== */
 """
 
@@ -136,6 +159,10 @@ def main():
     for a, b in TROCAS:
         if a in t: t = t.replace(a, b, 1)
         assert b in t, 'ajuste nao aplicado: ' + a[:60]
+    # o cabecalho da secao (do <div class="mp-cab"> do Guia ate o <!-- foco -->)
+    gi = t.index('<section class="mp-sec" id="guia"'); ci = t.index('  <div class="mp-cab">', gi); cf = t.index('<!-- foco -->')
+    cab = CAB_ORIGINAL if len(sys.argv) > 1 and sys.argv[1] == 'cartoes' else CAB_SANFONA
+    t = t[:ci] + cab + t[cf:]
     if len(sys.argv) > 1 and sys.argv[1] == 'cartoes':
         novo = open(GUARDA, encoding='utf-8').read()
     else:
