@@ -116,6 +116,50 @@ def sanfona(S):
     return '\n'.join(o)
 
 
+def bloco_l(S):
+    """PROPOSTA L em teste (15/10/2026, «aplique este modulo logo abaixo, quero ver como fica»): a grade de nove casas
+    sem a foto separada; a foto do setor entra como fundo da casa sob o mouse (no motor da trama, uma casa por vez) e as
+    outras casas mostram numero, rubrica, nome e normas. Fica no ultimo setor visitado; nasce no primeiro."""
+    o = ['  <div class="gx-rot gl-rot"><span>Proposta L · foto dentro da casa</span><span>[ em teste ]</span></div>',
+         '  <div class="gl" id="guiaL">']
+    for k, s in enumerate(S):
+        src, lum, tom, cat = FOTOS[k]
+        o.append('    <a class="gl-casa%s" href="%s"><span class="gl-foto" aria-hidden="true"><img src="%s" data-lum="%s"%s alt="" '
+                 'loading="lazy"></span><span class="gl-top"><span>%s</span><span>%s</span></span><span class="gl-nome">%s</span>'
+                 '<span class="gl-normas">%s</span></a>'
+                 % (' on' if k == 0 else '', s['pag'], src, lum, " data-tom='%s'" % tom if tom else '', s['n'], esc(cat),
+                    esc(s['nome']), esc(' · '.join(s['normas'][:4]))))
+    o.append('  </div>')
+    o.append(JS_L)
+    return '\n'.join(o)
+
+
+JS_L = r"""  <script>
+  /* Guia, proposta L (_ferramentas/guia_setores.py): a foto entra na casa sob o mouse e fica no ultimo setor visitado;
+     o motor da trama liga so na casa ativa (um por vez) */
+  (function(){
+    var raiz = document.getElementById('guiaL'); if(!raiz) return;
+    var casas = [].slice.call(raiz.querySelectorAll('.gl-casa')), gl = null, ativa = null;
+    var OFICIAL = [[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]];
+    function motor(c){
+      if(gl){ try { gl.destruir(); } catch(e){} gl = null; }
+      var f = c.querySelector('.gl-foto'), im = f && f.querySelector('img');
+      if(!window.ditherVivo || !im) return;
+      var tom = null; try { tom = JSON.parse(im.getAttribute('data-tom') || 'null'); } catch(e){}
+      gl = window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:f,
+        planos:[{el:f, lum:im.getAttribute('data-lum'), tom:tom}], classeCanvas:'vv-gl', revelar:'visivel', cores:OFICIAL, pincel:.7, zoomHover:1.04});
+    }
+    function liga(c){ if(c === ativa) return; ativa = c; casas.forEach(function(x){ x.classList.toggle('on', x === c); }); motor(c); }
+    casas.forEach(function(c){ c.addEventListener('mouseenter', function(){ liga(c); }); c.addEventListener('focus', function(){ liga(c); }); });
+    var pronto = function(){ if(!ativa) liga(casas[0]); };
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){ if(es[0].isIntersecting){ pronto(); io.disconnect(); } }, {rootMargin:'40% 0px'});
+      io.observe(raiz);
+    } else pronto();
+  })();
+  </script>"""
+
+
 CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/2026) ===== */
 /* a sanfona dos setores do Guia, com as classes da de Servicos (.sv-*): so a moldura e daqui */
 .gs{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:15px;margin-top:34px}
@@ -128,6 +172,24 @@ CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/20
 .gs .sv-list{grid-row:2}
 .gs .sv-desc.gs-normas{margin-top:14px}
 .gs ~ .mp-grade{margin-top:230px}
+/* proposta L, em teste (15/10/2026) */
+.gx-rot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul)}
+.gl-rot{margin-top:150px}
+.gl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:16px;border-top:1px solid var(--fio);border-left:1px solid var(--fio)}
+.gl-casa{position:relative;display:flex;flex-direction:column;height:250px;padding:20px 22px;overflow:hidden;
+  border-right:1px solid var(--fio);border-bottom:1px solid var(--fio);color:var(--azul);text-decoration:none;transition:color .4s ease}
+.gl-foto{position:absolute;inset:0;opacity:0;transition:opacity .45s ease;background:var(--mercurio)}
+.gl-foto img,.gl-foto .vv-gl{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.gl-foto.gl-on img{visibility:hidden}
+.gl-casa::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity .45s ease;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(20,48,76,.62) 0,rgba(20,48,76,.12) 32%,rgba(20,48,76,.12) 50%,rgba(20,48,76,.9) 100%)}
+.gl-casa.on{color:var(--mercurio)}
+.gl-casa.on .gl-foto,.gl-casa.on::after{opacity:1}
+.gl-casa>:not(.gl-foto){position:relative;z-index:1}
+.gl-top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.gl-nome{margin-top:auto;font-family:var(--sans);font-size:24px;font-weight:600;line-height:1.15}
+.gl-normas{margin-top:8px;font-family:var(--sans);font-size:13px;font-weight:500}
+@media (max-width:880px){ .gl{grid-template-columns:1fr} .gl-casa{height:auto;min-height:150px} .gl-rot{margin-top:90px} }
 @media (max-width:880px){ .gs-cab{position:static;grid-column:1/-1;grid-row:auto;padding-right:0}
   .gs .sv-title{grid-column:1/-1;grid-row:auto;margin-top:40px} .gs .sv-list{grid-row:auto;margin-top:20px}
   .gs ~ .mp-grade{margin-top:156px} }
@@ -166,7 +228,8 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] == 'cartoes':
         novo = open(GUARDA, encoding='utf-8').read()
     else:
-        novo = '\n' + sanfona(setores()) + '\n  '
+        S = setores()
+        novo = '\n' + sanfona(S) + '\n' + bloco_l(S) + '\n  '
         ancora = '/* ===== secao: processo ===== */'
         assert t.count(ancora) == 1
         t = t.replace(ancora, CSS + ancora, 1)
