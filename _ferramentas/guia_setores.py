@@ -120,16 +120,18 @@ def bloco_n(S):
     """PROPOSTA N em teste (15/10/2026: a L saiu, «nao gostei deste novo, pode tirar, faca esse aqui para eu ver, no
     lugar»): nove itens compactos em tres colunas, cada um com a miniatura da foto, numero e rubrica, nome e normas; no
     mouse o item fica azul e a miniatura liga o motor da trama (um item por vez). Cada item leva a pagina do setor."""
-    o = ['  <div class="gx-rot gn-rot"><span>Proposta N · lista com miniaturas</span><span>[ em teste ]</span></div>',
+    o = ['  <div class="gn-palco" id="guiaNpalco"><div class="gn-fixo">',
+         '  <div class="gx-rot gn-rot"><span>Proposta N · lista com miniaturas</span><span>[ em teste ]</span></div>',
          '  <div class="gn" id="guiaN">']
     for k, s in enumerate(S):
         src, lum, tom, cat = FOTOS[k]
-        o.append('    <a class="gn-item" href="%s"><span class="gn-foto" aria-hidden="true"><img src="%s" data-lum="%s"%s alt="" '
+        o.append('    <a class="gn-item" data-fila="%d" href="%s"><span class="gn-foto" aria-hidden="true"><img src="%s" data-lum="%s"%s alt="" '
                  'loading="lazy"></span><span class="gn-txt"><span class="gn-top">%s · %s</span><span class="gn-nome">%s</span>'
                  '<span class="gn-normas">%s</span></span></a>'
-                 % (s['pag'], src, lum, " data-tom='%s'" % tom if tom else '', s['n'], esc(cat), esc(s['nome']),
+                 % (k // 3, s['pag'], src, lum, " data-tom='%s'" % tom if tom else '', s['n'], esc(cat), esc(s['nome']),
                     esc(' · '.join(s['normas'][:3]))))
     o.append('  </div>')
+    o.append('  </div></div>')
     o.append(JS_N)
     return '\n'.join(o)
 
@@ -151,6 +153,50 @@ JS_N = r"""  <script>
       it.addEventListener('mouseenter', liga); it.addEventListener('focus', liga);
     });
   })();
+  /* 15/10/2026: «no scroll a primeira fileira fique, depois a segunda, depois a terceira, depois entao a tela continua;
+     nao precisa para o contrario, quando estamos subindo». O bloco fica preso no meio da tela (sticky) por tres passos
+     de rolagem e a cada passo entra uma fileira; no terceiro a pagina segue. Visto uma vez, nao volta: as fileiras
+     ficam e, com o bloco ja acima da tela e a rolagem parada, a trava sai (a altura extra sai e a rolagem e compensada
+     na mesma conta, sem pulo), para a subida passar direto. No celular (uma coluna) e sem animacao, nada prende. */
+  (function(){
+    var palco = document.getElementById('guiaNpalco'); if(!palco) return;
+    if(matchMedia('(max-width:880px), (prefers-reduced-motion: reduce)').matches) return;
+    var fixo = palco.querySelector('.gn-fixo'), itens = [].slice.call(palco.querySelectorAll('.gn-item'));
+    var CAB = 92, S = 0, extra = 0, topo = 0, filas = 0, solto = false, t = null;
+    function cabe(){ return fixo.offsetHeight <= innerHeight - CAB - 40; }
+    function mede(){
+      var h = fixo.offsetHeight;
+      S = Math.round(Math.max(180, Math.min(300, innerHeight * .28))); extra = 3 * S;
+      topo = Math.round(CAB + Math.max(20, (innerHeight - CAB - h) / 2));
+      palco.style.setProperty('--gn-top', topo + 'px'); palco.style.height = (h + extra) + 'px';
+    }
+    function mostra(n){ for(; filas < n; filas++) itens.forEach(function(it){ if(+it.getAttribute('data-fila') === filas) it.classList.add('gn-vis'); }); }
+    function solta(){
+      if(solto) return; solto = true; mostra(3); clearTimeout(t);
+      var acima = palco.getBoundingClientRect().bottom <= 0, raiz = document.documentElement;
+      /* a ancoragem de rolagem do Chrome, Edge e Firefox ja compensaria a altura que sai acima da tela, e a conta abaixo
+         dobraria (o Safari nao tem): desligada neste quadro, a compensacao e so a nossa, igual nos navegadores */
+      raiz.style.overflowAnchor = 'none';
+      palco.classList.remove('gn-anima'); palco.style.height = '';
+      if(acima) window.scrollTo({top: window.scrollY - extra, behavior: 'instant'});   /* instantanea: o html tem scroll-behavior:smooth */
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ raiz.style.overflowAnchor = ''; }); });
+      removeEventListener('scroll', rola); removeEventListener('resize', ajusta);
+    }
+    function rola(){
+      if(solto) return;
+      var r = palco.getBoundingClientRect(), d = topo - r.top;   /* quanto ja rolou desde que o bloco chegou ao meio da tela */
+      if(d >= -.4 * S) mostra(1);
+      if(d >= S) mostra(2);
+      if(d >= 2 * S) mostra(3);
+      clearTimeout(t);
+      if(filas === 3 && r.bottom <= 0) t = setTimeout(function(){ if(palco.getBoundingClientRect().bottom <= 0) solta(); }, 160);
+    }
+    function ajusta(){ if(solto) return; if(matchMedia('(max-width:880px)').matches || !cabe()) solta(); else { mede(); rola(); } }
+    if(!cabe()) return;
+    palco.classList.add('gn-anima'); mede(); rola();
+    addEventListener('scroll', rola, {passive: true}); addEventListener('resize', ajusta);
+    addEventListener('load', ajusta);
+  })();
   </script>"""
 
 
@@ -168,7 +214,12 @@ CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/20
 .gs ~ .mp-grade{margin-top:230px}
 /* propostas em teste (15/10/2026): N, lista com miniaturas (a L saiu no mesmo dia) */
 .gx-rot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul)}
-.gn-rot{margin-top:150px}
+.gn-palco{margin-top:150px}
+/* as fileiras entrando na rolagem (so com o JS ligado, .gn-anima; 15/10/2026) */
+.gn-palco.gn-anima .gn-fixo{position:sticky;top:var(--gn-top,120px)}
+.gn-palco.gn-anima .gn-item{opacity:0;transform:translateY(28px);pointer-events:none;
+  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1),background .3s ease,color .3s ease,border-color .3s ease}
+.gn-palco.gn-anima .gn-item.gn-vis{opacity:1;transform:none;pointer-events:auto}
 .gn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:16px}
 .gn-item{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;align-items:center;padding:12px;background:#fff;
   border:1px solid rgba(20,48,76,.14);border-radius:3px;color:var(--azul);text-decoration:none;transition:background .3s ease,color .3s ease,border-color .3s ease}
@@ -180,7 +231,7 @@ CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/20
 .gn-normas{display:block;font-family:var(--sans);font-size:12.5px;font-weight:500}
 .gn-item:is(:hover,:focus-visible){background:#336699;border-color:#336699;color:var(--mercurio)}
 .gn-item:focus{outline:none}
-@media (max-width:880px){ .gn{grid-template-columns:1fr} .gn-rot{margin-top:90px} }
+@media (max-width:880px){ .gn{grid-template-columns:1fr} .gn-palco{margin-top:90px} }
 @media (max-width:880px){ .gs-cab{position:static;grid-column:1/-1;grid-row:auto;padding-right:0}
   .gs .sv-title{grid-column:1/-1;grid-row:auto;margin-top:40px} .gs .sv-list{grid-row:auto;margin-top:20px}
   .gs ~ .mp-grade{margin-top:156px} }

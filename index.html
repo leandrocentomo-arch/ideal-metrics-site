@@ -381,7 +381,12 @@ body>*{position:relative;z-index:1}
 .gs ~ .mp-grade{margin-top:230px}
 /* propostas em teste (15/10/2026): N, lista com miniaturas (a L saiu no mesmo dia) */
 .gx-rot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul)}
-.gn-rot{margin-top:150px}
+.gn-palco{margin-top:150px}
+/* as fileiras entrando na rolagem (so com o JS ligado, .gn-anima; 15/10/2026) */
+.gn-palco.gn-anima .gn-fixo{position:sticky;top:var(--gn-top,120px)}
+.gn-palco.gn-anima .gn-item{opacity:0;transform:translateY(28px);pointer-events:none;
+  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1),background .3s ease,color .3s ease,border-color .3s ease}
+.gn-palco.gn-anima .gn-item.gn-vis{opacity:1;transform:none;pointer-events:auto}
 .gn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:16px}
 .gn-item{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;align-items:center;padding:12px;background:#fff;
   border:1px solid rgba(20,48,76,.14);border-radius:3px;color:var(--azul);text-decoration:none;transition:background .3s ease,color .3s ease,border-color .3s ease}
@@ -393,7 +398,7 @@ body>*{position:relative;z-index:1}
 .gn-normas{display:block;font-family:var(--sans);font-size:12.5px;font-weight:500}
 .gn-item:is(:hover,:focus-visible){background:#336699;border-color:#336699;color:var(--mercurio)}
 .gn-item:focus{outline:none}
-@media (max-width:880px){ .gn{grid-template-columns:1fr} .gn-rot{margin-top:90px} }
+@media (max-width:880px){ .gn{grid-template-columns:1fr} .gn-palco{margin-top:90px} }
 @media (max-width:880px){ .gs-cab{position:static;grid-column:1/-1;grid-row:auto;padding-right:0}
   .gs .sv-title{grid-column:1/-1;grid-row:auto;margin-top:40px} .gs .sv-list{grid-row:auto;margin-top:20px}
   .gs ~ .mp-grade{margin-top:156px} }
@@ -3615,18 +3620,20 @@ body>*{position:relative;z-index:1}
       </div>
     </div>
   </div>
+  <div class="gn-palco" id="guiaNpalco"><div class="gn-fixo">
   <div class="gx-rot gn-rot"><span>Proposta N · lista com miniaturas</span><span>[ em teste ]</span></div>
   <div class="gn" id="guiaN">
-    <a class="gn-item" href="setor-industria.html"><span class="gn-foto" aria-hidden="true"><img src="img/logistica-bayer-st.webp?v=25092026" data-lum="img/logistica-lum-st.webp?v=25092026" alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">01 · Manufatura</span><span class="gn-nome">Indústria</span><span class="gn-normas">IATF 16949 · ISO 50001 · ISO 13485</span></span></a>
-    <a class="gn-item" href="setor-transporte-rodovias.html"><span class="gn-foto" aria-hidden="true"><img src="img/transporte-bayer-st.webp?v=12102026" data-lum="img/transporte-lum-st.webp?v=12102026" alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">02 · Mobilidade</span><span class="gn-nome">Transporte e rodovias</span><span class="gn-normas">ISO 39001 · ISO 37001 · ISO 37301</span></span></a>
-    <a class="gn-item" href="setor-facilities.html"><span class="gn-foto" aria-hidden="true"><img src="img/facilities-02-bayer-gs.webp?v=14102026" data-lum="img/facilities-02-lum-gs.webp?v=14102026" data-tom='{"brilhoTom":0.36,"gama":0.8,"ctr":1.9,"escuro":1.3,"limiar":-0.05,"veu":0.07,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}' alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">03 · Predial</span><span class="gn-nome">Facilities</span><span class="gn-normas">ISO 41001 · ISO 55001 · ISO 50001</span></span></a>
-    <a class="gn-item" href="setor-alimentos.html"><span class="gn-foto" aria-hidden="true"><img src="img/alimentos-01-bayer-gs.webp?v=13102026" data-lum="img/alimentos-01-lum-gs.webp?v=13102026" alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">04 · Alimentício</span><span class="gn-nome">Alimentos e serviços de alimentação</span><span class="gn-normas">ISO 22000 · FSSC 22000 · HACCP / APPCC</span></span></a>
-    <a class="gn-item" href="setor-agro-florestal.html"><span class="gn-foto" aria-hidden="true"><img src="img/agro-02-bayer-gs.webp?v=13102026" data-lum="img/agro-02-lum-gs.webp?v=13102026" alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">05 · Agroflorestal</span><span class="gn-nome">Agro e florestal</span><span class="gn-normas">FSC · Cerflor / PEFC · RTRS</span></span></a>
-    <a class="gn-item" href="setor-saude.html"><span class="gn-foto" aria-hidden="true"><img src="img/saude-03-bayer-gs.webp?v=14102026" data-lum="img/saude-03-lum-gs.webp?v=14102026" data-tom='{"brilhoTom":0.34,"gama":0.81,"ctr":1.85,"escuro":1.6,"limiar":0,"veu":0.07,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}' alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">06 · Hospitalar</span><span class="gn-nome">Saúde</span><span class="gn-normas">ISO 13485 · ISO 14971 · ISO 15189</span></span></a>
-    <a class="gn-item" href="setor-energia.html"><span class="gn-foto" aria-hidden="true"><img src="img/energia-01-bayer-gs.webp?v=13102026" data-lum="img/energia-01-lum-gs.webp?v=13102026" data-tom='{"brilhoTom":0.09,"gama":1.13,"ctr":1.7,"escuro":0.4,"limiar":0.03,"veu":0.19,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}' alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">07 · Energético</span><span class="gn-nome">Energia e utilities</span><span class="gn-normas">ISO 50001 · ISO 55001 · ISO 29001</span></span></a>
-    <a class="gn-item" href="setor-tecnologia.html"><span class="gn-foto" aria-hidden="true"><img src="img/tecnologia-02-bayer-gs.webp?v=13102026" data-lum="img/tecnologia-02-lum-gs.webp?v=13102026" data-tom='{"brilhoTom":0.21,"gama":0.81,"ctr":1.9,"escuro":1.7,"limiar":0,"veu":0.08,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}' alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">08 · Digital</span><span class="gn-nome">Tecnologia e serviços financeiros</span><span class="gn-normas">ISO/IEC 27001 · ISO/IEC 27701 · ISO/IEC 20000-1</span></span></a>
-    <a class="gn-item" href="setor-servicos-setor-publico.html"><span class="gn-foto" aria-hidden="true"><img src="img/servicos-03-bayer-gs.webp?v=13102026" data-lum="img/servicos-03-lum-gs.webp?v=13102026" data-tom='{"brilhoTom":0.27,"gama":0.86,"ctr":1.7,"escuro":1,"limiar":0,"veu":0.1,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}' alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">09 · Serviços</span><span class="gn-nome">Serviços e setor público</span><span class="gn-normas">ISO 37001 · ISO 37301 · ISO 21001</span></span></a>
+    <a class="gn-item" data-fila="0" href="setor-industria.html"><span class="gn-foto" aria-hidden="true"><img src="img/logistica-bayer-st.webp?v=25092026" data-lum="img/logistica-lum-st.webp?v=25092026" alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">01 · Manufatura</span><span class="gn-nome">Indústria</span><span class="gn-normas">IATF 16949 · ISO 50001 · ISO 13485</span></span></a>
+    <a class="gn-item" data-fila="0" href="setor-transporte-rodovias.html"><span class="gn-foto" aria-hidden="true"><img src="img/transporte-bayer-st.webp?v=12102026" data-lum="img/transporte-lum-st.webp?v=12102026" alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">02 · Mobilidade</span><span class="gn-nome">Transporte e rodovias</span><span class="gn-normas">ISO 39001 · ISO 37001 · ISO 37301</span></span></a>
+    <a class="gn-item" data-fila="0" href="setor-facilities.html"><span class="gn-foto" aria-hidden="true"><img src="img/facilities-02-bayer-gs.webp?v=14102026" data-lum="img/facilities-02-lum-gs.webp?v=14102026" data-tom='{"brilhoTom":0.36,"gama":0.8,"ctr":1.9,"escuro":1.3,"limiar":-0.05,"veu":0.07,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}' alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">03 · Predial</span><span class="gn-nome">Facilities</span><span class="gn-normas">ISO 41001 · ISO 55001 · ISO 50001</span></span></a>
+    <a class="gn-item" data-fila="1" href="setor-alimentos.html"><span class="gn-foto" aria-hidden="true"><img src="img/alimentos-01-bayer-gs.webp?v=13102026" data-lum="img/alimentos-01-lum-gs.webp?v=13102026" alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">04 · Alimentício</span><span class="gn-nome">Alimentos e serviços de alimentação</span><span class="gn-normas">ISO 22000 · FSSC 22000 · HACCP / APPCC</span></span></a>
+    <a class="gn-item" data-fila="1" href="setor-agro-florestal.html"><span class="gn-foto" aria-hidden="true"><img src="img/agro-02-bayer-gs.webp?v=13102026" data-lum="img/agro-02-lum-gs.webp?v=13102026" alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">05 · Agroflorestal</span><span class="gn-nome">Agro e florestal</span><span class="gn-normas">FSC · Cerflor / PEFC · RTRS</span></span></a>
+    <a class="gn-item" data-fila="1" href="setor-saude.html"><span class="gn-foto" aria-hidden="true"><img src="img/saude-03-bayer-gs.webp?v=14102026" data-lum="img/saude-03-lum-gs.webp?v=14102026" data-tom='{"brilhoTom":0.34,"gama":0.81,"ctr":1.85,"escuro":1.6,"limiar":0,"veu":0.07,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}' alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">06 · Hospitalar</span><span class="gn-nome">Saúde</span><span class="gn-normas">ISO 13485 · ISO 14971 · ISO 15189</span></span></a>
+    <a class="gn-item" data-fila="2" href="setor-energia.html"><span class="gn-foto" aria-hidden="true"><img src="img/energia-01-bayer-gs.webp?v=13102026" data-lum="img/energia-01-lum-gs.webp?v=13102026" data-tom='{"brilhoTom":0.09,"gama":1.13,"ctr":1.7,"escuro":0.4,"limiar":0.03,"veu":0.19,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}' alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">07 · Energético</span><span class="gn-nome">Energia e utilities</span><span class="gn-normas">ISO 50001 · ISO 55001 · ISO 29001</span></span></a>
+    <a class="gn-item" data-fila="2" href="setor-tecnologia.html"><span class="gn-foto" aria-hidden="true"><img src="img/tecnologia-02-bayer-gs.webp?v=13102026" data-lum="img/tecnologia-02-lum-gs.webp?v=13102026" data-tom='{"brilhoTom":0.21,"gama":0.81,"ctr":1.9,"escuro":1.7,"limiar":0,"veu":0.08,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}' alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">08 · Digital</span><span class="gn-nome">Tecnologia e serviços financeiros</span><span class="gn-normas">ISO/IEC 27001 · ISO/IEC 27701 · ISO/IEC 20000-1</span></span></a>
+    <a class="gn-item" data-fila="2" href="setor-servicos-setor-publico.html"><span class="gn-foto" aria-hidden="true"><img src="img/servicos-03-bayer-gs.webp?v=13102026" data-lum="img/servicos-03-lum-gs.webp?v=13102026" data-tom='{"brilhoTom":0.27,"gama":0.86,"ctr":1.7,"escuro":1,"limiar":0,"veu":0.1,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}' alt="" loading="lazy"></span><span class="gn-txt"><span class="gn-top">09 · Serviços</span><span class="gn-nome">Serviços e setor público</span><span class="gn-normas">ISO 37001 · ISO 37301 · ISO 21001</span></span></a>
   </div>
+  </div></div>
   <script>
   /* Guia, proposta N (_ferramentas/guia_setores.py): a miniatura do item sob o mouse liga o motor da trama (um por vez) */
   (function(){
@@ -3643,6 +3650,50 @@ body>*{position:relative;z-index:1}
       }
       it.addEventListener('mouseenter', liga); it.addEventListener('focus', liga);
     });
+  })();
+  /* 15/10/2026: «no scroll a primeira fileira fique, depois a segunda, depois a terceira, depois entao a tela continua;
+     nao precisa para o contrario, quando estamos subindo». O bloco fica preso no meio da tela (sticky) por tres passos
+     de rolagem e a cada passo entra uma fileira; no terceiro a pagina segue. Visto uma vez, nao volta: as fileiras
+     ficam e, com o bloco ja acima da tela e a rolagem parada, a trava sai (a altura extra sai e a rolagem e compensada
+     na mesma conta, sem pulo), para a subida passar direto. No celular (uma coluna) e sem animacao, nada prende. */
+  (function(){
+    var palco = document.getElementById('guiaNpalco'); if(!palco) return;
+    if(matchMedia('(max-width:880px), (prefers-reduced-motion: reduce)').matches) return;
+    var fixo = palco.querySelector('.gn-fixo'), itens = [].slice.call(palco.querySelectorAll('.gn-item'));
+    var CAB = 92, S = 0, extra = 0, topo = 0, filas = 0, solto = false, t = null;
+    function cabe(){ return fixo.offsetHeight <= innerHeight - CAB - 40; }
+    function mede(){
+      var h = fixo.offsetHeight;
+      S = Math.round(Math.max(180, Math.min(300, innerHeight * .28))); extra = 3 * S;
+      topo = Math.round(CAB + Math.max(20, (innerHeight - CAB - h) / 2));
+      palco.style.setProperty('--gn-top', topo + 'px'); palco.style.height = (h + extra) + 'px';
+    }
+    function mostra(n){ for(; filas < n; filas++) itens.forEach(function(it){ if(+it.getAttribute('data-fila') === filas) it.classList.add('gn-vis'); }); }
+    function solta(){
+      if(solto) return; solto = true; mostra(3); clearTimeout(t);
+      var acima = palco.getBoundingClientRect().bottom <= 0, raiz = document.documentElement;
+      /* a ancoragem de rolagem do Chrome, Edge e Firefox ja compensaria a altura que sai acima da tela, e a conta abaixo
+         dobraria (o Safari nao tem): desligada neste quadro, a compensacao e so a nossa, igual nos navegadores */
+      raiz.style.overflowAnchor = 'none';
+      palco.classList.remove('gn-anima'); palco.style.height = '';
+      if(acima) window.scrollTo({top: window.scrollY - extra, behavior: 'instant'});   /* instantanea: o html tem scroll-behavior:smooth */
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ raiz.style.overflowAnchor = ''; }); });
+      removeEventListener('scroll', rola); removeEventListener('resize', ajusta);
+    }
+    function rola(){
+      if(solto) return;
+      var r = palco.getBoundingClientRect(), d = topo - r.top;   /* quanto ja rolou desde que o bloco chegou ao meio da tela */
+      if(d >= -.4 * S) mostra(1);
+      if(d >= S) mostra(2);
+      if(d >= 2 * S) mostra(3);
+      clearTimeout(t);
+      if(filas === 3 && r.bottom <= 0) t = setTimeout(function(){ if(palco.getBoundingClientRect().bottom <= 0) solta(); }, 160);
+    }
+    function ajusta(){ if(solto) return; if(matchMedia('(max-width:880px)').matches || !cabe()) solta(); else { mede(); rola(); } }
+    if(!cabe()) return;
+    palco.classList.add('gn-anima'); mede(); rola();
+    addEventListener('scroll', rola, {passive: true}); addEventListener('resize', ajusta);
+    addEventListener('load', ajusta);
   })();
   </script>
   <!-- fim foco -->
