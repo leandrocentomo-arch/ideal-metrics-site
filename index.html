@@ -2098,16 +2098,14 @@ body>*{position:relative;z-index:1}
    a faixa vazia do alto do desenho (ate y=257 de 680) acompanha o titulo sempre. */
 .dm-arte{position:absolute;left:0;bottom:0;height:100%;width:auto;aspect-ratio:1108/680;pointer-events:none}
 .dm-svg{display:block;width:100%;height:100%}
-/* a folha: o desenho abstrato do relatorio, tramado (_ferramentas/relatorio_dm.py, relatorio-03). Desde 15/10/2026
-   («nao queria o fim cortado») ela cabe INTEIRA no painel: 190/1108 de recuo, 275/680 de topo, 300/1108 de largura
-   e 375/680 de altura (termina em 650 de 680). Antes era 300/680 de topo e 390 de altura, cortada pela base. Por
-   cima dela, no desenho, so a borda de cima da segunda folha (.dm-atras). */
-.dm-folha-foto{position:absolute;left:17.148%;top:40.441%;width:27.076%;height:55.147%;
+/* a folha: o desenho de antes de 15/10 (barras e rosca, tramado, img/demandas-folha-*). Desde 15/10/2026 («nao
+   queria o fim cortado») ela cabe INTEIRA no painel: 190/1108 de recuo, 268/680 de topo, 300/1108 de largura e
+   390/680 de altura (termina em 658 de 680). Antes era 300/680 de topo, cortada pela base. */
+.dm-folha-foto{position:absolute;left:17.148%;top:39.412%;width:27.076%;height:57.353%;
   border:1px solid rgba(20,48,76,.16);border-radius:3px;overflow:hidden;background:var(--mercurio)}
 .dm-folha-foto img,.dm-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .dm-folha-foto img{object-fit:cover}
 .dm-folha-foto.gl-on img{visibility:hidden}
-.dm-atras{fill:var(--branco);stroke:rgba(20,48,76,.12);stroke-width:1;vector-effect:non-scaling-stroke}
 /* 19/09: a folha e vetor chapado, nao mais foto tramada. O Leandro pediu
    "mais geometrico, este esta muito pixelado": a trama Bayer, que e otima na
    tira de fotos, virava serrilha nesta peca porque ela aparece com 300 px de
@@ -3647,17 +3645,14 @@ body>*{position:relative;z-index:1}
     <div class="dm-arte" data-dm-entra aria-hidden="true">
       <span class="dm-sonda" data-dm-entra></span>
 
-      <!-- 15/10/2026, noite: «voltar para um desenho abstrato mesmo», «mas tem que ser na trama azul» e «nao queria o
-           fim cortado». A pagina de um relatorio sem letras (cada texto e um traco), INTEIRA dentro do painel, tramada
-           no tingimento oficial: sai do _ferramentas/relatorio_dm.py (relatorio-03). A <img> e a versao ja tramada; o
-           data-lum e o que o motor trama ao vivo. -->
-      <div class="dm-folha-foto"><img src="img/relatorio-03-bayer-dm.webp" data-lum="img/relatorio-03-lum-dm.webp" alt="" width="339" height="424" loading="lazy" decoding="async"></div>
+      <!-- 15/10/2026, fim da noite: «acho que vou pedir pra voltar em algo que era como o primeiro». Voltou a folha de
+           antes de 15/10 (o desenho abstrato com barras e rosca, tramado, img/demandas-folha-*), agora INTEIRA dentro
+           do painel («nao queria o fim cortado»). A <img> e a versao ja tramada; o data-lum e o que o motor trama. -->
+      <div class="dm-folha-foto"><img src="img/demandas-folha-bayer.webp" data-lum="img/demandas-folha-lum.webp" alt="" width="375" height="488" loading="lazy" decoding="async"></div>
 
       <svg class="dm-svg dm-svg--larga" viewBox="0 0 1108 680" xmlns="http://www.w3.org/2000/svg" focusable="false">
         <defs><pattern id="dm-pontos" x="4.5" y="228.5" width="18" height="18" patternUnits="userSpaceOnUse"><circle class="dm-ponto" cx="9" cy="9" r=".5"/></pattern><radialGradient id="dm-esmaece"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="dm-mascara" maskUnits="userSpaceOnUse" x="0" y="0" width="1108" height="680"><ellipse cx="360" cy="500" rx="460" ry="300" fill="url(#dm-esmaece)"/></mask></defs>
         <g mask="url(#dm-mascara)"><rect x="4.5" y="228.5" width="840" height="450" fill="url(#dm-pontos)"/></g>
-        <!-- a borda de cima da segunda folha, que aparece por cima da folha tramada (que comeca em y 275) -->
-        <path class="dm-atras" d="M198.5 275V270.5A3 3 0 0 1 201.5 267.5H479.5A3 3 0 0 1 482.5 270.5V275"/>
         <g class="dm-fios"><path d="M60.5 282V648M60.5 355.5H190M490 416.5H687.5A3 3 0 0 1 690.5 419.5V680M490 599.5H617.5A3 3 0 0 1 620.5 602.5V680"/></g>
         <g class="dm-marcas"><path d="M116.5 355.5h8M56.5 355.0h8M56.5 465.0h8M56.5 575.0h8M644 412.5v8M690.5 490v8M600.0 595.5v8"/></g>
         <g class="dm-tag"><rect x="23.5" y="286.5" width="74" height="27" rx="3"/><text x="60.5" y="303.7">Diagnóstico</text></g>
@@ -4571,8 +4566,8 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   })();
 
   /* ---------------- a folha do painel Demandas ----------------
-     15/10/2026: os dois baloes da direita so aparecem se cabem inteiros antes da coluna das pilulas; e a folha (o
-     desenho abstrato do relatorio, relatorio_dm.py) no motor da trama, como as fotos. */
+     15/10/2026: os dois baloes da direita so aparecem se cabem inteiros antes da coluna das pilulas; e a folha
+     (o desenho de antes de 15/10, img/demandas-folha-*) no motor da trama, como as fotos. */
   (function(){
     var arte = document.querySelector('.dm-arte'), col = document.querySelector('.dm-coluna');
     if(arte && col){
