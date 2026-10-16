@@ -45,8 +45,10 @@ button{font:inherit}
 /* 11/10/2026: «as linhas verticais podem ser menos, finas e por todo site, estilo suico»: 6 colunas (eram 12),
    na tinta da marca a 8% (era um violeta a 12%), com a borda da direita. A mesma grade esta no css/style.css. */
 body::before{content:"";position:fixed;inset:0 var(--lado);z-index:0;pointer-events:none;
-  background-image:linear-gradient(to right,rgba(20,48,76,.08) 1px,transparent 1px);
-  background-size:calc(100%/6) 100%;border-right:1px solid rgba(20,48,76,.08)}
+  /* 16/10/2026: «nao quero essas duas linhas no limite da pagina»: so as 5 linhas de dentro. Cada fio fica na borda
+     DIREITA da coluna (to left) e o recorte tira o da ultima; a borda da direita saiu */
+  background-image:linear-gradient(to left,rgba(20,48,76,.08) 1px,transparent 1px);
+  background-size:calc(100%/6) 100%;clip-path:inset(0 1px 0 0)}
 body>*{position:relative;z-index:1}
 
 /* ---- loader do modelo: linhas que cruzam, círculo, logo, e sobe ---- */

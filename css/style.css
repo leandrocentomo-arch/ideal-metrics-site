@@ -4016,5 +4016,7 @@ html.js .content > .in-view { opacity: 1; transform: none; }
    proprio (banner, cards, rodape) cobre a grade. */
 :root{--lado-guia:clamp(28px,4vw,64px)}
 body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);right:var(--lado-guia);z-index:-1;pointer-events:none;
-  background-image:linear-gradient(to right,rgba(20,48,76,.08) 1px,transparent 1px);background-size:calc(100%/6) 100%;
-  border-right:1px solid rgba(20,48,76,.08)}
+  /* 16/10/2026: sem as duas linhas do limite da pagina; so as 5 de dentro (fio na borda direita de cada coluna, o da
+     ultima recortado) */
+  background-image:linear-gradient(to left,rgba(20,48,76,.08) 1px,transparent 1px);background-size:calc(100%/6) 100%;
+  clip-path:inset(0 1px 0 0)}
