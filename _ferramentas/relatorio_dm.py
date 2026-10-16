@@ -104,15 +104,36 @@ def foto(im):
     return Image.fromarray(np.clip((1 - d) * luz[..., None] * 255, 0, 255).astype(np.uint8), 'RGB')
 
 
+# 15/10/2026, noite: a foto do Google Flow (o Leandro gerou: «Audit report on desk»), no lugar do desenho «fotografado»,
+# que «nao esta legal». Recorte com um pouco da mesa nos cantos; correcao de exposicao SO desta foto (o papel cinza-claro
+# virava creme no tingimento e so as barras sobravam): niveis 80 a 240 e gama 2,6; e um desfoque a mais para os numeros
+# grandes nao se lerem. Nao e outro tingimento: depois disso entra o oficial.
+FLOW = os.path.join(IM, '_tingir-fotos', 'FOTOS', 'Audit_report_on_desk_20261015225448.jpg')
+FLOW_CORTE, FLOW_NIVEIS, FLOW_GAMA, FLOW_DESFOCO = (250, 0, 939, 896), (80, 240), 2.6, 2.5
+LUM2 = os.path.join(SITE, 'img', 'relatorio-02-lum-dm.webp')
+BAY2 = os.path.join(SITE, 'img', 'relatorio-02-bayer-dm.webp')
+
+
+def da_foto():
+    a = np.asarray(Image.open(FLOW).convert('RGB').crop(FLOW_CORTE), np.float32)
+    bp, wp = FLOW_NIVEIS
+    a = np.clip((a - bp) / (wp - bp), 0, 1) ** FLOW_GAMA
+    im = Image.fromarray((a * 255).astype(np.uint8), 'RGB').resize((W * ESC, H * ESC), Image.LANCZOS)
+    return im.filter(ImageFilter.GaussianBlur(FLOW_DESFOCO))
+
+
 def main():
-    if '--sem-render' not in sys.argv or not os.path.exists(CRU):
-        renderiza()
-    lum = foto(Image.open(CRU))
-    lum.save(LUM, 'WEBP', quality=90)
     sys.path.insert(0, os.path.join(IM, '_tingir-fotos'))
     import tingir
-    tingir.bayer(lum, largura=W).save(BAY, 'WEBP', lossless=True)
-    print('cru:', CRU); print('lum:', LUM, lum.size); print('bayer:', BAY, Image.open(BAY).size)
+    if '--desenho' in sys.argv:   # o desenho «fotografado» das 21h (relatorio-01), guardado
+        if '--sem-render' not in sys.argv or not os.path.exists(CRU):
+            renderiza()
+        lum, lp, bp = foto(Image.open(CRU)), LUM, BAY
+    else:                         # a foto do Flow (relatorio-02), a que vale
+        lum, lp, bp = da_foto(), LUM2, BAY2
+    lum.save(lp, 'WEBP', quality=90)
+    tingir.bayer(lum, largura=W).save(bp, 'WEBP', lossless=True)
+    print('lum:', lp, lum.size); print('bayer:', bp, Image.open(bp).size)
 
 
 if __name__ == '__main__':
