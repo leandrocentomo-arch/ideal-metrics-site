@@ -28,7 +28,7 @@ LARGURA_PASSARO = 2200              # o passaro inteiro, em px do banner de 2400
 OLHO_ALVO = (.62, 360)              # onde fica o olho: fracao da area da foto (x) e px do banner (y)
 OLHO_NO_SVG = (400.79, 45.33)       # o olho, no viewBox do svg (287.02 0 213.17 104.07)
 VB = (287.02, 0.0, 213.17, 104.07)
-TOM_OLHO, TOM_PONTA = .04, .42      # luminancia do passaro: escuro no olho, claro nas pontas
+TOM_OLHO, TOM_PONTA = .40, .70      # luminancia do passaro: escuro no olho, claro nas pontas (15/10: «bem mais apagado», era .04 e .42)
 PASSAGEM = {'inicio': 0, 'fim': .35, 'suave': 1.0}
 TOM = {'brilho_do_tom': .3, 'gama': .91, 'contraste': 1.05, 'escuro': .1, 'veu_creme': .03}
 
