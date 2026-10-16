@@ -122,9 +122,69 @@ def da_foto():
     return im.filter(ImageFilter.GaussianBlur(FLOW_DESFOCO))
 
 
+# 15/10/2026, noite: «acho que devemos voltar para um desenho abstrato mesmo» e, em seguida, «mas tem que ser na trama
+# azul». A pagina do relatorio SEM letras (cada texto e um traco na largura que teria), desenhada aqui, renderizada a 3x
+# e tramada no TINGIMENTO OFICIAL, como as fotos (relatorio-03). Os tons saem mais fortes que no vetor (.85/.42/.20 la)
+# porque o tingimento clareia +0,35: com os do vetor os tracos claros sumiam.
+CRU3 = os.path.join(IM, '_tingir-fotos', 'FOTOS', 'relatorio-abstrato-render.png')
+LUM3 = os.path.join(SITE, 'img', 'relatorio-03-lum-dm.webp')
+BAY3 = os.path.join(SITE, 'img', 'relatorio-03-bayer-dm.webp')
+ABS_T1, ABS_T2, ABS_T3, ABS_FIO, ABS_GAMA = 1.0, .75, .48, .45, 1.6
+# «nao queria o fim cortado»: a pagina inteira dentro do painel. 300 x 375 (era 300 x 390 cortada pela base), no desenho
+# do painel em x 190, y 275 (termina em 650, 30 acima da base do painel, que e 680)
+ABS_H = 375
+
+
+def abstrato():
+    o = ['<rect class="t2" x="%d" y="19" width="104" height="3" rx="1"/><rect class="t2" x="%d" y="19" width="22" height="3" rx="1"/>' % (L, R - 22),
+         '<path class="fio" d="M%d 32.5H%d"/>' % (L, R),
+         '<rect class="t1" x="%d" y="45" width="148" height="8" rx="1.5"/>' % L,
+         '<rect class="t3" x="%d" y="62" width="92" height="4" rx="1"/>' % L]
+    for x, w, wl in ((L, 34, 44), (112, 34, 40), (206, 22, 56)):
+        o.append('<rect class="t1" x="%d" y="84" width="%d" height="14" rx="2"/><rect class="t3" x="%d" y="106" width="%d" height="3" rx="1"/>' % (x, w, x, wl))
+    o.append('<path class="fio" d="M101.5 82V115M195.5 82V115M%d 127.5H%d"/>' % (L, R))
+    o.append('<rect class="t2" x="%d" y="141" width="98" height="3" rx="1"/>' % L)
+    rot, pct = (92, 46, 62, 30, 44, 104, 50), (100, 100, 86, 93, 78, 95, 89)
+    y0, h, x0, w = 151, 19, 176, 74
+    for i in range(7):
+        ym = y0 + i * h + 9.5
+        o.append('<rect class="t3" x="%d" y="%.1f" width="6" height="3" rx="1"/><rect class="t3" x="34" y="%.1f" width="%d" height="4" rx="1"/>'
+                 % (L, ym - 1.5, ym - 2, rot[i]))
+        o.append('<rect class="trilho" x="%d" y="%.1f" width="%d" height="4" rx="1"/><rect class="%s" x="%d" y="%.1f" width="%.1f" height="4" rx="1"/>'
+                 '<rect class="t3" x="%d" y="%.1f" width="14" height="3" rx="1"/>'
+                 % (x0, ym - 2, w, 'baixa' if pct[i] < 90 else 't1', x0, ym - 2, w * pct[i] / 100, R - 14, ym - 1.5))
+        o.append('<path class="fio leve" d="M%d %.1fH%d"/>' % (L, y0 + (i + 1) * h + .5, R))
+    o.append('<rect class="t2" x="%d" y="300" width="58" height="3" rx="1"/>' % L)
+    for k, (cls, wt) in enumerate((('nc', 132), ('obs', 146), ('obs', 96))):
+        y = 314 + k * 16
+        o.append('<rect class="%s" x="%d" y="%d" width="7" height="7" rx="1.5"/><rect class="t3" x="31" y="%.1f" width="%d" height="4" rx="1"/>'
+                 '<rect class="t3" x="%d" y="%.1f" width="22" height="3" rx="1"/>' % (cls, L, y, y + 1.5, wt, R - 22, y + 2))
+    estilo = ('.t1{fill:#14304C;fill-opacity:%s}.t2{fill:#14304C;fill-opacity:%s}.t3{fill:#14304C;fill-opacity:%s}'
+              '.fio{fill:none;stroke:#14304C;stroke-opacity:%s;stroke-width:1}.fio.leve{stroke-opacity:%s}'
+              '.trilho{fill:#14304C;fill-opacity:.12}.baixa{fill:#336699}.nc{fill:#14304C}.obs{fill:#336699;fill-opacity:.7}'
+              % (ABS_T1, ABS_T2, ABS_T3, ABS_FIO, ABS_FIO * .6))
+    html = ('<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#fff}svg{display:block}%s</style></head>'
+            '<body><svg width="%d" height="%d" viewBox="0 0 %d %d">%s</svg></body></html>' % (estilo, W, ABS_H, W, ABS_H, '\n'.join(o)))
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as pw:
+        b = pw.chromium.launch()
+        pg = b.new_page(viewport={'width': W, 'height': ABS_H}, device_scale_factor=ESC)
+        pg.set_content(html); pg.wait_for_timeout(200)
+        pg.screenshot(path=CRU3, clip={'x': 0, 'y': 0, 'width': W, 'height': ABS_H})
+        b.close()
+    a = np.asarray(Image.open(CRU3).convert('RGB'), np.float32) / 255
+    return Image.fromarray((np.clip(a, 0, 1) ** ABS_GAMA * 255).astype(np.uint8), 'RGB')
+
+
 def main():
     sys.path.insert(0, os.path.join(IM, '_tingir-fotos'))
     import tingir
+    if '--flow' not in sys.argv and '--desenho' not in sys.argv:   # o desenho abstrato tramado (relatorio-03), o que vale
+        lum = abstrato()
+        lum.save(LUM3, 'WEBP', quality=92)
+        tingir.bayer(lum, largura=W).save(BAY3, 'WEBP', lossless=True)
+        print('lum:', LUM3, lum.size); print('bayer:', BAY3, Image.open(BAY3).size)
+        return
     if '--desenho' in sys.argv:   # o desenho «fotografado» das 21h (relatorio-01), guardado
         if '--sem-render' not in sys.argv or not os.path.exists(CRU):
             renderiza()
