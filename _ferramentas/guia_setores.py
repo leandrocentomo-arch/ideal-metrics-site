@@ -98,7 +98,7 @@ def sanfona(S):
         o += ['',
               '        <div class="sv-item%s">' % (' sv-open' if k == 0 else ''),
               '          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-%d" aria-expanded="%s" '
-              'aria-controls="gs-panel-%d"><span>%s</span>%s</button></h3>' % (k, 'true' if k == 0 else 'false', k, esc(s['nome']), PLUS),
+              'aria-controls="gs-panel-%d"><span><span class="gs-num">%s</span>%s</span>%s</button></h3>' % (k, 'true' if k == 0 else 'false', k, s['n'], esc(s['nome']), PLUS),
               '          <div class="sv-panel" id="gs-panel-%d" role="region" aria-labelledby="gs-btn-%d">' % (k, k),
               '            <div class="sv-panel-inner">',
               '              <div class="sv-panel-body">',
@@ -127,6 +127,10 @@ CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/20
 .gs .sv-title{grid-column:7/-1;grid-row:1;display:block;background:none;margin-top:6px}
 .gs .sv-list{grid-row:2}
 .gs .sv-desc.gs-normas{margin-top:14px}
+/* 16/10/2026: «a aparencia desta lista conforme a outra» (a proposta H): nome um pouco mais grosso, o numero em mono
+   antes, e o + recuado da linha da direita da pagina */
+.gs .sv-item-title{font-weight:600;padding-right:12px}
+.gs-num{display:inline-block;min-width:44px;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.1em;color:var(--azul)}
 .gs ~ .mp-grade{margin-top:230px}
 @media (max-width:880px){ .gs-cab{position:static;grid-column:1/-1;grid-row:auto;padding-right:0}
   .gs .sv-title{grid-column:1/-1;grid-row:auto;margin-top:40px} .gs .sv-list{grid-row:auto;margin-top:20px}

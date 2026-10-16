@@ -377,6 +377,10 @@ body>*{position:relative;z-index:1}
 .gs .sv-title{grid-column:7/-1;grid-row:1;display:block;background:none;margin-top:6px}
 .gs .sv-list{grid-row:2}
 .gs .sv-desc.gs-normas{margin-top:14px}
+/* 16/10/2026: «a aparencia desta lista conforme a outra» (a proposta H): nome um pouco mais grosso, o numero em mono
+   antes, e o + recuado da linha da direita da pagina */
+.gs .sv-item-title{font-weight:600;padding-right:12px}
+.gs-num{display:inline-block;min-width:44px;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.1em;color:var(--azul)}
 .gs ~ .mp-grade{margin-top:230px}
 @media (max-width:880px){ .gs-cab{position:static;grid-column:1/-1;grid-row:auto;padding-right:0}
   .gs .sv-title{grid-column:1/-1;grid-row:auto;margin-top:40px} .gs .sv-list{grid-row:auto;margin-top:20px}
@@ -3449,7 +3453,7 @@ body>*{position:relative;z-index:1}
       <div class="sv-acc" role="presentation">
 
         <div class="sv-item sv-open">
-          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-0" aria-expanded="true" aria-controls="gs-panel-0"><span>Indústria</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-0" aria-expanded="true" aria-controls="gs-panel-0"><span><span class="gs-num">01</span>Indústria</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
           <div class="sv-panel" id="gs-panel-0" role="region" aria-labelledby="gs-btn-0">
             <div class="sv-panel-inner">
               <div class="sv-panel-body">
@@ -3465,7 +3469,7 @@ body>*{position:relative;z-index:1}
         </div>
 
         <div class="sv-item">
-          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-1" aria-expanded="false" aria-controls="gs-panel-1"><span>Transporte e rodovias</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-1" aria-expanded="false" aria-controls="gs-panel-1"><span><span class="gs-num">02</span>Transporte e rodovias</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
           <div class="sv-panel" id="gs-panel-1" role="region" aria-labelledby="gs-btn-1">
             <div class="sv-panel-inner">
               <div class="sv-panel-body">
@@ -3481,7 +3485,7 @@ body>*{position:relative;z-index:1}
         </div>
 
         <div class="sv-item">
-          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-2" aria-expanded="false" aria-controls="gs-panel-2"><span>Facilities</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-2" aria-expanded="false" aria-controls="gs-panel-2"><span><span class="gs-num">03</span>Facilities</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
           <div class="sv-panel" id="gs-panel-2" role="region" aria-labelledby="gs-btn-2">
             <div class="sv-panel-inner">
               <div class="sv-panel-body">
@@ -3497,7 +3501,7 @@ body>*{position:relative;z-index:1}
         </div>
 
         <div class="sv-item">
-          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-3" aria-expanded="false" aria-controls="gs-panel-3"><span>Alimentos e serviços de alimentação</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-3" aria-expanded="false" aria-controls="gs-panel-3"><span><span class="gs-num">04</span>Alimentos e serviços de alimentação</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
           <div class="sv-panel" id="gs-panel-3" role="region" aria-labelledby="gs-btn-3">
             <div class="sv-panel-inner">
               <div class="sv-panel-body">
@@ -3513,7 +3517,7 @@ body>*{position:relative;z-index:1}
         </div>
 
         <div class="sv-item">
-          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-4" aria-expanded="false" aria-controls="gs-panel-4"><span>Agro e florestal</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-4" aria-expanded="false" aria-controls="gs-panel-4"><span><span class="gs-num">05</span>Agro e florestal</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
           <div class="sv-panel" id="gs-panel-4" role="region" aria-labelledby="gs-btn-4">
             <div class="sv-panel-inner">
               <div class="sv-panel-body">
@@ -3529,7 +3533,7 @@ body>*{position:relative;z-index:1}
         </div>
 
         <div class="sv-item">
-          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-5" aria-expanded="false" aria-controls="gs-panel-5"><span>Saúde</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-5" aria-expanded="false" aria-controls="gs-panel-5"><span><span class="gs-num">06</span>Saúde</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
           <div class="sv-panel" id="gs-panel-5" role="region" aria-labelledby="gs-btn-5">
             <div class="sv-panel-inner">
               <div class="sv-panel-body">
@@ -3545,7 +3549,7 @@ body>*{position:relative;z-index:1}
         </div>
 
         <div class="sv-item">
-          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-6" aria-expanded="false" aria-controls="gs-panel-6"><span>Energia e utilities</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-6" aria-expanded="false" aria-controls="gs-panel-6"><span><span class="gs-num">07</span>Energia e utilities</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
           <div class="sv-panel" id="gs-panel-6" role="region" aria-labelledby="gs-btn-6">
             <div class="sv-panel-inner">
               <div class="sv-panel-body">
@@ -3561,7 +3565,7 @@ body>*{position:relative;z-index:1}
         </div>
 
         <div class="sv-item">
-          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-7" aria-expanded="false" aria-controls="gs-panel-7"><span>Tecnologia e serviços financeiros</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-7" aria-expanded="false" aria-controls="gs-panel-7"><span><span class="gs-num">08</span>Tecnologia e serviços financeiros</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
           <div class="sv-panel" id="gs-panel-7" role="region" aria-labelledby="gs-btn-7">
             <div class="sv-panel-inner">
               <div class="sv-panel-body">
@@ -3577,7 +3581,7 @@ body>*{position:relative;z-index:1}
         </div>
 
         <div class="sv-item">
-          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-8" aria-expanded="false" aria-controls="gs-panel-8"><span>Serviços e setor público</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
+          <h3 class="sv-item-h"><button type="button" class="sv-item-title" id="gs-btn-8" aria-expanded="false" aria-controls="gs-panel-8"><span><span class="gs-num">09</span>Serviços e setor público</span><svg class="sv-plus" viewBox="0 0 15 15" aria-hidden="true"><line x1="7.5" y1="0" x2="7.5" y2="15"/><line x1="0" y1="7.5" x2="15" y2="7.5"/></svg></button></h3>
           <div class="sv-panel" id="gs-panel-8" role="region" aria-labelledby="gs-btn-8">
             <div class="sv-panel-inner">
               <div class="sv-panel-body">
