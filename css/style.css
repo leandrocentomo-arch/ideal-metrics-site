@@ -3491,7 +3491,7 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
    No celular (ate 900 px) continua a lista de botoes de sempre. ---- */
 @media (min-width: 901px) {
   .page-layout { grid-template-columns: 40px minmax(0, 1fr); gap: 2.4rem; }
-  .sidenav { top: 120px; max-height: none; overflow: visible; padding: 0; z-index: 60; }
+  .sidenav { top: 120px; min-height: 140px; max-height: none; overflow: visible; padding: 0; z-index: 60; }   /* a altura da etiqueta: no fim da pagina ela sobe junto com o texto e nao invade o rodape */
   .sidenav > :not(.sn-caixa) { display: none; }
   .sn-caixa { position: absolute; left: 0; top: 0; display: flex; align-items: flex-start; }
   .sn-painel { width: 0; overflow: hidden; visibility: hidden; background: #FAF9F5; border: 1px solid rgba(20,48,76,.16); border-right: 0;

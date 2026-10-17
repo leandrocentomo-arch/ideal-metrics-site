@@ -120,7 +120,19 @@
     sa.setAttribute('aria-expanded', 'false'); sa.setAttribute('aria-controls', 'snPainel');
     sa.innerHTML = '<svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg><span>Navegação</span>';
     cx.appendChild(sa); sn.appendChild(cx);
-    var snAbre = function(sim){ sn.classList.toggle('aberta', sim); sa.setAttribute('aria-expanded', sim ? 'true' : 'false'); };
+    /* 17/10/2026: «isso aqui nao deve ocorrer» (o painel aberto passava por cima do rodape no fim da pagina): a altura
+       do painel vai ate o fim do texto da pagina (o .page-layout sem o branco de baixo) e, se sobrar menos de 160 px,
+       o painel fecha. */
+    var lay = sn.closest('.page-layout');
+    var snMede = function(){
+      if(!sn.classList.contains('aberta') || !lay) return;
+      var fim = lay.getBoundingClientRect().bottom - parseFloat(getComputedStyle(lay).paddingBottom || 0);
+      var cabe = Math.min(innerHeight - 30, fim) - sn.getBoundingClientRect().top;
+      if(cabe < 160){ snAbre(false); return; }
+      pi.style.maxHeight = Math.floor(cabe) + 'px';
+    };
+    var snAbre = function(sim){ sn.classList.toggle('aberta', sim); sa.setAttribute('aria-expanded', sim ? 'true' : 'false'); snMede(); };
+    addEventListener('scroll', snMede, {passive: true}); addEventListener('resize', snMede);
     sa.addEventListener('click', function(){ snAbre(!sn.classList.contains('aberta')); });
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape') snAbre(false); });
     document.addEventListener('pointerdown', function(e){ if(sn.classList.contains('aberta') && !sn.contains(e.target)) snAbre(false); });
