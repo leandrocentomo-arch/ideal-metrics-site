@@ -23,5 +23,7 @@
     if(tom.lavaRepouso) cfg.lavaRepouso = +tom.lavaRepouso;
     if(tom.cores && tom.cores.length === 4) cfg.cores = tom.cores.map(function(h){ var v = parseInt(String(h).replace('#',''), 16); return [v>>16&255, v>>8&255, v&255]; });
   }
+  /* 17/10/2026: data-pincel no .page-banner deixa o rastro do mouse mais forte SO neste banner (padrao .7) */
+  var pc = parseFloat(b.getAttribute('data-pincel')); if(pc > 0) cfg.pincel = pc;
   window.ditherVivo(cor ? window.ditherVivo.emCor(cfg) : cfg);
 })();
