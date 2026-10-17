@@ -3577,75 +3577,6 @@ body>*{position:relative;z-index:1}
     </div>
   </div>
   <!-- fim foco -->
-  <!-- 17/10/2026: as tres colunas (Por setor, Por tema de gestao, Por norma ou padrao) viraram uma GAVETA: uma etiqueta
-       quase flutuante na borda esquerda da tela, que se puxa (clique ou arrasto) e abre o painel por cima do site.
-       «gostei da ideia de uma etiqueta que fique quase flutuante na tela». O script leva a gaveta para o fim do <body>
-       (position:fixed nao pode ficar dentro de um bloco com transform). Esc, clique fora ou a etiqueta fecham. -->
-  <aside class="gaveta" id="gaveta" aria-label="Guia do portfólio">
-    <button type="button" class="gaveta-aba" id="gavetaAba" aria-expanded="false" aria-controls="gavetaPainel">
-      <i aria-hidden="true"></i><span>Guia · setor · tema · norma</span>
-    </button>
-    <div class="gaveta-painel" id="gavetaPainel" role="dialog" aria-label="Guia do portfólio">
-      <div class="gaveta-cab"><span>Guia do portfólio</span><button type="button" class="gaveta-fecha" id="gavetaFecha">[ Fechar ]</button></div>
-      <div class="mp-grade">
-        <nav class="mp-col" aria-label="Por setor">
-          <div class="mp-col-cab"><span class="mp-n">01</span><h3 class="mp-col-tit">Por setor</h3><p class="mp-q">Onde a organização atua</p></div>
-          <ul class="mp-lista"><li><a href="setor-industria.html"><span>Indústria</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="setor-transporte-rodovias.html"><span>Transporte e rodovias</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="setor-facilities.html"><span>Facilities</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="setor-alimentos.html"><span>Alimentos e serviços de alimentação</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="setor-agro-florestal.html"><span>Agro e florestal</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="setor-saude.html"><span>Saúde</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="setor-energia.html"><span>Energia e utilities</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="setor-tecnologia.html"><span>Tecnologia e serviços financeiros</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="setor-servicos-setor-publico.html"><span>Serviços e setor público</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li></ul>
-        </nav>
-        <nav class="mp-col" aria-label="Por tema de gestão">
-          <div class="mp-col-cab"><span class="mp-n">02</span><h3 class="mp-col-tit">Por tema de gestão</h3><p class="mp-q">O que a organização precisa gerir</p></div>
-          <ul class="mp-lista"><li><a href="norma-iso-9001.html"><span>Qualidade</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="norma-iso-14001.html"><span>Meio ambiente</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="norma-iso-45001.html"><span>Saúde e segurança do trabalho</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="seguranca-viaria.html"><span>Segurança viária</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="gestao-carbono.html"><span>Clima e carbono</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="esg.html"><span>Sustentabilidade e ESG</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="sedex-smeta.html"><span>Responsabilidade social</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="seguranca-alimentos.html"><span>Segurança de alimentos</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="compliance-seguranca-informacao.html"><span>Segurança da informação</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="compliance-seguranca-informacao.html"><span>Compliance, riscos e continuidade</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li></ul>
-        </nav>
-        <nav class="mp-col" aria-label="Por norma ou padrão">
-          <div class="mp-col-cab"><span class="mp-n">03</span><h3 class="mp-col-tit">Por norma ou padrão</h3><p class="mp-q">O que a organização precisa comprovar</p></div>
-          <ul class="mp-lista"><li><a href="norma-iso-9001.html"><span>ISO 9001</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="norma-iso-14001.html"><span>ISO 14001</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="norma-iso-45001.html"><span>ISO 45001</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="seguranca-viaria.html"><span>ISO 39001</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="setor-facilities.html"><span>ISO 41001</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="compliance-seguranca-informacao.html"><span>ISO/IEC 27001</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="compliance-seguranca-informacao.html"><span>ISO 37001 e ISO 37301</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="seguranca-alimentos.html"><span>ISO 22000 e FSSC 22000</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="sedex-smeta.html"><span>SEDEX / SMETA</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="ifc-performance-standards.html"><span>IFC Performance Standards</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="carbono-inventario-gee.html"><span>GHG Protocol e ISO 14064</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li><a href="nrs.html"><span>Normas regulamentadoras</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li><li class="mp-fim"><a href="servicos.html#stf"><span>Todos os padrões, na grade e no filtro</span><svg class="mp-seta" viewBox="0 0 9 9" aria-hidden="true" focusable="false"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35"/></svg></a></li></ul>
-        </nav>
-      </div>
-      <p class="mp-pe">O portfólio completo está em <a href="servicos.html">Todos os serviços</a> e na <a href="#buscaCampo">busca do site</a>. A <a href="contato.html">equipe técnica da Ideal Metrics</a> atende pelo contato.</p>
-    </div>
-  </aside>
-  <style>
-  /* 17/10/2026: «quando puxo, nao quero que a etiqueta escape do menu»: a etiqueta mora NA borda da gaveta e as duas andam
-     juntas (um so movimento, a gaveta inteira desliza), em vez de duas animacoes separadas */
-  .gaveta{position:fixed;left:0;top:0;bottom:0;z-index:899;width:min(1180px,94vw);transform:translateX(-100%);
-    transition:transform .7s cubic-bezier(.65,.05,.36,1)}
-  .gaveta.aberta{transform:none}
-  .gaveta-aba{position:absolute;left:100%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;
-    padding:16px 9px;background:#fff;border:1px solid rgba(20,48,76,.16);border-left:0;border-radius:0 3px 3px 0;cursor:pointer;color:var(--azul);
-    box-shadow:6px 0 18px -10px rgba(20,48,76,.35);transition:background .25s,color .25s;touch-action:none}
-  .gaveta-aba i{width:11px;height:11px;background:radial-gradient(circle,currentColor 1.1px,transparent 1.3px) 0 0/3.7px 3.7px}
-  .gaveta-aba span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
-  .gaveta-aba:hover,.gaveta-aba:focus-visible,.gaveta.aberta .gaveta-aba{background:var(--azul);color:var(--mercurio);outline:none}
-  .gaveta-painel{position:absolute;inset:0;overflow:auto;padding:118px 48px 48px 56px;background:var(--mercurio);
-    border-right:1px solid rgba(20,48,76,.16);box-shadow:24px 0 60px -30px rgba(20,48,76,.45);visibility:hidden;transition:visibility 0s .7s}
-  .gaveta.aberta .gaveta-painel{visibility:visible;transition:visibility 0s}
-  .gaveta-painel .mp-grade{margin-top:28px}
-  .gaveta-cab{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--azul);border-bottom:1px solid rgba(20,48,76,.16);padding-bottom:14px}
-  .gaveta-fecha{background:none;border:0;font:inherit;letter-spacing:inherit;color:inherit;cursor:pointer;padding:4px 0}
-  .gaveta-fecha:hover{color:#336699}
-  @media (prefers-reduced-motion:reduce){ .gaveta{transition:none} }
-  @media (max-width:880px){ .gaveta-painel{padding:96px 22px 40px} }
-  </style>
-  <script>
-  (function(){
-    var g = document.getElementById('gaveta'); if(!g) return;
-    document.body.appendChild(g);
-    var aba = document.getElementById('gavetaAba'), painel = document.getElementById('gavetaPainel');
-    function abre(sim){ g.classList.toggle('aberta', sim); aba.setAttribute('aria-expanded', sim ? 'true' : 'false'); if(sim) painel.scrollTop = 0; }
-    /* puxar: clique abre ou fecha; arrasto para a direita abre, para a esquerda fecha */
-    var x0 = null, moveu = false;
-    aba.addEventListener('pointerdown', function(e){ x0 = e.clientX; moveu = false; aba.setPointerCapture(e.pointerId); });
-    aba.addEventListener('pointermove', function(e){ if(x0 === null) return; var dx = e.clientX - x0;
-      if(Math.abs(dx) > 30){ moveu = true; abre(dx > 0); x0 = null; } });
-    aba.addEventListener('pointerup', function(){ if(x0 !== null && !moveu) abre(!g.classList.contains('aberta')); x0 = null; });
-    aba.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); abre(!g.classList.contains('aberta')); } });
-    document.getElementById('gavetaFecha').addEventListener('click', function(){ abre(false); aba.focus(); });
-    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && g.classList.contains('aberta')){ abre(false); aba.focus(); } });
-    document.addEventListener('pointerdown', function(e){ if(g.classList.contains('aberta') && !g.contains(e.target)) abre(false); });
-    [].forEach.call(painel.querySelectorAll('a'), function(a){ a.addEventListener('click', function(){ if(a.getAttribute('href').charAt(0) === '#') abre(false); }); });
-  })();
-  </script>
 </section>
 <!-- fim guia -->
 
@@ -4676,5 +4607,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   });
 })();
 </script>
+<script src="js/gaveta.js?v=1" defer></script>
 </body>
 </html>
