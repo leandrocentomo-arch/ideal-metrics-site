@@ -60,7 +60,7 @@
     nf.addEventListener('submit', function (e) {
       e.preventDefault();
       var v = (nf.querySelector('input') || {}).value || '';
-      window.location.href = 'mailto:info@cqt-br.com?subject=Assinatura%20de%20conteudo%20-%20Gestao%20de%20Carbono&body=' + encodeURIComponent('E-mail: ' + v);
+      window.location.href = 'mailto:info@idealmetrics.org?subject=Assinatura%20de%20conteudo%20-%20Gestao%20de%20Carbono&body=' + encodeURIComponent('E-mail: ' + v);
     });
   }
 })();

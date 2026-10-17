@@ -272,7 +272,7 @@
     e.preventDefault();
     var campo = document.getElementById('ft-email');
     var email = campo && campo.value ? campo.value.trim() : '';
-    var url = 'mailto:info@cqt-br.com?subject='
+    var url = 'mailto:info@idealmetrics.org?subject='
             + encodeURIComponent('Contato pelo site Ideal Metrics');
     if (email) url += '&body=' + encodeURIComponent('Meu e-mail para contato: ' + email);
     window.location.href = url;

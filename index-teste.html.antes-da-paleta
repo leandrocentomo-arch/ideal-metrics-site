@@ -1598,7 +1598,7 @@ body>*{position:relative;z-index:1}
     <ul class="ft-col ft-col-b" role="menu">
       <li role="none"><a role="menuitem" href="https://www.linkedin.com/company/cqt-br/" target="_blank" rel="noopener">LinkedIn</a></li>
       <li role="none"><a role="menuitem" href="https://wa.me/5511954684086" target="_blank" rel="noopener">WhatsApp</a></li>
-      <li role="none"><a role="menuitem" class="ft-lower" href="mailto:info@cqt-br.com">info@cqt-br.com</a></li>
+      <li role="none"><a role="menuitem" class="ft-lower" href="mailto:info@idealmetrics.org">info@idealmetrics.org</a></li>
     </ul>
     <ul class="ft-col ft-col-c" role="menu">
       <li role="none"><a role="menuitem" href="blog.html">Conteúdo</a></li>
@@ -1922,7 +1922,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var campo = document.getElementById('ft-email');
     var email = campo && campo.value ? campo.value.trim() : '';
     var assunto = encodeURIComponent('Contato pelo site Ideal Metrics');
-    var url = 'mailto:info@cqt-br.com?subject=' + assunto;
+    var url = 'mailto:info@idealmetrics.org?subject=' + assunto;
     if (email) {
       url += '&body=' + encodeURIComponent('Meu e-mail para contato: ' + email);
     }
