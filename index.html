@@ -2050,6 +2050,8 @@ body>*{position:relative;z-index:1}
      comeco do movimento. O clip corta so em cima e embaixo. */
   clip-path:inset(0 -80px -.14em -80px)}
 .dm-titulo .dm-sobe{display:block;transform-origin:50% 100%}
+/* 17/10/2026: a escrita ideal·m (18Asset 252) acima do titulo */
+.dm-escrita{display:block;width:auto;height:30px;margin:0 0 22px}
 
 /* --- lista --- */
 .dm-coluna{position:relative;z-index:1;width:340px;flex:none} /* z-index 1: a ilustracao passa POR BAIXO */
@@ -3626,7 +3628,8 @@ body>*{position:relative;z-index:1}
   <div class="dm-painel">
     <div class="dm-texto">
       <!-- os dois &nbsp; prendem "do diagnostico" e "a certificacao": com o text-wrap:balance o titulo quebra em tres frases inteiras, e sem ele o "a" nao fica pendurado no fim da linha -->
-      <h2 class="dm-titulo" id="dm-titulo"><span id="dmLead">Consultoria de apoio</span></h2>   <!-- 28/09: digitado como a frase da secao anterior (busca.js); a subida .dm-sobe saiu -->
+      <img class="dm-escrita" src="img/escrita-ideal-m.svg" alt="ideal·m" width="441" height="86">
+      <h2 class="dm-titulo" id="dm-titulo"><span id="dmLead">Consultoria e apoio técnico</span></h2>   <!-- 28/09: digitado como a frase da secao anterior (busca.js); a subida .dm-sobe saiu -->
     </div>
     <div class="dm-coluna">
       <p class="dm-sub">Demandas que atendemos com frequência</p>
