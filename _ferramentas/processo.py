@@ -46,11 +46,11 @@ PRAZO = 'Cerca de 6 meses'
 
 W = 1362                                  # o mesmo viewBox do mapa da secao Conhecimento (1 unidade ~ 1 px a 1536)
 XL, XR = 16, 1346                         # comeco e fim das duas linhas
-X1, XN = 340, 1262                        # o primeiro e o ultimo no
+X1, XN = 300, 1300                        # o primeiro e o ultimo no
 YC, YP = 66, 146                          # a linha do consultor e a do processo
-YT, YD = 194, 222                         # nome e primeira linha da descricao (a segunda vai 18 abaixo)
-YK = 296                                  # a chave do prazo
-H = 336
+YT, YD = 200, 228                         # nome e primeira linha da descricao (a segunda vai 18 abaixo)
+YK = 302                                  # a chave do prazo
+H = 342
 
 
 def esc(s):
@@ -89,7 +89,7 @@ def svg():
         # nome e descricao sobem do no
         o.append(_b('<text class="pr-t" x="%.1f" y="%d">%s</text>'
                     '<text class="pr-p" x="%.1f" y="%d">%s</text><text class="pr-p" x="%.1f" y="%d">%s</text>'
-                    % (x, YT, esc(t), x, YD, esc(a), x, YD + 24, esc(b)), 0, YP - YT, d + 180))
+                    % (x, YT, esc(t), x, YD, esc(a), x, YD + 21, esc(b)), 0, YP - YT, d + 180))
     # a chave do prazo, do primeiro ao ultimo no
     dk = 380 + 230 * len(ETAPAS) + 100
     o.append(_linha(X1, YK, XN, YK, 'ln-linha pr-chave', dk))
@@ -175,10 +175,15 @@ def troca_entre(t, ini, fim, novo):
 
 CSS_PAGINA = r"""
 /* 17/10/2026: o diagrama do Processo saiu da home e veio para Implantacao ISO («esta parte tem que ficar dentro da
-   implantacao de normas ISO»), no lugar das etapas A a E. Sem a entrada animada da home: o desenho aparece pronto. */
-.pr-pag{margin:8px 0 0;color:var(--azul)}
-.pr-pag .pr-frase{margin:0;max-width:62ch;font-family:var(--sans);font-size:16px;line-height:1.4;color:var(--azul)}
-.pr-pag .pr-rola{margin:34px 0 0}
+   implantacao de normas ISO»). No mesmo dia: «tem que ter efeito de entrada, tem que ficar no comeco, a parte escrita
+   um pouco mais distante, um do outro, mesmo que tenha que mexer no menu lateral»: fica no TOPO da pagina, entre a
+   migalha e o menu lateral, na largura toda (1240, a mesma do .page-layout), com a entrada do mapa da home. */
+.pr-topo{max-width:1240px;margin:0 auto;padding:56px 40px 0;color:var(--azul)}
+.pr-topo-rot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--azul);border-top:1px solid rgba(20,48,76,.16);padding-top:16px}
+.pr-topo .pr-frase{margin:28px 0 0;max-width:62ch;font-family:var(--sans);font-size:18px;line-height:1.45;color:var(--azul)}
+.pr-topo .pr-rola{margin:40px 0 0}
+.pr-topo + .page-layout{padding-top:72px}
 .pr-svg{display:block;width:100%;height:auto;overflow:visible}
 .pr-svg line{vector-effect:non-scaling-stroke}
 .pr-svg .ln-eixo{stroke:#14304C;stroke-width:.6;stroke-linecap:round}
@@ -187,14 +192,24 @@ CSS_PAGINA = r"""
 .pr-ponto{fill:#336699}
 .pr-no{fill:#FAF9F5;stroke:#14304C;stroke-width:.8;vector-effect:non-scaling-stroke}
 .pr-no-c{fill:#14304C}
-.pr-n,.pr-rot{font-family:var(--mono);font-size:15px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;fill:#14304C}
+.pr-n,.pr-rot{font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;fill:#14304C}
 .pr-n,.pr-rot--meio{text-anchor:middle}
-/* a coluna da pagina tem ~890 px: o desenho entra a ~65% e as letras sobem na mesma proporcao para ler como na home */
-.pr-t{font-family:var(--sans);font-size:23px;font-weight:700;fill:#14304C;text-anchor:middle}
-.pr-p{font-family:var(--sans);font-size:17px;font-weight:500;fill:#14304C;text-anchor:middle}
+.pr-t{font-family:var(--sans);font-size:18px;font-weight:700;fill:#14304C;text-anchor:middle}
+.pr-p{font-family:var(--sans);font-size:14px;font-weight:500;fill:#14304C;text-anchor:middle}
+/* a entrada (a mesma do mapa da home, _ferramentas/arcos/linhas.py): o script leva --p de 0 a 1 em 3 s quando o desenho
+   entra na tela; as linhas crescem a partir de --ox/--oy e cada peca sobe do seu no */
+.ln-svg{--p:1}
+.ln-svg :is(.ln-linha,.ln-eixo){--t:clamp(0, calc((var(--p) * 3100 - var(--d)) / 900), 1);
+  transform-box:view-box;transform-origin:var(--ox) var(--oy);
+  transform:scale(calc(.001 + .999 * var(--t) * (2 - var(--t))));stroke-opacity:calc(var(--t) * 40)}
+.ln-b{--t:clamp(0, calc((var(--p) * 3100 - var(--d)) / 800), 1);--e:calc(var(--t) * (2 - var(--t)));
+  opacity:var(--t);transform-box:fill-box;transform-origin:center;
+  transform:translate(calc(var(--dx) * (1 - var(--e))), calc(var(--dy) * (1 - var(--e)))) scale(calc(.35 + .65 * var(--e)))}
 .pr-lista,.pr-lista-prazo{display:none}
 @media (max-width:880px){
-  .pr-pag .pr-rola{display:none}
+  .pr-topo{padding:40px 20px 0}
+  .pr-topo .pr-rola{display:none}
+  .pr-topo + .page-layout{padding-top:40px}
   .pr-lista{display:block;margin:24px 0 0;padding:0;list-style:none;border-left:1px solid #336699}
   .pr-lista li{position:relative;padding:0 0 22px 22px}
   .pr-lista li::before{content:"";position:absolute;left:-4px;top:5px;width:7px;height:7px;border-radius:50%;background:#336699}
@@ -205,38 +220,60 @@ CSS_PAGINA = r"""
 }
 """
 
+JS_PAGINA = r"""<script>
+/* a entrada do diagrama (copia do script do mapa da home, _ferramentas/arcos/linhas.py): toca toda vez que o desenho
+   entra na tela, descendo ou subindo; com movimento reduzido nada roda e o CSS deixa --p em 1 */
+(function(){
+  var ss = [].slice.call(document.querySelectorAll('.pr-topo .ln-svg'));
+  if(!ss.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var DUR = 3000;
+  ss.forEach(function(s){
+    var p = 0, t0 = 0, raf = 0, tocou = false;
+    function poe(){ s.style.setProperty('--p', p.toFixed(4)); }
+    function passo(t){ if(!t0) t0 = t - p * DUR; p = Math.min(1, (t - t0) / DUR); poe(); raf = p < 1 ? requestAnimationFrame(passo) : 0; }
+    function toca(){ if(tocou) return; tocou = true; t0 = 0; raf = requestAnimationFrame(passo); }
+    function zera(){ if(raf) cancelAnimationFrame(raf); raf = 0; tocou = false; p = 0; poe(); }
+    poe();
+    new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) zera(); else if(e.intersectionRatio >= .35) toca(); }); },
+      {threshold:[0, .35]}).observe(s);
+  });
+})();
+</script>"""
+
 
 def bloco_pagina():
     lista = '\n'.join('  <li><span class="pr-li-n">%s</span><b>%s</b><span>%s</span></li>' % (n, esc(t), esc(TEXTO[k]))
                       for k, (n, t, a, b) in enumerate(ETAPAS))
     return '\n'.join(['<!-- ===== processo (gerado por _ferramentas/processo.py: editar la e rodar de novo) ===== -->',
                       '<style>' + CSS_PAGINA + '</style>',
-                      '<div class="pr-pag">',
+                      '<section class="pr-topo" aria-labelledby="pr-topo-t">',
+                      '<p class="pr-topo-rot"><span id="pr-topo-t">Etapas da implantação</span><span>[ %s ]</span></p>' % PRAZO.upper(),
                       '<p class="pr-frase">%s</p>' % FRASE,
                       '<div class="pr-rola">' + svg() + '</div>',
                       '<ol class="pr-lista">', lista, '</ol>',
                       '<p class="pr-lista-prazo">%s, do diagnóstico à certificação.</p>' % PRAZO,
-                      '</div>',
+                      '</section>',
+                      JS_PAGINA,
                       '<!-- ===== fim processo ===== -->'])
 
 
 def main():
-    """17/10/2026: a secao saiu da home; o diagrama vive na pagina de Implantacao ISO, logo abaixo de «Etapas da
-    implantacao», entre os marcadores do bloco (idempotente)."""
+    """17/10/2026: o diagrama vive no TOPO da pagina de Implantacao ISO, entre a migalha e o .page-layout (menu lateral
+    e texto), entre os marcadores do bloco (idempotente). Na primeira vez, sai de onde estava (abaixo de «Etapas da
+    implantacao», no meio do texto) e o titulo «Etapas da implantacao» do texto sai junto (virou o rotulo do bloco)."""
     p = os.path.join(SITE, 'implantacao-iso.html')
     raw = open(p, 'rb').read(); crlf = b'\r\n' in raw
     t = raw.decode('utf-8').replace('\r\n', '\n')
     ini, fim = '<!-- ===== processo (gerado', '<!-- ===== fim processo ===== -->'
     if ini in t:
         i, j = t.index(ini), t.index(fim) + len(fim)
-        t = t[:i] + bloco_pagina() + t[j:]
-    else:
-        a = t.index('<h3>Etapas da implantação</h3>\n') + len('<h3>Etapas da implantação</h3>\n')
-        b = t.index('</div>\n\n<hr class="section-divider">', a) + len('</div>\n')
-        assert t[a:].startswith('<div class="steps">')
-        t = t[:a] + bloco_pagina() + '\n' + t[b:]
+        t = t[:i] + t[j:].lstrip('\n')
+    t = t.replace('<hr class="section-divider">\n\n<h3>Etapas da implantação</h3>\n', '', 1)
+    a = '<div class="page-layout">'
+    assert t.count(a) == 1
+    t = t.replace(a, bloco_pagina() + '\n' + a, 1)
     open(p, 'wb').write((t.replace('\n', '\r\n') if crlf else t).encode('utf-8'))
-    print('implantacao-iso.html: diagrama do Processo')
+    print('implantacao-iso.html: diagrama do Processo no topo')
 
 
 if __name__ == '__main__':
