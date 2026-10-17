@@ -3484,6 +3484,34 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
   }
 }
 
+/* ---- 17/10/2026: menu lateral RECOLHIDO numa etiqueta («para todas as paginas quero que esta parte de navegacao
+   esteja colapsada e com etiqueta, o que sobra mais espaco para usarmos a pagina»). A coluna de 220 px vira 40 px; o
+   js/gaveta.js poe o conteudo do .sidenav num painel (.sn-painel) e a etiqueta (.sn-aba) na borda direita dele; clicar
+   abre o painel para a direita, por cima do texto, e a etiqueta anda junto. Esc, clique fora ou a etiqueta fecham.
+   No celular (ate 900 px) continua a lista de botoes de sempre. ---- */
+@media (min-width: 901px) {
+  .page-layout { grid-template-columns: 40px minmax(0, 1fr); gap: 2.4rem; }
+  .sidenav { top: 120px; max-height: none; overflow: visible; padding: 0; z-index: 60; }
+  .sidenav > :not(.sn-caixa) { display: none; }
+  .sn-caixa { position: absolute; left: 0; top: 0; display: flex; align-items: flex-start; }
+  .sn-painel { width: 0; overflow: hidden; visibility: hidden; background: #FAF9F5; border: 1px solid rgba(20,48,76,.16); border-right: 0;
+    border-radius: 3px 0 0 3px; box-shadow: -4px 10px 40px -24px rgba(20,48,76,.45);
+    transition: width .6s cubic-bezier(.65,.05,.36,1), visibility 0s .6s; }
+  .sidenav.aberta .sn-painel { width: 300px; visibility: visible; transition: width .6s cubic-bezier(.65,.05,.36,1), visibility 0s; }
+  .sn-painel-in { width: 300px; box-sizing: border-box; max-height: calc(100vh - 150px); overflow-y: auto; scrollbar-width: thin; padding: 22px 22px 8px 24px; }
+  .sn-aba { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 16px 9px; background: #fff; color: #14304C; cursor: pointer;
+    border: 1px solid rgba(20,48,76,.16); border-left: 0; border-radius: 0 3px 3px 0; box-shadow: 6px 0 18px -10px rgba(20,48,76,.35);
+    transition: background .25s, color .25s; font: inherit; }
+  .sn-aba svg { width: 18px; height: 11px; fill: currentColor; flex: none; }
+  .sn-aba span { writing-mode: vertical-rl; transform: rotate(180deg); font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }
+  .sn-aba:hover, .sn-aba:focus-visible, .sidenav.aberta .sn-aba { background: #14304C; color: #FAF9F5; outline: none; }
+}
+@media (max-width: 900px) {
+  .sn-caixa, .sn-painel, .sn-painel-in { display: contents; }
+  .sn-aba { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .sn-painel { transition: none !important; } }
+
 /* ---- Reveal suave do conteudo (gated: so com JS presente) ---- */
 html.js .content > * {
   opacity: 0;
