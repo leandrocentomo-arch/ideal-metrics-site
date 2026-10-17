@@ -200,14 +200,15 @@ def mapa_h():
     eixo = ['Sistemas de', 'gestão ISO']
     XN = X0 + max(larg_nome(l, EF) for l in eixo)         # o nome do eixo, alinhado a direita, termina aqui
     XL = XN + 12                                          # e o eixo comeca aqui
-    x1, xf = XL + 16 + W1 / 2, 1366 - W1 / 2              # centros do primeiro e do ultimo ramal
+    XR = 1366 - 150                                       # 17/10/2026: «um pouco menos de distância entre as normas, para não ocupar toda a largura»
+    x1, xf = XL + 16 + W1 / 2, XR - W1 / 2                # centros do primeiro e do ultimo ramal
     PX = (xf - x1) / (len(D.sat) - 1)
     xs = [x1 + PX * k for k in range(len(D.sat))]
     # a altura de cada lado sai dos ramais: o mais alto de cima define o eixo; o mais baixo de baixo, a faixa
     def alto(t): return PY * len(D.resto(t)) + 28
     cima = max(alto(t) + 10 + LH * (len(titulo2(tem[t][6])) - 1) + 15 for k, t in enumerate(D.sat) if k % 2 == 0)
     Y0 = 6 + cima + 4
-    D.linha(XL, Y0, 1366, Y0, 'ln-eixo', tem['iso'][1])
+    D.linha(XL, Y0, XR, Y0, 'ln-eixo', tem['iso'][1])
     D.nome(XN, Y0 - 4, eixo, tem['iso'][1], 'end', 'ln-eixo-nome')
     fundo = Y0
     for k, t in enumerate(D.sat):
@@ -226,7 +227,7 @@ def mapa_h():
         if s > 0: fundo = max(fundo, yfim + 22 + LH * (len(tit) - 1))
     # as linhas proprias na faixa horizontal, CENTRALIZADA como na versao vertical («como feito no modulo vertical»),
     # 116 abaixo dos ramais e 96 entre as fileiras («distancia maior»)
-    fim = D.faixa(fundo + 116, centro=691, d0=520 + 80 * len(D.sat) + 200) + PH / 2 + 2
+    fim = D.faixa(fundo + 116, centro=(XL + XR) / 2, d0=520 + 80 * len(D.sat) + 200) + PH / 2 + 2
     vb = (10, 6, 1362, fim + 8 - 6)
     return D.svg('%d %d %d %d' % vb, 'ln-svg--h', 'Temas de gestão e normas, a partir do sistema de gestão ISO')
 
@@ -261,9 +262,12 @@ def mapa_v():
 FRASE = 'Temas por gestão e normas'   # 17/10/2026, pedido do Leandro (era «Cada tema parte do sistema de gestão pela norma ISO que os une.»)
 
 
+LEGENDA = '<ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul>'   # 17/10/2026: na linha da frase
+
+
 def bloco(svg, extra='', camadas=''):
     return '\n'.join(['  <div class="ln%s">' % extra,
-                      '    <p class="ln-frase">%s</p>' % FRASE,
+                      '    <div class="ln-topo"><p class="ln-frase">%s</p>%s</div>' % (FRASE, LEGENDA),
                       '    <div class="ln-rola">' + camadas + svg + '</div>',
                       '  </div>'])
 
@@ -276,7 +280,9 @@ CSS = r"""
    negrito; todo texto na tinta, sem cor. No hover de um ramal os outros recuam pelo texto e pelo traco; o fundo
    das etiquetas fica opaco, para o eixo nunca passar por cima delas. */
 .ln{margin:28px 0 0}
-.ln-frase{margin:0 0 64px;max-width:62ch;font-family:var(--sans);font-size:16px;line-height:1.4;color:var(--azul);text-wrap:pretty}
+.ln-topo{display:flex;justify-content:space-between;align-items:baseline;gap:24px 40px;flex-wrap:wrap;margin:0 0 64px}
+.ln-topo .ar-legenda{margin:0}
+.ln-frase{margin:0;max-width:62ch;font-family:var(--sans);font-size:16px;line-height:1.4;color:var(--azul);text-wrap:pretty}
 .ln-rola{overflow-x:auto}
 .ln-svg{display:block;width:100%;height:auto}
 .ln-svg line,.ln-svg rect{vector-effect:non-scaling-stroke}

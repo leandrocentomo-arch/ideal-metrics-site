@@ -53,7 +53,7 @@ CSS_CAB = r"""
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
 .ar-legenda .ar-leg-i::before{border-top-color:var(--im-vermelho,#EF4545)}
-.ar-dir{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;align-self:stretch;gap:6px}   /* 17/10: botão no alto do título, legenda na linha de base da última linha */
+.ar-dir{display:flex;flex-direction:column;align-items:flex-end;align-self:flex-start}   /* 17/10: botão no alto do título, legenda na linha de base da última linha */
 .ar-painel{display:flex;align-items:center;justify-content:space-between;gap:18px;width:390px;max-width:100%;
   padding:12px 16px;border:1px solid var(--azul);border-radius:3px;text-decoration:none;color:var(--azul);
   font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
@@ -329,7 +329,6 @@ def cabecalho(rotulo='Conhecimento / [ IM.2 ]', hid='ar-titulo'):
         '      <h2 class="ar-titulo" id="%s">%s</h2>' % (hid, TITULO),
         '      <div class="ar-dir">',   # 17/10/2026: botão para o Painel de normas ISO, acima da legenda
         '        <a class="ar-painel" href="painel-normas.html"><span>Painel de normas ISO</span><svg viewBox="0 0 26 10" width="26" height="10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h24M19 1l5 4-5 4"/></svg></a>',
-        '        <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul>',
         '      </div>',
         '    </div>',
         '  </div>',
