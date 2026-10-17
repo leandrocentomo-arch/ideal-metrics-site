@@ -3605,24 +3605,27 @@ body>*{position:relative;z-index:1}
     </div>
   </aside>
   <style>
-  .gaveta-aba{position:fixed;left:0;top:50%;z-index:900;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;
+  /* 17/10/2026: «quando puxo, nao quero que a etiqueta escape do menu»: a etiqueta mora NA borda da gaveta e as duas andam
+     juntas (um so movimento, a gaveta inteira desliza), em vez de duas animacoes separadas */
+  .gaveta{position:fixed;left:0;top:0;bottom:0;z-index:899;width:min(1180px,94vw);transform:translateX(-100%);
+    transition:transform .7s cubic-bezier(.65,.05,.36,1)}
+  .gaveta.aberta{transform:none}
+  .gaveta-aba{position:absolute;left:100%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;
     padding:16px 9px;background:#fff;border:1px solid rgba(20,48,76,.16);border-left:0;border-radius:0 3px 3px 0;cursor:pointer;color:var(--azul);
-    box-shadow:6px 0 18px -10px rgba(20,48,76,.35);transition:transform .45s cubic-bezier(.65,.05,.36,1),background .25s,color .25s;touch-action:none}
+    box-shadow:6px 0 18px -10px rgba(20,48,76,.35);transition:background .25s,color .25s;touch-action:none}
   .gaveta-aba i{width:11px;height:11px;background:radial-gradient(circle,currentColor 1.1px,transparent 1.3px) 0 0/3.7px 3.7px}
   .gaveta-aba span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
-  .gaveta-aba:hover,.gaveta-aba:focus-visible{background:var(--azul);color:var(--mercurio);outline:none}
-  .gaveta-painel{position:fixed;left:0;top:0;bottom:0;z-index:899;width:min(1180px,94vw);overflow:auto;padding:118px 48px 48px 56px;
-    background:var(--mercurio);border-right:1px solid rgba(20,48,76,.16);box-shadow:24px 0 60px -30px rgba(20,48,76,.45);
-    transform:translateX(-102%);transition:transform .7s cubic-bezier(.65,.05,.36,1);visibility:hidden}
-  .gaveta.aberta .gaveta-painel{transform:none;visibility:visible}
-  .gaveta.aberta .gaveta-aba{transform:translate(min(1180px,94vw),-50%)}
+  .gaveta-aba:hover,.gaveta-aba:focus-visible,.gaveta.aberta .gaveta-aba{background:var(--azul);color:var(--mercurio);outline:none}
+  .gaveta-painel{position:absolute;inset:0;overflow:auto;padding:118px 48px 48px 56px;background:var(--mercurio);
+    border-right:1px solid rgba(20,48,76,.16);box-shadow:24px 0 60px -30px rgba(20,48,76,.45);visibility:hidden;transition:visibility 0s .7s}
+  .gaveta.aberta .gaveta-painel{visibility:visible;transition:visibility 0s}
   .gaveta-painel .mp-grade{margin-top:28px}
   .gaveta-cab{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
     color:var(--azul);border-bottom:1px solid rgba(20,48,76,.16);padding-bottom:14px}
   .gaveta-fecha{background:none;border:0;font:inherit;letter-spacing:inherit;color:inherit;cursor:pointer;padding:4px 0}
   .gaveta-fecha:hover{color:#336699}
-  @media (prefers-reduced-motion:reduce){ .gaveta-painel,.gaveta-aba{transition:none} }
-  @media (max-width:880px){ .gaveta-painel{padding:96px 22px 40px} .gaveta.aberta .gaveta-aba{transform:translate(94vw,-50%)} }
+  @media (prefers-reduced-motion:reduce){ .gaveta{transition:none} }
+  @media (max-width:880px){ .gaveta-painel{padding:96px 22px 40px} }
   </style>
   <script>
   (function(){
