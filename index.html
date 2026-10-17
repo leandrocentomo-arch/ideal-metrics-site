@@ -2675,7 +2675,7 @@ body>*{position:relative;z-index:1}
           <ul class="qc-res" id="buscaRes" role="listbox" hidden></ul>
         </form>
         <div class="qc-abre-texto">
-          <h2 class="qc-titulo-sec" id="qc-titulo-sec">O que fazemos</h2>
+          <h2 class="qc-titulo-sec" id="qc-titulo-sec">Consultoria de apoio</h2>
           <p class="qc-lead" id="qcLead" data-texto="Transformamos requisitos normativos, exigências legais e expectativas de partes interessadas da organização em um sistema funcional e prático.">Transformamos requisitos normativos, exigências legais e expectativas de partes interessadas da organização em um sistema funcional e prático.</p>
           <a class="qc-todos" href="servicos.html"><span class="js-scramble">Todos os serviços</span><svg class="qc-todos-ic" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg></a>
           <div class="qc-chega" id="qcChega">
@@ -4533,7 +4533,10 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       }
       if(!saiu) window.addEventListener('im:pronta', function(){ setTimeout(function(){ saiu = true; tenta(); }, 900); }, {once:true});
       var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ vista = true; io.disconnect(); tenta(); } }); }, {threshold:.05});   /* 10/10: era .3; com o «+1» so um card (25%) da 2a tira entra na tela e ela ficava em branco */
-      io.observe(tira);
+      /* 17/10/2026: «o efeito de entrada so para os quatro cards que aparecem; quando clica em Mais, ja nao precisa,
+         quero continuidade nas fotos». As duas tiras observam o ROLO: a 2a entra junto com a 1a, fora da tela, e
+         quando o Mais a traz ela ja esta pronta, sem entrada de novo. */
+      io.observe(document.getElementById('shRolo') || tira);
     }
     /* 30/09: PANORAMA. Os quatro cards apontam para a MESMA imagem (a mestra); o motor a prende
        a tira inteira e cada card e uma janela (cfg.panorama). So vale com os cards lado a lado:
