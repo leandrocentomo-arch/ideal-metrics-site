@@ -1829,7 +1829,7 @@ body>*{position:relative;z-index:1}
    meio rolo para a direita (cards 05 a 08) e vira para voltar. No celular (ate 880 px) as duas
    tiras empilham e a seta some: os oito cards ficam em coluna. */
 .sh-rolo{position:relative;width:100%;overflow:hidden}
-.sh-faixa{display:flex;width:200%;transition:transform .9s cubic-bezier(.4,0,.2,1)}
+.sh-faixa{display:flex;width:200%;transition:transform 1.5s cubic-bezier(.65,.05,.36,1);will-change:transform;backface-visibility:hidden}   /* 17/10/2026: «um pouco mais devagar, mas bem fluido» (era .9s cubic-bezier(.4,0,.2,1)): entrada e saida simetricas e suaves */
 .sh-faixa.avancou{transform:translateX(-50%)}
 .sh-faixa .sh-tira{width:50%;flex:none}
 /* 10/10/2026: a junta entre o card 04 e o 05 (fim da primeira tira, comeco da segunda) nao tinha sombra nem fio:

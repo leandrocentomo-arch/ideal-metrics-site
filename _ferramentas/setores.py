@@ -202,6 +202,18 @@ def chip_norma(k):
     return '<li title="%s">%s</li>' % (desc, ('<a href="%s">%s</a>' % (pg, nome)) if pg else nome)
 
 
+# 17/10/2026: «dentro da divisao industria, pode colocar servicos de inspecoes (este tipo de servico faz parte da
+# industria)». Servicos (nao normas) que entram na pagina do setor, logo depois das certificacoes. Textos das
+# descricoes vem da propria pagina inspecoes.html.
+SERVICOS_SETOR = {
+ 'industria': ('Serviços de inspeção', [
+   ('Inspeção pré-embarque', 'Lote verificado depois da produção e antes do carregamento, contra a especificação acordada.', 'inspecoes.html'),
+   ('Monitoramento de carregamento', 'Embarque acompanhado da conferência inicial ao lacre do container.', 'inspecoes.html'),
+   ('Inspeção de fábrica', 'Infraestrutura, processos e sistema de gestão do fornecedor avaliados no local.', 'inspecoes.html'),
+   ('Produtos inspecionados', 'Abrangência de produtos que a equipe de inspeção verifica.', 'produtos-inspecionamos.html')]),
+}
+
+
 def miolo(i, pg, normas):
     """Pagina de setor enxuta (11/10/2026, pedido do Leandro: «menos conteudo escrito» e as explicacoes num FAQ no fim).
     Abertura de uma frase e paragrafo curto; cartoes das normas por tema, so com o rotulo do grupo; recolhivel das
@@ -218,6 +230,13 @@ def miolo(i, pg, normas):
         h.append('<div class="stp-grupo"><span>%s</span><em>%02d</em></div>' % (rot, len(ks)))
         h.append('<div class="stp-grade">')
         h.extend('  ' + cartao_norma(k) for k in ks)
+        h.append('</div>')
+    if i in SERVICOS_SETOR:
+        rot, itens = SERVICOS_SETOR[i]
+        h.append('<div class="stp-grupo"><span>%s</span><em>%02d</em></div>' % (rot, len(itens)))
+        h.append('<div class="stp-grade">')
+        h.extend('  <a class="pos-card pos-card--link" href="%s"><h4>%s</h4><p>%s</p><span class="pos-more">Ver serviço &rarr;</span></a>'
+                 % (hr, t2, d) for t2, d, hr in itens)
         h.append('</div>')
     tr = [k for k in ordem() if k in TRANSVERSAIS and k not in normas]
     h.append('<details class="stp-transv"><summary><span>Valem para qualquer setor</span><em>%02d</em></summary>' % len(tr))
