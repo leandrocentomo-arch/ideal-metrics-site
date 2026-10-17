@@ -65,7 +65,12 @@
   }
 
   function liga() {
-    $('#pn-q').addEventListener('input', function (e) { F.q = e.target.value.trim().toLowerCase(); render(); });
+    $('#pn-q').addEventListener('input', function (e) { F.q = e.target.value.trim().toLowerCase(); renderLogo(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('pn-item')) abreDetalhe(+e.target.dataset.id);
+    });
+    var cab = $('.pn-cab'), poeCab = function () { $('.pn').style.setProperty('--cab-h', cab.offsetHeight + 'px'); };
+    poeCab(); window.addEventListener('resize', poeCab);
     document.addEventListener('change', function (e) {
       var i = e.target; if (i.dataset && i.dataset.k) { F[i.dataset.k][i.value] = i.checked; render(); }
       if (i.id === 'f-pagina') { F.pagina = i.checked; render(); }
@@ -91,6 +96,8 @@
     if (!$('#v-' + id)) return;
     $$('.pn-abas button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.aba === id); });
     $$('.pn-vista').forEach(function (v) { v.classList.toggle('ativa', v.id === 'v-' + id); });
+    $('.pn-main').scrollTop = 0;
+    fechaDetalhe();
     if (id === 'mapa') montaMapa();
     if (id === 'tempo') montaTempo();
     if (id === 'mudancas') montaMudancas();
@@ -124,19 +131,37 @@
       return '<i class="' + c.trim() + '"></i>';
     }).join('') + '</span>';
   }
-  function render() {
-    var xs = ordena(filtra());
-    $('#pn-total').innerHTML = '<b>' + fmt(xs.length) + '</b> de ' + fmt(D.normas.length) + ' normas';
-    var lista = $('#pn-lista');
-    if (!xs.length) { lista.innerHTML = '<li class="pn-vazio">Nenhuma norma com esses filtros. A busca aceita número (9001, 14064-1), palavra do título em inglês ou comitê (TC 207).</li>'; return; }
-    lista.innerHTML = xs.slice(0, 400).map(function (n) {
-      var f = FASES[FASE_IDX[n.fase]];
-      return '<li class="pn-item" data-id="' + n.id + '" tabindex="0"><span class="ref">' + esc(n.ref) + '</span>' +
-        '<span class="tit">' + esc(n.titulo) + '<small>' + esc(n.comite) + (n.tcnome ? ' · ' + esc(n.tcnome) : '') + ' · ' + esc(D.temasMap[n.tema]) + '</small></span>' +
-        '<span class="fase">' + barraEst(n) + '<span>' + f[1] + ' · ' + n.est + '</span></span>' +
-        '<span class="seta"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></li>';
-    }).join('') + (xs.length > 400 ? '<li class="pn-vazio">Mostrando 400 de ' + fmt(xs.length) + '. Refine a busca para ver as demais.</li>' : '');
+  /* 17/10: lista em lotes de 60, o próximo entra quando o fim chega perto (sem montar 800 linhas de uma vez) */
+  var LOTE = 60, atual = [], mostrados = 0, obs = null;
+  function linha(n) {
+    var f = FASES[FASE_IDX[n.fase]];
+    return '<li class="pn-item" data-id="' + n.id + '" tabindex="0"><span class="ref">' + esc(n.ref) + '</span>' +
+      '<span class="tit">' + esc(n.titulo) + '<small>' + esc(n.comite) + (n.tcnome ? ' · ' + esc(n.tcnome) : '') + ' · ' + esc(D.temasMap[n.tema]) + '</small></span>' +
+      '<span class="fase">' + barraEst(n) + '<span>' + f[1] + ' · ' + n.est + '</span></span>' +
+      '<span class="seta"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></li>';
   }
+  function maisLinhas() {
+    var lista = $('#pn-lista'), velho = $('#pn-mais', lista);
+    if (velho) velho.remove();
+    if (mostrados >= atual.length) return;
+    lista.insertAdjacentHTML('beforeend', atual.slice(mostrados, mostrados + LOTE).map(linha).join(''));
+    mostrados += LOTE;
+    if (mostrados < atual.length) {
+      lista.insertAdjacentHTML('beforeend', '<li class="pn-mais" id="pn-mais" aria-hidden="true"></li>');
+      if (!obs) obs = new IntersectionObserver(function (es) { if (es[0].isIntersecting) maisLinhas(); }, { root: $('.pn-main'), rootMargin: '600px 0px' });
+      obs.disconnect(); obs.observe($('#pn-mais'));
+    }
+  }
+  function render() {
+    atual = ordena(filtra()); mostrados = 0;
+    $('#pn-total').innerHTML = '<b>' + fmt(atual.length) + '</b> de ' + fmt(D.normas.length) + ' normas';
+    var lista = $('#pn-lista');
+    if ($('#v-normas').classList.contains('ativa')) $('.pn-main').scrollTop = 0;
+    if (!atual.length) { lista.innerHTML = '<li class="pn-vazio">Nenhuma norma com esses filtros. A busca aceita número (9001, 14064-1), palavra do título em inglês ou comitê (TC 207).</li>'; return; }
+    lista.innerHTML = ''; maisLinhas();
+  }
+  var adia = null;
+  function renderLogo() { clearTimeout(adia); adia = setTimeout(function () { requestAnimationFrame(render); }, 140); }
 
   /* ---------- detalhe ---------- */
   function abreDetalhe(id) {

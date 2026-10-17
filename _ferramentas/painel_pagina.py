@@ -7,7 +7,7 @@ regrava os blocos depois), e o miolo do painel daqui. Rodar depois de mudar o mi
 import re, os
 import blocos as B
 
-V = '1'   # sobe junto com painel-normas.css / .js
+V = '4'   # sobe junto com painel-normas.css / .js
 s = B.ler('blog.html')
 cab = s[:s.index('<div class="page-banner">')]
 rod = s[s.index('<footer class="ft-root'):]
@@ -85,9 +85,9 @@ miolo = '''<main class="pn" id="painel">
       </div>
     </div>
   </section>
+  <div class="pn-veu" id="pn-veu"></div>
+  <aside class="pn-det" id="pn-det" aria-label="Ficha da norma"><button class="fechar" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button></aside>
 </main>
-<div class="pn-veu" id="pn-veu"></div>
-<aside class="pn-det" id="pn-det" aria-label="Ficha da norma"><button class="fechar" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button></aside>
 ''' % (''.join('<button role="tab" data-aba="%s" aria-selected="%s"><span class="m">[ %s ]</span>%s</button>' % (a, 'true' if i == 0 else 'false', n, r) for i, (a, n, r) in enumerate(ABAS)),
        LUPA, filtro('f-temas', 'Tema', 'temas'), filtro('f-fases', 'Estágio', 'fases'), filtro('f-tipos', 'Tipo de documento', 'tipos'))
 
