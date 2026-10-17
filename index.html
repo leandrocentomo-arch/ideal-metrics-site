@@ -210,18 +210,7 @@ body>*{position:relative;z-index:1}
 .veu-menu .selo-mono{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
   text-transform:uppercase;opacity:.8;margin-bottom:24px}
 
-/* ---- cursor: cruz que vira colchetes ---- */
-@media(pointer:fine){
-  .cursor{position:fixed;left:0;top:0;z-index:2000;pointer-events:none;
-    font-family:var(--mono);font-size:15px;color:var(--azul);
-    transform:translate(-50%,-50%);mix-blend-mode:multiply}
-  .cursor .c-abre,.cursor .c-fecha{display:none}
-  .cursor.liga .c-mais{display:none}
-  .cursor.liga .c-abre,.cursor.liga .c-fecha{display:inline}
-  .cursor.liga{font-size:17px}
-  .cursor.liga .c-abre{margin-right:14px}
-}
-@media(pointer:coarse){.cursor{display:none}}
+/* 17/10/2026: o cursor proprio (cruz que virava colchetes sobre link e botao) saiu: «quero que tire o efeito de caixinha e mais do mouse». Fica o cursor do sistema. */
 
 /* esconde rotulo que so o leitor de tela precisa ouvir. Estava no bloco
    do heroi e o formulario da newsletter depende dela. */
@@ -2415,7 +2404,6 @@ body>*{position:relative;z-index:1}
   <span class="l-h l-h1"></span><span class="l-h l-h2"></span>
   <img src="img/logo-ideal-m-prata.svg?v=11102026b" alt="">
 </div>
-<div class="cursor" id="cursor"><span class="c-mais">+</span><span class="c-abre">[</span><span class="c-fecha">]</span></div>
 <div class="tarja" role="note">
   <div class="tarja-lado"><span id="tarja-data">10.09.2026</span><span class="tarja-nome">Ideal Metrics Ltda</span></div>
 </div>
@@ -3907,18 +3895,6 @@ document.querySelectorAll('.js-scramble').forEach(function(el){
   if(f) f.addEventListener('click', function(){ veu.classList.remove('aberto'); });
   /* 24/09: «Todos os servicos» abre um painel DENTRO do veu (js/busca.js), entao nao fecha o veu */
   veu.querySelectorAll('a').forEach(function(a){ if(a.id === 'veuTodos') return; a.addEventListener('click', function(){ veu.classList.remove('aberto'); }); });
-})();
-
-// cursor
-(function(){
-  var c = document.getElementById('cursor');
-  if(!c || !window.matchMedia('(pointer:fine)').matches) return;
-  document.addEventListener('mousemove', function(e){
-    c.style.left = e.clientX + 'px';
-    c.style.top = e.clientY + 'px';
-    var alvo = e.target.closest && e.target.closest('a,button,[role=button]');
-    c.classList.toggle('liga', !!alvo);
-  });
 })();
 
 // revelação padrão .rv
