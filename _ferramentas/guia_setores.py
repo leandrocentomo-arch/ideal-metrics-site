@@ -187,6 +187,8 @@ def main():
         S = setores()
         novo = '\n' + sanfona(S) + '\n  '
         ancora = '/* ===== secao: processo ===== */'
+        if ancora not in t:   # 17/10/2026: o Processo saiu da home; o CSS do Guia entra antes do dos Diferenciais
+            ancora = '/* ===== secao: diferenciais ===== */'
         assert t.count(ancora) == 1
         t = t.replace(ancora, CSS + ancora, 1)
     i, j = t.index('<!-- foco -->'), t.index('<!-- fim foco -->')   # de novo: o CSS tirado ou posto mudou as posicoes

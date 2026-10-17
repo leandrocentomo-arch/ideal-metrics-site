@@ -41,6 +41,9 @@ def no_site(css, secao, js, motor=''):
         # 15/10/2026: «Nossos servicos» saiu da home (guardada em Ideal Metrics/secoes-guardadas/servicos-sanfona-im3.html);
         # o Conhecimento fica antes do Processo
         ancora_html = '<!-- ===== processo ===== -->'
+    if ancora_html not in t:
+        # 17/10/2026: o Processo saiu da home (foi para implantacao-iso.html); o Conhecimento fica antes dos Diferenciais
+        ancora_html = '<!-- ===== diferenciais ===== -->'
     assert t.count(ancora_html) == 1, 'ancora do HTML: %d' % t.count(ancora_html)
     t = t.replace(ancora_html, secao + '\n\n' + ancora_html, 1)
 
@@ -63,4 +66,4 @@ def no_site(css, secao, js, motor=''):
 
     assert '\r' not in t
     open(p, 'wb').write(t.replace('\n', eol).encode('utf-8'))
-    print('index.html: secao Conhecimento antes de', 'Servicos (IM.3)' if 'id="servicos"' in t else 'Processo')
+    print('index.html: secao Conhecimento antes de', 'Servicos (IM.3)' if 'id="servicos"' in t else ('Processo' if '<!-- ===== processo ===== -->' in t else 'Diferenciais'))

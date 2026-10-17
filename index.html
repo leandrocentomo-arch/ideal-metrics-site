@@ -394,41 +394,6 @@ body>*{position:relative;z-index:1}
   .gs .sv-title{grid-column:1/-1;grid-row:auto;margin-top:40px} .gs .sv-list{grid-row:auto;margin-top:20px}
   .gs ~ .mp-grade{margin-top:156px} }
 /* ===== fim GUIA SETORES ===== */
-/* ===== secao: processo ===== */
-/* 14/10/2026: o DIAGRAMA das cinco etapas no lugar dos cartoes (gerado por _ferramentas/processo.py; editar la).
-   Duas linhas paralelas em linha fina: o processo do cliente com as etapas em nos e, em cima, o consultor da Ideal
-   Metrics, que desce ate cada etapa. A entrada e a do mapa da secao Conhecimento (.ln-svg, .ln-b, .ln-linha). */
-.pr-sec{position:relative;z-index:1;color:var(--azul);padding:18px var(--lado) 110px}
-.pr-label{display:flex;justify-content:space-between;font-family:var(--mono);font-weight:400;font-size:12px;line-height:1;
-  letter-spacing:0;text-transform:uppercase}
-.pr-titulo{margin:72px 0 0;font-family:var(--sans);font-weight:700;font-size:clamp(20px,2.2vw,30px);line-height:1.2;
-  letter-spacing:-.012em;color:var(--azul);max-width:40ch;text-wrap:balance}
-.pr-frase{margin:12px 0 0;max-width:62ch;font-family:var(--sans);font-size:16px;line-height:1.4;color:var(--azul);text-wrap:pretty}
-.pr-rola{margin:44px 0 0}
-.pr-svg{display:block;width:100%;height:auto;overflow:visible}
-.pr-svg .ln-linha.pr-chave{stroke:rgba(20,48,76,.4)}
-.pr-ponto{fill:#336699}
-.pr-no{fill:#FAF9F5;stroke:#14304C;stroke-width:.8;vector-effect:non-scaling-stroke}
-.pr-no-c{fill:#14304C}
-.pr-n,.pr-rot{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;fill:#14304C}
-.pr-n{text-anchor:middle}
-.pr-rot--meio{text-anchor:middle}
-.pr-t{font-family:var(--sans);font-size:17px;font-weight:700;fill:#14304C;text-anchor:middle}
-.pr-p{font-family:var(--sans);font-size:13px;font-weight:500;fill:#14304C;text-anchor:middle}
-.pr-lista,.pr-lista-prazo{display:none}
-@media (max-width:880px){
-  .pr-sec{padding-bottom:70px}
-  .pr-titulo{margin-top:48px}
-  .pr-rola{display:none}
-  .pr-lista{display:block;margin:30px 0 0;padding:0;list-style:none;border-left:1px solid #336699}
-  .pr-lista li{position:relative;padding:0 0 22px 22px}
-  .pr-lista li::before{content:"";position:absolute;left:-4px;top:5px;width:7px;height:7px;border-radius:50%;background:#336699}
-  .pr-li-n{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--azul)}
-  .pr-lista b{display:block;margin:4px 0 4px;font-family:var(--sans);font-size:18px;font-weight:700;color:var(--azul)}
-  .pr-lista li>span:last-child{display:block;font-family:var(--sans);font-size:15px;line-height:1.35;color:var(--azul)}
-  .pr-lista-prazo{display:block;margin:6px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul)}
-}
-
 /* ===== secao: diferenciais ===== */
 /* ===== diferenciais (df-) — reconstrução da seção "Most Recent Projects" ===== */
 .df-secao{
@@ -3723,32 +3688,12 @@ body>*{position:relative;z-index:1}
 </ul>
 </section>
 
-<!-- ===== processo ===== -->
-<!-- gerada por _ferramentas/processo.py: editar la e rodar de novo -->
-<section class="pr-sec" id="pr-processo" aria-labelledby="pr-titulo">
-  <div class="pr-label">
-    <span>Processo</span>
-    <span aria-hidden="true">[IM.3]</span>
-  </div>
-  <h2 class="pr-titulo" id="pr-titulo">Ao lado em cada etapa</h2>
-  <p class="pr-frase">Do diagnóstico à certificação, conduzimos cada etapa com o consultor dentro do processo do cliente.</p>
-  <div class="pr-rola"><svg class="ln-svg pr-svg" viewBox="0 0 1362 306" role="img" aria-label="As cinco etapas, do diagnóstico à certificação, com o consultor da Ideal Metrics em cada uma: 01 Diagnóstico; 02 Planejamento; 03 Implantação; 04 Auditoria interna; 05 Certificação"><line class="ln-linha pr-consultor" x1="16.0" y1="66.0" x2="1346.0" y2="66.0" style="--ox:16.0px;--oy:66.0px;--d:60"/><line class="ln-eixo" x1="16.0" y1="146.0" x2="1346.0" y2="146.0" style="--ox:16.0px;--oy:146.0px;--d:0"/><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:60"><text class="pr-rot" x="16" y="52">Consultor da Ideal Metrics</text></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:0"><text class="pr-rot" x="16" y="132">Processo do cliente</text></g><line class="ln-linha pr-fio" x1="340.0" y1="66.0" x2="340.0" y2="136.0" style="--ox:340.0px;--oy:66.0px;--d:380"/><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:380"><circle class="pr-ponto" cx="340.0" cy="66" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:380"><text class="pr-n" x="340.0" y="52">01</text></g><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:500"><circle class="pr-no" cx="340.0" cy="146" r="10"/><circle class="pr-no-c" cx="340.0" cy="146" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:-44.0px;--d:560"><text class="pr-t" x="340.0" y="190">Diagnóstico</text><text class="pr-p" x="340.0" y="211">Situação atual e gaps</text><text class="pr-p" x="340.0" y="229">em relação às normas</text></g><line class="ln-linha pr-fio" x1="570.5" y1="66.0" x2="570.5" y2="136.0" style="--ox:570.5px;--oy:66.0px;--d:610"/><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:610"><circle class="pr-ponto" cx="570.5" cy="66" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:610"><text class="pr-n" x="570.5" y="52">02</text></g><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:730"><circle class="pr-no" cx="570.5" cy="146" r="10"/><circle class="pr-no-c" cx="570.5" cy="146" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:-44.0px;--d:790"><text class="pr-t" x="570.5" y="190">Planejamento</text><text class="pr-p" x="570.5" y="211">Responsáveis, prazos e</text><text class="pr-p" x="570.5" y="229">entregas por visita</text></g><line class="ln-linha pr-fio" x1="801.0" y1="66.0" x2="801.0" y2="136.0" style="--ox:801.0px;--oy:66.0px;--d:840"/><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:840"><circle class="pr-ponto" cx="801.0" cy="66" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:840"><text class="pr-n" x="801.0" y="52">03</text></g><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:960"><circle class="pr-no" cx="801.0" cy="146" r="10"/><circle class="pr-no-c" cx="801.0" cy="146" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:-44.0px;--d:1020"><text class="pr-t" x="801.0" y="190">Implantação</text><text class="pr-p" x="801.0" y="211">Sistema de gestão integrado</text><text class="pr-p" x="801.0" y="229">à rotina da operação</text></g><line class="ln-linha pr-fio" x1="1031.5" y1="66.0" x2="1031.5" y2="136.0" style="--ox:1031.5px;--oy:66.0px;--d:1070"/><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:1070"><circle class="pr-ponto" cx="1031.5" cy="66" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:1070"><text class="pr-n" x="1031.5" y="52">04</text></g><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:1190"><circle class="pr-no" cx="1031.5" cy="146" r="10"/><circle class="pr-no-c" cx="1031.5" cy="146" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:-44.0px;--d:1250"><text class="pr-t" x="1031.5" y="190">Auditoria interna</text><text class="pr-p" x="1031.5" y="211">Verificação da conformidade</text><text class="pr-p" x="1031.5" y="229">e preparação para a certificação</text></g><line class="ln-linha pr-fio" x1="1262.0" y1="66.0" x2="1262.0" y2="136.0" style="--ox:1262.0px;--oy:66.0px;--d:1300"/><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:1300"><circle class="pr-ponto" cx="1262.0" cy="66" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:6.0px;--d:1300"><text class="pr-n" x="1262.0" y="52">05</text></g><g class="ln-b" style="--dx:0.0px;--dy:0.0px;--d:1420"><circle class="pr-no" cx="1262.0" cy="146" r="10"/><circle class="pr-no-c" cx="1262.0" cy="146" r="3.2"/></g><g class="ln-b" style="--dx:0.0px;--dy:-44.0px;--d:1480"><text class="pr-t" x="1262.0" y="190">Certificação</text><text class="pr-p" x="1262.0" y="211">Acompanhamento da auditoria</text><text class="pr-p" x="1262.0" y="229">até o certificado emitido</text></g><line class="ln-linha pr-chave" x1="340.0" y1="270.0" x2="1262.0" y2="270.0" style="--ox:340.0px;--oy:270.0px;--d:1630"/><line class="ln-linha pr-chave" x1="340.0" y1="264.0" x2="340.0" y2="270.0" style="--ox:340.0px;--oy:264.0px;--d:1630"/><line class="ln-linha pr-chave" x1="1262.0" y1="264.0" x2="1262.0" y2="270.0" style="--ox:1262.0px;--oy:270.0px;--d:1630"/><g class="ln-b" style="--dx:0.0px;--dy:-6.0px;--d:1830"><text class="pr-rot pr-rot--meio" x="801.0" y="292">Cerca de 6 meses</text></g></svg></div>
-  <ol class="pr-lista">
-      <li><span class="pr-li-n">01</span><b>Diagnóstico</b><span>Análise da situação atual e identificação de gaps em relação às normas.</span></li>
-      <li><span class="pr-li-n">02</span><b>Planejamento</b><span>Plano de implantação com responsáveis, prazos e entregas por visita.</span></li>
-      <li><span class="pr-li-n">03</span><b>Implantação</b><span>Construção do sistema de gestão integrado à rotina da operação.</span></li>
-      <li><span class="pr-li-n">04</span><b>Auditoria interna</b><span>Verificação da conformidade e preparação para a certificação.</span></li>
-      <li><span class="pr-li-n">05</span><b>Certificação</b><span>Acompanhamento da auditoria do organismo certificador até o certificado emitido.</span></li>
-  </ol>
-  <p class="pr-lista-prazo">Cerca de 6 meses, do diagnóstico à certificação.</p>
-</section>
-
 <!-- ===== diferenciais ===== -->
 <section class="df-secao" id="diferenciais" aria-labelledby="df-titulo">
   <div class="df-topo">
     <div class="df-rotulo">
       <span>Diferenciais</span>
-      <span>[IM.4]</span>
+      <span>[IM.3]</span>
     </div>
   </div>
   <div class="df-grade df-grade-titulo">
@@ -3812,7 +3757,7 @@ body>*{position:relative;z-index:1}
 <section class="cl-sec" id="clientes" aria-labelledby="cl-titulo-el">
   <div class="cl-topo">
     <div><span>Clientes</span></div>
-    <div aria-hidden="true">[IM.5]</div>
+    <div aria-hidden="true">[IM.4]</div>
   </div>
   <div class="cl-miolo">
     <h2 class="cl-titulo" id="cl-titulo-el">Empresas que confiam</h2>
@@ -3840,7 +3785,7 @@ body>*{position:relative;z-index:1}
   <!-- ===== newsletter e contato ===== -->
   <section class="nl-sec" aria-labelledby="nl-h">
     <div class="nl-topo">
-      <div class="nl-rotulo"><span id="nl-h">Contato</span><span>[IM.6]</span></div>
+      <div class="nl-rotulo"><span id="nl-h">Contato</span><span>[IM.5]</span></div>
     </div>
     <div class="nl-grade">
       <div class="nl-bloco">
@@ -3995,9 +3940,6 @@ var io = new IntersectionObserver(function(es){
   es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
 }, {threshold:.12});
 document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
-
-// ===== processo =====
-// 14/10/2026: sem JS proprio: a entrada do diagrama e a do mapa da secao Conhecimento (todas as .ln-svg)
 
 // ===== diferenciais =====
 (function(){

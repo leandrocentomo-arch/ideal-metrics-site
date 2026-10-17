@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """A secao «Processo» da home (index.html, [IM.3]) como DIAGRAMA, 14/10/2026.
 
-    python _ferramentas/processo.py        reescreve a secao, o CSS e o JS dela no index.html (idempotente)
+    python _ferramentas/processo.py        reescreve o diagrama na pagina implantacao-iso.html (idempotente)
+    (17/10/2026: saiu da home; antes ficava no index.html como a secao [IM.3])
 
 Historia: eram cinco cartoes empilhados que se inclinavam na rolagem; no mesmo dia foram para a horizontal («encaixando
 um card do lado do outro») e o Leandro nao gostou: «nao ficou bom, teria como trocar isso por um diagrama bem feito?».
@@ -47,9 +48,9 @@ W = 1362                                  # o mesmo viewBox do mapa da secao Con
 XL, XR = 16, 1346                         # comeco e fim das duas linhas
 X1, XN = 340, 1262                        # o primeiro e o ultimo no
 YC, YP = 66, 146                          # a linha do consultor e a do processo
-YT, YD = 190, 211                         # nome e primeira linha da descricao (a segunda vai 18 abaixo)
-YK = 270                                  # a chave do prazo
-H = 306
+YT, YD = 194, 222                         # nome e primeira linha da descricao (a segunda vai 18 abaixo)
+YK = 296                                  # a chave do prazo
+H = 336
 
 
 def esc(s):
@@ -88,7 +89,7 @@ def svg():
         # nome e descricao sobem do no
         o.append(_b('<text class="pr-t" x="%.1f" y="%d">%s</text>'
                     '<text class="pr-p" x="%.1f" y="%d">%s</text><text class="pr-p" x="%.1f" y="%d">%s</text>'
-                    % (x, YT, esc(t), x, YD, esc(a), x, YD + 18, esc(b)), 0, YP - YT, d + 180))
+                    % (x, YT, esc(t), x, YD, esc(a), x, YD + 24, esc(b)), 0, YP - YT, d + 180))
     # a chave do prazo, do primeiro ao ultimo no
     dk = 380 + 230 * len(ETAPAS) + 100
     o.append(_linha(X1, YK, XN, YK, 'ln-linha pr-chave', dk))
@@ -172,15 +173,70 @@ def troca_entre(t, ini, fim, novo):
     return t[:i] + novo + t[j:]
 
 
+CSS_PAGINA = r"""
+/* 17/10/2026: o diagrama do Processo saiu da home e veio para Implantacao ISO («esta parte tem que ficar dentro da
+   implantacao de normas ISO»), no lugar das etapas A a E. Sem a entrada animada da home: o desenho aparece pronto. */
+.pr-pag{margin:8px 0 0;color:var(--azul)}
+.pr-pag .pr-frase{margin:0;max-width:62ch;font-family:var(--sans);font-size:16px;line-height:1.4;color:var(--azul)}
+.pr-pag .pr-rola{margin:34px 0 0}
+.pr-svg{display:block;width:100%;height:auto;overflow:visible}
+.pr-svg line{vector-effect:non-scaling-stroke}
+.pr-svg .ln-eixo{stroke:#14304C;stroke-width:.6;stroke-linecap:round}
+.pr-svg .ln-linha{stroke:#336699;stroke-width:.6;stroke-linecap:round;fill:none}
+.pr-svg .ln-linha.pr-chave{stroke:rgba(20,48,76,.4)}
+.pr-ponto{fill:#336699}
+.pr-no{fill:#FAF9F5;stroke:#14304C;stroke-width:.8;vector-effect:non-scaling-stroke}
+.pr-no-c{fill:#14304C}
+.pr-n,.pr-rot{font-family:var(--mono);font-size:15px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;fill:#14304C}
+.pr-n,.pr-rot--meio{text-anchor:middle}
+/* a coluna da pagina tem ~890 px: o desenho entra a ~65% e as letras sobem na mesma proporcao para ler como na home */
+.pr-t{font-family:var(--sans);font-size:23px;font-weight:700;fill:#14304C;text-anchor:middle}
+.pr-p{font-family:var(--sans);font-size:17px;font-weight:500;fill:#14304C;text-anchor:middle}
+.pr-lista,.pr-lista-prazo{display:none}
+@media (max-width:880px){
+  .pr-pag .pr-rola{display:none}
+  .pr-lista{display:block;margin:24px 0 0;padding:0;list-style:none;border-left:1px solid #336699}
+  .pr-lista li{position:relative;padding:0 0 22px 22px}
+  .pr-lista li::before{content:"";position:absolute;left:-4px;top:5px;width:7px;height:7px;border-radius:50%;background:#336699}
+  .pr-li-n{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--azul)}
+  .pr-lista b{display:block;margin:4px 0;font-family:var(--sans);font-size:18px;font-weight:700;color:var(--azul)}
+  .pr-lista li>span:last-child{display:block;font-family:var(--sans);font-size:15px;line-height:1.35;color:var(--azul)}
+  .pr-lista-prazo{display:block;margin:6px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul)}
+}
+"""
+
+
+def bloco_pagina():
+    lista = '\n'.join('  <li><span class="pr-li-n">%s</span><b>%s</b><span>%s</span></li>' % (n, esc(t), esc(TEXTO[k]))
+                      for k, (n, t, a, b) in enumerate(ETAPAS))
+    return '\n'.join(['<!-- ===== processo (gerado por _ferramentas/processo.py: editar la e rodar de novo) ===== -->',
+                      '<style>' + CSS_PAGINA + '</style>',
+                      '<div class="pr-pag">',
+                      '<p class="pr-frase">%s</p>' % FRASE,
+                      '<div class="pr-rola">' + svg() + '</div>',
+                      '<ol class="pr-lista">', lista, '</ol>',
+                      '<p class="pr-lista-prazo">%s, do diagnóstico à certificação.</p>' % PRAZO,
+                      '</div>',
+                      '<!-- ===== fim processo ===== -->'])
+
+
 def main():
-    p = os.path.join(SITE, 'index.html')
+    """17/10/2026: a secao saiu da home; o diagrama vive na pagina de Implantacao ISO, logo abaixo de «Etapas da
+    implantacao», entre os marcadores do bloco (idempotente)."""
+    p = os.path.join(SITE, 'implantacao-iso.html')
     raw = open(p, 'rb').read(); crlf = b'\r\n' in raw
     t = raw.decode('utf-8').replace('\r\n', '\n')
-    t = troca_entre(t, '/* ===== secao: processo ===== */', '/* ===== secao: diferenciais ===== */', CSS)
-    t = troca_entre(t, '<!-- ===== processo ===== -->', '<!-- ===== diferenciais ===== -->', secao())
-    t = troca_entre(t, '// ===== processo =====', '// ===== diferenciais =====', JS)
+    ini, fim = '<!-- ===== processo (gerado', '<!-- ===== fim processo ===== -->'
+    if ini in t:
+        i, j = t.index(ini), t.index(fim) + len(fim)
+        t = t[:i] + bloco_pagina() + t[j:]
+    else:
+        a = t.index('<h3>Etapas da implantação</h3>\n') + len('<h3>Etapas da implantação</h3>\n')
+        b = t.index('</div>\n\n<hr class="section-divider">', a) + len('</div>\n')
+        assert t[a:].startswith('<div class="steps">')
+        t = t[:a] + bloco_pagina() + '\n' + t[b:]
     open(p, 'wb').write((t.replace('\n', '\r\n') if crlf else t).encode('utf-8'))
-    print('index.html: secao Processo em diagrama')
+    print('implantacao-iso.html: diagrama do Processo')
 
 
 if __name__ == '__main__':
