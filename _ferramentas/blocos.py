@@ -77,8 +77,10 @@ MENU = [
    ('estudos-setoriais.html', 'Estudos setoriais', 'barras'),
    ('observatorio-setorial.html', 'Observatório setorial', 'radar'),
    ('rastreabilidade-cadeia.html', 'Rastreabilidade de cadeia', 'elos'),
+   ('painel-normas.html', 'Painel de normas ISO', 'painel'),      # 17/10: estágio, comitê, revisão e certificados por país (ISO Open Data + ISO Survey)
    ]),
 ]
+IC['painel'] = '<rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 10h18M9 10v10M14 14h4M14 17h3"/>'
 
 def mega():
     cols = []
