@@ -53,6 +53,15 @@ CSS_CAB = r"""
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
 .ar-legenda .ar-leg-i::before{border-top-color:var(--im-vermelho,#EF4545)}
+.ar-dir{display:flex;flex-direction:column;align-items:flex-end;gap:34px}
+.ar-painel{display:flex;align-items:center;justify-content:space-between;gap:18px;width:390px;max-width:100%;
+  padding:12px 16px;border:1px solid var(--azul);border-radius:3px;text-decoration:none;color:var(--azul);
+  font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  transition:background .25s,color .25s}
+.ar-painel svg{transition:transform .25s}
+.ar-painel:hover,.ar-painel:focus-visible{background:var(--azul);color:var(--mercurio,#FAF9F5)}
+.ar-painel:hover svg{transform:translateX(4px)}
+@media (max-width:1000px){.ar-dir{align-items:flex-start;gap:20px}.ar-painel{width:100%}}
 .ar-lista{display:none}
 @media (max-width:1000px){
   .ar-sec{padding-top:70px;padding-bottom:78px}
@@ -318,7 +327,10 @@ def cabecalho(rotulo='Conhecimento / [ IM.2 ]', hid='ar-titulo'):
         '    <p class="ar-rotulo">%s</p>' % rotulo,
         '    <div class="ar-linha">',
         '      <h2 class="ar-titulo" id="%s">%s</h2>' % (hid, TITULO),
-        '      <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul>',
+        '      <div class="ar-dir">',   # 17/10/2026: botão para o Painel de normas ISO, acima da legenda
+        '        <a class="ar-painel" href="painel-normas.html"><span>Painel de normas ISO</span><svg viewBox="0 0 26 10" width="26" height="10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h24M19 1l5 4-5 4"/></svg></a>',
+        '        <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul>',
+        '      </div>',
         '    </div>',
         '  </div>',
     ])

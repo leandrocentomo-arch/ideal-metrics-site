@@ -246,6 +246,15 @@ body>*{position:relative;z-index:1}
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
 .ar-legenda .ar-leg-i::before{border-top-color:var(--im-vermelho,#EF4545)}
+.ar-dir{display:flex;flex-direction:column;align-items:flex-end;gap:34px}
+.ar-painel{display:flex;align-items:center;justify-content:space-between;gap:18px;width:390px;max-width:100%;
+  padding:12px 16px;border:1px solid var(--azul);border-radius:3px;text-decoration:none;color:var(--azul);
+  font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  transition:background .25s,color .25s}
+.ar-painel svg{transition:transform .25s}
+.ar-painel:hover,.ar-painel:focus-visible{background:var(--azul);color:var(--mercurio,#FAF9F5)}
+.ar-painel:hover svg{transform:translateX(4px)}
+@media (max-width:1000px){.ar-dir{align-items:flex-start;gap:20px}.ar-painel{width:100%}}
 .ar-lista{display:none}
 @media (max-width:1000px){
   .ar-sec{padding-top:70px;padding-bottom:78px}
@@ -3639,7 +3648,10 @@ body>*{position:relative;z-index:1}
     <p class="ar-rotulo">Conhecimento / [ IM.2 ]</p>
     <div class="ar-linha">
       <h2 class="ar-titulo" id="ar-titulo">Adequação de organizações a normas e padrões setoriais.</h2>
-      <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul>
+      <div class="ar-dir">
+        <a class="ar-painel" href="painel-normas.html"><span>Painel de normas ISO</span><svg viewBox="0 0 26 10" width="26" height="10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h24M19 1l5 4-5 4"/></svg></a>
+        <ul class="ar-legenda"><li>Padronização</li><li class="ar-leg-i">Inteligência</li></ul>
+      </div>
     </div>
   </div>
   <div class="ln">
@@ -4561,6 +4573,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 <script src="js/busca.js?v=16"></script>
 <script src="js/setores-dados.js?v=20"></script>
 <script src="js/setores-matriz.js?v=20"></script>
+<script src="js/gaveta.js?v=6" defer></script>
 <script>
 /* CONHECIMENTO: entrada do mapa de linhas nos DOIS SENTIDOS (_ferramentas/arcos/linhas.py). Toda vez que um
    mapa entra na tela (35% dele a vista), descendo ou subindo a pagina, o progresso --p corre de 0 a 1 em 3 s;
@@ -4584,6 +4597,5 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   });
 })();
 </script>
-<script src="js/gaveta.js?v=6" defer></script>
 </body>
 </html>
