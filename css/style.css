@@ -3491,16 +3491,17 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
    No celular (ate 900 px) continua a lista de botoes de sempre. ---- */
 @media (min-width: 901px) {
   .page-layout { grid-template-columns: 40px minmax(0, 1fr); gap: 2.4rem; }
-  .sidenav { top: 120px; min-height: 140px; max-height: none; overflow: visible; padding: 0; z-index: 60; }   /* a altura da etiqueta: no fim da pagina ela sobe junto com o texto e nao invade o rodape */
+  .sidenav { top: 92px; min-height: 140px;   /* 17/10/2026: «a navegacao encostasse em cima, na parte ja do banner, para nao dar a impressao de que esta flutuando»: pendurada no alto do .page-layout (o js tira o respiro de cima) e, rolando, presa na base do cabecalho (o js mede) */
+    max-height: none; overflow: visible; padding: 0; z-index: 60; }   /* a altura da etiqueta: no fim da pagina ela sobe junto com o texto e nao invade o rodape */
   .sidenav > :not(.sn-caixa) { display: none; }
   .sn-caixa { position: absolute; left: 0; top: 0; display: flex; align-items: flex-start; }
-  .sn-painel { width: 0; overflow: hidden; visibility: hidden; background: #FAF9F5; border: 1px solid rgba(20,48,76,.16); border-right: 0;
-    border-radius: 3px 0 0 3px; box-shadow: -4px 10px 40px -24px rgba(20,48,76,.45);
+  .sn-painel { width: 0; overflow: hidden; visibility: hidden; background: #FAF9F5; border: 1px solid rgba(20,48,76,.16); border-right: 0; border-top: 0;
+    border-radius: 0 0 0 3px; box-shadow: -4px 10px 40px -24px rgba(20,48,76,.45);
     transition: width .6s cubic-bezier(.65,.05,.36,1), visibility 0s .6s; }
   .sidenav.aberta .sn-painel { width: 300px; visibility: visible; transition: width .6s cubic-bezier(.65,.05,.36,1), visibility 0s; }
   .sn-painel-in { width: 300px; box-sizing: border-box; max-height: calc(100vh - 150px); overflow-y: auto; scrollbar-width: thin; padding: 22px 22px 8px 24px; }
   .sn-aba { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 16px 9px; background: #FAF9F5; color: #14304C; cursor: pointer;   /* 17/10/2026: «aqui pode ser da cor creme» (era branca) */
-    border: 1px solid rgba(20,48,76,.16); border-left: 0; border-radius: 0 3px 3px 0; box-shadow: 6px 0 18px -10px rgba(20,48,76,.35);
+    border: 1px solid rgba(20,48,76,.16); border-left: 0; border-top: 0; border-radius: 0 0 3px 0; box-shadow: 6px 0 18px -10px rgba(20,48,76,.35);
     transition: background .25s, color .25s; font: inherit; }
   .sn-aba svg { width: 18px; height: 11px; fill: currentColor; flex: none; }
   .sn-aba span { writing-mode: vertical-rl; transform: rotate(180deg); font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }

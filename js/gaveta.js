@@ -132,7 +132,16 @@
       pi.style.maxHeight = Math.floor(cabe) + 'px';
     };
     var snAbre = function(sim){ sn.classList.toggle('aberta', sim); sa.setAttribute('aria-expanded', sim ? 'true' : 'false'); snMede(); };
-    addEventListener('scroll', snMede, {passive: true}); addEventListener('resize', snMede);
+    /* encostada em cima: sobe o respiro do .page-layout (fica colada na faixa de cima, a migalha) e, rolando, prende na
+       base do cabecalho fixo */
+    var cab = document.querySelector('header.barra, .header');
+    var snCola = function(){
+      if(innerWidth <= 900){ sn.style.marginTop = ''; sn.style.top = ''; return; }
+      if(lay) sn.style.marginTop = -parseFloat(getComputedStyle(lay).paddingTop || 0) + 'px';
+      if(cab) sn.style.top = Math.max(0, Math.round(cab.getBoundingClientRect().bottom)) + 'px';
+    };
+    snCola();
+    addEventListener('scroll', function(){ snCola(); snMede(); }, {passive: true}); addEventListener('resize', function(){ snCola(); snMede(); });
     sa.addEventListener('click', function(){ snAbre(!sn.classList.contains('aberta')); });
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape') snAbre(false); });
     document.addEventListener('pointerdown', function(e){ if(sn.classList.contains('aberta') && !sn.contains(e.target)) snAbre(false); });
