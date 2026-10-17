@@ -49,8 +49,11 @@ FOTOS = [
      '{"brilhoTom":0.27,"gama":0.86,"ctr":1.7,"escuro":1,"limiar":0,"veu":0.1,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}', 'Serviços'),
 ]
 
-TITULO = ('O portfólio da Ideal Metrics se organiza em três entradas: o setor da organização, o tema de gestão e a norma '
-          'ou padrão a atender.')
+# 17/10/2026: «Consultoria, auditoria, treinamento, inspeções para organizações», e logo abaixo, menor, a chamada para a
+# pesquisa aplicada, com link (era «O portfolio da Ideal Metrics se organiza em tres entradas...», recusado: slogan)
+TITULO = 'Consultoria, auditoria, treinamento, inspeções para organizações.'
+PESQUISA = ('<p class="gs-pesquisa"><a href="estudos-pesquisa.html">Consulte a frente de pesquisa aplicada a setores '
+            '&rarr;</a></p>')
 FLUXO = ('<div class="mp-fluxo" aria-hidden="true"><span>Setor</span><i></i><span>Tema de gestão</span><i></i>'
          '<span>Norma ou padrão</span><i></i><span>Página do serviço</span></div>')
 ROTULO = '<p class="mp-rotulo"><span>Por onde começar</span><span>[ GUIA ]</span></p>'
@@ -86,6 +89,7 @@ def sanfona(S):
     o = ['  <div class="gs" id="guiaSetores">',
          '    <div class="gs-cab">',
          '      <h2 class="mp-titulo" id="mp-titulo">%s</h2>' % TITULO,
+         '      ' + PESQUISA,
          '      ' + FLUXO,
          '    </div>',
          '    <div class="sv-line" aria-hidden="true"></div>',
@@ -123,6 +127,9 @@ CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/20
    direita; a coluna so se solta quando o fim da sanfona chega ao fim dela */
 .gs-cab{grid-column:1/7;grid-row:1/3;align-self:start;position:sticky;top:120px;padding-right:40px}
 .gs-cab .mp-titulo{margin-top:0}
+.gs-pesquisa{margin:14px 0 0;font-family:var(--sans);font-size:18px;color:var(--azul-escuro)}
+.gs-pesquisa a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(20,48,76,.3)}
+.gs-pesquisa a:hover{color:var(--azul);border-bottom-color:var(--azul)}
 .gs .sv-line{grid-row:1/3}
 .gs .sv-title{grid-column:7/-1;grid-row:1;display:block;background:none;margin-top:6px}
 .gs .sv-list{grid-row:2}
