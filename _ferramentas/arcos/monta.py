@@ -53,7 +53,7 @@ CSS_CAB = r"""
 .ar-legenda li::before{content:"";width:26px;border-top:1px solid rgba(20,48,76,.55)}
 .ar-legenda .ar-leg-i::before{border-top-style:dashed}
 .ar-legenda .ar-leg-i::before{border-top-color:var(--im-vermelho,#EF4545)}
-.ar-dir{display:flex;flex-direction:column;align-items:flex-end;gap:34px}
+.ar-dir{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;align-self:stretch;gap:6px}   /* 17/10: botão no alto do título, legenda na linha de base da última linha */
 .ar-painel{display:flex;align-items:center;justify-content:space-between;gap:18px;width:390px;max-width:100%;
   padding:12px 16px;border:1px solid var(--azul);border-radius:3px;text-decoration:none;color:var(--azul);
   font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
