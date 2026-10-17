@@ -258,7 +258,7 @@ def mapa_v():
     return D.svg('10 40 1362 %d' % (yl + 18 - 40), 'ln-svg--v', 'Temas de gestão e normas, versão vertical')
 
 
-FRASE = 'Cada tema parte do sistema de gestão pela norma ISO que os une.'
+FRASE = 'Temas por gestão e normas'   # 17/10/2026, pedido do Leandro (era «Cada tema parte do sistema de gestão pela norma ISO que os une.»)
 
 
 def bloco(svg, extra='', camadas=''):
@@ -276,7 +276,7 @@ CSS = r"""
    negrito; todo texto na tinta, sem cor. No hover de um ramal os outros recuam pelo texto e pelo traco; o fundo
    das etiquetas fica opaco, para o eixo nunca passar por cima delas. */
 .ln{margin:28px 0 0}
-.ln-frase{margin:0 0 10px;max-width:62ch;font-family:var(--sans);font-size:16px;line-height:1.4;color:var(--azul);text-wrap:pretty}
+.ln-frase{margin:0 0 64px;max-width:62ch;font-family:var(--sans);font-size:16px;line-height:1.4;color:var(--azul);text-wrap:pretty}
 .ln-rola{overflow-x:auto}
 .ln-svg{display:block;width:100%;height:auto}
 .ln-svg line,.ln-svg rect{vector-effect:non-scaling-stroke}

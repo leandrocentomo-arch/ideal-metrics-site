@@ -309,7 +309,7 @@ def svg(L):
     return '\n'.join(o)
 
 
-TITULO = 'A <b class="ar-marca">ideal-m</b> garante a adequação de organizações a normas e padrões setoriais'
+TITULO = 'Adequação de organizações a normas e padrões setoriais.'   # 17/10/2026, pedido do Leandro (era «A ideal-m garante a adequação...», slogan)
 
 
 def cabecalho(rotulo='Conhecimento / [ IM.2 ]', hid='ar-titulo'):

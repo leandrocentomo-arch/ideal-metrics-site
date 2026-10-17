@@ -89,8 +89,8 @@ def sanfona(S):
     o = ['  <div class="gs" id="guiaSetores">',
          '    <div class="gs-cab">',
          '      <h2 class="mp-titulo" id="mp-titulo">%s</h2>' % TITULO,
-         '      ' + PESQUISA,
          '      ' + FLUXO,
+         '      ' + PESQUISA,
          '    </div>',
          '    <div class="sv-line" aria-hidden="true"></div>',
          '    <div class="sv-title" aria-hidden="true"><div class="sv-title-b">Setores atendidos</div></div>',
@@ -127,7 +127,10 @@ CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/20
    direita; a coluna so se solta quando o fim da sanfona chega ao fim dela */
 .gs-cab{grid-column:1/7;grid-row:1/3;align-self:start;position:sticky;top:120px;padding-right:40px}
 .gs-cab .mp-titulo{margin-top:0}
-.gs-pesquisa{margin:14px 0 0;font-family:var(--sans);font-size:18px;color:var(--azul-escuro)}
+/* 17/10/2026: «o consulte a frente poderia ficar em baixo»: a coluna presa ocupa a altura da tela e a chamada vai
+   para o pe dela, na altura da ultima linha da sanfona */
+.gs-cab{display:flex;flex-direction:column;min-height:calc(100svh - 170px);padding-bottom:38px}   /* 17/10/2026: «alinhado com Servicos e setor publico, ultima frase com a ultima frase»: 38 px poe a linha de base da chamada na do ultimo item */
+.gs-pesquisa{margin:auto 0 0;padding-top:40px;font-family:var(--sans);font-size:18px;color:var(--azul-escuro)}
 .gs-pesquisa a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(20,48,76,.3)}
 .gs-pesquisa a:hover{color:var(--azul);border-bottom-color:var(--azul)}
 .gs .sv-line{grid-row:1/3}
@@ -139,7 +142,7 @@ CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/20
 .gs .sv-item-title{font-weight:600;padding-right:12px}
 .gs-num{display:inline-block;min-width:44px;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.1em;color:var(--azul)}
 .gs ~ .mp-grade{margin-top:230px}
-@media (max-width:880px){ .gs-cab{position:static;grid-column:1/-1;grid-row:auto;padding-right:0}
+@media (max-width:880px){ .gs-cab{position:static;grid-column:1/-1;grid-row:auto;padding-right:0;min-height:0;padding-bottom:0}
   .gs .sv-title{grid-column:1/-1;grid-row:auto;margin-top:40px} .gs .sv-list{grid-row:auto;margin-top:20px}
   .gs ~ .mp-grade{margin-top:156px} }
 /* ===== fim GUIA SETORES ===== */

@@ -196,9 +196,10 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
   letter-spacing:-.012em;max-width:46ch;text-wrap:balance}
 .mp-fluxo{display:flex;align-items:center;gap:14px;margin:36px 0 0;font-family:var(--mono);font-size:11px;
   letter-spacing:.14em;text-transform:uppercase;color:var(--azul-escuro)}
-.mp-fluxo i{flex:1 1 40px;max-width:120px;height:1px;background:var(--fio);position:relative}
-.mp-fluxo i::after{content:"";position:absolute;right:0;top:-3px;width:7px;height:7px;border-top:1px solid var(--azul-escuro);
-  border-right:1px solid var(--azul-escuro);transform:rotate(45deg)}
+/* 17/10/2026: «faca estas setas mais delicadas, um pouco menor»: fio mais curto e mais claro, ponta de 4 px (era 7) */
+.mp-fluxo i{flex:1 1 28px;max-width:72px;height:1px;background:rgba(20,48,76,.14);position:relative}
+.mp-fluxo i::after{content:"";position:absolute;right:0;top:-2px;width:4px;height:4px;border-top:1px solid rgba(20,48,76,.45);
+  border-right:1px solid rgba(20,48,76,.45);transform:rotate(45deg)}
 .mp-grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 44px;margin-top:40px}
 /* 13/10/2026: «de um espaco maior, o tamanho do espaco das secoes, para comecar a secao de baixo»: entre a grade dos
    setores e as tres entradas, o mesmo vao que separa a Frentes do Guia (230 px; no celular, 156 px) */
