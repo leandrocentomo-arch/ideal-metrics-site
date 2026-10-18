@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Uma foto de pagina interna no TINGIMENTO AZUL (o oficial do site desde 02/10/2026).
 
-    python _ferramentas/foto_azul.py <cru.jpg> <nome> [--larg 562 --alt 422] [--px 50 --py 50] [--gama 1.0]
+    python _ferramentas/foto_azul.py <cru.jpg> <nome> [--larg 562 --alt 422] [--px 50 --py 50] [--zoom 1.0] [--gama 1.0]
 
 Sai o par que o motor js/trama.js usa:
   img/<nome>-lum.webp     a luminancia (Rec.709), 1,6x a reserva: e o que o motor trama ao vivo
@@ -41,8 +41,8 @@ def lut():
     return L
 
 
-def recorte(im, W, H, px, py):
-    e = max(W / im.width, H / im.height)
+def recorte(im, W, H, px, py, zoom=1.0):
+    e = max(W / im.width, H / im.height) * zoom      # 18/10/2026: --zoom (aba [ 12 ] Blog do Spirit)
     r = im.resize((max(W, round(im.width * e)), max(H, round(im.height * e))), Image.LANCZOS)
     x0 = round((r.width - W) * px / 100.0); y0 = round((r.height - H) * py / 100.0)
     return r.crop((x0, y0, x0 + W, y0 + H))
@@ -138,10 +138,10 @@ def main():
         return da_receita(rec, sys.argv[1], sys.argv[2])
     cru, nome = sys.argv[1], sys.argv[2]
     W, H = arg('--larg', 562), arg('--alt', 422)
-    px, py, gama = arg('--px', 50.0), arg('--py', 50.0), arg('--gama', 1.0)
+    px, py, gama, zoom = arg('--px', 50.0), arg('--py', 50.0), arg('--gama', 1.0), arg('--zoom', 1.0)
     im = Image.open(cru).convert('RGB')
     def luz(w, h):
-        a = np.asarray(recorte(im, w, h, px, py), np.float32) / 255.0
+        a = np.asarray(recorte(im, w, h, px, py, zoom), np.float32) / 255.0
         return np.power(0.2126 * a[..., 0] + 0.7152 * a[..., 1] + 0.0722 * a[..., 2], gama)
     wl, hl = round(W * 1.6), round(H * 1.6)
     Image.fromarray(np.uint8(np.clip(np.rint(luz(wl, hl) * 255), 0, 255)), 'L').convert('RGB').save(
