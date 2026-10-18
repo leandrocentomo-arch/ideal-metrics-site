@@ -1141,6 +1141,23 @@
   </style>
 <script>document.documentElement.classList.add('js');window.addEventListener('load',function(){setTimeout(function(){if(!document.querySelector('.rot-sec.in-view,.sec.in-view')){var n=document.querySelectorAll('.rot-sec,.sec');for(var i=0;i<n.length;i++){n[i].classList.add('in-view');}}},1200);});</script>
 <link rel="stylesheet" href="css/barra.css?v=20">
+<style>/* 18/10/2026: «esta pagina pode ter o mesmo fundo creme, e tracos finos, seguindo a identidade do site»: creme FAF9F5, fio de 1 px rgba(20,48,76,.14), tinta 14304C, sem faixa lateral, sem sombra, tabela de linha fina */
+:root{--bg:#FAF9F5;--card:transparent;--border:rgba(20,48,76,.14);--ink:#14304C;--primary:#14304C}
+body,.hero-bg{background:#FAF9F5}
+.hero-bg::before{border-width:1px}
+.topbar{background:rgba(250,249,245,.95)}
+.topbar.scrolled{box-shadow:none}
+.sticky-aside{border-bottom:1px solid var(--primary)}
+.sec h3{border-left-width:1px}
+.pill.mandatory,.pill.additional{border-top-width:1px}
+.tl-dot,.eti-n{border-width:1px}
+.finding-bar{display:none}
+*:hover{box-shadow:none !important}
+thead{background:transparent}
+th{color:#14304C;border-bottom:1px solid #14304C;font-family:"IBM Plex Mono",monospace;font-weight:500}
+.sec svg :is(rect,circle,ellipse,polyline,polygon,line,path)[stroke]{stroke-width:1}
+.sec svg [fill="#ffffff"],.sec svg [fill="#fff"]{fill:#FAF9F5}
+</style>
 <style>.topbar{top:92px} .barra a,.veu-menu a,.tarja a{text-decoration:none} /* 18/10/2026: «nao precisa deste segundo logo» (saiu o .topbar-brand) e «a trava pare no limite do submenu, para podermos ler o numero» */ .topbar{min-height:50px} .topbar-links{margin-left:auto} @media (min-width:769px){html{scroll-padding-top:158px} .sticky-aside{top:calc(92px + 50px + 1.5rem)}}</style>
 </head>
 
