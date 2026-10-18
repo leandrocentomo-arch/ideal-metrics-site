@@ -180,11 +180,9 @@
   }
   var lead = document.getElementById('qcLead');
   if(lead){
-    /* o traco da busca espera a frase terminar; sem o efeito, ele pisca desde sempre */
-    if(caixa) caixa.classList.add('espera');
-    /* 18/10/2026: «tem que comecar a piscar antes da frase de baixo terminar»: acende com pouco mais da metade digitada */
-    var acende = function(){ if(caixa) caixa.classList.remove('espera'); };
-    digita(lead, acende, 0.6, acende);
+    /* 18/10/2026: «tem que comecar a piscar de imediato, sem nenhum delay»: o traco da busca pisca desde o carregamento
+       (antes esperava a frase de «O que fazemos» terminar, e por um momento, a metade dela) */
+    digita(lead, null, 0.6);
   }
   /* 13/10/2026 (3): a roleta saiu; a frase Construimos sistemas e o contato chegam com a coluna, que continua subindo
      enquanto a grade fica parada (css/setores.css, .qc-mat sticky) */
