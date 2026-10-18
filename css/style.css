@@ -3520,6 +3520,7 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
    No celular (ate 900 px) continua a lista de botoes de sempre. ---- */
 @media (min-width: 901px) {
   .page-layout { grid-template-columns: 40px minmax(0, 1fr); gap: 2.4rem; }
+  .page-layout.sem-nav { grid-template-columns: minmax(0, 1fr); }   /* 18/10/2026: pagina sem navegacao lateral (contato.html: «nesta pagina nao precisa de navegacao») */
   .sidenav { top: 92px; min-height: 140px;   /* 17/10/2026: «a navegacao encostasse em cima, na parte ja do banner, para nao dar a impressao de que esta flutuando»: pendurada no alto do .page-layout (o js tira o respiro de cima) e, rolando, presa na base do cabecalho (o js mede) */
     max-height: none; overflow: visible; padding: 0; z-index: 60; }   /* a altura da etiqueta: no fim da pagina ela sobe junto com o texto e nao invade o rodape */
   .sidenav > :not(.sn-caixa) { display: none; }

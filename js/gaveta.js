@@ -65,7 +65,7 @@
   var wa = document.createElement('div');
   wa.className = 'wa oculto'; wa.id = 'wa';
   wa.innerHTML = '<div class="wa-cartao" id="waCartao"><div class="wa-dentro"><p class="wa-rot">Atendimento pelo WhatsApp</p>' +
-    '<p class="wa-num">+55 11 95468-4086</p><a class="wa-ir" href="' + WA + '" target="_blank" rel="noopener">Abrir conversa &rarr;</a></div></div>' +
+    '<p class="wa-num">Fale conosco</p><a class="wa-ir" href="' + WA + '" target="_blank" rel="noopener">Abrir conversa &rarr;</a></div></div>' +
     '<button type="button" class="wa-aba" id="waAba" aria-expanded="false" aria-controls="waCartao" aria-label="WhatsApp da Ideal Metrics"><img src="img/WhatsApp_Logo_White.svg" alt=""><span>WhatsApp</span></button>';
   document.body.appendChild(wa);
   var waAba = document.getElementById('waAba');
