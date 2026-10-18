@@ -732,7 +732,7 @@ img { max-width: 100%; display: block; }
 /* 17/10/2026: o blog da CQT trazido para a Ideal Metrics (_ferramentas/blog.py). Cartao = link, com a foto no motor da
    trama (.bl-quadro, 4:3) e o rotulo do tema por cima; o post tem o texto numa coluna de leitura e tres outros posts. */
 a.blog-card { display: block; color: inherit; text-decoration: none; }
-.blog-card .blog-card-img { height: auto; aspect-ratio: 4 / 3; background: var(--color-bg-alt); overflow: hidden; border-radius: 3px; }
+.blog-card .blog-card-img { height: auto; aspect-ratio: 8 / 3;  /* 18/10/2026: metade da altura (era 4 / 3) */ background: var(--color-bg-alt); overflow: hidden; border-radius: 3px; }
 .blog-card .blog-card-img .category { z-index: 2; background: rgba(20,48,76,.78); font-family: 'IBM Plex Mono', monospace; letter-spacing: .12em; padding: 3px 8px; border-radius: 2px; }
 .bl-quadro { position: absolute; inset: 0; overflow: hidden; }
 .bl-quadro img, .bl-gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
