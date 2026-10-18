@@ -141,7 +141,10 @@
       medidor.style.font = cs.font; medidor.style.letterSpacing = cs.letterSpacing;
       medidor.textContent = campo.value.slice(0, campo.selectionStart || campo.value.length);
       var recuo = parseFloat(cs.paddingLeft) || 0;
-      caret.style.left = Math.min(recuo * (campo.value ? 1 : 0) + medidor.offsetWidth, campo.clientWidth - 8) + 'px';
+      /* 18/10/2026: «o cursor nao deve encostar na borda da esquerda, deve ter um pequeno gap»: com o campo vazio ele
+         fica logo antes do texto de exemplo, a 4 px dele (era left 0, colado na borda da caixa) */
+      var vazio = Math.max(6, recuo - caret.offsetWidth - 4);
+      caret.style.left = Math.min(campo.value ? recuo + medidor.offsetWidth : vazio, campo.clientWidth - 8) + 'px';
     }
     move();
     campo.addEventListener('focus', function(){ caixa.classList.add('foco'); move(); });
@@ -155,7 +158,7 @@
      na tela. A frase da segunda secao fica no data-texto, entao o HTML continua legivel.
      Serve a frase «O que fazemos» e o titulo do painel Demandas (dmLead). */
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
-  function digita(el, aoFim, ritmo){
+  function digita(el, aoFim, ritmo, aoMeio){
     ritmo = ritmo || 1;   /* 10/10/2026: multiplica o tempo de cada tecla; a frase de «O que fazemos» usa 0,6 («mais rapida») */
     var texto = el.getAttribute('data-texto') || el.textContent;
     var alvo = document.createElement('span'), cur = document.createElement('span');
@@ -167,6 +170,7 @@
     function tecla(){
       if(i >= texto.length){ el.classList.remove('digitando'); el.classList.add('qc-feita');   /* 08/10/2026: era 'pronta', que colide com o body.pronta da abertura */ el.style.minHeight = ''; if(aoFim) aoFim(); return; }
       var c = texto.charAt(i++); alvo.textContent += c;
+      if(aoMeio && i === Math.floor(texto.length * .55)){ aoMeio(); aoMeio = null; }   /* 18/10/2026 */
       setTimeout(tecla, ((c === '.' || c === ',') ? 149.5 : 34.5) * ritmo);   /* 08/10/2026: 15% mais lento (era 130/30) */   /* 28/09: 22/90, depois 36/160 («mais devagar»), depois «um pouco mais rapido» */
     }
     var obs = new IntersectionObserver(function(es){
@@ -178,7 +182,9 @@
   if(lead){
     /* o traco da busca espera a frase terminar; sem o efeito, ele pisca desde sempre */
     if(caixa) caixa.classList.add('espera');
-    digita(lead, function(){ if(caixa) caixa.classList.remove('espera'); }, 0.6);
+    /* 18/10/2026: «tem que comecar a piscar antes da frase de baixo terminar»: acende com pouco mais da metade digitada */
+    var acende = function(){ if(caixa) caixa.classList.remove('espera'); };
+    digita(lead, acende, 0.6, acende);
   }
   /* 13/10/2026 (3): a roleta saiu; a frase Construimos sistemas e o contato chegam com a coluna, que continua subindo
      enquanto a grade fica parada (css/setores.css, .qc-mat sticky) */
