@@ -228,7 +228,9 @@ def mapa_h():
     # as linhas proprias na faixa horizontal, CENTRALIZADA como na versao vertical («como feito no modulo vertical»),
     # 116 abaixo dos ramais e 96 entre as fileiras («distancia maior»)
     fim = D.faixa(fundo + 116, centro=(XL + XR) / 2, d0=520 + 80 * len(D.sat) + 200) + PH / 2 + 2
-    vb = (10, 6, 1362, fim + 8 - 6)
+    # 18/10/2026: «esta parte eu quero que fique centralizada na pagina». O desenho vai de 16 a 1216 (medido no navegador,
+    # getBBox); o quadro continua com 1362 de largura (a mesma escala) e comeca em -65, para sobrar o mesmo dos dois lados
+    vb = (-65, 6, 1362, fim + 8 - 6)
     return D.svg('%d %d %d %d' % vb, 'ln-svg--h', 'Temas de gestão e normas, a partir do sistema de gestão ISO')
 
 
