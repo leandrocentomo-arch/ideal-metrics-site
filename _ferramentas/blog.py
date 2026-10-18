@@ -15,7 +15,7 @@ import os, re, json, html
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-V = '18102026b'
+V = '18102026c'
 MES = ['jan.', 'fev.', 'mar.', 'abr.', 'mai.', 'jun.', 'jul.', 'ago.', 'set.', 'out.', 'nov.', 'dez.']
 MOTOR = r"""<script>
 /* blog: as fotos passam pelo motor da trama, no tom azul do site */
