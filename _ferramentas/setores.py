@@ -6,7 +6,7 @@
 Faz, de forma idempotente:
   1. grava js/setores-dados.js (window.IM_SETORES), lido pelo filtro (js/setores-filtro.js);
   2. reescreve o miolo (<div class="content">) das nove paginas setor-*.html;
-  3. poe o filtro em servicos.html, entre marcadores (na home saiu em 14/10/2026; ali ficam so os dados);
+  3. tira o filtro de servicos.html (saiu em 18/10/2026) e da home (saiu em 14/10/2026; ali ficam so os dados);
   4. poe na home, logo abaixo da frase de «O que fazemos», o mosaico de normas e padroes (js/setores-mosaico.js);
   5. liga css/setores.css nas oito paginas e os scripts onde cabem.
 
@@ -439,7 +439,10 @@ def main():
     gravar('index.html', s)
     s = ler('servicos.html')
     s = liga_css(s)
-    s = poe_filtro(s, '<h2>PADRÕES E CONFORMIDADE</h2>', False)
+    # 18/10/2026: o filtro saiu tambem de Todos os servicos («nao quero este filtro tambem»; o Guia da gaveta ja faz o
+    # caminho setor > tema > norma). Sai o filtro e os dois scripts; os dados nao sao usados nesta pagina.
+    s = poe_filtro(s, '<h2>PADRÕES E CONFORMIDADE</h2>', False, filtro=False).replace(DADOS + '
+</body>', '</body>', 1)
     gravar('servicos.html', s)
     print('ok: %d setores, %d normas, %d transversais' % (len(SETORES), len(NORMAS), len(TRANSVERSAIS)))
 
