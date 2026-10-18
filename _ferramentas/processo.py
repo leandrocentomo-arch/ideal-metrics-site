@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """A secao «Processo» da home (index.html, [IM.3]) como DIAGRAMA, 14/10/2026.
 
-    python _ferramentas/processo.py        reescreve o diagrama na pagina implantacao-iso.html (idempotente)
+    python _ferramentas/processo.py        reescreve o diagrama na pagina como-trabalhamos.html (idempotente; 18/10/2026)
     (17/10/2026: saiu da home; antes ficava no index.html como a secao [IM.3])
 
 Historia: eram cinco cartoes empilhados que se inclinavam na rolagem; no mesmo dia foram para a horizontal («encaixando
@@ -23,7 +23,7 @@ etapa sobe do seu no. Esse CSS e esse JS moram no bloco da secao Conhecimento: s
 
 No celular (ate 880 px) o desenho da lugar a uma lista numerada com o mesmo conteudo."""
 
-import os, sys
+import os, sys, re
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
@@ -258,22 +258,35 @@ def bloco_pagina():
 
 
 def main():
-    """17/10/2026: o diagrama vive no TOPO da pagina de Implantacao ISO, entre a migalha e o .page-layout (menu lateral
-    e texto), entre os marcadores do bloco (idempotente). Na primeira vez, sai de onde estava (abaixo de «Etapas da
-    implantacao», no meio do texto) e o titulo «Etapas da implantacao» do texto sai junto (virou o rotulo do bloco)."""
-    p = os.path.join(SITE, 'implantacao-iso.html')
-    raw = open(p, 'rb').read(); crlf = b'\r\n' in raw
-    t = raw.decode('utf-8').replace('\r\n', '\n')
+    """18/10/2026: o diagrama mudou para o TOPO de «Como trabalhamos» («essa parte fica melhor em Como trabalhamos»), entre
+    a migalha e o .page-layout, entre os marcadores do bloco (idempotente), e substitui a lista «As etapas de um projeto»
+    (as mesmas cinco etapas). Sai da pagina de Implantacao ISO, onde ficou de 17/10/2026 a 18/10/2026."""
     ini, fim = '<!-- ===== processo (gerado', '<!-- ===== fim processo ===== -->'
-    if ini in t:
-        i, j = t.index(ini), t.index(fim) + len(fim)
-        t = t[:i] + t[j:].lstrip('\n')
-    t = t.replace('<hr class="section-divider">\n\n<h3>Etapas da implantação</h3>\n', '', 1)
+
+    def le(nome):
+        p = os.path.join(SITE, nome)
+        raw = open(p, 'rb').read()
+        return p, b'\r\n' in raw, raw.decode('utf-8').replace('\r\n', '\n')
+
+    def grava(p, crlf, t):
+        open(p, 'wb').write((t.replace('\n', '\r\n') if crlf else t).encode('utf-8'))
+
+    def tira(t):
+        if ini in t:
+            i, j = t.index(ini), t.index(fim) + len(fim)
+            t = t[:i] + t[j:].lstrip('\n')
+        return t
+
+    p, crlf, t = le('implantacao-iso.html')
+    grava(p, crlf, tira(t))
+    p, crlf, t = le('como-trabalhamos.html')
+    t = tira(t)
+    t = re.sub(r'<h3>As etapas de um projeto</h3>\n<div class="numbered-items">\n.*?</div>\n</div>\n\n', '', t, count=1, flags=re.S)
     a = '<div class="page-layout">'
     assert t.count(a) == 1
     t = t.replace(a, bloco_pagina() + '\n' + a, 1)
-    open(p, 'wb').write((t.replace('\n', '\r\n') if crlf else t).encode('utf-8'))
-    print('implantacao-iso.html: diagrama do Processo no topo')
+    grava(p, crlf, t)
+    print('como-trabalhamos.html: diagrama do Processo no topo (saiu da implantacao-iso.html)')
 
 
 if __name__ == '__main__':
