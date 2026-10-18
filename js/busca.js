@@ -178,11 +178,40 @@
     }, {threshold: .35});
     obs.observe(el);
   }
+  /* 18/10/2026: «troque o efeito desta frase, nao quero typewrite». A frase de «O que fazemos» entra LINHA A LINHA:
+     cada linha sobe de tras de uma mascara (0,9 s, 130 ms entre uma e outra) quando a frase aparece na tela. As linhas
+     sao medidas no lugar (a quebra e a do proprio paragrafo); terminada a entrada, o texto volta a ser texto corrido,
+     para quebrar de novo se a janela mudar. Sem JS ou com movimento reduzido, a frase ja esta la. */
+  function linhas(el){
+    var texto = el.getAttribute('data-texto') || el.textContent;
+    var pal = texto.split(' ');
+    el.innerHTML = pal.map(function(w){ return '<span class="ql-w">' + w + '</span>'; }).join(' ');
+    var grupos = [], topo = null;
+    [].forEach.call(el.querySelectorAll('.ql-w'), function(w, i){
+      var t = w.offsetTop;
+      if(topo === null || Math.abs(t - topo) > 4){ grupos.push([]); topo = t; }
+      grupos[grupos.length - 1].push(pal[i]);
+    });
+    el.setAttribute('aria-label', texto);
+    el.innerHTML = grupos.map(function(g, i){
+      return '<span class="ql-l" aria-hidden="true"><span class="ql-i" style="transition-delay:' + (i * 130) + 'ms">' + g.join(' ') + '</span></span>';
+    }).join('');
+    el.classList.add('ql-pronta');
+    var obs = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        obs.disconnect();
+        requestAnimationFrame(function(){ el.classList.add('ql-vis'); });
+        setTimeout(function(){ el.classList.remove('ql-pronta', 'ql-vis'); el.removeAttribute('aria-label'); el.textContent = texto; }, 900 + grupos.length * 130 + 200);
+      });
+    }, {threshold: .35});
+    obs.observe(el);
+  }
   var lead = document.getElementById('qcLead');
   if(lead){
     /* 18/10/2026: «tem que comecar a piscar de imediato, sem nenhum delay»: o traco da busca pisca desde o carregamento
        (antes esperava a frase de «O que fazemos» terminar, e por um momento, a metade dela) */
-    digita(lead, null, 0.6);
+    linhas(lead);
   }
   /* 13/10/2026 (3): a roleta saiu; a frase Construimos sistemas e o contato chegam com a coluna, que continua subindo
      enquanto a grade fica parada (css/setores.css, .qc-mat sticky) */

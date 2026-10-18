@@ -1380,6 +1380,10 @@ body>*{position:relative;z-index:1}
 /* 28/09: enquanto digita, sem text-wrap:balance (ele rearranjaria as linhas a cada letra) */
 .digitando{text-wrap:wrap}
 @keyframes qcPisca{to{visibility:hidden}}
+/* 18/10/2026: a frase de «O que fazemos» entra linha a linha, subindo de tras de uma mascara (js/busca.js, linhas()) */
+.ql-pronta .ql-l{display:block;overflow:clip;overflow-clip-margin:.18em}
+.ql-pronta .ql-i{display:block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.ql-pronta.ql-vis .ql-i{transform:none}
 /* 24/09/2026: a SUPER BUSCA mora na segunda secao, ao lado de «O que fazemos»,
    que estava vazia do meio para a direita. O indice e busca-indice.json, gerado
    por _ferramentas/busca.py e baixado so quando a pessoa digita a primeira letra. */
@@ -4582,7 +4586,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   })();
 })();
 </script>
-<script src="js/busca.js?v=16"></script>
+<script src="js/busca.js?v=19"></script>
 <script src="js/setores-dados.js?v=20"></script>
 <script src="js/setores-matriz.js?v=20"></script>
 <script src="js/gaveta.js?v=7" defer></script>
