@@ -1410,6 +1410,16 @@ body>*{position:relative;z-index:1}
 .qc-busca-caixa .qc-caret{opacity:1;background:#14304C}
 /* 28/09: o traco da busca so acende quando a frase acaba de ser digitada (busca.js poe .espera na caixa) */
 .qc-busca-caixa.espera .qc-caret{visibility:hidden;animation:none}
+/* 18/10/2026: «o campo de busca destacado antes de clicar; sombreado para dentro, com os cantos 3px». Em repouso:
+   caixa de cantos 3 px, sombra interna suave e fio fino em volta (no lugar do fio so embaixo). Ativo: sombra
+   interna mais funda e fio no azul. */
+.qc-busca-caixa{border-radius:3px;background:rgba(20,48,76,.025);
+  box-shadow:inset 0 2px 5px rgba(20,48,76,.14),inset 0 0 0 1px rgba(20,48,76,.16)}
+.qc-busca-caixa input,.qc-busca-caixa input:focus{border-bottom:none;padding:12px 14px 12px calc(14px + .8em)}
+.qc-busca-caixa .qc-caret{left:14px;top:13px}
+.qc-busca-caixa.foco{background:rgba(51,102,153,.05);
+  box-shadow:inset 0 2px 7px rgba(20,48,76,.22),inset 0 0 0 1px #336699}
+.qc-busca-caixa.foco input{padding-left:calc(14px + .9em)}
 .qc-busca:focus-within .qc-busca-rot{color:var(--azul)}
 .qc-res{list-style:none;margin:8px 0 0;padding:0;max-height:300px;overflow-y:auto}
 .qc-res li{border-bottom:1px solid rgba(20,48,76,.14)}
