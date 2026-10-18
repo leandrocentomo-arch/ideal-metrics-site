@@ -19,7 +19,7 @@ y = np.linspace(0, 1, H)[:, None]
 t = np.clip((x - 0.38) / 0.18, 0, 1)
 t = t * t * (3 - 2 * t)                                   # smoothstep: entra e sai sem quina
 base = 0.55 - 0.11 * np.clip((x - 0.47) / 0.53, 0, 1)    # 0,55 a 0,44, como o padrao
-lum = np.clip(1.0 * (1 - t) + base * t, 0, 1)
+lum = np.clip(1.0 * (1 - t) + base * t, 0, 1) * np.ones_like(y)   # 2D: sem o y a imagem saia com 1 px de altura
 Image.fromarray(np.uint8(np.rint(lum * 255)), 'L').convert('RGB').save(
     os.path.join(SITE, 'img', 'banner-conteudo-lum.webp'), 'WEBP', quality=92, method=6)
 print('img/banner-conteudo-lum.webp', W, 'x', H)
