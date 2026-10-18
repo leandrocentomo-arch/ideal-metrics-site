@@ -208,6 +208,18 @@
     obs.observe(el);
   }
   var lead = document.getElementById('qcLead');
+  /* 18/10/2026: «quero que a caixa acabe aqui»: o campo de busca termina onde comeca a coluna de «O que fazemos»
+     (a frase e o rotulo «Consultoria de apoio»), medido a cada redimensionar; no celular fica a largura toda (CSS). */
+  (function(){
+    var busca = document.querySelector('.qc-abre-linha>.qc-busca'); if(!busca || !lead) return;
+    function ajusta(){
+      if(innerWidth <= 880){ busca.style.width = busca.style.flexBasis = ''; return; }
+      var col = lead.getBoundingClientRect(); if(!col.width) return;
+      var w = Math.round(col.left - busca.getBoundingClientRect().left);
+      if(w > 200){ busca.style.width = busca.style.flexBasis = w + 'px'; }
+    }
+    ajusta(); addEventListener('resize', ajusta); addEventListener('load', ajusta);
+  })();
   if(lead){
     /* 18/10/2026: «tem que comecar a piscar de imediato, sem nenhum delay»: o traco da busca pisca desde o carregamento
        (antes esperava a frase de «O que fazemos» terminar, e por um momento, a metade dela) */
