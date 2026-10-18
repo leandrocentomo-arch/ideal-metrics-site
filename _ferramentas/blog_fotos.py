@@ -44,7 +44,14 @@ def main():
         subprocess.run([sys.executable, os.path.join(AQUI, 'foto_azul.py'), cru, f['post'], '--larg', str(W), '--alt', str(H),
                         '--px', str(f.get('px', 50)), '--py', str(f.get('py', 50)), '--zoom', str(f.get('zoom', 1)),
                         '--gama', str(f.get('gama', 1))], check=True)
+        # 18/10/2026: «a figura na pagina tem que ficar inteira»: a capa do post e a foto INTEIRA (sem o corte 8:3 do
+        # cartao), 760 de largura na proporcao do proprio arquivo, com a mesma exposicao
+        from PIL import Image
+        w, h = Image.open(cru).size
+        subprocess.run([sys.executable, os.path.join(AQUI, 'foto_azul.py'), cru, f['post'] + '-capa', '--larg', '760',
+                        '--alt', str(round(760 * h / w)), '--gama', str(f.get('gama', 1))], check=True)
         p['foto'], p['lum'], p['cru'] = f['post'] + '-bayer', f['post'] + '-lum', f['foto']
+        p['capa'], p['capa_lum'] = f['post'] + '-capa-bayer', f['post'] + '-capa-lum'
     json.dump(posts, open(p_json, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     p_blog = os.path.join(AQUI, 'blog.py')
     t = open(p_blog, encoding='utf-8').read()

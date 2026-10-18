@@ -743,7 +743,11 @@ a.blog-card:hover h3 { color: #336699; }
 .bl-post { padding: 56px max(40px, calc(50% - 580px)) 352px; }
 .bl-artigo { max-width: 760px; margin: 0 auto; color: #14304C; }
 .bl-meta { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .06em; color: #315275; margin: 0 0 22px; }
-.bl-capa { position: relative; aspect-ratio: 8 / 3;  /* 18/10/2026: a mesma vaga 8:3 do cartao (era 4 / 3) */ max-height: 460px; width: 100%; border-radius: 3px; margin: 0 0 36px; }
+.bl-capa { position: relative; width: 100%; border-radius: 3px; margin: 0 auto 36px; }  /* 18/10/2026: «a figura tem que ficar inteira»: proporcao da propria foto, no style do blog.py */
+/* 18/10/2026: banner das paginas de Conteudo (blog e posts), «trama sem foto, mais baixa»: metade da altura, titulo menor */
+.page-banner.bl-banner { min-height: 150px; padding-top: 30px; padding-bottom: 30px; }
+.page-banner.bl-banner h1 { font-size: clamp(24px, 2.2vw, 32px); line-height: 1.08; max-width: min(720px, 58%); }
+.page-banner.bl-banner p { font-size: 15px; margin-top: 4px; }
 .bl-texto p, .bl-texto li { font-size: 18px; line-height: 1.55; margin: 0 0 16px; }
 .bl-texto h3 { font-size: 22px; font-weight: 700; line-height: 1.25; margin: 36px 0 12px; color: #14304C; }
 .bl-texto ul { margin: 0 0 18px; padding-left: 22px; }

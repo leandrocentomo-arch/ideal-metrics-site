@@ -15,7 +15,7 @@ import os, re, json, html
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-V = '17102026'
+V = '18102026b'
 MES = ['jan.', 'fev.', 'mar.', 'abr.', 'mai.', 'jun.', 'jul.', 'ago.', 'set.', 'out.', 'nov.', 'dez.']
 MOTOR = r"""<script>
 /* blog: as fotos passam pelo motor da trama, no tom azul do site */
@@ -47,6 +47,21 @@ def leitura(p):
 def quadro(p, classe=''):
     return ('<div class="bl-quadro%s"><img src="img/%s.webp?v=%s" data-lum="img/%s.webp?v=%s" alt="" loading="lazy"></div>'
             % (classe, p['foto'], V, p['lum'], V))
+
+
+def capa(p):
+    """18/10/2026: «a figura na pagina tem que ficar inteira». A capa do post leva a proporcao da propria foto (a do
+    arquivo de luminancia), limitada a 460 px de altura pela largura; a foto nova da aba [ 12 ] do Spirit traz uma capa
+    inteira propria (campos capa e capa_lum, gerados pelo blog_fotos.py), sem o corte 8:3 do cartao."""
+    from PIL import Image
+    f, l = p.get('capa', p['foto']), p.get('capa_lum', p['lum'])
+    w, h = Image.open(os.path.join(SITE, 'img', l + '.webp')).size
+    return ('<div class="bl-quadro bl-capa" style="aspect-ratio:%d / %d;max-width:calc(460px * %d / %d)">'
+            '<img src="img/%s.webp?v=%s" data-lum="img/%s.webp?v=%s" alt="" loading="lazy"></div>' % (w, h, w, h, f, V, l, V))
+
+
+# 18/10/2026: «faca um banner diferente para a pagina de conteudo» (trama sem foto, mais baixa): blog.html e os posts
+BANNER = '<div class="page-banner bl-banner" data-lum="img/banner-conteudo-lum.webp?v=%s">' % V
 
 
 def cartao(p):
@@ -90,13 +105,14 @@ def main():
     t = t[:i] + grade + t[j:]
     t = re.sub(r'<script>\n/\* blog: as fotos passam pelo motor.*?</script>\n', '', t, flags=re.S)
     t = t.replace('<script src="js/gaveta.js', MOTOR + '\n<script src="js/gaveta.js', 1)
+    t = re.sub(r'<div class="page-banner[^"]*"[^>]*>', BANNER, t, count=1)
     open(p_blog, 'wb').write((t.replace('\n', '\r\n') if crlf else t).encode('utf-8'))
 
     # 2. uma pagina por post, na casca do blog.html
-    a = t.index('<div class="page-banner">'); b = t.index('</section>', a) + len('</section>')
+    a = t.index('<div class="page-banner'); b = t.index('</section>', a) + len('</section>')
     for k, p in enumerate(posts):
         outros = [q for q in posts if q is not p][:3]
-        miolo = ('<div class="page-banner"><h1>%s</h1><p>%s</p></div>\n'
+        miolo = (BANNER + '<h1>%s</h1><p>%s</p></div>\n'
                  '<div class="breadcrumb"><a href="index.html">Página Inicial</a> &gt; <a href="blog.html">Conteúdo</a> &gt; %s</div>\n'
                  '<section class="bl-post">\n<article class="bl-artigo">\n'
                  '<p class="bl-meta">Equipe Técnica Ideal Metrics &middot; %s &middot; %d min de leitura &middot; %s</p>\n'
@@ -104,7 +120,7 @@ def main():
                  '<p class="bl-volta"><a href="blog.html">&larr; Todo o conteúdo</a></p>\n</article>\n'
                  '<aside class="bl-mais" aria-label="Outros posts"><p class="bl-mais-rot">Outros posts</p>\n<div class="blog-grid bl-mais-grade">\n%s\n</div></aside>\n'
                  '</section>') % (e(p['titulo']), e(p['rotulo']), e(p['titulo']), data_br(p['data']), leitura(p), e(p['rotulo']),
-                                  quadro(p, ' bl-capa'), corpo(p), '\n'.join(cartao(q) for q in outros))
+                                  capa(p), corpo(p), '\n'.join(cartao(q) for q in outros))
         s = t[:a] + miolo + t[b:]
         s = re.sub(r'<title>.*?</title>', '<title>%s | Conteúdo | Ideal Metrics</title>' % e(p['titulo']), s, count=1)
         open(os.path.join(SITE, p['arquivo'] + '.html'), 'wb').write((s.replace('\n', '\r\n') if crlf else s).encode('utf-8'))
