@@ -60,13 +60,6 @@
   .content .vi-rola{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;max-width:100%}
   .content .vi-rola svg{min-width:var(--vi-min,0px)}
 }
-/* PDCA animado (06/10): ponto e rotulo das fases; o js esconde e revela */
-.pd-ponto{fill:var(--primary,#14304C)}
-.pd-rot{transition:opacity .45s ease}
-[data-pdca].pd-pronto .pd-rot{opacity:0}
-[data-pdca].pd-pronto .pd-rot.on{opacity:1}
-[data-pdca] .pd-traco{transition:stroke-dashoffset .6s ease}
-@media (prefers-reduced-motion:reduce){.pd-rot,[data-pdca] .pd-traco{transition:none}}
 /* fim css da pagina de norma */
 </style>
 <link rel="stylesheet" href="css/style.css?v=108">
@@ -239,37 +232,70 @@
 </figure>
 
 <figure class="ifc-fig vi-rola">
-<svg data-pdca="450,232,128" viewBox="0 0 900 452" style="max-width:900px;--vi-min:700px" role="img" aria-label="Como a ISO 9001:2026 organiza o sistema: no contexto da organização, o ciclo planejar, fazer, checar e agir em volta da liderança, com as questões internas e externas e as partes interessadas na entrada e os resultados pretendidos na saída">
-<rect class="ifc-aro" x="0.5" y="10" width="899" height="432" rx="3"/>
-<text class="ifc-svg-n" x="20" y="31" style="text-anchor:start">CONTEXTO DA ORGANIZAÇÃO (4)</text>
-<circle class="ifc-linha" cx="450" cy="232" r="128"/>
-<polyline class="ifc-linha" points="443.0,100.0 450.0,104.0 443.0,108.0"/>
-<polyline class="ifc-linha" points="457.0,364.0 450.0,360.0 457.0,356.0"/>
-<circle class="ifc-aro ifc-aro--f" cx="450" cy="232" r="70"/>
-<text class="ifc-svg-t" x="450" y="236">Liderança (5)</text>
-<circle class="pd-ponto" data-g="45" cx="540.5" cy="141.5" r="4.2"/>
-<g class="pd-rot" data-g="45"><text class="ifc-svg-n" x="556.1" y="111.9" style="text-anchor:start">P · PLANEJAR</text><text class="ifc-svg-t" x="556.1" y="129.9" style="text-anchor:start">Planejamento (6)</text></g>
-<circle class="pd-ponto" data-g="135" cx="540.5" cy="322.5" r="4.2"/>
-<g class="pd-rot" data-g="135"><text class="ifc-svg-n" x="556.1" y="348.1" style="text-anchor:start">D · FAZER</text><text class="ifc-svg-t" x="556.1" y="366.1" style="text-anchor:start">Suporte (7) e operação (8)</text></g>
-<circle class="pd-ponto" data-g="225" cx="359.5" cy="322.5" r="4.2"/>
-<g class="pd-rot" data-g="225"><text class="ifc-svg-n" x="343.9" y="348.1" style="text-anchor:end">C · CHECAR</text><text class="ifc-svg-t" x="343.9" y="366.1" style="text-anchor:end">Avaliação de desempenho (9)</text></g>
-<circle class="pd-ponto" data-g="315" cx="359.5" cy="141.5" r="4.2"/>
-<g class="pd-rot" data-g="315"><text class="ifc-svg-n" x="343.9" y="111.9" style="text-anchor:end">A · AGIR</text><text class="ifc-svg-t" x="343.9" y="129.9" style="text-anchor:end">Melhoria (10)</text></g>
-<g class="pd-lado"><text class="ifc-svg-n" x="40" y="188" style="text-anchor:start">4.1</text>
-<text class="ifc-svg-t" x="40" y="206" style="text-anchor:start">Questões internas e externas</text>
-<text class="ifc-svg-n" x="40" y="250" style="text-anchor:start">4.2</text>
-<text class="ifc-svg-t" x="40" y="268" style="text-anchor:start">Necessidades e expectativas</text>
-<text class="ifc-svg-t" x="40" y="284" style="text-anchor:start">das partes interessadas</text>
-<path class="ifc-linha" d="M236,201 H252 V279 H236"/>
-<path class="ifc-linha pd-traco" d="M252,232 H318"/>
-<polyline class="ifc-linha" points="311,228 318,232 311,236"/></g>
-<g class="pd-lado"><path class="ifc-linha pd-traco" d="M582,232 H668"/>
-<polyline class="ifc-linha" points="661,228 668,232 661,236"/>
-<text class="ifc-svg-n" x="684" y="214" style="text-anchor:start">SAÍDA</text>
-<text class="ifc-svg-t" x="684" y="232" style="text-anchor:start">Produtos e serviços conformes</text>
-<text class="ifc-svg-t" x="684" y="248" style="text-anchor:start">e cliente satisfeito</text></g>
+<svg viewBox="0 0 901 288" style="max-width:901px;--vi-min:700px" role="img" aria-label="Elementos de um único processo, segundo a ISO 9001:2026: fontes das entradas, entradas, atividades, saídas e receptores das saídas, com os controles e pontos de verificação para monitorar e medir o desempenho e a eficácia">
+<rect class="ifc-aro ifc-aro--f" x="0.5" y="44" width="164" height="150" rx="3"/>
+<text class="ifc-svg-n" x="82" y="64">ANTES</text>
+<text class="ifc-svg-t" x="82" y="88">Fontes das entradas</text>
+<text class="ifc-svg-p" x="82" y="112">Processos anteriores,</text>
+<text class="ifc-svg-p" x="82" y="128">fornecedores internos</text>
+<text class="ifc-svg-p" x="82" y="144">ou externos, clientes</text>
+<text class="ifc-svg-p" x="82" y="160">e outras partes</text>
+<text class="ifc-svg-p" x="82" y="176">interessadas</text>
+<line class="ifc-linha" x1="165" y1="119" x2="183" y2="119"/>
+<polyline class="ifc-linha" points="177,115 183,119 177,123"/>
+<rect class="ifc-aro ifc-aro--f" x="184.5" y="44" width="164" height="150" rx="3"/>
+<text class="ifc-svg-n" x="266" y="64">ENTRA</text>
+<text class="ifc-svg-t" x="266" y="88">Entradas</text>
+<text class="ifc-svg-p" x="266" y="112">Matéria, energia e</text>
+<text class="ifc-svg-p" x="266" y="128">informação:</text>
+<text class="ifc-svg-p" x="266" y="144">materiais, recursos</text>
+<text class="ifc-svg-p" x="266" y="160">e decisões</text>
+<line class="ifc-linha" x1="349" y1="119" x2="367" y2="119"/>
+<polyline class="ifc-linha" points="361,115 367,119 361,123"/>
+<rect class="ifc-aro ifc-aro--f" x="368.5" y="44" width="164" height="150" rx="3"/>
+<text class="ifc-svg-n" x="450" y="64">TRANSFORMA</text>
+<text class="ifc-svg-t" x="450" y="88">Atividades</text>
+<text class="ifc-svg-p" x="450" y="112">Transformam as</text>
+<text class="ifc-svg-p" x="450" y="128">entradas em saídas</text>
+<line class="ifc-linha" x1="533" y1="119" x2="551" y2="119"/>
+<polyline class="ifc-linha" points="545,115 551,119 545,123"/>
+<rect class="ifc-aro ifc-aro--f" x="552.5" y="44" width="164" height="150" rx="3"/>
+<text class="ifc-svg-n" x="634" y="64">SAI</text>
+<text class="ifc-svg-t" x="634" y="88">Saídas</text>
+<text class="ifc-svg-p" x="634" y="112">Matéria, energia e</text>
+<text class="ifc-svg-p" x="634" y="128">informação:</text>
+<text class="ifc-svg-p" x="634" y="144">produto, serviço</text>
+<text class="ifc-svg-p" x="634" y="160">e decisão</text>
+<line class="ifc-linha" x1="717" y1="119" x2="735" y2="119"/>
+<polyline class="ifc-linha" points="729,115 735,119 729,123"/>
+<rect class="ifc-aro ifc-aro--f" x="736.5" y="44" width="164" height="150" rx="3"/>
+<text class="ifc-svg-n" x="818" y="64">DEPOIS</text>
+<text class="ifc-svg-t" x="818" y="88">Receptores das saídas</text>
+<text class="ifc-svg-p" x="818" y="112">Processos seguintes,</text>
+<text class="ifc-svg-p" x="818" y="128">clientes internos ou</text>
+<text class="ifc-svg-p" x="818" y="144">externos e outras</text>
+<text class="ifc-svg-p" x="818" y="160">partes interessadas</text>
+<text class="ifc-svg-n" x="358" y="26">PONTO DE PARTIDA</text>
+<line class="ifc-linha" x1="358" y1="32" x2="358" y2="119"/>
+<text class="ifc-svg-n" x="542" y="26">PONTO FINAL</text>
+<line class="ifc-linha" x1="542" y1="32" x2="542" y2="119"/>
+<line class="ifc-linha" x1="82" y1="214" x2="818" y2="214"/>
+<line class="ifc-linha" x1="82" y1="214" x2="82" y2="195"/>
+<polyline class="ifc-linha" points="78,202 82,195 86,202"/>
+<line class="ifc-linha" x1="266" y1="214" x2="266" y2="195"/>
+<polyline class="ifc-linha" points="262,202 266,195 270,202"/>
+<line class="ifc-linha" x1="450" y1="214" x2="450" y2="195"/>
+<polyline class="ifc-linha" points="446,202 450,195 454,202"/>
+<line class="ifc-linha" x1="634" y1="214" x2="634" y2="195"/>
+<polyline class="ifc-linha" points="630,202 634,195 638,202"/>
+<line class="ifc-linha" x1="818" y1="214" x2="818" y2="195"/>
+<polyline class="ifc-linha" points="814,202 818,195 822,202"/>
+<line class="ifc-linha" x1="450" y1="214" x2="450" y2="234"/>
+<rect class="ifc-aro ifc-aro--f" x="200.5" y="234" width="500" height="48" rx="3"/>
+<text class="ifc-svg-t" x="450" y="255">Controles e pontos de verificação</text>
+<text class="ifc-svg-p" x="450" y="271">para monitorar e medir o desempenho e a eficácia do processo</text>
 </svg>
-<figcaption>Como a ISO 9001:2026 organiza o sistema (ciclo PDCA da norma)</figcaption>
+<figcaption>Elementos de um único processo (Figura 1 da ISO 9001:2026)</figcaption>
 </figure>
 
 <hr class="section-divider">
@@ -296,15 +322,15 @@
 <hr class="section-divider">
 <h3>Aplicação</h3>
 <div class="vi-fotos">
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/industria-bayer-st.webp?v=19102026a" data-lum="img/industria-lum-st.webp?v=19102026a" alt="" loading="lazy"></div><figcaption>Indústria</figcaption></figure>
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/servicos-bayer-st.webp?v=19102026a" data-lum="img/servicos-lum-st.webp?v=19102026a" alt="" loading="lazy"></div><figcaption>Serviços</figcaption></figure>
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/logistica-bayer-st.webp?v=19102026a" data-lum="img/logistica-lum-st.webp?v=19102026a" alt="" loading="lazy"></div><figcaption>Logística</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/qualidade-01-bayer-st.webp?v=19102026b" data-lum="img/qualidade-01-lum-st.webp?v=19102026b" alt="" loading="lazy"></div><figcaption>Indústria</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/qualidade-02-bayer-st.webp?v=19102026b" data-lum="img/qualidade-02-lum-st.webp?v=19102026b" alt="" loading="lazy"></div><figcaption>Serviços</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/qualidade-03-bayer-st.webp?v=19102026b" data-lum="img/qualidade-03-lum-st.webp?v=19102026b" alt="" loading="lazy"></div><figcaption>Comércio</figcaption></figure>
 </div>
 <ul>
-<li>Indústria de transformação com clientes que auditam fornecedores.</li>
-<li>Prestadores de serviço com contrato de nível de serviço.</li>
-<li>Participação em licitações e cadeias de grandes compradores.</li>
-<li>Operações com fornecedores críticos para controlar.</li>
+<li>Qualquer organização, seja qual for o tipo ou o porte.</li>
+<li>Indústria, comércio e prestação de serviço.</li>
+<li>Do pequeno negócio ao grupo com várias unidades.</li>
+<li>Organizações privadas e públicas.</li>
 </ul>
 
 <hr class="section-divider">
@@ -440,40 +466,6 @@
     var im = q.querySelector('img'); if(!im) return;
     window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});
-  });
-})();
-/* PDCA (06/10), no modelo do ciclo animado do Leandro: os pontos saem do topo e abrem em leque no sentido
-   horario (ease-in-out cubica, 1,4 s); cada fase aparece quando o primeiro ponto passa por ela; depois as setas
-   de entrada e de saida se desenham. Roda uma vez, quando a figura entra na tela. */
-(function(){
-  [].forEach.call(document.querySelectorAll('svg[data-pdca]'), function(svg){
-    var p = svg.getAttribute('data-pdca').split(',').map(Number), CX = p[0], CY = p[1], R = p[2];
-    var pontos = [].slice.call(svg.querySelectorAll('.pd-ponto')), rots = [].slice.call(svg.querySelectorAll('.pd-rot'));
-    var tracos = [].slice.call(svg.querySelectorAll('.pd-traco'));
-    var alvos = pontos.map(function(c){ return +c.getAttribute('data-g'); }), maxG = Math.max.apply(null, alvos);
-    function noAnel(g){ var a = g * Math.PI / 180; return [CX + R * Math.sin(a), CY - R * Math.cos(a)]; }
-    function suave(t){ return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-    function desenha(e){
-      pontos.forEach(function(c, i){ var q = noAnel(alvos[i] * e); c.setAttribute('cx', q[0].toFixed(1)); c.setAttribute('cy', q[1].toFixed(1)); });
-      rots.forEach(function(r){ if (+r.getAttribute('data-g') <= maxG * e + .5) r.classList.add('on'); });
-    }
-    var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduz || !('IntersectionObserver' in window)) return;      /* a figura ja esta no estado final */
-    svg.classList.add('pd-pronto');
-    tracos.forEach(function(t){ var L = t.getTotalLength(); t.style.strokeDasharray = L; t.style.strokeDashoffset = L; });
-    desenha(0);
-    function anima(){
-      var ini = null, DUR = 1400, ESPERA = 150;
-      function quadro(agora){
-        if (ini === null) ini = agora + ESPERA;
-        var t = Math.min(Math.max((agora - ini) / DUR, 0), 1); desenha(suave(t));
-        if (t < 1) requestAnimationFrame(quadro);
-        else tracos.forEach(function(tr){ tr.style.strokeDashoffset = 0; });
-      }
-      requestAnimationFrame(quadro);
-    }
-    var ob = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting){ ob.disconnect(); anima(); } }); }, {threshold:.45});
-    ob.observe(svg);
   });
 })();
 /* fim js da pagina de norma */

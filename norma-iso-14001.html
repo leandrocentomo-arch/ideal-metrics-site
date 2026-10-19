@@ -60,13 +60,6 @@
   .content .vi-rola{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;max-width:100%}
   .content .vi-rola svg{min-width:var(--vi-min,0px)}
 }
-/* PDCA animado (06/10): ponto e rotulo das fases; o js esconde e revela */
-.pd-ponto{fill:var(--primary,#14304C)}
-.pd-rot{transition:opacity .45s ease}
-[data-pdca].pd-pronto .pd-rot{opacity:0}
-[data-pdca].pd-pronto .pd-rot.on{opacity:1}
-[data-pdca] .pd-traco{transition:stroke-dashoffset .6s ease}
-@media (prefers-reduced-motion:reduce){.pd-rot,[data-pdca] .pd-traco{transition:none}}
 /* fim css da pagina de norma */
 </style>
 <link rel="stylesheet" href="css/style.css?v=108">
@@ -239,37 +232,70 @@
 </figure>
 
 <figure class="ifc-fig vi-rola">
-<svg data-pdca="450,232,128" viewBox="0 0 900 452" style="max-width:900px;--vi-min:700px" role="img" aria-label="Como a NBR ISO 14001:2026 organiza o sistema: no contexto da organização, o ciclo planejar, fazer, checar e agir em volta da liderança, com as questões internas e externas e as partes interessadas na entrada e os resultados pretendidos na saída">
-<rect class="ifc-aro" x="0.5" y="10" width="899" height="432" rx="3"/>
-<text class="ifc-svg-n" x="20" y="31" style="text-anchor:start">CONTEXTO DA ORGANIZAÇÃO (4)</text>
-<circle class="ifc-linha" cx="450" cy="232" r="128"/>
-<polyline class="ifc-linha" points="443.0,100.0 450.0,104.0 443.0,108.0"/>
-<polyline class="ifc-linha" points="457.0,364.0 450.0,360.0 457.0,356.0"/>
-<circle class="ifc-aro ifc-aro--f" cx="450" cy="232" r="70"/>
-<text class="ifc-svg-t" x="450" y="236">Liderança (5)</text>
-<circle class="pd-ponto" data-g="45" cx="540.5" cy="141.5" r="4.2"/>
-<g class="pd-rot" data-g="45"><text class="ifc-svg-n" x="556.1" y="111.9" style="text-anchor:start">P · PLANEJAR</text><text class="ifc-svg-t" x="556.1" y="129.9" style="text-anchor:start">Planejamento (6)</text></g>
-<circle class="pd-ponto" data-g="135" cx="540.5" cy="322.5" r="4.2"/>
-<g class="pd-rot" data-g="135"><text class="ifc-svg-n" x="556.1" y="348.1" style="text-anchor:start">D · FAZER</text><text class="ifc-svg-t" x="556.1" y="366.1" style="text-anchor:start">Suporte (7) e operação (8)</text></g>
-<circle class="pd-ponto" data-g="225" cx="359.5" cy="322.5" r="4.2"/>
-<g class="pd-rot" data-g="225"><text class="ifc-svg-n" x="343.9" y="348.1" style="text-anchor:end">C · CHECAR</text><text class="ifc-svg-t" x="343.9" y="366.1" style="text-anchor:end">Avaliação de desempenho (9)</text></g>
-<circle class="pd-ponto" data-g="315" cx="359.5" cy="141.5" r="4.2"/>
-<g class="pd-rot" data-g="315"><text class="ifc-svg-n" x="343.9" y="111.9" style="text-anchor:end">A · AGIR</text><text class="ifc-svg-t" x="343.9" y="129.9" style="text-anchor:end">Melhoria (10)</text></g>
-<g class="pd-lado"><text class="ifc-svg-n" x="40" y="188" style="text-anchor:start">4.1</text>
-<text class="ifc-svg-t" x="40" y="206" style="text-anchor:start">Questões internas e externas</text>
-<text class="ifc-svg-n" x="40" y="250" style="text-anchor:start">4.2</text>
-<text class="ifc-svg-t" x="40" y="268" style="text-anchor:start">Necessidades e expectativas</text>
-<text class="ifc-svg-t" x="40" y="284" style="text-anchor:start">das partes interessadas</text>
-<path class="ifc-linha" d="M236,201 H252 V279 H236"/>
-<path class="ifc-linha pd-traco" d="M252,232 H318"/>
-<polyline class="ifc-linha" points="311,228 318,232 311,236"/></g>
-<g class="pd-lado"><path class="ifc-linha pd-traco" d="M582,232 H668"/>
-<polyline class="ifc-linha" points="661,228 668,232 661,236"/>
-<text class="ifc-svg-n" x="684" y="214" style="text-anchor:start">SAÍDA</text>
-<text class="ifc-svg-t" x="684" y="232" style="text-anchor:start">Resultados pretendidos</text>
-<text class="ifc-svg-t" x="684" y="248" style="text-anchor:start">do sistema ambiental</text></g>
+<svg viewBox="0 0 901 240" style="max-width:901px;--vi-min:700px" role="img" aria-label="O ciclo de vida segundo a NBR ISO 14001:2026: aquisição de matéria-prima, projeto, produção, transporte e entrega, uso, tratamento pós-uso e disposição final, com o que a cláusula 8.1 pede em cada etapa">
+<text class="ifc-svg-n" x="0" y="18" style="text-anchor:start">ETAPAS DO CICLO DE VIDA (3.3.3)</text>
+<rect class="ifc-aro ifc-aro--f" x="0.5" y="34" width="114" height="72" rx="3"/>
+<text class="ifc-svg-n" x="57" y="54">01</text>
+<text class="ifc-svg-t" x="57" y="78">Aquisição de</text>
+<text class="ifc-svg-t" x="57" y="94">matéria-prima</text>
+<line class="ifc-linha" x1="115" y1="70" x2="130" y2="70"/>
+<polyline class="ifc-linha" points="124,66 130,70 124,74"/>
+<rect class="ifc-aro ifc-aro--f" x="131.5" y="34" width="114" height="72" rx="3"/>
+<text class="ifc-svg-n" x="188" y="54">02</text>
+<text class="ifc-svg-t" x="188" y="86">Projeto</text>
+<line class="ifc-linha" x1="246" y1="70" x2="261" y2="70"/>
+<polyline class="ifc-linha" points="255,66 261,70 255,74"/>
+<rect class="ifc-aro ifc-aro--f" x="262.5" y="34" width="114" height="72" rx="3"/>
+<text class="ifc-svg-n" x="319" y="54">03</text>
+<text class="ifc-svg-t" x="319" y="86">Produção</text>
+<line class="ifc-linha" x1="377" y1="70" x2="392" y2="70"/>
+<polyline class="ifc-linha" points="386,66 392,70 386,74"/>
+<rect class="ifc-aro ifc-aro--f" x="393.5" y="34" width="114" height="72" rx="3"/>
+<text class="ifc-svg-n" x="450" y="54">04</text>
+<text class="ifc-svg-t" x="450" y="78">Transporte</text>
+<text class="ifc-svg-t" x="450" y="94">e entrega</text>
+<line class="ifc-linha" x1="508" y1="70" x2="523" y2="70"/>
+<polyline class="ifc-linha" points="517,66 523,70 517,74"/>
+<rect class="ifc-aro ifc-aro--f" x="524.5" y="34" width="114" height="72" rx="3"/>
+<text class="ifc-svg-n" x="581" y="54">05</text>
+<text class="ifc-svg-t" x="581" y="86">Uso</text>
+<line class="ifc-linha" x1="639" y1="70" x2="654" y2="70"/>
+<polyline class="ifc-linha" points="648,66 654,70 648,74"/>
+<rect class="ifc-aro ifc-aro--f" x="655.5" y="34" width="114" height="72" rx="3"/>
+<text class="ifc-svg-n" x="712" y="54">06</text>
+<text class="ifc-svg-t" x="712" y="78">Tratamento</text>
+<text class="ifc-svg-t" x="712" y="94">pós-uso</text>
+<line class="ifc-linha" x1="770" y1="70" x2="785" y2="70"/>
+<polyline class="ifc-linha" points="779,66 785,70 779,74"/>
+<rect class="ifc-aro ifc-aro--f" x="786.5" y="34" width="114" height="72" rx="3"/>
+<text class="ifc-svg-n" x="843" y="54">07</text>
+<text class="ifc-svg-t" x="843" y="78">Disposição</text>
+<text class="ifc-svg-t" x="843" y="94">final</text>
+<path class="ifc-linha" d="M0.5,122 V130 H114.5 V122"/>
+<line class="ifc-linha" x1="57.5" y1="130" x2="57.5" y2="144"/>
+<text class="ifc-svg-n" x="57.5" y="164">8.1 b · c</text>
+<text class="ifc-svg-p" x="57.5" y="184">Requisito ambiental</text>
+<text class="ifc-svg-p" x="57.5" y="200">na compra e nos</text>
+<text class="ifc-svg-p" x="57.5" y="216">contratos com</text>
+<text class="ifc-svg-p" x="57.5" y="232">provedores</text>
+<path class="ifc-linha" d="M131.5,122 V130 H245.5 V122"/>
+<line class="ifc-linha" x1="188.5" y1="130" x2="188.5" y2="144"/>
+<text class="ifc-svg-n" x="188.5" y="164">8.1 a</text>
+<text class="ifc-svg-p" x="188.5" y="184">Controles no</text>
+<text class="ifc-svg-p" x="188.5" y="200">projeto e no</text>
+<text class="ifc-svg-p" x="188.5" y="216">desenvolvimento</text>
+<path class="ifc-linha" d="M262.5,122 V130 H376.5 V122"/>
+<line class="ifc-linha" x1="319.5" y1="130" x2="319.5" y2="144"/>
+<text class="ifc-svg-n" x="319.5" y="164">8.1</text>
+<text class="ifc-svg-p" x="319.5" y="184">Controles</text>
+<text class="ifc-svg-p" x="319.5" y="200">operacionais</text>
+<path class="ifc-linha" d="M393.5,122 V130 H900.5 V122"/>
+<line class="ifc-linha" x1="647" y1="130" x2="647" y2="144"/>
+<text class="ifc-svg-n" x="647" y="164">8.1 d</text>
+<text class="ifc-svg-p" x="647" y="184">Informação sobre os impactos ambientais significativos, quando necessária,</text>
+<text class="ifc-svg-p" x="647" y="200">no transporte, no uso, no tratamento pós-uso e na disposição final</text>
 </svg>
-<figcaption>Como a NBR ISO 14001:2026 organiza o sistema (ciclo PDCA da norma)</figcaption>
+<figcaption>O ciclo de vida na NBR ISO 14001:2026 e o que a cláusula 8.1 pede em cada etapa</figcaption>
 </figure>
 
 <hr class="section-divider">
@@ -296,9 +322,9 @@
 <hr class="section-divider">
 <h3>Aplicação</h3>
 <div class="vi-fotos">
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/industria-bayer-st.webp?v=19102026a" data-lum="img/industria-lum-st.webp?v=19102026a" alt="" loading="lazy"></div><figcaption>Indústria</figcaption></figure>
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/energia-bayer-st.webp?v=19102026a" data-lum="img/energia-lum-st.webp?v=19102026a" alt="" loading="lazy"></div><figcaption>Energia e utilities</figcaption></figure>
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/agro-bayer-st.webp?v=19102026a" data-lum="img/agro-lum-st.webp?v=19102026a" alt="" loading="lazy"></div><figcaption>Agro e florestal</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/ambiente-01-bayer-st.webp?v=19102026b" data-lum="img/ambiente-01-lum-st.webp?v=19102026b" alt="" loading="lazy"></div><figcaption>Efluentes</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/ambiente-02-bayer-st.webp?v=19102026b" data-lum="img/ambiente-02-lum-st.webp?v=19102026b" alt="" loading="lazy"></div><figcaption>Resíduos</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/ambiente-03-bayer-st.webp?v=19102026b" data-lum="img/ambiente-03-lum-st.webp?v=19102026b" alt="" loading="lazy"></div><figcaption>Emissões</figcaption></figure>
 </div>
 <ul>
 <li>Indústrias com licenciamento ambiental e condicionantes.</li>
@@ -440,40 +466,6 @@
     var im = q.querySelector('img'); if(!im) return;
     window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});
-  });
-})();
-/* PDCA (06/10), no modelo do ciclo animado do Leandro: os pontos saem do topo e abrem em leque no sentido
-   horario (ease-in-out cubica, 1,4 s); cada fase aparece quando o primeiro ponto passa por ela; depois as setas
-   de entrada e de saida se desenham. Roda uma vez, quando a figura entra na tela. */
-(function(){
-  [].forEach.call(document.querySelectorAll('svg[data-pdca]'), function(svg){
-    var p = svg.getAttribute('data-pdca').split(',').map(Number), CX = p[0], CY = p[1], R = p[2];
-    var pontos = [].slice.call(svg.querySelectorAll('.pd-ponto')), rots = [].slice.call(svg.querySelectorAll('.pd-rot'));
-    var tracos = [].slice.call(svg.querySelectorAll('.pd-traco'));
-    var alvos = pontos.map(function(c){ return +c.getAttribute('data-g'); }), maxG = Math.max.apply(null, alvos);
-    function noAnel(g){ var a = g * Math.PI / 180; return [CX + R * Math.sin(a), CY - R * Math.cos(a)]; }
-    function suave(t){ return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-    function desenha(e){
-      pontos.forEach(function(c, i){ var q = noAnel(alvos[i] * e); c.setAttribute('cx', q[0].toFixed(1)); c.setAttribute('cy', q[1].toFixed(1)); });
-      rots.forEach(function(r){ if (+r.getAttribute('data-g') <= maxG * e + .5) r.classList.add('on'); });
-    }
-    var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduz || !('IntersectionObserver' in window)) return;      /* a figura ja esta no estado final */
-    svg.classList.add('pd-pronto');
-    tracos.forEach(function(t){ var L = t.getTotalLength(); t.style.strokeDasharray = L; t.style.strokeDashoffset = L; });
-    desenha(0);
-    function anima(){
-      var ini = null, DUR = 1400, ESPERA = 150;
-      function quadro(agora){
-        if (ini === null) ini = agora + ESPERA;
-        var t = Math.min(Math.max((agora - ini) / DUR, 0), 1); desenha(suave(t));
-        if (t < 1) requestAnimationFrame(quadro);
-        else tracos.forEach(function(tr){ tr.style.strokeDashoffset = 0; });
-      }
-      requestAnimationFrame(quadro);
-    }
-    var ob = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting){ ob.disconnect(); anima(); } }); }, {threshold:.45});
-    ob.observe(svg);
   });
 })();
 /* fim js da pagina de norma */
