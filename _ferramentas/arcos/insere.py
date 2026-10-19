@@ -44,6 +44,9 @@ def no_site(css, secao, js, motor=''):
     if ancora_html not in t:
         # 17/10/2026: o Processo saiu da home (foi para implantacao-iso.html); o Conhecimento fica antes dos Diferenciais
         ancora_html = '<!-- ===== diferenciais ===== -->'
+    if '<!-- ===== diferenciais ===== -->' in t and t.index('<!-- ===== diferenciais ===== -->') < t.index('<!-- fim guia -->') + 400:
+        # 19/10/2026: os Diferenciais subiram para logo depois do Guia; a Conhecimento fica antes do Contato
+        ancora_html = '  <!-- ===== newsletter e contato ===== -->'
     assert t.count(ancora_html) == 1, 'ancora do HTML: %d' % t.count(ancora_html)
     t = t.replace(ancora_html, secao + '\n\n' + ancora_html, 1)
 
@@ -66,4 +69,4 @@ def no_site(css, secao, js, motor=''):
 
     assert '\r' not in t
     open(p, 'wb').write(t.replace('\n', eol).encode('utf-8'))
-    print('index.html: secao Conhecimento antes de', 'Servicos (IM.3)' if 'id="servicos"' in t else ('Processo' if '<!-- ===== processo ===== -->' in t else 'Diferenciais'))
+    print('index.html: secao Conhecimento antes de', 'Servicos (IM.3)' if 'id="servicos"' in t else ('Processo' if '<!-- ===== processo ===== -->' in t else 'Contato'))

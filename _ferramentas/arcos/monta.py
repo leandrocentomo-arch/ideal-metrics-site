@@ -321,7 +321,7 @@ def svg(L):
 TITULO = 'Adequação de organizações a normas e padrões setoriais.'   # 17/10/2026, pedido do Leandro (era «A ideal-m garante a adequação...», slogan)
 
 
-def cabecalho(rotulo='Conhecimento / [ IM.2 ]', hid='ar-titulo'):
+def cabecalho(rotulo='Conhecimento / [ IM.3 ]', hid='ar-titulo'):
     return '\n'.join([
         '  <div class="ar-cab">',
         '    <p class="ar-rotulo">%s</p>' % rotulo,

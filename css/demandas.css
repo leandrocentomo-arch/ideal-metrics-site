@@ -1,0 +1,269 @@
+/* css/demandas.css (19/10/2026): o painel «Consultoria e apoio tecnico» (Demandas) saiu da home e foi para o topo de
+   Todos os servicos («coloque em algum momento na pagina todos os servicos»). E o CSS que estava no <style> do index.html,
+   com as variaveis da home que ele usa, presas ao .dm-sec (as paginas internas tem outras). */
+.dm-sec{--azul:#14304C;--azul-escuro:#315275;--branco:#FFFFFF;--fundo:#336699;--mercurio:#FAF9F5;
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans Condensed',sans-serif;--lado:40px;
+  --dm-alt:clamp(520px,75svh,680px);--dm-entra:cubic-bezier(.165,.84,.44,1);--dm-lh:40px;--dm-painel:var(--mercurio);
+  --dm-passo:clamp(45px,calc((var(--dm-alt) - 80px - 54px)/9),58px);--dm-suave:cubic-bezier(.15,.9,.34,.95)}
+/* ===== painel Demandas (18/09/2026): a secao logo abaixo de "Por onde comecar" ===== */
+/* ===== painel Demandas (prefixo dm-) =====
+   Releitura do painel "Services" de catalystbehavioral.com com a roupa da
+   casa. A GEOMETRIA e a do original, medida no site: painel de 680px com
+   cantos de 30, padding 40, coluna do titulo calc(100% - 416px) com teto de
+   518, lista de 416, pilula de 48 com raio 26, circulo da seta de 24 e svg de
+   9. O que muda e a pele: creme no lugar do cinza, tinta no lugar do preto,
+   IBM Plex no lugar da NB Akademie, e uma ilustracao redesenhada com as
+   etapas da implantacao.
+
+   TRES REGRAS DESTE BLOCO
+   1. A secao nasce VISIVEL. Todo estado oculto mora debaixo de `.dm-js`,
+      classe que so o script poe (e ele nao poe se faltar
+      IntersectionObserver ou se o visitante pediu movimento reduzido). Sem
+      JS, com JS quebrado ou em leitor, nada some.
+   2. Hover so dentro de @media (hover:hover). O que o mouse dispara, o
+      :focus-visible dispara igual, fora do portao, para o teclado.
+   3. Sem sombra. O original levanta a folha e as etiquetas com sombra em
+      quatro camadas; aqui quem separa e o contorno fino rgba(20,48,76,.10). */
+.dm-sec{
+  --dm-painel:var(--mercurio);              /* 15/10/2026: era #F0EFEA, o creme escurecido 4% («onde nao precisasse de fundo mais escuro»); o painel agora e o creme da pagina com fio fino */
+  --dm-suave:cubic-bezier(.15,.9,.34,.95);  /* curva do hover no original */
+  --dm-entra:cubic-bezier(.165,.84,.44,1);  /* power3.out do GSAP, aproximada */
+  --dm-lh:40px;                             /* altura de linha do titulo = curso da subida */
+  /* o brief pede 120px de MARGEM. Vai como padding com fundo creme porque as
+     duas vizinhas (.qc-sec e .sv) tem fundo --mercurio e escondem a
+     grade-guia do body::before: com margem, a grade apareceria so nesta
+     faixa, entre duas secoes que nao a mostram. O respiro e o mesmo. */
+  padding:120px var(--lado);
+  background:var(--mercurio);
+}
+
+/* --- etiqueta "Demandas", no lugar do "Services" --- */
+/* display:table = bloco que encolhe ate o texto, sem depender de fit-content */
+.dm-etiqueta{display:table;position:relative;margin:0 0 10px;
+  /* o letter-spacing sobra depois da ultima letra: desconta a direita para
+     o texto ficar no centro optico da chapa */
+  padding:7px calc(12px - .2em) 7px 12px;
+  font-family:var(--mono);font-weight:500;font-size:11px;line-height:1;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--mercurio)}
+.dm-etiqueta-fundo{position:absolute;inset:0;border-radius:3px;
+  background:var(--azul);transform-origin:50% 50%}
+.dm-etiqueta-txt{position:relative;display:block}
+
+/* --- painel --- */
+/* 18/09, correcao do Leandro: na arquitetura visual da Ideal Metrics TODA curva
+   e de 3px. Eu tinha trazido do Catalyst os 30px do painel, os 26px da pilula e
+   o circulo da seta; a geometria e o movimento da referencia ficam, os raios nao.
+   E a peca inteira cabe em 3/4 da pagina: no maximo 75% da largura util e 75% da
+   altura da janela. Como sao nove pilulas numa altura que agora encolhe, o passo
+   delas sai de uma conta (--dm-passo) em vez dos 58px fixos do original. */
+.dm-painel{position:relative;display:flex;justify-content:space-between;
+  --dm-alt:clamp(520px,75svh,680px);
+  --dm-passo:clamp(45px,calc((var(--dm-alt) - 80px - 54px)/9),58px);
+  width:100%;max-width:min(1180px,75%);height:var(--dm-alt);padding:40px;
+  border-radius:3px;overflow:hidden;background:var(--dm-painel);color:var(--azul);border:1px solid rgba(20,48,76,.14)}
+/* 18/09: a coluna da lista era 416px (o numero do Catalyst) e cobria a metade
+   direita do desenho. Em 340 as pilulas param antes das etiquetas "Auditoria
+   interna" e "Certificacao", e a coluna do titulo fica com a sobra. */
+.dm-texto{width:calc(100% - 340px);max-width:560px}
+/* 28/09: o selo voltou para a secao Frentes, abaixo da frase (.qc-selo) */
+.dm-titulo{margin:0;font-family:var(--sans);font-weight:500;
+  font-size:34px;line-height:var(--dm-lh);letter-spacing:-.012em;color:var(--azul); /* 18/09: era 44/50, pedido do Leandro */
+  text-wrap:balance;
+  /* a mascara da subida. No original e overflow:hidden; aqui e clip-path
+     porque (a) a descendente do Plex passa 1px da caixa com entrelinha de 50
+     e o overflow comia o pe do "ç" e do "g", e (b) o rotateY com perspectiva
+     alarga o lado que vem para a frente, e o overflow cortava a lateral no
+     comeco do movimento. O clip corta so em cima e embaixo. */
+  clip-path:inset(0 -80px -.14em -80px)}
+.dm-titulo .dm-sobe{display:block;transform-origin:50% 100%}
+/* 17/10/2026: a escrita ideal·m (18Asset 252) acima do titulo */
+.dm-escrita{display:block;width:auto;height:30px;margin:0 0 22px}
+
+/* --- lista --- */
+.dm-coluna{position:relative;z-index:1;width:340px;flex:none} /* z-index 1: a ilustracao passa POR BAIXO */
+/* --azul-escuro solido (8,1:1) no lugar de tinta a 45% de opacidade, que dava
+   2,53:1: reprovava o piso de 4,5 e ate o de 3 do texto grande. E a mesma cor
+   das legendas mono do site. */
+.dm-sub{margin:0 0 24px;font-family:var(--sans);font-weight:400;font-size:20px;
+  line-height:30px;letter-spacing:-.02em;color:var(--azul-escuro)}
+.dm-lista{list-style:none;margin:0;padding:0}
+.dm-lista > li{margin:0 0 calc(var(--dm-passo)*.172)} /* 10 dos 58px do original, na mesma proporcao */
+.dm-pilula{display:flex;justify-content:space-between;align-items:center;
+  height:calc(var(--dm-passo)*.828);padding:0 12px 0 20px;border-radius:3px;
+  background:transparent;border:1px solid rgba(20,48,76,.14);color:var(--azul);text-decoration:none; /* 18/10/2026: sem fundo, so o fio fino (era branco desde 15/10/2026) */
+  font-family:var(--sans);font-weight:500;font-size:16px;line-height:1}
+.dm-txt{display:block;transition:transform .3s var(--dm-suave)}
+.dm-seta{flex:none;display:flex;align-items:center;justify-content:center;
+  width:24px;height:24px;margin-left:10px;border-radius:3px;overflow:hidden; /* o overflow e o que faz a seta SUMIR ao atravessar */
+  background:var(--dm-painel);transition:background-color .3s var(--dm-suave)}
+.dm-seta svg{display:block;width:9px;height:9px;overflow:visible}
+.dm-seta path{fill:none;stroke:var(--azul);stroke-width:1;transition:stroke .3s var(--dm-suave)}
+.dm-pilula:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
+
+/* hover e foco: o fundo da pilula NAO muda. Mudam quatro coisas: o texto
+   anda 16px, o circulo vira tinta, o traco vira papel e a seta ATRAVESSA o
+   circulo (sai pela direita, volta pela esquerda; nao gira). Ao sair, texto
+   e cores voltam em .3s e a seta simplesmente perde a animacao: ela ja
+   tinha terminado em 0, entao nao ha pulo. */
+@keyframes dm-atravessa{
+  0%{transform:translateX(0)}
+  49%{transform:translateX(200%)}
+  50%{transform:translateX(-150%)}
+  100%{transform:translateX(0)}
+}
+@media (hover:hover){
+  .dm-pilula:hover .dm-txt{transform:translateX(16px)}
+  .dm-pilula:hover .dm-seta{background-color:var(--azul)}
+  .dm-pilula:hover .dm-seta path{stroke:var(--mercurio)}
+  .dm-pilula:hover .dm-seta svg{animation:dm-atravessa .4s forwards}
+}
+.dm-pilula:focus-visible .dm-txt{transform:translateX(16px)}
+.dm-pilula:focus-visible .dm-seta{background-color:var(--azul)}
+.dm-pilula:focus-visible .dm-seta path{stroke:var(--mercurio)}
+.dm-pilula:focus-visible .dm-seta svg{animation:dm-atravessa .4s forwards}
+
+/* --- ilustracao --- */
+/* ancorada embaixo a esquerda. Com o painel em 1180 ela aparece no tamanho
+   do desenho (1108 x 680); em painel mais estreito encolhe na proporcao, sem
+   descolar da base, e a parte direita passa por tras das pilulas. */
+/* o desenho escala pela ALTURA do painel, e nao pela largura: desde que a altura
+   passou a encolher com a janela (75svh), escalar pela largura fazia o desenho
+   subir e a etiqueta "Diagnostico" entrar na terceira linha do titulo. Pela altura,
+   a faixa vazia do alto do desenho (ate y=257 de 680) acompanha o titulo sempre. */
+.dm-arte{position:absolute;left:0;bottom:0;height:100%;width:auto;aspect-ratio:1108/680;pointer-events:none}
+.dm-svg{display:block;width:100%;height:100%}
+/* a folha: o desenho de antes de 15/10 (barras e rosca, tramado, img/demandas-folha-*). Desde 15/10/2026 («nao
+   queria o fim cortado») ela cabe INTEIRA no painel: 190/1108 de recuo, 268/680 de topo, 300/1108 de largura e
+   390/680 de altura (termina em 658 de 680). Antes era 300/680 de topo, cortada pela base. */
+.dm-folha-foto{position:absolute;left:17.148%;top:39.412%;width:27.076%;height:57.353%;
+  border:1px solid rgba(20,48,76,.16);border-radius:3px;overflow:hidden;background:var(--mercurio)}
+.dm-folha-foto img,.dm-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.dm-folha-foto img{object-fit:cover}
+.dm-folha-foto.gl-on img{visibility:hidden}
+/* 19/09: a folha e vetor chapado, nao mais foto tramada. O Leandro pediu
+   "mais geometrico, este esta muito pixelado": a trama Bayer, que e otima na
+   tira de fotos, virava serrilha nesta peca porque ela aparece com 300 px de
+   largura. Formas cheias, canto 2 e 3, sem textura. */
+.dm-fo-papel{fill:var(--mercurio);stroke:rgba(20,48,76,.14);stroke-width:1}
+.dm-fo-fio{fill:none;stroke:rgba(20,48,76,.14);stroke-width:1}
+.dm-fo-t1{fill:var(--azul);fill-opacity:.55}
+.dm-fo-t2{fill:var(--azul);fill-opacity:.30}
+.dm-fo-t3{fill:var(--azul);fill-opacity:.16}
+.dm-fo-b1{fill:var(--azul);fill-opacity:.28}
+.dm-fo-b2{fill:var(--fundo);fill-opacity:.55}
+.dm-fo-b3{fill:var(--azul);fill-opacity:.85}
+.dm-fo-anel-f{fill:none;stroke:var(--azul);stroke-opacity:.16;stroke-width:14}
+.dm-fo-anel{fill:none;stroke:var(--fundo);stroke-width:14}
+.dm-svg--curta{display:none}
+/* sonda: ponto invisivel na altura do topo das barras. E ela, e nao o painel,
+   que dispara o crescimento: quando o TOPO do painel cruza os 85% da tela as
+   barras ainda estao 450px abaixo da dobra e cresceriam sem ninguem ver. */
+.dm-sonda{position:absolute;left:0;top:66%;width:1px;height:1px}
+.dm-ponto{fill:var(--azul);fill-opacity:.35}
+.dm-fios path{fill:none;stroke:rgba(20,48,76,.16);stroke-width:1}
+.dm-marcas path{fill:none;stroke:var(--azul);stroke-width:1}
+.dm-nos rect{fill:var(--azul)}   /* 17/10/2026: onde os fios encostam na folha */
+/* non-scaling-stroke: na versao curta a folha entra reduzida a 61% e o
+   contorno continua com 1px de tela */
+.dm-folha{fill:var(--branco);stroke:rgba(20,48,76,.10);stroke-width:1;vector-effect:non-scaling-stroke}
+.dm-miolo rect{fill:rgba(20,48,76,.10)}
+.dm-miolo .dm-regua{fill:none;stroke:rgba(20,48,76,.10);stroke-width:1;vector-effect:non-scaling-stroke}
+.dm-miolo circle{fill:none;stroke:rgba(20,48,76,.10);stroke-width:10}
+.dm-miolo .dm-trilho{stroke-opacity:.45} /* o trilho da rosca: mesma tinta, mais fraca */
+.dm-tag rect{fill:var(--branco);stroke:rgba(20,48,76,.10);stroke-width:1}
+.dm-tag text{font-family:var(--sans);font-weight:500;font-size:10.5px;
+  letter-spacing:.01em;text-anchor:middle;fill:var(--azul-escuro)}
+/* fill-box: a barra escala a partir da PROPRIA base, esteja onde estiver */
+.dm-barra{transform-box:fill-box;transform-origin:50% 100%}
+
+/* --- entrada no scroll: tudo abaixo so vale com .dm-js na secao ---
+   A transicao e declarada so no estado .dm-on: esconder e instantaneo,
+   mostrar e animado. */
+.dm-js .dm-etiqueta-fundo{transform:scale(0)}
+.dm-js .dm-etiqueta-txt{opacity:0}
+.dm-js .dm-etiqueta.dm-on .dm-etiqueta-fundo{transform:scale(1);transition:transform .6s var(--dm-entra)}
+.dm-js .dm-etiqueta.dm-on .dm-etiqueta-txt{opacity:1;transition:opacity .4s cubic-bezier(.215,.61,.355,1) .4s}
+
+/* titulo: sobe UMA linha, com leve giro no eixo vertical. A perspectiva vai
+   dentro do transform (e nao no pai) para repetir o transformPerspective do
+   GSAP, e o destino repete a lista de funcoes para o navegador interpolar
+   funcao a funcao, sem cair na interpolacao por matriz. */
+.dm-js .dm-titulo .dm-sobe{opacity:0;will-change:transform,opacity;
+  transform:perspective(600px) translateY(var(--dm-lh)) rotateY(-8deg)}
+.dm-js .dm-titulo.dm-on .dm-sobe{opacity:1;
+  transform:perspective(600px) translateY(0) rotateY(0deg);
+  transition:transform 1.8s var(--dm-entra),opacity 1.8s var(--dm-entra)}
+
+/* pilulas: cada uma sobe 100% da propria altura, .1s depois da anterior.
+   O subtitulo cinza nao anima, como no original. --dm-i vem do script. */
+.dm-js .dm-lista > .dm-sobe{opacity:0;transform:translateY(100%);will-change:transform,opacity}
+/* rede do CSS: vale mesmo se o observador nunca falar */
+.dm-js .dm-lista:focus-within > .dm-sobe{opacity:1;transform:none;transition:none}
+.dm-js .dm-lista.dm-on > .dm-sobe{opacity:1;transform:translateY(0);
+  transition:transform 1.2s var(--dm-entra),opacity 1.2s var(--dm-entra);
+  transition-delay:calc(var(--dm-i,0) * .1s)}
+
+/* fim da entrada: o script marca .dm-fim no transitionend e a peca larga o
+   transform e o will-change (o texto volta a ser desenhado fora de camada).
+   Mesma especificidade das regras acima: vence por vir depois. */
+.dm-js .dm-on .dm-sobe.dm-fim{transform:none;transition:none;will-change:auto}
+
+/* ilustracao: fade de .6s. O movimento proprio do desenho passou a ser o da trama
+   ao vivo na folha (celula 20->1 ao entrar na tela e a trilha do mouse). */
+.dm-js .dm-arte{opacity:0}
+.dm-js .dm-arte.dm-on{opacity:1;transition:opacity .6s var(--dm-suave)}
+
+/* 1245px e onde a sobra entre as colunas chega a zero (o painel passa a
+   medir menos que 80 + 518 + 416): o titulo ganha um respiro para nao
+   encostar na chapa branca das pilulas */
+@media (max-width:1245px){ .dm-titulo{padding-right:24px} }
+/* As duas placas da direita («Auditoria interna» e «Suporte na certificacao») so aparecem quando cabem inteiras
+   antes da coluna das pilulas, com 12 px de folga. Ate 15/10/2026 o corte era fixo em 1500 px de janela, e numa
+   tela de 1536 com escala de 125% e a barra lateral do navegador (1480 px uteis) elas sumiam com espaco de sobra
+   («falta dois baloes do lado direito»). Quem decide e o script da folha (.dm-dir-nao-cabe). */
+.dm-arte.dm-dir-nao-cabe .dm-svg--larga .dm-tag--dir{display:none}
+/* entre 881 e ~900px o titulo caia em 7 linhas e a etiqueta "Diagnostico"
+   pousava sobre a ultima. */
+@media (max-width:900px){ .dm-sec{--dm-lh:38px} .dm-titulo{font-size:32px;padding-right:0} }
+@media (max-width:1100px){
+  .dm-sec{--dm-lh:36px}
+  .dm-titulo{font-size:30px;padding-right:10%}
+}
+@media (max-width:880px){
+  .dm-sec{--dm-lh:31px;padding-top:70px;padding-bottom:70px}
+  .dm-etiqueta{margin-bottom:5px}
+  .dm-painel{flex-direction:column;justify-content:flex-start;height:auto;
+    padding:20px 20px 0;border-radius:3px;max-width:none}
+  .dm-texto{width:100%;max-width:none;margin-bottom:40px}
+  .dm-titulo{font-size:26px;padding-right:0}
+  .dm-coluna{width:100%;margin-bottom:56px}
+  .dm-lista > li{margin-bottom:14px}
+  /* altura livre: no telefone o rotulo pode quebrar em duas linhas */
+  .dm-pilula{height:auto;padding:12px 12px 12px 16px;line-height:1.15}
+  /* a ilustracao sai do absoluto e vira o ultimo bloco, encostada na base
+     (o padding de baixo do painel e 0). So a folha e as etiquetas. */
+  .dm-arte{position:relative;left:auto;bottom:auto;height:auto;width:100%;aspect-ratio:auto}
+  .dm-svg{height:auto}
+  .dm-svg--larga{display:none}
+  .dm-svg--curta{display:block}
+  .dm-folha-foto{display:none}
+  .dm-sonda{top:45%}
+}
+@media (prefers-reduced-motion:reduce){
+  .dm-txt,.dm-seta,.dm-seta path{transition:none}
+  .dm-pilula:hover .dm-txt,.dm-pilula:focus-visible .dm-txt{transform:none}
+  .dm-pilula:hover .dm-seta svg,.dm-pilula:focus-visible .dm-seta svg{animation:none}
+  /* rede de seguranca: o script ja nao esconde nada neste modo, mas se a
+     preferencia mudar com a pagina aberta o estado final tem de valer */
+  .dm-js .dm-etiqueta-fundo,.dm-js .dm-sobe,.dm-js .dm-barra{transform:none !important;transition:none !important}
+  .dm-js .dm-etiqueta-txt,.dm-js .dm-sobe,.dm-js .dm-arte{opacity:1 !important;transition:none !important}
+  .dm-js .dm-rosca{stroke-dashoffset:0 !important;transition:none !important}
+}
+
+
+/* ===== em Todos os servicos (19/10/2026): no topo, entre a migalha e o texto, na largura da pagina (1240), com o painel
+   na largura toda (na home ele ocupava 75%) para os dois baloes da direita caberem ===== */
+.dm-sec.dm-sec--servicos{max-width:1240px;margin:0 auto;padding:56px 40px 0;background:transparent}
+.dm-sec--servicos .dm-painel{max-width:none}
+.dm-sec--servicos + .page-layout{padding-top:72px}
+@media (max-width:880px){ .dm-sec.dm-sec--servicos{padding:40px 20px 0} .dm-sec--servicos + .page-layout{padding-top:40px} }
