@@ -4083,3 +4083,9 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
      ultima recortado) */
   background-image:linear-gradient(to left,rgba(20,48,76,.08) 1px,transparent 1px);background-size:calc(100%/6) 100%;
   clip-path:inset(0 1px 0 0)}
+
+/* 19/10/2026: «por padrao, o subtitulo poderia ficar mais proximo do titulo do que do conteudo». Subtitulo logo abaixo
+   de um titulo (h2/h3 seguido de .block-sub): 4 px do titulo e 28 px ate o conteudo (o vao de bloco da casa). */
+.content h2:has(+ .block-sub), .content h3:has(+ .block-sub), .service-block h2:has(+ .block-sub) { margin-bottom: 4px; }
+.content h2 + .block-sub, .content h3 + .block-sub, .service-block h2 + .block-sub { margin-top: 0; margin-bottom: 28px; }
+.block-sub + * { margin-top: 0 !important; }   /* o conteudo logo abaixo do subtitulo nao soma margem propria aos 28 px */

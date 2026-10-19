@@ -173,6 +173,7 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 ### Layout
 - **Card:** solto, nunca colado no vizinho nem separado por fio; borda fina própria `rgba(20,48,76,.14)`, canto de 3 px, vão de 8 px na grade. Classes que seguem: `.ifc-cel`, `.pos-card`, `.numbered-item`, `.cl-cel` da home. O acordeão de serviços e a malha de notícias da home não são cards.
 - **Entrelinha:** texto que quebra sozinho dentro de card, 1,35; título de card, 1,25. O espaço entre título e texto (o «enter») não muda. Texto corrido da página, 1,5.
+- **Subtítulo colado no título (19/10/2026, «por padrão, o subtítulo poderia ficar mais próximo do título do que do conteúdo»):** título seguido de `.block-sub` fica a 4 px dele, e o subtítulo a 28 px do conteúdo (`css/style.css`, v98).
 - **Espaçamento:** seção a seção, 56 px até o fio (`.section-divider`) e 44 px do fio ao título; título de seção (`.content h3`) a 44 px do bloco de cima; `h2` a 56 px. Bloco (grade de cards, fotos, números, figura, ícones) até o texto ou o bloco seguinte: 28 px. A linha de fonte fica colada nos números e a 28 px da lista que vem depois.
 - **Cor do texto:** o escuro da Ideal Metrics, `#14304C` (`--text-light`), no texto corrido, nas listas, nos cards, na abertura e na navegação lateral (era `#315275`). Rótulos e títulos pequenos de seção continuam em `--mid-gray`.
 - **Cremes da paleta oficial (registrados em 04/10/2026, ainda sem uso no site):**
