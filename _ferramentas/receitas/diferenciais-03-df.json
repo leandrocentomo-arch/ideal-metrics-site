@@ -1,0 +1,59 @@
+{
+ "foto_original": "Consultant_inspecting_factory_ma…_20261019132919.jpg",
+ "vaga": "df",
+ "arquivos": {
+  "lum": "diferenciais-03-lum-df.webp",
+  "bayer": "diferenciais-03-bayer-df.webp"
+ },
+ "medidas": {
+  "reserva": [
+   562,
+   380
+  ],
+  "luminancia": [
+   900,
+   608
+  ]
+ },
+ "enquadramento": {
+  "zoom": 2.21,
+  "px": 74.29572141061891,
+  "py": 59.37205866754442,
+  "espelhar": false,
+  "inclinar": 0,
+  "corte_esq": 0,
+  "corte_dir": 0,
+  "corte_topo": 0,
+  "corte_base": 0
+ },
+ "ajustes_da_foto": {
+  "exposicao": -0.3,
+  "gama": 0.96,
+  "ctr": 1.2,
+  "brilho": 0.02,
+  "piso": 0.02,
+  "teto": 1,
+  "nitidez": 0,
+  "suave": 0
+ },
+ "tingimento": {
+  "brilhoTom": 0.32,
+  "gama": 1.02,
+  "ctr": 1.6,
+  "escuro": 0.2,
+  "limiar": -0.02,
+  "ponto": 1,
+  "ruido": 0,
+  "matriz": 4,
+  "veu": 0,
+  "cores": [
+   "#153351",
+   "#183858",
+   "#6792BD",
+   "#FAF9F5"
+  ]
+ },
+ "clareamento_na_reserva": true,
+ "tom_no_motor": true,
+ "nota": "19/10/2026: receita do Spirit na vaga st (4:3), gravada na proporcao do card dos Diferenciais (562x380)"
+}
