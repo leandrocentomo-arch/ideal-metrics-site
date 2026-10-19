@@ -261,9 +261,10 @@
 }
 
 
-/* ===== em Todos os servicos (19/10/2026): no topo, entre a migalha e o texto, na largura da pagina (1240), com o painel
-   na largura toda (na home ele ocupava 75%) para os dois baloes da direita caberem ===== */
-.dm-sec.dm-sec--servicos{max-width:1240px;margin:0 auto;padding:56px 40px 0;background:transparent}
+/* ===== em Todos os servicos (19/10/2026): no FIM da pagina, antes do rodape («deixe isso no final da pagina»; no mesmo
+   dia passou pelo topo), na largura da pagina (1240), com o painel na largura toda (na home ele ocupava 75%) para os dois
+   baloes da direita caberem. O branco ate o rodape (352 px) passa do .page-layout para o painel. ===== */
+.dm-sec.dm-sec--servicos{max-width:1240px;margin:0 auto;padding:0 40px 352px;background:transparent}
 .dm-sec--servicos .dm-painel{max-width:none}
-.dm-sec--servicos + .page-layout{padding-top:72px}
-@media (max-width:880px){ .dm-sec.dm-sec--servicos{padding:40px 20px 0} .dm-sec--servicos + .page-layout{padding-top:40px} }
+.page-layout.pl-antes-dm{padding-bottom:120px}
+@media (max-width:880px){ .dm-sec.dm-sec--servicos{padding:0 20px 104px} .page-layout.pl-antes-dm{padding-bottom:60px} }
