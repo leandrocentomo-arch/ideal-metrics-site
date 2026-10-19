@@ -2660,7 +2660,7 @@ body>*{position:relative;z-index:1}
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
       <div class="qc-abre-linha">
         <form class="qc-busca" role="search" onsubmit="return false">
-          <span class="qc-logo-trama" data-lum="img/logo-ideal-m-lum.webp?v=19102026"><img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=11102026b" alt="Ideal Metrics" width="519" height="209"></span>
+          <span class="qc-logo-trama" data-lum="img/logo-ideal-m-lum.webp?v=19102026b"><img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=11102026b" alt="Ideal Metrics" width="519" height="209"></span>
           <p class="qc-busca-rot">Busca</p>
           <div class="qc-busca-caixa"><input id="buscaCampo" type="search" placeholder="Tema, norma ou padrão" autocomplete="off"
             spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes"><span class="qc-caret" aria-hidden="true"></span></div>
@@ -4357,12 +4357,14 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   })();
 
 
-  /* 19/10/2026: o logo da Frentes no motor da trama, com o efeito do mouse; tom neutro para a tinta continuar escura */
+  /* 19/10/2026: o logo da Frentes no motor da trama, com o efeito do mouse. Desde a receita da aba [ 11 ] do Spirit (lockup
+     todo em trama, uniforme, rampa 315275 336699 D3E2F2 FAF9F5, matriz 8): a luminancia leva a tinta a 0,151, que cai 45%
+     no 336699 e 55% no 315275, a mistura do PNG do Spirit; o fundo e o creme da pagina (no Spirit, linho) */
   (function(){
     var q = document.querySelector('.qc-logo-trama'); if(!q || !window.ditherVivo) return;
-    ditherVivo({brilhoTom:0, gama:1, ctr:1.2, escuro:0, lavaRepouso:0, raiz:q, planos:[{el:q, lum:q.getAttribute('data-lum')}], classeCanvas:'qc-logo-gl', revelar:'visivel', trilhaSoNaFigura:true, respiro:0,   /* 19/10/2026: «o logo teria como ter o formato inteiro?»: o rastro age so no desenho, sem marcar o retangulo do fundo */
+    ditherVivo({brilhoTom:0, gama:1, ctr:1, escuro:0, lavaRepouso:0, matriz:8, raiz:q, planos:[{el:q, lum:q.getAttribute('data-lum')}], classeCanvas:'qc-logo-gl', revelar:'visivel', trilhaSoNaFigura:true, respiro:0,   /* 19/10/2026: «o logo teria como ter o formato inteiro?»: o rastro age so no desenho, sem marcar o retangulo do fundo */
      
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1});
+      cores:[[49,82,117],[51,102,153],[211,226,242],[250,249,245]], pincel:.7, zoomHover:1});
   })();
 
   /* ---------------- 25/09: Servicos, Diferenciais e Setores ao vivo ----------------
