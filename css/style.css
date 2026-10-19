@@ -3794,7 +3794,7 @@ html.js .content > .in-view { opacity: 1; transform: none; }
   text-transform: uppercase; color: var(--mid-gray); margin-top: 6px; }   /* 19/10/2026: a legenda fica colada na figura a que pertence (era 12); PADRAO do site */
 .ifc-svg-t { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 13px; font-weight: 600;
   fill: var(--color-primary); text-anchor: middle; }
-.ifc-svg-p { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 11.5px; font-weight: 500;
+.ifc-svg-p { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 11.5px; font-weight: 400;   /* 19/10/2026: «aqui nao precisa ser negrito» (era 500) */
   fill: var(--mid-gray); text-anchor: middle; }
 .ifc-svg-n { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .18em;
   fill: var(--mid-gray); text-anchor: middle; }
