@@ -90,7 +90,7 @@ def sanfona(S):
     o = ['  <div class="gs" id="guiaSetores">',
          '    <div class="gs-cab">',
          '      <h2 class="mp-titulo" id="mp-titulo">%s</h2>' % TITULO,
-         '      ' + FLUXO,
+         # 19/10/2026: «tire esta legenda»: o fluxo Setor > Tema > Norma > Pagina do servico saiu da coluna da esquerda
          '      ' + PESQUISA,
          '    </div>',
          '    <div class="sv-line" aria-hidden="true"></div>',
@@ -140,7 +140,7 @@ CSS = r"""/* ===== GUIA SETORES (sanfona; _ferramentas/guia_setores.py, 14/10/20
 .gs .sv-desc.gs-normas{margin-top:14px}
 /* 16/10/2026: «a aparencia desta lista conforme a outra» (a proposta H): nome um pouco mais grosso, o numero em mono
    antes, e o + recuado da linha da direita da pagina */
-.gs .sv-item-title{font-weight:600;padding-right:12px}
+.gs .sv-item-title{font-weight:600;padding:9px 12px 9px 0}   /* 19/10/2026: «deixe a tabela com as linhas mais estreitas» (era 16 px em cima e embaixo) */
 .gs-num{display:inline-block;min-width:44px;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.1em;color:var(--azul)}
 .gs ~ .mp-grade{margin-top:230px}
 @media (max-width:880px){ .gs-cab{position:static;grid-column:1/-1;grid-row:auto;padding-right:0;min-height:0;padding-bottom:0}
