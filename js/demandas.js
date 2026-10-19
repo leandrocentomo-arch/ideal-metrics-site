@@ -96,9 +96,22 @@
       };
       mede(); addEventListener('resize', mede); addEventListener('load', mede);
     }
-    var folha = document.querySelector('.dm-trama') || document.querySelector('.dm-folha-foto'); if(!folha) return;   /* 19/10/2026: a trama na arte inteira */
-    var im = folha.querySelector('img'); if(!im) return;
-    window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:folha, planos:[{el:folha, lum:im.getAttribute('data-lum')}], classeCanvas:'dm-gl', revelar:'visivel',
-      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008, pixMul:2.2});
+    /* 19/10/2026: a trama cobre o PAINEL inteiro. A luminancia e montada aqui, do tamanho do painel: branca, com a
+       luminancia da folha desenhada no retangulo em que a folha aparece. Ao mudar o tamanho da janela, refaz. */
+    var trama = document.querySelector('.dm-painel > .dm-trama'), painel = trama && trama.parentNode;
+    var folha = document.querySelector('.dm-folha-foto'), im = folha && folha.querySelector('img');
+    if(!trama || !folha || !im || window.innerWidth <= 880) return;
+    var fonte = new Image(), gl = null, tm = null;
+    function monta(){
+      var P = painel.getBoundingClientRect(), F = folha.getBoundingClientRect(); if(!P.width || !F.width) return;
+      var k = 2, c = document.createElement('canvas'); c.width = Math.round(P.width * k); c.height = Math.round(P.height * k);
+      var x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height);
+      x.drawImage(fonte, (F.left - P.left) * k, (F.top - P.top) * k, F.width * k, F.height * k);
+      if(gl && gl.destruir) gl.destruir();
+      gl = window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:trama, planos:[{el:trama, lum:c.toDataURL('image/png')}], classeCanvas:'dm-gl', revelar:'visivel',
+        cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008, pixMul:2.2});
+    }
+    fonte.onload = function(){ monta(); addEventListener('resize', function(){ clearTimeout(tm); tm = setTimeout(monta, 250); }); };
+    fonte.src = im.getAttribute('data-lum');
   })();
 })();

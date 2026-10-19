@@ -269,12 +269,14 @@
 .page-layout.pl-antes-dm{padding-bottom:120px}
 @media (max-width:880px){ .dm-sec.dm-sec--servicos{padding:0 20px 104px} .page-layout.pl-antes-dm{padding-bottom:60px} }
 
-/* ===== 19/10/2026: «aqui tem que ter o efeito do mouse, pode ser na caixa inteira». A trama cobre a arte toda (.dm-trama,
-   img/demandas-arte-*: a folha no lugar dela sobre o branco), e o rastro do mouse aparece em qualquer ponto do desenho;
-   a .dm-folha-foto ficou so o contorno do papel. Os desenhos (fios, etiquetas, pontos) ficam por cima. ===== */
-.dm-trama{position:absolute;inset:0;z-index:0}
-.dm-trama img,.dm-trama .dm-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
-.dm-trama.gl-on img{visibility:hidden}
-.dm-svg{position:relative;z-index:1}
-.dm-folha-foto{z-index:1;background:transparent;pointer-events:none}
-@media (max-width:880px){ .dm-trama{display:none} }
+/* ===== 19/10/2026: «aqui tem que ter o efeito do mouse, pode ser na caixa inteira» e, no mesmo dia, «o efeito esta
+   finalizando antes do espaco». A trama (.dm-trama) cobre o PAINEL inteiro, por tras de tudo; o js/demandas.js monta a
+   luminancia do tamanho do painel, branca, com a folha desenhada exatamente onde ela aparece. Textos, lista e desenhos
+   ficam por cima; a folha (img) e a reserva para quando nao ha WebGL. ===== */
+.dm-painel>.dm-trama{position:absolute;inset:0;z-index:0;pointer-events:none}
+.dm-trama .dm-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.dm-texto,.dm-coluna{position:relative;z-index:2}
+.dm-arte{z-index:1}
+.dm-painel:has(.dm-trama.gl-on) .dm-folha-foto img{visibility:hidden}
+.dm-painel:has(.dm-trama.gl-on) .dm-folha-foto{background:transparent}
+@media (max-width:880px){ .dm-painel>.dm-trama{display:none} }
