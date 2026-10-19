@@ -41,9 +41,12 @@
   function medir(){
     if(window.innerWidth <= 880){ fig.style.removeProperty('--mat-w'); if(rola) rola.style.height = ''; return; }
     fig.style.setProperty('--mat-w', (linha.clientWidth - 41 - 47 - 2) + 'px');
-    if(rola && !fig.classList.contains('aberto')){ rola.style.height = ''; rola.style.height = rola.offsetHeight + 'px'; }
+    /* 19/10/2026: a altura soma a da barra horizontal (no Windows ela ocupa ~17 px dentro da caixa) e 10 px de folga, para
+       nunca aparecer a barra vertical */
+    if(rola && !fig.classList.contains('aberto')){ rola.style.height = ''; rola.style.height = (rola.offsetHeight + (rola.offsetHeight - rola.clientHeight) + 10) + 'px'; }
   }
   medir();
+  window.addEventListener('load', medir);   /* 19/10/2026: mede de novo com as fontes carregadas */
   var tm = null; window.addEventListener('resize', function(){ clearTimeout(tm); tm = setTimeout(medir, 150); });
   /* 13/10/2026: a altura da grade vai para --mat-h; o bloco da frase Construimos (.qc-chega) tem essa altura, para a grade
      (sticky) so se soltar quando a frase chegar ao alto da coluna */

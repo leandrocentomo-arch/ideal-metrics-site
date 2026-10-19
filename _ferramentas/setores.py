@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '76', '20'
+CSS_V, JS_V = '77', '21'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -300,16 +300,17 @@ def matriz():
     CHAMA = 22
     cabe_n = lambda rot, x0, x1: len(rot) * 8.14 <= (x1 + 2 + GAP - x0) - 10   # 19/10/2026: 11 px (era 7,05 a 9,5 px)
     chamadas = [(rot, x0, x1) for rot, x0, x1 in grupos if not cabe_n(rot, x0, x1)]
-    dy = CHAMA if chamadas else 0
+    # 19/10/2026: «aqui tem que estar bem organizado; pode aumentar um pouco a altura»: cada chamada ganha a SUA linha, em
+    # degraus (a mais a esquerda no alto), para nenhum traco passar por cima de outro rotulo; a grade fica mais alta.
+    DEGRAU = 17
+    dy = (CHAMA - DEGRAU + DEGRAU * len(chamadas)) if chamadas else 0
     if dy:
         o[-1] = o[-1].replace('viewBox="0 0 %d %d" width="%d" height="%d"' % (larg, alt, larg, alt),
                               'viewBox="0 0 %d %d" width="%d" height="%d"' % (larg, alt + dy, larg, alt + dy))
-        fim_ant = -1e9
-        for rot, x0, x1 in chamadas:
-            xa = x0 + min(8, (x1 - x0) / 2); xl = max(xa + 14, fim_ant + 18)
-            fim_ant = xl + 4 + len(rot) * 8.14
-            o.append('    <g class="gr chama"><rect x="%.1f" y="%.1f" width="3" height="3"/><path class="tr" d="M%.1f %.1fV7.5H%.1f"/>'
-                     '<text x="%.1f" y="11">%s</text></g>' % (xa - 1.5, dy + 15.5, xa, dy + 15.5, xl, xl + 4, esc(rot)))
+        for n, (rot, x0, x1) in enumerate(chamadas):
+            xa = x0 + min(8, (x1 - x0) / 2); xl = xa + 14; yt = 11 + n * DEGRAU
+            o.append('    <g class="gr chama"><rect x="%.1f" y="%.1f" width="3" height="3"/><path class="tr" d="M%.1f %.1fV%.1fH%.1f"/>'
+                     '<text x="%.1f" y="%.1f">%s</text></g>' % (xa - 1.5, dy + 15.5, xa, dy + 15.5, yt - 3.5, xl, xl + 4, yt, esc(rot)))
         o.append('    <g transform="translate(0 %d)">' % dy)
     for rot, x0, x1 in grupos:
         if (rot, x0, x1) in chamadas:

@@ -129,7 +129,7 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-mat-topo{display:flex;justify-content:space-between;gap:12px;padding:0 0 8px;border-bottom:1px solid rgba(20,48,76,.2);
   font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#315275}
 .qc-mat-topo span{white-space:nowrap}
-.qc-mat-rola{overflow-x:auto;padding:12px 0 0}
+.qc-mat-rola{overflow-x:auto;overflow-y:hidden;padding:12px 0 0}   /* 19/10/2026: «nao sei se e necessario a barra na vertical, pode aumentar um pouco a altura»: sem rolagem vertical; a altura leva a da barra horizontal mais uma folga (js/setores-matriz.js) */
 /* 09/10/2026 (5): o desenho tem UM tamanho so, recolhido ou aberto (--mat-w, medido pelo js = largura da grade aberta).
    Recolhida, a janela mostra parte dele e rola; aberta, a janela cresce ate ele caber. Sem trocar de escala no meio,
    a abertura e um deslizar continuo, sem o encolher-e-crescer de antes. */
