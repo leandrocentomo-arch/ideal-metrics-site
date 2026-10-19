@@ -15,7 +15,7 @@
     '.whatsapp-float{display:none!important}',
     '.gaveta{position:fixed;left:0;top:0;bottom:0;z-index:899;width:min(1180px,94vw);transform:translateX(-100%);transition:transform .7s cubic-bezier(.65,.05,.36,1);color:#14304C}',
     '.gaveta.aberta{transform:none}',
-    '.gaveta-aba{position:absolute;left:100%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;padding:16px 9px;background:#fff;border:1px solid rgba(20,48,76,.16);border-left:0;border-radius:0 3px 3px 0;cursor:pointer;color:#14304C;box-shadow:6px 0 18px -10px rgba(20,48,76,.35);transition:background .25s,color .25s;touch-action:none}',
+    '/* 19/10/2026: «deixe as etiquetas na cor do fundo da pagina, nao em branco» */ .gaveta-aba{position:absolute;left:100%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;padding:16px 9px;background:#FAF9F5;border:1px solid rgba(20,48,76,.16);border-left:0;border-radius:0 3px 3px 0;cursor:pointer;color:#14304C;box-shadow:6px 0 18px -10px rgba(20,48,76,.35);transition:background .25s,color .25s;touch-action:none}',
     '.gaveta-aba svg{width:18px;height:11px;fill:currentColor;flex:none}',   /* 17/10/2026: o simbolo das outras etiquetas (os seis losangos) */
     '.gaveta-aba span,.wa-aba span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase}',
     '.gaveta-aba:hover,.gaveta-aba:focus-visible,.gaveta.aberta .gaveta-aba{background:#14304C;color:#FAF9F5;outline:none}',
