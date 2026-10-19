@@ -18,3 +18,11 @@
   from = "/clientes.html"
   to = "/"
   status = 301
+
+# 19/10/2026: um endereco so para o Google. ideal-metrics.com tambem servia o site inteiro (conteudo duplicado);
+# agora manda para idealmetrics.org, que e o canonical de todas as paginas.
+[[redirects]]
+  from = "https://ideal-metrics.com/*"
+  to = "https://idealmetrics.org/:splat"
+  status = 301
+  force = true

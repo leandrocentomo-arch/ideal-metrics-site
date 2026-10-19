@@ -26,6 +26,11 @@
 - As imagens ficam na pasta img/ (logos da Ideal Metrics em `img/ideal-metrics-*.svg`).
 - O CSS principal fica em css/style.css.
 
+## Base técnica de busca (19/10/2026, «pode fazer o item 1 inteiro»)
+- `_ferramentas/seo.py` (rodar da raiz: `python _ferramentas/seo.py`) escreve em toda página viva, entre `<!-- seo -->` e `<!-- /seo -->` logo após o `<title>`: meta description (a que a página já tinha, a escrita à mão em `DESCRICOES`, ou a frase de abertura cortada em 155 caracteres), canonical em `https://idealmetrics.org/` (o domínio no ar; `www` e `ideal-metrics.com` redirecionam para ele, o segundo pelo `netlify.toml`), Open Graph e Twitter card com a imagem `img/og-ideal-metrics.png` (1200×630, logo sobre creme; gerada por captura do `og.html` do scratchpad, refazer se o logo mudar) e JSON-LD: `Organization` e `WebSite` na home, `Service` nas páginas de serviço (`SERVICOS`), `FAQPage` onde há `.faq`, `BlogPosting` nos posts (data da `.bl-meta`), `BreadcrumbList` onde há migalha. Idempotente: rodar de novo troca o bloco. Também grava `sitemap.xml` (lastmod = último commit do arquivo) e `robots.txt`. Página nova ou mudança de título/abertura: rodar de novo antes do commit.
+- A home estava com `<meta name="robots" content="noindex">` (herdado das cópias `index-*`); saiu em 19/10/2026. `painel-placas.html` é página de trabalho: noindex e fora do sitemap (`NAO_INDEXAR`).
+- Cadastros que só o Leandro faz: Google Search Console (enviar `https://idealmetrics.org/sitemap.xml`) e Google Business Profile.
+
 ## Padrões canônicos (definidos pelo Leandro; valem para toda página nova e para toda revisão)
 
 Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro. Ao receber uma correção, aplicar em todas as páginas que têm o mesmo elemento e registrar aqui.

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /_esbocos/
+Disallow: /_ferramentas/
+Disallow: /index-
+Disallow: /_prova-
+
+Sitemap: https://idealmetrics.org/sitemap.xml
