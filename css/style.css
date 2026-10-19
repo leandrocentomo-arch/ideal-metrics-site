@@ -4089,3 +4089,17 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
   .ts-num { font-size: 40px; margin-bottom: 8px; }
   .ts-cont .pos-grid { grid-template-columns: 1fr; }
 }
+
+/* 19/10/2026: as duas divisoes lado a lado na abertura de Todos os servicos (.ts-div), fio fino entre elas */
+.ts-div { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #14304C; border-bottom: 1px solid rgba(20,48,76,.16); margin: 28px 0 0; }
+.ts-div-item { display: flex; flex-direction: column; gap: 10px; padding: 28px 32px 30px 0; color: #14304C; text-decoration: none; }
+.ts-div-item + .ts-div-item { padding-left: 32px; border-left: 1px solid rgba(20,48,76,.16); }
+.ts-div-num { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 44px; font-weight: 700; line-height: 1; letter-spacing: -.03em; }
+.ts-div-nome { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 26px; font-weight: 600; line-height: 1.15; }
+.ts-div-txt { font-size: 16px; line-height: 1.45; color: #315275; }
+.ts-div-ir { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin-top: 6px; }
+.ts-div-item:hover .ts-div-nome, .ts-div-item:hover .ts-div-ir { color: #336699; }
+.content p.ts-modos { margin: 22px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #315275; }
+.ts-sec { scroll-margin-top: 110px; }
+.ts-modos + .ts-sec { margin-top: 64px; }
+@media (max-width: 760px) { .ts-div { grid-template-columns: 1fr; } .ts-div-item + .ts-div-item { padding-left: 0; border-left: 0; border-top: 1px solid rgba(20,48,76,.16); } }
