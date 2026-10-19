@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=11102026b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=104">
+<link rel="stylesheet" href="css/style.css?v=105">
 <script>document.documentElement.classList.add('js');window.addEventListener('load',function(){setTimeout(function(){if(!document.querySelector('.in-view')){var n=document.querySelectorAll('.rot-sec,.sec,.content>*');for(var i=0;i<n.length;i++){n[i].classList.add('in-view');}}},1200);});</script>
 <style>
 /* so desta pagina: numeros, fotos e textos dos diagramas */
@@ -171,7 +171,7 @@
 <p class="abre">A Ideal Metrics apoia organizações na implantação do sistema de gestão da segurança viária e na preparação para a certificação ISO 39001.</p>
 
 <figure class="ifc-fig">
-<svg viewBox="0 0 900 170" role="img" aria-label="As cinco etapas da implantação: diagnóstico, plano diretor, implantação, auditoria interna e organização pronta para a certificação">
+<svg viewBox="0 0 900 170" role="img" aria-label="Etapas para implantação: diagnóstico, plano diretor, implantação, auditoria interna e organização pronta para a certificação">
 <line class="ifc-linha" x1="90" y1="66" x2="810" y2="66"/>
 <circle class="ifc-aro ifc-aro--f" cx="90" cy="66" r="13"/>
 <circle cx="90" cy="66" r="3.5" fill="#14304C"/>
@@ -204,44 +204,21 @@
 <text class="ifc-svg-p" x="810" y="132">para a certificação</text>
 <text class="ifc-svg-p" x="810" y="148">ISO 39001</text>
 </svg>
-<figcaption>As cinco etapas da implantação</figcaption>
+<figcaption>Etapas para implantação</figcaption>
 </figure>
 
 <figure class="ifc-fig">
-<svg viewBox="0 0 729 252" style="max-width:729px" role="img" aria-label="O que o sistema passa a medir: exposição ao risco, dez fatores intermediários e o resultado final, mortes e lesões graves">
-<rect class="ifc-aro ifc-aro--f" x="0.5" y="10" width="148" height="240" rx="3"/>
-<text class="ifc-svg-n" x="74.5" y="42">01</text>
-<text class="ifc-svg-t" x="74.5" y="70">Exposição ao risco</text>
-<line class="ifc-linha" x1="44.5" y1="88" x2="104.5" y2="88"/>
-<rect class="ifc-aro ifc-aro--f" x="194.5" y="10" width="332" height="240" rx="3"/>
-<text class="ifc-svg-n" x="360.5" y="42">02</text>
-<text class="ifc-svg-t" x="360.5" y="70">Fatores intermediários</text>
-<line class="ifc-linha" x1="330.5" y1="88" x2="390.5" y2="88"/>
-<rect class="ifc-aro ifc-aro--f" x="572.5" y="10" width="156" height="240" rx="3"/>
-<text class="ifc-svg-n" x="650.5" y="42">03</text>
-<text class="ifc-svg-t" x="650.5" y="70">Resultado final</text>
-<line class="ifc-linha" x1="620.5" y1="88" x2="680.5" y2="88"/>
-<text class="ifc-svg-p" x="74.0" y="122">Distância percorrida</text>
-<text class="ifc-svg-p" x="74.0" y="148">Volume de tráfego</text>
-<text class="ifc-svg-p" x="74.0" y="174">Volume do serviço</text>
-<text class="ifc-svg-p" x="279.0" y="122">Via e velocidade seguras</text>
-<text class="ifc-svg-p" x="279.0" y="148">Via adequada ao veículo</text>
-<text class="ifc-svg-p" x="279.0" y="174">Equipamento de proteção</text>
-<text class="ifc-svg-p" x="279.0" y="200">Velocidade de condução</text>
-<text class="ifc-svg-p" x="279.0" y="226">Aptidão do condutor</text>
-<text class="ifc-svg-p" x="441.0" y="122">Planejamento da viagem</text>
-<text class="ifc-svg-p" x="441.0" y="148">Segurança do veículo</text>
-<text class="ifc-svg-p" x="441.0" y="174">Habilitação adequada</text>
-<text class="ifc-svg-p" x="441.0" y="200">Inapto fora da via</text>
-<text class="ifc-svg-p" x="441.0" y="226">Resposta pós-sinistro</text>
-<text class="ifc-svg-p" x="650.0" y="122">Mortes e lesões graves</text>
-<text class="ifc-svg-p" x="650.0" y="148">nos sinistros que a</text>
-<text class="ifc-svg-p" x="650.0" y="174">organização influencia</text>
-<line class="ifc-linha" x1="152" y1="152" x2="190" y2="152"/>
-<polyline class="ifc-linha" points="184,146 190,152 184,158"/>
-<line class="ifc-linha" x1="530" y1="152" x2="568" y2="152"/>
-<polyline class="ifc-linha" points="562,146 568,152 562,158"/>
-</svg>
+<!-- 19/10/2026: diagrama em HTML (era SVG, «isto esta bem feio!»): tres cards do ifc-cel, o do meio mais largo, setas finas entre eles -->
+<div class="vi-medir" role="img" aria-label="O que o sistema passa a medir: exposição ao risco, dez fatores intermediários e o resultado final, mortes e lesões graves">
+  <div class="ifc-cel"><span class="ifc-rot">01</span><h4>Exposição ao risco</h4>
+    <ul><li>Distância percorrida</li><li>Volume de tráfego</li><li>Volume do serviço</li></ul></div>
+  <span class="vi-seta" aria-hidden="true"></span>
+  <div class="ifc-cel"><span class="ifc-rot">02</span><h4>Fatores intermediários</h4>
+    <ul class="vi-duas"><li>Via e velocidade seguras</li><li>Planejamento da viagem</li><li>Via adequada ao veículo</li><li>Segurança do veículo</li><li>Equipamento de proteção</li><li>Habilitação adequada</li><li>Velocidade de condução</li><li>Inapto fora da via</li><li>Aptidão do condutor</li><li>Resposta pós-sinistro</li></ul></div>
+  <span class="vi-seta" aria-hidden="true"></span>
+  <div class="ifc-cel"><span class="ifc-rot">03</span><h4>Resultado final</h4>
+    <ul><li>Mortes e lesões graves nos sinistros que a organização influencia</li></ul></div>
+</div>
 <figcaption>O que o sistema passa a medir</figcaption>
 </figure>
 

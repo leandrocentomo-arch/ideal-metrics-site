@@ -3788,10 +3788,10 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 .ifc-cel h4 { font-size: 15px; font-weight: 700; line-height: 1.25; color: var(--color-primary); margin: 0 0 6px; }
 .ifc-cel p { font-size: 15px; line-height: 1.35; color: var(--text-light); margin: 0; }   /* 02/10: a linha que quebra sozinha fica mais junta (era 1,5) */
 .ifc-fig { margin: 30px 0 28px; }
-.ifc-fig + .ifc-fig { margin-top: 72px; }   /* 02/10/2026: «mais espaco entre os diagramas» (era 30) */
+.ifc-fig + .ifc-fig { margin-top: 44px; }   /* 19/10/2026: «aqui, menos espaco» entre a legenda e a figura seguinte (era 72) */
 .ifc-fig svg { display: block; width: 100%; height: auto; }
 .ifc-fig figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .2em;
-  text-transform: uppercase; color: var(--mid-gray); margin-top: 12px; }
+  text-transform: uppercase; color: var(--mid-gray); margin-top: 26px; }   /* 19/10/2026: «aqui, precisa de espaco» entre a figura e a legenda (era 12) */
 .ifc-svg-t { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 13px; font-weight: 600;
   fill: var(--color-primary); text-anchor: middle; }
 .ifc-svg-p { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 11.5px; font-weight: 500;
@@ -4109,4 +4109,20 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
 @media (min-width: 901px) {
   .sn-caixa { transition: transform .55s cubic-bezier(.65,.05,.36,1), opacity .45s ease; }
   .sidenav.fora:not(.aberta) .sn-caixa { transform: translateX(calc(-100% - 40px)); opacity: 0; pointer-events: none; }
+}
+
+/* 19/10/2026: O QUE O SISTEMA PASSA A MEDIR (seguranca viaria) em HTML, no lugar do SVG («isto esta bem feio!»): tres cards
+   do .ifc-cel, o do meio mais largo com a lista em duas colunas, setas finas entre eles; no celular empilha com a seta na vertical */
+.vi-medir { display: grid; grid-template-columns: minmax(0,1fr) 26px minmax(0,2.1fr) 26px minmax(0,1fr); gap: 8px; align-items: stretch; margin-top: 22px; }
+.content .vi-medir ul { list-style: none; margin: 12px 0 0; padding: 0; }
+.content .vi-medir li { font-size: 14px; line-height: 1.35; color: var(--text-light); padding: 6px 0; border-top: 1px solid rgba(20,48,76,.1); margin: 0; }
+.content .vi-medir li::before { content: none; }
+.content .vi-medir ul.vi-duas { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; }
+.vi-seta { align-self: center; height: 1px; background: rgba(20,48,76,.35); position: relative; }
+.vi-seta::after { content: ""; position: absolute; right: 0; top: -3.5px; width: 6px; height: 6px; border-top: 1px solid rgba(20,48,76,.35); border-right: 1px solid rgba(20,48,76,.35); transform: rotate(45deg); }
+@media (max-width: 760px) {
+  .vi-medir { grid-template-columns: 1fr; }
+  .vi-seta { width: 1px; height: 24px; justify-self: center; }
+  .vi-seta::after { right: -3px; top: auto; bottom: 0; transform: rotate(135deg); }
+  .content .vi-medir ul.vi-duas { grid-template-columns: 1fr; }
 }
