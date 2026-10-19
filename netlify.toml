@@ -12,3 +12,9 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# 19/10/2026: a pagina de clientes saiu do site; quem tiver o link antigo cai na home
+[[redirects]]
+  from = "/clientes.html"
+  to = "/"
+  status = 301

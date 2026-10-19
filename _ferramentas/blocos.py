@@ -97,7 +97,7 @@ def veu():
 # navegacao lateral: as mesmas colunas do menu, mais o institucional
 LATERAL = [(t, [(f, r) for f, r, i in itens]) for t, itens in MENU] + [
  ('Institucional', [('index.html', 'Página inicial'), ('servicos.html', 'Todos os serviços'), ('sobre.html', 'Quem somos'),
-   ('como-trabalhamos.html', 'Como trabalhamos'), ('clientes.html', 'Clientes de destaque'),
+   ('como-trabalhamos.html', 'Como trabalhamos'),   # 19/10/2026: Clientes de destaque saiu (pagina retirada)
    ('blog.html', 'Conteúdo'), ('contato.html', 'Contato')]),
 ]
 
