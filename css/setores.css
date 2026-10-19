@@ -135,11 +135,11 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
    a abertura e um deslizar continuo, sem o encolher-e-crescer de antes. */
 .qc-mat-rola svg{display:block;width:var(--mat-w,auto);max-width:none;min-width:0;height:auto;overflow:visible}
 .qc-mat text{font-family:'IBM Plex Mono',monospace;fill:#14304C}
-.qc-mat .gr text{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;fill:#315275}
+.qc-mat .gr text{font-size:11px;letter-spacing:.14em;text-transform:uppercase;fill:#315275}
 .qc-mat .gr path{stroke:#14304C;stroke-width:1;opacity:.5;fill:none}
 .qc-mat .gr.chama rect{fill:#14304C;opacity:.6}   /* 12/10: a ponta do traco da chamada (quadrado, nao circulo: regra do grafico) */
-.qc-mat .co text{font-size:10.5px;letter-spacing:.04em}
-.qc-mat .rs{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.qc-mat .co text{font-size:12.5px;letter-spacing:.04em}
+.qc-mat .rs{font-size:13px;   /* 19/10/2026: letras da grade 11 / 12,5 / 13 (eram 9,5 / 10,5 / 11) */ font-weight:500;letter-spacing:.12em;text-transform:uppercase}
 .qc-mat a{text-decoration:none}
 .qc-mat a:hover text,.qc-mat a:focus-visible text{text-decoration:underline}
 .qc-mat .fio{stroke:rgba(20,48,76,.14);stroke-width:1;fill:none}

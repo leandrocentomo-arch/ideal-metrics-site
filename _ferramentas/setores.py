@@ -19,7 +19,7 @@ import os, re, json
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
-CSS_V, JS_V = '75', '20'
+CSS_V, JS_V = '76', '20'
 # Os dois modelos do grafico ficam gravados aqui. A home usa o de MODELO_HOME; para trocar, mude e rode de novo.
 #   'matriz'  = grade de quadrados, setores nas linhas e normas nas colunas, na largura da pagina (modelo de 09/10/2026, 1)
 #   'mosaico' = retangulos agrupados com botao por setor, no terco direito, abaixo da frase (modelo de 09/10/2026, 2)
@@ -272,7 +272,7 @@ def matriz():
     quadrado liga o setor a norma. Ultima linha = o que vale para qualquer setor (quadrado mais claro). Largura da
     pagina inteira. So quadrados e linha fina (sem circulos). Rotulo de linha leva a pagina do setor; rotulo de coluna, a
     pagina do servico quando existe. js/setores-matriz.js acende a linha e a coluna sob o mouse."""
-    PASSO, QUAD, ROT_L, TOPO, LIN_H, GAP = 19, 13, 206, 172, 25, 14   # 10/10: rotulo de linha mais largo (nove setores)
+    PASSO, QUAD, ROT_L, TOPO, LIN_H, GAP = 20, 13, 238, 190, 27, 14   # 10/10: rotulo de linha mais largo (nove setores); 19/10/2026: letra cerca de 13% maior na tela («aumente ligeiramente a fonte desta tabela»; a grade e reduzida para caber na linha, entao a letra cresce mais que o desenho), era 19, 13, 206, 172, 25, 14
     CURTO_G = {'qualidade': 'Qualidade', 'ambiente': 'Meio ambiente', 'sst': 'Saúde e segurança', 'viaria': 'Segurança viária', 'clima': 'Clima e carbono',
                'esg': 'ESG', 'social': 'Social e cadeia', 'alimentos': 'Segurança de alimentos', 'infosec': 'Segurança da informação', 'compliance': 'Compliance e riscos'}
     CURTO_S = {'industria': 'Indústria', 'facilities': 'Facilities', 'transporte': 'Transporte e rodovias', 'alimentos': 'Alimentos',
@@ -298,7 +298,7 @@ def matriz():
     # vai para a direita ate o rotulo (so quadrados e retas, como o resto do grafico). Rotulos de chamada nao se encostam:
     # cada um comeca depois do anterior.
     CHAMA = 22
-    cabe_n = lambda rot, x0, x1: len(rot) * 7.05 <= (x1 + 2 + GAP - x0) - 10
+    cabe_n = lambda rot, x0, x1: len(rot) * 8.14 <= (x1 + 2 + GAP - x0) - 10   # 19/10/2026: 11 px (era 7,05 a 9,5 px)
     chamadas = [(rot, x0, x1) for rot, x0, x1 in grupos if not cabe_n(rot, x0, x1)]
     dy = CHAMA if chamadas else 0
     if dy:
@@ -307,7 +307,7 @@ def matriz():
         fim_ant = -1e9
         for rot, x0, x1 in chamadas:
             xa = x0 + min(8, (x1 - x0) / 2); xl = max(xa + 14, fim_ant + 18)
-            fim_ant = xl + 4 + len(rot) * 7.05
+            fim_ant = xl + 4 + len(rot) * 8.14
             o.append('    <g class="gr chama"><rect x="%.1f" y="%.1f" width="3" height="3"/><path class="tr" d="M%.1f %.1fV7.5H%.1f"/>'
                      '<text x="%.1f" y="11">%s</text></g>' % (xa - 1.5, dy + 15.5, xa, dy + 15.5, xl, xl + 4, esc(rot)))
         o.append('    <g transform="translate(0 %d)">' % dy)
@@ -323,8 +323,8 @@ def matriz():
         o.append('    <g class="co" data-n="%s" data-rev="%s" data-tit="%s">%s</g>' % (k, esc(dz).replace('"', '&quot;'), esc(tt).replace('"', '&quot;'), ('<a href="%s">%s</a>' % (pg, txt)) if pg else txt))
     for r, (i, pg, normas) in enumerate(linhas):
         y = TOPO + r * LIN_H
-        rot = ('<a href="%s"><text class="rs" x="0" y="%s">%s</text></a>' % (pg, y + 17, esc(CURTO_S.get(i, TEXTOS[i]['nome'])))) if pg else \
-              '<text class="rs" x="0" y="%s">Outros setores</text>' % (y + 17)
+        rot = ('<a href="%s"><text class="rs" x="0" y="%s">%s</text></a>' % (pg, y + 18, esc(CURTO_S.get(i, TEXTOS[i]['nome'])))) if pg else \
+              '<text class="rs" x="0" y="%s">Outros setores</text>' % (y + 18)
         o.append('    <g class="li" data-s="%s"><path class="fio" d="M0 %s H%s"/>%s' % (i, y, larg, rot))
         for k, cx in cols:
             nome_s = TEXTOS[i]['nome'] if pg else FORA.get(k, 'Outros setores')
@@ -441,8 +441,7 @@ def main():
     s = liga_css(s)
     # 18/10/2026: o filtro saiu tambem de Todos os servicos («nao quero este filtro tambem»; o Guia da gaveta ja faz o
     # caminho setor > tema > norma). Sai o filtro e os dois scripts; os dados nao sao usados nesta pagina.
-    s = poe_filtro(s, '<h2>PADRÕES E CONFORMIDADE</h2>', False, filtro=False).replace(DADOS + '
-</body>', '</body>', 1)
+    s = poe_filtro(s, '<h2>PADRÕES E CONFORMIDADE</h2>', False, filtro=False).replace(DADOS + chr(10) + '</body>', '</body>', 1)
     gravar('servicos.html', s)
     print('ok: %d setores, %d normas, %d transversais' % (len(SETORES), len(NORMAS), len(TRANSVERSAIS)))
 
