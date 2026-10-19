@@ -37,7 +37,8 @@ FOTOS = [
     ('img/transporte-bayer-st.webp?v=12102026', 'img/transporte-lum-st.webp?v=12102026', None, 'Mobilidade'),
     ('img/facilities-02-bayer-gs.webp?v=14102026', 'img/facilities-02-lum-gs.webp?v=14102026',
      '{"brilhoTom":0.36,"gama":0.8,"ctr":1.9,"escuro":1.3,"limiar":-0.05,"veu":0.07,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}', 'Predial'),
-    ('img/alimentos-01-bayer-gs.webp?v=13102026', 'img/alimentos-01-lum-gs.webp?v=13102026', None, 'Alimentício'),
+    ('img/alimentos-02-bayer-st.webp?v=19102026', 'img/alimentos-02-lum-st.webp?v=19102026',   # 19/10/2026: inspecao numa linha de embalagem (Google Flow), receita _ferramentas/receitas/alimentos-02-st.json
+     '{"brilhoTom":0.31,"gama":1.01,"ctr":1.6,"escuro":0.1,"limiar":0,"veu":0,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}', 'Alimentício'),
     ('img/agro-02-bayer-gs.webp?v=13102026', 'img/agro-02-lum-gs.webp?v=13102026', None, 'Agroflorestal'),
     ('img/saude-03-bayer-gs.webp?v=14102026', 'img/saude-03-lum-gs.webp?v=14102026',
      '{"brilhoTom":0.34,"gama":0.81,"ctr":1.85,"escuro":1.6,"limiar":0,"veu":0.07,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}', 'Hospitalar'),
