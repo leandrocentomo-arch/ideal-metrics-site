@@ -132,13 +132,14 @@
       pi.style.maxHeight = Math.floor(cabe) + 'px';
     };
     var snAbre = function(sim){ sn.classList.toggle('aberta', sim); sa.setAttribute('aria-expanded', sim ? 'true' : 'false'); snMede(); };
-    /* encostada em cima: sobe o respiro do .page-layout (fica colada na faixa de cima, a migalha) e, rolando, prende na
-       base do cabecalho fixo */
-    var cab = document.querySelector('header.barra, .header');
+    /* 19/10/2026: «ficaria legal as duas etiquetas encostadas»: a Navegacao fica fixa na borda da tela, colada a direita da
+       etiqueta do Guia e com o topo alinhado a ela (mede a etiqueta do Guia; com a gaveta fechada). Antes (17/10) ficava
+       na coluna da pagina, encostada na migalha e presa ao cabecalho. */
     var snCola = function(){
-      if(innerWidth <= 900){ sn.style.marginTop = ''; sn.style.top = ''; return; }
-      if(lay) sn.style.marginTop = -parseFloat(getComputedStyle(lay).paddingTop || 0) + 'px';
-      if(cab) sn.style.top = Math.max(0, Math.round(cab.getBoundingClientRect().bottom)) + 'px';
+      if(innerWidth <= 900){ sn.style.left = ''; sn.style.top = ''; sn.style.transform = ''; return; }
+      if(g.classList.contains('aberta')) return;
+      var r = aba.getBoundingClientRect(); if(!r.width) return;
+      sn.style.left = Math.round(r.right) + 'px'; sn.style.top = Math.round(r.top) + 'px'; sn.style.transform = 'none';
     };
     snCola();
     addEventListener('scroll', function(){ snCola(); snMede(); }, {passive: true}); addEventListener('resize', function(){ snCola(); snMede(); });
