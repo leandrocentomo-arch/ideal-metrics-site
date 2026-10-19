@@ -366,7 +366,7 @@
     function acorda(){ calmo = 0; if(ligado && !morto && !rodando){ rodando = true; antes = performance.now(); requestAnimationFrame(passo); } }
     function mede(){
       R = raiz.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 2) * (cfg.resolucao || 1);   /* 19/10/2026: cfg.resolucao desenha em resolucao maior e o navegador reduz (o logo da Frentes, «mais nitido, mantendo o efeito») */
       var w = Math.max(2, Math.round(R.width*dpr)), h = Math.max(2, Math.round(R.height*dpr));
       if(cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; refazTrilha(); desenhou = false; acorda(); }
     }

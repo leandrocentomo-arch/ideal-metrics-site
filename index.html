@@ -2660,7 +2660,7 @@ body>*{position:relative;z-index:1}
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
       <div class="qc-abre-linha">
         <form class="qc-busca" role="search" onsubmit="return false">
-          <span class="qc-logo-trama" data-lum="img/logo-ideal-m-lum.webp?v=19102026b"><img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=11102026b" alt="Ideal Metrics" width="519" height="209"></span>
+          <span class="qc-logo-trama" data-lum="img/logo-ideal-m-lum.webp?v=19102026c"><img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=11102026b" alt="Ideal Metrics" width="519" height="209"></span>
           <p class="qc-busca-rot">Busca</p>
           <div class="qc-busca-caixa"><input id="buscaCampo" type="search" placeholder="Tema, norma ou padrão" autocomplete="off"
             spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes"><span class="qc-caret" aria-hidden="true"></span></div>
@@ -4287,7 +4287,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=29"></script>
+<script src="js/trama.js?v=30"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -4362,7 +4362,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
      no 336699 e 55% no 315275, a mistura do PNG do Spirit; o fundo e o creme da pagina (no Spirit, linho) */
   (function(){
     var q = document.querySelector('.qc-logo-trama'); if(!q || !window.ditherVivo) return;
-    ditherVivo({brilhoTom:0, gama:1, ctr:1, escuro:0, lavaRepouso:0, matriz:8, raiz:q, planos:[{el:q, lum:q.getAttribute('data-lum')}], classeCanvas:'qc-logo-gl', revelar:'visivel', trilhaSoNaFigura:true, respiro:0,   /* 19/10/2026: «o logo teria como ter o formato inteiro?»: o rastro age so no desenho, sem marcar o retangulo do fundo */
+    ditherVivo({brilhoTom:0, gama:1, ctr:1, escuro:0, lavaRepouso:0, matriz:8, resolucao:3, raiz:q, planos:[{el:q, lum:q.getAttribute('data-lum')}], classeCanvas:'qc-logo-gl', revelar:'visivel', trilhaSoNaFigura:true, respiro:0,   /* 19/10/2026: «o logo teria como ter o formato inteiro?»: o rastro age so no desenho, sem marcar o retangulo do fundo */
      
       cores:[[49,82,117],[51,102,153],[211,226,242],[250,249,245]], pincel:.7, zoomHover:1});
   })();
