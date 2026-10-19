@@ -4126,3 +4126,8 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
   .vi-seta::after { right: -3px; top: auto; bottom: 0; transform: rotate(135deg); }
   .content .vi-medir ul.vi-duas { grid-template-columns: 1fr; }
 }
+
+/* 19/10/2026: figura logo depois de um titulo de secao fica colada nele («muito distante»); a chamada «Detalhes em Como
+   trabalhamos» mora DENTRO da figura das etapas, logo abaixo da legenda, para nao parecer legenda da figura seguinte */
+.content h3 + .ifc-fig { margin-top: 6px; }
+.content .ifc-fig figcaption + .vi-chamada { margin: 10px 0 0; }
