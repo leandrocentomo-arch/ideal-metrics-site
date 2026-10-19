@@ -167,7 +167,7 @@
     '  c = mix(c, uCreme, uLava*(1. - uRevela*tr));' +
     '  gl_FragColor = vec4(c, uOpac);}';
 
-  var PINCEL_GERAL = .6;   /* tamanho do cometa do mouse em todas as pecas; ver o uso. 19/10/2026: «em todas as fotos, deixar o efeito do mouse um pouco mais acentuado» (era ,5) */
+  var PINCEL_GERAL = .5;   /* tamanho do cometa do mouse em todas as pecas; ver o uso. 19/10/2026: passou a ,6 e voltou a ,5 no mesmo dia («nao queria que fosse mais gordo, queria um pouco mais forte»): o tamanho nao muda */
   var RASTRO_GERAL = 1;    /* comprimento da cauda do cometa em todas as pecas; 22/09: de 0,4 para 1, «mais longo, nao mais largo» */
   var RAIO_GERAL = .8, BORDA_GERAL = .3;   /* espessura do cometa; ver o uso */
 
@@ -545,12 +545,12 @@
       gl.uniform3f(uF.uC3, C[3][0]/255, C[3][1]/255, C[3][2]/255);
       gl.uniform3f(uF.uCreme, CR[0]/255, CR[1]/255, CR[2]/255);
       gl.uniform1f(uF.uGama, cfg.gama || .86); gl.uniform1f(uF.uCtr, cfg.ctr || 1.55); gl.uniform1f(uF.uBrilho, cfg.brilhoTom == null ? .35 : cfg.brilhoTom); gl.uniform1f(uF.uEscuro, cfg.escuro || 0);   /* 30/09: brilho do tom azul por peca (a tira da pagina azul usa .20) */   /* 28/09: gama e contraste por peca (o modo em cor usa outros) */
-      gl.uniform1f(uF.uPix, Math.max(1, pix.v) * (cfg.celula || 1)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 2.6);   /* 02/10: «o rastro um pouco mais suave»: a celula na trilha engrossa 2,6x (era 3,3) */   /* 28/09: cfg.celula engrossa a celula em repouso (1 = 1 px de dispositivo) */ gl.uniform1f(uF.uTrailMul, 1.3);   /* 02/10: forca da trilha 1,1 (era 1,27); 19/10/2026: 1,3, «um pouco mais acentuado» */
+      gl.uniform1f(uF.uPix, Math.max(1, pix.v) * (cfg.celula || 1)); gl.uniform1f(uF.uPixMul, cfg.pixMul || 2.6);   /* 02/10: «o rastro um pouco mais suave»: a celula na trilha engrossa 2,6x (era 3,3) */   /* 28/09: cfg.celula engrossa a celula em repouso (1 = 1 px de dispositivo) */ gl.uniform1f(uF.uTrailMul, 1.45);   /* 02/10: forca da trilha 1,1 (era 1,27); 19/10/2026: 1,45, «um pouco mais forte», sem engordar */
       gl.uniform1f(uF.uBias, bias.v);
       /* quanto o rastro ESCURECE a trama. 0,13 ate 21/09; 0,20 desde 22/09 («um
          pouco mais escura»). Cada peca pode baixar: na secao Conhecimento o rastro
          escuro atrapalhava a leitura das etiquetas por baixo dele. */
-      gl.uniform1f(uF.uBiasReacao, cfg.biasReacao == null ? .17 : cfg.biasReacao);   /* 02/10: a trilha escurece ,14 (era ,20); 19/10/2026: ,17, «um pouco mais acentuado» */ gl.uniform1f(uF.uRespiro, cfg.respiro == null ? .012 : cfg.respiro);
+      gl.uniform1f(uF.uBiasReacao, cfg.biasReacao == null ? .2 : cfg.biasReacao);   /* 02/10: a trilha escurece ,14 (era ,20); 19/10/2026: ,20, «um pouco mais forte» */ gl.uniform1f(uF.uRespiro, cfg.respiro == null ? .012 : cfg.respiro);
       gl.uniform1f(uF.uRevela, cfg.revelaNaTrilha == null ? 0 : cfg.revelaNaTrilha);
       gl.uniform1f(uF.uSoFigura, cfg.trilhaSoNaFigura ? 1 : 0);
       gl.uniform1f(uF.uCor, cfg.colorido ? 1 : 0);
