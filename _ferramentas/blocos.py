@@ -23,64 +23,67 @@ def gravar(nome, s):
     assert '\r' not in s
     open(os.path.join(SITE, nome), 'wb').write(s.replace('\n', _EOL.get(nome, '\r\n')).encode('utf-8'))
 
-IC = {  # icones do mega-menu, os mesmos tracos finos que o site ja usa
- 'check':   '<path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>',
- 'escudo':  '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
- 'cadeado': '<rect x="4" y="11" width="16" height="10"/><path d="M8 11V7a4 4 0 018 0v4"/>',
- 'grade':   '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',
- 'relogio': '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
- 'hexa':    '<polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/>',
- 'pessoa':  '<path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/>',
- 'lupa':    '<circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>',
- 'caixa':   '<path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>',
- 'folha':   '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>',
- 'xicara':  '<path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/>',
- 'balanca': '<path d="M12 3v18M5 21h14M5 7h14"/><path d="M5 7l-3 7a3 3 0 006 0zM19 7l-3 7a3 3 0 006 0z"/>',
- 'barras':  '<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
- 'radar':   '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="5"/><path d="M12 12l7-7"/>',
- 'rodovia': '<path d="M5 21L9 3M19 21L15 3M12 5v3M12 11v3M12 17v3"/>',
- 'elos':    '<path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/>',
- 'traco':   '<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/>',
- 'gota':    '<path d="M12 22c4-4 8-8 8-13a8 8 0 10-16 0c0 5 4 9 8 13z"/>',
- 'ifc':     '<path d="M3 21h18M5 21V9l7-6 7 6v12"/><path d="M9 21v-6h6v6"/>',
- 'visao':   '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/>',
+IC = {  # 19/10/2026: icones GEOMETRICOS («quero um padrao de icones geometricos»; os de antes, escudo, gota, xicara, cadeado,
+        # eram figurativos e errados: «um icone de seguranca privada para saude e seguranca»). Grade 24, desenho entre 4 e 20,
+        # so retas, quadrados, retangulos e triangulos; quadradinho cheio como ponto. Sem o circulo em volta (CSS .mega-icon).
+ 'camadas':   '<rect x="4" y="9" width="11" height="11"/><rect x="9" y="4" width="11" height="11"/>',
+ 'losango':   '<polygon points="12 4 20 12 12 20 4 12"/><path d="M8 12h8"/>',
+ 'triangulo': '<polygon points="12 4 20 18 4 18"/><path d="M4 21h16"/>',
+ 'cruz':      '<path d="M12 4v16M4 12h16"/>',
+ 'via':       '<path d="M7 4v16M17 4v16M12 6v3M12 11v3M12 16v3"/>',
+ 'lista':     '<rect x="4" y="5" width="3" height="3"/><rect x="4" y="10.5" width="3" height="3"/><rect x="4" y="16" width="3" height="3"/><path d="M10 6.5h10M10 12h10M10 17.5h10"/>',
+ 'par':       '<rect x="3" y="8" width="7" height="8"/><rect x="14" y="8" width="7" height="8"/><path d="M10 12h4"/>',
+ 'grade':     '<rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/>',
+ 'faixas':    '<rect x="4" y="4" width="16" height="16"/><path d="M4 9.3h16M4 14.7h16"/>',
+ 'rede':      '<rect x="4" y="4" width="4" height="4"/><rect x="16" y="4" width="4" height="4"/><rect x="4" y="16" width="4" height="4"/><rect x="16" y="16" width="4" height="4"/><path d="M8 8l8 8M16 8l-8 8"/>',   # SEDEX/SMETA: quatro pontos ligados (a rede); o 3x3 cheio pesava
+ 'degraus':   '<path d="M4 5h5v5h5v5h6M4 20h16"/>',
+ 'hexa':      '<polygon points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5"/>',
+ 'quadrantes': '<rect x="4" y="4" width="16" height="16"/><path d="M12 4v16M4 12h16"/>',
+ 'documento': '<rect x="5" y="3" width="14" height="18"/><path d="M8 8h8M8 12h8M8 16h5"/>',
+ 'mira':      '<rect x="5" y="5" width="14" height="14"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><rect x="10.5" y="10.5" width="3" height="3"/>',
+ 'cubo':      '<polygon points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/>',
+ 'diagonais': '<rect x="4" y="4" width="16" height="16"/><path d="M4 4l16 16M20 4L4 20"/>',
+ 'pilar':     '<path d="M12 4v16M4 8h16M8 20h8"/>',
+ 'barras':    '<path d="M6 20v-9M12 20V5M18 20v-6M3 20h18"/>',
+ 'mapa':      '<rect x="3" y="3" width="18" height="18"/><path d="M3 12h18M12 3v18"/><rect x="10.5" y="10.5" width="3" height="3"/>',
+ 'elo':       '<rect x="3" y="3" width="6" height="6"/><rect x="15" y="15" width="6" height="6"/><path d="M9 6h6v9"/>',
+ 'painel':    '<rect x="3" y="4" width="18" height="16"/><path d="M3 10h18M9 10v10M14 14h4M14 17h3"/>',
 }
 
 # 02/10/2026: UMA lista para os tres menus (topo, celular e lateral). Cada item: (arquivo, rotulo, icone).
 # O rotulo junta o tema e a norma na mesma linha («Qualidade · ISO 9001»), para a pagina ser achada pelos dois nomes.
 MENU = [
  ('Sistemas de gestão', [
-   ('implantacao-iso.html', 'Implantação ISO', 'check'),
-   ('norma-iso-9001.html', 'Qualidade · ISO 9001', 'traco'),
-   ('norma-iso-14001.html', 'Meio ambiente · ISO 14001', 'gota'),
-   ('norma-iso-45001.html', 'Saúde e segurança · ISO 45001', 'escudo'),
-   ('seguranca-viaria.html', 'Segurança viária · ISO 39001', 'rodovia'),      # 02/10: sistema de gestao ISO, sai de «Seguranca e inspecao»
-   ('compliance-seguranca-informacao.html', 'Compliance e segurança da informação', 'cadeado'),
-   ('suporte.html', 'Suporte ao sistema de gestão', 'folha'),
+   ('implantacao-iso.html', 'Implantação ISO', 'camadas'),
+   ('norma-iso-9001.html', 'Qualidade · ISO 9001', 'losango'),
+   ('norma-iso-14001.html', 'Meio ambiente · ISO 14001', 'triangulo'),
+   ('norma-iso-45001.html', 'Saúde e segurança · ISO 45001', 'cruz'),
+   ('seguranca-viaria.html', 'Segurança viária · ISO 39001', 'via'),      # 02/10: sistema de gestao ISO, sai de «Seguranca e inspecao»
+   ('compliance-seguranca-informacao.html', 'Compliance e segurança da informação', 'lista'),
+   ('suporte.html', 'Suporte ao sistema de gestão', 'par'),
    ]),
  ('Padrões e sustentabilidade', [
    ('padroes-mercado.html', 'Padrões de mercado', 'grade'),
-   ('ifc-performance-standards.html', 'IFC Performance Standards', 'ifc'),
-   ('sedex-smeta.html', 'SEDEX/SMETA', 'pessoa'),
-   ('gestao-carbono.html', 'Gestão de carbono', 'relogio'),
+   ('ifc-performance-standards.html', 'IFC Performance Standards', 'faixas'),
+   ('sedex-smeta.html', 'SEDEX/SMETA', 'rede'),
+   ('gestao-carbono.html', 'Gestão de carbono', 'degraus'),
    ('esg.html', 'ESG', 'hexa'),
    ]),
  ('Segurança e inspeção', [
-   ('seguranca-alimentos.html', 'Segurança de alimentos', 'xicara'),
-   ('nrs.html', 'Atendimento a NRs', 'folha'),
-   ('inspecoes.html', 'Inspeções', 'lupa'),
-   ('produtos-inspecionamos.html', 'Produtos que inspecionamos', 'caixa'),
+   ('seguranca-alimentos.html', 'Segurança de alimentos', 'quadrantes'),
+   ('nrs.html', 'Atendimento a NRs', 'documento'),
+   ('inspecoes.html', 'Inspeções', 'mira'),
+   ('produtos-inspecionamos.html', 'Produtos que inspecionamos', 'cubo'),
    ]),
  ('Estudos e pesquisa aplicada', [
-   ('estudos-pesquisa.html', 'Visão geral', 'visao'),
-   ('estudos-regulatorios.html', 'Estudos regulatórios', 'balanca'),
+   ('estudos-pesquisa.html', 'Visão geral', 'diagonais'),
+   ('estudos-regulatorios.html', 'Estudos regulatórios', 'pilar'),
    ('estudos-setoriais.html', 'Estudos setoriais', 'barras'),
-   ('observatorio-setorial.html', 'Observatório setorial', 'radar'),
-   ('rastreabilidade-cadeia.html', 'Rastreabilidade de cadeia', 'elos'),
+   ('observatorio-setorial.html', 'Observatório setorial', 'mapa'),
+   ('rastreabilidade-cadeia.html', 'Rastreabilidade de cadeia', 'elo'),
    ('painel-normas.html', 'Painel de normas ISO', 'painel'),      # 17/10: estágio, comitê, revisão e certificados por país (ISO Open Data + ISO Survey)
    ]),
 ]
-IC['painel'] = '<rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 10h18M9 10v10M14 14h4M14 17h3"/>'
 
 def mega():
     cols = []

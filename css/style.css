@@ -173,30 +173,9 @@ img { max-width: 100%; display: block; }
   transition: color 0.2s;
 }
 .mega-menu-col a:hover { color: var(--accent-red); }
-.mega-icon {
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--border-gray);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: border-color 0.2s, background 0.2s;
-}
-.mega-menu-col a:hover .mega-icon {
-  border-color: var(--accent-red);
-  background: rgba(51,102,153,0.1);
-}
-.mega-icon svg {
-  width: 14px;
-  height: 14px;
-  fill: none;
-  stroke: var(--mid-gray);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
+/* 19/10/2026: icones geometricos, sem o circulo em volta (ver index.html) */
+.mega-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.mega-icon svg { width: 18px; height: 18px; fill: none; stroke: var(--mid-gray); stroke-width: 1.4; stroke-linecap: butt; stroke-linejoin: miter; transition: stroke 0.2s; }
 .mega-menu-col a:hover .mega-icon svg { stroke: var(--accent-red); }
 .header-search {
   background: var(--accent-red);
@@ -3912,12 +3891,9 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 .mega-menu-col a{display:flex;align-items:center;gap:10px;padding:7px 0;
   font-family:var(--sans);font-size:14px;color:var(--azul);text-decoration:none;transition:color .2s}
 .mega-menu-col a:hover{color:var(--liga-corpo)}
-.mega-icon{width:30px;height:30px;border:1px solid rgba(20,48,76,.25);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  transition:border-color .2s,background .2s}
-.mega-menu-col a:hover .mega-icon{border-color:var(--liga-corpo);background:rgba(51,102,153,.08)}
-.mega-icon svg{width:14px;height:14px;fill:none;stroke:var(--azul-escuro);stroke-width:1.5;
-  stroke-linecap:round;stroke-linejoin:round}
+.mega-icon{width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0}   /* 19/10/2026: sem o circulo */
+.mega-icon svg{width:18px;height:18px;fill:none;stroke:var(--azul-escuro);stroke-width:1.4;
+  stroke-linecap:butt;stroke-linejoin:miter;transition:stroke .2s}
 .mega-menu-col a:hover .mega-icon svg{stroke:var(--liga-corpo)}
 @media (max-width:880px){ .mega-menu{display:none} }
 .veu-menu .selo-mono{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
