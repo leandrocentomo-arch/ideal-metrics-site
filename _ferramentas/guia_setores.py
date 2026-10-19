@@ -33,7 +33,8 @@ TRANSV = {'ISO 9001', 'ISO 14001', 'ISO 45001'}
 
 # as nove fotos do bloco antigo (src, data-lum, data-tom) e as rubricas, na ordem dos setores
 FOTOS = [
-    ('img/logistica-bayer-st.webp?v=25092026', 'img/logistica-lum-st.webp?v=25092026', None, 'Manufatura'),
+    ('img/industria-01-bayer-st.webp?v=19102026', 'img/industria-01-lum-st.webp?v=19102026',   # 19/10/2026: consultores no galpao (a foto que esteve em Experiencia desde 1998), receita industria-01-st.json
+     '{"brilhoTom":0.32,"gama":1.02,"ctr":1.6,"escuro":0.2,"limiar":-0.04,"veu":0,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}', 'Manufatura'),
     ('img/transporte-bayer-st.webp?v=12102026', 'img/transporte-lum-st.webp?v=12102026', None, 'Mobilidade'),
     ('img/facilities-02-bayer-gs.webp?v=14102026', 'img/facilities-02-lum-gs.webp?v=14102026',
      '{"brilhoTom":0.36,"gama":0.8,"ctr":1.9,"escuro":1.3,"limiar":-0.05,"veu":0.07,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}', 'Predial'),
