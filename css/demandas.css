@@ -268,3 +268,13 @@
 .dm-sec--servicos .dm-painel{max-width:none}
 .page-layout.pl-antes-dm{padding-bottom:120px}
 @media (max-width:880px){ .dm-sec.dm-sec--servicos{padding:0 20px 104px} .page-layout.pl-antes-dm{padding-bottom:60px} }
+
+/* ===== 19/10/2026: «aqui tem que ter o efeito do mouse, pode ser na caixa inteira». A trama cobre a arte toda (.dm-trama,
+   img/demandas-arte-*: a folha no lugar dela sobre o branco), e o rastro do mouse aparece em qualquer ponto do desenho;
+   a .dm-folha-foto ficou so o contorno do papel. Os desenhos (fios, etiquetas, pontos) ficam por cima. ===== */
+.dm-trama{position:absolute;inset:0;z-index:0}
+.dm-trama img,.dm-trama .dm-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.dm-trama.gl-on img{visibility:hidden}
+.dm-svg{position:relative;z-index:1}
+.dm-folha-foto{z-index:1;background:transparent;pointer-events:none}
+@media (max-width:880px){ .dm-trama{display:none} }

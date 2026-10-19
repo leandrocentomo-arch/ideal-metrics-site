@@ -96,7 +96,7 @@
       };
       mede(); addEventListener('resize', mede); addEventListener('load', mede);
     }
-    var folha = document.querySelector('.dm-folha-foto'); if(!folha) return;
+    var folha = document.querySelector('.dm-trama') || document.querySelector('.dm-folha-foto'); if(!folha) return;   /* 19/10/2026: a trama na arte inteira */
     var im = folha.querySelector('img'); if(!im) return;
     window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:folha, planos:[{el:folha, lum:im.getAttribute('data-lum')}], classeCanvas:'dm-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008, pixMul:2.2});
