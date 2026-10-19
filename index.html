@@ -446,15 +446,16 @@ body>*{position:relative;z-index:1}
   position:absolute;
   inset:0;
   display:grid;
-  grid-template-columns:repeat(12,minmax(0,1fr));
-  column-gap:15px;
+  grid-template-columns:repeat(3,minmax(0,1fr));   /* 19/10/2026: «os riscos poderiam ser mais fortes, mas acompanhar os riscos de fundo do
+                                                        site»: tres terços sem vao, para cada fio cair sobre um fio da grade-guia (2/6 e 4/6) */
+  column-gap:0;
   pointer-events:none;
 }
 .df-fio{
-  grid-column:span 4;
+  grid-column:span 1;
   height:100%;
-  border-left:1px solid var(--fio);
-  transform:translateX(.5px);
+  border-left:1px solid rgba(20,48,76,.22);   /* mais forte que a grade-guia (,08) */
+  transform:translateX(-1px);   /* a grade-guia desenha o fio no ultimo pixel da coluna */
 }
 /* coluna de diferencial */
 .df-col{
@@ -1359,6 +1360,11 @@ body>*{position:relative;z-index:1}
 .qc-abre-linha .qc-busca{flex:0 1 36%;min-width:280px}
 .qc-abre-linha .qc-titulo-sec{margin-top:0}
 .qc-abre-logo{display:block;height:74px;width:auto;margin:0 0 30px}   /* 24/09: maior, e em cima da busca */
+/* 19/10/2026: «quero que este primeiro logo tambem tenha o efeito de trama»: o logo passa pelo motor da trama (luminancia
+   img/logo-ideal-m-lum.webp, tirada do proprio SVG); o SVG fica por baixo, para quando nao ha WebGL */
+.qc-logo-trama{position:relative;display:inline-block;margin:0 0 30px}
+.qc-logo-trama .qc-abre-logo{margin:0}
+.qc-logo-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 /* 24/09: o selo foi para o painel Demandas; 28/09: voltou, abaixo da frase */
 /* 08/10/2026 (noite): no lugar do selo redondo, o logo vertical tingido na aba [ 11 ] do Spirit (receita em
    _tingir-fotos/logos-azul/marca-vertical-azul-receita.json). 96 px de largura, como na previa «em uso» da aba. */
@@ -2654,7 +2660,7 @@ body>*{position:relative;z-index:1}
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
       <div class="qc-abre-linha">
         <form class="qc-busca" role="search" onsubmit="return false">
-          <img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=11102026b" alt="Ideal Metrics" width="519" height="209">
+          <span class="qc-logo-trama" data-lum="img/logo-ideal-m-lum.webp?v=19102026"><img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=11102026b" alt="Ideal Metrics" width="519" height="209"></span>
           <p class="qc-busca-rot">Busca</p>
           <div class="qc-busca-caixa"><input id="buscaCampo" type="search" placeholder="Tema, norma ou padrão" autocomplete="off"
             spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes"><span class="qc-caret" aria-hidden="true"></span></div>
@@ -4422,7 +4428,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/trama.js?v=27"></script>
+<script src="js/trama.js?v=28"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
@@ -4510,6 +4516,13 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var im = folha.querySelector('img'); if(!im) return;
     ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:folha, planos:[{el:folha, lum:im.getAttribute('data-lum')}], classeCanvas:'dm-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.5, respiro:.008, pixMul:2.2});
+  })();
+
+  /* 19/10/2026: o logo da Frentes no motor da trama, com o efeito do mouse; tom neutro para a tinta continuar escura */
+  (function(){
+    var q = document.querySelector('.qc-logo-trama'); if(!q || !window.ditherVivo) return;
+    ditherVivo({brilhoTom:0, gama:1, ctr:1.2, escuro:0, lavaRepouso:0, raiz:q, planos:[{el:q, lum:q.getAttribute('data-lum')}], classeCanvas:'qc-logo-gl', revelar:'visivel',
+      cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1});
   })();
 
   /* ---------------- 25/09: Servicos, Diferenciais e Setores ao vivo ----------------

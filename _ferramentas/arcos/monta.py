@@ -431,7 +431,7 @@ body{margin:0;background:var(--mercurio)}
 </style></head><body>
 %s
 %s
-<script src="%sjs/trama.js?v=27"></script>
+<script src="%sjs/trama.js?v=28"></script>
 <script>
 (function(){ if(!window.ditherVivo) return; var ditherVivo = window.ditherVivo;
 %s})();
