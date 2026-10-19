@@ -122,7 +122,7 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 /* 19/10/2026: «dois tracinhos como no esquema, nesta etiqueta; ela e o contrario das outras, nao fica virada para a parede
    da tela»: como a etiqueta nao encosta na borda da tela, dois tracos curtos na tinta marcam, em cima e embaixo, o lado
    em que ela se prende a grade */
-.qc-mat-aba::before,.qc-mat-aba::after{content:"";position:absolute;left:-1px;width:2px;height:14px;background:#14304C;pointer-events:none}
+.qc-mat-aba::before,.qc-mat-aba::after{content:"";position:absolute;left:-1px;width:1px;height:14px;background:rgba(20,48,76,.42);pointer-events:none}   /* «na mesma espessura do contorno»: 1 px, na cor do contorno */
 .qc-mat-aba::before{top:-1px}
 .qc-mat-aba::after{bottom:-1px}
 .qc-mat-aba-txt{writing-mode:vertical-rl;transform:rotate(180deg);font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
