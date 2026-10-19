@@ -49,7 +49,12 @@
     '.wa-ir{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:3px;background:#25D366;color:#fff;text-decoration:none;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase}',
     '.wa-ir:hover,.wa-ir:focus-visible{background:#1DA851;outline:none}',
     '.gaveta.oculta:not(.aberta) .gaveta-aba{opacity:0;pointer-events:none}',
-    '.gaveta-aba{transition:background .25s,color .25s,opacity .3s}',
+    '.gaveta-aba{transition:background .25s,color .25s,opacity .45s ease,transform .55s cubic-bezier(.65,.05,.36,1)}',
+    /* 19/10/2026: «as etiquetas devem existir somente dentro da pagina, nao sobre banner ou rodape, crie efeitos»: fora da area
+       do conteudo a etiqueta recolhe para fora da tela (desliza e some) e volta deslizando ao entrar */
+    '.gaveta.fora:not(.aberta) .gaveta-aba{transform:translate(-110%,-50%);opacity:0;pointer-events:none}',
+    '.wa{transition:opacity .45s ease,transform .55s cubic-bezier(.65,.05,.36,1)}',
+    '.wa.fora:not(.aberta){opacity:0;transform:translateX(110%);pointer-events:none}',
     '@media (prefers-reduced-motion:reduce){.gaveta{transition:none}}',
     '@media (max-width:880px){.gaveta-painel{padding:96px 22px 40px}.gaveta .mp-grade{grid-template-columns:1fr;gap:36px}.wa-aba{bottom:24px}}'
   ].join('\n');
@@ -84,9 +89,25 @@
   function colide(el, sel){ var r = caixa(el); if(!r) return false;
     return [].some.call(document.querySelectorAll(sel), function(o){ return o !== el && !el.contains(o) && bate(r, caixa(o)); }); }
   var pend = 0;
+  /* 19/10/2026: a area em que as etiquetas existem: da base do banner, da migalha ou (na home) da tira e do letreiro, ate o
+     topo do rodape. A etiqueta so aparece se couber inteira nessa faixa. */
+  function zona(){
+    var topo = 0;
+    ['.page-banner', '.breadcrumb', '#shRolo', '.qc-letreiro'].forEach(function(sel){
+      var e = document.querySelector(sel); if(e){ var b = e.getBoundingClientRect().bottom; if(b > topo) topo = b; } });
+    var f = document.querySelector('footer'), fim = f ? f.getBoundingClientRect().top : innerHeight;
+    return [topo + 8, fim - 8];
+  }
+  function cabe(r, z){ return r && r.height && r.top >= z[0] && r.bottom <= z[1]; }
   function confere(){
     pend = 0;
-    var desce = (window.scrollY || document.documentElement.scrollTop) > 360;
+    var z = zona();
+    var ga = document.getElementById('gavetaAba'), gt = innerHeight / 2 - ga.offsetHeight / 2;
+    var gDentro = cabe({top: gt, bottom: gt + ga.offsetHeight, height: ga.offsetHeight}, z);
+    g.classList.toggle('fora', !gDentro);
+    var sn = document.querySelector('.sidenav'); if(sn) sn.classList.toggle('fora', !gDentro);
+    wa.classList.toggle('fora', !cabe(waAba.getBoundingClientRect(), z));
+    var desce = true;   /* 19/10/2026: o limite de 360 px de rolagem deu lugar a area do conteudo (acima) */
     var waBate = colide(waAba, OUTRAS + ',.gaveta-aba');
     wa.classList.toggle('oculto', !(desce && !waBate) && !wa.classList.contains('aberta'));
     g.classList.toggle('oculta', colide(document.getElementById('gavetaAba'), OUTRAS + (wa.classList.contains('oculto') ? '' : ',.wa-aba')));
@@ -94,7 +115,7 @@
   function agenda(){ if(!pend) pend = requestAnimationFrame(confere); }
   addEventListener('scroll', agenda, {passive: true}); addEventListener('resize', agenda);
   document.addEventListener('click', function(){ setTimeout(agenda, 50); setTimeout(agenda, 900); setTimeout(agenda, 1700); });
-  setTimeout(agenda, 300); setTimeout(agenda, 2500);
+  setTimeout(agenda, 300); setTimeout(agenda, 2500); confere();
 
   var aba = document.getElementById('gavetaAba'), painel = document.getElementById('gavetaPainel');
   function abre(sim){ g.classList.toggle('aberta', sim); aba.setAttribute('aria-expanded', sim ? 'true' : 'false'); if(sim) painel.scrollTop = 0; }

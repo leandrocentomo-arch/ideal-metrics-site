@@ -4103,3 +4103,10 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
 .ts-sec { scroll-margin-top: 110px; }
 .ts-modos + .ts-sec { margin-top: 64px; }
 @media (max-width: 760px) { .ts-div { grid-template-columns: 1fr; } .ts-div-item + .ts-div-item { padding-left: 0; border-left: 0; border-top: 1px solid rgba(20,48,76,.16); } }
+
+/* 19/10/2026: a etiqueta Navegacao acompanha a do Guia: fora da area do conteudo (sobre o banner ou o rodape) recolhe para
+   fora da tela, deslizando (o js/gaveta.js poe .fora no .sidenav) */
+@media (min-width: 901px) {
+  .sn-caixa { transition: transform .55s cubic-bezier(.65,.05,.36,1), opacity .45s ease; }
+  .sidenav.fora:not(.aberta) .sn-caixa { transform: translateX(calc(-100% - 40px)); opacity: 0; pointer-events: none; }
+}
