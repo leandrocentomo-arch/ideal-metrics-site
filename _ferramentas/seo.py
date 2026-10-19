@@ -20,8 +20,8 @@ carbono-agro carbono-creditos carbono-descarbonizacao carbono-inventario-gee car
 DESCRICOES = {
     'servicos.html': 'Todos os serviços da Ideal Metrics: implantação de normas ISO, padrões de mercado, gestão de carbono, ESG, segurança de alimentos, NRs, inspeções e estudos e pesquisa aplicada.',
     'contato.html': 'Contato com a equipe técnica da Ideal Metrics: e-mail info@idealmetrics.org e WhatsApp. Consultoria em normas ISO, gestão de carbono e inspeções da qualidade.',
-    'norma-iso-9001.html': 'Consultoria para implantação da ISO 9001:2015: sistema de gestão da qualidade, do diagnóstico à preparação para a certificação. Equipe em atuação desde 1998.',
-    'norma-iso-14001.html': 'Consultoria para implantação da ISO 14001:2015: sistema de gestão ambiental, do diagnóstico à preparação para a certificação. Equipe em atuação desde 1998.',
+    'norma-iso-9001.html': 'Consultoria para implantação da ISO 9001:2026: sistema de gestão da qualidade, do diagnóstico à preparação para a certificação. Equipe em atuação desde 1998.',
+    'norma-iso-14001.html': 'Consultoria para implantação da NBR ISO 14001:2026: sistema de gestão ambiental, do diagnóstico à preparação para a certificação. Equipe em atuação desde 1998.',
     'norma-iso-45001.html': 'Consultoria para implantação da NBR ISO 45001:2018: sistema de gestão de saúde e segurança ocupacional, GRO e NRs no mesmo sistema, preparação para a certificação.',
     'produtos-inspecionamos.html': 'Produtos que a Ideal Metrics inspeciona: treze categorias, verificadas na fábrica e antes do embarque, no Brasil e no exterior.',
     'inspecoes.html': 'Inspeção de produtos e de fábricas na fonte fornecedora, no Brasil e no exterior: funcionamento, estado, embalagem e quantidade conferidos antes do embarque.',
