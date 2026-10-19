@@ -2847,7 +2847,7 @@ a.blog-card:hover h3 { color: #336699; }
 /* Ícones — idioma da icon-library (38x38, traço fino, monocromático) */
 .carb-ic { width: 38px; height: 38px; display: block; color: var(--color-text); flex-shrink: 0; }
 .carb-ic svg { width: 100%; height: 100%; display: block; }
-.carb-ic svg * { stroke-width: 1.4; }
+.carb-ic svg * { stroke-width: 1px; vector-effect: non-scaling-stroke; }  /* 19/10/2026: «os tracos devem ser finos»: 1 px na tela, em qualquer tamanho */
 
 /* Infográfico: escopos GHG */
 .carb-scopes {
