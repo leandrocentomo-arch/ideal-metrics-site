@@ -446,7 +446,7 @@
   if(!window.ditherVivo) return;
   [].forEach.call(document.querySelectorAll('.vi-quadro'), function(q){
     var im = q.querySelector('img'); if(!im) return;
-    window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
+    window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum'), tom:(function(){ try { return JSON.parse(im.getAttribute('data-tom') || 'null'); } catch(e){ return null; } })()}], classeCanvas:'vi-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});
   });
 })();

@@ -322,9 +322,9 @@
 <hr class="section-divider">
 <h3>Aplicação</h3>
 <div class="vi-fotos">
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/qualidade-01-bayer-st.webp?v=19102026b" data-lum="img/qualidade-01-lum-st.webp?v=19102026b" alt="" loading="lazy"></div><figcaption>Indústria</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/industria-01-bayer-st.webp?v=19102026" data-lum="img/industria-01-lum-st.webp?v=19102026" data-tom='{"brilhoTom":0.32,"gama":1.02,"ctr":1.6,"escuro":0.2,"limiar":-0.04,"veu":0,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}' alt="" loading="lazy"></div><figcaption>Indústria</figcaption></figure>
   <figure class="vi-foto"><div class="vi-quadro"><img src="img/qualidade-02-bayer-st.webp?v=19102026b" data-lum="img/qualidade-02-lum-st.webp?v=19102026b" alt="" loading="lazy"></div><figcaption>Serviços</figcaption></figure>
-  <figure class="vi-foto"><div class="vi-quadro"><img src="img/qualidade-03-bayer-st.webp?v=19102026b" data-lum="img/qualidade-03-lum-st.webp?v=19102026b" alt="" loading="lazy"></div><figcaption>Comércio</figcaption></figure>
+  <figure class="vi-foto"><div class="vi-quadro"><img src="img/qualidade-04-bayer-st.webp?v=19102026c" data-lum="img/qualidade-04-lum-st.webp?v=19102026c" alt="" loading="lazy"></div><figcaption>Comércio</figcaption></figure>
 </div>
 <ul>
 <li>Qualquer organização, seja qual for o tipo ou o porte.</li>
@@ -464,7 +464,7 @@
   if(!window.ditherVivo) return;
   [].forEach.call(document.querySelectorAll('.vi-quadro'), function(q){
     var im = q.querySelector('img'); if(!im) return;
-    window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum')}], classeCanvas:'vi-gl', revelar:'visivel',
+    window.ditherVivo({brilhoTom:0.35, gama:0.88, ctr:1.55, escuro:0.35, lavaRepouso:0.12, raiz:q, planos:[{el:q, lum:im.getAttribute('data-lum'), tom:(function(){ try { return JSON.parse(im.getAttribute('data-tom') || 'null'); } catch(e){ return null; } })()}], classeCanvas:'vi-gl', revelar:'visivel',
       cores:[[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]], pincel:.7, zoomHover:1.035});
   });
 })();
