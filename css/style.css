@@ -3788,10 +3788,10 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 .ifc-cel h4 { font-size: 15px; font-weight: 700; line-height: 1.25; color: var(--color-primary); margin: 0 0 6px; }
 .ifc-cel p { font-size: 15px; line-height: 1.35; color: var(--text-light); margin: 0; }   /* 02/10: a linha que quebra sozinha fica mais junta (era 1,5) */
 .ifc-fig { margin: 30px 0 28px; }
-.ifc-fig + .ifc-fig { margin-top: 44px; }   /* 19/10/2026: «aqui, menos espaco» entre a legenda e a figura seguinte (era 72) */
+.ifc-fig + .ifc-fig { margin-top: 80px; }   /* 19/10/2026: a legenda pertence a figura de cima, entao a figura seguinte fica longe (era 72) */
 .ifc-fig svg { display: block; width: 100%; height: auto; }
 .ifc-fig figcaption { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .2em;
-  text-transform: uppercase; color: var(--mid-gray); margin-top: 26px; }   /* 19/10/2026: «aqui, precisa de espaco» entre a figura e a legenda (era 12) */
+  text-transform: uppercase; color: var(--mid-gray); margin-top: 6px; }   /* 19/10/2026: a legenda fica colada na figura a que pertence (era 12); PADRAO do site */
 .ifc-svg-t { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 13px; font-weight: 600;
   fill: var(--color-primary); text-anchor: middle; }
 .ifc-svg-p { font-family: 'IBM Plex Sans Condensed', sans-serif; font-size: 11.5px; font-weight: 500;
