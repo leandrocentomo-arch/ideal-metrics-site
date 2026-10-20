@@ -59,7 +59,7 @@ IC = {  # 19/10/2026: icones GEOMETRICOS («quero um padrao de icones geometrico
 # O rotulo junta o tema e a norma na mesma linha («Qualidade · ISO 9001»), para a pagina ser achada pelos dois nomes.
 MENU = [
  ('Sistemas de gestão', [
-   ('implantacao-iso.html', 'Implantação ISO', 'camadas'),
+   ('implantacao-iso.html', 'Implantação normas ISO', 'camadas'),
    ('norma-iso-9001.html', 'Qualidade · ISO 9001', 'losango'),
    ('norma-iso-14001.html', 'Meio ambiente · ISO 14001', 'triangulo'),
    ('norma-iso-45001.html', 'Saúde e segurança · ISO 45001', 'cruz'),
@@ -128,7 +128,7 @@ def ent(t):   # o rodape do site usa entidades; mantenho o costume da casa
     return t
 
 RODAPE = [
- ('a', [('servicos.html', 'Todos os serviços'), ('implantacao-iso.html', 'Implantação ISO'),
+ ('a', [('servicos.html', 'Todos os serviços'), ('implantacao-iso.html', 'Implantação normas ISO'),
         ('compliance-seguranca-informacao.html', 'Compliance e segurança da informação'),
         ('suporte.html', 'Suporte ao sistema de gestão'), ('nrs.html', 'Atendimento a NR(s)'),
         ('inspecoes.html', 'Inspeções')]),
