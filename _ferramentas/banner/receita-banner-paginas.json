@@ -1,0 +1,8 @@
+{
+ "modulo": "Banner de pagina, receita comum das 55 paginas (20/10/2026)",
+ "tipo": "banner",
+ "receita_de": "20/10/2026, «faça uma figura para cada página do site»: foto do Flow em 16:9 ocupando a faixa da direita (62% da largura, 1488 x 800, quase o 16:9 inteiro, sem decapitar ninguem), creme a esquerda para o titulo, passagem no tom do banner padrao",
+ "tamanho_e_posicao": {"zoom": 1, "px": 50, "py": 50, "espelhar": false, "inclinar": 0, "corte_esq": 0, "corte_dir": 0, "corte_topo": 0, "corte_base": 0},
+ "passagem_para_o_creme": {"area": 0.62, "inicio": 0, "fim": 0.5, "suave": 1.0, "medida_no_tom": true},
+ "ajustes_da_foto": {"exposicao": 0, "gama": 1.4, "ctr": 1, "brilho": 0, "piso": 0, "teto": 1, "nitidez": 0, "suavizar": 0}
+}
