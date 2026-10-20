@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demandas: 10 esboços</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--azul:#14304C;--azul2:#336699;--azul-escuro:#315275;--creme:#FAF9F5;--fio:rgba(20,48,76,.16);--leve:rgba(20,48,76,.08);--verm:#EF4545;
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans Condensed',sans-serif;--lado:64px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--creme);color:var(--azul);font-family:var(--sans);padding:0 var(--lado) 120px}
+body::before{content:"";position:fixed;inset:0 var(--lado);z-index:-1;pointer-events:none;background-image:linear-gradient(to left,var(--leve) 1px,transparent 1px);background-size:calc(100%/6) 100%;clip-path:inset(0 1px 0 0)}
+a{color:inherit;text-decoration:none}
+.topo{padding:48px 0 20px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.esb{border-top:1px solid var(--fio);padding:28px 0 110px}
+.rot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul)}
+.tit{margin:26px 0 8px;font-size:34px;font-weight:500;line-height:1.15;letter-spacing:-.01em;max-width:18em}
+.sub{font-size:18px;color:var(--azul-escuro);margin-bottom:34px;max-width:40em}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+/* 1 indice */
+.e1 li{list-style:none;display:grid;grid-template-columns:60px 1fr 1fr;align-items:baseline;border-bottom:1px solid var(--fio);padding:12px 0;cursor:pointer}
+.e1 li b{font-size:40px;font-weight:600;line-height:1.1;color:rgba(20,48,76,.3);transition:color .3s}
+.e1 li span.d{font-size:15px;color:var(--azul-escuro);opacity:0;transition:opacity .3s;text-align:right}
+.e1 li:hover b,.e1 li.on b{color:var(--azul)} .e1 li:hover span.d,.e1 li.on span.d{opacity:1}
+/* 2 pergunta */
+.e2 li{list-style:none;display:grid;grid-template-columns:1.2fr 1fr 140px;gap:24px;align-items:center;border-bottom:1px solid var(--fio);padding:16px 0}
+.e2 q{font-size:21px;quotes:"«" "»"} .e2 .r{font-size:17px;font-weight:600} .e2 .s{text-align:right}
+.e2 li:hover{background:#fff}
+/* 3 matriz */
+.e3 table{border-collapse:collapse;width:100%}
+.e3 th{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:10px 6px;border-bottom:1px solid var(--fio);text-align:center}
+.e3 th:first-child,.e3 td:first-child{text-align:left}
+.e3 td{padding:11px 6px;border-bottom:1px solid var(--leve);text-align:center;font-size:17px;font-weight:500}
+.q{display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--azul2)} .q.l{background:rgba(51,102,153,.35)} .q.v{background:none;width:4px;height:4px;background:var(--fio);border-radius:50%}
+/* 4 tres grupos */
+.e4{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.e4 .c{border-left:1px solid var(--fio);padding:0 28px 10px}
+.e4 .c:first-child{border-left:0;padding-left:0}
+.e4 h4{font-size:24px;font-weight:600;margin:14px 0 6px} .e4 p.x{font-size:15px;color:var(--azul-escuro);margin-bottom:20px;min-height:44px}
+.e4 a{display:flex;justify-content:space-between;border-top:1px solid var(--fio);padding:12px 0;font-size:18px;font-weight:500}
+.e4 a:hover{color:var(--azul2)}
+/* 5 linha do tempo */
+.e5 svg{width:100%;height:auto;display:block}
+.e5 text{font-family:var(--sans);fill:var(--azul)} .e5 .m{font-family:var(--mono);font-size:11px;letter-spacing:.12em}
+/* 6 faixa */
+.e6{display:flex;gap:10px;overflow-x:auto;padding-bottom:14px}
+.e6 a{flex:0 0 230px;background:#fff;border:1px solid var(--fio);border-radius:3px;overflow:hidden}
+.e6 .f{height:120px;background:repeating-linear-gradient(45deg,rgba(51,102,153,.55) 0 2px,rgba(51,102,153,.18) 2px 4px)}
+.e6 .t{padding:14px 16px 18px} .e6 .t b{display:block;font-size:20px;font-weight:600;margin:6px 0} .e6 .t span{font-size:14px;color:var(--azul-escuro)}
+/* 7 rodizio */
+.e7 .grande{font-size:76px;font-weight:600;line-height:1;letter-spacing:-.02em;height:84px}
+.e7 ul{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:30px}
+.e7 li{list-style:none;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(20,48,76,.4)}
+.e7 li.on{color:var(--azul)} .e7 li.on::before{content:"→ "}
+/* 8 pilulas */
+.e8{display:flex;flex-wrap:wrap;gap:12px;max-width:980px}
+.e8 a{border:1px solid var(--fio);border-radius:3px;padding:14px 22px;font-size:20px;font-weight:500;background:#fff;transition:background .25s,color .25s}
+.e8 a small{display:none;font-family:var(--mono);font-size:11px;letter-spacing:.1em;margin-left:12px}
+.e8 a:hover{background:var(--azul2);color:var(--creme)} .e8 a:hover small{display:inline}
+/* 9 documento x prova */
+.e9 svg{width:100%;height:auto;display:block}
+.e9 text{font-family:var(--sans);fill:var(--azul)}
+/* 10 tabela */
+.e10 table{border-collapse:collapse;width:100%}
+.e10 th{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:10px 12px;border-bottom:1px solid var(--azul)}
+.e10 td{padding:0 12px;height:46px;border-bottom:1px solid var(--fio);font-size:16px;white-space:nowrap}
+.e10 td:first-child{font-size:18px;font-weight:600} .e10 td.m{font-family:var(--mono);font-size:12px;letter-spacing:.06em}
+.e10 tr:hover td{background:var(--azul2);color:var(--creme)}
+
+/* 11 lista + painel */
+.e11{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--fio)}
+.e11 ol{list-style:none;border-right:1px solid var(--fio)}
+.e11 li{display:flex;gap:18px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--fio);font-size:20px;font-weight:500;cursor:pointer}
+.e11 li.on{color:var(--azul2)} .e11 li.on::after{content:"→";margin-left:auto;padding-right:20px}
+.e11 .p{padding:30px 0 0 40px} .e11 .p b{display:block;font-size:40px;font-weight:600;line-height:1.1;margin:10px 0 18px}
+.e11 .p dl{display:grid;grid-template-columns:150px 1fr;gap:10px 0;font-size:16px} .e11 .p dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding-top:3px}
+/* 12 grade 3x3 */
+.e12{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--fio);border-left:1px solid var(--fio)}
+.e12 a{display:flex;flex-direction:column;justify-content:space-between;height:200px;padding:22px;border-right:1px solid var(--fio);border-bottom:1px solid var(--fio);transition:background .25s,color .25s}
+.e12 a b{font-size:26px;font-weight:600;line-height:1.15} .e12 a .n{font-family:var(--mono);font-size:44px;font-weight:400;color:rgba(20,48,76,.25)}
+.e12 a:hover{background:var(--azul2);color:var(--creme)} .e12 a:hover .n{color:rgba(250,249,245,.5)}
+/* 13 sanfona */
+.e13 .it{border-bottom:1px solid var(--fio)} .e13 .h{display:flex;align-items:baseline;gap:22px;padding:16px 12px 16px 0;font-size:28px;font-weight:600;cursor:pointer}
+.e13 .h span.mono{width:30px} .e13 .h i{margin-left:auto;font-style:normal;font-weight:300}
+.e13 .c{display:none;padding:0 0 22px 52px;font-size:16px;color:var(--azul-escuro);max-width:640px} .e13 .it.on .c{display:block}
+/* 14 mapa por tema */
+.e14 svg{width:100%;height:auto;display:block} .e14 text{font-family:var(--sans);fill:var(--azul)}
+/* 15 numeros grandes em 3 colunas */
+.e15{display:grid;grid-template-columns:repeat(3,1fr);gap:30px 40px}
+.e15 a{display:grid;grid-template-columns:90px 1fr;align-items:end;border-bottom:1px solid var(--fio);padding-bottom:12px}
+.e15 .n{font-size:64px;font-weight:300;line-height:.9;color:var(--azul2)} .e15 b{font-size:20px;font-weight:600;line-height:1.2}
+/* 16 abas */
+.e16 .abas{display:flex;gap:8px;margin-bottom:22px} .e16 button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid var(--fio);border-radius:3px;padding:9px 14px;color:var(--azul);cursor:pointer;width:200px}
+.e16 button.on{background:var(--azul);color:var(--creme);border-color:var(--azul)}
+.e16 a{display:flex;justify-content:space-between;border-top:1px solid var(--fio);padding:14px 0;font-size:22px;font-weight:500;max-width:760px}
+/* 17 nome x norma */
+.e17 li{list-style:none;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--fio);padding:14px 0}
+.e17 b{font-size:22px;font-weight:600} .e17 span{font-family:var(--mono);font-size:15px;letter-spacing:.06em;color:var(--azul2)}
+/* 18 mosaico */
+.e18{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:8px}
+.e18 a{position:relative;border-radius:3px;overflow:hidden;background:repeating-linear-gradient(45deg,rgba(51,102,153,.5) 0 2px,rgba(51,102,153,.16) 2px 4px)}
+.e18 a.g{grid-column:span 2;grid-row:span 2}
+.e18 a span{position:absolute;left:0;right:0;bottom:0;background:var(--creme);padding:10px 14px;font-size:17px;font-weight:600}
+.e18 a.g span{font-size:24px}
+/* 19 sequencia com nos */
+.e19{position:relative;padding-left:34px;max-width:820px}
+.e19::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;border-left:1px solid rgba(20,48,76,.35)}
+.e19 a{position:relative;display:block;padding:10px 0 18px} .e19 a::before{content:"";position:absolute;left:-33px;top:17px;width:11px;height:11px;border:1px solid var(--azul);background:var(--creme);border-radius:2px}
+.e19 a:hover::before{background:var(--azul2);border-color:var(--azul2)}
+.e19 b{font-size:22px;font-weight:600;display:block} .e19 span{font-size:15px;color:var(--azul-escuro)}
+/* 20 paragrafo editorial */
+.e20{font-size:34px;line-height:1.45;font-weight:400;max-width:1150px;color:var(--azul-escuro)}
+.e20 a{color:var(--azul);font-weight:600;border-bottom:1px solid rgba(20,48,76,.35)} .e20 a:hover{color:var(--azul2);border-color:var(--azul2)}
+</style></head>
+<body>
+<p class="topo">Esboços da seção Demandas · 16/10/2026 · fora do site · cada esboço com um título sugerido</p>
+
+<section class="esb"><div class="rot"><span>Esboço 01 · Índice de revista</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria de apoio</h2><p class="sub">Demandas que atendemos com frequência</p>
+<ol class="e1" id="e1"></ol></section>
+
+<section class="esb"><div class="rot"><span>Esboço 02 · Pergunta e resposta</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria técnica</h2><p class="sub">Demandas que atendemos com frequência</p>
+<ul class="e2" id="e2"></ul></section>
+
+<section class="esb e3"><div class="rot"><span>Esboço 03 · Matriz «quem pede»</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Apoio à conformidade</h2><p class="sub">Demandas que atendemos com frequência</p>
+<table id="e3"></table></section>
+
+<section class="esb"><div class="rot"><span>Esboço 04 · Três grupos pela origem da exigência</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria em sistemas de gestão</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e4" id="e4"></div></section>
+
+<section class="esb e5"><div class="rot"><span>Esboço 05 · Linha do tempo de um projeto</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Apoio técnico às organizações</h2><p class="sub">Demandas que atendemos com frequência</p>
+<svg id="e5" viewBox="0 0 1400 330"></svg></section>
+
+<section class="esb"><div class="rot"><span>Esboço 06 · Cartões em faixa (arrastar)</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria e auditoria</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e6" id="e6"></div></section>
+
+<section class="esb e7"><div class="rot"><span>Esboço 07 · Uma demanda por vez, em rodízio</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria e inspeção</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="grande" id="e7g"></div><ul id="e7"></ul></section>
+
+<section class="esb"><div class="rot"><span>Esboço 08 · Etiquetas na grade</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Serviços de consultoria</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e8" id="e8"></div></section>
+
+<section class="esb e9"><div class="rot"><span>Esboço 09 · O que ter × como provar</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Apoio à certificação</h2><p class="sub">Demandas que atendemos com frequência</p>
+<svg id="e9" viewBox="0 0 1400 470"></svg></section>
+
+<section class="esb e10"><div class="rot"><span>Esboço 10 · Tabela técnica</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria em normas</h2><p class="sub">Demandas que atendemos com frequência</p>
+<table id="e10"></table></section>
+
+<section class="esb"><div class="rot"><span>Esboço 11 · Lista com painel de detalhe</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Assessoria técnica</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e11"><ol id="e11"></ol><div class="p" id="e11p"></div></div></section>
+
+<section class="esb"><div class="rot"><span>Esboço 12 · Grade 3 × 3</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria e adequação</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e12" id="e12"></div></section>
+
+<section class="esb"><div class="rot"><span>Esboço 13 · Sanfona, igual à do Guia</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria e implantação</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e13" id="e13"></div></section>
+
+<section class="esb"><div class="rot"><span>Esboço 14 · Mapa por tema, em fios</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Frentes de consultoria</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e14"><svg id="e14" viewBox="0 0 1400 380"></svg></div></section>
+
+<section class="esb"><div class="rot"><span>Esboço 15 · Números grandes em três colunas</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Serviços de adequação</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e15" id="e15"></div></section>
+
+<section class="esb"><div class="rot"><span>Esboço 16 · Abas pela origem da exigência</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria por origem da exigência</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e16"><div class="abas" id="e16a"></div><div id="e16"></div></div></section>
+
+<section class="esb"><div class="rot"><span>Esboço 17 · Nome e norma, lado a lado</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Normas e padrões atendidos</h2><p class="sub">Demandas que atendemos com frequência</p>
+<ul class="e17" id="e17"></ul></section>
+
+<section class="esb"><div class="rot"><span>Esboço 18 · Mosaico de fotos tramadas</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria de campo</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e18" id="e18"></div></section>
+
+<section class="esb"><div class="rot"><span>Esboço 19 · Sequência com nós</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Apoio na adequação</h2><p class="sub">Demandas que atendemos com frequência</p>
+<div class="e19" id="e19"></div></section>
+
+<section class="esb"><div class="rot"><span>Esboço 20 · Parágrafo com links</span><span>[ Demandas ]</span></div>
+<h2 class="tit">Consultoria de apoio</h2><p class="sub">Demandas que atendemos com frequência</p>
+<p class="e20" id="e20"></p></section>
+
+<script>
+var D = [
+ {n:'Implantação de normas ISO', h:'implantacao-iso.html', norma:'ISO 9001 · 14001 · 45001', quem:'Clientes e certificadora', grupo:2, ent:'Sistema de gestão pronto para a auditoria de certificação', q:'Preciso me certificar na ISO 9001.', m:[1,1,0,0,1], etapa:2},
+ {n:'Suporte pós-certificação', h:'suporte.html', norma:'Sistema certificado', quem:'Certificadora', grupo:2, ent:'Manutenção do sistema e preparo das auditorias de manutenção', q:'Fui certificado e preciso manter o certificado.', m:[0,1,0,0,1], etapa:4},
+ {n:'Inventário de GEE', h:'carbono-inventario-gee.html', norma:'GHG Protocol · ISO 14064', quem:'Clientes e investidores', grupo:1, ent:'Inventário de emissões dos escopos 1, 2 e 3', q:'Um cliente pediu o meu inventário de emissões.', m:[1,0,0,1,1], etapa:1},
+ {n:'Preparação SEDEX SMETA', h:'sedex-smeta.html', norma:'SMETA 7.0', quem:'Compradores', grupo:1, ent:'Preparação para a auditoria social do comprador', q:'Meu comprador exige auditoria SMETA.', m:[1,0,0,0,0], etapa:3},
+ {n:'ESG e ABNT PR 2030', h:'esg.html', norma:'ABNT PR 2030 · GRI', quem:'Investidores e clientes', grupo:2, ent:'Diagnóstico e plano ESG da organização', q:'Preciso estruturar a agenda ESG.', m:[1,0,0,1,1], etapa:1},
+ {n:'Padrões de mercado', h:'padroes-mercado.html', norma:'FSC · Rainforest · RTRS', quem:'Compradores e certificadora', grupo:1, ent:'Adequação ao padrão exigido pelo mercado comprador', q:'Para exportar, preciso de um selo de mercado.', m:[1,1,0,0,0], etapa:2},
+ {n:'Inspeções de qualidade', h:'inspecoes.html', norma:'Inspeção pré-embarque', quem:'Compradores', grupo:1, ent:'Inspeção do produto antes do embarque, com relatório', q:'Preciso conferir o produto antes do embarque.', m:[1,0,0,0,0], etapa:3},
+ {n:'Atendimento a NRs', h:'nrs.html', norma:'NR-01 · NR-12 · NR-17', quem:'Legislação trabalhista', grupo:0, ent:'Adequação às normas regulamentadoras aplicáveis', q:'A fiscalização cobra o atendimento às NRs.', m:[0,0,1,0,1], etapa:2},
+ {n:'Segurança de alimentos', h:'seguranca-alimentos.html', norma:'ISO 22000 · FSSC 22000', quem:'Legislação e compradores', grupo:0, ent:'Sistema de segurança de alimentos e preparo da certificação', q:'O varejo exige FSSC 22000.', m:[1,1,1,0,0], etapa:2}];
+function nn(i){ return (i < 9 ? '0' : '') + (i + 1); }
+var SETA = '<svg width="10" height="10" viewBox="0 0 9 9"><path d="M0 4.35H8M4 8.35L8 4.35L4 .35" fill="none" stroke="currentColor"/></svg>';
+// 1
+document.getElementById('e1').innerHTML = D.map(function(d, i){ return '<li class="' + (i == 2 ? 'on' : '') + '"><span class="mono">' + nn(i) + '</span><b>' + d.n + '</b><span class="d">' + d.ent + ' →</span></li>'; }).join('');
+// 2
+document.getElementById('e2').innerHTML = D.map(function(d){ return '<li><q>' + d.q + '</q><span class="r">' + d.n + '</span><span class="s mono">Ver serviço →</span></li>'; }).join('');
+// 3
+var Q = ['Clientes', 'Certificadora', 'Legislação', 'Investidores', 'A própria organização'];
+document.getElementById('e3').innerHTML = '<tr><th>Demanda</th>' + Q.map(function(q){ return '<th>' + q + '</th>'; }).join('') + '</tr>' +
+  D.map(function(d){ return '<tr><td>' + d.n + '</td>' + d.m.map(function(v, k){ return '<td><span class="q' + (v ? (k == 4 ? ' l' : '') : ' v') + '"></span></td>'; }).join('') + '</tr>'; }).join('');
+// 4
+var G = [['Exigido por lei', 'Obrigações legais e regulatórias, cobradas pela fiscalização.'], ['Exigido pelo mercado', 'O que o comprador, o importador ou a cadeia pede para fazer negócio.'], ['Decisão da organização', 'Sistemas e compromissos que a organização escolhe adotar e provar.']];
+document.getElementById('e4').innerHTML = G.map(function(g, k){ return '<div class="c"><span class="mono">0' + (k + 1) + '</span><h4>' + g[0] + '</h4><p class="x">' + g[1] + '</p>' +
+  D.filter(function(d){ return d.grupo == k; }).map(function(d){ return '<a href="' + d.h + '">' + d.n + SETA + '</a>'; }).join('') + '</div>'; }).join('');
+// 5
+var E = ['Diagnóstico', 'Planejamento', 'Implantação', 'Auditoria', 'Certificação e suporte'], s = '';
+E.forEach(function(e, k){ var x = 30 + k * 290; s += '<circle cx="' + x + '" cy="60" r="5" fill="#14304C"/><text class="m" x="' + x + '" y="34" text-anchor="middle">' + nn(k) + ' · ' + e.toUpperCase() + '</text>'; });
+s = '<path d="M30 60H1370" stroke="rgba(20,48,76,.4)"/>' + s;
+var cont = [0, 0, 0, 0, 0];
+D.forEach(function(d){ var k = d.etapa, x = 30 + k * 290, y = 110 + cont[k]++ * 44;
+  s += '<path d="M' + x + ' 65V' + (y - 5) + 'H' + (x + 14) + '" fill="none" stroke="rgba(20,48,76,.25)"/><text x="' + (x + 20) + '" y="' + y + '" font-size="17" font-weight="500">' + d.n + '</text>'; });
+document.getElementById('e5').innerHTML = s;
+// 6
+document.getElementById('e6').innerHTML = D.map(function(d, i){ return '<a href="' + d.h + '"><div class="f"></div><div class="t"><span class="mono">' + nn(i) + '</span><b>' + d.n + '</b><span>' + d.ent + '</span></div></a>'; }).join('');
+// 7
+var e7 = document.getElementById('e7'), g7 = document.getElementById('e7g'), k7 = 0;
+e7.innerHTML = D.map(function(d){ return '<li>' + d.n + '</li>'; }).join('');
+function gira(){ g7.textContent = D[k7].n; [].forEach.call(e7.children, function(li, j){ li.classList.toggle('on', j == k7); }); k7 = (k7 + 1) % D.length; }
+gira(); setInterval(gira, 2200);
+// 8
+document.getElementById('e8').innerHTML = D.map(function(d){ return '<a href="' + d.h + '">' + d.n + '<small>' + d.norma + '</small></a>'; }).join('');
+// 9
+var TER = ['Sistema de gestão documentado', 'Inventário de emissões', 'Plano de adequação às NRs', 'Controles da cadeia e do produto'],
+    PROVA = ['Certificado ISO', 'Relatório de auditoria social', 'Relatório de inspeção', 'Relatório ESG verificado'],
+    LIG = [[0, 0], [0, 3], [1, 3], [2, 2], [3, 1], [3, 2], [0, 1]], t = '';
+TER.forEach(function(x, k){ var y = 60 + k * 100; t += '<rect x="20" y="' + (y - 26) + '" width="360" height="44" rx="3" fill="#fff" stroke="rgba(20,48,76,.16)"/><text x="40" y="' + (y + 2) + '" font-size="19" font-weight="500">' + x + '</text>'; });
+PROVA.forEach(function(x, k){ var y = 60 + k * 100; t += '<rect x="1020" y="' + (y - 26) + '" width="360" height="44" rx="3" fill="#fff" stroke="rgba(20,48,76,.16)"/><text x="1040" y="' + (y + 2) + '" font-size="19" font-weight="500">' + x + '</text>'; });
+LIG.forEach(function(l){ var y1 = 56 + l[0] * 100, y2 = 56 + l[1] * 100; t = '<path d="M380 ' + y1 + 'C700 ' + y1 + ' 700 ' + y2 + ' 1020 ' + y2 + '" fill="none" stroke="rgba(51,102,153,.45)"/>' + t; });
+t += '<text x="20" y="20" font-family="IBM Plex Mono" font-size="11" letter-spacing="1.5">O QUE TER</text><text x="1020" y="20" font-family="IBM Plex Mono" font-size="11" letter-spacing="1.5">COMO PROVAR</text>';
+document.getElementById('e9').innerHTML = t;
+// 10
+document.getElementById('e10').innerHTML = '<tr><th>Demanda</th><th>Norma ou padrão</th><th>Quem exige</th><th>O que se entrega</th></tr>' +
+  D.map(function(d){ return '<tr><td>' + d.n + '</td><td class="m">' + d.norma + '</td><td>' + d.quem + '</td><td>' + d.ent + '</td></tr>'; }).join('');
+// 11
+var l11 = document.getElementById('e11'), p11 = document.getElementById('e11p');
+function mostra11(i){ var d = D[i]; [].forEach.call(l11.children, function(li, j){ li.classList.toggle('on', j == i); });
+  p11.innerHTML = '<span class="mono">' + nn(i) + '</span><b>' + d.n + '</b><dl><dt>Norma ou padrão</dt><dd>' + d.norma + '</dd><dt>Quem exige</dt><dd>' + d.quem + '</dd><dt>O que se entrega</dt><dd>' + d.ent + '</dd></dl><p class="mono" style="margin-top:26px">[ Ver serviço → ]</p>'; }
+l11.innerHTML = D.map(function(d, i){ return '<li><span class="mono">' + nn(i) + '</span>' + d.n + '</li>'; }).join('');
+[].forEach.call(l11.children, function(li, i){ li.addEventListener('mouseenter', function(){ mostra11(i); }); }); mostra11(0);
+// 12
+document.getElementById('e12').innerHTML = D.map(function(d, i){ return '<a href="' + d.h + '"><span class="n">' + nn(i) + '</span><span><b>' + d.n + '</b><br><span class="mono">' + d.norma + '</span></span></a>'; }).join('');
+// 13
+var s13 = document.getElementById('e13');
+s13.innerHTML = D.map(function(d, i){ return '<div class="it' + (i == 0 ? ' on' : '') + '"><div class="h"><span class="mono">' + nn(i) + '</span>' + d.n + '<i>+</i></div><div class="c">' + d.ent + '. <span class="mono">' + d.norma + '</span></div></div>'; }).join('');
+[].forEach.call(s13.children, function(it){ it.querySelector('.h').addEventListener('click', function(){ [].forEach.call(s13.children, function(o){ if(o !== it) o.classList.remove('on'); }); it.classList.toggle('on'); }); });
+// 14
+var TEMAS = [['Sistemas de gestão', [0, 1]], ['Clima e ESG', [2, 4]], ['Cadeia e mercado', [3, 5, 6]], ['Segurança e legislação', [7, 8]]], s14 = '';
+TEMAS.forEach(function(tm, k){ var x = 40 + k * 345;
+  s14 += '<rect x="' + x + '" y="20" width="300" height="44" rx="3" fill="#14304C"/><text x="' + (x + 16) + '" y="48" font-size="18" font-weight="600" fill="#FAF9F5" style="fill:#FAF9F5">' + tm[0] + '</text>';
+  tm[1].forEach(function(i, j){ var y = 120 + j * 80;
+    s14 += '<path d="M' + (x + 20) + ' 64V' + (y + 22) + 'H' + (x + 40) + '" fill="none" stroke="rgba(20,48,76,.35)"/><rect x="' + (x + 40) + '" y="' + y + '" width="260" height="44" rx="3" fill="#fff" stroke="rgba(20,48,76,.16)"/><text x="' + (x + 56) + '" y="' + (y + 28) + '" font-size="17" font-weight="500">' + D[i].n + '</text>'; }); });
+document.getElementById('e14').innerHTML = s14;
+// 15
+document.getElementById('e15').innerHTML = D.map(function(d, i){ return '<a href="' + d.h + '"><span class="n">' + nn(i) + '</span><b>' + d.n + '</b></a>'; }).join('');
+// 16
+var A16 = ['Exigido por lei', 'Exigido pelo mercado', 'Decisão da organização'], a16 = document.getElementById('e16a'), l16 = document.getElementById('e16');
+a16.innerHTML = A16.map(function(a, k){ return '<button' + (k == 1 ? ' class="on"' : '') + '>' + a + '</button>'; }).join('');
+function aba(k){ [].forEach.call(a16.children, function(b, j){ b.classList.toggle('on', j == k); });
+  l16.innerHTML = D.filter(function(d){ return d.grupo == k; }).map(function(d){ return '<a href="' + d.h + '">' + d.n + SETA + '</a>'; }).join(''); }
+[].forEach.call(a16.children, function(b, k){ b.addEventListener('click', function(){ aba(k); }); }); aba(1);
+// 17
+document.getElementById('e17').innerHTML = D.map(function(d){ return '<li><b>' + d.n + '</b><span>' + d.norma + '</span></li>'; }).join('');
+// 18
+document.getElementById('e18').innerHTML = D.map(function(d, i){ return '<a class="' + (i == 0 || i == 4 ? 'g' : '') + '" href="' + d.h + '"><span>' + d.n + '</span></a>'; }).join('');
+// 19
+document.getElementById('e19').innerHTML = D.map(function(d){ return '<a href="' + d.h + '"><b>' + d.n + '</b><span>' + d.ent + '</span></a>'; }).join('');
+// 20
+document.getElementById('e20').innerHTML = 'A Ideal Metrics atende com frequência a <a href="' + D[0].h + '">implantação de normas ISO</a> e o <a href="' + D[1].h + '">suporte pós-certificação</a>; o <a href="' + D[2].h + '">inventário de GEE</a> e a agenda de <a href="' + D[4].h + '">ESG e ABNT PR 2030</a>; a <a href="' + D[3].h + '">preparação SEDEX SMETA</a>, os <a href="' + D[5].h + '">padrões de mercado</a> e as <a href="' + D[6].h + '">inspeções de qualidade</a>; e o atendimento às <a href="' + D[7].h + '">NRs</a> e à <a href="' + D[8].h + '">segurança de alimentos</a>.';
+</script>
+</body></html>
