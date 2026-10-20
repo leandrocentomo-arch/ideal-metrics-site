@@ -27,6 +27,7 @@ IC = {  # 19/10/2026: icones GEOMETRICOS («quero um padrao de icones geometrico
         # eram figurativos e errados: «um icone de seguranca privada para saude e seguranca»). Grade 24, desenho entre 4 e 20,
         # so retas, quadrados, retangulos e triangulos; quadradinho cheio como ponto. Sem o circulo em volta (CSS .mega-icon).
  'camadas':   '<rect x="4" y="9" width="11" height="11"/><rect x="9" y="4" width="11" height="11"/>',
+ 'perimetro': '<rect x="4" y="4" width="16" height="16"/><rect x="10.5" y="10.5" width="3" height="3"/><path d="M4 12h4M16 12h4M12 4v4M12 16v4"/>',   # 20/10/2026: seguranca da informacao, a informacao no centro do perimetro
  'losango':   '<polygon points="12 4 20 12 12 20 4 12"/><path d="M8 12h8"/>',
  'triangulo': '<polygon points="12 4 20 18 4 18"/><path d="M4 21h16"/>',
  'cruz':      '<path d="M12 4v16M4 12h16"/>',
@@ -59,6 +60,7 @@ MENU = [
    ('norma-iso-14001.html', 'Meio ambiente · ISO 14001', 'triangulo'),
    ('norma-iso-45001.html', 'Saúde e segurança · ISO 45001', 'cruz'),
    ('seguranca-viaria.html', 'Segurança viária · ISO 39001', 'via'),      # 02/10: sistema de gestao ISO, sai de «Seguranca e inspecao»
+   ('norma-iso-27001.html', 'Segurança da informação · ISO/IEC 27001', 'perimetro'),   # 20/10/2026: pagina de norma propria
    ('compliance-seguranca-informacao.html', 'Compliance e segurança da informação', 'lista'),
    ('suporte.html', 'Suporte ao sistema de gestão', 'par'),
    ]),

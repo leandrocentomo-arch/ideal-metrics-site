@@ -12,7 +12,7 @@ import os, re, json, glob, html, subprocess
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); os.chdir(RAIZ)
 HOST = 'https://idealmetrics.org/'
 OG_IMG = HOST + 'img/og-ideal-metrics.png?v=19102026a'
-SERVICOS = set('''implantacao-iso norma-iso-9001 norma-iso-14001 norma-iso-45001 seguranca-viaria compliance-seguranca-informacao suporte
+SERVICOS = set('''implantacao-iso norma-iso-9001 norma-iso-14001 norma-iso-45001 norma-iso-27001 seguranca-viaria compliance-seguranca-informacao suporte
 padroes-mercado ifc-performance-standards sedex-smeta gestao-carbono esg seguranca-alimentos nrs inspecoes produtos-inspecionamos
 estudos-pesquisa estudos-regulatorios estudos-setoriais observatorio-setorial rastreabilidade-cadeia
 carbono-agro carbono-creditos carbono-descarbonizacao carbono-inventario-gee carbono-mercado-regulado carbono-neutralizacao carbono-pegada-produto'''.split())
@@ -22,6 +22,7 @@ DESCRICOES = {
     'contato.html': 'Contato com a equipe técnica da Ideal Metrics: e-mail info@idealmetrics.org e WhatsApp. Consultoria em normas ISO, gestão de carbono e inspeções da qualidade.',
     'norma-iso-9001.html': 'Consultoria para implantação da ISO 9001:2026: sistema de gestão da qualidade, do diagnóstico à preparação para a certificação. Equipe em atuação desde 1998.',
     'norma-iso-14001.html': 'Consultoria para implantação da NBR ISO 14001:2026: sistema de gestão ambiental, do diagnóstico à preparação para a certificação. Equipe em atuação desde 1998.',
+    'norma-iso-27001.html': 'Consultoria para implantação da NBR ISO/IEC 27001:2022: gestão da segurança da informação, riscos, Declaração de Aplicabilidade, Anexo A e LGPD no mesmo sistema.',
     'norma-iso-45001.html': 'Consultoria para implantação da NBR ISO 45001:2018: sistema de gestão de saúde e segurança ocupacional, GRO e NRs no mesmo sistema, preparação para a certificação.',
     'produtos-inspecionamos.html': 'Produtos que a Ideal Metrics inspeciona: treze categorias, verificadas na fábrica e antes do embarque, no Brasil e no exterior.',
     'inspecoes.html': 'Inspeção de produtos e de fábricas na fonte fornecedora, no Brasil e no exterior: funcionamento, estado, embalagem e quantidade conferidos antes do embarque.',
