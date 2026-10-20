@@ -81,7 +81,7 @@ NORMAS = {
  'sa8000': ('SA 8000', 'Responsabilidade social no trabalho', 'social', IMPL),
  'ifc': ('IFC Performance Standards', 'Padrão ambiental e social de bancos de desenvolvimento e financiadores', 'esg', 'ifc-performance-standards.html'),
  'ecovadis': ('EcoVadis', 'Avaliação de desempenho em sustentabilidade', 'esg', PADR),
- 'fsc': ('FSC', 'Forest Stewardship Council, manejo florestal', 'ambiente', PADR),
+ 'fsc': ('FSC', 'Forest Stewardship Council, manejo florestal', 'ambiente', 'compliance-ambiental-fsc.html'),
  'rainforest': ('Rainforest Alliance', 'Selo de certificação agrícola sustentável', 'ambiente', PADR),
  'abntpr1004': ('ABNT PR 1004-1', 'Operação segura em organizações durante pandemias (diretrizes gerais, 2020)', 'compliance', PADR),
  'abntpr2030': ('ABNT PR 2030', 'ESG: conceitos, relato e avaliação', 'esg', 'esg.html'),
@@ -117,7 +117,7 @@ NORMAS = {
  'eudr': ('EUDR', 'Regulamento da União Europeia contra o desmatamento', 'ambiente', 'estudos-regulatorios.html'),
  # 10/10/2026: entraram com o setor novo agro e florestal (PBQP-H, NR-18 e NR-35 sairam com Construcao). Sem entrada em
  # setores-revisoes.json ate a revisao vigente ser conferida em fonte primaria.
- 'cerflor': ('Cerflor / PEFC', 'Certificação florestal brasileira, reconhecida pelo PEFC', 'ambiente', None),
+ 'cerflor': ('Cerflor / PEFC', 'Certificação florestal brasileira, reconhecida pelo PEFC', 'ambiente', 'compliance-ambiental-fsc.html'),
  'rtrs': ('RTRS', 'Soja responsável (Round Table on Responsible Soy)', 'ambiente', None),
  'bonsucro': ('Bonsucro', 'Cana-de-açúcar e derivados produzidos de forma sustentável', 'ambiente', None),
  'globalgap': ('GlobalG.A.P.', 'Boas práticas agrícolas na produção primária', 'ambiente', None),

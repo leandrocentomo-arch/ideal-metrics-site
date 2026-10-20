@@ -74,6 +74,7 @@ MENU = [
  ('Padrões e sustentabilidade', [
    ('padroes-mercado.html', 'Padrões de mercado', 'grade'),
    ('ifc-performance-standards.html', 'IFC Performance Standards', 'faixas'),
+   ('compliance-ambiental-fsc.html', 'Compliance ambiental e FSC', 'faixas'),
    ('sedex-smeta.html', 'SEDEX/SMETA', 'rede'),
    ('gestao-carbono.html', 'Gestão de carbono', 'degraus'),
    ('esg.html', 'ESG', 'hexa'),
