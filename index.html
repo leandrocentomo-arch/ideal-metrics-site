@@ -1377,6 +1377,9 @@ body>*{position:relative;z-index:1}
 .qc-logo-trama{position:relative;display:inline-block;margin:0 0 30px}
 .qc-logo-trama .qc-abre-logo{margin:0}
 .qc-logo-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* 20/10/2026: «tirar o efeito do passaro, e deixar somente no Ideal Metrics»: o passaro sai da luminancia (vira fundo) e volta liso
+   por cima da trama, numa camada so com ele (img/logo-ideal-m-passaro.svg, o mesmo quadro do lockup) */
+.qc-logo-passaro{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;pointer-events:none}
 /* 24/09: o selo foi para o painel Demandas; 28/09: voltou, abaixo da frase */
 /* 08/10/2026 (noite): no lugar do selo redondo, o logo vertical tingido na aba [ 11 ] do Spirit (receita em
    _tingir-fotos/logos-azul/marca-vertical-azul-receita.json). 96 px de largura, como na previa «em uso» da aba. */
@@ -2672,7 +2675,7 @@ body>*{position:relative;z-index:1}
       <div class="qc-rotulo"><span>Frentes</span><span>[ IM.1 ]</span></div>
       <div class="qc-abre-linha">
         <form class="qc-busca" role="search" onsubmit="return false">
-          <span class="qc-logo-trama" data-lum="img/logo-ideal-m-lum.webp?v=20102026a"><img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=11102026b" alt="Ideal Metrics" width="519" height="209"></span>
+          <span class="qc-logo-trama" data-lum="img/logo-ideal-m-lum.webp?v=20102026b"><img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=11102026b" alt="Ideal Metrics" width="519" height="209"><img class="qc-logo-passaro" src="img/logo-ideal-m-passaro.svg?v=20102026b" alt="" aria-hidden="true"></span>
           <p class="qc-busca-rot">Busca</p>
           <div class="qc-busca-caixa"><input id="buscaCampo" type="search" placeholder="Tema, norma ou padrão" autocomplete="off"
             spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes"><span class="qc-caret" aria-hidden="true"></span></div>
