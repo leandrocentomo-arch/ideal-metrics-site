@@ -98,9 +98,11 @@ MENU = [
 def mega():
     cols = []
     for titulo, itens in MENU:
-        links = '\n'.join('    <a href="%s"><span class="mega-icon"><svg viewBox="0 0 24 24">%s</svg></span>%s</a>' % (f, IC[i], r) for f, r, i in itens)
+        # 20/10/2026: «nao esta bom estes icones; gostaria que fosse um traco que seguisse o mouse para o item no hover».
+        # Sem icone; um traco so (.mega-traco) desliza ate o item sob o mouse (js/busca.js).
+        links = '\n'.join('    <a href="%s">%s</a>' % (f, r) for f, r, i in itens)
         cols.append('  <div class="mega-menu-col">\n    <h4>%s</h4>\n%s\n  </div>' % (titulo, links))
-    return '<div class="mega-menu" id="megaMenu" aria-label="Todos os serviços">\n' + '\n'.join(cols) + '\n</div>'
+    return '<div class="mega-menu" id="megaMenu" aria-label="Todos os serviços">\n' + '\n'.join(cols) + '\n  <span class="mega-traco" aria-hidden="true"></span>\n</div>'
 
 def veu():
     """O mapa de temas do menu do celular (o «Todos os serviços» do veu)."""

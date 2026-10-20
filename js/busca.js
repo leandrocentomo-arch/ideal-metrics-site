@@ -127,6 +127,22 @@
   document.addEventListener('click', function(e){ if(!mega.contains(e.target) && e.target !== abre) esconde(); });
 })();
 
+/* 20/10/2026: o traco do mega-menu. Um traco so, que desliza ate o item sob o mouse; some ao sair do painel. */
+(function(){
+  var mega = document.getElementById('megaMenu'), tr = mega && mega.querySelector('.mega-traco');
+  if(!mega || !tr) return;
+  function vai(x, y){ tr.style.transform = 'translate(' + x + 'px,' + y + 'px)'; }
+  mega.addEventListener('mouseover', function(e){
+    var a = e.target.closest && e.target.closest('.mega-menu-col a'); if(!a) return;
+    var r = a.getBoundingClientRect(), m = mega.getBoundingClientRect();
+    var x = r.left - m.left, y = r.top - m.top + r.height / 2 - 1.5;
+    if(!tr.classList.contains('vis')){ tr.classList.add('sem-anim'); vai(x, y); void tr.offsetWidth; tr.classList.remove('sem-anim'); }
+    else vai(x, y);
+    tr.classList.add('vis');
+  });
+  mega.addEventListener('mouseleave', function(){ tr.classList.remove('vis'); });
+})();
+
 /* 24/09: cursor grosso do campo de busca (o do navegador e um fio de 1px) e a
    frase de abertura da segunda secao em maquina de escrever, quando aparece. */
 (function(){
