@@ -3517,7 +3517,7 @@ html.js .rot-sec.in-view { opacity: 1; transform: none; }
   .sidenav.aberta .sn-painel { width: 300px; visibility: visible; transition: width .6s cubic-bezier(.65,.05,.36,1), visibility 0s; }
   .sn-painel-in { width: 300px; box-sizing: border-box; max-height: calc(100vh - 150px); overflow-y: auto; scrollbar-width: thin; padding: 22px 22px 8px 24px; }
   .sn-aba { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 16px 9px; background: #FAF9F5; color: #14304C; cursor: pointer;   /* 17/10/2026: «aqui pode ser da cor creme» (era branca) */
-    border: 1px solid #0000FF; border-left: 0; border-radius: 0 3px 3px 0; box-shadow: 6px 0 18px -10px rgba(20,48,76,.35);   /* 19/10/2026: encostada na etiqueta do Guia, o fio de cima volta e o canto fica so na direita; 25/10/2026: «quero que estas linhas (de contorno da etiqueta que puxa as tabelas e menus) sejam desta cor, como padrao»: contorno das etiquetas em #0000FF */
+    border: 1px solid #336699; border-left: 0; border-radius: 0 3px 3px 0; box-shadow: 6px 0 18px -10px rgba(20,48,76,.35);   /* 19/10/2026: encostada na etiqueta do Guia, o fio de cima volta e o canto fica so na direita; 25/10/2026: «quero que estas linhas (de contorno da etiqueta que puxa as tabelas e menus) sejam desta cor, como padrao»: contorno das etiquetas em #336699 (o #0000FF da caneta durou uma rodada: «nao ficou legal o azul neon, pode ser o azul 336699») */
     transition: background .25s, color .25s; font: inherit; }
   .sn-aba svg { width: 18px; height: 11px; fill: currentColor; flex: none; }
   .sn-aba span { writing-mode: vertical-rl; transform: rotate(180deg); font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }
