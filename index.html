@@ -1476,15 +1476,36 @@ body>*{position:relative;z-index:1}
   .qc-busca-lado{position:relative}
   .qc-busca-lado>.qc-res{position:absolute;left:0;right:0;top:100%;z-index:5;background:#FAF9F5;max-height:300px;
     box-shadow:0 10px 24px -12px rgba(20,48,76,.35)}
-  .qc-abre .qc-abre-linha>.qc-busca{margin-bottom:30px}   /* 25/10/2026 (5a): «o espaco entre o campo de busca e a secao de baixo aumente em 25%»: 120 -> 150 px */
+  .qc-abre .qc-abre-linha>.qc-busca{margin-bottom:0}   /* 25/10/2026 (5a) 120 -> 150 px; (8a) os vaos passaram a ser os da opcao 06 da prancha, abaixo */
+  .qc-abre .qc-abre-linha>.qc-abre-texto{margin-top:50px}   /* (8a): Consultoria 84 px abaixo da linha de dicas (50 + 34 do titulo) */
+  .qc-busca>.qc-logo-trama{margin-bottom:48px}   /* (8a): 48 px do logo a linha de comando */
   /* 25/10/2026 (6a): o travamento do lado esquerdo (logo, busca e Consultoria parados enquanto a grade subia) saiu: «tire o
      efeito de prender ... deixe como era antes». Fica so o de antes: a grade trava e a coluna da esquerda sobe. */
 }
-.qc-busca.busca-entra .qc-busca-rot,.qc-busca.busca-entra .qc-busca-caixa{
+/* 25/10/2026 (8a): «faca o 6» (opcao 06 da prancha _prova-busca-frentes-10.html): LINHA DE COMANDO. Sem caixa, sem sombra e
+   sem o rotulo «Busca»: um «>» na tinta, o texto de exemplo em mono maior («buscar tema, norma ou padrao») e o cursor de
+   bloco que a pagina ja tem; embaixo, a linha de dicas em mono miudo (sem contagem: regra de 19/10). Ativa, a linha ganha
+   o «>» em azul e um fio fino que se desenha embaixo, da esquerda para a direita. O js/busca.js continua posicionando o
+   cursor pelo padding-left do campo (fica entre o «>» e o texto). */
+.qc-busca .qc-busca-rot{display:none}
+.qc-busca-caixa,.qc-busca-caixa.foco{background:none;box-shadow:none;border-radius:0;transition:none}
+.qc-busca-caixa::before{content:'>';position:absolute;left:0;top:50%;transform:translateY(-50%);font-family:var(--mono);font-weight:500;
+  font-size:clamp(17px,1.5vw,22px);line-height:1;color:var(--azul);transition:color .25s}
+.qc-busca-caixa.foco::before{color:#336699}
+.qc-busca-caixa input,.qc-busca-caixa input:focus,.qc-busca-caixa.foco input{border-bottom:none;font-size:clamp(17px,1.5vw,22px);font-weight:400;
+  letter-spacing:0;padding:10px 0 10px 2.1em;color:var(--azul)}
+.qc-busca input::placeholder{color:rgba(20,48,76,.5)}
+.qc-busca-caixa .qc-caret{top:50%;transform:translateY(-50%);font-size:clamp(17px,1.5vw,22px);width:.55em;height:1.1em}
+.qc-busca-caixa::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--fio);
+  transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.22,.61,.36,1)}
+.qc-busca-caixa.foco::after{transform:scaleX(1)}
+.qc-busca-dica{margin:12px 0 0;font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
+.qc-busca.busca-entra .qc-busca-rot,.qc-busca.busca-entra .qc-busca-caixa,.qc-busca.busca-entra .qc-busca-dica{
   clip-path:inset(-30px 100% -30px -30px);transform:translateX(-28px);opacity:0;
   transition:clip-path 1.2s cubic-bezier(.22,.61,.36,1),transform 1.2s cubic-bezier(.22,.61,.36,1),opacity .54s ease}   /* 25/10 (2a): «20% mais lento» (era 1 s) */
 .qc-busca.busca-entra .qc-busca-caixa{transition-delay:.17s}
-.qc-busca.busca-entra.entrou .qc-busca-rot,.qc-busca.busca-entra.entrou .qc-busca-caixa{
+.qc-busca.busca-entra .qc-busca-dica{transition-delay:.34s}
+.qc-busca.busca-entra.entrou .qc-busca-rot,.qc-busca.busca-entra.entrou .qc-busca-caixa,.qc-busca.busca-entra.entrou .qc-busca-dica{
   clip-path:inset(-30px -30px -30px -30px);transform:none;opacity:1}
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
   line-height:1.45;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
@@ -2717,8 +2738,9 @@ body>*{position:relative;z-index:1}
           <span class="qc-logo-trama" data-lum="img/logo-ideal-m-lum.webp?v=20102026b"><img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=11102026b" alt="Ideal Metrics" width="519" height="209"><img class="qc-logo-passaro" src="img/logo-ideal-m-passaro.svg?v=20102026b" alt="" aria-hidden="true"></span>
           <div class="qc-busca-lado">
           <p class="qc-busca-rot">Busca</p>
-          <div class="qc-busca-caixa"><input id="buscaCampo" type="search" placeholder="Tema, norma ou padrão" autocomplete="off"
+          <div class="qc-busca-caixa"><input id="buscaCampo" type="search" placeholder="buscar tema, norma ou padrão" autocomplete="off"
             spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes"><span class="qc-caret" aria-hidden="true"></span></div>
+          <p class="qc-busca-dica">Enter para buscar · Esc para limpar</p>
           <ul class="qc-res" id="buscaRes" role="listbox" hidden></ul>
           </div>
         </form>
