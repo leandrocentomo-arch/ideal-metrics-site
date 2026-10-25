@@ -115,14 +115,14 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
 .qc-mat-aba{position:absolute;right:0;top:0;bottom:73px;   /* 17/10/2026: «esta etiqueta pode ter a altura de todo o campo»: do fio do titulo ate a base da grade (73 = a legenda .qc-mat-info, que fica de fora); era 40 a 46 px para dentro */
   width:39px;padding:18px 0 16px;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;
-  background:#FAF9F5;color:#14304C;border:1px solid #336699;border-left:none;border-radius:0 3px 3px 0;   /* 25/10/2026: «quero que estas linhas (de contorno da etiqueta que puxa as tabelas e menus) sejam desta cor, como padrao»: contorno das etiquetas em #336699 (o #0000FF da caneta durou uma rodada: «nao ficou legal o azul neon, pode ser o azul 336699») */   /* 17/10/2026: «a etiqueta deve ficar virada para o lado onde e puxada»: a grade abre para a DIREITA, entao a etiqueta fica presa pela esquerda e solta a direita (era o contrario) */
+  background:#FAF9F5;color:#14304C;border:1px solid #A3B5C8;border-left:none;border-radius:0 3px 3px 0;   /* 25/10/2026: «quero que estas linhas (de contorno da etiqueta que puxa as tabelas e menus) sejam desta cor, como padrao»: contorno das etiquetas em #A3B5C8, a cor do fio divisor das secoes (--border-gray; «coloque esta linha da cor desta linha aqui de cima, faca para todas as etiquetas do site»); antes #336699 (o #0000FF da caneta durou uma rodada: «nao ficou legal o azul neon, pode ser o azul 336699») */   /* 17/10/2026: «a etiqueta deve ficar virada para o lado onde e puxada»: a grade abre para a DIREITA, entao a etiqueta fica presa pela esquerda e solta a direita (era o contrario) */
   box-shadow:6px 0 18px -8px rgba(20,48,76,.35);transition:width .35s cubic-bezier(.4,0,.2,1),background .3s,color .3s}
 .qc-mat-aba:hover,.qc-mat-aba:focus-visible{width:47px;outline:none}   /* 10/10 (noite): «por que coloriu a tarja, se eu nao pedi?»: no hover so alarga, sem o azul */
 .qc-mat-aba svg{width:18px;height:11px;fill:currentColor;flex:none}
 /* 19/10/2026: «dois tracinhos como no esquema, nesta etiqueta; ela e o contrario das outras, nao fica virada para a parede
    da tela»: como a etiqueta nao encosta na borda da tela, dois tracos curtos na tinta marcam, em cima e embaixo, o lado
    em que ela se prende a grade */
-.qc-mat-aba::before,.qc-mat-aba::after{content:"";position:absolute;left:-1px;width:1px;height:14px;background:#336699;pointer-events:none}   /* «na mesma espessura do contorno»: 1 px, na cor do contorno */
+.qc-mat-aba::before,.qc-mat-aba::after{content:"";position:absolute;left:-1px;width:1px;height:14px;background:#A3B5C8;pointer-events:none}   /* «na mesma espessura do contorno»: 1 px, na cor do contorno */
 .qc-mat-aba::before{top:-1px}
 .qc-mat-aba::after{bottom:-1px}
 .qc-mat-aba-txt{writing-mode:vertical-rl;transform:rotate(180deg);font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
@@ -201,7 +201,7 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
   .qc-abre-linha>.qc-abre-texto{order:2;margin-left:0;margin-right:20px;transition:flex-basis .8s cubic-bezier(.4,0,.2,1),opacity .55s,margin-right .8s cubic-bezier(.4,0,.2,1)}
   .qc-abre-linha.mat-aberto>.qc-abre-texto{margin-right:0}
   .qc-abre-linha>.qc-mat{order:3;padding-right:0;padding-left:47px}
-  .qc-mat-aba{right:auto;left:0;border-left:1px solid #336699;border-right:none;border-radius:3px 0 0 3px;box-shadow:-6px 0 18px -8px rgba(20,48,76,.35)}
+  .qc-mat-aba{right:auto;left:0;border-left:1px solid #A3B5C8;border-right:none;border-radius:3px 0 0 3px;box-shadow:-6px 0 18px -8px rgba(20,48,76,.35)}
   .qc-mat-aba::before,.qc-mat-aba::after{left:auto;right:-1px}
 }
 
