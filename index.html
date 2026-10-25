@@ -1452,6 +1452,21 @@ body>*{position:relative;z-index:1}
 .qc-res .veu-res-d{display:block;font-weight:400;font-size:13px;color:var(--azul-escuro);margin-top:3px}
 .qc-res .veu-res-vazio{padding:11px 0;font-size:14px;color:var(--azul-escuro)}
 @media (max-width:880px){ .qc-busca{width:100%} }
+/* 25/10/2026, Leandro: «arraste um pouco a caixa de busca para o lado direito, alinhando a secao de baixo a direita»:
+   o rotulo, a caixa e a lista de resultados andam para a direita ate a borda direita da frase Consultoria de apoio
+   (58% - 20px da linha; a busca ocupa 50%, entao o passo e 16% da busca - 20px). O logo fica onde esta.
+   «faca um efeito de entrada deste campo de busca, de forma que ele surge da esquerda para direita»: quando a caixa
+   entra na tela, rotulo e caixa se revelam da esquerda para a direita (recorte que abre + deslize curto), uma vez so.
+   A classe .busca-entra so e posta pelo script; sem script ou com movimento reduzido a caixa aparece parada. */
+@media (min-width:881px){
+  .qc-busca>.qc-busca-rot,.qc-busca>.qc-busca-caixa,.qc-busca>.qc-res{position:relative;left:calc(16% - 20px)}
+}
+.qc-busca.busca-entra>.qc-busca-rot,.qc-busca.busca-entra>.qc-busca-caixa{
+  clip-path:inset(-30px 100% -30px -30px);transform:translateX(-28px);opacity:0;
+  transition:clip-path 1s cubic-bezier(.22,.61,.36,1),transform 1s cubic-bezier(.22,.61,.36,1),opacity .45s ease}
+.qc-busca.busca-entra>.qc-busca-caixa{transition-delay:.14s}
+.qc-busca.busca-entra.entrou>.qc-busca-rot,.qc-busca.busca-entra.entrou>.qc-busca-caixa{
+  clip-path:inset(-30px -30px -30px -30px);transform:none;opacity:1}
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
   line-height:1.45;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
 .qc-lead{margin:10px 0 0;font-family:var(--sans);font-weight:700;
@@ -4459,6 +4474,20 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       if(!e.isIntersecting) zera(); else if(e.intersectionRatio >= .35) toca(); });
     }, {threshold:[0, .35]}).observe(s);
   });
+})();
+</script>
+<script>
+/* 25/10/2026: entrada da caixa de busca da secao Frentes, da esquerda para a direita (CSS em .busca-entra).
+   Toca uma vez, quando a base da caixa passa de 90% da altura da tela (na carga ou rolando). */
+(function(){
+  var f = document.querySelector('.qc-abre-linha>.qc-busca'), c = f && f.querySelector('.qc-busca-caixa');
+  if(!c || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  f.classList.add('busca-entra');
+  function ve(){ var r = c.getBoundingClientRect();
+    if(r.bottom < innerHeight * .9 && r.bottom > 0){ removeEventListener('scroll', ve); removeEventListener('resize', ve);
+      requestAnimationFrame(function(){ f.classList.add('entrou'); }); } }
+  addEventListener('scroll', ve, {passive:true}); addEventListener('resize', ve);
+  requestAnimationFrame(ve);
 })();
 </script>
 <script src="js/setores-dados.js?v=21"></script>
