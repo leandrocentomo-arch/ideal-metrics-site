@@ -1,0 +1,59 @@
+{
+ "foto_original": "Flow_tecnologia_data-center_20261025.jpg",
+ "vaga": "gs",
+ "arquivos": {
+  "lum": "tecnologia-03-lum-gs.webp",
+  "bayer": "tecnologia-03-bayer-gs.webp"
+ },
+ "medidas": {
+  "reserva": [
+   600,
+   600
+  ],
+  "luminancia": [
+   960,
+   960
+  ]
+ },
+ "enquadramento": {
+  "zoom": 1,
+  "px": 50,
+  "py": 50,
+  "espelhar": false,
+  "inclinar": 0,
+  "corte_esq": 0,
+  "corte_dir": 0,
+  "corte_topo": 0,
+  "corte_base": 0
+ },
+ "ajustes_da_foto": {
+  "exposicao": 1.1,
+  "gama": 1.0,
+  "ctr": 1,
+  "brilho": 0,
+  "piso": 0,
+  "teto": 1,
+  "nitidez": 0,
+  "suave": 0
+ },
+ "tingimento": {
+  "brilhoTom": 0.38,
+  "gama": 0.81,
+  "ctr": 1.9,
+  "escuro": 0.5,
+  "limiar": 0,
+  "ponto": 1,
+  "ruido": 0,
+  "matriz": 4,
+  "veu": 0.08,
+  "cores": [
+   "#153351",
+   "#183858",
+   "#6792BD",
+   "#FAF9F5"
+  ]
+ },
+ "clareamento_na_reserva": true,
+ "tom_no_motor": true,
+ "nota": "25/10/2026: Tecnologia e servicos financeiros, card 08 do Guia, no lugar de tecnologia-02 («troque esta foto, nao gosto dela»): corredor frio de data center com dois profissionais de TI conferindo uma lista impressa (Google Flow, Nano Banana, 1:1, 2K). Mesmo tom no motor da 02 (data-tom). 25/10 (2a): «ficou muito escura em relacao as outras»: exposicao +1,1 e tom brilho 0,38 / escuro 0,5, calibrados pela proporcao de tons na reserva (26% escuro, 63% creme; a 02 tinha 27/60)."
+}

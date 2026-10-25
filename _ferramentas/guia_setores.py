@@ -45,8 +45,8 @@ FOTOS = [
      '{"brilhoTom":0.34,"gama":0.81,"ctr":1.85,"escuro":1.6,"limiar":0,"veu":0.07,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}', 'Hospitalar'),
     ('img/energia-01-bayer-gs.webp?v=13102026', 'img/energia-01-lum-gs.webp?v=13102026',
      '{"brilhoTom":0.09,"gama":1.13,"ctr":1.7,"escuro":0.4,"limiar":0.03,"veu":0.19,"cores":["#14304C","#336699","#D3E2F2","#FAF9F5"]}', 'Energético'),
-    ('img/tecnologia-02-bayer-gs.webp?v=13102026', 'img/tecnologia-02-lum-gs.webp?v=13102026',
-     '{"brilhoTom":0.21,"gama":0.81,"ctr":1.9,"escuro":1.7,"limiar":0,"veu":0.08,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}', 'Digital'),
+    ('img/tecnologia-03-bayer-gs.webp?v=25102026b', 'img/tecnologia-03-lum-gs.webp?v=25102026b',   # 25/10/2026: corredor de data center com dois profissionais de TI (Google Flow), receita _ferramentas/receitas/tecnologia-03-gs.json; a 02 (painel de fibra) saiu («nao gosto dela»)
+     '{"brilhoTom":0.38,"gama":0.81,"ctr":1.9,"escuro":0.5,"limiar":0,"veu":0.08,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}', 'Digital'),
     ('img/servicos-03-bayer-gs.webp?v=13102026', 'img/servicos-03-lum-gs.webp?v=13102026',
      '{"brilhoTom":0.27,"gama":0.86,"ctr":1.7,"escuro":1,"limiar":0,"veu":0.1,"cores":["#153351","#183858","#6792BD","#FAF9F5"]}', 'Serviços'),
 ]
