@@ -1469,7 +1469,10 @@ body>*{position:relative;z-index:1}
    linha para a grade continuar descendo). A lista de resultados abre por cima do que vem abaixo, sem empurrar a pagina
    (o travamento da Frentes mede a linha e nao pode mudar enquanto se digita). */
 @media (min-width:881px){
-  .qc-abre .qc-abre-linha>.qc-busca{flex:0 0 calc(58% - 20px);width:auto;margin-right:calc(42% - 20px)}   /* .qc-abre a frente: o css/setores.css vem depois e poria 50% */
+  /* 25/10/2026 (7a): «a tabela, ao expandir ... some e a pagina fica em branco»: aberta a grade, a coluna da frase fica com
+     largura 0 e, com a busca + margem + vao fechando 100% exatos, ela cabia na linha da busca; a linha ficava da altura da
+     frase invisivel (1.096 px) e a grade descia para baixo dela. A margem leva 1 px a mais: a busca ocupa a linha sozinha. */
+  .qc-abre .qc-abre-linha>.qc-busca{flex:0 0 calc(58% - 20px);width:auto;margin-right:calc(42% - 19px)}   /* .qc-abre a frente: o css/setores.css vem depois e poria 50% */
   .qc-busca-lado{position:relative}
   .qc-busca-lado>.qc-res{position:absolute;left:0;right:0;top:100%;z-index:5;background:#FAF9F5;max-height:300px;
     box-shadow:0 10px 24px -12px rgba(20,48,76,.35)}
