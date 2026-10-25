@@ -1378,6 +1378,10 @@ body>*{position:relative;z-index:1}
 /* 20/10/2026: «tirar o efeito do passaro, e deixar somente no Ideal Metrics»: o passaro sai da luminancia (vira fundo) e volta liso
    por cima da trama, numa camada so com ele (img/logo-ideal-m-passaro.svg, o mesmo quadro do lockup) */
 .qc-logo-passaro{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;pointer-events:none}
+/* 25/10/2026: «gostaria que o passaro entrasse depois da parte escrita, com efeito de fade»: com a trama ligada, o passaro
+   espera a revelacao do letreiro e entra em fade. A classe .passaro-espera so e posta pelo script (sem ele, passaro parado). */
+.qc-logo-trama.passaro-espera .qc-logo-passaro{opacity:0;transition:opacity 1.1s ease}
+.qc-logo-trama.passaro-espera.passaro-entra .qc-logo-passaro{opacity:1}
 /* 24/09: o selo foi para o painel Demandas; 28/09: voltou, abaixo da frase */
 /* 08/10/2026 (noite): no lugar do selo redondo, o logo vertical tingido na aba [ 11 ] do Spirit (receita em
    _tingir-fotos/logos-azul/marca-vertical-azul-receita.json). 96 px de largura, como na previa «em uso» da aba. */
@@ -1458,13 +1462,15 @@ body>*{position:relative;z-index:1}
    «faca um efeito de entrada deste campo de busca, de forma que ele surge da esquerda para direita»: quando a caixa
    entra na tela, rotulo e caixa se revelam da esquerda para a direita (recorte que abre + deslize curto), uma vez so.
    A classe .busca-entra so e posta pelo script; sem script ou com movimento reduzido a caixa aparece parada. */
+/* 25/10/2026 (2a): «nao ficou bom a posicao, corte 1/4 da largura do campo, e deixe-o alinhado a esquerda»: o passo para a
+   direita saiu; rotulo, caixa e resultados ficam a esquerda, com 3/4 da largura que tinham (75% da busca). */
 @media (min-width:881px){
-  .qc-busca>.qc-busca-rot,.qc-busca>.qc-busca-caixa,.qc-busca>.qc-res{position:relative;left:calc(16% - 20px)}
+  .qc-busca>.qc-busca-rot,.qc-busca>.qc-busca-caixa,.qc-busca>.qc-res{width:75%}
 }
 .qc-busca.busca-entra>.qc-busca-rot,.qc-busca.busca-entra>.qc-busca-caixa{
   clip-path:inset(-30px 100% -30px -30px);transform:translateX(-28px);opacity:0;
-  transition:clip-path 1s cubic-bezier(.22,.61,.36,1),transform 1s cubic-bezier(.22,.61,.36,1),opacity .45s ease}
-.qc-busca.busca-entra>.qc-busca-caixa{transition-delay:.14s}
+  transition:clip-path 1.2s cubic-bezier(.22,.61,.36,1),transform 1.2s cubic-bezier(.22,.61,.36,1),opacity .54s ease}   /* 25/10 (2a): «20% mais lento» (era 1 s) */
+.qc-busca.busca-entra>.qc-busca-caixa{transition-delay:.17s}
 .qc-busca.busca-entra.entrou>.qc-busca-rot,.qc-busca.busca-entra.entrou>.qc-busca-caixa{
   clip-path:inset(-30px -30px -30px -30px);transform:none;opacity:1}
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
@@ -4488,6 +4494,23 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
       requestAnimationFrame(function(){ f.classList.add('entrou'); }); } }
   addEventListener('scroll', ve, {passive:true}); addEventListener('resize', ve);
   requestAnimationFrame(ve);
+})();
+
+/* 25/10/2026: o passaro do logo da Frentes entra em fade depois do letreiro. A revelacao da trama (js/trama.js) comeca quando o
+   motor esta ligado (classe gl-on) e o logo passa de 85% da tela, e dura 2 s com a curva p4out (quase toda nos primeiros
+   1,2 s); o passaro comeca 1,2 s depois desse instante. Sem WebGL a trama nao liga: 2,5 s apos entrar na tela, o passaro aparece. */
+(function(){
+  var q = document.querySelector('.qc-logo-trama');
+  if(!q || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  q.classList.add('passaro-espera');
+  var dentro = false, foi = false, reserva = 0;
+  function entra(){ if(foi) return; foi = true; clearTimeout(reserva); q.classList.add('passaro-entra'); }
+  function tenta(){ if(foi || !dentro) return;
+    if(q.classList.contains('gl-on')){ mo.disconnect(); io.disconnect(); clearTimeout(reserva); setTimeout(entra, 1200); }
+    else if(!reserva) reserva = setTimeout(entra, 2500); }
+  var mo = new MutationObserver(tenta); mo.observe(q, {attributes:true, attributeFilter:['class']});
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ dentro = e.isIntersecting; tenta(); }); }, {rootMargin:'0px 0px -15% 0px'});
+  io.observe(q);
 })();
 </script>
 <script src="js/setores-dados.js?v=21"></script>
