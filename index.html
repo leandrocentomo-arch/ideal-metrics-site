@@ -1473,7 +1473,12 @@ body>*{position:relative;z-index:1}
   .qc-busca-lado{position:relative}
   .qc-busca-lado>.qc-res{position:absolute;left:0;right:0;top:100%;z-index:5;background:#FAF9F5;max-height:300px;
     box-shadow:0 10px 24px -12px rgba(20,48,76,.35)}
+  .qc-abre .qc-abre-linha>.qc-busca{margin-bottom:30px}   /* 25/10/2026 (5a): «o espaco entre o campo de busca e a secao de baixo aumente em 25%»: 120 -> 150 px */
+  /* travamento da Frentes (script no fim da pagina): o lado esquerdo desce D px enquanto a pagina rola de s1 a s1 + D */
+  .qc-abre-linha.trava-tl>.qc-busca,.qc-abre-linha.trava-tl>.qc-abre-texto{animation:qc-trava linear both;
+    animation-timeline:scroll(root block);animation-range:var(--trava-s1) calc(var(--trava-s1) + var(--trava-d))}
 }
+@keyframes qc-trava{from{transform:translateY(0)}to{transform:translateY(var(--trava-d))}}
 .qc-busca.busca-entra .qc-busca-rot,.qc-busca.busca-entra .qc-busca-caixa{
   clip-path:inset(-30px 100% -30px -30px);transform:translateX(-28px);opacity:0;
   transition:clip-path 1.2s cubic-bezier(.22,.61,.36,1),transform 1.2s cubic-bezier(.22,.61,.36,1),opacity .54s ease}   /* 25/10 (2a): «20% mais lento» (era 1 s) */
@@ -4527,21 +4532,30 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
    entre o alto do logo e o alto da Consultoria (que esta na altura da grade), e a linha ganha D de padding embaixo, para o
    lado esquerdo deslocado nao invadir a secao seguinte e a grade soltar no mesmo ponto de antes. So na tela larga e sem
    movimento reduzido; com a grade aberta (mat-aberto) a frase some e nada muda. */
+/* 25/10/2026 (2): «ele pula um pouco conforme vamos scroll para baixo, ajuste, deixe tudo suave»: o transform posto no evento de
+   rolagem chegava um quadro depois da rolagem (que o navegador faz fora do script) e o lado esquerdo tremia. Agora e uma
+   animacao presa a rolagem da pagina (animation-timeline: scroll(), regra .trava-tl no CSS): o navegador anda o lado esquerdo
+   no mesmo quadro da rolagem. O script so mede (inicio s1 e curso D) e poe nas variaveis --trava-s1 e --trava-d. Navegador
+   sem animacao por rolagem (Firefox) fica com o transform no evento, como antes. */
 (function(){
   var linha = document.querySelector('.qc-abre-linha'), f = linha && linha.querySelector('.qc-busca'), tx = linha && linha.querySelector('.qc-abre-texto');
   if(!f || !tx) return;
   var larga = matchMedia('(min-width:881px)'), calma = matchMedia('(prefers-reduced-motion: reduce)');
-  var TOPO = 120, s1 = 0, D = 0, p = -1;
+  var TL = window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()');
+  var TOPO = 120, s1 = 0, D = 0, p = -1, chave = '';
   function poe(v){ if(v === p) return; p = v; var tr = v ? 'translateY(' + v.toFixed(1) + 'px)' : ''; f.style.transform = tr; tx.style.transform = tr; }
   function mede(){
+    var tinha = linha.classList.contains('trava-tl'); if(tinha) linha.classList.remove('trava-tl');
     poe(0);
-    if(!larga.matches || calma.matches){ linha.style.paddingBottom = ''; D = 0; return; }
+    if(!larga.matches || calma.matches){ linha.style.paddingBottom = ''; D = 0; chave = ''; return; }
     var yf = f.getBoundingClientRect().top + scrollY, yt = tx.getBoundingClientRect().top + scrollY;
-    D = Math.max(0, yt - yf); s1 = yf - TOPO; linha.style.paddingBottom = D + 'px';
-    anda();
+    D = Math.max(0, Math.round(yt - yf)); s1 = Math.round(yf - TOPO);
+    var k = s1 + '/' + D;
+    if(k !== chave){ chave = k; linha.style.paddingBottom = D + 'px'; linha.style.setProperty('--trava-s1', s1 + 'px'); linha.style.setProperty('--trava-d', D + 'px'); }
+    if(TL){ if(D) linha.classList.add('trava-tl'); } else anda();
   }
-  function anda(){ if(!D) return; poe(Math.max(0, Math.min(D, scrollY - s1))); }
-  addEventListener('scroll', anda, {passive:true});   /* direto no evento (o rolar ja vem no ritmo do quadro); com requestAnimationFrame, janela coberta atrasava o travamento */
+  function anda(){ if(!D || TL) return; poe(Math.max(0, Math.min(D, scrollY - s1))); }
+  if(!TL) addEventListener('scroll', anda, {passive:true});
   addEventListener('resize', mede); addEventListener('load', mede);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(mede);
   /* o que esta acima da Frentes muda de altura enquanto carrega (fotos, tiras): remede quando a pagina muda de tamanho */
