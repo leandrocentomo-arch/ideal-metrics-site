@@ -1499,6 +1499,10 @@ body>*{position:relative;z-index:1}
 .qc-busca-caixa::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--fio);
   transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.22,.61,.36,1)}
 .qc-busca-caixa.foco::after{transform:scaleX(1)}
+/* 25/10/2026 (10a): «de um gap no menu da busca, estao encostados na parede»: os resultados ganham 16 px de recuo dos dois lados
+   (o fio de cada item continua de borda a borda); no hover o recuo cresce 8 px, como antes. */
+.qc-res a,.qc-res .veu-res-vazio{padding-left:16px;padding-right:16px}
+.qc-res a:hover,.qc-res li.sel a{padding-left:24px}
 .qc-busca-dica{margin:12px 0 0;font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
 .qc-busca.busca-entra .qc-busca-rot,.qc-busca.busca-entra .qc-busca-caixa,.qc-busca.busca-entra .qc-busca-dica{
   clip-path:inset(-30px 100% -30px -30px);transform:translateX(-28px);opacity:0;
