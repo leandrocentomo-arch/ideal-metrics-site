@@ -1378,10 +1378,10 @@ body>*{position:relative;z-index:1}
 /* 20/10/2026: «tirar o efeito do passaro, e deixar somente no Ideal Metrics»: o passaro sai da luminancia (vira fundo) e volta liso
    por cima da trama, numa camada so com ele (img/logo-ideal-m-passaro.svg, o mesmo quadro do lockup) */
 .qc-logo-passaro{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;pointer-events:none}
-/* 25/10/2026: «gostaria que o passaro entrasse depois da parte escrita, com efeito de fade»: com a trama ligada, o passaro
-   espera a revelacao do letreiro e entra em fade. A classe .passaro-espera so e posta pelo script (sem ele, passaro parado). */
-.qc-logo-trama.passaro-espera .qc-logo-passaro{opacity:0;transition:opacity 1.1s ease}
-.qc-logo-trama.passaro-espera.passaro-entra .qc-logo-passaro{opacity:1}
+/* 25/10/2026: «tire o efeito de aparecimento do passaro, mas deixe-o aparecendo juntamente com o logo, no mesmo instante» (o fade
+   de 1,1 s depois do letreiro saiu): com a trama ligada e ainda sem revelar, o letreiro esta em branco e o passaro fica escondido
+   (.passaro-espera, posta pelo script); quando a revelacao comeca, ele aparece de uma vez. */
+.qc-logo-trama.passaro-espera .qc-logo-passaro{visibility:hidden}
 /* 24/09: o selo foi para o painel Demandas; 28/09: voltou, abaixo da frase */
 /* 08/10/2026 (noite): no lugar do selo redondo, o logo vertical tingido na aba [ 11 ] do Spirit (receita em
    _tingir-fotos/logos-azul/marca-vertical-azul-receita.json). 96 px de largura, como na previa «em uso» da aba. */
@@ -1464,15 +1464,15 @@ body>*{position:relative;z-index:1}
    A classe .busca-entra so e posta pelo script; sem script ou com movimento reduzido a caixa aparece parada. */
 /* 25/10/2026 (2a): «nao ficou bom a posicao, corte 1/4 da largura do campo, e deixe-o alinhado a esquerda»: o passo para a
    direita saiu; rotulo, caixa e resultados ficam a esquerda, com 3/4 da largura que tinham (75% da busca). */
-/* 25/10/2026 (3a): «coloque o campo de busca ao lado do logo ideal metrics», «mantenha este espaco abaixo» e «mantenha o
-   espaco como esta»: rotulo e caixa (.qc-busca-lado) vao para a direita do logo, com a base da caixa na base do logo, na
-   mesma largura (505 px). O espaco que a busca ocupava fica vazio: o padding-bottom de 106 px segura a Consultoria de apoio
-   onde estava (226 px abaixo do logo). A lista de resultados abre por cima desse espaco, sem empurrar a pagina. */
+/* 25/10/2026 (4a): «coloque abaixo do icone novamente, mas faca-o da mesma largura da secao de baixo»: a busca volta para baixo
+   do logo e o formulario passa a ter a largura da coluna da Consultoria de apoio (58% - 20px da linha; a margem completa a
+   linha para a grade continuar descendo). A lista de resultados abre por cima do que vem abaixo, sem empurrar a pagina
+   (o travamento da Frentes mede a linha e nao pode mudar enquanto se digita). */
 @media (min-width:881px){
-  .qc-abre-linha>.qc-busca{flex:0 0 calc(100% - 40px);width:auto;margin-right:40px;display:flex;align-items:flex-end;gap:64px;padding-bottom:106px}
-  .qc-busca>.qc-logo-trama{margin-bottom:0;flex:none}
-  .qc-busca-lado{position:relative;flex:0 1 505px;min-width:0}
-  .qc-busca-lado>.qc-res{position:absolute;left:0;right:0;top:100%;z-index:5;background:#FAF9F5;max-height:210px}   /* cabe no vao ate a Consultoria (226 px), sem cobrir a frase */
+  .qc-abre .qc-abre-linha>.qc-busca{flex:0 0 calc(58% - 20px);width:auto;margin-right:calc(42% - 20px)}   /* .qc-abre a frente: o css/setores.css vem depois e poria 50% */
+  .qc-busca-lado{position:relative}
+  .qc-busca-lado>.qc-res{position:absolute;left:0;right:0;top:100%;z-index:5;background:#FAF9F5;max-height:300px;
+    box-shadow:0 10px 24px -12px rgba(20,48,76,.35)}
 }
 .qc-busca.busca-entra .qc-busca-rot,.qc-busca.busca-entra .qc-busca-caixa{
   clip-path:inset(-30px 100% -30px -30px);transform:translateX(-28px);opacity:0;
@@ -4505,21 +4505,48 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   requestAnimationFrame(ve);
 })();
 
-/* 25/10/2026: o passaro do logo da Frentes entra em fade depois do letreiro. A revelacao da trama (js/trama.js) comeca quando o
-   motor esta ligado (classe gl-on) e o logo passa de 85% da tela, e dura 2 s com a curva p4out (quase toda nos primeiros
-   1,2 s); o passaro comeca 1,2 s depois desse instante. Sem WebGL a trama nao liga: 2,5 s apos entrar na tela, o passaro aparece. */
+/* 25/10/2026: o passaro do logo da Frentes aparece no mesmo instante que o letreiro. A revelacao da trama (js/trama.js)
+   comeca quando o motor esta ligado (classe gl-on) e o logo passa de 85% da tela. Antes de ligar, o SVG liso aparece inteiro
+   e o passaro com ele; ligado e ainda fora da tela, o letreiro fica em branco e o passaro se esconde ate a revelacao. */
 (function(){
   var q = document.querySelector('.qc-logo-trama');
-  if(!q || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  q.classList.add('passaro-espera');
-  var dentro = false, foi = false, reserva = 0;
-  function entra(){ if(foi) return; foi = true; clearTimeout(reserva); q.classList.add('passaro-entra'); }
-  function tenta(){ if(foi || !dentro) return;
-    if(q.classList.contains('gl-on')){ mo.disconnect(); io.disconnect(); clearTimeout(reserva); setTimeout(entra, 1200); }
-    else if(!reserva) reserva = setTimeout(entra, 2500); }
-  var mo = new MutationObserver(tenta); mo.observe(q, {attributes:true, attributeFilter:['class']});
-  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ dentro = e.isIntersecting; tenta(); }); }, {rootMargin:'0px 0px -15% 0px'});
+  if(!q || !('IntersectionObserver' in window)) return;
+  var dentro = false, foi = false;
+  function olha(){ if(foi || !q.classList.contains('gl-on')) return;
+    if(dentro){ foi = true; q.classList.remove('passaro-espera'); mo.disconnect(); io.disconnect(); }
+    else if(!q.classList.contains('passaro-espera')) q.classList.add('passaro-espera'); }   /* classList.add regrava o atributo mesmo sem mudar: sem o teste, o observador entra em laco */
+  var mo = new MutationObserver(olha); mo.observe(q, {attributes:true, attributeFilter:['class']});
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ dentro = e.isIntersecting; olha(); }); }, {rootMargin:'0px 0px -15% 0px'});
   io.observe(q);
+})();
+
+/* 25/10/2026: «faca um efeito onde o logo e cursor ficam travados ate subir a tabela do lado direito, depois o efeito passar
+   para o lado esquerdo (como ja e)». Fase 1: quando o logo chega a 120 px do alto (a mesma linha em que a grade trava), o
+   lado esquerdo (logo, busca e Consultoria de apoio) fica parado e a grade sobe ate o alto dele. Fase 2, a de antes: a grade
+   trava (sticky, setores.css) e o lado esquerdo sobe. O lado esquerdo anda com transform; o curso D da fase 1 e a distancia
+   entre o alto do logo e o alto da Consultoria (que esta na altura da grade), e a linha ganha D de padding embaixo, para o
+   lado esquerdo deslocado nao invadir a secao seguinte e a grade soltar no mesmo ponto de antes. So na tela larga e sem
+   movimento reduzido; com a grade aberta (mat-aberto) a frase some e nada muda. */
+(function(){
+  var linha = document.querySelector('.qc-abre-linha'), f = linha && linha.querySelector('.qc-busca'), tx = linha && linha.querySelector('.qc-abre-texto');
+  if(!f || !tx) return;
+  var larga = matchMedia('(min-width:881px)'), calma = matchMedia('(prefers-reduced-motion: reduce)');
+  var TOPO = 120, s1 = 0, D = 0, p = -1;
+  function poe(v){ if(v === p) return; p = v; var tr = v ? 'translateY(' + v.toFixed(1) + 'px)' : ''; f.style.transform = tr; tx.style.transform = tr; }
+  function mede(){
+    poe(0);
+    if(!larga.matches || calma.matches){ linha.style.paddingBottom = ''; D = 0; return; }
+    var yf = f.getBoundingClientRect().top + scrollY, yt = tx.getBoundingClientRect().top + scrollY;
+    D = Math.max(0, yt - yf); s1 = yf - TOPO; linha.style.paddingBottom = D + 'px';
+    anda();
+  }
+  function anda(){ if(!D) return; poe(Math.max(0, Math.min(D, scrollY - s1))); }
+  addEventListener('scroll', anda, {passive:true});   /* direto no evento (o rolar ja vem no ritmo do quadro); com requestAnimationFrame, janela coberta atrasava o travamento */
+  addEventListener('resize', mede); addEventListener('load', mede);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(mede);
+  /* o que esta acima da Frentes muda de altura enquanto carrega (fotos, tiras): remede quando a pagina muda de tamanho */
+  if('ResizeObserver' in window){ var rm = 0; new ResizeObserver(function(){ if(!rm) rm = requestAnimationFrame(function(){ rm = 0; mede(); }); }).observe(document.body); }
+  mede();
 })();
 </script>
 <script src="js/setores-dados.js?v=21"></script>
