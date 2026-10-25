@@ -4547,11 +4547,14 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
   function mede(){
     var tinha = linha.classList.contains('trava-tl'); if(tinha) linha.classList.remove('trava-tl');
     poe(0);
-    if(!larga.matches || calma.matches){ linha.style.paddingBottom = ''; D = 0; chave = ''; return; }
+    if(!larga.matches || calma.matches){ tx.style.marginBottom = ''; D = 0; chave = ''; return; }
     var yf = f.getBoundingClientRect().top + scrollY, yt = tx.getBoundingClientRect().top + scrollY;
     D = Math.max(0, Math.round(yt - yf)); s1 = Math.round(yf - TOPO);
     var k = s1 + '/' + D;
-    if(k !== chave){ chave = k; linha.style.paddingBottom = D + 'px'; linha.style.setProperty('--trava-s1', s1 + 'px'); linha.style.setProperty('--trava-d', D + 'px'); }
+    /* 25/10/2026 (3): «deve esperar o elemento da esquerda subir ate o fim para que a pagina avance»: a reserva de D px ia no
+       padding da linha, e o sticky da grade ignora o padding (solta na borda do conteudo): a grade saia D px antes da frase
+       Construimos sistemas chegar ao alto. A reserva passa a margem de baixo da coluna da frase, que conta no conteudo. */
+    if(k !== chave){ chave = k; tx.style.marginBottom = D + 'px'; linha.style.setProperty('--trava-s1', s1 + 'px'); linha.style.setProperty('--trava-d', D + 'px'); }
     if(TL){ if(D) linha.classList.add('trava-tl'); } else anda();
   }
   function anda(){ if(!D || TL) return; poe(Math.max(0, Math.min(D, scrollY - s1))); }
