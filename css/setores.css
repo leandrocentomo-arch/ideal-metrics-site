@@ -194,6 +194,17 @@ a.stf-card:hover{border-color:rgba(20,48,76,.4)}
   .qc-abre-linha>.qc-abre-cauda{flex:0 0 100%;margin-top:104px}
 }
 
+/* 25/10/2026, Leandro: «troque os lados nesta secao»: a frase (Consultoria de apoio) vai para a ESQUERDA e a grade
+   Normas e padroes por setor para a DIREITA. A etiqueta da grade passa para o lado esquerdo dela (a grade abre para a
+   esquerda, comprimindo a frase), presa pela direita e solta a esquerda. So na tela larga; no celular a ordem ja era esta. */
+@media (min-width:881px){
+  .qc-abre-linha>.qc-abre-texto{order:2;margin-left:0;margin-right:20px;transition:flex-basis .8s cubic-bezier(.4,0,.2,1),opacity .55s,margin-right .8s cubic-bezier(.4,0,.2,1)}
+  .qc-abre-linha.mat-aberto>.qc-abre-texto{margin-right:0}
+  .qc-abre-linha>.qc-mat{order:3;padding-right:0;padding-left:47px}
+  .qc-mat-aba{right:auto;left:0;border-left:1px solid rgba(20,48,76,.42);border-right:none;border-radius:3px 0 0 3px;box-shadow:-6px 0 18px -8px rgba(20,48,76,.35)}
+  .qc-mat-aba::before,.qc-mat-aba::after{left:auto;right:-1px}
+}
+
 /* ---------- secao Guia (10/10/2026): tres portas de entrada, setor | tema | norma, que levam a pagina ---------- */
 .mp-sec{padding:120px var(--lado) 40px;color:var(--azul)}   /* 11/10: sem fundo proprio, para as linhas das 12 colunas (body::before) aparecerem como no Conteudo de destaque */
 .mp-cab{border-top:1px solid var(--fio);padding-top:12px}

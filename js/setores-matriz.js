@@ -91,13 +91,13 @@
     fig.style.flexBasis = f + 'px';
     if(cauda){
       cauda.style.flexBasis = Math.max(0, Math.min(m.frase * (1 - p), m.L - 40 - f - mg - 1)) + 'px';
-      cauda.style.marginLeft = mg + 'px'; cauda.style.opacity = String(1 - p);
+      cauda.style.marginRight = mg + 'px'; cauda.style.opacity = String(1 - p);   /* 25/10/2026: a frase fica a esquerda da grade */
     }
     arr.p = p;
   }
   function limpa(){
     fig.style.flexBasis = '';
-    if(cauda){ cauda.style.flexBasis = ''; cauda.style.marginLeft = ''; cauda.style.opacity = ''; }
+    if(cauda){ cauda.style.flexBasis = ''; cauda.style.marginRight = ''; cauda.style.opacity = ''; }
   }
   aba.addEventListener('pointerdown', function(e){
     if(e.button !== 0 || window.innerWidth <= 880) return;
@@ -106,7 +106,7 @@
   });
   aba.addEventListener('pointermove', function(e){
     if(!arr) return;
-    var dx = e.clientX - arr.x0;
+    var dx = arr.x0 - e.clientX;   /* 25/10/2026: a grade esta a direita e abre para a esquerda: puxar a etiqueta para a esquerda abre */
     if(!arr.ativo){
       if(Math.abs(dx) < 5) return;
       arr.ativo = true; arr.m = medidas();
