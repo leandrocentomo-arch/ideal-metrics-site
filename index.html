@@ -1464,14 +1464,21 @@ body>*{position:relative;z-index:1}
    A classe .busca-entra so e posta pelo script; sem script ou com movimento reduzido a caixa aparece parada. */
 /* 25/10/2026 (2a): «nao ficou bom a posicao, corte 1/4 da largura do campo, e deixe-o alinhado a esquerda»: o passo para a
    direita saiu; rotulo, caixa e resultados ficam a esquerda, com 3/4 da largura que tinham (75% da busca). */
+/* 25/10/2026 (3a): «coloque o campo de busca ao lado do logo ideal metrics», «mantenha este espaco abaixo» e «mantenha o
+   espaco como esta»: rotulo e caixa (.qc-busca-lado) vao para a direita do logo, com a base da caixa na base do logo, na
+   mesma largura (505 px). O espaco que a busca ocupava fica vazio: o padding-bottom de 106 px segura a Consultoria de apoio
+   onde estava (226 px abaixo do logo). A lista de resultados abre por cima desse espaco, sem empurrar a pagina. */
 @media (min-width:881px){
-  .qc-busca>.qc-busca-rot,.qc-busca>.qc-busca-caixa,.qc-busca>.qc-res{width:75%}
+  .qc-abre-linha>.qc-busca{flex:0 0 calc(100% - 40px);width:auto;margin-right:40px;display:flex;align-items:flex-end;gap:64px;padding-bottom:106px}
+  .qc-busca>.qc-logo-trama{margin-bottom:0;flex:none}
+  .qc-busca-lado{position:relative;flex:0 1 505px;min-width:0}
+  .qc-busca-lado>.qc-res{position:absolute;left:0;right:0;top:100%;z-index:5;background:#FAF9F5;max-height:210px}   /* cabe no vao ate a Consultoria (226 px), sem cobrir a frase */
 }
-.qc-busca.busca-entra>.qc-busca-rot,.qc-busca.busca-entra>.qc-busca-caixa{
+.qc-busca.busca-entra .qc-busca-rot,.qc-busca.busca-entra .qc-busca-caixa{
   clip-path:inset(-30px 100% -30px -30px);transform:translateX(-28px);opacity:0;
   transition:clip-path 1.2s cubic-bezier(.22,.61,.36,1),transform 1.2s cubic-bezier(.22,.61,.36,1),opacity .54s ease}   /* 25/10 (2a): «20% mais lento» (era 1 s) */
-.qc-busca.busca-entra>.qc-busca-caixa{transition-delay:.17s}
-.qc-busca.busca-entra.entrou>.qc-busca-rot,.qc-busca.busca-entra.entrou>.qc-busca-caixa{
+.qc-busca.busca-entra .qc-busca-caixa{transition-delay:.17s}
+.qc-busca.busca-entra.entrou .qc-busca-rot,.qc-busca.busca-entra.entrou .qc-busca-caixa{
   clip-path:inset(-30px -30px -30px -30px);transform:none;opacity:1}
 .qc-titulo-sec{margin:34px 0 0;font-family:var(--mono);font-weight:500;font-size:11px;
   line-height:1.45;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-escuro)}
@@ -2702,10 +2709,12 @@ body>*{position:relative;z-index:1}
       <div class="qc-abre-linha">
         <form class="qc-busca" role="search" onsubmit="return false">
           <span class="qc-logo-trama" data-lum="img/logo-ideal-m-lum.webp?v=20102026b"><img class="qc-abre-logo" src="img/logo-ideal-m-escuro.svg?v=11102026b" alt="Ideal Metrics" width="519" height="209"><img class="qc-logo-passaro" src="img/logo-ideal-m-passaro.svg?v=20102026b" alt="" aria-hidden="true"></span>
+          <div class="qc-busca-lado">
           <p class="qc-busca-rot">Busca</p>
           <div class="qc-busca-caixa"><input id="buscaCampo" type="search" placeholder="Tema, norma ou padrão" autocomplete="off"
             spellcheck="false" aria-label="Buscar no site" aria-controls="buscaRes"><span class="qc-caret" aria-hidden="true"></span></div>
           <ul class="qc-res" id="buscaRes" role="listbox" hidden></ul>
+          </div>
         </form>
         <div class="qc-abre-texto">
           <h2 class="qc-titulo-sec" id="qc-titulo-sec">Consultoria de apoio</h2>
