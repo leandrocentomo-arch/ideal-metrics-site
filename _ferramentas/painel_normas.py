@@ -38,13 +38,14 @@ TEMAS = [
     ('conformidade', 'Avaliação da conformidade', ['ISO/CASCO']),
     ('facilities', 'Facilities', ['ISO/TC 267']),
     ('energia', 'Energia', ['ISO/TC 301']),
+    ('consultoria', 'Consultoria de gestão', ['ISO/TC 342']),   # 26/10/2026: ISO 20700 (a ISO 10019 segue em Qualidade, é do TC 176/SC 3)
 ]
 
 # Comissão espelho na ABNT (só as que a Ideal Metrics acompanha; o resto fica em branco).
 ABNT = {'ISO/TC 176': 'ABNT/CB-025', 'ISO/TC 207': 'ABNT/CB-038', 'ISO/TC 283': 'ABNT/CEE-109',
         'ISO/TC 241': 'ABNT/CB-016', 'ISO/TC 34/SC 17': 'ABNT/CEE-104', 'ISO/IEC JTC 1/SC 27': 'ABNT/CB-021',
         'ISO/IEC JTC 1/SC 42': 'ABNT/CEE-127', 'ISO/TC 309': 'ABNT/CEE-309', 'ISO/TC 262': 'ABNT/CEE-063',
-        'ISO/TC 292': 'ABNT/CEE-063', 'ISO/CASCO': 'ABNT/CB-025', 'ISO/TC 267': 'ABNT/CEE-267',
+        'ISO/TC 292': 'ABNT/CEE-063', 'ISO/CASCO': 'ABNT/CB-025', 'ISO/TC 267': 'ABNT/CEE-267', 'ISO/TC 342': 'ABNT/CEE-309',
         'ISO/TC 323': 'ABNT/CEE-323', 'ISO/PC 343': 'ABNT/CEE-256', 'ISO/TC 265': 'ABNT/CB-038'}
 
 # Página de serviço do site para a norma (número base -> arquivo).
