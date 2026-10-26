@@ -12,8 +12,8 @@ O DIAGRAMA, na linha fina do site (a das etapas das paginas de servico e a do ma
     METRICS, que desce ate cada etapa por um fio (a frase da secao: «conduzimos cada etapa com o consultor dentro do
     processo do cliente»; o titulo: «Ao lado em cada etapa»);
   - em cada etapa: o numero (mono) em cima, o nome (17, negrito) e duas linhas curtas embaixo, tiradas dos cartoes;
-  - embaixo, a chave «cerca de 6 meses», o prazo que as paginas de servico ja publicam («Cerca de 6 meses: do
-    diagnostico a certificacao»).
+  - embaixo, a chave do prazo: «Prazo definido no diagnostico» (26/10/2026, o Leandro tirou do site todo numero fixo
+    de prazo e de visitas; antes era «Cerca de 6 meses»).
   Nada de trocadilho nem de objeto do tema como desenho. Todo texto na tinta; a cor fica so no fio do consultor.
 
 ENTRADA: a mesma do mapa da secao Conhecimento (linhas.py): o SVG leva a classe .ln-svg, as linhas .ln-linha/.ln-eixo
@@ -42,7 +42,7 @@ TEXTO = ['Análise da situação atual e identificação de gaps em relação à
          'Construção do sistema de gestão integrado à rotina da operação.',
          'Verificação da conformidade e preparação para a certificação.',
          'Acompanhamento da auditoria do organismo certificador até o certificado emitido.']
-PRAZO = 'Cerca de 6 meses'
+PRAZO = 'Prazo definido no diagnóstico'
 
 W = 1362                                  # o mesmo viewBox do mapa da secao Conhecimento (1 unidade ~ 1 px a 1536)
 XL, XR = 16, 1346                         # comeco e fim das duas linhas
@@ -117,7 +117,7 @@ def secao():
         '  <ol class="pr-lista">',
         lista,
         '  </ol>',
-        '  <p class="pr-lista-prazo">%s, do diagnóstico à certificação.</p>' % PRAZO,
+        '  <p class="pr-lista-prazo">%s, conforme o escopo.</p>' % PRAZO,
         '</section>',
         '',
         '',
@@ -179,7 +179,7 @@ CSS_PAGINA = r"""
    um pouco mais distante, um do outro, mesmo que tenha que mexer no menu lateral»: fica no TOPO da pagina, entre a
    migalha e o menu lateral, na largura toda (1240, a mesma do .page-layout), com a entrada do mapa da home. */
 .pr-topo{max-width:1240px;margin:0 auto;padding:56px 40px 0;color:var(--azul)}
-.pr-topo-rot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+.pr-topo-rot{display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between;font-family:var(--mono);font-size:12px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--azul);border-top:1px solid rgba(20,48,76,.16);padding-top:16px}
 .pr-topo .pr-frase{margin:28px 0 0;max-width:62ch;font-family:var(--sans);font-size:18px;line-height:1.45;color:var(--azul)}
 .pr-topo .pr-rola{margin:40px 0 0}
@@ -251,7 +251,7 @@ def bloco_pagina():
                       '<p class="pr-frase">%s</p>' % FRASE,
                       '<div class="pr-rola">' + svg() + '</div>',
                       '<ol class="pr-lista">', lista, '</ol>',
-                      '<p class="pr-lista-prazo">%s, do diagnóstico à certificação.</p>' % PRAZO,
+                      '<p class="pr-lista-prazo">%s, conforme o escopo.</p>' % PRAZO,
                       '</section>',
                       JS_PAGINA,
                       '<!-- ===== fim processo ===== -->'])

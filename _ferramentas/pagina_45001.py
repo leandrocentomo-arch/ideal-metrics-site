@@ -28,7 +28,8 @@ Fatos e fontes (tudo conferido em 05/10/2026):
 - NR-01, GRO e PGR; riscos psicossociais pela Portaria MTE 1.419/2024, fiscalizacao desde 26/05/2026.
 - Numeros: 742.214 acidentes notificados em 2024 (Observatorio de SST, MPT e OIT); 542.527 certificados ISO 45001 em
   2024 e 190.429 em 2020 (ISO Survey 2024).
-- Como trabalhamos: os quatro fatos da pagina como-trabalhamos.html (homens/dia, ~6 meses, ate 5 visitas/mes, Teams).
+- Como trabalhamos: os quatro fatos da pagina como-trabalhamos.html (homens/dia, prazo definido no diagnostico, visitas mensais definidas no plano diretor, Teams;
+  26/10/2026: o site nao publica mais numero fixo de prazo nem de visitas).
 - Credencial: Lead Auditor ISO 45001 (memoria user-leandro-competencia-auditor). Sem nome de cliente."""
 import io, os, re
 
@@ -213,6 +214,8 @@ for i, (n, t, sub, a, b) in enumerate(PASSOS):
     else:
         xm = X0 + a * MES
         L.append('<polygon points="%.1f,%d %.1f,%d %.1f,%d %.1f,%d" fill="#14304C"/>' % (xm, cy - 11, xm + 11, cy, xm, cy + 11, xm - 11, cy))
+# 26/10/2026: o site nao publica mais prazo fixo. Este cronograma de seis meses saiu da pagina na versao curta (11/10) e nao
+# deve voltar assim; se voltar, sem a escala de meses.
 FIG_PASSOS = fig(L, 'As cinco etapas num projeto típico de 6 meses', 900, Y0 + 5 * LIN,
                  'Cronograma típico de 6 meses: diagnóstico no primeiro mês, plano diretor do fim do primeiro ao segundo mês, implantação do segundo ao quinto mês, auditoria interna e análise crítica no fim do quinto e no sexto mês, e a organização pronta para a certificação no fim do sexto mês')
 
@@ -314,15 +317,15 @@ for n, _ in FOTOS:
         assert os.path.exists(os.path.join(SITE, 'img', '%s-%s.webp' % (n, t))), 'falta a foto img/%s-%s.webp (rodar _ferramentas/foto_azul.py)' % (n, t)
 
 MODELO = [('01', 'Consultoria por homens/dia', 'Dias dimensionados ao projeto.'),
-          ('02', 'Cerca de 6 meses', 'Do diagnóstico à certificação.'),
-          ('03', 'Até 5 visitas por mês', 'Conforme o cronograma.'),
+          ('02', 'Prazo definido no diagnóstico', 'Implantação e preparação para a certificação.'),
+          ('03', 'Visitas mensais definidas no plano diretor', 'Conforme o cronograma.'),
           ('04', 'Reuniões online', 'Pelo Microsoft Teams, entre as visitas.')]
 MODELO_HTML = '<div class="vi-4">\n' + '\n'.join('  <div class="ifc-cel"><span class="ifc-rot">%s</span><h4>%s</h4><p>%s</p></div>' % m for m in MODELO) + '\n</div>'
 
 # 11/10/2026: pedido do Leandro, paginas mais simples. O que explicava a norma no corpo virou pergunta, no componente
 # unico do site (.faq / .faq-item, css/style.css), no lugar dos quatro cards .vi-faq
 FAQ = [('O que é a ISO 45001?', 'A ISO 45001 é a norma internacional de sistemas de gestão de saúde e segurança ocupacional, de 2018, com a Emenda 1:2024 sobre ações climáticas. A segunda edição está em votação, com publicação prevista para o primeiro semestre de 2027. Na edição de 2018, o IAF deu três anos para a transição.'),
-       ('Quanto tempo leva a implantação?', 'Cerca de 6 meses, do diagnóstico à organização pronta para a certificação. O prazo depende do porte da operação e do que já existe.'),
+       ('Quanto tempo leva a implantação?', 'O prazo é definido no diagnóstico: depende do porte da operação e do que já existe. As visitas mensais são combinadas no plano diretor.'),
        ('Quem participa pela organização?', 'A direção, a área de segurança (SESMT), a CIPA e os líderes de área. A Ideal Metrics conduz o projeto, e a equipe da organização constrói o sistema junto.'),
        ('Como a ISO 45001 se relaciona com as NRs?', 'Um sistema de gestão de saúde e segurança ocupacional reúne o que as NRs já exigem: o GRO da NR-01, com inventário de riscos e plano de ação, o PCMSO da NR-07, a CIPA da NR-05 e as NRs da operação. Desde 26/05/2026 a fiscalização cobra os riscos psicossociais no GRO.'),
        ('Quem certifica e o que é verificado?', 'A certificação é concedida por organismo acreditado, e a Ideal Metrics implanta e prepara a organização para ela. Na primeira fase o organismo verifica a documentação e a prontidão; na segunda, o sistema em funcionamento, com auditoria interna e análise crítica já realizadas.'),
