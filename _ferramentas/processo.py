@@ -29,7 +29,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(AQUI)
 
 TITULO = 'Ao lado em cada etapa'
-FRASE = 'Do diagnóstico à certificação, conduzimos cada etapa com o consultor dentro do processo do cliente.'
+FRASE = 'A Ideal Metrics conduz cada etapa com o consultor dentro do processo do cliente.'   # 26/10/2026: sem «do diagnóstico à certificação» e sem 1ª pessoa
 # (numero, nome, linha 1, linha 2): o conteudo dos cartoes antigos, encurtado para caber embaixo do no
 ETAPAS = [('01', 'Diagnóstico', 'Situação atual e gaps', 'em relação às normas'),
           ('02', 'Planejamento', 'Responsáveis, prazos e', 'entregas por visita'),
