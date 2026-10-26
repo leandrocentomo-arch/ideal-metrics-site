@@ -6,6 +6,8 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  var dataBR = function (iso) { var p = String(iso).split('-'); return p.length < 3 ? iso : p[2] + '-' + MESES[+p[1] - 1] + '-' + p[0]; };   // dd-mmm-aaaa (26/10/2026)
   var fmt = function (n) { return (n == null ? '' : Number(n).toLocaleString('pt-BR')); };
 
   var FASES = [
@@ -41,7 +43,7 @@
     D.temasMap = {}; D.temas.forEach(function (t) { D.temasMap[t.id] = t.nome; });
     D.porNum = {}; D.normas.forEach(function (n) { (D.porNum[n.num] = D.porNum[n.num] || []).push(n); });
     montaFiltros(); liga(); render();
-    $('#pn-gerado').textContent = D.gerado.split('-').reverse().join('/');
+    $('#pn-gerado').textContent = dataBR(D.gerado);
     var h = location.hash.replace('#', '');
     if (/^n\d+$/.test(h)) abreDetalhe(+h.slice(1));
     else if (h) mostraAba(h);
@@ -182,7 +184,7 @@
       '<div class="pn-sec"><span class="m">Estágio atual · código ' + n.est + '</span><p><b>' + f[1] + '.</b> ' + f[3] + '</p>' + trilha + '</div>' +
       (n.escopo ? '<div class="pn-sec"><span class="m">Do que trata (escopo, texto da ISO)</span><p>' + esc(n.escopo).replace(/\s*\n+\s*/g, '</p><p>') + (n.escopo.length >= 900 ? ' […]' : '') + '</p></div>' : '') +
       '<div class="pn-sec"><span class="m">Ficha</span><dl class="pn-kv">' +
-      (n.pub ? '<dt>Publicação</dt><dd>' + n.pub.split('-').reverse().join('/') + '</dd>' : '') +
+      (n.pub ? '<dt>Publicação</dt><dd>' + dataBR(n.pub) + '</dd>' : '') +
       (n.pag ? '<dt>Páginas</dt><dd>' + n.pag + '</dd>' : '') +
       '<dt>Comitê ISO</dt><dd>' + esc(n.comite) + (n.tcnome ? ' · ' + esc(n.tcnome) : '') + '</dd>' +
       (n.abnt ? '<dt>Espelho ABNT</dt><dd>' + esc(n.abnt) + '</dd>' : '') +
@@ -190,7 +192,7 @@
       (irmas.length ? '<dt>Outras edições e projetos</dt><dd>' + irmas.map(function (x) { return '<a href="#n' + x.id + '" data-id="' + x.id + '">' + esc(x.ref) + '</a> <span class="m" style="font-size:10px">' + FASES[FASE_IDX[x.fase]][1] + '</span>'; }).join('<br>') + '</dd>' : '') +
       (sv ? '<dt>Certificados</dt><dd>' + fmt(sv.total) + ' no mundo' + (sv.paises.BR ? ', ' + fmt(sv.paises.BR) + ' no Brasil' : '') + ' <span class="m" style="font-size:10px">ISO Survey 2025</span> · <a href="#mapa" data-mapa="' + n.num + '">ver no mapa</a></dd>' : '') +
       '</dl></div>' +
-      (mud.length ? '<div class="pn-sec"><span class="m">Movimentos registrados neste painel</span><p>' + mud.map(function (m) { return m.data.split('-').reverse().join('/') + ': ' + (m.tipo === 'nova' ? 'entrou na base' : m.tipo === 'saiu' ? 'saiu da base' : 'estágio ' + m.de + ' para ' + m.para); }).join('<br>') + '</p></div>' : '') +
+      (mud.length ? '<div class="pn-sec"><span class="m">Movimentos registrados neste painel</span><p>' + mud.map(function (m) { return dataBR(m.data) + ': ' + (m.tipo === 'nova' ? 'entrou na base' : m.tipo === 'saiu' ? 'saiu da base' : 'estágio ' + m.de + ' para ' + m.para); }).join('<br>') + '</p></div>' : '') +
       '<div class="pn-sec"><span class="m">Links</span><div class="pn-links">' +
       '<a href="https://www.iso.org/standard/' + n.id + '.html" target="_blank" rel="noopener">Página da norma na ISO <span class="m">iso.org</span></a>' +
       (n.tcid ? '<a href="https://www.iso.org/committee/' + n.tcid + '.html" target="_blank" rel="noopener">Comitê ' + esc(n.comite) + ' <span class="m">iso.org</span></a>' : '') +
@@ -236,14 +238,14 @@
   /* ---------- mudanças ---------- */
   function montaMudancas() {
     var el = $('#md-corpo'), it = (MUD.itens || []).slice().sort(function (a, b) { return b.data.localeCompare(a.data) || a.ref.localeCompare(b.ref); });
-    var desde = (MUD.desde || D.gerado).split('-').reverse().join('/');
+    var desde = dataBR((MUD.desde || D.gerado));
     if (!it.length) {
       el.innerHTML = '<p class="pn-vazio">Nenhuma mudança de estágio registrada desde ' + desde + '. A base da ISO é comparada toda semana; o que entrar, avançar de estágio ou for publicado aparece aqui.</p>';
       return;
     }
     var grupos = {}; it.forEach(function (m) { (grupos[m.data] = grupos[m.data] || []).push(m); });
     el.innerHTML = Object.keys(grupos).sort().reverse().map(function (d) {
-      return '<div class="md-grupo"><span class="m">' + d.split('-').reverse().join('/') + ' · ' + grupos[d].length + ' movimento(s)</span>' + grupos[d].map(function (m) {
+      return '<div class="md-grupo"><span class="m">' + dataBR(d) + ' · ' + grupos[d].length + ' movimento(s)</span>' + grupos[d].map(function (m) {
         var o = m.tipo === 'nova' ? 'entrou na base · ' + m.para : m.tipo === 'saiu' ? 'saiu da base' : m.de + ' → ' + m.para;
         var n = D.normas.filter(function (x) { return x.id === m.id; })[0];
         return '<div class="md-item" data-id="' + m.id + '"><span class="ref">' + esc(m.ref) + '</span><span>' + esc(n ? n.titulo : '') + '</span><span class="de">' + esc(o) + ' · ' + (FASES[FASE_IDX[m.fase]] || [])[1] + '</span></div>';
@@ -305,7 +307,7 @@
     var max = s.paises[rank[0]];
     var top = rank.slice(0, 10); if (posBR > 10) top.push('BR');
     $('#mp-lado').innerHTML = '<h3>' + esc(nome) + '</h3><div class="m">' + esc(s.titulo || '') + '</div>' +
-      '<div class="tot">' + fmt(s.total) + '<small>certificados válidos em 31/12/2025 · ' + rank.length + ' países</small></div>' +
+      '<div class="tot">' + fmt(s.total) + '<small>certificados válidos em 31-dez-2025 · ' + rank.length + ' países</small></div>' +
       (posBR ? '<div class="mp-br"><span class="m">Brasil</span><div class="v">' + fmt(s.paises.BR) + '<small>' + posBR + 'º no mundo · ' + posLA + 'º na América Latina</small></div></div>' : '<div class="mp-br"><span class="m">Brasil</span><div class="v">0</div></div>') +
       '<ul class="mp-rank">' + top.map(function (a) { var p = rank.indexOf(a) + 1; return '<li' + (a === 'BR' ? ' class="br"' : '') + '><span class="m">' + p + '</span><span>' + esc(nomePais(a)) + '</span><b>' + fmt(s.paises[a]) + '</b><span class="barra"><i style="width:' + (s.paises[a] / max * 100) + '%"></i></span></li>'; }).join('') + '</ul>' +
       '<p class="mp-nota">Só certificados emitidos por organismos acreditados por membros do IAF. Países sem certificado acreditado não aparecem. Fonte: ISO Survey 2025.</p>';

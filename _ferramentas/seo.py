@@ -107,7 +107,7 @@ def bloco(f, t):
     if blog:
         m = re.search(r'<p class="bl-meta">(.*?)</p>', t); data = None
         if m:
-            d = re.search(r'(\d{1,2}) de (\w{3})\.? de (\d{4})', texto(m.group(1)))
+            d = re.search(r'(\d{1,2})(?: de |-)(\w{3})\.?(?: de |-)(\d{4})', texto(m.group(1)))   # dd-mmm-aaaa (desde 26/10/2026) ou «21 de abr. de 2025»
             if d: data = '%s-%02d-%02d' % (d.group(3), MESES[d.group(2).lower()], int(d.group(1)))
         post = {"@type": "BlogPosting", "headline": h1, "description": desc, "url": url, "mainEntityOfPage": url, "image": OG_IMG,
                 "author": {"@type": "Organization", "name": "Equipe Técnica Ideal Metrics"}, "publisher": ORG, "inLanguage": "pt-BR"}

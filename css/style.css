@@ -4131,3 +4131,6 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
    trabalhamos» mora DENTRO da figura das etapas, logo abaixo da legenda, para nao parecer legenda da figura seguinte */
 .content h3 + .ifc-fig { margin-top: 6px; }
 .content .ifc-fig figcaption + .vi-chamada { margin: 10px 0 0; }
+
+/* numero do tile no celular: data em dd-mmm-aaaa (26/10/2026) tem 11 caracteres e estourava a coluna de 162 px */
+@media (max-width: 760px) { .vi-nums .vi-num { padding: 16px 14px 14px; } .vi-nums .vi-num b { font-size: 24px; } }

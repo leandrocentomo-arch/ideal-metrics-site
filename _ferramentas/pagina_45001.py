@@ -136,7 +136,7 @@ L += ['<circle class="ifc-aro ifc-aro--f" cx="%d" cy="%d" r="70"/>' % (CX, CY),
       '<text class="ifc-svg-t" x="%d" y="%d">participação dos</text>' % (CX, CY + 4),
       '<text class="ifc-svg-t" x="%d" y="%d">trabalhadores (5)</text>' % (CX, CY + 20)]
 # as quatro fases: ponto no anel, rotulo para fora (mono da fase + clausula)
-FASES = [(45, 'P · PLANEJAR', 'Planejamento (6)'), (135, 'D · FAZER', 'Suporte (7) e operação (8)'),
+FASES = [(45, 'P · PLANEJAR', 'Planejamento (6)'), (135, 'D · FAZER', 'Apoio (7) e operação (8)'),
          (225, 'C · CHECAR', 'Avaliação de desempenho (9)'), (315, 'A · AGIR', 'Melhoria (10)')]
 for g, mono, tit in FASES:
     x, y = no_anel(g); lx, ly = no_anel(g, R + 22)

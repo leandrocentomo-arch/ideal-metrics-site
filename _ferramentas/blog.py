@@ -31,8 +31,9 @@ MOTOR = r"""<script>
 
 
 def data_br(iso):
+    # dd-mmm-aaaa, regra do Leandro de 26/10/2026 («formato da data sempre dd-mmm-aaaa»)
     a, m, d = iso.split('-')
-    return '%d de %s de %s' % (int(d), MES[int(m) - 1], a)
+    return '%02d-%s-%s' % (int(d), MES[int(m) - 1].rstrip('.'), a)
 
 
 def e(t):
