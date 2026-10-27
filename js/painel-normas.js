@@ -352,16 +352,17 @@
     var grupos = GRUPOS.map(function (g) { return { g: g, soma: g.ea.reduce(function (a, i) { return a + v[i]; }, 0) }; }).sort(function (a, b) { return b.soma - a.soma; });
     var max = grupos[0].soma || 1;
     $('#st-total').textContent = fmt(total) + ' certificados com setor informado · ' + (SURVEY_NOME[stNum] || 'ISO ' + stNum) + ' · ' + (stOnde === 'br' ? 'Brasil' : 'mundo');
-    $('#st-grade').innerHTML = grupos.map(function (x) {
+    /* 27/10: «pode tirar os cards, não está legal, deixe só o diagrama»: os cartões ficam no código, desligados (st-grade sumiu do HTML) */
+    if ($('#st-grade')) $('#st-grade').innerHTML = grupos.map(function (x) {
       var g = x.g, pct = total ? (x.soma / total * 100) : 0;
       var ea = g.ea.map(function (i) { return { i: i, v: v[i] }; }).sort(function (a, b) { return b.v - a.v; });
-      return '<article class="st-card entra">' + (g.sem ? '<div class="st-sem"></div>' : '<img class="st-ilus" src="img/setores/setor-' + g.id + '.webp" alt="" loading="lazy">') +
+      return '<article class="st-card entra">' + (g.sem ? '<div class="st-sem"></div>' : '<img class="st-ilus" src="img/setores/setor-' + g.id + '.webp?v=2" alt="" loading="lazy">') +
         '<h3>' + g.nome + '</h3><div class="st-n"><b>' + fmt(x.soma) + '</b><span class="m">' + pct.toFixed(1).replace('.', ',') + '% · ' + ea.length + (ea.length > 1 ? ' setores EA' : ' setor EA') + '</span></div>' +
         '<div class="st-barra"><i style="width:' + (x.soma / max * 100) + '%"></i></div>' +
         '<ul class="st-ea">' + ea.slice(0, 6).map(function (e) { return '<li' + (e.v ? '' : ' class="zero"') + '><span title="' + esc(S.setores[e.i]) + '">' + esc(EA_PT[e.i] || S.setores[e.i]) + '</span><b>' + fmt(e.v) + '</b></li>'; }).join('') +
         (ea.length > 6 ? '<li><span class="m">+ ' + (ea.length - 6) + ' setores EA</span><b>' + fmt(ea.slice(6).reduce(function (a, e) { return a + e.v; }, 0)) + '</b></li>' : '') + '</ul></article>';
     }).join('');
-    entra($('#st-grade'));
+    if ($('#st-grade')) entra($('#st-grade'));
     pintaCalor();
   }
   /* 27/10: «a base traz mais divisões por setores… fazer um gráfico, um dashboard melhor», com o calendário de quadrados que

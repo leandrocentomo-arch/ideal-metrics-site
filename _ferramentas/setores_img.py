@@ -32,12 +32,11 @@ def main():
         n = os.path.basename(f)[:-4]; assenta(svg_para_rgba(f, W * 2), NOMES.get(n, n))
     extra = ICONES / 'linha-comercio.png'
     if extra.exists():
-        im = Image.open(extra).convert('RGBA'); px = im.load()
-        for y in range(im.height):   # fundo branco/creme do Flow vira transparente, traço fica
-            for x in range(im.width):
-                r, g, b, a = px[x, y]; lum = (r + g + b) / 3
-                if lum > 236: px[x, y] = (51, 102, 153, 0)
-                else: k = max(0, min(255, int((236 - lum) * 1.6))); px[x, y] = (51, 102, 153, k)
+        # o JPG do Flow (2752 px) tem traço cinza e fino: o traço vira alfa com contraste forte e engrossa 1 px antes de reduzir,
+        # para ficar no peso dos nove vetores
+        g = Image.open(extra).convert('L')
+        alfa = g.point(lambda v: 0 if v > 245 else min(255, int((245 - v) * 4))).filter(ImageFilter.MaxFilter(3))
+        im = Image.merge('RGBA', (Image.new('L', g.size, 51), Image.new('L', g.size, 102), Image.new('L', g.size, 153), alfa))
         assenta(im, 'setor-comercio')
 
 if __name__ == '__main__':

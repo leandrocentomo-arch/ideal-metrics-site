@@ -581,3 +581,4 @@
 .ca-dica.on{opacity:1}
 @media (prefers-reduced-motion:reduce){.ca-q{transition:none;transform:none;opacity:1}}
 @media (max-width:980px){.ca-linha{grid-template-columns:120px auto}.ca-barra,.ca-linha>b{display:none}}
+.ca-cal{margin-top:0}   /* 27/10: só o diagrama na aba de setores, sem os cartões */
