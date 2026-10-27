@@ -766,3 +766,109 @@
 @media (min-width:981px){
   body.pn-pagina{background:linear-gradient(rgba(211,226,242,.45),rgba(211,226,242,.45)),url(../img/fundo-painel-foto-carbono.webp) right center/cover fixed no-repeat,var(--creme,#FAF9F5)}
 }
+
+/* 27/10/2026, celular e janela estreita («faça a mesma foto de fundo no celular também… tem que ajustar muita coisa para que
+   o site fique responsivo»). Até 980 px:
+   - a mesma foto de gestão de carbono com o véu azul, numa camada presa à tela (::before fixo; background-attachment:fixed
+     não funciona no Safari do iPhone);
+   - cabeçalho, filtros e área principal viram as mesmas placas de vidro do computador, com vão de 10 px onde a foto aparece;
+     a margem esquerda de 40 px deixa a etiqueta da gaveta fora da placa;
+   - abas em grade (3 por linha; 2 abaixo de 560 px), nome inteiro, sem rolagem lateral;
+   - busca e filtros recolhidos numa barra «Busca e filtros» que abre e fecha;
+   - mapa de calor rola de lado dentro da placa quando não cabe. */
+@media (max-width:980px){
+  body.pn-pagina::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(rgba(211,226,242,.45),rgba(211,226,242,.45)),url(../img/fundo-painel-foto-carbono.webp) 72% center/cover no-repeat}
+  body.pn-pagina{background:var(--creme,#FAF9F5)}
+  .pn{--vidro:rgba(255,255,255,.5);--vidro2:rgba(255,255,255,.7);--vborda:rgba(255,255,255,.75);--vsombra:0 8px 26px rgba(20,48,76,.12),inset 0 1px 0 rgba(255,255,255,.7);
+    background:transparent;gap:10px;padding:10px 10px 24px 40px}
+  .pn-cab,.pn-lado,.pn-main{background:var(--vidro);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);
+    border:1px solid var(--vborda);border-radius:3px;box-shadow:var(--vsombra)}
+  .pn-cab{padding:40px 16px 14px;gap:12px}
+  .pn-main{padding:0 16px 28px}
+  .pn-lado{padding:12px 16px}
+  .pn-topo{background:none;position:static}
+  .pn-lang{top:12px;right:12px}
+  /* abas */
+  .pn-abas{grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;background:rgba(255,255,255,.35);border-color:var(--vborda)}
+  .pn-abas button{white-space:normal;justify-content:flex-start;text-align:left;line-height:1.2;padding:9px 10px;border-top:1px solid var(--fio);border-left:1px solid var(--fio);min-height:44px}
+  .pn-abas button:nth-child(-n+3){border-top:0}
+  .pn-abas button:nth-child(3n+1){border-left:0}
+  /* busca e filtros: barra que abre e fecha */
+  .pn-puxa{display:flex;align-items:center;justify-content:space-between;width:100%;padding:4px 0;min-height:32px}
+  .pn-puxa svg{width:14px;height:14px;stroke:var(--tinta);fill:none;stroke-width:1.5;transform:rotate(90deg);transition:transform .3s}
+  .pn.lado-aberto .pn-puxa{margin-bottom:8px;padding-bottom:10px;border-bottom:1px solid var(--fio)}
+  .pn.lado-aberto .pn-puxa svg{transform:rotate(-90deg)}
+  .pn:not(.lado-aberto) .pn-lado>:not(.pn-puxa){display:none}
+  /* cartões de dentro no vidro */
+  .mp-sel button{background:var(--vidro2);border-color:var(--vborda)}
+  .mp-sel button[aria-pressed=true]{background:var(--tinta);border-color:var(--tinta)}
+  .mp-mapa{background:var(--vidro2);border-color:var(--vborda);box-shadow:var(--vsombra)}
+  .mp-br{background:transparent}
+  .pn-busca input,.pn-op input{background:var(--vidro2)}
+  .md-nota,.pn-links a{background:var(--vidro2);border-radius:3px}
+  .lt-cab{background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .ca-cal{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .ca-cal>*{min-width:max-content}
+  .pn-det{background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(22px) saturate(1.3);backdrop-filter:blur(22px) saturate(1.3)}
+}
+@media (max-width:560px){
+  .pn{padding-left:36px;padding-right:8px;gap:8px}
+  .pn-abas{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pn-abas button{font-size:12.5px;gap:6px}
+  .pn-abas button:nth-child(-n+3){border-top:1px solid var(--fio)}
+  .pn-abas button:nth-child(-n+2){border-top:0}
+  .pn-abas button:nth-child(3n+1){border-left:1px solid var(--fio)}
+  .pn-abas button:nth-child(2n+1){border-left:0}
+  .pn-cab{padding:40px 12px 12px}
+  .pn-cab h1{font-size:22px}
+  .pn-main{padding:0 12px 24px}
+  .mp-sel button{font-size:10.5px}
+}
+@media (max-width:980px){
+  .mp-grid{grid-template-columns:minmax(0,1fr)}
+  .mp-grid>div{min-width:0}
+  .mp-esc{flex-wrap:wrap;row-gap:6px}
+  .pn-abas button .m{white-space:nowrap;flex:none}
+}
+@media (max-width:560px){
+  .mp-esc i{width:26px}
+  .mp-esc span{margin:0 8px 0 4px}
+  .mp-ctl button{padding:6px 10px;font-size:10px}
+}
+/* 27/10/2026, «quero que a foto de fundo seja mais clara»: véu azul claro de 45% para 62%, no computador e no celular */
+@media (min-width:981px){
+  body.pn-pagina{background:linear-gradient(rgba(211,226,242,.62),rgba(211,226,242,.62)),url(../img/fundo-painel-foto-carbono.webp) right center/cover fixed no-repeat,var(--creme,#FAF9F5)}
+}
+@media (max-width:980px){
+  body.pn-pagina::before{background:linear-gradient(rgba(211,226,242,.62),rgba(211,226,242,.62)),url(../img/fundo-painel-foto-carbono.webp) 72% center/cover no-repeat}
+}
+/* celular: na lista, o número da norma ganha coluna mais larga e letra menor, para caber «ISO/IEC 42001:2023» */
+@media (max-width:560px){
+  .pn-item{grid-template-columns:132px minmax(0,1fr) 32px;gap:10px}
+  .pn-item .ref{font-size:11.5px}
+}
+@media (max-width:980px){
+  .st-cab{flex-wrap:wrap;row-gap:8px}
+  .st-onde{flex:none}   /* sem isto o botão Brasil era espremido para fora da caixa */
+}
+/* celular: a ficha da norma cobre a tela inteira, por cima do cabeçalho do site, da etiqueta da gaveta e do WhatsApp
+   (antes ficava atrás deles, com o topo escondido); a linha dos estágios quebra em 4 colunas em vez de vazar à direita */
+@media (max-width:980px){
+  .pn-det{z-index:2000;padding:20px 18px 32px}
+  .pn-veu{z-index:1999}
+  .pn-trilha{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:10px}
+}
+/* celular: linha do tempo empilhada (nome numa linha, faixa do tempo na largura toda embaixo); só o ano da edição em vigor
+   fica escrito, os demais aparecem na ficha ao tocar; nada vaza para a direita */
+@media (max-width:980px){
+  .pn-main{overflow-x:clip}
+}
+@media (max-width:560px){
+  .lt-cab,.lt-linha{grid-template-columns:minmax(0,1fr);gap:2px}
+  .lt-cab>.m{display:none}
+  .lt-linha{height:auto;padding:8px 0 16px}
+  .lt-faixa{height:26px}
+  .lt-ed.ant .r,.lt-ed.dev .r{display:none}
+  .lt-anos span{font-size:9px}
+}
