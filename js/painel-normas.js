@@ -293,7 +293,12 @@
         if (x.pub) return '<span class="lt-ed' + (x === atual ? '' : ' ant') + '" style="left:' + px(x.pub) + '%" data-id="' + x.id + '" title="' + esc(x.ref) + '"><span class="r">' + x.pub.slice(0, 4) + '</span></span>';
         return '<span class="lt-ed dev" style="left:' + px(D.gerado) + '%" data-id="' + x.id + '" title="' + esc(x.ref) + ' · em desenvolvimento"><span class="r">' + esc(x.ref.replace(/^ISO(\/IEC)?\s*/, '')) + '</span></span>';
       }).join('');
-      return '<div class="lt-linha"><div class="lt-nome"><b>ISO ' + k + '</b>' + esc(nome) + '</div><div class="lt-faixa" style="--lt-passo:' + (500 / span) + '%">' + marcas + '</div></div>';
+      /* 27/10 («uma linha do tempo mais bonita»): trilho fino ligando a primeira edição ao hoje, segmento cheio entre a primeira e a
+         edição em vigor, marcas redondas (anteriores vazadas, em vigor cheia, projeto tracejado) e os anos só no hover */
+      var pubs = (hist[k] || []).map(function (h) { return h.pub; }).concat(xs.filter(function (x) { return x.pub; }).map(function (x) { return x.pub; })).sort();
+      var ini = pubs.length ? px(pubs[0]) : px(D.gerado), fim = atual && atual.pub ? px(atual.pub) : ini;
+      var trilho = '<i class="lt-trilho" style="left:' + ini + '%;right:' + (100 - px(D.gerado)) + '%"></i><i class="lt-vivo" style="left:' + ini + '%;width:' + Math.max(0, fim - ini) + '%"></i>';
+      return '<div class="lt-linha"><div class="lt-nome"><b>ISO ' + k + '</b>' + esc(nome) + '</div><div class="lt-faixa" style="--lt-passo:' + (500 / span) + '%">' + trilho + marcas + '</div></div>';
     }).join('');
     entra($('#lt-corpo'));
   }

@@ -656,3 +656,30 @@
 @media (min-width:981px){
   .pn-pagina .tarja,.pn-pagina .barra{background:var(--creme,#FAF9F5);-webkit-backdrop-filter:none;backdrop-filter:none}
 }
+
+/* 27/10/2026, «será que pode fazer uma linha do tempo mais bonita?»: trilho fino por norma (da 1ª edição a hoje), segmento
+   cheio da 1ª edição à edição em vigor, marcas redondas (anterior vazada, em vigor cheia com halo, projeto tracejado), ano só
+   no hover ou na edição em vigor; grade de anos em linhas tracejadas claras com a linha de «hoje» marcada; linhas zebradas */
+@media (min-width:981px){
+  .lt-faixa{background:repeating-linear-gradient(to right,rgba(20,48,76,.10) 0 1px,transparent 1px var(--lt-passo,10%));height:40px}
+  .lt-linha{border-bottom:1px solid rgba(20,48,76,.06)}
+  .lt-linha:nth-child(even){background:rgba(255,255,255,.22)}
+  .lt-linha:hover{background:rgba(255,255,255,.45)}
+  .lt-trilho{position:absolute;top:50%;height:1px;margin-top:-.5px;background:rgba(20,48,76,.18)}
+  .lt-vivo{position:absolute;top:50%;height:2px;margin-top:-1px;background:var(--liga);opacity:.55}
+  .lt-ed{width:9px;height:9px;border-radius:50%;background:var(--tinta);box-shadow:0 0 0 3px rgba(20,48,76,.12);transition:transform .2s,box-shadow .2s}
+  .lt-ed.ant{background:#fff;border:1.5px solid var(--liga);box-shadow:none;width:8px;height:8px}
+  .lt-ed.dev{background:#fff;border:1.5px dashed var(--liga);border-radius:50%;width:10px;height:10px;box-shadow:none}
+  .lt-ed:hover{transform:translate(-50%,-50%) scale(1.35);box-shadow:0 0 0 4px rgba(20,48,76,.14)}
+  .lt-ed .r{top:12px;font-size:9px;opacity:0;transition:opacity .2s;background:var(--creme);padding:0 3px;border-radius:2px}
+  .lt-ed:not(.ant):not(.dev) .r,.lt-ed:hover .r,.lt-ed.dev .r{opacity:1}
+  .lt-ed.dev .r{opacity:.75}
+  .lt-leg i{border-radius:50%;width:9px;height:9px}
+  .lt-leg i.ant{background:#fff;border:1.5px solid var(--liga)}
+  .lt-leg i.dev{border-radius:50%}
+  .lt-anos span{font-size:9.5px;letter-spacing:.06em}
+  .lt-cab{border-bottom:1px solid rgba(20,48,76,.18)}
+  /* 27/10: «diminua 5% o gap entre o logo e a borda, deixando o logo ligeiramente maior» */
+  .pn-logo-fixo{padding:3px 4px}
+  .pn-logo-fixo .marca-frente{height:98px}
+}
