@@ -391,5 +391,6 @@
    claro»: fundo img/fundo-painel-passaro.webp (_ferramentas/fundo_passaro.py). O mosaico (fundo-painel-mosaico.webp) fica guardado:
    para voltar a ele, trocar a url abaixo */
 @media (min-width:981px){
-  .pn{--vidro:rgba(255,255,255,.42);background:url(../img/fundo-painel-passaro.webp) center/cover no-repeat}   /* vidro mais transparente para o pássaro aparecer através das placas */
+  .pn{--vidro:rgba(255,255,255,.42);background:url(../img/fundo-painel-passaro.webp) center/cover no-repeat}
+  .pn-cab,.pn-lado,.pn-main{-webkit-backdrop-filter:blur(3px) saturate(1.25);backdrop-filter:blur(3px) saturate(1.25)}   /* pássaro nítido através do vidro */   /* vidro mais transparente para o pássaro aparecer através das placas */
 }

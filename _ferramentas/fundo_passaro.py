@@ -35,19 +35,16 @@ def main():
 
     m = mascara(); mw, mh = m.size; x0, y0 = CENTRO[0] - mw // 2, CENTRO[1] - mh // 2
     M = Image.new('L', (W, H), 0); M.paste(m, (x0, y0))
-    # sombra suave embaixo e à direita (dá volume, como a sombra do globo)
-    sombra = ImageChops.offset(M, 18, 26).filter(ImageFilter.GaussianBlur(26)).point(lambda v: v * .5)
+    # 27/10, 2º pedido («mais nítido, mais parecido com a cor de fundo»): sem halo; o pássaro é o próprio fundo clareado
+    # (35% de branco no alto à esquerda, 12% embaixo à direita), recortado por sombra curta e fio de luz
+    sombra = ImageChops.offset(M, 6, 9).filter(ImageFilter.GaussianBlur(5)).point(lambda v: v * .32)
     fundo = Image.composite(Image.new('RGB', (W, H), hx('#6E93BC')), fundo, sombra)
-    # brilho em volta (o pássaro «aceso»)
-    halo = M.filter(ImageFilter.GaussianBlur(40)).point(lambda v: min(255, v * .9))
-    fundo = Image.composite(Image.new('RGB', (W, H), (255, 255, 255)), fundo, halo)
-    # corpo: luz radial vindo do alto à esquerda, branco → azul muito claro
     corpo = Image.radial_gradient('L').resize((int(mw * 1.6), int(mh * 1.9)))
     cg = Image.new('L', (W, H), 255); cg.paste(corpo, (x0 - int(mw * .35), y0 - int(mh * .55)))
-    pele = Image.composite(Image.new('RGB', (W, H), hx('#C8DBEF')), Image.new('RGB', (W, H), (255, 255, 255)), cg)
-    fundo = Image.composite(pele, fundo, M)
-    # fio de luz na borda de cima (aresta iluminada)
-    aresta = ImageChops.subtract(M, ImageChops.offset(M, 0, 5)).filter(ImageFilter.GaussianBlur(1.2))
+    forca = cg.point(lambda v: int(255 * (.35 - .23 * v / 255)))
+    claro = Image.composite(Image.new('RGB', (W, H), (255, 255, 255)), fundo, forca)
+    fundo = Image.composite(claro, fundo, M)
+    aresta = ImageChops.subtract(M, ImageChops.offset(M, 0, 3)).filter(ImageFilter.GaussianBlur(.6)).point(lambda v: v * .85)
     fundo = Image.composite(Image.new('RGB', (W, H), (255, 255, 255)), fundo, aresta)
     saida = RAIZ / 'img' / 'fundo-painel-passaro.webp'
     fundo.save(saida, quality=88); print(saida.name, saida.stat().st_size // 1024, 'KB')
