@@ -724,3 +724,8 @@
   .pn-cab h1{font-size:22.5px;margin-top:8px}
   .pn-cab .pn-sub{margin-top:2px}
 }
+@media (min-width:981px){
+  /* 27/10: «você deixou a caixa desalinhada com o botão no bottom»: a moldura do logo é ancorada pela BASE (13 px = padding
+     inferior do cabeçalho), alinhada com a base das abas, e não mais pelo topo; assim não desalinha quando o cabeçalho cresce */
+  .pn-logo-fixo{top:auto;bottom:12px}   /* 12 e não 13: a base das abas inclui o fio de 1 px */
+}
