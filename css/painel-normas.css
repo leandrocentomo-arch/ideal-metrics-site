@@ -369,3 +369,11 @@
   .mp-mapa path.grade{stroke:rgba(255,255,255,.55)}
   .mp-mapa path.esfera{filter:drop-shadow(0 12px 28px rgba(20,48,76,.18))}
 }
+
+/* 27/10/2026, «a navegação entre botões deve ser sempre com aquele efeito de deslize»: a placa escura do escolhido desliza de um botão para o outro (abas e normas do mapa); .desliza é posta pelo JS */
+.pn-abas,.mp-sel{position:relative}
+.desliza{position:absolute;left:0;top:0;background:var(--tinta);border-radius:3px;pointer-events:none;z-index:0;transition:transform .38s cubic-bezier(.2,.7,.2,1),width .38s cubic-bezier(.2,.7,.2,1),height .38s}
+.desliza.sem-anima{transition:none}
+.pn-abas button,.mp-sel button{position:relative;z-index:1;transition:color .25s,background .2s,border-color .2s}
+.pn-abas button[aria-selected=true],.mp-sel button[aria-pressed=true]{background:transparent;border-color:transparent}
+@media (prefers-reduced-motion:reduce){.desliza{transition:none}}

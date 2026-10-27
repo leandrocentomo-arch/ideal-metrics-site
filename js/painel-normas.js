@@ -102,6 +102,22 @@
     if (ab) setTimeout(function () { $('#pn-q').focus({ preventScroll: true }); }, 360);
   });
 
+  /* 27/10: navegação entre botões sempre com deslize (Leandro: «a navegação entre botões deve ser sempre com aquele efeito de
+     deslize»): uma placa escura desliza do botão anterior para o escolhido, nas abas e nas normas do mapa */
+  function desliza(caixa, sel) {
+    if (!caixa) return;
+    var pl = caixa.querySelector('.desliza'), b = caixa.querySelector(sel);
+    if (!pl) { pl = document.createElement('span'); pl.className = 'desliza sem-anima'; caixa.insertBefore(pl, caixa.firstChild); }
+    if (!b || !b.offsetWidth) return;
+    pl.style.width = b.offsetWidth + 'px'; pl.style.height = b.offsetHeight + 'px';
+    pl.style.transform = 'translate(' + b.offsetLeft + 'px,' + b.offsetTop + 'px)';
+    if (pl.classList.contains('sem-anima')) { pl.offsetWidth; pl.classList.remove('sem-anima'); }
+    var esq = b.offsetLeft - caixa.scrollLeft, dir = esq + b.offsetWidth;   // na fileira que rola, traz o escolhido para a vista
+    if (caixa.scrollWidth > caixa.clientWidth && (esq < 0 || dir > caixa.clientWidth)) caixa.scrollTo({ left: b.offsetLeft - 24, behavior: 'smooth' });
+  }
+  function deslizaTudo() { desliza($('.pn-abas'), '[aria-selected=true]'); desliza($('#mp-sel'), '[aria-pressed=true]'); }
+  window.addEventListener('resize', deslizaTudo);
+
   function mostraAba(id) {
     if (!$('#v-' + id)) return;
     $$('.pn-abas button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.aba === id); });
@@ -114,6 +130,7 @@
     if (id === 'mudancas') montaMudancas();
     if (id === 'revisao') montaRevisao();
     history.replaceState(null, '', '#' + id);
+    deslizaTudo();
   }
 
   /* ---------- lista ---------- */
@@ -293,7 +310,7 @@
 
   /* ---------- mapa ---------- */
   var mapaFeito = false, mapaNum = '9001', paths = null, dica = null;
-  function escolheSurvey(num) { mapaNum = num; $$('.mp-sel button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.num === num); }); pintaMapa(); }
+  function escolheSurvey(num) { mapaNum = num; $$('.mp-sel button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.num === num); }); desliza($('#mp-sel'), '[aria-pressed=true]'); pintaMapa(); }
   function montaMapa() {
     if (mapaFeito) return; mapaFeito = true;
     var nums = Object.keys(D.survey).sort(function (a, b) { return D.survey[b].total - D.survey[a].total; });
@@ -327,7 +344,7 @@
       }
       var calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches, ult = 0;
       function gira(t) {
-        if (prog === 0 && !anima && !arrasta && !sobre && !document.hidden && $('#v-mapa').classList.contains('ativa')) { giro[0] += Math.min(t - ult, 50) * .006; desenha(); }
+        if (prog === 0 && !anima && !arrasta && !sobre && !document.hidden && $('#v-mapa').classList.contains('ativa')) { giro[0] += Math.min(t - ult, 50) * .0072; desenha(); }
         ult = t; if (!calmo) requestAnimationFrame(gira);
       }
       var bt = d3.select(box).append('div').attr('class', 'mp-ctl'), btVira = bt.append('button').attr('type', 'button').text('Abrir em mapa'), btCentro = bt.append('button').attr('type', 'button').text('Centralizar');
@@ -351,7 +368,10 @@
         arrasta = [ev.clientX, ev.clientY]; desenha();
       });
       window.addEventListener('pointerup', function () { arrasta = null; svg.classed('arrastando', false); });
-      svg.on('pointerenter', function () { sobre = true; }).on('pointerleave', function () { sobre = false; });
+      svg.on('pointermove', function (ev) {   // 27/10: para de girar só com o mouse sobre o globo, não em qualquer lugar da área
+        var r = this.getBoundingClientRect(), x = (ev.clientX - r.left) * W / r.width - W / 2, y = (ev.clientY - r.top) * H / r.height - H / 2;
+        sobre = x * x + y * y <= ESC_GLOBO * ESC_GLOBO;
+      }).on('pointerleave', function () { sobre = false; });
       desenha(); requestAnimationFrame(function (t) { ult = t; gira(t); });
       var porNum = {}; Object.keys(D.paises).forEach(function (a2) { if (D.paises[a2].n) porNum[D.paises[a2].n] = a2; });
       paths.on('mousemove', function (ev, f) {
