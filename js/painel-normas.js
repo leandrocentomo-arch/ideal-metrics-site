@@ -331,6 +331,9 @@
       brilho.append('stop').attr('offset', '0').attr('stop-color', '#fff').attr('stop-opacity', .1);
       brilho.append('stop').attr('offset', '.55').attr('stop-color', '#fff').attr('stop-opacity', 0);
       brilho.append('stop').attr('offset', '1').attr('stop-color', '#14304C').attr('stop-opacity', .03);
+      /* 27/10: «se a bola do globo ficasse ligeiramente transparente»: os países do lado de trás aparecem apagados através do
+         globo. Lado de trás = ortográfica centrada no antípoda e espelhada (mesma posição de tela de quem olha através da bola) */
+      var tras = svg.append('g').attr('class', 'tras').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path');
       var esfera = svg.append('path').attr('class', 'esfera').attr('fill', 'url(#mp-vidro)').attr('stroke', 'rgba(255,255,255,.9)').attr('stroke-width', 1.2);
       var grade = svg.append('path').datum(d3.geoGraticule10()).attr('class', 'grade');
       paths = svg.append('g').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path').attr('class', 'pais');
@@ -341,6 +344,10 @@
         proj.preclip(a < .999 ? function (s) { return d3.geoClipCircle(raio)(d3.geoClipAntimeridian(s)); } : d3.geoClipAntimeridian);
         geo = d3.geoPath(proj);
         esfera.attr('d', geo({ type: 'Sphere' })); grade.attr('d', geo); paths.attr('d', geo);
+        if (a < .02) {
+          var pt = d3.geoOrthographic().scale(ESC_GLOBO).translate([W / 2, H / 2]).rotate([giro[0] + 180, -giro[1]]).reflectX(true).precision(.5);
+          tras.attr('d', d3.geoPath(pt)).style('display', null);
+        } else tras.style('display', 'none');
       }
       var calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches, ult = 0;
       function gira(t) {
