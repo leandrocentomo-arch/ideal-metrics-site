@@ -105,7 +105,32 @@
     document.body.appendChild(b);
     /* 27/10: «o logo tem que aparecer sempre»: cópia da caixa do logo, fixa no lugar de sempre, visível enquanto o menu está
        recolhido (a original desce junto com a barra quando o menu abre) */
-    var marca = $('header.barra .barra-marca'); if (marca) { var cp = marca.cloneNode(true); cp.classList.add('pn-logo-fixo'); cp.removeAttribute('id'); ($('.pn-cab') || document.body).appendChild(cp); }   // dentro do cabeçalho do painel: rola junto com ele («o logo tem que ficar fixo [no lugar], está descendo junto no scroll»)
+    var marca = $('header.barra .barra-marca'); if (marca) { var cp = marca.cloneNode(true); cp.classList.add('pn-logo-fixo'); cp.removeAttribute('id'); ($('.pn-cab') || document.body).appendChild(cp); bateAsas(cp.querySelector('img')); }   // dentro do cabeçalho do painel: rola junto com ele («o logo tem que ficar fixo [no lugar], está descendo junto no scroll»)
+    /* 27/10: «é possível criar um gif de forma que o pássaro do logo bata as asas na entrada?»: em vez de GIF, o SVG oficial do
+       monograma entra inline e a asa longa (o grande caminho à esquerda) e as lâminas da asa curta (à direita) giram alguns
+       graus em torno do ombro, três batidas em 1,6 s, só na entrada da página. Nada é redesenhado: é a geometria oficial girada. */
+    function bateAsas(img) {
+      if (!img || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+      fetch(img.getAttribute('src')).then(function (r) { return r.text(); }).then(function (txt) {
+        var doc = new DOMParser().parseFromString(txt, 'image/svg+xml'), svg = doc.documentElement;
+        if (!svg || svg.nodeName !== 'svg') return;
+        var passaro = svg.querySelector('#monograma-270 > g'); if (!passaro) return;
+        var filhos = Array.prototype.slice.call(passaro.children), ns = 'http://www.w3.org/2000/svg';
+        var longa = doc.createElementNS(ns, 'g'), curta = doc.createElementNS(ns, 'g');
+        [25].forEach(function (i) { if (filhos[i]) longa.appendChild(filhos[i]); });
+        [8, 20, 21, 22, 24, 43, 44].forEach(function (i) { if (filhos[i]) curta.appendChild(filhos[i]); });
+        passaro.appendChild(longa); passaro.appendChild(curta);
+        svg.setAttribute('class', img.className); svg.setAttribute('aria-hidden', 'true'); svg.style.height = getComputedStyle(img).height;
+        img.parentNode.replaceChild(svg, img);
+        var t0 = performance.now(), dur = 1600, PL = [39.5, 20.5], PC = [45.5, 15];   // ombros, nas coordenadas do desenho
+        (function passo(t) {
+          var k = Math.min((t - t0) / dur, 1), env = Math.sin(Math.PI * k), a = Math.sin(k * Math.PI * 6) * env;   // 3 batidas, amplitude cresce e some
+          longa.setAttribute('transform', 'rotate(' + (a * 9).toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
+          curta.setAttribute('transform', 'rotate(' + (-a * 5).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
+          if (k < 1) requestAnimationFrame(passo); else { longa.removeAttribute('transform'); curta.removeAttribute('transform'); }
+        })(t0);
+      }).catch(function () {});
+    }
     function poe(ab) { document.body.classList.toggle('menu-aberto', ab); b.setAttribute('aria-expanded', ab); b.setAttribute('aria-label', ab ? 'Recolher o menu do site' : 'Abrir o menu do site'); }
     b.addEventListener('click', function () { poe(!document.body.classList.contains('menu-aberto')); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-aberto')) poe(false); });

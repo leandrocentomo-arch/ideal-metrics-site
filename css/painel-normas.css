@@ -683,3 +683,11 @@
   .pn-logo-fixo{padding:3px 4px}
   .pn-logo-fixo .marca-frente{height:98px}
 }
+@media (min-width:981px){
+  /* 27/10: «prefiro linhas pretas» (linha do tempo): trilho e segmento em vigor na tinta, sem a liga azul */
+  .lt-trilho{background:rgba(20,48,76,.3)}
+  .lt-vivo{background:var(--tinta);opacity:.85}
+  .lt-ed.ant{border-color:var(--tinta)}
+  .lt-leg i.ant{border-color:var(--tinta)}
+}
+.pn-logo-fixo svg.marca-frente{width:auto;display:block}   /* 27/10: monograma inline (bate as asas na entrada) no lugar do <img> */
