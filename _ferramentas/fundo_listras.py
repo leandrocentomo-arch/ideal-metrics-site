@@ -26,6 +26,10 @@ def main():
     # 27/10, «os gaps fossem nada mesmo, só a cor de fundo»: o vidro passa a ser o fundo de cada placa (attachment fixed), com
     # as listras JÁ foscas: 22 px de desfoque na tela ≈ 34 px nesta imagem (2400 px cobrindo ~1536 px css) e saturação 1,35
     fosco = ImageEnhance.Color(im.filter(ImageFilter.GaussianBlur(34))).enhance(1.35)
+    # 27/10, 3º: «na parte de baixo da área glass, deixe menos azul as listras, mais próximas ao creme»: a partir de 40% da
+    # altura o creme vai cobrindo as listras até 85% na base
+    rampa = Image.new('L', (1, H)); rampa.putdata([0 if y < H * .4 else int(217 * ((y - H * .4) / (H * .6)) ** 1.2) for y in range(H)])
+    fosco = Image.composite(Image.new('RGB', (W, H), hx('#FAF9F5')), fosco, rampa.resize((W, H)))
     saida = RAIZ / 'img' / 'fundo-painel-listras-fosco.webp'; fosco.save(saida, quality=88)
     print(saida.name, saida.stat().st_size // 1024, 'KB')
 

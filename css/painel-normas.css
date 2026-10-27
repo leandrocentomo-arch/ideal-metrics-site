@@ -432,6 +432,6 @@
 @media (min-width:981px){
   .pn{background:var(--creme,#FAF9F5)}
   .pn::before{display:none}
-  .pn-cab,.pn-lado,.pn-main{background:linear-gradient(var(--vidro),var(--vidro)),url(../img/fundo-painel-listras-fosco.webp) center/cover fixed;
+  .pn-cab,.pn-lado,.pn-main{background:linear-gradient(var(--vidro),var(--vidro)),url(../img/fundo-painel-listras-fosco.webp?v=2) center/cover fixed;
     -webkit-backdrop-filter:none;backdrop-filter:none}
 }
