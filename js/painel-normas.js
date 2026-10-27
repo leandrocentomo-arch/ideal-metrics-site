@@ -303,10 +303,51 @@
     if (!window.d3 || !window.topojson) { box.innerHTML = '<p class="pn-vazio" style="padding:20px">O mapa precisa das bibliotecas d3 e topojson, que não carregaram. A tabela ao lado continua válida.</p>'; pintaLado(); return; }
     fetch('dados/mundo-110m.json').then(function (r) { return r.json(); }).then(function (topo) {
       MUNDO = topojson.feature(topo, topo.objects.countries);
-      var W = 960, H = 480, proj = d3.geoNaturalEarth1().fitExtent([[6, 6], [W - 6, H - 6]], { type: 'Sphere' }), geo = d3.geoPath(proj);
-      var svg = d3.select(box).insert('svg', ':first-child').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', 'Mapa de certificados por país');
-      svg.append('path').attr('d', geo({ type: 'Sphere' })).attr('fill', '#FAF9F5').attr('stroke', 'rgba(20,48,76,.3)').attr('stroke-width', .6);
-      paths = svg.append('g').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path').attr('class', 'pais').attr('d', geo);
+      /* 27/10: globo que gira e se desenrola em mapa (projeção ortográfica interpolada com a Natural Earth) */
+      var W = 960, H = 480, ESC_MAPA = d3.geoNaturalEarth1().fitExtent([[6, 6], [W - 6, H - 6]], { type: 'Sphere' }).scale(), ESC_GLOBO = H / 2 - 8;
+      var GIRO_BR = [52, 12], giro = GIRO_BR.slice(), prog = 0, anima = false, arrasta = null, sobre = false;
+      var muta = d3.geoProjectionMutator(function (t) { return function (x, y) { var a = d3.geoOrthographicRaw(x, y), b = d3.geoNaturalEarth1Raw(x, y); return [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])]; }; });
+      var proj = muta(0).translate([W / 2, H / 2]).precision(.5), geo = d3.geoPath(proj);
+      var svg = d3.select(box).insert('svg', ':first-child').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', 'Globo de certificados por país');
+      var esfera = svg.append('path').attr('class', 'esfera').attr('fill', '#FAF9F5').attr('stroke', 'rgba(20,48,76,.3)').attr('stroke-width', .6);
+      var grade = svg.append('path').datum(d3.geoGraticule10()).attr('class', 'grade');
+      paths = svg.append('g').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path').attr('class', 'pais');
+      function desenha() {
+        var a = Math.sqrt(Math.max(0, Math.min(1, prog)));
+        proj = muta(a).scale(ESC_GLOBO + a * (ESC_MAPA - ESC_GLOBO)).translate([W / 2, H / 2]).rotate(giro).precision(.5);
+        var raio = (90 + a * 89) * Math.PI / 180;   // corte em círculo que cresce até quase o antípoda, encadeado com o corte no antimeridiano (sem ele os países cortados viram faixas no meio da transição)
+        proj.preclip(a < .999 ? function (s) { return d3.geoClipCircle(raio)(d3.geoClipAntimeridian(s)); } : d3.geoClipAntimeridian);
+        geo = d3.geoPath(proj);
+        esfera.attr('d', geo({ type: 'Sphere' })); grade.attr('d', geo); paths.attr('d', geo);
+      }
+      var calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches, ult = 0;
+      function gira(t) {
+        if (prog === 0 && !anima && !arrasta && !sobre && !document.hidden && $('#v-mapa').classList.contains('ativa')) { giro[0] += Math.min(t - ult, 50) * .006; desenha(); }
+        ult = t; if (!calmo) requestAnimationFrame(gira);
+      }
+      var bt = d3.select(box).append('div').attr('class', 'mp-ctl'), btVira = bt.append('button').attr('type', 'button').text('Abrir em mapa'), btCentro = bt.append('button').attr('type', 'button').text('Centralizar');
+      function lonPerto(de, para) { return para + Math.round((de - para) / 360) * 360; }
+      btVira.on('click', function () {
+        if (anima) return; anima = true; btVira.property('disabled', true);
+        var p0 = prog, p1 = prog < .5 ? 1 : 0, g0 = giro.slice(), g1 = p1 ? [lonPerto(giro[0], 0), 0] : [lonPerto(giro[0], GIRO_BR[0]), GIRO_BR[1]], t0 = performance.now(), dur = calmo ? 1 : 1600;
+        (function passo(t) {
+          var k = Math.min((t - t0) / dur, 1), e = d3.easeCubicInOut(k);
+          prog = p0 + (p1 - p0) * e; giro = [g0[0] + (g1[0] - g0[0]) * e, g0[1] + (g1[1] - g0[1]) * e]; desenha();
+          if (k < 1) return requestAnimationFrame(passo);
+          prog = p1; anima = false; btVira.property('disabled', false).text(p1 ? 'Voltar ao globo' : 'Abrir em mapa');
+          svg.classed('plano', !!p1).attr('aria-label', p1 ? 'Mapa de certificados por país' : 'Globo de certificados por país');
+        })(t0);
+      });
+      btCentro.on('click', function () { if (!anima && prog === 0) { giro = GIRO_BR.slice(); desenha(); } });
+      svg.on('pointerdown', function (ev) { if (prog > 0 || anima) return; arrasta = [ev.clientX, ev.clientY]; svg.classed('arrastando', true); });
+      window.addEventListener('pointermove', function (ev) {
+        if (!arrasta) return; var k = 300 / box.getBoundingClientRect().width;
+        giro[0] += (ev.clientX - arrasta[0]) * k; giro[1] = Math.max(-80, Math.min(80, giro[1] - (ev.clientY - arrasta[1]) * k));
+        arrasta = [ev.clientX, ev.clientY]; desenha();
+      });
+      window.addEventListener('pointerup', function () { arrasta = null; svg.classed('arrastando', false); });
+      svg.on('pointerenter', function () { sobre = true; }).on('pointerleave', function () { sobre = false; });
+      desenha(); requestAnimationFrame(function (t) { ult = t; gira(t); });
       var porNum = {}; Object.keys(D.paises).forEach(function (a2) { if (D.paises[a2].n) porNum[D.paises[a2].n] = a2; });
       paths.on('mousemove', function (ev, f) {
         var a2 = porNum[f.id], v = a2 && D.survey[mapaNum].paises[a2];

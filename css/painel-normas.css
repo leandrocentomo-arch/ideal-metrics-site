@@ -351,3 +351,14 @@
   .mp-sel button{padding:3px 5px}   /* as 17 normas cabem numa fileira sem rolar, com os filtros recolhidos */
   .mp-grid{grid-template-columns:minmax(0,1fr) 300px}   /* «11º no mundo · 1º na América Latina» inteiro na caixa do Brasil */
 }
+
+/* 27/10/2026, «o globo do portal fosse como este»: globo que gira e se desenrola em mapa (Abrir em mapa / Voltar ao globo) */
+.mp-mapa svg{cursor:grab;touch-action:none}
+.mp-mapa svg.arrastando{cursor:grabbing}
+.mp-mapa svg.plano{cursor:default}
+.mp-mapa path.grade{fill:none;stroke:rgba(20,48,76,.12);stroke-width:.5}
+.mp-ctl{position:absolute;right:10px;bottom:10px;display:flex;gap:6px;z-index:2}
+.mp-ctl button{padding:5px 10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta);background:var(--vidro2,rgba(255,255,255,.7));border:1px solid var(--vborda,var(--fio));border-radius:3px;backdrop-filter:blur(10px);cursor:pointer}
+.mp-ctl button:first-child{background:var(--tinta);color:var(--creme);border-color:var(--tinta)}
+.mp-ctl button:disabled{opacity:.5;cursor:default}
+.mp-mapa svg.plano~.mp-ctl button:last-child{display:none}
