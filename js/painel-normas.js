@@ -134,14 +134,14 @@
         bateAsas.deNovo = function (entrada) {
           if (raf) cancelAnimationFrame(raf);
           var t0 = performance.now(), dur = entrada ? 2400 : 1800, bat = entrada ? 8 : 3;
-          svg.style.transformOrigin = '50% 60%';
+          passaro.style.transformOrigin = '39px 20px'; passaro.style.transformBox = 'view-box';   // cresce a partir do corpo (ombro), só o pássaro; o wordmark fica parado
           (function passo(t) {
             var k = Math.min((t - t0) / dur, 1), env = entrada ? Math.min(1, (1 - k) * 2.2) : Math.sin(Math.PI * k), a = -Math.sin(k * Math.PI * bat) * env;
             var g = a < 0 ? a * 18 : a * 7;   // descida ampla, subida curta
             longa.setAttribute('transform', 'rotate(' + g.toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
             curta.setAttribute('transform', 'rotate(' + (-g * .4).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
-            if (entrada) { var e = 1 - Math.pow(1 - k, 3); svg.style.transform = 'scale(' + (.35 + .65 * e).toFixed(3) + ')'; svg.style.opacity = Math.min(1, .3 + k * 1.4).toFixed(2); }
-            if (k < 1) raf = requestAnimationFrame(passo); else { raf = null; longa.removeAttribute('transform'); curta.removeAttribute('transform'); svg.style.transform = ''; svg.style.opacity = ''; }
+            if (entrada) { var e = 1 - Math.pow(1 - k, 3); passaro.style.transform = 'scale(' + (.35 + .65 * e).toFixed(3) + ')'; passaro.style.opacity = Math.min(1, .3 + k * 1.4).toFixed(2); }
+            if (k < 1) raf = requestAnimationFrame(passo); else { raf = null; longa.removeAttribute('transform'); curta.removeAttribute('transform'); passaro.style.transform = ''; passaro.style.opacity = ''; }
           })(t0);
         };
         bateAsas.deNovo(true);
