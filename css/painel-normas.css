@@ -705,3 +705,10 @@
 @media (min-width:981px){
   .mp-br{background:transparent;box-shadow:none}   /* 27/10: caixa do Brasil transparente («aqui eu quero que seja transparente»), só o fio */
 }
+
+/* 27/10/2026, «aumente o tamanho do título e diminua o subtítulo; subtítulo em mono ficaria bom»: título 30 px, subtítulo em
+   IBM Plex Mono 10,5 px, caixa alta com espaçamento, como os rótulos do painel */
+@media (min-width:981px){
+  .pn-cab h1{font-size:30px;margin-top:2px}
+  .pn-cab .pn-sub{font-family:var(--mono);font-size:10px;letter-spacing:0;color:#315275;margin-top:6px}   /* sem caixa alta e com espaçamento menor, para a frase inteira caber na linha */
+}
