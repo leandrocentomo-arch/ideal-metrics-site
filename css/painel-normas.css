@@ -410,28 +410,3 @@
   .pn{--vidro:rgba(255,255,255,.46);background:url(../img/fundo-painel-creme.webp) center/cover no-repeat}
   .pn-cab,.pn-lado,.pn-main{-webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35)}
 }
-
-/* 27/10/2026, «tente fazer um monte de linhas geométricas simétricas uma ao lado da outra, de várias cores da empresa… na
-   vertical»: listras verticais espelhadas no meio (img/fundo-painel-listras.webp, _ferramentas/fundo_listras.py), atrás do vidro
-   fosco de 22 px. O creme com manchas (fundo-painel-creme.webp, commit 2b2d4eb) fica guardado */
-@media (min-width:981px){
-  .pn{background:url(../img/fundo-painel-listras.webp?v=2) center/cover no-repeat}
-}
-
-/* 27/10/2026, «tem como fazer com que as linhas não apareçam nos gaps?»: uma película fosca (o mesmo desfoque das placas) cobre
-   o fundo inteiro, então os vãos entre as placas mostram as listras já desfocadas, sem linha nítida */
-@media (min-width:981px){
-  .pn::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
-    -webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35)}
-  .pn-cab,.pn-lado,.pn-main{position:relative;z-index:1}
-}
-
-/* 27/10/2026, «eu gostaria que os gaps fossem nada mesmo, só a cor de fundo»: o fundo do painel é só o creme; as listras ficam
-   SÓ dentro das placas, já foscas na imagem (img/fundo-painel-listras-fosco.webp) e presas à tela (fixed), então as três placas
-   mostram um mesmo fundo contínuo e os vãos ficam lisos. Sem backdrop-filter nas placas (não há mais o que desfocar atrás) */
-@media (min-width:981px){
-  .pn{background:var(--creme,#FAF9F5)}
-  .pn::before{display:none}
-  .pn-cab,.pn-lado,.pn-main{background:linear-gradient(var(--vidro),var(--vidro)),url(../img/fundo-painel-listras-fosco.webp?v=2) center/cover fixed;
-    -webkit-backdrop-filter:none;backdrop-filter:none}
-}
