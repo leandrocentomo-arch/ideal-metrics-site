@@ -128,18 +128,23 @@
            1ª versão, com uma batida e meia em 1,8 s e a asa descendo mais (até −18°) do que sobe (+7°).
            4º («faça com que esse efeito no logo seja toda vez que mudamos entre as 6 seções»): a batida fica em bateAsas.de_novo
            e mostraAba() a chama; uma batida em curso recomeça do zero. */
-        bateAsas.deNovo = function () {
+        /* 27/10, 5º («um efeito de entrada onde o pássaro fosse pequeno, crescente e batendo asas até parar»): na entrada o
+           monograma nasce a 35% e cresce até o tamanho cheio em 2,4 s, batendo as asas sem parar (4 batidas) que vão perdendo
+           amplitude até assentar; na troca de seção fica a batida e meia curta, sem crescer */
+        bateAsas.deNovo = function (entrada) {
           if (raf) cancelAnimationFrame(raf);
-          var t0 = performance.now(), dur = 1800;
+          var t0 = performance.now(), dur = entrada ? 2400 : 1800, bat = entrada ? 8 : 3;
+          svg.style.transformOrigin = '50% 60%';
           (function passo(t) {
-            var k = Math.min((t - t0) / dur, 1), env = Math.sin(Math.PI * k), a = -Math.sin(k * Math.PI * 3) * env;   // 1,5 batidas, começa descendo
+            var k = Math.min((t - t0) / dur, 1), env = entrada ? Math.min(1, (1 - k) * 2.2) : Math.sin(Math.PI * k), a = -Math.sin(k * Math.PI * bat) * env;
             var g = a < 0 ? a * 18 : a * 7;   // descida ampla, subida curta
             longa.setAttribute('transform', 'rotate(' + g.toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
             curta.setAttribute('transform', 'rotate(' + (-g * .4).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
-            if (k < 1) raf = requestAnimationFrame(passo); else { raf = null; longa.removeAttribute('transform'); curta.removeAttribute('transform'); }
+            if (entrada) { var e = 1 - Math.pow(1 - k, 3); svg.style.transform = 'scale(' + (.35 + .65 * e).toFixed(3) + ')'; svg.style.opacity = Math.min(1, .3 + k * 1.4).toFixed(2); }
+            if (k < 1) raf = requestAnimationFrame(passo); else { raf = null; longa.removeAttribute('transform'); curta.removeAttribute('transform'); svg.style.transform = ''; svg.style.opacity = ''; }
           })(t0);
         };
-        bateAsas.deNovo();
+        bateAsas.deNovo(true);
       }).catch(function () {});
     }
     function poe(ab) { document.body.classList.toggle('menu-aberto', ab); b.setAttribute('aria-expanded', ab); b.setAttribute('aria-label', ab ? 'Recolher o menu do site' : 'Abrir o menu do site'); }
