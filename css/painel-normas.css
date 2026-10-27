@@ -691,3 +691,14 @@
   .lt-leg i.ant{border-color:var(--tinta)}
 }
 .pn-logo-fixo svg.marca-frente{width:auto;display:block}   /* 27/10: monograma inline (bate as asas na entrada) no lugar do <img> */
+
+/* 27/10/2026, «faça um efeito de entrada» (da página): no computador o cabeçalho, a coluna de filtros e a placa principal
+   deslizam da esquerda ao carregar, um atrás do outro; o logo chega junto com o cabeçalho e bate as asas */
+@media (min-width:981px){
+  .pn-cab,.pn-lado,.pn-main{animation:pn-desliza .6s cubic-bezier(.2,.7,.2,1) both}
+  .pn-lado{animation-delay:.12s}
+  .pn-main{animation-delay:.2s}
+  .pn-menu-puxa{animation:pn-desce .5s cubic-bezier(.2,.7,.2,1) .35s both}
+  @keyframes pn-desce{from{opacity:0;transform:translate(-50%,-100%)}to{opacity:1;transform:translate(-50%,0)}}
+}
+@media (prefers-reduced-motion:reduce){.pn-cab,.pn-lado,.pn-main,.pn-menu-puxa{animation:none}}

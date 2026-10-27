@@ -109,6 +109,7 @@
     /* 27/10: «é possível criar um gif de forma que o pássaro do logo bata as asas na entrada?»: em vez de GIF, o SVG oficial do
        monograma entra inline e a asa longa (o grande caminho à esquerda) e as lâminas da asa curta (à direita) giram alguns
        graus em torno do ombro, três batidas em 1,6 s, só na entrada da página. Nada é redesenhado: é a geometria oficial girada. */
+    window.bateAsas = bateAsas;
     function bateAsas(img) {
       if (!img || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
       fetch(img.getAttribute('src')).then(function (r) { return r.text(); }).then(function (txt) {
@@ -122,16 +123,23 @@
         passaro.appendChild(longa); passaro.appendChild(curta);
         svg.setAttribute('class', img.className); svg.setAttribute('aria-hidden', 'true'); svg.style.height = getComputedStyle(img).height;
         img.parentNode.replaceChild(svg, img);
-        var t0 = performance.now(), dur = 1800, PL = [39.5, 20.5], PC = [45.5, 15];   // ombros, nas coordenadas do desenho
+        var PL = [39.5, 20.5], PC = [45.5, 15], raf = null;   // ombros, nas coordenadas do desenho
         /* 27/10, 3º («não ficou boa, faça como antes, mas abaixe mais as asas, talvez uma batida e meia»): volta o vaivém da
-           1ª versão, com uma batida e meia em 1,8 s e a asa descendo mais (até −18°) do que sobe (+7°) */
-        (function passo(t) {
-          var k = Math.min((t - t0) / dur, 1), env = Math.sin(Math.PI * k), a = -Math.sin(k * Math.PI * 3) * env;   // 1,5 batidas, começa descendo
-          var g = a < 0 ? a * 18 : a * 7;   // descida ampla, subida curta
-          longa.setAttribute('transform', 'rotate(' + g.toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
-          curta.setAttribute('transform', 'rotate(' + (-g * .4).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
-          if (k < 1) requestAnimationFrame(passo); else { longa.removeAttribute('transform'); curta.removeAttribute('transform'); }
-        })(t0);
+           1ª versão, com uma batida e meia em 1,8 s e a asa descendo mais (até −18°) do que sobe (+7°).
+           4º («faça com que esse efeito no logo seja toda vez que mudamos entre as 6 seções»): a batida fica em bateAsas.de_novo
+           e mostraAba() a chama; uma batida em curso recomeça do zero. */
+        bateAsas.deNovo = function () {
+          if (raf) cancelAnimationFrame(raf);
+          var t0 = performance.now(), dur = 1800;
+          (function passo(t) {
+            var k = Math.min((t - t0) / dur, 1), env = Math.sin(Math.PI * k), a = -Math.sin(k * Math.PI * 3) * env;   // 1,5 batidas, começa descendo
+            var g = a < 0 ? a * 18 : a * 7;   // descida ampla, subida curta
+            longa.setAttribute('transform', 'rotate(' + g.toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
+            curta.setAttribute('transform', 'rotate(' + (-g * .4).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
+            if (k < 1) raf = requestAnimationFrame(passo); else { raf = null; longa.removeAttribute('transform'); curta.removeAttribute('transform'); }
+          })(t0);
+        };
+        bateAsas.deNovo();
       }).catch(function () {});
     }
     function poe(ab) { document.body.classList.toggle('menu-aberto', ab); b.setAttribute('aria-expanded', ab); b.setAttribute('aria-label', ab ? 'Recolher o menu do site' : 'Abrir o menu do site'); }
@@ -169,6 +177,7 @@
     if (!bloco || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
     bloco.classList.remove('entra'); void bloco.offsetWidth; bloco.classList.add('entra');
   }
+  var primeiraAba = true;
   function mostraAba(id) {
     if (!$('#v-' + id)) return;
     $$('.pn-abas button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.aba === id); });
@@ -183,6 +192,7 @@
     if (id === 'revisao') montaRevisao();
     history.replaceState(null, '', '#' + id);
     deslizaTudo();
+    if (!primeiraAba && window.bateAsas && bateAsas.deNovo) bateAsas.deNovo(); primeiraAba = false;   // 27/10: o pássaro bate as asas a cada troca de seção (na entrada ele já bate sozinho)
     var vista = $('#v-' + id); if (vista) { vista.classList.remove('entra'); void vista.offsetWidth; vista.classList.add('entra'); }
   }
 
