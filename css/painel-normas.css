@@ -641,7 +641,8 @@
   body.menu-aberto .pn-menu-puxa{top:72px}
   /* 27/10: «o logo tem que aparecer sempre»: cópia da caixa do logo fixa no topo (y 0, aresta de cima na borda da tela), some
      quando o menu abre e a original desce no mesmo lugar */
-  .pn-logo-fixo{position:fixed;top:0;left:var(--lado,40px);z-index:983;transition:opacity .25s}
+  /* 27/10, 2º: «deixe o logo direto neste campo, sem o fundo»: só o monograma, sem caixa, no vão à esquerda do título do painel */
+  .pn-logo-fixo{position:fixed;top:30px;left:calc(var(--lado,40px) + 8px);z-index:983;transition:opacity .25s;background:transparent;border:0;padding:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
   .pn-logo-fixo .marca-frente{height:85.1px}
   body.menu-aberto .pn-logo-fixo{opacity:0;pointer-events:none}
 }
