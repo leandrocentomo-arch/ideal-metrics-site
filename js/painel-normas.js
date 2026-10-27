@@ -467,7 +467,7 @@
         /* 27/10: «quando mudo de norma tem que sair os dados da anterior»: selectAll não repassa o dado novo do grupo aos
            filhos (ficava o número da norma anterior); select repassa */
         gPulsos.selectAll('g.pulso').select('.nome').text(function (d) { return nomePais(d.a2); });
-        gPulsos.selectAll('g.pulso').select('.n').text(function (d) { return fmt(d.v); });
+        gPulsos.selectAll('g.pulso').select('.n').each(function (d) { this.dataset.v = 0; this.textContent = ''; });   // o número nasce ao entrar na frente (poePulsos)
         poePulsos();
       };
       function poePulsos() {
@@ -482,6 +482,11 @@
         gPulsos.selectAll('g.pulso').each(function (d) {
           var vis = a > .98 || d3.geoDistance(d.c, olho) < 1.42, p = proj(d.c), sy = y0 + d.vaga * 22, g = d3.select(this);
           g.style('opacity', vis && p ? 1 : 0);
+          /* 27/10: «o número fosse crescendo conforme o globo fosse girando, numa velocidade conforme o efeito»: ao entrar na
+             frente, o número corre de zero até o valor em 1,2 s (o fade do conjunto leva .45 s); ao sair, volta a zero */
+          var n = this.querySelector('.n');
+          if (vis && p && !d.naFrente) { d.naFrente = true; roleta(n, d.v, 1200); }
+          else if (!(vis && p) && d.naFrente) { d.naFrente = false; n.dataset.v = 0; n.textContent = ''; }
           if (!p) return;
           g.selectAll('circle').attr('cx', p[0]).attr('cy', p[1]);
           if (a > .5 && d.rot) {
@@ -561,11 +566,11 @@
     pintaLado();
   }
   /* 27/10: «faça os números com efeito tipo roleta»: o número corre do valor atual até o novo em .7 s (ease-out), formatado */
-  function roleta(el, para) {
+  function roleta(el, para, dur) {
     para = +para || 0; var de = +el.dataset.v || 0; el.dataset.v = para;
     if (el._roleta) cancelAnimationFrame(el._roleta);
     if (de === para || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) { el.textContent = fmt(para); return; }
-    var t0 = performance.now(), dur = 700;
+    var t0 = performance.now(); dur = dur || 700;
     (function passo(t) {
       var k = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - k, 3);
       el.textContent = fmt(Math.round(de + (para - de) * e));
