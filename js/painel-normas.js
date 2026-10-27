@@ -106,6 +106,7 @@
     if (!$('#v-' + id)) return;
     $$('.pn-abas button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.aba === id); });
     $$('.pn-vista').forEach(function (v) { v.classList.toggle('ativa', v.id === 'v-' + id); });
+    $('.pn').classList.toggle('sem-lado', id === 'mapa');   // 27/10: os filtros não valem para o mapa, então a coluna some
     $('.pn-main').scrollTop = 0;
     fechaDetalhe();
     if (id === 'mapa') montaMapa();
