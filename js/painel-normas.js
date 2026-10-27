@@ -122,13 +122,14 @@
         passaro.appendChild(longa); passaro.appendChild(curta);
         svg.setAttribute('class', img.className); svg.setAttribute('aria-hidden', 'true'); svg.style.height = getComputedStyle(img).height;
         img.parentNode.replaceChild(svg, img);
-        var t0 = performance.now(), dur = 2200, PL = [39.5, 20.5], PC = [45.5, 15];   // ombros, nas coordenadas do desenho
-        /* 27/10, 2º: «só uma batida, um pouco mais longa, para baixo e um pouco mais devagar»: uma descida ampla da asa longa
-           (até −14°, meio-seno suavizado em 2,2 s) e volta; a asa curta acompanha em fase oposta */
+        var t0 = performance.now(), dur = 1800, PL = [39.5, 20.5], PC = [45.5, 15];   // ombros, nas coordenadas do desenho
+        /* 27/10, 3º («não ficou boa, faça como antes, mas abaixe mais as asas, talvez uma batida e meia»): volta o vaivém da
+           1ª versão, com uma batida e meia em 1,8 s e a asa descendo mais (até −18°) do que sobe (+7°) */
         (function passo(t) {
-          var k = Math.min((t - t0) / dur, 1), e = (1 - Math.cos(Math.PI * k)) / 2, a = Math.sin(Math.PI * e);   // 0 → 1 → 0, suave nas pontas
-          longa.setAttribute('transform', 'rotate(' + (-a * 14).toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
-          curta.setAttribute('transform', 'rotate(' + (a * 6).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
+          var k = Math.min((t - t0) / dur, 1), env = Math.sin(Math.PI * k), a = -Math.sin(k * Math.PI * 3) * env;   // 1,5 batidas, começa descendo
+          var g = a < 0 ? a * 18 : a * 7;   // descida ampla, subida curta
+          longa.setAttribute('transform', 'rotate(' + g.toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
+          curta.setAttribute('transform', 'rotate(' + (-g * .4).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
           if (k < 1) requestAnimationFrame(passo); else { longa.removeAttribute('transform'); curta.removeAttribute('transform'); }
         })(t0);
       }).catch(function () {});
