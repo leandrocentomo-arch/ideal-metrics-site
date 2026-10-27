@@ -459,7 +459,7 @@
         /* 27/10, 2º: «as tags de número ficam pulando conforme o globo roda, use varetas bem finas»: o número fica numa
            coluna fixa à direita do globo (uma vaga por país, na ordem do ranking) e uma vareta liga a vaga ao ponto do país */
         var e = g.enter().append('g').attr('class', 'pulso');
-        e.append('line').attr('class', 'vareta');
+        e.append('path').attr('class', 'vareta');   // 27/10: vareta em curva («poderiam ser curvas para manter a lista ao lado bem organizada»)
         e.append('circle').attr('class', 'anel').attr('r', 7).style('animation-delay', function (d, i) { return (i * .27) + 's'; });
         e.append('circle').attr('class', 'ponto').attr('r', 1.8);
         var t = e.append('text'); t.append('tspan').attr('class', 'nome'); t.append('tspan').attr('class', 'n').attr('dx', 6);
@@ -483,10 +483,12 @@
           if (!p) return;
           g.selectAll('circle').attr('cx', p[0]).attr('cy', p[1]);
           if (a > .5 && d.rot) {
-            g.select('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', d.rot[0] - 2).attr('y2', d.rot[1] + 1);
+            g.select('path').attr('d', 'M' + p[0] + ',' + p[1] + 'L' + (d.rot[0] - 2) + ',' + (d.rot[1] + 1));
             g.select('text').attr('x', d.rot[0]).attr('y', d.rot[1]);
           } else {
-            g.select('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', x0 - 6).attr('y2', sy);
+            /* curva em S: sai do país na horizontal e chega na vaga na horizontal (bezier com os dois controles no meio do caminho) */
+            var xm = (p[0] + x0 - 6) / 2;
+            g.select('path').attr('d', 'M' + p[0].toFixed(1) + ',' + p[1].toFixed(1) + 'C' + xm.toFixed(1) + ',' + p[1].toFixed(1) + ' ' + xm.toFixed(1) + ',' + sy + ' ' + (x0 - 6) + ',' + sy);
             g.select('text').attr('x', x0).attr('y', sy + 4);
           }
         });

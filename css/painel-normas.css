@@ -502,7 +502,7 @@
 /* 27/10/2026, «as tags de número ficam pulando conforme o globo roda, use varetas bem finas»: número em coluna fixa à direita do
    globo, vareta de 0,4 até o ponto do país; o conjunto some e aparece em fade, sem pulo */
 .mp-mapa g.pulso{transition:opacity .45s}
-.mp-mapa .pulso line.vareta{stroke:var(--tinta);stroke-width:.4;stroke-opacity:.6}
+.mp-mapa .pulso .vareta{fill:none;stroke:var(--tinta);stroke-width:.4;stroke-opacity:.6}   /* 27/10: vareta virou path (curva em S) */
 .mp-mapa .pulso text{font-size:10px;font-weight:400}
 .mp-mapa .pulso text .n{font-weight:600}
 .mp-mapa .pulso circle.anel{stroke-width:.4}
