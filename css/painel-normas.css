@@ -616,5 +616,5 @@
    novo sobe de baixo), em .55 s; o JS troca o conteúdo no meio */
 .mp-rank li>span:nth-child(2){display:flex;align-items:center}
 .mp-rank li>span.rola{animation:mp-rola .55s ease-in-out both}
-@keyframes mp-rola{0%{transform:translateY(0);opacity:1}45%{transform:translateY(-110%);opacity:0}50%{transform:translateY(110%);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes mp-rola{0%{transform:translateY(0);opacity:1}45%{transform:translateY(110%);opacity:0}50%{transform:translateY(-110%);opacity:0}100%{transform:translateY(0);opacity:1}}   /* 27/10: «roleta é de cima para baixo»: o antigo desce e some, o novo desce de cima */
 @media (prefers-reduced-motion:reduce){.mp-rank li>span.rola{animation:none}}

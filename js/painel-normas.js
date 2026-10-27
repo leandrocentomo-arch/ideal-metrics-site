@@ -411,7 +411,7 @@
       var i = +li.dataset.i;
       $$('.ca-q', li).forEach(function (q) { var v = S.normas[q.dataset.k][stOnde][i]; q.dataset.n = nivel(v); q.dataset.v = v; q.classList.toggle('sel', q.dataset.k === stNum); });
       $('.ca-barra i', li).style.width = (atual[i] / max * 100) + '%';
-      $('b', li).textContent = fmt(atual[i]);
+      roleta($('b', li), atual[i]);   // 27/10: números do mapa de calor também em roleta
     });
   }
 
