@@ -119,11 +119,11 @@
   window.addEventListener('resize', deslizaTudo);
 
   /* 27/10: efeito de entrada: cada filho direto do bloco (linhas, cartões) nasce 10 px abaixo e sobe, um atrás do outro */
+  /* 27/10, 2ª versão («a entrada, nem desta nem das tabelas, seja "onda", mas entrada da esquerda para direita, deslize»): o
+     bloco inteiro desliza da esquerda de uma vez; nada de atraso item a item */
   function entra(bloco) {
     if (!bloco || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-    var i = 0; Array.prototype.forEach.call(bloco.children, function (el) {
-      if (i > 40) return; el.classList.remove('entra'); void el.offsetWidth; el.style.animationDelay = (i++ * 35) + 'ms'; el.classList.add('entra');
-    });
+    bloco.classList.remove('entra'); void bloco.offsetWidth; bloco.classList.add('entra');
   }
   function mostraAba(id) {
     if (!$('#v-' + id)) return;
@@ -369,37 +369,50 @@
      o Leandro mandou como linguagem: mapa de calor dos 39 setores EA × 17 normas (quadrado por célula, 5 níveis em escala
      log) e, na mesma linha, a barra do setor na norma escolhida. Linhas na ordem da norma escolhida. */
   function pintaCalor() {
+    /* 27/10: «não quero que o painel pisque quando mudar de norma»: o DOM do mapa é montado UMA vez (ao abrir a aba); a troca
+       de norma ou de Mundo/Brasil só atualiza no lugar: nível e valor de cada quadrado, coluna marcada, barras (que deslizam
+       da largura atual para a nova) e números. Nada é recriado, então nada pisca. */
     var S = D.setores, nums = Object.keys(S.normas).sort(function (a, b) { return D.survey[b].total - D.survey[a].total; });
     var atual = S.normas[stNum][stOnde], max = Math.max.apply(null, atual) || 1;
-    /* 27/10: «não quero que mude a ordem dos setores»: ordem FIXA, pela soma das 17 normas no mundo, igual para qualquer norma */
     var soma = S.setores.map(function (_, i) { return nums.reduce(function (t, k) { return t + S.normas[k].mundo[i]; }, 0); });
-    var ordem = atual.map(function (v, i) { return i; }).sort(function (a, b) { return soma[b] - soma[a]; });
+    var ordem = atual.map(function (v, i) { return i; }).sort(function (a, b) { return soma[b] - soma[a]; });   // ordem fixa
     var nivel = function (v) { return !v ? 0 : v < 10 ? 1 : v < 100 ? 2 : v < 1000 ? 3 : 4; };
-    var cab = '<div class="ca-linha ca-cabeca"><span></span><div class="ca-cels">' + nums.map(function (k) { return '<button type="button" data-num="' + k + '"' + (k === stNum ? ' aria-pressed="true"' : '') + '><i>' + (SURVEY_NOME[k] || 'ISO ' + k).replace('ISO/IEC ', '') + '</i></button>'; }).join('') + '</div><span class="m">' + (SURVEY_NOME[stNum] || 'ISO ' + stNum) + ' · ' + (stOnde === 'br' ? 'Brasil' : 'mundo') + '</span></div>';
-    var corpo = ordem.map(function (i, r) {
-      return '<div class="ca-linha entra" style="animation-delay:' + (r * 18) + 'ms"><span class="ca-nome" title="' + esc(S.setores[i]) + '">' + esc(EA_PT[i] || S.setores[i]) + '</span><div class="ca-cels">' +
-        nums.map(function (k, c) { var v = S.normas[k][stOnde][i]; return '<span class="ca-q' + (k === stNum ? ' sel' : '') + '" tabindex="0" data-n="' + nivel(v) + '" data-v="' + v + '" data-s="' + esc(EA_PT[i] || S.setores[i]) + '" data-k="' + (SURVEY_NOME[k] || 'ISO ' + k) + '" style="transition-delay:' + (c * 14 + r * 4) + 'ms"></span>'; }).join('') +
-        '</div><span class="ca-barra"><i style="width:0" data-w="' + (atual[i] / max * 100) + '"></i></span><b>' + fmt(atual[i]) + '</b></div>';
-    }).join('');
-    var cal = $('#st-calor');
-    cal.innerHTML = '<div class="ca-cab"><b>Setores EA por norma</b><span>39 setores EA · 17 normas · ' + (stOnde === 'br' ? 'Brasil' : 'mundo') + '</span></div>' + cab + corpo +
-      '<div class="ca-pe"><span>Quadrado = certificados do setor na norma; barra = norma escolhida.</span><span class="ca-leg"><em>0</em><span class="ca-q" data-n="0"></span><span class="ca-q" data-n="1"></span><span class="ca-q" data-n="2"></span><span class="ca-q" data-n="3"></span><span class="ca-q" data-n="4"></span><em>10 mil+</em></span></div><div class="ca-dica"></div>';
-    var dica = $('.ca-dica', cal);
-    function mostra(q) {
-      var v = +q.dataset.v, rc = q.getBoundingClientRect(), rb = cal.getBoundingClientRect();
-      dica.innerHTML = '<b>' + fmt(v) + '</b> · ' + q.dataset.s + ' · ' + q.dataset.k;
-      var meia = dica.offsetWidth / 2, x = rc.left - rb.left + rc.width / 2; x = Math.max(meia, Math.min(rb.width - meia, x));
-      dica.style.left = x + 'px'; dica.style.top = (rc.top - rb.top) + 'px'; dica.classList.add('on');
+    var onde = stOnde === 'br' ? 'Brasil' : 'mundo', nome = SURVEY_NOME[stNum] || 'ISO ' + stNum;
+    var cal = $('#st-calor'), calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!cal.dataset.pronto) {
+      cal.dataset.pronto = '1';
+      var cab = '<div class="ca-linha ca-cabeca"><span></span><div class="ca-cels">' + nums.map(function (k) { return '<button type="button" data-num="' + k + '"><i>' + (SURVEY_NOME[k] || 'ISO ' + k).replace('ISO/IEC ', '') + '</i></button>'; }).join('') + '</div><span class="m" id="ca-norma"></span></div>';
+      var corpo = ordem.map(function (i) {
+        return '<div class="ca-linha" data-i="' + i + '"><span class="ca-nome" title="' + esc(S.setores[i]) + '">' + esc(EA_PT[i] || S.setores[i]) + '</span><div class="ca-cels">' +
+          nums.map(function (k) { return '<span class="ca-q" tabindex="0" data-k="' + k + '" data-s="' + esc(EA_PT[i] || S.setores[i]) + '"></span>'; }).join('') +
+          '</div><span class="ca-barra"><i style="width:0"></i></span><b></b></div>';
+      }).join('');
+      cal.innerHTML = '<div class="ca-cab"><b>Setores EA por norma</b><span id="ca-sub"></span></div>' + cab + corpo +
+        '<div class="ca-pe"><span>Quadrado = certificados do setor na norma; barra = norma escolhida.</span><span class="ca-leg"><em>0</em><span class="ca-q" data-n="0"></span><span class="ca-q" data-n="1"></span><span class="ca-q" data-n="2"></span><span class="ca-q" data-n="3"></span><span class="ca-q" data-n="4"></span><em>10 mil+</em></span></div><div class="ca-dica"></div>';
+      var dica = $('.ca-dica', cal);
+      function mostra(q) {
+        var rc = q.getBoundingClientRect(), rb = cal.getBoundingClientRect();
+        dica.innerHTML = '<b>' + fmt(+q.dataset.v) + '</b> · ' + q.dataset.s + ' · ' + (SURVEY_NOME[q.dataset.k] || 'ISO ' + q.dataset.k);
+        var meia = dica.offsetWidth / 2, x = rc.left - rb.left + rc.width / 2; x = Math.max(meia, Math.min(rb.width - meia, x));
+        dica.style.left = x + 'px'; dica.style.top = (rc.top - rb.top) + 'px'; dica.classList.add('on');
+      }
+      $$('.ca-linha .ca-q', cal).forEach(function (q) {
+        q.addEventListener('mouseenter', function () { mostra(q); }); q.addEventListener('focus', function () { mostra(q); });
+        q.addEventListener('mouseleave', function () { dica.classList.remove('on'); }); q.addEventListener('blur', function () { dica.classList.remove('on'); });
+      });
+      $$('.ca-cabeca button', cal).forEach(function (b) { b.addEventListener('click', function () { var t = $('#st-sel button[data-num="' + b.dataset.num + '"]'); if (t) t.click(); }); });
+      cal.classList.remove('ca-on'); void cal.offsetWidth; entra(cal);
+      if (calmo) cal.classList.add('ca-on'); else requestAnimationFrame(function () { cal.classList.add('ca-on'); });
     }
-    $$('.ca-linha .ca-q', cal).forEach(function (q) {
-      q.addEventListener('mouseenter', function () { mostra(q); }); q.addEventListener('focus', function () { mostra(q); });
-      q.addEventListener('mouseleave', function () { dica.classList.remove('on'); }); q.addEventListener('blur', function () { dica.classList.remove('on'); });
+    $('#ca-sub', cal).textContent = '39 setores EA · 17 normas · ' + onde;
+    $('#ca-norma', cal).textContent = nome + ' · ' + onde;
+    $$('.ca-cabeca button', cal).forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.num === stNum); });
+    $$('.ca-linha[data-i]', cal).forEach(function (li) {
+      var i = +li.dataset.i;
+      $$('.ca-q', li).forEach(function (q) { var v = S.normas[q.dataset.k][stOnde][i]; q.dataset.n = nivel(v); q.dataset.v = v; q.classList.toggle('sel', q.dataset.k === stNum); });
+      $('.ca-barra i', li).style.width = (atual[i] / max * 100) + '%';
+      $('b', li).textContent = fmt(atual[i]);
     });
-    $$('.ca-cabeca button', cal).forEach(function (b) { b.addEventListener('click', function () { var t = $('#st-sel button[data-num="' + b.dataset.num + '"]'); if (t) t.click(); }); });
-    cal.classList.remove('ca-on'); void cal.offsetWidth;
-    var cresce = function () { $$('.ca-barra i', cal).forEach(function (b) { b.style.width = b.dataset.w + '%'; }); };   // barras crescem a cada troca de norma
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { cal.classList.add('ca-on'); cresce(); return; }
-    requestAnimationFrame(function () { cal.classList.add('ca-on'); cresce(); });
   }
 
   /* ---------- mapa ---------- */
@@ -544,16 +557,33 @@
     pintaLado();
   }
   function pintaLado() {
+    /* 27/10: «a mesma coisa para aqui, não quero que pisque»: a lateral é montada UMA vez, com 11 vagas no ranking (10 + Brasil
+       fora do top 10); a troca de norma só troca textos, bandeiras e larguras no lugar, com as barras deslizando. */
     var s = D.survey[mapaNum], nome = SURVEY_NOME[mapaNum] || 'ISO ' + mapaNum;
     var rank = Object.keys(s.paises).sort(function (a, b) { return s.paises[b] - s.paises[a]; });
     var posBR = rank.indexOf('BR') + 1, latam = rank.filter(function (a) { return LATAM.indexOf(a) >= 0; }), posLA = latam.indexOf('BR') + 1;
     var max = s.paises[rank[0]];
     var top = rank.slice(0, 10); if (posBR > 10) top.push('BR');
-    $('#mp-lado').innerHTML = '<h3>' + esc(nome) + '</h3><div class="m">' + esc(s.titulo || '') + '</div>' +
-      '<div class="tot">' + fmt(s.total) + '<small>certificados válidos em 31-dez-2025 · ' + rank.length + ' países</small></div>' +
-      (posBR ? '<div class="mp-br"><span class="m">Brasil</span><div class="v">' + fmt(s.paises.BR) + '<small>' + posBR + 'º no mundo · ' + posLA + 'º na América Latina</small></div></div>' : '<div class="mp-br"><span class="m">Brasil</span><div class="v">0</div></div>') +
-      '<ul class="mp-rank">' + top.map(function (a) { var p = rank.indexOf(a) + 1; return '<li' + (a === 'BR' ? ' class="br"' : '') + '><span class="m">' + p + '</span><span><img class="bandeira" src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/' + a.toLowerCase() + '.svg" alt="" loading="lazy" onerror="this.remove()">' + esc(nomePais(a)) + '</span><b>' + fmt(s.paises[a]) + '</b><span class="barra"><i style="width:' + (s.paises[a] / max * 100) + '%"></i></span></li>'; }).join('') + '</ul>' +
-      '<p class="mp-nota">Só certificados emitidos por organismos acreditados por membros do IAF. Países sem certificado acreditado não aparecem. Fonte: ISO Survey 2025.</p>';
-    entra($('#mp-lado .mp-rank'));
+    var lado = $('#mp-lado');
+    if (!lado.dataset.pronto) {
+      lado.dataset.pronto = '1';
+      lado.innerHTML = '<h3></h3><div class="m" id="mp-tit"></div><div class="tot"><span id="mp-tot"></span><small id="mp-paises"></small></div>' +
+        '<div class="mp-br"><span class="m">Brasil</span><div class="v"><span id="mp-brv"></span><small id="mp-brpos"></small></div></div>' +
+        '<ul class="mp-rank">' + Array.apply(null, Array(11)).map(function () { return '<li><span class="m"></span><span><img class="bandeira" alt="" loading="lazy"><span class="nome"></span></span><b></b><span class="barra"><i style="width:0"></i></span></li>'; }).join('') + '</ul>' +
+        '<p class="mp-nota">Só certificados emitidos por organismos acreditados por membros do IAF. Países sem certificado acreditado não aparecem. Fonte: ISO Survey 2025.</p>';
+      entra($('.mp-rank', lado));
+    }
+    $('h3', lado).textContent = nome; $('#mp-tit').textContent = s.titulo || '';
+    $('#mp-tot').textContent = fmt(s.total); $('#mp-paises').textContent = 'certificados válidos em 31-dez-2025 · ' + rank.length + ' países';
+    $('#mp-brv').textContent = fmt(s.paises.BR || 0); $('#mp-brpos').textContent = posBR ? posBR + 'º no mundo · ' + posLA + 'º na América Latina' : '';
+    $$('.mp-rank li', lado).forEach(function (li, i) {
+      var a = top[i]; li.style.display = a ? '' : 'none'; if (!a) return;
+      li.classList.toggle('br', a === 'BR');
+      $('.m', li).textContent = rank.indexOf(a) + 1;
+      var img = $('.bandeira', li), src = 'https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/' + a.toLowerCase() + '.svg';
+      if (img.getAttribute('src') !== src) { img.style.visibility = 'visible'; img.onerror = function () { img.style.visibility = 'hidden'; }; img.setAttribute('src', src); }
+      $('.nome', li).textContent = nomePais(a); $('b', li).textContent = fmt(s.paises[a]);
+      $('.barra i', li).style.width = (s.paises[a] / max * 100) + '%';
+    });
   }
 })();
