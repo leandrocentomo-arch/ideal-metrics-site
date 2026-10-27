@@ -894,3 +894,12 @@
   #v-mapa .mp-lado>.mp-br{margin-bottom:10px}
   #v-mapa .mp-rola{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-anchor:none;overscroll-behavior:contain;padding-right:8px;scrollbar-width:thin;scrollbar-color:rgba(20,48,76,.25) transparent}
 }
+/* 27/10/2026, linha do tempo: «aqui também tem que ter animação» (o traço de cada norma se desenha da esquerda para a direita
+   e as marcas acendem quando ele passa; o JS põe o atraso de cada uma) e «tire o fundo do topo da planilha» (a faixa dos anos
+   fica sem fundo e sem desfoque, e deixa de prender no topo, para as linhas não passarem por baixo dos anos) */
+#lt-corpo.lt-anima .lt-trilho,#lt-corpo.lt-anima .lt-vivo{transform-origin:left center;animation:lt-traco .9s cubic-bezier(.3,.6,.2,1) backwards}
+#lt-corpo.lt-anima .lt-ed{animation:lt-marca .4s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes lt-traco{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes lt-marca{from{opacity:0;transform:translate(-50%,-50%) scale(.3)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@media (prefers-reduced-motion:reduce){#lt-corpo.lt-anima .lt-trilho,#lt-corpo.lt-anima .lt-vivo,#lt-corpo.lt-anima .lt-ed{animation:none}}
+.pn .lt-cab{background:none;-webkit-backdrop-filter:none;backdrop-filter:none;position:static}

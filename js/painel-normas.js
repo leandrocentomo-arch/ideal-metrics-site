@@ -349,7 +349,16 @@
       var trilho = '<i class="lt-trilho" style="left:' + ini + '%;right:' + (100 - px(D.gerado)) + '%"></i><i class="lt-vivo" style="left:' + ini + '%;width:' + Math.max(0, fim - ini) + '%"></i>';
       return '<div class="lt-linha"><div class="lt-nome"><b>ISO ' + k + '</b>' + esc(nome) + '</div><div class="lt-faixa" style="--lt-passo:' + (500 / span) + '%">' + trilho + marcas + '</div></div>';
     }).join('');
-    entra($('#lt-corpo'));
+    /* 27/10: «aqui também tem que ter animação»: na entrada cada trilho se desenha da esquerda para a direita (uma linha atrás
+       da outra, 50 ms) e cada marca acende quando o traço chega nela */
+    var corpo = $('#lt-corpo');
+    $$('.lt-linha', corpo).forEach(function (li, i) {
+      var tr = $('.lt-trilho', li), L = tr ? parseFloat(tr.style.left) || 0 : 0, R = tr ? 100 - (parseFloat(tr.style.right) || 0) : 100, d0 = i * .05;
+      $$('.lt-trilho,.lt-vivo', li).forEach(function (t) { t.style.animationDelay = d0.toFixed(2) + 's'; });
+      $$('.lt-ed', li).forEach(function (e) { var x = parseFloat(e.style.left) || 0, k = R > L ? Math.max(0, Math.min(1, (x - L) / (R - L))) : 0; e.style.animationDelay = (d0 + k * .9).toFixed(2) + 's'; });
+    });
+    corpo.classList.remove('lt-anima'); void corpo.offsetWidth; corpo.classList.add('lt-anima');
+    entra(corpo);
   }
 
   /* ---------- mudanças ---------- */
