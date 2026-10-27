@@ -206,7 +206,7 @@
    fundo seja mais claro»). A margem esquerda de 48 px deixa a etiqueta da gaveta fora da placa. */
 @media (min-width:981px){
   .pn{--vidro:rgba(255,255,255,.46);--vidro2:rgba(255,255,255,.68);--vborda:rgba(255,255,255,.75);--vsombra:0 10px 34px rgba(20,48,76,.12),inset 0 1px 0 rgba(255,255,255,.7);
-    background:linear-gradient(rgba(250,249,245,.58),rgba(250,249,245,.58)),url(../img/fundo-painel-vidro.webp) center/cover no-repeat;
+    background:linear-gradient(rgba(250,249,245,.18),rgba(250,249,245,.18)),url(../img/fundo-painel-vidro.webp) center/cover no-repeat;
     gap:14px;padding:14px 18px 14px 48px}
   .pn-cab,.pn-lado,.pn-main{background:var(--vidro);-webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35);
     border:1px solid var(--vborda);border-radius:3px;box-shadow:var(--vsombra)}
@@ -229,3 +229,88 @@
   .pn-det{top:calc(var(--cab-h,120px) + 28px);right:18px;bottom:14px}   /* a ficha abre alinhada à placa principal */
   .pn-veu{inset:calc(var(--cab-h,120px) + 28px) 18px 14px 48px;border-radius:3px}
 }
+/* 27/10/2026, painel mais compacto (Leandro: «está difícil de navegar, a fonte está muito grande, há uso muito comprido do
+   cabeçalho, as tags das normas estão muito grandes»; e o fundo «um pouco mais escuro, mais colorido» para o vidro aparecer:
+   figura nova com mais contraste e véu creme de 18%). No computador: cabeçalho do painel com 120 px à esquerda para passar ao lado
+   do cartão do logo em vez de abaixo dele (de 201 px de altura para cerca de 125), subtítulo numa linha, abas mais baixas,
+   coluna de filtros de 260 px e letra de 12,5 a 13 px nas listas, botões das normas menores. */
+@media (min-width:981px){
+  .pn{grid-template-columns:260px minmax(0,1fr);gap:12px;padding:12px 16px 12px 48px}
+  .pn .m{font-size:10px}
+  .pn-cab{padding:14px 20px 12px 120px;gap:10px}
+  .pn-cab h1{font-size:20px;margin-top:3px}
+  .pn-cab .pn-sub{font-size:12.5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pn-abas button{padding:6px 8px;font-size:12.5px}
+  .pn-lado{padding:14px 16px 24px}
+  .pn-busca{margin-bottom:12px}
+  .pn-busca input{height:34px;font-size:13px}
+  .pn-busca svg{top:9px;width:16px;height:16px}
+  .pn-bloco{padding:10px 0}
+  .pn-bloco .m{margin-bottom:6px}
+  .pn-op{font-size:12.5px;padding:3px 0;gap:8px}
+  .pn-op input{width:12px;height:12px}
+  .pn-op .n{font-size:10px}
+  .pn-fonte{font-size:11px}
+  .pn-main{padding:0 20px 32px}
+  .pn-topo{padding-top:10px;padding-bottom:8px}
+  .pn-topo h2{font-size:15px}
+  .pn-ord button{padding:2px 6px;font-size:10px}
+  .pn-item{grid-template-columns:150px minmax(0,1fr) 160px 28px;gap:12px;min-height:46px;padding:6px 8px}
+  .pn-item .ref{font-size:12px}
+  .pn-item .tit{font-size:13px}
+  .pn-item .tit small{font-size:11px}
+  .pn-item .fase{font-size:10px}
+  .pn-item .seta{width:28px;height:28px}
+  .pn-item .seta svg{width:13px;height:13px}
+  .est{width:130px;height:5px}
+  .lt-cab{top:var(--topo-h,38px);grid-template-columns:200px minmax(0,1fr)}
+  .lt-linha{grid-template-columns:200px minmax(0,1fr);min-height:44px}
+  .lt-nome{font-size:12.5px}
+  .lt-nome b{font-size:11.5px}
+  .lt-faixa{height:28px}
+  .lt-ed{width:10px;height:10px}
+  .lt-ed .r{font-size:9px;top:11px}
+  .lt-leg{font-size:11.5px}
+  .md-item{grid-template-columns:130px minmax(0,1fr) 160px;font-size:13px;padding:7px 0}
+  .md-item .ref{font-size:12px}
+  .md-item .de{font-size:10px}
+  .md-nota{font-size:12.5px}
+  .mp-grid{grid-template-columns:minmax(0,1fr) 270px;gap:22px;padding-top:10px}
+  .mp-sel{gap:4px;margin-bottom:8px}
+  .mp-sel button{padding:3px 7px;font-size:10.5px}
+  .mp-lado h3{font-size:14px}
+  .mp-lado .tot{font-size:28px}
+  .mp-br{margin:12px 0;padding:10px 12px}
+  .mp-br .v{font-size:22px}
+  .mp-rank li{font-size:12.5px;padding:4px 0}
+  .mp-rank li b{font-size:12px}
+  .mp-nota{font-size:11.5px}
+  .pn-det h2{font-size:20px}
+  .pn-sec p{font-size:13.5px}
+  .pn-kv{font-size:13px}
+  .pn-links{font-size:13px}
+  .pn-det{top:calc(var(--cab-h,120px) + 24px);right:16px;bottom:12px}
+  .pn-veu{inset:calc(var(--cab-h,120px) + 24px) 16px 12px 48px}
+}
+/* 27/10/2026, linhas de altura única (Leandro: «todas as linhas devem ter a mesma altura, não sei quantas vezes tenho que dizer
+   isso»). Regra da casa para toda tabela e lista: uma linha só, texto longo cortado com reticências, nunca quebrando. O texto
+   inteiro continua na ficha da norma (clique). Vale para normas, revisão sistemática, linha do tempo, o que mudou, filtros e
+   ranking, no computador e no celular. */
+.pn-item{height:40px;min-height:0;padding-top:0;padding-bottom:0;contain-intrinsic-size:auto 40px}
+.pn-item>span,.pn-item .tit,.lt-nome,.md-item>span,.pn-op>span:not(.n),.mp-rank li>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.pn-item .tit small{display:inline;margin:0 0 0 10px}
+.pn-item .fase{flex-direction:row;align-items:center;gap:8px}
+.pn-item .fase .est{width:56px;flex:none}
+.pn-item .seta{overflow:visible}
+.lt-linha{height:40px;min-height:0}
+.lt-nome b{display:inline;margin-right:8px}
+.md-item{height:34px;padding:0}
+.pn-op{height:24px;padding:0}
+@media (max-width:980px){.pn-item .fase{display:none}}
+.pn-op .m{display:inline;margin:0 0 0 6px}   /* o código do estágio fica na mesma linha do nome */
+@media (min-width:981px){
+  .lt-cab{top:var(--topo-h,42px)}
+  .lt-cab,.lt-linha{grid-template-columns:290px minmax(0,1fr)}
+}
+@media (min-width:981px){.pn-item{grid-template-columns:172px minmax(0,1fr) 200px 28px}}   /* referência e estágio inteiros na linha única */
+.mp-br .v{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
