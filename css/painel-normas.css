@@ -158,7 +158,7 @@
 .mp-rank li .m{font-size:10px}
 .mp-rank li b{font-family:var(--mono);font-weight:500;font-size:13px}
 .mp-rank li.br{background:rgba(51,102,153,.09)}
-.mp-rank li .barra{grid-column:2/-1;height:3px;background:var(--perola)}
+.mp-rank li .barra{grid-column:2/-1;height:3px;background:var(--perola);position:static;inset:auto;z-index:auto}   /* 27/10: .barra é também a classe do cabeçalho do site (fixed, top 26): sem isto as barrinhas iam para o topo da tela */
 .mp-rank li .barra i{display:block;height:100%;background:var(--liga)}
 .mp-nota{font-size:12.5px;line-height:1.45;color:#315275;margin:14px 0 0}
 
@@ -184,14 +184,17 @@
 
 .pn-mais{height:1px}
 .pn-lista li.pn-vazio{cursor:default}
-/* 27/10/2026: «a página pode ter rodapé, até pode ser um pouco diferenciado» e «não é possível ver o globo inteiro».
-   No computador: rodapé compacto, só a linha legal (marca vertical, CNPJ, selo), sempre à vista embaixo do aplicativo;
-   o painel ocupa o que sobra entre o cabeçalho fixo e esse rodapé; o mapa encolhe para caber inteiro na área visível.
-   No celular, rodapé completo e mapa na largura. */
+/* 27/10/2026, ajustes do Leandro no mesmo dia: «a página pode ter rodapé, até pode ser um pouco diferenciado»; «não é possível
+   ver o globo inteiro»; «o menu não pode ficar fixo»; «tem que ter uma distância entre o conteúdo da página e o rodapé».
+   No computador: o cabeçalho (tarja e barra) rola junto com a página; o painel tem a altura da tela; 96 px de respiro e depois
+   o rodapé compacto (só a linha legal). A rolagem passa da área de dentro para a página quando a lista acaba, para chegar ao
+   rodapé. O mapa encolhe para caber inteiro na tela. No celular, tudo como antes. */
 @media (min-width:981px){
-  .pn{--ft-c:58px;height:calc(100vh - 92px - var(--ft-c));height:calc(100dvh - 92px - var(--ft-c))}
+  body.pn-pagina .tarja,body.pn-pagina header.barra,body.pn-pagina .mega-menu{position:absolute}
+  .pn{height:100vh;height:100dvh;margin-bottom:96px}
+  .pn-lado,.pn-main{overscroll-behavior:auto}
   body.pn-pagina .ft-root{padding:8px var(--lado,40px)}
   body.pn-pagina .ft-root>:not(.ft-legal){display:none}
   body.pn-pagina .ft-legal{margin:0;padding:0;border:0;min-height:42px}
-  .mp-mapa svg{width:auto;max-width:100%;max-height:calc(100dvh - 92px - var(--ft-c) - var(--cab-h,215px) - 215px);margin:0 auto}
+  .mp-mapa svg{width:auto;max-width:100%;max-height:calc(100dvh - var(--cab-h,215px) - 215px);margin:0 auto}
 }
