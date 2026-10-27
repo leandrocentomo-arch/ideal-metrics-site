@@ -414,3 +414,14 @@
 /* 27/10/2026, «deixe um pouco mais evidente as coordenadas no globo»: grade de latitude e longitude em azul da marca a 35%
    (antes branca a 55%, quase sumia no oceano claro) */
 .mp-mapa path.grade{stroke:rgba(51,102,153,.35);stroke-width:.6}
+
+/* 27/10/2026, «ao lado dos países, antes do nome dos países, coloque a bandeira deles, de forma monocromática»: bandeira 4×3 do
+   flag-icons 7.2.3 (jsDelivr) no ranking do mapa, em tons de azul da marca (cinza tingido), sem cor própria */
+.mp-rank .bandeira{display:inline-block;width:18px;height:13.5px;margin:0 8px 0 0;vertical-align:-2px;border-radius:1px;
+  filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(1.5) brightness(.92) contrast(1.05);box-shadow:0 0 0 .5px rgba(20,48,76,.25)}
+
+/* 27/10/2026, «faça o globo mais transparente» e «faça as linhas de coordenadas mais finas»: oceano quase sem brilho (10% no
+   alto, nada no meio, no JS), sem a sombra embaixo, países a 85% e grade com metade da espessura */
+.mp-mapa path.esfera{filter:none}
+.mp-mapa path.pais{fill-opacity:.85}
+.mp-mapa path.grade{stroke:rgba(51,102,153,.4);stroke-width:.3}

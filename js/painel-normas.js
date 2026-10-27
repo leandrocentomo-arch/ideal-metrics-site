@@ -328,9 +328,9 @@
       var svg = d3.select(box).insert('svg', ':first-child').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', 'Globo de certificados por país');
       /* 27/10: oceano de vidro, no mesmo tom da placa onde o globo está (só um brilho claro no alto à esquerda); mais transparente desde o 2º ajuste */
       var brilho = svg.append('defs').append('radialGradient').attr('id', 'mp-vidro').attr('cx', '32%').attr('cy', '26%').attr('r', '78%');
-      brilho.append('stop').attr('offset', '0').attr('stop-color', '#fff').attr('stop-opacity', .22);
-      brilho.append('stop').attr('offset', '.55').attr('stop-color', '#fff').attr('stop-opacity', .04);
-      brilho.append('stop').attr('offset', '1').attr('stop-color', '#14304C').attr('stop-opacity', .05);
+      brilho.append('stop').attr('offset', '0').attr('stop-color', '#fff').attr('stop-opacity', .1);
+      brilho.append('stop').attr('offset', '.55').attr('stop-color', '#fff').attr('stop-opacity', 0);
+      brilho.append('stop').attr('offset', '1').attr('stop-color', '#14304C').attr('stop-opacity', .03);
       var esfera = svg.append('path').attr('class', 'esfera').attr('fill', 'url(#mp-vidro)').attr('stroke', 'rgba(255,255,255,.9)').attr('stroke-width', 1.2);
       var grade = svg.append('path').datum(d3.geoGraticule10()).attr('class', 'grade');
       paths = svg.append('g').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path').attr('class', 'pais');
@@ -402,7 +402,7 @@
     $('#mp-lado').innerHTML = '<h3>' + esc(nome) + '</h3><div class="m">' + esc(s.titulo || '') + '</div>' +
       '<div class="tot">' + fmt(s.total) + '<small>certificados válidos em 31-dez-2025 · ' + rank.length + ' países</small></div>' +
       (posBR ? '<div class="mp-br"><span class="m">Brasil</span><div class="v">' + fmt(s.paises.BR) + '<small>' + posBR + 'º no mundo · ' + posLA + 'º na América Latina</small></div></div>' : '<div class="mp-br"><span class="m">Brasil</span><div class="v">0</div></div>') +
-      '<ul class="mp-rank">' + top.map(function (a) { var p = rank.indexOf(a) + 1; return '<li' + (a === 'BR' ? ' class="br"' : '') + '><span class="m">' + p + '</span><span>' + esc(nomePais(a)) + '</span><b>' + fmt(s.paises[a]) + '</b><span class="barra"><i style="width:' + (s.paises[a] / max * 100) + '%"></i></span></li>'; }).join('') + '</ul>' +
+      '<ul class="mp-rank">' + top.map(function (a) { var p = rank.indexOf(a) + 1; return '<li' + (a === 'BR' ? ' class="br"' : '') + '><span class="m">' + p + '</span><span><img class="bandeira" src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/' + a.toLowerCase() + '.svg" alt="" loading="lazy" onerror="this.remove()">' + esc(nomePais(a)) + '</span><b>' + fmt(s.paises[a]) + '</b><span class="barra"><i style="width:' + (s.paises[a] / max * 100) + '%"></i></span></li>'; }).join('') + '</ul>' +
       '<p class="mp-nota">Só certificados emitidos por organismos acreditados por membros do IAF. Países sem certificado acreditado não aparecem. Fonte: ISO Survey 2025.</p>';
   }
 })();
