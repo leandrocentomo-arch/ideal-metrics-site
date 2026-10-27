@@ -18,6 +18,7 @@ SAIDA = os.path.join(SITE, 'dados', 'painel-normas.json')
 SURVEY = os.path.join(SITE, '..', '..', '— CQT', '✱ New Standards',
                       'ISO Survey — Certificações por País e Norma', '2025',
                       'ISO Survey 2025 — 1 Certificados e Sites por País.xlsx')
+SURVEY_SETORES = SURVEY.replace('1 Certificados e Sites por País', '2 Setores EA por País')   # 27/10: certificados por setor EA
 BASE = 'https://isopublicstorageprod.blob.core.windows.net/opendata/_latest'
 ARQ = {'deliv': BASE + '/iso_deliverables_metadata/json/iso_deliverables_metadata.jsonl',
        'tc': BASE + '/iso_technical_committees/json/iso_technical_committees.jsonl'}
@@ -197,6 +198,39 @@ def survey():
 CODIGOS, NUMERICO, NOMES, SEM_CODIGO = {}, {}, {}, set()
 
 
+def survey_setores():
+    """27/10/2026: planilha 2 do ISO Survey, certificados por setor EA (39 setores) e por país. Sai, por norma, o total
+    mundial de cada setor e o do Brasil; os nomes dos 39 setores vão uma vez só."""
+    try:
+        import openpyxl
+    except ImportError:
+        return {}
+    if not os.path.exists(SURVEY_SETORES):
+        print('planilha de setores do ISO Survey não encontrada:', SURVEY_SETORES); return {}
+    wb = openpyxl.load_workbook(SURVEY_SETORES, read_only=True, data_only=True)
+    out, nomes = {}, None
+    for aba, num in SURVEY_ABAS.items():
+        if aba not in wb.sheetnames:
+            continue
+        linhas = [r for r in wb[aba].iter_rows(values_only=True) if any(c is not None for c in r)]
+        if len(linhas) < 4:
+            continue
+        nomes = nomes or [str(c).strip() for c in linhas[2][1:40]]
+        mundo, br = [0] * 39, [0] * 39
+        for r in linhas[3:]:
+            if not r[0] or 'total' in str(r[0]).lower():
+                continue
+            for i in range(39):
+                v = r[i + 1]
+                if isinstance(v, (int, float)) and v > 0:
+                    mundo[i] += int(v)
+                    if str(r[0]).strip() == 'Brazil':
+                        br[i] += int(v)
+        if sum(mundo):
+            out[num] = {'mundo': mundo, 'br': br}
+    return {'setores': nomes, 'normas': out} if out else {}
+
+
 def main():
     tcs = baixa('tc')
     tc_id = {t['reference']: t['id'] for t in tcs}
@@ -238,6 +272,7 @@ def main():
         'normas': sorted(normas, key=lambda n: (n['num'], n['ref'])),
         'historico': sorted(historico, key=lambda n: (n['num'], n['pub'])),
         'survey': survey(),
+        'setores': survey_setores(),
     }
     # Tabela alpha2 -> id numérico do world-atlas e nome em inglês, uma vez só.
     dados['paises'] = {a2: {'n': NUMERICO.get(a2), 'nome': NOMES.get(a2)} for a2 in NOMES}

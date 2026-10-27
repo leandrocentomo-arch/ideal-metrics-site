@@ -17,7 +17,7 @@
 .pn-cab>div:first-child>.m{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pn-cab h1{font-size:26px;font-weight:700;line-height:1.05;margin:6px 0 0;letter-spacing:-.012em}
 .pn-cab .pn-sub{margin:6px 0 0;font-size:14px;line-height:1.35;color:#315275;max-width:none}
-.pn-abas{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border:1px solid var(--fio2);border-radius:3px;overflow:hidden;width:100%}   /* botões irmãos: mesma largura, uma linha só, na largura do painel */
+.pn-abas{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;border:1px solid var(--fio2);border-radius:3px;overflow:hidden;width:100%}   /* botões irmãos: mesma largura, uma linha só, na largura do painel */
 .pn-abas button{padding:9px 10px;border-left:1px solid var(--fio);font-size:13.5px;font-weight:500;display:flex;gap:8px;align-items:center;justify-content:center;background:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;transition:background .2s,color .2s}
 .pn-abas button:first-child{border-left:0}
 .pn-abas button:hover{background:rgba(51,102,153,.07)}
@@ -169,7 +169,7 @@
   .pn-abas{overflow-x:auto;max-width:100%}
   .pn-det{position:fixed;top:0}.pn-veu{position:fixed;inset:0}
   .pn-cab{grid-template-columns:1fr;padding-top:40px}
-  .pn-abas{width:100%;grid-template-columns:repeat(5,minmax(120px,1fr));overflow-x:auto}
+  .pn-abas{width:100%;grid-template-columns:repeat(6,minmax(120px,1fr));overflow-x:auto}
   .pn-cab h1{font-size:26px}
   .pn-main{padding-left:64px}
   .pn-lado{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--fio2)}
@@ -430,3 +430,71 @@
 /* 27/10/2026, «se a bola do globo ficasse ligeiramente transparente»: países do lado de trás, vistos através do globo, em tinta
    a 10% (só no globo; somem ao abrir em mapa) */
 .mp-mapa g.tras path{fill:#14304C;fill-opacity:.1;stroke:none;pointer-events:none}
+
+/* 27/10/2026, aba [ 02 ] Certificados por setor («dentro do ISO Survey… deve ter a divisão de certificados por setor, faça uma nova
+   aba… uma ilustração para cada setor»): 39 setores EA agrupados nos setores que a Ideal Metrics atende, com a ilustração da
+   brochura (img/setores/, coleção C) em cada cartão; Mundo ou Brasil; linhas de altura única */
+.st-cab{display:flex;align-items:center;gap:14px;margin:4px 0 12px}
+.st-onde{display:inline-flex;border:1px solid var(--fio);border-radius:3px;overflow:hidden}
+.st-onde button{padding:4px 12px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--vidro2,#fff);color:var(--tinta)}
+.st-onde button+button{border-left:1px solid var(--fio)}
+.st-onde button[aria-pressed=true]{background:var(--tinta);color:var(--creme)}
+.st-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.st-card{position:relative;border:1px solid var(--vborda,var(--fio));border-radius:3px;background:var(--vidro2,rgba(255,255,255,.7));box-shadow:var(--vsombra,none);padding:12px 14px 10px;min-width:0}
+.st-card .st-ilus{display:block;width:100%;height:86px;object-fit:contain;object-position:left bottom;margin:0 0 8px}
+.st-card .st-sem{height:86px;margin:0 0 8px;border-bottom:1px dashed var(--fio)}
+.st-card h3{font-size:14px;font-weight:600;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st-card .st-n{display:flex;align-items:baseline;gap:8px;margin:2px 0 6px}
+.st-card .st-n b{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.st-card .st-n .m{font-size:10px}
+.st-card .st-barra{height:3px;background:var(--perola);margin:0 0 8px}
+.st-card .st-barra i{display:block;height:100%;background:var(--liga)}
+.st-ea{list-style:none;margin:0;padding:0}
+.st-ea li{display:grid;grid-template-columns:minmax(0,1fr) 62px;gap:8px;align-items:center;height:22px;border-top:1px solid var(--fio);font-size:11.5px}
+.st-ea li span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.st-ea li b{font-family:var(--mono);font-weight:500;font-size:11px;text-align:right}
+.st-ea li.zero{color:#7f94ab}
+@media (max-width:980px){.st-grade{grid-template-columns:1fr}}
+
+/* 27/10/2026, globo: «20% menos transparente», «a cor de fundo tem que ser mais clara do que a cor mais clara da legenda» e «o
+   fundo dos continentes, no transparente, quando ao contrário no globo, fiquem ainda mais claro»: oceano branco a 78% (mais
+   claro que o #F2F1F5 da legenda), lado de trás em tinta a 5%. Pulsos nos principais países («com pulso animado, fosse
+   mostrando os números conforme o globo gira»): anel que pulsa e o número, só no hemisfério da frente */
+.mp-mapa g.tras path{fill-opacity:.05}
+.mp-mapa g.pulsos{pointer-events:none}
+.mp-mapa .pulso circle.anel{fill:none;stroke:var(--tinta);stroke-width:1.2;transform-box:fill-box;transform-origin:center;animation:mp-pulso 2.2s ease-out infinite}
+.mp-mapa .pulso circle.ponto{fill:var(--tinta)}
+.mp-mapa .pulso text{font-family:var(--mono);font-size:11px;font-weight:500;fill:var(--tinta);paint-order:stroke;stroke:rgba(255,255,255,.85);stroke-width:3px;stroke-linejoin:round}
+@keyframes mp-pulso{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){.mp-mapa .pulso circle.anel{animation:none;opacity:.5}}
+
+/* 27/10/2026, efeito de entrada em todas as abas («em todas as páginas tenha efeito de entrada, incluindo a tabela dos países
+   no [01]»): a vista nasce 8 px abaixo e sobe; dentro, linhas e cartões sobem um a um (classe posta pelo JS, entra()) */
+.pn-vista.entra{animation:pn-entra .45s cubic-bezier(.2,.7,.2,1) both}
+.pn-item.entra,.lt-linha.entra,.md-item.entra,.mp-rank li.entra,.st-card.entra,.pn-lista>li.entra{animation:pn-entra .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes pn-entra{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.pn-vista.entra,.entra{animation:none}}
+
+/* 27/10/2026, «os tags de norma tenham a mesma largura» e «não precisa disso [barra de rolagem], pois só tem uma linha»: as 17
+   normas do mapa e dos setores em grade de colunas iguais, sem rolagem */
+.mp-sel{display:grid;grid-template-columns:repeat(17,minmax(0,1fr));gap:4px;overflow:visible;scrollbar-width:auto}
+.mp-sel button{min-width:0;padding-left:2px;padding-right:2px;text-align:center;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:980px){.mp-sel{display:flex;flex-wrap:wrap}}
+
+/* 27/10/2026, «nesta página o menu topo seja mais fino (inclusive o botão de contato), e que seja transparente glass também»:
+   barra de 46 px, botão Contato mais baixo, vidro mais transparente (creme a 40%) */
+@media (min-width:981px){
+  .pn-pagina .barra{height:46px;background:rgba(250,249,245,.4);-webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35)}
+  .pn-pagina .barra-nav a.vidro{padding:5px 14px}
+  .pn-pagina .barra-menu{padding:5px 14px}
+  .pn-pagina .barra-espaco{height:72px}
+}
+@media (min-width:981px){
+  .mp-sel button{font-size:9.5px;letter-spacing:0}
+  .mp-sel button.longo{font-size:9px;letter-spacing:-.03em}   /* ISO/IEC 20000-1 cabe na mesma coluna dos outros */
+}
+@media (min-width:981px){
+  .mp-sel button{padding-left:1px;padding-right:1px;letter-spacing:-.02em}
+  .mp-sel button.longo{font-size:8.6px;letter-spacing:-.05em}
+}
+.mp-mapa .pulso circle.anel{stroke-width:.5}   /* 27/10: «deixe a linha do pulso o mais fino possível» */

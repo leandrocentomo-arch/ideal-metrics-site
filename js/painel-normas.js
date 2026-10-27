@@ -36,7 +36,7 @@
 
   /* ---------- carga ---------- */
   Promise.all([
-    fetch('dados/painel-normas.json').then(function (r) { return r.json(); }),
+    fetch('dados/painel-normas.json?v=' + (document.querySelector('script[src*="painel-normas.js"]').src.split('v=')[1] || 1)).then(function (r) { return r.json(); }),
     fetch('dados/painel-mudancas.json').then(function (r) { return r.ok ? r.json() : { itens: [] }; }).catch(function () { return { itens: [] }; })
   ]).then(function (res) {
     D = res[0]; MUD = res[1];
@@ -115,22 +115,31 @@
     var esq = b.offsetLeft - caixa.scrollLeft, dir = esq + b.offsetWidth;   // na fileira que rola, traz o escolhido para a vista
     if (caixa.scrollWidth > caixa.clientWidth && (esq < 0 || dir > caixa.clientWidth)) caixa.scrollTo({ left: b.offsetLeft - 24, behavior: 'smooth' });
   }
-  function deslizaTudo() { desliza($('.pn-abas'), '[aria-selected=true]'); desliza($('#mp-sel'), '[aria-pressed=true]'); }
+  function deslizaTudo() { desliza($('.pn-abas'), '[aria-selected=true]'); desliza($('#mp-sel'), '[aria-pressed=true]'); desliza($('#st-sel'), '[aria-pressed=true]'); }
   window.addEventListener('resize', deslizaTudo);
 
+  /* 27/10: efeito de entrada: cada filho direto do bloco (linhas, cartões) nasce 10 px abaixo e sobe, um atrás do outro */
+  function entra(bloco) {
+    if (!bloco || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var i = 0; Array.prototype.forEach.call(bloco.children, function (el) {
+      if (i > 40) return; el.classList.remove('entra'); void el.offsetWidth; el.style.animationDelay = (i++ * 35) + 'ms'; el.classList.add('entra');
+    });
+  }
   function mostraAba(id) {
     if (!$('#v-' + id)) return;
     $$('.pn-abas button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.aba === id); });
     $$('.pn-vista').forEach(function (v) { v.classList.toggle('ativa', v.id === 'v-' + id); });
-    $('.pn').classList.toggle('sem-lado', id === 'mapa');   // 27/10: os filtros não valem para o mapa, então a coluna some
+    $('.pn').classList.toggle('sem-lado', id === 'mapa' || id === 'setores');   // 27/10: os filtros não valem para o mapa nem para os setores, então a coluna some
     $('.pn-main').scrollTop = 0;
     fechaDetalhe();
     if (id === 'mapa') montaMapa();
+    if (id === 'setores') montaSetores();
     if (id === 'tempo') montaTempo();
     if (id === 'mudancas') montaMudancas();
     if (id === 'revisao') montaRevisao();
     history.replaceState(null, '', '#' + id);
     deslizaTudo();
+    var vista = $('#v-' + id); if (vista) { vista.classList.remove('entra'); void vista.offsetWidth; vista.classList.add('entra'); }
   }
 
   /* ---------- lista ---------- */
@@ -197,7 +206,7 @@
     var lista = $('#pn-lista');
     if ($('#v-normas').classList.contains('ativa')) $('.pn-main').scrollTop = 0;
     if (!atual.length) { lista.innerHTML = '<li class="pn-vazio">Nenhuma norma com esses filtros. A busca aceita número (9001, 14064-1), palavra do título em inglês ou comitê (TC 207).</li>'; return; }
-    lista.innerHTML = ''; maisLinhas();
+    lista.innerHTML = ''; maisLinhas(); entra(lista);
   }
   var adia = null;
   function renderLogo() { clearTimeout(adia); adia = setTimeout(function () { requestAnimationFrame(render); }, 140); }
@@ -270,6 +279,7 @@
       }).join('');
       return '<div class="lt-linha"><div class="lt-nome"><b>ISO ' + k + '</b>' + esc(nome) + '</div><div class="lt-faixa" style="--lt-passo:' + (500 / span) + '%">' + marcas + '</div></div>';
     }).join('');
+    entra($('#lt-corpo'));
   }
 
   /* ---------- mudanças ---------- */
@@ -293,6 +303,7 @@
         return '<div class="md-item" data-id="' + m.id + '"><span class="ref">' + esc(m.ref) + '</span><span>' + esc(n ? n.titulo : '') + '</span><span class="de">' + esc(o) + ' · ' + (FASES[FASE_IDX[m.fase]] || [])[1] + '</span></div>';
       }).join('') + '</div>';
     }).join('');
+    entra(el);
   }
 
   /* ---------- revisão sistemática ---------- */
@@ -306,20 +317,66 @@
       return '<li class="pn-item" data-id="' + n.id + '"><span class="ref">' + esc(n.ref) + '</span><span class="tit">' + esc(n.titulo) + '<small>' + esc(D.temasMap[n.tema]) + ' · ' + esc(n.comite) + (proj.length ? ' · projeto de nova edição em curso: ' + esc(proj[0].ref) : '') + '</small></span>' +
         '<span class="fase">' + barraEst(n) + '<span>código ' + n.est + '</span></span><span class="seta"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></li>';
     }).join('');
+    entra($('#rv-corpo'));
+  }
+
+  /* ---------- certificados por setor (27/10/2026) ---------- */
+  /* 39 setores EA (índice 0 a 38) agrupados nos setores que a Ideal Metrics atende; a ilustração é a da brochura (coleção C) */
+  var GRUPOS = [
+    { id: 'industria', nome: 'Indústria', ea: [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23] },
+    { id: 'facilities', nome: 'Construção e facilities', ea: [27] },
+    { id: 'comercio', nome: 'Comércio e serviços', ea: [28, 29, 31, 34], sem: true },
+    { id: 'tecnologia', nome: 'Tecnologia e engenharia', ea: [32, 33] },
+    { id: 'transporte', nome: 'Transporte e logística', ea: [30] },
+    { id: 'saude', nome: 'Saúde', ea: [37] },
+    { id: 'energia', nome: 'Energia e saneamento', ea: [24, 25, 26] },
+    { id: 'alimentos', nome: 'Alimentos e bebidas', ea: [2] },
+    { id: 'publico', nome: 'Setor público e educação', ea: [35, 36, 38] },
+    { id: 'agro', nome: 'Agro', ea: [0] }
+  ];
+  var EA_PT = ['Agricultura, pesca e florestas', 'Mineração', 'Alimentos, bebidas e tabaco', 'Têxteis', 'Couro', 'Madeira', 'Celulose e papel', 'Editoras', 'Gráficas', 'Coque e refino de petróleo', 'Combustível nuclear', 'Químicos e fibras', 'Farmacêuticos', 'Borracha e plástico', 'Minerais não metálicos', 'Concreto, cimento, cal e gesso', 'Metalurgia e produtos de metal', 'Máquinas e equipamentos', 'Equipamentos elétricos e ópticos', 'Construção naval', 'Aeroespacial', 'Outros equipamentos de transporte', 'Outras indústrias', 'Reciclagem', 'Energia elétrica', 'Gás', 'Água', 'Construção', 'Comércio e reparação de veículos', 'Hotéis e restaurantes', 'Transporte, armazenagem e comunicação', 'Finanças, imóveis e aluguel', 'Tecnologia da informação', 'Serviços de engenharia', 'Outros serviços', 'Administração pública', 'Educação', 'Saúde e assistência social', 'Outros serviços sociais'];
+  var stFeito = false, stNum = '9001', stOnde = 'mundo';
+  function montaSetores() {
+    if (stFeito) return; stFeito = true;
+    var S = D.setores; if (!S || !S.normas) { $('#st-grade').innerHTML = '<p class="pn-vazio">Sem dados de setor nesta base.</p>'; return; }
+    var nums = Object.keys(S.normas).sort(function (a, b) { return D.survey[b].total - D.survey[a].total; });
+    $('#st-sel').innerHTML = nums.map(function (k) { var nm = SURVEY_NOME[k] || 'ISO ' + k; return '<button data-num="' + k + '" aria-pressed="' + (k === stNum) + '"' + (nm.length > 13 ? ' class="longo"' : '') + '>' + nm + '</button>'; }).join('');
+    $$('#st-sel button').forEach(function (b) { b.addEventListener('click', function () { stNum = b.dataset.num; $$('#st-sel button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); desliza($('#st-sel'), '[aria-pressed=true]'); pintaSetores(); }); });
+    $$('.st-onde button').forEach(function (b) { b.addEventListener('click', function () { stOnde = b.dataset.onde; $$('.st-onde button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); pintaSetores(); }); });
+    desliza($('#st-sel'), '[aria-pressed=true]');
+    pintaSetores();
+  }
+  function pintaSetores() {
+    var S = D.setores, n = S.normas[stNum]; if (!n) return;
+    var v = n[stOnde], total = v.reduce(function (a, b) { return a + b; }, 0);
+    var grupos = GRUPOS.map(function (g) { return { g: g, soma: g.ea.reduce(function (a, i) { return a + v[i]; }, 0) }; }).sort(function (a, b) { return b.soma - a.soma; });
+    var max = grupos[0].soma || 1;
+    $('#st-total').textContent = fmt(total) + ' certificados com setor informado · ' + (SURVEY_NOME[stNum] || 'ISO ' + stNum) + ' · ' + (stOnde === 'br' ? 'Brasil' : 'mundo');
+    $('#st-grade').innerHTML = grupos.map(function (x) {
+      var g = x.g, pct = total ? (x.soma / total * 100) : 0;
+      var ea = g.ea.map(function (i) { return { i: i, v: v[i] }; }).sort(function (a, b) { return b.v - a.v; });
+      return '<article class="st-card entra">' + (g.sem ? '<div class="st-sem"></div>' : '<img class="st-ilus" src="img/setores/setor-' + g.id + '.webp" alt="" loading="lazy">') +
+        '<h3>' + g.nome + '</h3><div class="st-n"><b>' + fmt(x.soma) + '</b><span class="m">' + pct.toFixed(1).replace('.', ',') + '% · ' + ea.length + (ea.length > 1 ? ' setores EA' : ' setor EA') + '</span></div>' +
+        '<div class="st-barra"><i style="width:' + (x.soma / max * 100) + '%"></i></div>' +
+        '<ul class="st-ea">' + ea.slice(0, 6).map(function (e) { return '<li' + (e.v ? '' : ' class="zero"') + '><span title="' + esc(S.setores[e.i]) + '">' + esc(EA_PT[e.i] || S.setores[e.i]) + '</span><b>' + fmt(e.v) + '</b></li>'; }).join('') +
+        (ea.length > 6 ? '<li><span class="m">+ ' + (ea.length - 6) + ' setores EA</span><b>' + fmt(ea.slice(6).reduce(function (a, e) { return a + e.v; }, 0)) + '</b></li>' : '') + '</ul></article>';
+    }).join('');
+    entra($('#st-grade'));
   }
 
   /* ---------- mapa ---------- */
-  var mapaFeito = false, mapaNum = '9001', paths = null, dica = null;
+  var mapaFeito = false, mapaNum = '9001', paths = null, dica = null, refazPulsos = null;
   function escolheSurvey(num) { mapaNum = num; $$('.mp-sel button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.num === num); }); desliza($('#mp-sel'), '[aria-pressed=true]'); pintaMapa(); }
   function montaMapa() {
     if (mapaFeito) return; mapaFeito = true;
     var nums = Object.keys(D.survey).sort(function (a, b) { return D.survey[b].total - D.survey[a].total; });
-    $('#mp-sel').innerHTML = nums.map(function (k) { return '<button data-num="' + k + '" aria-pressed="' + (k === mapaNum) + '">' + (SURVEY_NOME[k] || 'ISO ' + k) + '</button>'; }).join('');
+    $('#mp-sel').innerHTML = nums.map(function (k) { var nm = SURVEY_NOME[k] || 'ISO ' + k; return '<button data-num="' + k + '" aria-pressed="' + (k === mapaNum) + '"' + (nm.length > 13 ? ' class="longo"' : '') + '>' + nm + '</button>'; }).join('');
     $$('.mp-sel button').forEach(function (b) { b.addEventListener('click', function () { escolheSurvey(b.dataset.num); }); });
     var box = $('#mp-mapa'); dica = $('#mp-dica');
     if (!window.d3 || !window.topojson) { box.innerHTML = '<p class="pn-vazio" style="padding:20px">O mapa precisa das bibliotecas d3 e topojson, que não carregaram. A tabela ao lado continua válida.</p>'; pintaLado(); return; }
     fetch('dados/mundo-110m.json').then(function (r) { return r.json(); }).then(function (topo) {
       MUNDO = topojson.feature(topo, topo.objects.countries);
+      var porNumFeat = {}; Object.keys(D.paises).forEach(function (a2) { if (D.paises[a2].n) porNumFeat[D.paises[a2].n] = a2; });
       /* 27/10: globo que gira e se desenrola em mapa (projeção ortográfica interpolada com a Natural Earth) */
       var W = 960, H = 480, ESC_MAPA = d3.geoNaturalEarth1().fitExtent([[6, 6], [W - 6, H - 6]], { type: 'Sphere' }).scale(), ESC_GLOBO = H / 2 - 8;
       var GIRO_BR = [52, 12], giro = GIRO_BR.slice(), prog = 0, anima = false, arrasta = null, sobre = false;
@@ -328,15 +385,40 @@
       var svg = d3.select(box).insert('svg', ':first-child').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', 'Globo de certificados por país');
       /* 27/10: oceano de vidro, no mesmo tom da placa onde o globo está (só um brilho claro no alto à esquerda); mais transparente desde o 2º ajuste */
       var brilho = svg.append('defs').append('radialGradient').attr('id', 'mp-vidro').attr('cx', '32%').attr('cy', '26%').attr('r', '78%');
-      brilho.append('stop').attr('offset', '0').attr('stop-color', '#fff').attr('stop-opacity', .1);
-      brilho.append('stop').attr('offset', '.55').attr('stop-color', '#fff').attr('stop-opacity', 0);
-      brilho.append('stop').attr('offset', '1').attr('stop-color', '#14304C').attr('stop-opacity', .03);
+      /* 27/10, 3º: oceano branco a ~78% (mais claro que o #F2F1F5 da legenda, e o globo fica 20% menos transparente) */
+      brilho.append('stop').attr('offset', '0').attr('stop-color', '#fff').attr('stop-opacity', .86);
+      brilho.append('stop').attr('offset', '.55').attr('stop-color', '#fff').attr('stop-opacity', .78);
+      brilho.append('stop').attr('offset', '1').attr('stop-color', '#fff').attr('stop-opacity', .74);
       /* 27/10: «se a bola do globo ficasse ligeiramente transparente»: os países do lado de trás aparecem apagados através do
          globo. Lado de trás = ortográfica centrada no antípoda e espelhada (mesma posição de tela de quem olha através da bola) */
-      var tras = svg.append('g').attr('class', 'tras').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path');
       var esfera = svg.append('path').attr('class', 'esfera').attr('fill', 'url(#mp-vidro)').attr('stroke', 'rgba(255,255,255,.9)').attr('stroke-width', 1.2);
+      var tras = svg.append('g').attr('class', 'tras').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path');   // sobre o oceano, para aparecer através dele
       var grade = svg.append('path').datum(d3.geoGraticule10()).attr('class', 'grade');
       paths = svg.append('g').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path').attr('class', 'pais');
+      /* 27/10: «nos principais países, com pulso animado, fosse mostrando os números conforme o globo gira»: os oito maiores da
+         norma (e o Brasil) ganham um anel que pulsa e o número, no centro do país, só enquanto estão no hemisfério da frente */
+      var gPulsos = svg.append('g').attr('class', 'pulsos'), centro = {};
+      MUNDO.features.forEach(function (f) { var a2 = porNumFeat[f.id]; if (a2) centro[a2] = d3.geoCentroid(f); });
+      refazPulsos = function () {
+        var s = D.survey[mapaNum]; if (!s) return;
+        var top = Object.keys(s.paises).filter(function (a) { return centro[a]; }).sort(function (a, b) { return s.paises[b] - s.paises[a]; }).slice(0, 8);
+        if (s.paises.BR && centro.BR && top.indexOf('BR') < 0) top.push('BR');
+        var g = gPulsos.selectAll('g.pulso').data(top.map(function (a) { return { a2: a, c: centro[a], v: s.paises[a] }; }), function (d) { return d.a2; });
+        g.exit().remove();
+        var e = g.enter().append('g').attr('class', 'pulso');
+        e.append('circle').attr('class', 'anel').attr('r', 7).style('animation-delay', function (d, i) { return (i * .27) + 's'; });
+        e.append('circle').attr('class', 'ponto').attr('r', 2.2);
+        e.append('text').attr('x', 10).attr('y', 4);
+        gPulsos.selectAll('g.pulso text').text(function (d) { return fmt(d.v); });
+        poePulsos();
+      };
+      function poePulsos() {
+        var a = Math.sqrt(Math.max(0, Math.min(1, prog))), olho = [-giro[0], -giro[1]];
+        gPulsos.selectAll('g.pulso').each(function (d) {
+          var vis = a > .98 || d3.geoDistance(d.c, olho) < 1.42, p = proj(d.c);
+          d3.select(this).style('display', vis && p ? null : 'none').attr('transform', p ? 'translate(' + p[0].toFixed(1) + ',' + p[1].toFixed(1) + ')' : null);
+        });
+      }
       function desenha() {
         var a = Math.sqrt(Math.max(0, Math.min(1, prog)));
         proj = muta(a).scale(ESC_GLOBO + a * (ESC_MAPA - ESC_GLOBO)).translate([W / 2, H / 2]).rotate(giro).precision(.5);
@@ -348,6 +430,7 @@
           var pt = d3.geoOrthographic().scale(ESC_GLOBO).translate([W / 2, H / 2]).rotate([giro[0] + 180, -giro[1]]).reflectX(true).precision(.5);
           tras.attr('d', d3.geoPath(pt)).style('display', null);
         } else tras.style('display', 'none');
+        poePulsos();
       }
       var calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches, ult = 0;
       function gira(t) {
@@ -380,7 +463,7 @@
         sobre = x * x + y * y <= ESC_GLOBO * ESC_GLOBO;
       }).on('pointerleave', function () { sobre = false; });
       desenha(); requestAnimationFrame(function (t) { ult = t; gira(t); });
-      var porNum = {}; Object.keys(D.paises).forEach(function (a2) { if (D.paises[a2].n) porNum[D.paises[a2].n] = a2; });
+      var porNum = porNumFeat;
       paths.on('mousemove', function (ev, f) {
         var a2 = porNum[f.id], v = a2 && D.survey[mapaNum].paises[a2];
         dica.style.display = 'block'; var r = box.getBoundingClientRect();
@@ -397,6 +480,7 @@
     var cortes = [1, 10, 100, 1000, 10000];
     var cor = function (v) { if (!v) return CORES[0]; for (var i = cortes.length - 1; i >= 0; i--) if (v >= cortes[i]) return CORES[i + 1]; return CORES[1]; };
     if (paths) paths.transition().duration(400).attr('fill', function (f) { var a2 = porNum[f.id]; return cor(a2 ? s.paises[a2] : 0); });
+    if (refazPulsos) refazPulsos();
     $('#mp-esc').innerHTML = '<span style="margin-left:0">certificados</span>' + ['0', '1', '10', '100', '1 mil', '10 mil+'].map(function (t, i) { return '<i style="background:' + CORES[i] + '"></i><span>' + t + '</span>'; }).join('');
     pintaLado();
   }
@@ -411,5 +495,6 @@
       (posBR ? '<div class="mp-br"><span class="m">Brasil</span><div class="v">' + fmt(s.paises.BR) + '<small>' + posBR + 'º no mundo · ' + posLA + 'º na América Latina</small></div></div>' : '<div class="mp-br"><span class="m">Brasil</span><div class="v">0</div></div>') +
       '<ul class="mp-rank">' + top.map(function (a) { var p = rank.indexOf(a) + 1; return '<li' + (a === 'BR' ? ' class="br"' : '') + '><span class="m">' + p + '</span><span><img class="bandeira" src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/' + a.toLowerCase() + '.svg" alt="" loading="lazy" onerror="this.remove()">' + esc(nomePais(a)) + '</span><b>' + fmt(s.paises[a]) + '</b><span class="barra"><i style="width:' + (s.paises[a] / max * 100) + '%"></i></span></li>'; }).join('') + '</ul>' +
       '<p class="mp-nota">Só certificados emitidos por organismos acreditados por membros do IAF. Países sem certificado acreditado não aparecem. Fonte: ISO Survey 2025.</p>';
+    entra($('#mp-lado .mp-rank'));
   }
 })();
