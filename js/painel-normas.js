@@ -556,6 +556,18 @@
     $('#mp-esc').innerHTML = '<span style="margin-left:0">certificados</span>' + ['0', '1', '10', '100', '1 mil', '10 mil+'].map(function (t, i) { return '<i style="background:' + CORES[i] + '"></i><span>' + t + '</span>'; }).join('');
     pintaLado();
   }
+  /* 27/10: «faça os números com efeito tipo roleta»: o número corre do valor atual até o novo em .7 s (ease-out), formatado */
+  function roleta(el, para) {
+    para = +para || 0; var de = +el.dataset.v || 0; el.dataset.v = para;
+    if (el._roleta) cancelAnimationFrame(el._roleta);
+    if (de === para || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) { el.textContent = fmt(para); return; }
+    var t0 = performance.now(), dur = 700;
+    (function passo(t) {
+      var k = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = fmt(Math.round(de + (para - de) * e));
+      if (k < 1) el._roleta = requestAnimationFrame(passo); else el._roleta = null;
+    })(t0);
+  }
   function pintaLado() {
     /* 27/10: «a mesma coisa para aqui, não quero que pisque»: a lateral é montada UMA vez, com 11 vagas no ranking (10 + Brasil
        fora do top 10); a troca de norma só troca textos, bandeiras e larguras no lugar, com as barras deslizando. */
@@ -574,15 +586,15 @@
       entra($('.mp-rank', lado));
     }
     $('h3', lado).textContent = nome; $('#mp-tit').textContent = s.titulo || '';
-    $('#mp-tot').textContent = fmt(s.total); $('#mp-paises').textContent = 'certificados válidos em 31-dez-2025 · ' + rank.length + ' países';
-    $('#mp-brv').textContent = fmt(s.paises.BR || 0); $('#mp-brpos').textContent = posBR ? posBR + 'º no mundo · ' + posLA + 'º na América Latina' : '';
+    roleta($('#mp-tot'), s.total); $('#mp-paises').textContent = 'certificados válidos em 31-dez-2025 · ' + rank.length + ' países';
+    roleta($('#mp-brv'), s.paises.BR || 0); $('#mp-brpos').textContent = posBR ? posBR + 'º no mundo · ' + posLA + 'º na América Latina' : '';
     $$('.mp-rank li', lado).forEach(function (li, i) {
       var a = top[i]; li.style.display = a ? '' : 'none'; if (!a) return;
       li.classList.toggle('br', a === 'BR');
       $('.m', li).textContent = rank.indexOf(a) + 1;
       var img = $('.bandeira', li), src = 'https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/' + a.toLowerCase() + '.svg';
       if (img.getAttribute('src') !== src) { img.style.visibility = 'visible'; img.onerror = function () { img.style.visibility = 'hidden'; }; img.setAttribute('src', src); }
-      $('.nome', li).textContent = nomePais(a); $('b', li).textContent = fmt(s.paises[a]);
+      $('.nome', li).textContent = nomePais(a); roleta($('b', li), s.paises[a]);
       $('.barra i', li).style.width = (s.paises[a] / max * 100) + '%';
     });
   }
