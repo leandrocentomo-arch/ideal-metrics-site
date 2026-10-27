@@ -103,6 +103,9 @@
     var b = document.createElement('button'); b.type = 'button'; b.className = 'pn-menu-puxa'; b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-label', 'Abrir o menu do site');
     b.innerHTML = '<svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg><span>Menu</span>';
     document.body.appendChild(b);
+    /* 27/10: «o logo tem que aparecer sempre»: cópia da caixa do logo, fixa no lugar de sempre, visível enquanto o menu está
+       recolhido (a original desce junto com a barra quando o menu abre) */
+    var marca = $('header.barra .barra-marca'); if (marca) { var cp = marca.cloneNode(true); cp.classList.add('pn-logo-fixo'); cp.removeAttribute('id'); document.body.appendChild(cp); }
     function poe(ab) { document.body.classList.toggle('menu-aberto', ab); b.setAttribute('aria-expanded', ab); b.setAttribute('aria-label', ab ? 'Recolher o menu do site' : 'Abrir o menu do site'); }
     b.addEventListener('click', function () { poe(!document.body.classList.contains('menu-aberto')); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-aberto')) poe(false); });

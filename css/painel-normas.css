@@ -639,4 +639,11 @@
   .pn-menu-puxa svg{width:18px;height:11px;fill:currentColor;flex:none}
   .pn-menu-puxa:hover,.pn-menu-puxa:focus-visible,body.menu-aberto .pn-menu-puxa{background:#14304C;color:#FAF9F5;outline:none}
   body.menu-aberto .pn-menu-puxa{top:72px}
+  /* 27/10: «o logo tem que aparecer sempre»: cópia da caixa do logo fixa no topo (y 0, aresta de cima na borda da tela), some
+     quando o menu abre e a original desce no mesmo lugar */
+  .pn-logo-fixo{position:fixed;top:0;left:var(--lado,40px);z-index:983;transition:opacity .25s}
+  .pn-logo-fixo .marca-frente{height:85.1px}
+  body.menu-aberto .pn-logo-fixo{opacity:0;pointer-events:none}
 }
+.pn-logo-fixo{display:none}
+@media (min-width:981px){.pn-logo-fixo{display:flex}}
