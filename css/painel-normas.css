@@ -410,3 +410,10 @@
   .pn{--vidro:rgba(255,255,255,.46);background:url(../img/fundo-painel-creme.webp) center/cover no-repeat}
   .pn-cab,.pn-lado,.pn-main{-webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35)}
 }
+
+/* 27/10/2026, «tente fazer um monte de linhas geométricas simétricas uma ao lado da outra, de várias cores da empresa… na
+   vertical»: listras verticais espelhadas no meio (img/fundo-painel-listras.webp, _ferramentas/fundo_listras.py), atrás do vidro
+   fosco de 22 px. O creme com manchas (fundo-painel-creme.webp, commit 2b2d4eb) fica guardado */
+@media (min-width:981px){
+  .pn{background:url(../img/fundo-painel-listras.webp) center/cover no-repeat}
+}
