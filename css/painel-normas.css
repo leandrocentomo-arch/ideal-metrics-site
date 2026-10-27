@@ -611,3 +611,10 @@
 .ca-q{transition:transform .35s cubic-bezier(.34,1.45,.64,1),opacity .25s ease,box-shadow .15s ease,background-color .5s ease}   /* 27/10: a cor do quadrado muda em fade na troca de norma (nada pisca) */
 .mp-rank li .barra i{transition:width .7s cubic-bezier(.2,.7,.2,1)}   /* 27/10: lateral do mapa montada uma vez; na troca de norma só a barra desliza */
 .mp-rank li .nome{display:inline}
+
+/* 27/10/2026, «o nome e bandeira dos países também com efeito roleta»: a célula do país gira como um tambor (sobe e some, o
+   novo sobe de baixo), em .55 s; o JS troca o conteúdo no meio */
+.mp-rank li>span:nth-child(2){display:flex;align-items:center}
+.mp-rank li>span.rola{animation:mp-rola .55s ease-in-out both}
+@keyframes mp-rola{0%{transform:translateY(0);opacity:1}45%{transform:translateY(-110%);opacity:0}50%{transform:translateY(110%);opacity:0}100%{transform:translateY(0);opacity:1}}
+@media (prefers-reduced-motion:reduce){.mp-rank li>span.rola{animation:none}}

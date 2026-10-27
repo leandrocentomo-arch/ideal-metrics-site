@@ -592,9 +592,15 @@
       var a = top[i]; li.style.display = a ? '' : 'none'; if (!a) return;
       li.classList.toggle('br', a === 'BR');
       $('.m', li).textContent = rank.indexOf(a) + 1;
-      var img = $('.bandeira', li), src = 'https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/' + a.toLowerCase() + '.svg';
-      if (img.getAttribute('src') !== src) { img.style.visibility = 'visible'; img.onerror = function () { img.style.visibility = 'hidden'; }; img.setAttribute('src', src); }
-      $('.nome', li).textContent = nomePais(a); roleta($('b', li), s.paises[a]);
+      /* 27/10: «faça o nome e bandeira dos países também com efeito roleta»: quando o país da vaga muda, nome e bandeira
+         rolam para cima e o novo entra por baixo (classe .rola; a troca do conteúdo acontece no meio do giro) */
+      var img = $('.bandeira', li), src = 'https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/' + a.toLowerCase() + '.svg', cel = img.parentNode;
+      var troca = function () { img.style.visibility = 'visible'; img.onerror = function () { img.style.visibility = 'hidden'; }; img.setAttribute('src', src); $('.nome', li).textContent = nomePais(a); };
+      if (li.dataset.a !== a) {
+        li.dataset.a = a; cel.classList.remove('rola'); void cel.offsetWidth; cel.classList.add('rola');
+        clearTimeout(li._troca); li._troca = setTimeout(troca, 260);
+      }
+      roleta($('b', li), s.paises[a]);
       $('.barra i', li).style.width = (s.paises[a] / max * 100) + '%';
     });
   }
