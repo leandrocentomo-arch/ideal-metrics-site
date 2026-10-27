@@ -618,3 +618,4 @@
 .mp-rank li>span.rola{animation:mp-rola .55s ease-in-out both}
 @keyframes mp-rola{0%{opacity:1}45%{opacity:0}50%{opacity:0}100%{opacity:1}}   /* 27/10: «o efeito dos nomes dos países pode ser esmaecer»: só fade, sem deslocar (o tambor de cima para baixo saiu) */
 @media (prefers-reduced-motion:reduce){.mp-rank li>span.rola{animation:none}}
+.mp-mapa svg,.mp-mapa svg text{user-select:none;-webkit-user-select:none}   /* 27/10: «por que a tag fica grifada?»: o arraste do globo selecionava o texto SVG dos rótulos */
