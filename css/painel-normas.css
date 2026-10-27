@@ -702,3 +702,6 @@
   @keyframes pn-desce{from{opacity:0;transform:translate(-50%,-100%)}to{opacity:1;transform:translate(-50%,0)}}
 }
 @media (prefers-reduced-motion:reduce){.pn-cab,.pn-lado,.pn-main,.pn-menu-puxa{animation:none}}
+@media (min-width:981px){
+  .mp-br{background:transparent;box-shadow:none}   /* 27/10: caixa do Brasil transparente («aqui eu quero que seja transparente»), só o fio */
+}
