@@ -133,10 +133,12 @@
            amplitude até assentar; na troca de seção fica a batida e meia curta, sem crescer */
         bateAsas.deNovo = function (entrada) {
           if (raf) cancelAnimationFrame(raf);
-          var t0 = performance.now(), dur = entrada ? 2400 : 1800, bat = entrada ? 8 : 3;
+          var t0 = performance.now(), dur = entrada ? 2400 : 1800, bat = entrada ? 6 : 3, AMP = [1, .7, .45];   // entrada: 3 batidas inteiras, cada uma mais fraca
           passaro.style.transformOrigin = '39px 20px'; passaro.style.transformBox = 'view-box';   // cresce a partir do corpo (ombro), só o pássaro; o wordmark fica parado
           (function passo(t) {
-            var k = Math.min((t - t0) / dur, 1), env = entrada ? Math.min(1, (1 - k) * 2.2) : Math.sin(Math.PI * k), a = -Math.sin(k * Math.PI * bat) * env;
+            /* 27/10, 6º («não quero a última batida meio cortada»): na entrada a amplitude cai por batida inteira (1, .7, .45), trocando
+               só no cruzamento do zero, então a terceira batida termina completa no fim do tempo */
+            var k = Math.max(0, Math.min((t - t0) / dur, 1)), env = entrada ? AMP[Math.min(2, Math.floor(k * 3))] : Math.sin(Math.PI * k), a = -Math.sin(k * Math.PI * bat) * env;
             var g = a < 0 ? a * 18 : a * 7;   // descida ampla, subida curta
             longa.setAttribute('transform', 'rotate(' + g.toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
             curta.setAttribute('transform', 'rotate(' + (-g * .4).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
