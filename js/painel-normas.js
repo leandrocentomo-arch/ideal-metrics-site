@@ -6,9 +6,15 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-  var MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  /* 27/10/2026, versão em inglês («faça uma versão em inglês de todo esse conteúdo… tem que ter as duas bandeirinhas no canto
+     direito, tem que ser default português»): o idioma vem de ?lang=en|pt na URL ou da última escolha guardada (localStorage);
+     sem nada, português. T(pt, en) escolhe o texto. Os dados (JSON) são os mesmos nas duas línguas, então a atualização
+     semanal da rotina «Ballots ISO/ABNT» vale para as duas sem passo extra. */
+  var LANG = (function () { var q = /[?&]lang=(en|pt)\b/.exec(location.search); if (q) return q[1]; try { return localStorage.getItem('pn-lang') === 'en' ? 'en' : 'pt'; } catch (e) { return 'pt'; } })();
+  var EN = LANG === 'en', T = function (pt, en) { return EN ? en : pt; };
+  var MESES = EN ? ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'] : ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   var dataBR = function (iso) { var p = String(iso).split('-'); return p.length < 3 ? iso : p[2] + '-' + MESES[+p[1] - 1] + '-' + p[0]; };   // dd-mmm-aaaa (26/10/2026)
-  var fmt = function (n) { return (n == null ? '' : Number(n).toLocaleString('pt-BR')); };
+  var fmt = function (n) { return (n == null ? '' : Number(n).toLocaleString(EN ? 'en-US' : 'pt-BR')); };
 
   var FASES = [
     ['proposta', 'Proposta', '00 e 10', 'Estudo preliminar ou proposta de trabalho novo (NP). Os países votam se a norma deve existir. Nada do texto está decidido.'],
@@ -19,20 +25,59 @@
     ['publicada', 'Publicada', '60', 'Norma em vigor. Pode ser comprada na ISO e, no Brasil, na ABNT (versão NBR).'],
     ['revisao', 'Revisão sistemática', '90', 'A cada cinco anos a ISO consulta os países: manter, revisar ou cancelar. Um voto por revisar abre um projeto novo e a edição atual segue válida até a nova sair.']
   ];
+  if (EN) FASES = [
+    ['proposta', 'Proposal', '00 and 10', 'Preliminary study or new work item proposal (NP). Member countries vote on whether the standard should exist. Nothing in the text is settled.'],
+    ['preparacao', 'Working draft', '20', 'A group of experts writes the first text (WD). It circulates only within the working group.'],
+    ['comite', 'Committee draft', '30', 'The text (CD) is discussed and commented on by the committee member countries. It still changes considerably.'],
+    ['consulta', 'Enquiry', '40', 'The Draft International Standard (DIS) goes to a vote of all ISO members for 12 weeks. In Brazil, ABNT opens a national consultation. It is the first stable text.'],
+    ['aprovacao', 'Final approval', '50', 'The Final Draft (FDIS) receives a vote only, without technical comments. Once approved, ISO publishes it within a few weeks. It is the version that will apply.'],
+    ['publicada', 'Published', '60', 'Standard in force. It can be purchased from ISO and, in Brazil, from ABNT (NBR version).'],
+    ['revisao', 'Systematic review', '90', 'Every five years ISO consults member countries: confirm, revise or withdraw. A vote to revise opens a new project, and the current edition remains valid until the new one is published.']
+  ];
   var FASE_IDX = {}; FASES.forEach(function (f, i) { FASE_IDX[f[0]] = i; });
   var TIPOS = { IS: 'Norma internacional', TS: 'Especificação técnica', TR: 'Relatório técnico', PAS: 'Especificação publicamente disponível', IWA: 'Acordo de workshop internacional', GUIDE: 'Guia ISO' };
+  if (EN) TIPOS = { IS: 'International Standard', TS: 'Technical Specification', TR: 'Technical Report', PAS: 'Publicly Available Specification', IWA: 'International Workshop Agreement', GUIDE: 'ISO Guide' };
+  /* nomes dos temas em inglês, pelo id do JSON; tema novo sem tradução aparece com o nome em português até entrar aqui */
+  var TEMAS_EN = { clima: 'Climate and carbon', ambiente: 'Environment', qualidade: 'Quality', sst: 'Occupational health and safety', viaria: 'Road traffic safety', esg: 'Sustainability and ESG', social: 'Social responsibility and value chain', alimentos: 'Food safety', informacao: 'Information security and privacy', compliance: 'Compliance, risk and continuity', conformidade: 'Conformity assessment', facilities: 'Facilities', energia: 'Energy', consultoria: 'Management consulting' };
   var CHAVE = ['9001', '14001', '45001', '39001', '22000', '27001', '37001', '37301', '14064-1', '14067', '14068-1', '14060', '41001', '22301', '31000', '50001', '42001', '53001', '59004', '17065', '17021-1'];
   var SURVEY_NOME = { '9001': 'ISO 9001', '14001': 'ISO 14001', '45001': 'ISO 45001', '27001': 'ISO/IEC 27001', '22000': 'ISO 22000', '13485': 'ISO 13485', '50001': 'ISO 50001', '20000-1': 'ISO/IEC 20000-1', '37001': 'ISO 37001', '22301': 'ISO 22301', '39001': 'ISO 39001', '28000': 'ISO 28000', '37301': 'ISO 37301', '41001': 'ISO 41001', '42001': 'ISO/IEC 42001', '44001': 'ISO 44001', '21001': 'ISO 21001', '55001': 'ISO 55001', '20121': 'ISO 20121', '22716': 'ISO 22716' };
   var LATAM = ['AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'CU', 'DO', 'EC', 'SV', 'GT', 'HN', 'MX', 'NI', 'PA', 'PY', 'PE', 'PR', 'UY', 'VE'];
 
   var D = null, MUD = null, MUNDO = null, WORLD_OK = false;
   var F = { q: '', temas: {}, fases: {}, tipos: {}, pagina: false, ord: 'num' };
-  var paisNome = (window.Intl && Intl.DisplayNames) ? new Intl.DisplayNames(['pt-BR'], { type: 'region' }) : null;
+  var paisNome = (window.Intl && Intl.DisplayNames) ? new Intl.DisplayNames([EN ? 'en' : 'pt-BR'], { type: 'region' }) : null;
 
   function nomePais(a2) {
     try { var n = paisNome && paisNome.of(a2); if (n && n !== a2) return n; } catch (e) { }
     return (D.paises[a2] && D.paises[a2].nome) || a2;
   }
+
+  /* ---------- idioma (27/10/2026) ---------- */
+  (function idioma() {
+    var q = /[?&]lang=(en|pt)\b/.exec(location.search); if (q) { try { localStorage.setItem('pn-lang', q[1]); } catch (e) { } }
+    if (EN) {
+      document.documentElement.lang = 'en';
+      document.title = 'ISO Standards Dashboard | Ideal Metrics';
+      var ds = 'Progress of ISO standards for management systems, sustainability and safety: stage, committee, systematic review and certificates by country. Sources: ISO Open Data and ISO Survey.';
+      $$('meta[name="description"],meta[property="og:description"]').forEach(function (m) { m.setAttribute('content', ds); });
+      $$('meta[property="og:title"]').forEach(function (m) { m.setAttribute('content', document.title); });
+      /* o texto em inglês do HTML fica no próprio elemento: data-en (conteúdo), data-en-ph (placeholder), data-en-al (aria-label) */
+      $$('[data-en]').forEach(function (el) { el.innerHTML = el.getAttribute('data-en'); });
+      $$('[data-en-ph]').forEach(function (el) { el.setAttribute('placeholder', el.getAttribute('data-en-ph')); });
+      $$('[data-en-al]').forEach(function (el) { el.setAttribute('aria-label', el.getAttribute('data-en-al')); });
+    }
+    /* bandeirinhas: a escolha fica guardada e a página recarrega na mesma aba; o inglês leva ?lang=en na URL (link compartilhável) */
+    $$('.pn-lang button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.lang === LANG);
+      b.addEventListener('click', function () {
+        if (b.dataset.lang === LANG) return;
+        try { localStorage.setItem('pn-lang', b.dataset.lang); } catch (e) { }
+        var s = location.search.replace(/([?&])lang=(en|pt)(&|$)/, '$1').replace(/[?&]$/, '');
+        if (b.dataset.lang === 'en') s += (s ? '&' : '?') + 'lang=en';
+        location.replace(location.pathname + s + location.hash);
+      });
+    });
+  })();
 
   /* ---------- carga ---------- */
   Promise.all([
@@ -40,6 +85,7 @@
     fetch('dados/painel-mudancas.json').then(function (r) { return r.ok ? r.json() : { itens: [] }; }).catch(function () { return { itens: [] }; })
   ]).then(function (res) {
     D = res[0]; MUD = res[1];
+    if (EN) D.temas.forEach(function (t) { if (TEMAS_EN[t.id]) t.nome = TEMAS_EN[t.id]; });
     D.temasMap = {}; D.temas.forEach(function (t) { D.temasMap[t.id] = t.nome; });
     D.porNum = {}; D.normas.forEach(function (n) { (D.porNum[n.num] = D.porNum[n.num] || []).push(n); });
     montaFiltros(); liga(); render();
@@ -100,14 +146,14 @@
      barra do menu ficam recolhidas acima da tela e uma etiqueta «Menu» no topo (mesma família da etiqueta da gaveta) as puxa
      para baixo; Esc, clique fora ou a própria etiqueta recolhem. Ganha os 72 px do topo para o painel. */
   (function () {
-    var b = document.createElement('button'); b.type = 'button'; b.className = 'pn-menu-puxa'; b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-label', 'Abrir o menu do site');
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'pn-menu-puxa'; b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-label', T('Abrir o menu do site', 'Open the site menu'));
     b.innerHTML = '<svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg><span>Menu</span>';
     document.body.appendChild(b);
     /* 27/10: «o logo tem que aparecer sempre»: cópia da caixa do logo, fixa no lugar de sempre, visível enquanto o menu está
        recolhido (a original desce junto com a barra quando o menu abre) */
     var marca = $('header.barra .barra-marca'); if (marca) { var cp = marca.cloneNode(true); cp.classList.add('pn-logo-fixo'); cp.removeAttribute('id'); ($('.pn-cab') || document.body).appendChild(cp); if (window.bateAsasMonograma) bateAsasMonograma(cp.querySelector('img')); }   // 27/10: sem o brilho prateado («tire o pulse do logo também»)   // dentro do cabeçalho do painel: rola junto com ele («o logo tem que ficar fixo [no lugar], está descendo junto no scroll»)
     /* 27/10: a batida de asas (antes aqui) vive em js/monograma-asas.js, compartilhado por todas as páginas */
-    function poe(ab) { document.body.classList.toggle('menu-aberto', ab); b.setAttribute('aria-expanded', ab); b.setAttribute('aria-label', ab ? 'Recolher o menu do site' : 'Abrir o menu do site'); }
+    function poe(ab) { document.body.classList.toggle('menu-aberto', ab); b.setAttribute('aria-expanded', ab); b.setAttribute('aria-label', ab ? T('Recolher o menu do site', 'Collapse the site menu') : T('Abrir o menu do site', 'Open the site menu')); }
     b.addEventListener('click', function () { poe(!document.body.classList.contains('menu-aberto')); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-aberto')) poe(false); });
     document.addEventListener('pointerdown', function (e) { if (document.body.classList.contains('menu-aberto') && !e.target.closest('.tarja, header.barra, .mega-menu, .pn-menu-puxa')) poe(false); });
@@ -115,7 +161,7 @@
 
   $('.pn-puxa').addEventListener('click', function () {
     var ab = $('.pn').classList.toggle('lado-aberto');
-    this.setAttribute('aria-expanded', ab); this.setAttribute('aria-label', ab ? 'Recolher busca e filtros' : 'Abrir busca e filtros');
+    this.setAttribute('aria-expanded', ab); this.setAttribute('aria-label', ab ? T('Recolher busca e filtros', 'Collapse search and filters') : T('Abrir busca e filtros', 'Open search and filters'));
     if (ab) setTimeout(function () { $('#pn-q').focus({ preventScroll: true }); }, 360);
   });
 
@@ -221,10 +267,10 @@
     var v = vistaAtiva();
     if (v === 'tempo') montaTempo(); else if (v === 'mudancas') montaMudancas(); else if (v === 'revisao') montaRevisao();
     atual = ordena(filtra()); mostrados = 0;
-    $('#pn-total').innerHTML = '<b>' + fmt(atual.length) + '</b> de ' + fmt(D.normas.length) + ' normas';
+    $('#pn-total').innerHTML = '<b>' + fmt(atual.length) + '</b> ' + T('de', 'of') + ' ' + fmt(D.normas.length) + T(' normas', ' standards');
     var lista = $('#pn-lista');
     if ($('#v-normas').classList.contains('ativa')) $('.pn-main').scrollTop = 0;
-    if (!atual.length) { lista.innerHTML = '<li class="pn-vazio">Nenhuma norma com esses filtros. A busca aceita número (9001, 14064-1), palavra do título em inglês ou comitê (TC 207).</li>'; return; }
+    if (!atual.length) { lista.innerHTML = '<li class="pn-vazio">' + T('Nenhuma norma com esses filtros. A busca aceita número (9001, 14064-1), palavra do título em inglês ou comitê (TC 207).', 'No standard matches these filters. Search accepts a number (9001, 14064-1), a word from the title or a committee (TC 207).') + '</li>'; return; }
     lista.innerHTML = ''; maisLinhas(); entra(lista);
   }
   var adia = null;
@@ -242,27 +288,27 @@
     }).join('') + '</div>';
     var mud = (MUD.itens || []).filter(function (m) { return m.id === n.id; });
     var sv = D.survey[n.num];
-    det.innerHTML = '<button class="fechar" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button>' +
-      '<span class="m">' + esc(TIPOS[n.tipo] || n.tipo) + (n.ed ? ' · edição ' + n.ed : '') + '</span>' +
+    det.innerHTML = '<button class="fechar" aria-label="' + T('Fechar', 'Close') + '"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button>' +
+      '<span class="m">' + esc(TIPOS[n.tipo] || n.tipo) + (n.ed ? T(' · edição ', ' · edition ') + n.ed : '') + '</span>' +
       '<div class="ref">' + esc(n.ref) + '</div><h2>' + esc(n.titulo) + '</h2>' +
       '<p class="tema">' + esc(D.temasMap[n.tema]) + ' · ' + esc(n.comite) + (n.tcnome ? ', ' + esc(n.tcnome) : '') + '</p>' +
-      '<div class="pn-sec"><span class="m">Estágio atual · código ' + n.est + '</span><p><b>' + f[1] + '.</b> ' + f[3] + '</p>' + trilha + '</div>' +
-      (n.escopo ? '<div class="pn-sec"><span class="m">Do que trata (escopo, texto da ISO)</span><p>' + esc(n.escopo).replace(/\s*\n+\s*/g, '</p><p>') + (n.escopo.length >= 900 ? ' […]' : '') + '</p></div>' : '') +
-      '<div class="pn-sec"><span class="m">Ficha</span><dl class="pn-kv">' +
-      (n.pub ? '<dt>Publicação</dt><dd>' + dataBR(n.pub) + '</dd>' : '') +
-      (n.pag ? '<dt>Páginas</dt><dd>' + n.pag + '</dd>' : '') +
-      '<dt>Comitê ISO</dt><dd>' + esc(n.comite) + (n.tcnome ? ' · ' + esc(n.tcnome) : '') + '</dd>' +
-      (n.abnt ? '<dt>Espelho ABNT</dt><dd>' + esc(n.abnt) + '</dd>' : '') +
+      '<div class="pn-sec"><span class="m">' + T('Estágio atual · código ', 'Current stage · code ') + n.est + '</span><p><b>' + f[1] + '.</b> ' + f[3] + '</p>' + trilha + '</div>' +
+      (n.escopo ? '<div class="pn-sec"><span class="m">' + T('Do que trata (escopo, texto da ISO)', 'Scope (text from ISO)') + '</span><p>' + esc(n.escopo).replace(/\s*\n+\s*/g, '</p><p>') + (n.escopo.length >= 900 ? ' […]' : '') + '</p></div>' : '') +
+      '<div class="pn-sec"><span class="m">' + T('Ficha', 'Record') + '</span><dl class="pn-kv">' +
+      (n.pub ? '<dt>' + T('Publicação', 'Publication') + '</dt><dd>' + dataBR(n.pub) + '</dd>' : '') +
+      (n.pag ? '<dt>' + T('Páginas', 'Pages') + '</dt><dd>' + n.pag + '</dd>' : '') +
+      '<dt>' + T('Comitê ISO', 'ISO committee') + '</dt><dd>' + esc(n.comite) + (n.tcnome ? ' · ' + esc(n.tcnome) : '') + '</dd>' +
+      (n.abnt ? '<dt>' + T('Espelho ABNT', 'ABNT adoption') + '</dt><dd>' + esc(n.abnt) + '</dd>' : '') +
       (n.ics ? '<dt>ICS</dt><dd>' + n.ics.join(' · ') + '</dd>' : '') +
-      (irmas.length ? '<dt>Outras edições e projetos</dt><dd>' + irmas.map(function (x) { return '<a href="#n' + x.id + '" data-id="' + x.id + '">' + esc(x.ref) + '</a> <span class="m" style="font-size:10px">' + FASES[FASE_IDX[x.fase]][1] + '</span>'; }).join('<br>') + '</dd>' : '') +
-      (sv ? '<dt>Certificados</dt><dd>' + fmt(sv.total) + ' no mundo' + (sv.paises.BR ? ', ' + fmt(sv.paises.BR) + ' no Brasil' : '') + ' <span class="m" style="font-size:10px">ISO Survey 2025</span> · <a href="#mapa" data-mapa="' + n.num + '">ver no mapa</a></dd>' : '') +
+      (irmas.length ? '<dt>' + T('Outras edições e projetos', 'Other editions and projects') + '</dt><dd>' + irmas.map(function (x) { return '<a href="#n' + x.id + '" data-id="' + x.id + '">' + esc(x.ref) + '</a> <span class="m" style="font-size:10px">' + FASES[FASE_IDX[x.fase]][1] + '</span>'; }).join('<br>') + '</dd>' : '') +
+      (sv ? '<dt>' + T('Certificados', 'Certificates') + '</dt><dd>' + fmt(sv.total) + T(' no mundo', ' worldwide') + (sv.paises.BR ? ', ' + fmt(sv.paises.BR) + T(' no Brasil', ' in Brazil') : '') + ' <span class="m" style="font-size:10px">ISO Survey 2025</span> · <a href="#mapa" data-mapa="' + n.num + '">' + T('ver no mapa', 'see on map') + '</a></dd>' : '') +
       '</dl></div>' +
-      (mud.length ? '<div class="pn-sec"><span class="m">Movimentos registrados neste painel</span><p>' + mud.map(function (m) { return dataBR(m.data) + ': ' + (m.tipo === 'nova' ? 'entrou na base' : m.tipo === 'saiu' ? 'saiu da base' : 'estágio ' + m.de + ' para ' + m.para); }).join('<br>') + '</p></div>' : '') +
+      (mud.length ? '<div class="pn-sec"><span class="m">' + T('Movimentos registrados neste painel', 'Movements recorded in this dashboard') + '</span><p>' + mud.map(function (m) { return dataBR(m.data) + ': ' + (m.tipo === 'nova' ? T('entrou na base', 'entered the database') : m.tipo === 'saiu' ? T('saiu da base', 'left the database') : T('estágio ', 'stage ') + m.de + T(' para ', ' to ') + m.para); }).join('<br>') + '</p></div>' : '') +
       '<div class="pn-sec"><span class="m">Links</span><div class="pn-links">' +
-      '<a href="https://www.iso.org/standard/' + n.id + '.html" target="_blank" rel="noopener">Página da norma na ISO <span class="m">iso.org</span></a>' +
-      (n.tcid ? '<a href="https://www.iso.org/committee/' + n.tcid + '.html" target="_blank" rel="noopener">Comitê ' + esc(n.comite) + ' <span class="m">iso.org</span></a>' : '') +
-      (n.pagina ? '<a href="' + n.pagina + '">Serviço da Ideal Metrics nesta norma <span class="m">neste site</span></a>' : '') +
-      '<a href="contato.html">Contato com a equipe técnica <span class="m">Ideal Metrics</span></a>' +
+      '<a href="https://www.iso.org/standard/' + n.id + '.html" target="_blank" rel="noopener">' + T('Página da norma na ISO', 'Standard page at ISO') + ' <span class="m">iso.org</span></a>' +
+      (n.tcid ? '<a href="https://www.iso.org/committee/' + n.tcid + '.html" target="_blank" rel="noopener">' + T('Comitê ', 'Committee ') + esc(n.comite) + ' <span class="m">iso.org</span></a>' : '') +
+      (n.pagina ? '<a href="' + n.pagina + '">' + T('Serviço da Ideal Metrics nesta norma', 'Ideal Metrics service for this standard') + ' <span class="m">' + T('neste site', 'on this site') + '</span></a>' : '') +
+      '<a href="contato.html">' + T('Contato com a equipe técnica', 'Contact the technical team') + ' <span class="m">Ideal Metrics</span></a>' +
       '</div></div>';
     det.querySelector('.fechar').addEventListener('click', fechaDetalhe);
     var am = det.querySelector('[data-mapa]'); if (am) am.addEventListener('click', function (e) { e.preventDefault(); fechaDetalhe(); mostraAba('mapa'); escolheSurvey(am.dataset.mapa); });
@@ -273,7 +319,7 @@
   function fechaDetalhe() {
     $('#pn-det').classList.remove('aberta'); $('#pn-veu').classList.remove('on');
     $$('.pn-item.sel').forEach(function (li) { li.classList.remove('sel'); });
-    if (/^#n\d+/.test(location.hash)) history.replaceState(null, '', location.pathname);
+    if (/^#n\d+/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);   // mantém o ?lang=en
   }
 
   /* ---------- linha do tempo ---------- */
@@ -284,17 +330,17 @@
     $('#lt-anos').innerHTML = anos;
     var hist = {}; (D.historico || []).forEach(function (h) { (hist[h.num] = hist[h.num] || []).push(h); });
     var chaves = CHAVE.filter(function (k) { return D.porNum[k] && D.porNum[k].some(function (x) { return passa(x, true); }); });
-    if (!chaves.length) { $('#lt-corpo').innerHTML = '<p class="pn-vazio">Nenhuma norma-chave com esses filtros.</p>'; return; }
+    if (!chaves.length) { $('#lt-corpo').innerHTML = '<p class="pn-vazio">' + T('Nenhuma norma-chave com esses filtros.', 'No key standard matches these filters.') + '</p>'; return; }
     $('#lt-corpo').innerHTML = chaves.map(function (k) {
       var xs = D.porNum[k].slice().sort(function (a, b) { return String(a.pub || '9999').localeCompare(String(b.pub || '9999')); });
       var atual = xs.filter(function (x) { return x.fase === 'publicada' || x.fase === 'revisao'; }).pop();
       var nome = (atual || xs[0]).titulo.split(/ [—–-] /)[0];
       var antigas = (hist[k] || []).map(function (h) {
-        return '<span class="lt-ed ant" style="left:' + px(h.pub) + '%" title="' + esc(h.ref) + ' · edição retirada"><span class="r">' + h.pub.slice(0, 4) + '</span></span>';
+        return '<span class="lt-ed ant" style="left:' + px(h.pub) + '%" title="' + esc(h.ref) + T(' · edição retirada', ' · withdrawn edition') + '"><span class="r">' + h.pub.slice(0, 4) + '</span></span>';
       }).join('');
       var marcas = antigas + xs.map(function (x) {
         if (x.pub) return '<span class="lt-ed' + (x === atual ? '' : ' ant') + '" style="left:' + px(x.pub) + '%" data-id="' + x.id + '" title="' + esc(x.ref) + '"><span class="r">' + x.pub.slice(0, 4) + '</span></span>';
-        return '<span class="lt-ed dev" style="left:' + px(D.gerado) + '%" data-id="' + x.id + '" title="' + esc(x.ref) + ' · em desenvolvimento"><span class="r">' + esc(x.ref.replace(/^ISO(\/IEC)?\s*/, '')) + '</span></span>';
+        return '<span class="lt-ed dev" style="left:' + px(D.gerado) + '%" data-id="' + x.id + '" title="' + esc(x.ref) + T(' · em desenvolvimento', ' · under development') + '"><span class="r">' + esc(x.ref.replace(/^ISO(\/IEC)?\s*/, '')) + '</span></span>';
       }).join('');
       /* 27/10 («uma linha do tempo mais bonita»): trilho fino ligando a primeira edição ao hoje, segmento cheio entre a primeira e a
          edição em vigor, marcas redondas (anteriores vazadas, em vigor cheia, projeto tracejado) e os anos só no hover */
@@ -314,15 +360,15 @@
     var total = it.length;
     // norma que saiu da base não tem mais ficha: só aparece quando nenhum filtro está ligado
     it = it.filter(function (m) { var n = achaN(m.id); return n ? passa(n, true) : todos; });
-    if (total && !it.length) { el.innerHTML = '<p class="pn-vazio">Nenhum movimento com esses filtros.</p>'; return; }
+    if (total && !it.length) { el.innerHTML = '<p class="pn-vazio">' + T('Nenhum movimento com esses filtros.', 'No movement matches these filters.') + '</p>'; return; }
     if (!it.length) {
-      el.innerHTML = '<p class="pn-vazio">Nenhuma mudança de estágio registrada desde ' + desde + '. A base da ISO é comparada toda semana; o que entrar, avançar de estágio ou for publicado aparece aqui.</p>';
+      el.innerHTML = '<p class="pn-vazio">' + T('Nenhuma mudança de estágio registrada desde ' + desde + '. A base da ISO é comparada toda semana; o que entrar, avançar de estágio ou for publicado aparece aqui.', 'No stage change recorded since ' + desde + '. The ISO database is compared every week; whatever enters, moves to another stage or is published appears here.') + '</p>';
       return;
     }
     var grupos = {}; it.forEach(function (m) { (grupos[m.data] = grupos[m.data] || []).push(m); });
     el.innerHTML = Object.keys(grupos).sort().reverse().map(function (d) {
-      return '<div class="md-grupo"><span class="m">' + dataBR(d) + ' · ' + grupos[d].length + ' movimento(s)</span>' + grupos[d].map(function (m) {
-        var o = m.tipo === 'nova' ? 'entrou na base · ' + m.para : m.tipo === 'saiu' ? 'saiu da base' : m.de + ' → ' + m.para;
+      return '<div class="md-grupo"><span class="m">' + dataBR(d) + ' · ' + grupos[d].length + T(' movimento(s)', ' movement(s)') + '</span>' + grupos[d].map(function (m) {
+        var o = m.tipo === 'nova' ? T('entrou na base · ', 'entered the database · ') + m.para : m.tipo === 'saiu' ? T('saiu da base', 'left the database') : m.de + ' → ' + m.para;
         var n = D.normas.filter(function (x) { return x.id === m.id; })[0];
         return '<div class="md-item" data-id="' + m.id + '"><span class="ref">' + esc(m.ref) + '</span><span>' + esc(n ? n.titulo : '') + '</span><span class="de">' + esc(o) + ' · ' + (FASES[FASE_IDX[m.fase]] || [])[1] + '</span></div>';
       }).join('') + '</div>';
@@ -334,12 +380,12 @@
   function montaRevisao() {
     var todas = D.normas.filter(function (n) { return n.fase === 'revisao'; });
     var xs = todas.filter(function (n) { return passa(n); }).sort(function (a, b) { return a.num.localeCompare(b.num, undefined, { numeric: true }); });
-    $('#rv-total').innerHTML = '<b>' + xs.length + '</b>' + (xs.length < todas.length ? ' de ' + todas.length : '') + ' normas em revisão sistemática';
-    if (!xs.length) { $('#rv-corpo').innerHTML = '<li class="pn-vazio">Nenhuma norma em revisão sistemática com esses filtros.</li>'; return; }
+    $('#rv-total').innerHTML = '<b>' + xs.length + '</b>' + (xs.length < todas.length ? T(' de ', ' of ') + todas.length : '') + T(' normas em revisão sistemática', ' standards under systematic review');
+    if (!xs.length) { $('#rv-corpo').innerHTML = '<li class="pn-vazio">' + T('Nenhuma norma em revisão sistemática com esses filtros.', 'No standard under systematic review matches these filters.') + '</li>'; return; }
     $('#rv-corpo').innerHTML = xs.map(function (n) {
       var proj = (D.porNum[n.num] || []).filter(function (x) { return x.id !== n.id && !x.pub; });
-      return '<li class="pn-item" data-id="' + n.id + '"><span class="ref">' + esc(n.ref) + '</span><span class="tit">' + esc(n.titulo) + '<small>' + esc(D.temasMap[n.tema]) + ' · ' + esc(n.comite) + (proj.length ? ' · projeto de nova edição em curso: ' + esc(proj[0].ref) : '') + '</small></span>' +
-        '<span class="fase">' + barraEst(n) + '<span>código ' + n.est + '</span></span><span class="seta"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></li>';
+      return '<li class="pn-item" data-id="' + n.id + '"><span class="ref">' + esc(n.ref) + '</span><span class="tit">' + esc(n.titulo) + '<small>' + esc(D.temasMap[n.tema]) + ' · ' + esc(n.comite) + (proj.length ? T(' · projeto de nova edição em curso: ', ' · new edition project under way: ') + esc(proj[0].ref) : '') + '</small></span>' +
+        '<span class="fase">' + barraEst(n) + '<span>' + T('código ', 'code ') + n.est + '</span></span><span class="seta"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></li>';
     }).join('');
     entra($('#rv-corpo'));
   }
@@ -359,10 +405,12 @@
     { id: 'agro', nome: 'Agro', ea: [0] }
   ];
   var EA_PT = ['Agricultura, pesca e florestas', 'Mineração', 'Alimentos, bebidas e tabaco', 'Têxteis', 'Couro', 'Madeira', 'Celulose e papel', 'Editoras', 'Gráficas', 'Coque e refino de petróleo', 'Combustível nuclear', 'Químicos e fibras', 'Farmacêuticos', 'Borracha e plástico', 'Minerais não metálicos', 'Concreto, cimento, cal e gesso', 'Metalurgia e produtos de metal', 'Máquinas e equipamentos', 'Equipamentos elétricos e ópticos', 'Construção naval', 'Aeroespacial', 'Outros equipamentos de transporte', 'Outras indústrias', 'Reciclagem', 'Energia elétrica', 'Gás', 'Água', 'Construção', 'Comércio e reparação de veículos', 'Hotéis e restaurantes', 'Transporte, armazenagem e comunicação', 'Finanças, imóveis e aluguel', 'Tecnologia da informação', 'Serviços de engenharia', 'Outros serviços', 'Administração pública', 'Educação', 'Saúde e assistência social', 'Outros serviços sociais'];
+  if (EN) { var GRUPOS_EN = { industria: 'Industry', facilities: 'Construction and facilities', comercio: 'Trade and services', tecnologia: 'Technology and engineering', transporte: 'Transport and logistics', saude: 'Health', energia: 'Energy and utilities', alimentos: 'Food and beverages', publico: 'Public sector and education', agro: 'Agribusiness' }; GRUPOS.forEach(function (g) { g.nome = GRUPOS_EN[g.id] || g.nome; }); }
+  var eaNome = function (i) { var S = D.setores.setores; return EN ? S[i] : (EA_PT[i] || S[i]); };   // em inglês, o nome original do ISO Survey
   var stFeito = false, stNum = '9001', stOnde = 'mundo';
   function montaSetores() {
     if (stFeito) return; stFeito = true;
-    var S = D.setores; if (!S || !S.normas) { $('#st-grade').innerHTML = '<p class="pn-vazio">Sem dados de setor nesta base.</p>'; return; }
+    var S = D.setores; if (!S || !S.normas) { $('#st-grade').innerHTML = '<p class="pn-vazio">' + T('Sem dados de setor nesta base.', 'No sector data in this database.') + '</p>'; return; }
     var nums = Object.keys(S.normas).sort(function (a, b) { return D.survey[b].total - D.survey[a].total; });
     $('#st-sel').innerHTML = nums.map(function (k) { var nm = SURVEY_NOME[k] || 'ISO ' + k; return '<button data-num="' + k + '" aria-pressed="' + (k === stNum) + '"' + (nm.length > 13 ? ' class="longo"' : '') + '>' + nm + '</button>'; }).join('');
     $$('#st-sel button').forEach(function (b) { b.addEventListener('click', function () { stNum = b.dataset.num; $$('#st-sel button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); desliza($('#st-sel'), '[aria-pressed=true]'); pintaSetores(); }); });
@@ -375,16 +423,16 @@
     var v = n[stOnde], total = v.reduce(function (a, b) { return a + b; }, 0);
     var grupos = GRUPOS.map(function (g) { return { g: g, soma: g.ea.reduce(function (a, i) { return a + v[i]; }, 0) }; }).sort(function (a, b) { return b.soma - a.soma; });
     var max = grupos[0].soma || 1;
-    $('#st-total').textContent = fmt(total) + ' certificados com setor informado · ' + (SURVEY_NOME[stNum] || 'ISO ' + stNum) + ' · ' + (stOnde === 'br' ? 'Brasil' : 'mundo');
+    $('#st-total').textContent = fmt(total) + T(' certificados com setor informado · ', ' certificates with sector reported · ') + (SURVEY_NOME[stNum] || 'ISO ' + stNum) + ' · ' + (stOnde === 'br' ? T('Brasil', 'Brazil') : T('mundo', 'world'));
     /* 27/10: «pode tirar os cards, não está legal, deixe só o diagrama»: os cartões ficam no código, desligados (st-grade sumiu do HTML) */
     if ($('#st-grade')) $('#st-grade').innerHTML = grupos.map(function (x) {
       var g = x.g, pct = total ? (x.soma / total * 100) : 0;
       var ea = g.ea.map(function (i) { return { i: i, v: v[i] }; }).sort(function (a, b) { return b.v - a.v; });
       return '<article class="st-card entra">' + (g.sem ? '<div class="st-sem"></div>' : '<img class="st-ilus" src="img/setores/setor-' + g.id + '.webp?v=2" alt="" loading="lazy">') +
-        '<h3>' + g.nome + '</h3><div class="st-n"><b>' + fmt(x.soma) + '</b><span class="m">' + pct.toFixed(1).replace('.', ',') + '% · ' + ea.length + (ea.length > 1 ? ' setores EA' : ' setor EA') + '</span></div>' +
+        '<h3>' + g.nome + '</h3><div class="st-n"><b>' + fmt(x.soma) + '</b><span class="m">' + (EN ? pct.toFixed(1) : pct.toFixed(1).replace('.', ',')) + '% · ' + ea.length + (ea.length > 1 ? T(' setores EA', ' EA sectors') : T(' setor EA', ' EA sector')) + '</span></div>' +
         '<div class="st-barra"><i style="width:' + (x.soma / max * 100) + '%"></i></div>' +
-        '<ul class="st-ea">' + ea.slice(0, 6).map(function (e) { return '<li' + (e.v ? '' : ' class="zero"') + '><span title="' + esc(S.setores[e.i]) + '">' + esc(EA_PT[e.i] || S.setores[e.i]) + '</span><b>' + fmt(e.v) + '</b></li>'; }).join('') +
-        (ea.length > 6 ? '<li><span class="m">+ ' + (ea.length - 6) + ' setores EA</span><b>' + fmt(ea.slice(6).reduce(function (a, e) { return a + e.v; }, 0)) + '</b></li>' : '') + '</ul></article>';
+        '<ul class="st-ea">' + ea.slice(0, 6).map(function (e) { return '<li' + (e.v ? '' : ' class="zero"') + '><span title="' + esc(S.setores[e.i]) + '">' + esc(eaNome(e.i)) + '</span><b>' + fmt(e.v) + '</b></li>'; }).join('') +
+        (ea.length > 6 ? '<li><span class="m">+ ' + (ea.length - 6) + T(' setores EA', ' EA sectors') + '</span><b>' + fmt(ea.slice(6).reduce(function (a, e) { return a + e.v; }, 0)) + '</b></li>' : '') + '</ul></article>';
     }).join('');
     if ($('#st-grade')) entra($('#st-grade'));
     pintaCalor();
@@ -401,18 +449,18 @@
     var soma = S.setores.map(function (_, i) { return nums.reduce(function (t, k) { return t + S.normas[k].mundo[i]; }, 0); });
     var ordem = atual.map(function (v, i) { return i; }).sort(function (a, b) { return soma[b] - soma[a]; });   // ordem fixa
     var nivel = function (v) { return !v ? 0 : v < 10 ? 1 : v < 100 ? 2 : v < 1000 ? 3 : 4; };
-    var onde = stOnde === 'br' ? 'Brasil' : 'mundo', nome = SURVEY_NOME[stNum] || 'ISO ' + stNum;
+    var onde = stOnde === 'br' ? T('Brasil', 'Brazil') : T('mundo', 'world'), nome = SURVEY_NOME[stNum] || 'ISO ' + stNum;
     var cal = $('#st-calor'), calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!cal.dataset.pronto) {
       cal.dataset.pronto = '1';
       var cab = '<div class="ca-linha ca-cabeca"><span></span><div class="ca-cels">' + nums.map(function (k) { return '<button type="button" data-num="' + k + '"><i>' + (SURVEY_NOME[k] || 'ISO ' + k).replace('ISO/IEC ', '') + '</i></button>'; }).join('') + '</div><span class="m" id="ca-norma"></span></div>';
       var corpo = ordem.map(function (i) {
-        return '<div class="ca-linha" data-i="' + i + '"><span class="ca-nome" title="' + esc(S.setores[i]) + '">' + esc(EA_PT[i] || S.setores[i]) + '</span><div class="ca-cels">' +
-          nums.map(function (k) { return '<span class="ca-q" tabindex="0" data-k="' + k + '" data-s="' + esc(EA_PT[i] || S.setores[i]) + '"></span>'; }).join('') +
+        return '<div class="ca-linha" data-i="' + i + '"><span class="ca-nome" title="' + esc(S.setores[i]) + '">' + esc(eaNome(i)) + '</span><div class="ca-cels">' +
+          nums.map(function (k) { return '<span class="ca-q" tabindex="0" data-k="' + k + '" data-s="' + esc(eaNome(i)) + '"></span>'; }).join('') +
           '</div><span class="ca-barra"><i style="width:0"></i></span><b></b></div>';
       }).join('');
-      cal.innerHTML = '<div class="ca-cab"><b>Setores EA por norma</b><span id="ca-sub"></span></div>' + cab + corpo +
-        '<div class="ca-pe"><span>Quadrado = certificados do setor na norma; barra = norma escolhida.</span><span class="ca-leg"><em>0</em><span class="ca-q" data-n="0"></span><span class="ca-q" data-n="1"></span><span class="ca-q" data-n="2"></span><span class="ca-q" data-n="3"></span><span class="ca-q" data-n="4"></span><em>10 mil+</em></span></div><div class="ca-dica"></div>';
+      cal.innerHTML = '<div class="ca-cab"><b>' + T('Setores EA por norma', 'EA sectors by standard') + '</b><span id="ca-sub"></span></div>' + cab + corpo +
+        '<div class="ca-pe"><span>' + T('Quadrado = certificados do setor na norma; barra = norma escolhida.', 'Square = certificates of the sector in the standard; bar = selected standard.') + '</span><span class="ca-leg"><em>0</em><span class="ca-q" data-n="0"></span><span class="ca-q" data-n="1"></span><span class="ca-q" data-n="2"></span><span class="ca-q" data-n="3"></span><span class="ca-q" data-n="4"></span><em>' + T('10 mil+', '10k+') + '</em></span></div><div class="ca-dica"></div>';
       var dica = $('.ca-dica', cal);
       function mostra(q) {
         var rc = q.getBoundingClientRect(), rb = cal.getBoundingClientRect();
@@ -428,8 +476,8 @@
       cal.classList.remove('ca-on'); void cal.offsetWidth; entra(cal);
       if (calmo) cal.classList.add('ca-on'); else requestAnimationFrame(function () { cal.classList.add('ca-on'); });
     }
-    $('#ca-sub', cal).textContent = '39 setores EA · 17 normas · ' + onde;
-    $('#ca-norma', cal).textContent = nome + ' · ' + onde;
+    $('#ca-sub', cal).textContent = S.setores.length + T(' setores EA · ', ' EA sectors · ') + nums.length + T(' normas · ', ' standards · ') + onde;
+    $('#ca-norma', cal).textContent = ((D.survey[stNum] && D.survey[stNum].titulo) || nome) + ' · ' + onde;   // 27/10: «que aparecesse o nome da norma aqui também»: título completo da norma, como no ISO Survey
     $$('.ca-cabeca button', cal).forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.num === stNum); });
     $$('.ca-linha[data-i]', cal).forEach(function (li) {
       var i = +li.dataset.i;
@@ -448,7 +496,7 @@
     $('#mp-sel').innerHTML = nums.map(function (k) { var nm = SURVEY_NOME[k] || 'ISO ' + k; return '<button data-num="' + k + '" aria-pressed="' + (k === mapaNum) + '"' + (nm.length > 13 ? ' class="longo"' : '') + '>' + nm + '</button>'; }).join('');
     $$('.mp-sel button').forEach(function (b) { b.addEventListener('click', function () { escolheSurvey(b.dataset.num); }); });
     var box = $('#mp-mapa'); dica = $('#mp-dica');
-    if (!window.d3 || !window.topojson) { box.innerHTML = '<p class="pn-vazio" style="padding:20px">O mapa precisa das bibliotecas d3 e topojson, que não carregaram. A tabela ao lado continua válida.</p>'; pintaLado(); return; }
+    if (!window.d3 || !window.topojson) { box.innerHTML = '<p class="pn-vazio" style="padding:20px">' + T('O mapa precisa das bibliotecas d3 e topojson, que não carregaram. A tabela ao lado continua válida.', 'The map needs the d3 and topojson libraries, which did not load. The table alongside remains valid.') + '</p>'; pintaLado(); return; }
     fetch('dados/mundo-110m.json').then(function (r) { return r.json(); }).then(function (topo) {
       MUNDO = topojson.feature(topo, topo.objects.countries);
       var porNumFeat = {}; Object.keys(D.paises).forEach(function (a2) { if (D.paises[a2].n) porNumFeat[D.paises[a2].n] = a2; });
@@ -457,7 +505,7 @@
       var GIRO_BR = [52, 12], giro = GIRO_BR.slice(), prog = 0, anima = false, arrasta = null, sobre = false;
       var muta = d3.geoProjectionMutator(function (t) { return function (x, y) { var a = d3.geoOrthographicRaw(x, y), b = d3.geoNaturalEarth1Raw(x, y); return [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])]; }; });
       var proj = muta(0).translate([W / 2, H / 2]).precision(.5), geo = d3.geoPath(proj);
-      var svg = d3.select(box).insert('svg', ':first-child').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', 'Globo de certificados por país');
+      var svg = d3.select(box).insert('svg', ':first-child').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', T('Globo de certificados por país', 'Globe of certificates by country'));
       /* 27/10: oceano de vidro, no mesmo tom da placa onde o globo está (só um brilho claro no alto à esquerda); mais transparente desde o 2º ajuste */
       var brilho = svg.append('defs').append('radialGradient').attr('id', 'mp-vidro').attr('cx', '32%').attr('cy', '26%').attr('r', '78%');
       /* 27/10, 3º: oceano branco a ~78% (mais claro que o #F2F1F5 da legenda, e o globo fica 20% menos transparente) */
@@ -542,7 +590,7 @@
         if (prog === 0 && !anima && !arrasta && !sobre && !document.hidden && $('#v-mapa').classList.contains('ativa')) { giro[0] += Math.min(t - ult, 50) * .009; desenha(); }
         ult = t; if (!calmo) requestAnimationFrame(gira);
       }
-      var bt = d3.select(box).append('div').attr('class', 'mp-ctl'), btVira = bt.append('button').attr('type', 'button').text('Abrir em mapa'), btCentro = bt.append('button').attr('type', 'button').text('Centralizar');
+      var bt = d3.select(box).append('div').attr('class', 'mp-ctl'), btVira = bt.append('button').attr('type', 'button').text(T('Abrir em mapa', 'Open as map')), btCentro = bt.append('button').attr('type', 'button').text(T('Centralizar', 'Recenter'));
       function lonPerto(de, para) { return para + Math.round((de - para) / 360) * 360; }
       btVira.on('click', function () {
         if (anima) return; anima = true; btVira.property('disabled', true);
@@ -551,8 +599,8 @@
           var k = Math.min((t - t0) / dur, 1), e = d3.easeCubicInOut(k);
           prog = p0 + (p1 - p0) * e; giro = [g0[0] + (g1[0] - g0[0]) * e, g0[1] + (g1[1] - g0[1]) * e]; desenha();
           if (k < 1) return requestAnimationFrame(passo);
-          prog = p1; anima = false; btVira.property('disabled', false).text(p1 ? 'Voltar ao globo' : 'Abrir em mapa');
-          svg.classed('plano', !!p1).attr('aria-label', p1 ? 'Mapa de certificados por país' : 'Globo de certificados por país');
+          prog = p1; anima = false; btVira.property('disabled', false).text(p1 ? T('Voltar ao globo', 'Back to globe') : T('Abrir em mapa', 'Open as map'));
+          svg.classed('plano', !!p1).attr('aria-label', p1 ? T('Mapa de certificados por país', 'Map of certificates by country') : T('Globo de certificados por país', 'Globe of certificates by country'));
         })(t0);
       });
       btCentro.on('click', function () { if (!anima && prog === 0) { giro = GIRO_BR.slice(); desenha(); } });
@@ -573,7 +621,7 @@
         var a2 = porNum[f.id], v = a2 && D.survey[mapaNum].paises[a2];
         dica.style.display = 'block'; var r = box.getBoundingClientRect();
         dica.style.left = (ev.clientX - r.left) + 'px'; dica.style.top = (ev.clientY - r.top) + 'px';
-        dica.innerHTML = esc(a2 ? nomePais(a2) : f.properties.name) + (v ? ' · <b>' + fmt(v) + '</b>' : ' · sem certificado registrado');
+        dica.innerHTML = esc(a2 ? nomePais(a2) : f.properties.name) + (v ? ' · <b>' + fmt(v) + '</b>' : T(' · sem certificado registrado', ' · no certificate recorded'));
       }).on('mouseleave', function () { dica.style.display = 'none'; });
       WORLD_OK = true; pintaMapa();
     });
@@ -586,7 +634,7 @@
     var cor = function (v) { if (!v) return CORES[0]; for (var i = cortes.length - 1; i >= 0; i--) if (v >= cortes[i]) return CORES[i + 1]; return CORES[1]; };
     if (paths) paths.transition().duration(400).attr('fill', function (f) { var a2 = porNum[f.id]; return cor(a2 ? s.paises[a2] : 0); });
     if (refazPulsos) refazPulsos();
-    $('#mp-esc').innerHTML = '<span style="margin-left:0">certificados</span>' + ['0', '1', '10', '100', '1 mil', '10 mil+'].map(function (t, i) { return '<i style="background:' + CORES[i] + '"></i><span>' + t + '</span>'; }).join('');
+    $('#mp-esc').innerHTML = '<span style="margin-left:0">' + T('certificados', 'certificates') + '</span>' + ['0', '1', '10', '100', T('1 mil', '1k'), T('10 mil+', '10k+')].map(function (t, i) { return '<i style="background:' + CORES[i] + '"></i><span>' + t + '</span>'; }).join('');
     pintaLado();
   }
   /* 27/10: «faça os números com efeito tipo roleta»: o número corre do valor atual até o novo em .7 s (ease-out), formatado */
@@ -613,14 +661,15 @@
     if (!lado.dataset.pronto) {
       lado.dataset.pronto = '1';
       lado.innerHTML = '<h3></h3><div class="m" id="mp-tit"></div><div class="tot"><span id="mp-tot"></span><small id="mp-paises"></small></div>' +
-        '<div class="mp-br"><span class="m">Brasil</span><div class="v"><span id="mp-brv"></span><small id="mp-brpos"></small></div></div>' +
+        '<div class="mp-br"><span class="m">' + T('Brasil', 'Brazil') + '</span><div class="v"><span id="mp-brv"></span><small id="mp-brpos"></small></div><div class="mp-brsit" id="mp-brsit"></div></div>' +
         '<ul class="mp-rank">' + Array.apply(null, Array(11)).map(function () { return '<li><span class="m"></span><span><img class="bandeira" alt="" loading="lazy"><span class="nome"></span></span><b></b><span class="barra"><i style="width:0"></i></span></li>'; }).join('') + '</ul>' +
-        '<p class="mp-nota">Só certificados emitidos por organismos acreditados por membros do IAF. Países sem certificado acreditado não aparecem. Fonte: ISO Survey 2025.</p>';
+        '<p class="mp-nota">' + T('Como ler: o número é o total de certificados em vigor em 31-dez-2025, emitidos em qualquer ano e ainda válidos nessa data; não é o número de certificações feitas em 2025. Site é cada local permanente coberto por um certificado. Entram só certificados de organismos acreditados por membros da Global ACI (antigo IAF), carregados no IAF CertSearch: certificação sem acreditação e certificadoras que ainda não enviaram dados ficam de fora, então o total real do país pode ser maior. Fonte: ISO Survey 2025, publicado em outubro de 2026.', 'How to read: the figure is the total of certificates in force on 31-dec-2025, issued in any year and still valid on that date; it is not the number of certifications granted in 2025. A site is each permanent location covered by a certificate. Only certificates from bodies accredited by Global ACI members (formerly IAF), uploaded to IAF CertSearch, are counted: non-accredited certification and certification bodies that have not yet uploaded data are left out, so the real total for a country may be higher. Source: ISO Survey 2025, published October 2026.') + '</p>';
       entra($('.mp-rank', lado));
     }
     $('h3', lado).textContent = nome; $('#mp-tit').textContent = s.titulo || '';
-    roleta($('#mp-tot'), s.total); $('#mp-paises').textContent = 'certificados válidos em 31-dez-2025 · ' + rank.length + ' países';
-    roleta($('#mp-brv'), s.paises.BR || 0); $('#mp-brpos').textContent = posBR ? posBR + 'º no mundo · ' + posLA + 'º na América Latina' : '';
+    roleta($('#mp-tot'), s.total); $('#mp-paises').textContent = T('certificados em vigor em ', 'certificates in force on ') + dataBR('2025-12-31') + (s.total_sites ? ' · ' + fmt(s.total_sites) + ' sites' : '') + ' · ' + rank.length + T(' países', ' countries');   // 27/10: «ficar bem claro que esse número é de 2025… todos os números válidos»
+    roleta($('#mp-brv'), s.paises.BR || 0); $('#mp-brsit').textContent = (s.sites && s.sites.BR ? fmt(s.sites.BR) + ' sites · ' : '') + T('certificados em vigor em ', 'certificates in force on ') + dataBR('2025-12-31');
+    $('#mp-brpos').textContent = (posBR ? T(posBR + 'º no mundo · ' + posLA + 'º na América Latina', '#' + posBR + ' worldwide · #' + posLA + ' in Latin America') : '');
     $$('.mp-rank li', lado).forEach(function (li, i) {
       var a = top[i]; li.style.display = a ? '' : 'none'; if (!a) return;
       li.classList.toggle('br', a === 'BR');

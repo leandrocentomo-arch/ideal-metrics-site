@@ -170,7 +170,7 @@ def survey():
             continue
         ws = wb[aba]
         titulo = None
-        paises = {}
+        paises, sites = {}, {}   # 27/10/2026: sites junto com certificados («seria interessante se tivesse todos os números válidos»)
         for i, row in enumerate(ws.iter_rows(values_only=True)):
             if i == 0:
                 titulo = row[0]
@@ -186,10 +186,13 @@ def survey():
                 if not a2:
                     SEM_CODIGO.add(nome); continue
                 paises[a2] = paises.get(a2, 0) + int(cert)
+                if len(row) > 2 and isinstance(row[2], (int, float)):
+                    sites[a2] = sites.get(a2, 0) + int(row[2])
                 NUMERICO[a2] = numd
                 NOMES[a2] = nome
         if paises:
-            out[num] = {'titulo': titulo, 'paises': paises, 'total': sum(paises.values())}
+            out[num] = {'titulo': titulo, 'paises': paises, 'total': sum(paises.values()),
+                        'sites': sites, 'total_sites': sum(sites.values())}
     if SEM_CODIGO:
         print('países sem código (fora do mapa):', sorted(SEM_CODIGO))
     return out

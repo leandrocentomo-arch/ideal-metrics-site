@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=115">
-<link rel="stylesheet" href="css/painel-normas.css?v=101">
+<link rel="stylesheet" href="css/painel-normas.css?v=104">
 <meta name="description" content="Andamento das normas ISO de sistemas de gestão, sustentabilidade e segurança: estágio, comitê, revisão sistemática e certificados por país. Fonte: ISO Open Data e ISO Survey.">
 <script>document.documentElement.classList.add('js');window.addEventListener('load',function(){setTimeout(function(){if(!document.querySelector('.in-view')){var n=document.querySelectorAll('.rot-sec,.sec,.content>*');for(var i=0;i<n.length;i++){n[i].classList.add('in-view');}}},1200);});</script>
 </head>
@@ -106,47 +106,48 @@
 <main class="pn" id="painel">
   <div class="pn-cab">
     <div>
-      <span class="m">Estudos e pesquisa aplicada · painel · base da ISO de <span id="pn-gerado">…</span></span>
-      <h1>Painel de normas ISO</h1>
-      <p class="pn-sub">Andamento das normas de sistemas de gestão, sustentabilidade e segurança nos comitês que a Ideal Metrics acompanha.</p>
+      <span class="m" data-en="Applied studies and research · dashboard · ISO database of <span id='pn-gerado'>…</span>">Estudos e pesquisa aplicada · painel · base da ISO de <span id="pn-gerado">…</span></span>
+      <h1 data-en="ISO Standards Dashboard">Painel de normas ISO</h1>
+      <p class="pn-sub" data-en="Progress of management system, sustainability and safety standards in the committees that Ideal Metrics follows.">Andamento das normas de sistemas de gestão, sustentabilidade e segurança nos comitês que a Ideal Metrics acompanha.</p>
     </div>
-    <div class="pn-abas" role="tablist"><button role="tab" data-aba="mapa" aria-selected="true"><span class="m">[ 01 ]</span>Certificados no mundo</button><button role="tab" data-aba="setores" aria-selected="false"><span class="m">[ 02 ]</span>Certificados por setor</button><button role="tab" data-aba="normas" aria-selected="false"><span class="m">[ 03 ]</span>Normas por tema</button><button role="tab" data-aba="tempo" aria-selected="false"><span class="m">[ 04 ]</span>Linha do tempo</button><button role="tab" data-aba="mudancas" aria-selected="false"><span class="m">[ 05 ]</span>O que mudou</button><button role="tab" data-aba="revisao" aria-selected="false"><span class="m">[ 06 ]</span>Revisão sistemática</button></div>
+    <div class="pn-abas" role="tablist"><button role="tab" data-aba="mapa" aria-selected="true" data-en="<span class='m'>[ 01 ]</span>Certificates worldwide"><span class="m">[ 01 ]</span>Certificados no mundo</button><button role="tab" data-aba="setores" aria-selected="false" data-en="<span class='m'>[ 02 ]</span>Certificates by sector"><span class="m">[ 02 ]</span>Certificados por setor</button><button role="tab" data-aba="normas" aria-selected="false" data-en="<span class='m'>[ 03 ]</span>Standards by theme"><span class="m">[ 03 ]</span>Normas por tema</button><button role="tab" data-aba="tempo" aria-selected="false" data-en="<span class='m'>[ 04 ]</span>Timeline"><span class="m">[ 04 ]</span>Linha do tempo</button><button role="tab" data-aba="mudancas" aria-selected="false" data-en="<span class='m'>[ 05 ]</span>What changed"><span class="m">[ 05 ]</span>O que mudou</button><button role="tab" data-aba="revisao" aria-selected="false" data-en="<span class='m'>[ 06 ]</span>Systematic review"><span class="m">[ 06 ]</span>Revisão sistemática</button></div>
+    <div class="pn-lang" role="group" aria-label="Idioma · Language"><button type="button" data-lang="pt" title="Português" aria-label="Português"><img src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/br.svg" alt=""></button><button type="button" data-lang="en" title="English" aria-label="English"><img src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/gb.svg" alt=""></button></div>
   </div>
 
-  <aside class="pn-lado" aria-label="Busca e filtros">
-    <button class="pn-puxa" type="button" aria-expanded="false" aria-label="Abrir busca e filtros"><span class="m">Busca e filtros</span><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
-    <div class="pn-busca"><input id="pn-q" type="search" placeholder="Número, título ou comitê" aria-label="Buscar norma" autocomplete="off"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
-    <div class="pn-bloco"><span class="m">Tema <span><button data-k="temas" data-on="1">todos</button> · <button data-k="temas" data-on="0">nenhum</button></span></span><div id="f-temas"></div></div>
-    <div class="pn-bloco"><span class="m">Estágio <span><button data-k="fases" data-on="1">todos</button> · <button data-k="fases" data-on="0">nenhum</button></span></span><div id="f-fases"></div></div>
-    <div class="pn-bloco"><span class="m">Tipo de documento <span><button data-k="tipos" data-on="1">todos</button> · <button data-k="tipos" data-on="0">nenhum</button></span></span><div id="f-tipos"></div></div>
-    <div class="pn-bloco"><label class="pn-op"><input type="checkbox" id="f-pagina"> <span>Só normas com serviço da Ideal Metrics</span></label></div>
-    <p class="pn-fonte">Fontes: <a href="https://www.iso.org/open-data.html" target="_blank" rel="noopener">ISO Open Data</a>, licença ODC-By 1.0, atualizada semanalmente neste painel; ISO Survey 2025 (certificados em 31-dez-2025). Os textos de escopo são da ISO, em inglês. Os documentos de comitê não são públicos e não estão aqui.</p>
+  <aside class="pn-lado" aria-label="Busca e filtros" data-en-al="Search and filters">
+    <button class="pn-puxa" type="button" aria-expanded="false" aria-label="Abrir busca e filtros" data-en-al="Open search and filters"><span class="m" data-en="Search and filters">Busca e filtros</span><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div class="pn-busca"><input id="pn-q" type="search" placeholder="Número, título ou comitê" aria-label="Buscar norma" data-en-ph="Number, title or committee" data-en-al="Search standard" autocomplete="off"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+    <div class="pn-bloco"><span class="m" data-en="Theme <span><button data-k='temas' data-on='1'>all</button> · <button data-k='temas' data-on='0'>none</button></span>">Tema <span><button data-k="temas" data-on="1">todos</button> · <button data-k="temas" data-on="0">nenhum</button></span></span><div id="f-temas"></div></div>
+    <div class="pn-bloco"><span class="m" data-en="Stage <span><button data-k='fases' data-on='1'>all</button> · <button data-k='fases' data-on='0'>none</button></span>">Estágio <span><button data-k="fases" data-on="1">todos</button> · <button data-k="fases" data-on="0">nenhum</button></span></span><div id="f-fases"></div></div>
+    <div class="pn-bloco"><span class="m" data-en="Document type <span><button data-k='tipos' data-on='1'>all</button> · <button data-k='tipos' data-on='0'>none</button></span>">Tipo de documento <span><button data-k="tipos" data-on="1">todos</button> · <button data-k="tipos" data-on="0">nenhum</button></span></span><div id="f-tipos"></div></div>
+    <div class="pn-bloco"><label class="pn-op"><input type="checkbox" id="f-pagina"> <span data-en="Only standards with an Ideal Metrics service">Só normas com serviço da Ideal Metrics</span></label></div>
+    <p class="pn-fonte" data-en="Sources: <a href='https://www.iso.org/open-data.html' target='_blank' rel='noopener'>ISO Open Data</a>, ODC-By 1.0 licence, updated weekly in this dashboard; ISO Survey 2025 (certificates as of 31-dec-2025). Scope texts are from ISO. Committee documents are not public and are not included.">Fontes: <a href="https://www.iso.org/open-data.html" target="_blank" rel="noopener">ISO Open Data</a>, licença ODC-By 1.0, atualizada semanalmente neste painel; ISO Survey 2025 (certificados em 31-dez-2025). Os textos de escopo são da ISO, em inglês. Os documentos de comitê não são públicos e não estão aqui.</p>
   </aside>
 
   <section class="pn-main">
     <div class="pn-vista" id="v-normas" role="tabpanel">
-      <div class="pn-topo"><h2>Normas por tema</h2><span class="m" id="pn-total"></span>
-        <div class="pn-ord"><span class="m" style="padding:4px 6px 0 0">ordem</span><button data-ord="num" aria-pressed="true">número</button><button data-ord="fase" aria-pressed="false">estágio</button><button data-ord="data" aria-pressed="false">publicação</button></div></div>
+      <div class="pn-topo"><h2 data-en="Standards by theme">Normas por tema</h2><span class="m" id="pn-total"></span>
+        <div class="pn-ord"><span class="m" style="padding:4px 6px 0 0" data-en="order">ordem</span><button data-ord="num" aria-pressed="true" data-en="number">número</button><button data-ord="fase" aria-pressed="false" data-en="stage">estágio</button><button data-ord="data" aria-pressed="false" data-en="publication">publicação</button></div></div>
       <ul class="pn-lista" id="pn-lista"></ul>
     </div>
     <div class="pn-vista" id="v-tempo" role="tabpanel">
-      <div class="pn-topo"><h2>Linha do tempo das normas-chave</h2><span class="m">edições publicadas e projetos em curso</span></div>
-      <div class="lt-cab"><span class="m">norma</span><div class="lt-anos" id="lt-anos"></div></div>
+      <div class="pn-topo"><h2 data-en="Timeline of key standards">Linha do tempo das normas-chave</h2><span class="m" data-en="published editions and projects under way">edições publicadas e projetos em curso</span></div>
+      <div class="lt-cab"><span class="m" data-en="standard">norma</span><div class="lt-anos" id="lt-anos"></div></div>
       <div id="lt-corpo"></div>
-      <div class="lt-leg"><span><i></i>edição em vigor</span><span><i class="ant"></i>edição anterior</span><span><i class="dev"></i>projeto em desenvolvimento (posição = hoje)</span><span>Clique na marca para abrir a ficha.</span></div>
+      <div class="lt-leg"><span data-en="<i></i>current edition"><i></i>edição em vigor</span><span data-en="<i class='ant'></i>previous edition"><i class="ant"></i>edição anterior</span><span data-en="<i class='dev'></i>project under development (position = today)"><i class="dev"></i>projeto em desenvolvimento (posição = hoje)</span><span data-en="Click a mark to open the record.">Clique na marca para abrir a ficha.</span></div>
     </div>
     <div class="pn-vista" id="v-mudancas" role="tabpanel">
-      <div class="pn-topo"><h2>O que mudou</h2><span class="m">comparação semanal da base da ISO</span></div>
+      <div class="pn-topo"><h2 data-en="What changed">O que mudou</h2><span class="m" data-en="weekly comparison of the ISO database">comparação semanal da base da ISO</span></div>
       <div id="md-corpo"></div>
-      <p class="md-nota">A ISO não publica a data em que cada projeto muda de estágio. Este painel compara a base a cada semana e registra a diferença na data da comparação. Movimentos dos últimos 180 dias.</p>
+      <p class="md-nota" data-en="ISO does not publish the date on which each project changes stage. This dashboard compares the database every week and records the difference on the comparison date. Movements from the last 180 days.">A ISO não publica a data em que cada projeto muda de estágio. Este painel compara a base a cada semana e registra a diferença na data da comparação. Movimentos dos últimos 180 dias.</p>
     </div>
     <div class="pn-vista" id="v-revisao" role="tabpanel">
-      <div class="pn-topo"><h2>Revisão sistemática</h2><span class="m" id="rv-total"></span></div>
-      <p class="md-nota" style="margin:14px 0 4px">Norma em revisão sistemática continua válida. O resultado da consulta pode ser manter, revisar ou cancelar; quando há projeto de nova edição em curso, ele aparece na linha.</p>
+      <div class="pn-topo"><h2 data-en="Systematic review">Revisão sistemática</h2><span class="m" id="rv-total"></span></div>
+      <p class="md-nota" style="margin:14px 0 4px" data-en="A standard under systematic review remains valid. The outcome of the consultation can be to confirm, revise or withdraw it; when a new edition project is under way, it appears on the row.">Norma em revisão sistemática continua válida. O resultado da consulta pode ser manter, revisar ou cancelar; quando há projeto de nova edição em curso, ele aparece na linha.</p>
       <ul class="pn-lista" id="rv-corpo"></ul>
     </div>
     <div class="pn-vista ativa" id="v-mapa" role="tabpanel">
-      <div class="pn-topo"><h2>Certificados no mundo</h2><span class="m">ISO Survey 2025 · certificados acreditados válidos</span></div>
+      <div class="pn-topo"><h2 data-en="Certificates worldwide">Certificados no mundo</h2><span class="m" data-en="ISO Survey 2025 · accredited certificates in force on 31-dec-2025">ISO Survey 2025 · certificados acreditados em vigor em 31-dez-2025</span></div>
       <div class="mp-sel" id="mp-sel"></div>
       <div class="mp-grid">
         <div>
@@ -157,15 +158,15 @@
       </div>
     </div>
     <div class="pn-vista" id="v-setores" role="tabpanel">
-      <div class="pn-topo"><h2>Certificados por setor</h2><span class="m">ISO Survey 2025 · setores EA informados pelos organismos de certificação</span></div>
+      <div class="pn-topo"><h2 data-en="Certificates by sector">Certificados por setor</h2><span class="m" data-en="ISO Survey 2025 · EA sectors reported by certification bodies">ISO Survey 2025 · setores EA informados pelos organismos de certificação</span></div>
       <div class="mp-sel" id="st-sel"></div>
-      <div class="st-cab"><div class="st-onde" role="group" aria-label="Mundo ou Brasil"><button type="button" data-onde="mundo" aria-pressed="true">Mundo</button><button type="button" data-onde="br" aria-pressed="false"><img class="bandeira" src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/br.svg" alt="">Brasil</button></div><span class="m" id="st-total"></span></div>
+      <div class="st-cab"><div class="st-onde" role="group" aria-label="Mundo ou Brasil" data-en-al="World or Brazil"><button type="button" data-onde="mundo" aria-pressed="true" data-en="World">Mundo</button><button type="button" data-onde="br" aria-pressed="false" data-en="<img class='bandeira' src='https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/br.svg' alt=''>Brazil"><img class="bandeira" src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/br.svg" alt="">Brasil</button></div><span class="m" id="st-total"></span></div>
       <div class="ca-cal" id="st-calor"></div>
-      <p class="md-nota">Só os certificados cujo organismo informou o setor à ISO: para a ISO 9001, cerca de 22% dos certificados válidos. Classificação nos 39 setores EA (European co-operation for Accreditation), agrupados aqui nos setores que a Ideal Metrics atende. Fonte: ISO Survey 2025.</p>
+      <p class="md-nota" data-en="Only certificates whose certification body reported the sector to ISO: for ISO 9001, about 22% of valid certificates. Classification in the 39 EA sectors (European co-operation for Accreditation), grouped here into the sectors Ideal Metrics serves. Source: ISO Survey 2025.">Só os certificados cujo organismo informou o setor à ISO: para a ISO 9001, cerca de 22% dos certificados válidos. Classificação nos 39 setores EA (European co-operation for Accreditation), agrupados aqui nos setores que a Ideal Metrics atende. Fonte: ISO Survey 2025.</p>
     </div>
   </section>
   <div class="pn-veu" id="pn-veu"></div>
-  <aside class="pn-det" id="pn-det" aria-label="Ficha da norma"><button class="fechar" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button></aside>
+  <aside class="pn-det" id="pn-det" aria-label="Ficha da norma" data-en-al="Standard record"><button class="fechar" aria-label="Fechar" data-en-al="Close"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19"/></svg></button></aside>
 </main>
 <footer class="ft-root js-ft-root" aria-label="Rodapé Ideal Metrics">
   <div class="ft-brand">
@@ -276,6 +277,6 @@
 <script src="js/banner.js?v=2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" defer></script>
-<script src="js/painel-normas.js?v=55" defer></script>
+<script src="js/painel-normas.js?v=59" defer></script>
 <script src="js/gaveta.js?v=14" defer></script>
 </body></html>

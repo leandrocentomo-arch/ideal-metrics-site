@@ -738,3 +738,19 @@
 .mp-mapa .pulso .vareta{stroke-width:.5}   /* 27/10: «pode deixar 0,5» */
 .mp-mapa .pulso .vareta{stroke-width:.1}   /* 27/10: «deixe 0,1, quero ver como fica» */
 .mp-mapa .pulso .vareta{stroke-width:.2}   /* 27/10: «deixe as linhas 0,2» (o 0,1 foi só para ver) */
+
+/* 27/10/2026, versão em inglês («tem que ter as duas bandeirinhas no canto direito, tem que ser default português»): Brasil e
+   inglês no canto superior direito do cabeçalho do painel, na mesma tinta monocromática das bandeiras do ranking; a escolhida
+   fica cheia e com fio de 0,5 px, a outra a meia força */
+.pn-cab{position:relative}
+.pn-lang{position:absolute;top:12px;right:16px;display:flex;gap:6px;z-index:4}
+.pn-lang button{display:block;padding:2px;border:.5px solid transparent;border-radius:2px;background:transparent;cursor:pointer;line-height:0;opacity:.5;transition:opacity .2s,border-color .2s}
+.pn-lang button:hover,.pn-lang button:focus-visible{opacity:.85;outline:none}
+.pn-lang button[aria-pressed=true]{opacity:1;border-color:#14304C;cursor:default}
+.pn-lang img{width:18px;height:13.5px;border-radius:1px;filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(1.5) brightness(.92) contrast(1.05);box-shadow:0 0 0 .5px rgba(20,48,76,.25)}
+/* 27/10/2026, «gostaria que não tivesse esse fundo, que o gráfico estivesse direto no vidro»: o mapa de calor dos setores perde
+   a placa branca, o fio e a sombra; fica direto no vidro da área principal, alinhado à esquerda com o título da aba */
+.ca-cal{background:transparent;border:0;box-shadow:none;padding:16px 0 14px}
+
+/* 27/10/2026: sites e data-base do Brasil numa linha própria, abaixo do número («ficar bem claro que esse número é de 2025») */
+.mp-brsit{font-size:12px;color:#315275;margin-top:2px}
