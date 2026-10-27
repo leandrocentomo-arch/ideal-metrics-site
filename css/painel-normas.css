@@ -362,3 +362,10 @@
 .mp-ctl button:first-child{background:var(--tinta);color:var(--creme);border-color:var(--tinta)}
 .mp-ctl button:disabled{opacity:.5;cursor:default}
 .mp-mapa svg.plano~.mp-ctl button:last-child{display:none}
+
+/* 27/10/2026, «mais efeito de vidro… a mesma cor do globo fosse a mesma cor do fundo»: a caixa branca do mapa sai, o globo fica direto no vidro da placa e o oceano é vidro (gradiente no JS) */
+@media (min-width:981px){
+  .mp-mapa{background:transparent;border-color:transparent;box-shadow:none}
+  .mp-mapa path.grade{stroke:rgba(255,255,255,.55)}
+  .mp-mapa path.esfera{filter:drop-shadow(0 12px 28px rgba(20,48,76,.18))}
+}

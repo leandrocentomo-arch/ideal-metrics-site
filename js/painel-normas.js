@@ -309,7 +309,12 @@
       var muta = d3.geoProjectionMutator(function (t) { return function (x, y) { var a = d3.geoOrthographicRaw(x, y), b = d3.geoNaturalEarth1Raw(x, y); return [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])]; }; });
       var proj = muta(0).translate([W / 2, H / 2]).precision(.5), geo = d3.geoPath(proj);
       var svg = d3.select(box).insert('svg', ':first-child').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', 'Globo de certificados por país');
-      var esfera = svg.append('path').attr('class', 'esfera').attr('fill', '#FAF9F5').attr('stroke', 'rgba(20,48,76,.3)').attr('stroke-width', .6);
+      /* 27/10: oceano de vidro, no mesmo tom da placa onde o globo está (só um brilho claro no alto à esquerda) */
+      var brilho = svg.append('defs').append('radialGradient').attr('id', 'mp-vidro').attr('cx', '32%').attr('cy', '26%').attr('r', '78%');
+      brilho.append('stop').attr('offset', '0').attr('stop-color', '#fff').attr('stop-opacity', .42);
+      brilho.append('stop').attr('offset', '.55').attr('stop-color', '#fff').attr('stop-opacity', .1);
+      brilho.append('stop').attr('offset', '1').attr('stop-color', '#14304C').attr('stop-opacity', .06);
+      var esfera = svg.append('path').attr('class', 'esfera').attr('fill', 'url(#mp-vidro)').attr('stroke', 'rgba(255,255,255,.9)').attr('stroke-width', 1.2);
       var grade = svg.append('path').datum(d3.geoGraticule10()).attr('class', 'grade');
       paths = svg.append('g').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path').attr('class', 'pais');
       function desenha() {
