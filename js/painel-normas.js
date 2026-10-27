@@ -464,8 +464,10 @@
         e.append('circle').attr('class', 'ponto').attr('r', 1.8);
         var t = e.append('text'); t.append('tspan').attr('class', 'nome'); t.append('tspan').attr('class', 'n').attr('dx', 6);
         gPulsos.selectAll('g.pulso').each(function (d, i) { d.vaga = i; });
-        gPulsos.selectAll('g.pulso .nome').text(function (d) { return nomePais(d.a2); });
-        gPulsos.selectAll('g.pulso .n').text(function (d) { return fmt(d.v); });
+        /* 27/10: «quando mudo de norma tem que sair os dados da anterior»: selectAll não repassa o dado novo do grupo aos
+           filhos (ficava o número da norma anterior); select repassa */
+        gPulsos.selectAll('g.pulso').select('.nome').text(function (d) { return nomePais(d.a2); });
+        gPulsos.selectAll('g.pulso').select('.n').text(function (d) { return fmt(d.v); });
         poePulsos();
       };
       function poePulsos() {
