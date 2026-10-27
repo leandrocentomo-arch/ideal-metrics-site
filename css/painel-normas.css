@@ -314,3 +314,28 @@
 }
 @media (min-width:981px){.pn-item{grid-template-columns:172px minmax(0,1fr) 200px 28px}}   /* referência e estágio inteiros na linha única */
 .mp-br .v{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* 27/10/2026, mesmo dia: «o menu da esquerda pode ser puxado por tag, para ficar mais espaço»; «Certificados no mundo tem que
+   ser a primeira»; «os tags das normas devem estar apenas em uma linha». No computador a coluna de busca e filtros fica
+   recolhida numa etiqueta vertical de 38 px e abre para 260 px ao clicar (empurra a área principal, não cobre). Os botões das
+   normas do mapa ficam numa fileira só, na largura toda da área principal; se não couberem, rolam para o lado. */
+.pn-puxa{display:none}
+.mp-sel{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding-top:10px}
+.mp-sel button{flex:none;white-space:nowrap}
+@media (min-width:981px){
+  .pn{grid-template-columns:38px minmax(0,1fr);transition:grid-template-columns .35s cubic-bezier(.2,.7,.2,1)}
+  .pn.lado-aberto{grid-template-columns:260px minmax(0,1fr)}
+  .pn:not(.lado-aberto) .pn-lado{padding:0;overflow:hidden}
+  .pn:not(.lado-aberto) .pn-lado>:not(.pn-puxa){display:none}
+  .pn-puxa{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;padding:0 0 10px;margin:0 0 4px;border-bottom:1px solid var(--fio)}
+  .pn-puxa svg{width:14px;height:14px;stroke:var(--tinta);fill:none;stroke-width:1.5;transform:rotate(180deg);transition:transform .3s}
+  .pn-puxa:hover svg{stroke:var(--liga)}
+  .pn:not(.lado-aberto) .pn-puxa{flex-direction:column-reverse;justify-content:flex-end;height:100%;padding:14px 0;margin:0;border:0;gap:12px}
+  .pn:not(.lado-aberto) .pn-puxa svg{transform:none}
+  .pn:not(.lado-aberto) .pn-puxa .m{writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.14em}
+  .pn:not(.lado-aberto) .pn-puxa:hover{background:rgba(255,255,255,.35)}
+  .mp-grid{padding-top:8px}
+}
+@media (min-width:981px){
+  .mp-sel button{padding:3px 5px}   /* as 17 normas cabem numa fileira sem rolar, com os filtros recolhidos */
+  .mp-grid{grid-template-columns:minmax(0,1fr) 300px}   /* «11º no mundo · 1º na América Latina» inteiro na caixa do Brasil */
+}

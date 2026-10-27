@@ -46,7 +46,7 @@
     $('#pn-gerado').textContent = dataBR(D.gerado);
     var h = location.hash.replace('#', '');
     if (/^n\d+$/.test(h)) abreDetalhe(+h.slice(1));
-    else if (h) mostraAba(h);
+    else mostraAba(h && $('#v-' + h) ? h : 'mapa');   /* 27/10: Certificados no mundo é a primeira aba e abre por padrão */
   });
 
   /* ---------- filtros ---------- */
@@ -93,6 +93,14 @@
       var a = e.target.closest('[data-id]'); if (a) { abreDetalhe(+a.dataset.id); }
     });
   }
+
+  /* 27/10: a coluna de busca e filtros fica recolhida numa etiqueta e se puxa para abrir (Leandro: «o menu da esquerda pode ser
+     puxado por tag, para ficar mais espaço») */
+  $('.pn-puxa').addEventListener('click', function () {
+    var ab = $('.pn').classList.toggle('lado-aberto');
+    this.setAttribute('aria-expanded', ab); this.setAttribute('aria-label', ab ? 'Recolher busca e filtros' : 'Abrir busca e filtros');
+    if (ab) setTimeout(function () { $('#pn-q').focus({ preventScroll: true }); }, 360);
+  });
 
   function mostraAba(id) {
     if (!$('#v-' + id)) return;

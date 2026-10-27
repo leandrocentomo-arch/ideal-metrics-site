@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=114">
-<link rel="stylesheet" href="css/painel-normas.css?v=17">
+<link rel="stylesheet" href="css/painel-normas.css?v=19">
 <meta name="description" content="Andamento das normas ISO de sistemas de gestão, sustentabilidade e segurança: estágio, comitê, revisão sistemática e certificados por país. Fonte: ISO Open Data e ISO Survey.">
 <script>document.documentElement.classList.add('js');window.addEventListener('load',function(){setTimeout(function(){if(!document.querySelector('.in-view')){var n=document.querySelectorAll('.rot-sec,.sec,.content>*');for(var i=0;i<n.length;i++){n[i].classList.add('in-view');}}},1200);});</script>
 </head>
@@ -110,10 +110,11 @@
       <h1>Painel de normas ISO</h1>
       <p class="pn-sub">Andamento das normas de sistemas de gestão, sustentabilidade e segurança nos comitês que a Ideal Metrics acompanha: estágio de cada projeto, comitê responsável, revisões em curso e certificados válidos por país.</p>
     </div>
-    <div class="pn-abas" role="tablist"><button role="tab" data-aba="normas" aria-selected="true"><span class="m">[ 01 ]</span>Normas por tema</button><button role="tab" data-aba="tempo" aria-selected="false"><span class="m">[ 02 ]</span>Linha do tempo</button><button role="tab" data-aba="mudancas" aria-selected="false"><span class="m">[ 03 ]</span>O que mudou</button><button role="tab" data-aba="revisao" aria-selected="false"><span class="m">[ 04 ]</span>Revisão sistemática</button><button role="tab" data-aba="mapa" aria-selected="false"><span class="m">[ 05 ]</span>Certificados no mundo</button></div>
+    <div class="pn-abas" role="tablist"><button role="tab" data-aba="mapa" aria-selected="true"><span class="m">[ 01 ]</span>Certificados no mundo</button><button role="tab" data-aba="normas" aria-selected="false"><span class="m">[ 02 ]</span>Normas por tema</button><button role="tab" data-aba="tempo" aria-selected="false"><span class="m">[ 03 ]</span>Linha do tempo</button><button role="tab" data-aba="mudancas" aria-selected="false"><span class="m">[ 04 ]</span>O que mudou</button><button role="tab" data-aba="revisao" aria-selected="false"><span class="m">[ 05 ]</span>Revisão sistemática</button></div>
   </div>
 
   <aside class="pn-lado" aria-label="Busca e filtros">
+    <button class="pn-puxa" type="button" aria-expanded="false" aria-label="Abrir busca e filtros"><span class="m">Busca e filtros</span><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
     <div class="pn-busca"><input id="pn-q" type="search" placeholder="Número, título ou comitê" aria-label="Buscar norma" autocomplete="off"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
     <div class="pn-bloco"><span class="m">Tema <span><button data-k="temas" data-on="1">todos</button> · <button data-k="temas" data-on="0">nenhum</button></span></span><div id="f-temas"></div></div>
     <div class="pn-bloco"><span class="m">Estágio <span><button data-k="fases" data-on="1">todos</button> · <button data-k="fases" data-on="0">nenhum</button></span></span><div id="f-fases"></div></div>
@@ -123,7 +124,7 @@
   </aside>
 
   <section class="pn-main">
-    <div class="pn-vista ativa" id="v-normas" role="tabpanel">
+    <div class="pn-vista" id="v-normas" role="tabpanel">
       <div class="pn-topo"><h2>Normas por tema</h2><span class="m" id="pn-total"></span>
         <div class="pn-ord"><span class="m" style="padding:4px 6px 0 0">ordem</span><button data-ord="num" aria-pressed="true">número</button><button data-ord="fase" aria-pressed="false">estágio</button><button data-ord="data" aria-pressed="false">publicação</button></div></div>
       <ul class="pn-lista" id="pn-lista"></ul>
@@ -144,11 +145,11 @@
       <p class="md-nota" style="margin:14px 0 4px">Norma em revisão sistemática continua válida. O resultado da consulta pode ser manter, revisar ou cancelar; quando há projeto de nova edição em curso, ele aparece na linha.</p>
       <ul class="pn-lista" id="rv-corpo"></ul>
     </div>
-    <div class="pn-vista" id="v-mapa" role="tabpanel">
+    <div class="pn-vista ativa" id="v-mapa" role="tabpanel">
       <div class="pn-topo"><h2>Certificados no mundo</h2><span class="m">ISO Survey 2025 · certificados acreditados válidos</span></div>
+      <div class="mp-sel" id="mp-sel"></div>
       <div class="mp-grid">
         <div>
-          <div class="mp-sel" id="mp-sel"></div>
           <div class="mp-mapa" id="mp-mapa"><div class="mp-dica" id="mp-dica"></div></div>
           <div class="mp-esc" id="mp-esc"></div>
         </div>
@@ -267,6 +268,6 @@
 <script src="js/banner.js?v=2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" defer></script>
-<script src="js/painel-normas.js?v=6" defer></script>
+<script src="js/painel-normas.js?v=7" defer></script>
 <script src="js/gaveta.js?v=14" defer></script>
 </body></html>
