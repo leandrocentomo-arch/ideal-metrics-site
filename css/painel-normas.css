@@ -498,3 +498,22 @@
   .mp-sel button.longo{font-size:8.6px;letter-spacing:-.05em}
 }
 .mp-mapa .pulso circle.anel{stroke-width:.5}   /* 27/10: «deixe a linha do pulso o mais fino possível» */
+
+/* 27/10/2026, «as tags de número ficam pulando conforme o globo roda, use varetas bem finas»: número em coluna fixa à direita do
+   globo, vareta de 0,4 até o ponto do país; o conjunto some e aparece em fade, sem pulo */
+.mp-mapa g.pulso{transition:opacity .45s}
+.mp-mapa .pulso line.vareta{stroke:var(--tinta);stroke-width:.4;stroke-opacity:.6}
+.mp-mapa .pulso text{font-size:10px;font-weight:400}
+.mp-mapa .pulso text .n{font-weight:600}
+.mp-mapa .pulso circle.anel{stroke-width:.4}
+
+/* 27/10/2026, setores, «não deixe a faixa creme de fundo, faça todos da mesma largura, e faça um pouco mais sério»: ilustração
+   sem o creme (transparente, mesma tela 560 × 300, assentada embaixo), menor e mais contida (cor atenuada), cartão mais seco */
+.st-card .st-ilus,.st-card .st-sem{height:auto;aspect-ratio:560/300;width:100%;object-fit:contain;object-position:left bottom;margin:0 0 10px;filter:saturate(.55) opacity(.82)}
+.st-card .st-sem{border:0}
+.st-card{padding:14px 16px 12px}
+.st-card h3{font-size:13px;letter-spacing:.01em}
+.st-card .st-n b{font-size:20px;font-weight:600}
+.st-card .st-barra{height:2px;background:rgba(20,48,76,.08)}
+.st-card .st-barra i{background:var(--tinta);opacity:.55}
+.st-ea li{font-size:11px}

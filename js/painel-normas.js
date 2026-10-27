@@ -405,18 +405,28 @@
         if (s.paises.BR && centro.BR && top.indexOf('BR') < 0) top.push('BR');
         var g = gPulsos.selectAll('g.pulso').data(top.map(function (a) { return { a2: a, c: centro[a], v: s.paises[a] }; }), function (d) { return d.a2; });
         g.exit().remove();
+        /* 27/10, 2º: «as tags de número ficam pulando conforme o globo roda, use varetas bem finas»: o número fica numa
+           coluna fixa à direita do globo (uma vaga por país, na ordem do ranking) e uma vareta liga a vaga ao ponto do país */
         var e = g.enter().append('g').attr('class', 'pulso');
+        e.append('line').attr('class', 'vareta');
         e.append('circle').attr('class', 'anel').attr('r', 7).style('animation-delay', function (d, i) { return (i * .27) + 's'; });
-        e.append('circle').attr('class', 'ponto').attr('r', 2.2);
-        e.append('text').attr('x', 10).attr('y', 4);
-        gPulsos.selectAll('g.pulso text').text(function (d) { return fmt(d.v); });
+        e.append('circle').attr('class', 'ponto').attr('r', 1.8);
+        var t = e.append('text'); t.append('tspan').attr('class', 'nome'); t.append('tspan').attr('class', 'n').attr('dx', 6);
+        gPulsos.selectAll('g.pulso').each(function (d, i) { d.vaga = i; });
+        gPulsos.selectAll('g.pulso .nome').text(function (d) { return nomePais(d.a2); });
+        gPulsos.selectAll('g.pulso .n').text(function (d) { return fmt(d.v); });
         poePulsos();
       };
       function poePulsos() {
         var a = Math.sqrt(Math.max(0, Math.min(1, prog))), olho = [-giro[0], -giro[1]];
+        var n = gPulsos.selectAll('g.pulso').size(), x0 = W / 2 + ESC_GLOBO + 26, y0 = H / 2 - (n - 1) * 11;
         gPulsos.selectAll('g.pulso').each(function (d) {
-          var vis = a > .98 || d3.geoDistance(d.c, olho) < 1.42, p = proj(d.c);
-          d3.select(this).style('display', vis && p ? null : 'none').attr('transform', p ? 'translate(' + p[0].toFixed(1) + ',' + p[1].toFixed(1) + ')' : null);
+          var vis = a > .98 || d3.geoDistance(d.c, olho) < 1.42, p = proj(d.c), sy = y0 + d.vaga * 22, g = d3.select(this);
+          g.style('opacity', vis && p ? 1 : 0);
+          if (!p) return;
+          g.selectAll('circle').attr('cx', p[0]).attr('cy', p[1]);
+          g.select('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', x0 - 6).attr('y2', sy);
+          g.select('text').attr('x', x0).attr('y', sy + 4);
         });
       }
       function desenha() {
