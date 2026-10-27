@@ -718,3 +718,4 @@
   .pn-logo-fixo .marca-frente{height:102px}
 }
 @media (min-width:981px){.pn-cab h1{font-size:27px}}   /* 27/10: «deixe o título um pouco menor» (30 → 27) */
+@media (min-width:981px){.pn-cab h1{font-size:24.3px}}   /* 27/10: «deixe o título 10% menor» (27 → 24,3) */
