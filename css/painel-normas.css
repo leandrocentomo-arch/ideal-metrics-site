@@ -184,3 +184,7 @@
 
 .pn-mais{height:1px}
 .pn-lista li.pn-vazio{cursor:default}
+
+/* 27/10/2026: «não pode o rodapé estar comendo a tela». No computador o painel é a tela inteira abaixo do cabeçalho: a página não rola,
+   então o rodapé não sobe por cima do aplicativo (a coluna e a área principal continuam rolando por dentro). No celular, rodapé normal. */
+@media (min-width:981px){body.pn-pagina{overflow:hidden;height:100vh;height:100dvh}body.pn-pagina .ft-root{display:none}}

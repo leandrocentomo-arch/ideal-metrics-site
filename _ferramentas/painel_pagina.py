@@ -7,7 +7,7 @@ regrava os blocos depois), e o miolo do painel daqui. Rodar depois de mudar o mi
 import re, os
 import blocos as B
 
-V = '5'   # sobe junto com painel-normas.css / .js
+V = '6'   # sobe junto com painel-normas.css / .js
 s = B.ler('blog.html')
 cab = s[:s.index('<div class="page-banner">')]
 rod = s[s.index('<footer class="ft-root'):]

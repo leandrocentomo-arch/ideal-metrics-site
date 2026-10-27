@@ -96,7 +96,7 @@
     var topo = 0;
     ['.page-banner', '.breadcrumb', '#shRolo', '.qc-letreiro'].forEach(function(sel){
       var e = document.querySelector(sel); if(e){ var b = e.getBoundingClientRect().bottom; if(b > topo) topo = b; } });
-    var f = document.querySelector('footer'), fim = f ? f.getBoundingClientRect().top : innerHeight;
+    var f = document.querySelector('footer'), fim = (f && f.offsetParent !== null) ? f.getBoundingClientRect().top : innerHeight;   // 27/10/2026: rodapé escondido (painel de normas no computador) = fim da tela
     return [topo + 8, fim - 8];
   }
   function cabe(r, z){ return r && r.height && r.top >= z[0] && r.bottom <= z[1]; }
