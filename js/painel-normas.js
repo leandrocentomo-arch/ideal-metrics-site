@@ -105,69 +105,8 @@
     document.body.appendChild(b);
     /* 27/10: «o logo tem que aparecer sempre»: cópia da caixa do logo, fixa no lugar de sempre, visível enquanto o menu está
        recolhido (a original desce junto com a barra quando o menu abre) */
-    var marca = $('header.barra .barra-marca'); if (marca) { var cp = marca.cloneNode(true); cp.classList.add('pn-logo-fixo'); cp.removeAttribute('id'); ($('.pn-cab') || document.body).appendChild(cp); bateAsas(cp.querySelector('img')); }   // dentro do cabeçalho do painel: rola junto com ele («o logo tem que ficar fixo [no lugar], está descendo junto no scroll»)
-    /* 27/10: «é possível criar um gif de forma que o pássaro do logo bata as asas na entrada?»: em vez de GIF, o SVG oficial do
-       monograma entra inline e a asa longa (o grande caminho à esquerda) e as lâminas da asa curta (à direita) giram alguns
-       graus em torno do ombro, três batidas em 1,6 s, só na entrada da página. Nada é redesenhado: é a geometria oficial girada. */
-    window.bateAsas = bateAsas;
-    function bateAsas(img) {
-      if (!img || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-      fetch(img.getAttribute('src')).then(function (r) { return r.text(); }).then(function (txt) {
-        var doc = new DOMParser().parseFromString(txt, 'image/svg+xml'), svg = doc.documentElement;
-        if (!svg || svg.nodeName !== 'svg') return;
-        var passaro = svg.querySelector('#monograma-270 > g'); if (!passaro) return;
-        var filhos = Array.prototype.slice.call(passaro.children), ns = 'http://www.w3.org/2000/svg';
-        var longa = doc.createElementNS(ns, 'g'), curta = doc.createElementNS(ns, 'g');
-        [25].forEach(function (i) { if (filhos[i]) longa.appendChild(filhos[i]); });
-        [8, 20, 21, 22, 24, 43, 44].forEach(function (i) { if (filhos[i]) curta.appendChild(filhos[i]); });
-        passaro.appendChild(longa); passaro.appendChild(curta);
-        svg.setAttribute('class', img.className); svg.setAttribute('aria-hidden', 'true'); svg.style.height = getComputedStyle(img).height;
-        img.parentNode.replaceChild(svg, img);
-        /* 27/10, 7º («quando o pássaro parar de bater asas, passe um pulse na diagonal prateado somente em cima do pássaro e
-           da parte escrita»): máscara alfa com o próprio monograma e um retângulo com degradê diagonal prateado que atravessa
-           da esquerda para a direita em .9 s; só pinta onde há desenho */
-        var vb = (svg.getAttribute('viewBox') || '0 0 100 100').split(/\s+/).map(Number), defs = doc.createElementNS(ns, 'defs');
-        defs.innerHTML = '<linearGradient id="pn-prata" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".42" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#E6EBF1" stop-opacity=".95"/><stop offset=".58" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
-          '<mask id="pn-prata-m" maskUnits="userSpaceOnUse" x="' + vb[0] + '" y="' + vb[1] + '" width="' + vb[2] + '" height="' + vb[3] + '" style="mask-type:alpha"><use href="#monograma-270"/></mask>';
-        svg.insertBefore(defs, svg.firstChild);
-        var brilho = doc.createElementNS(ns, 'rect');
-        brilho.setAttribute('x', vb[0]); brilho.setAttribute('y', vb[1]); brilho.setAttribute('width', vb[2]); brilho.setAttribute('height', vb[3]);
-        brilho.setAttribute('fill', 'url(#pn-prata)'); brilho.setAttribute('mask', 'url(#pn-prata-m)'); brilho.setAttribute('pointer-events', 'none'); brilho.style.display = 'none';
-        svg.appendChild(brilho);
-        function pulsoPrata() {
-          var t0 = performance.now(), dur = 900; brilho.style.display = '';
-          (function passo(t) {
-            var k = Math.max(0, Math.min((t - t0) / dur, 1));
-            brilho.setAttribute('transform', 'translate(' + ((k * 2 - 1) * vb[2] * 1.1).toFixed(1) + ' 0)');
-            if (k < 1) requestAnimationFrame(passo); else brilho.style.display = 'none';
-          })(t0);
-        }
-        var PL = [39.5, 20.5], PC = [45.5, 15], raf = null;   // ombros, nas coordenadas do desenho
-        /* 27/10, 3º («não ficou boa, faça como antes, mas abaixe mais as asas, talvez uma batida e meia»): volta o vaivém da
-           1ª versão, com uma batida e meia em 1,8 s e a asa descendo mais (até −18°) do que sobe (+7°).
-           4º («faça com que esse efeito no logo seja toda vez que mudamos entre as 6 seções»): a batida fica em bateAsas.de_novo
-           e mostraAba() a chama; uma batida em curso recomeça do zero. */
-        /* 27/10, 5º («um efeito de entrada onde o pássaro fosse pequeno, crescente e batendo asas até parar»): na entrada o
-           monograma nasce a 35% e cresce até o tamanho cheio em 2,4 s, batendo as asas sem parar (4 batidas) que vão perdendo
-           amplitude até assentar; na troca de seção fica a batida e meia curta, sem crescer */
-        bateAsas.deNovo = function (entrada) {
-          if (raf) cancelAnimationFrame(raf);
-          var t0 = performance.now(), dur = entrada ? 2400 : 1800, bat = entrada ? 6 : 3, AMP = [1, .7, .45];   // entrada: 3 batidas inteiras, cada uma mais fraca
-          passaro.style.transformOrigin = '39px 20px'; passaro.style.transformBox = 'view-box';   // cresce a partir do corpo (ombro), só o pássaro; o wordmark fica parado
-          (function passo(t) {
-            /* 27/10, 6º («não quero a última batida meio cortada»): na entrada a amplitude cai por batida inteira (1, .7, .45), trocando
-               só no cruzamento do zero, então a terceira batida termina completa no fim do tempo */
-            var k = Math.max(0, Math.min((t - t0) / dur, 1)), env = entrada ? AMP[Math.min(2, Math.floor(k * 3))] : Math.sin(Math.PI * k), a = -Math.sin(k * Math.PI * bat) * env;
-            var g = a < 0 ? a * 18 : a * 7;   // descida ampla, subida curta
-            longa.setAttribute('transform', 'rotate(' + g.toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
-            curta.setAttribute('transform', 'rotate(' + (-g * .4).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
-            if (entrada) { var e = 1 - Math.pow(1 - k, 3); passaro.style.transform = 'scale(' + (.35 + .65 * e).toFixed(3) + ')'; passaro.style.opacity = Math.min(1, .3 + k * 1.4).toFixed(2); }
-            if (k < 1) raf = requestAnimationFrame(passo); else { raf = null; longa.removeAttribute('transform'); curta.removeAttribute('transform'); passaro.style.transform = ''; passaro.style.opacity = ''; if (entrada) pulsoPrata(); }
-          })(t0);
-        };
-        bateAsas.deNovo(true);
-      }).catch(function () {});
-    }
+    var marca = $('header.barra .barra-marca'); if (marca) { var cp = marca.cloneNode(true); cp.classList.add('pn-logo-fixo'); cp.removeAttribute('id'); ($('.pn-cab') || document.body).appendChild(cp); if (window.bateAsasMonograma) bateAsasMonograma(cp.querySelector('img')); }   // dentro do cabeçalho do painel: rola junto com ele («o logo tem que ficar fixo [no lugar], está descendo junto no scroll»)
+    /* 27/10: a batida de asas (antes aqui) vive em js/monograma-asas.js, compartilhado por todas as páginas */
     function poe(ab) { document.body.classList.toggle('menu-aberto', ab); b.setAttribute('aria-expanded', ab); b.setAttribute('aria-label', ab ? 'Recolher o menu do site' : 'Abrir o menu do site'); }
     b.addEventListener('click', function () { poe(!document.body.classList.contains('menu-aberto')); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-aberto')) poe(false); });

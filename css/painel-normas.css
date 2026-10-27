@@ -712,3 +712,8 @@
   .pn-cab h1{font-size:30px;margin-top:2px}
   .pn-cab .pn-sub{font-family:var(--mono);font-size:10px;letter-spacing:0;color:#315275;margin-top:6px}   /* sem caixa alta e com espaçamento menor, para a frase inteira caber na linha */
 }
+@media (min-width:981px){
+  /* 27/10: «deixe o logo um pouco maior dentro destas linhas, diminua ligeiramente o gap, principalmente o gap inferior» */
+  .pn-logo-fixo{padding:3px 3px 1px}
+  .pn-logo-fixo .marca-frente{height:102px}
+}
