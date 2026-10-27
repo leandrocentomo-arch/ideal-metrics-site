@@ -729,3 +729,4 @@
      inferior do cabeçalho), alinhada com a base das abas, e não mais pelo topo; assim não desalinha quando o cabeçalho cresce */
   .pn-logo-fixo{top:auto;bottom:12px}   /* 12 e não 13: a base das abas inclui o fio de 1 px */
 }
+.mp-mapa .pulso .vareta{stroke:var(--tinta);stroke-opacity:1;stroke-width:.3;vector-effect:non-scaling-stroke}   /* 27/10: «tente fazer estas linhas escuras, bem finas»: varetas em tinta cheia, 0,3 px na tela */
