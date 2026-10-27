@@ -460,8 +460,13 @@
           g.style('opacity', vis && p ? 1 : 0);
           if (!p) return;
           g.selectAll('circle').attr('cx', p[0]).attr('cy', p[1]);
-          g.select('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', x0 - 6).attr('y2', sy);
-          g.select('text').attr('x', x0).attr('y', sy + 4);
+          if (a > .5) {   // 27/10: mapa aberto: a coluna fixa caía em cima da Ásia; no mapa nada se move, então o rótulo fica ao lado do ponto
+            g.select('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', p[0] + 9).attr('y2', p[1] - 9);
+            g.select('text').attr('x', p[0] + 11).attr('y', p[1] - 10);
+          } else {
+            g.select('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', x0 - 6).attr('y2', sy);
+            g.select('text').attr('x', x0).attr('y', sy + 4);
+          }
         });
       }
       function desenha() {
