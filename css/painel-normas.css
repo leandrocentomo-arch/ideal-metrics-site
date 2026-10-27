@@ -903,3 +903,8 @@
 @keyframes lt-marca{from{opacity:0;transform:translate(-50%,-50%) scale(.3)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 @media (prefers-reduced-motion:reduce){#lt-corpo.lt-anima .lt-trilho,#lt-corpo.lt-anima .lt-vivo,#lt-corpo.lt-anima .lt-ed{animation:none}}
 .pn .lt-cab{background:none;-webkit-backdrop-filter:none;backdrop-filter:none;position:static}
+/* 27/10/2026, «para as tabelas, no efeito de entrada, faça as linhas surgirem de cima para baixo»: classe .cai posta pelo
+   cascata() do JS em cada linha (ranking, mapa de calor, normas, linha do tempo, o que mudou, revisão), com atraso crescente */
+.cai{animation:pn-cai .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes pn-cai{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.cai{animation:none}}

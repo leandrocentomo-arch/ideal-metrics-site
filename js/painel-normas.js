@@ -188,6 +188,24 @@
     if (!bloco || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
     bloco.classList.remove('entra'); void bloco.offsetWidth; bloco.classList.add('entra');
   }
+  /* 27/10: «para as tabelas, no efeito de entrada, faça as linhas surgirem de cima para baixo»: cada linha nasce 8 px acima
+     e desce no lugar, uma atrás da outra (35 ms; a partir da 25ª todas juntas, já fora da tela) */
+  function cascata(caixa, sel) {
+    if (!caixa || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var xs = $$(sel, caixa);
+    xs.forEach(function (x, i) { x.classList.remove('cai'); x.style.animationDelay = (Math.min(i, 24) * .035).toFixed(3) + 's'; });
+    void caixa.offsetWidth;
+    xs.forEach(function (x) { x.classList.add('cai'); });
+  }
+  /* mapa de calor: linhas em cascata e barras crescendo do zero, a cada vez que a aba abre */
+  function animaCalor() {
+    var cal = $('#st-calor'); if (!cal || !cal.dataset.pronto) return;
+    var linhas = $$('.ca-linha[data-i]', cal);
+    cascata(cal, '.ca-linha');
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    linhas.forEach(function (li, i) { var b = $('.ca-barra i', li); if (!b) return; var w = b.style.width; b.style.transition = 'none'; b.style.width = '0'; void b.offsetWidth; b.style.transition = ''; b.style.transitionDelay = (Math.min(i, 24) * .035 + .15).toFixed(3) + 's'; b.style.width = w; });
+    clearTimeout(animaCalor.t); animaCalor.t = setTimeout(function () { linhas.forEach(function (li) { var b = $('.ca-barra i', li); if (b) b.style.transitionDelay = ''; }); }, 1800);
+  }
   var primeiraAba = true;
   function mostraAba(id) {
     if (!$('#v-' + id)) return;
@@ -205,6 +223,9 @@
     deslizaTudo();
     /* 27/10: a batida na troca de seção entrou e saiu no mesmo dia («não precisa bater asa quando muda de seção»); só na entrada */
     var vista = $('#v-' + id); if (vista) { vista.classList.remove('entra'); void vista.offsetWidth; vista.classList.add('entra'); }
+    if (id === 'setores') animaCalor();
+    if (id === 'normas') cascata($('#pn-lista'), '.pn-item');
+    if (id === 'mapa' && $('#mp-lado').dataset.pronto) cascata($('#mp-lado .mp-rank'), 'li');
   }
 
   /* ---------- lista ---------- */
@@ -271,7 +292,7 @@
     var lista = $('#pn-lista');
     if ($('#v-normas').classList.contains('ativa')) $('.pn-main').scrollTop = 0;
     if (!atual.length) { lista.innerHTML = '<li class="pn-vazio">' + T('Nenhuma norma com esses filtros. A busca aceita número (9001, 14064-1), palavra do título em inglês ou comitê (TC 207).', 'No standard matches these filters. Search accepts a number (9001, 14064-1), a word from the title or a committee (TC 207).') + '</li>'; return; }
-    lista.innerHTML = ''; maisLinhas(); entra(lista);
+    lista.innerHTML = ''; maisLinhas(); cascata(lista, '.pn-item');
   }
   var adia = null;
   function renderLogo() { clearTimeout(adia); adia = setTimeout(function () { requestAnimationFrame(render); }, 140); }
@@ -353,12 +374,12 @@
        da outra, 50 ms) e cada marca acende quando o traço chega nela */
     var corpo = $('#lt-corpo');
     $$('.lt-linha', corpo).forEach(function (li, i) {
-      var tr = $('.lt-trilho', li), L = tr ? parseFloat(tr.style.left) || 0 : 0, R = tr ? 100 - (parseFloat(tr.style.right) || 0) : 100, d0 = i * .05;
+      var tr = $('.lt-trilho', li), L = tr ? parseFloat(tr.style.left) || 0 : 0, R = tr ? 100 - (parseFloat(tr.style.right) || 0) : 100, d0 = Math.min(i, 24) * .035 + .1;
       $$('.lt-trilho,.lt-vivo', li).forEach(function (t) { t.style.animationDelay = d0.toFixed(2) + 's'; });
       $$('.lt-ed', li).forEach(function (e) { var x = parseFloat(e.style.left) || 0, k = R > L ? Math.max(0, Math.min(1, (x - L) / (R - L))) : 0; e.style.animationDelay = (d0 + k * .9).toFixed(2) + 's'; });
     });
     corpo.classList.remove('lt-anima'); void corpo.offsetWidth; corpo.classList.add('lt-anima');
-    entra(corpo);
+    cascata(corpo, '.lt-linha');
   }
 
   /* ---------- mudanças ---------- */
@@ -382,7 +403,7 @@
         return '<div class="md-item" data-id="' + m.id + '"><span class="ref">' + esc(m.ref) + '</span><span>' + esc(n ? n.titulo : '') + '</span><span class="de">' + esc(o) + ' · ' + (FASES[FASE_IDX[m.fase]] || [])[1] + '</span></div>';
       }).join('') + '</div>';
     }).join('');
-    entra(el);
+    cascata(el, '.md-grupo > *');
   }
 
   /* ---------- revisão sistemática ---------- */
@@ -396,7 +417,7 @@
       return '<li class="pn-item" data-id="' + n.id + '"><span class="ref">' + esc(n.ref) + '</span><span class="tit">' + esc(n.titulo) + '<small>' + esc(D.temasMap[n.tema]) + ' · ' + esc(n.comite) + (proj.length ? T(' · projeto de nova edição em curso: ', ' · new edition project under way: ') + esc(proj[0].ref) : '') + '</small></span>' +
         '<span class="fase">' + barraEst(n) + '<span>' + T('código ', 'code ') + n.est + '</span></span><span class="seta"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></li>';
     }).join('');
-    entra($('#rv-corpo'));
+    cascata($('#rv-corpo'), '.pn-item');
   }
 
   /* ---------- certificados por setor (27/10/2026) ---------- */
@@ -482,7 +503,7 @@
         q.addEventListener('mouseleave', function () { dica.classList.remove('on'); }); q.addEventListener('blur', function () { dica.classList.remove('on'); });
       });
       $$('.ca-cabeca button', cal).forEach(function (b) { b.addEventListener('click', function () { var t = $('#st-sel button[data-num="' + b.dataset.num + '"]'); if (t) t.click(); }); });
-      cal.classList.remove('ca-on'); void cal.offsetWidth; entra(cal);
+      cal.classList.remove('ca-on'); void cal.offsetWidth;
       if (calmo) cal.classList.add('ca-on'); else requestAnimationFrame(function () { cal.classList.add('ca-on'); });
     }
     $('#ca-sub', cal).textContent = S.setores.length + T(' setores EA · ', ' EA sectors · ') + nums.length + T(' normas · ', ' standards · ') + onde;
@@ -673,7 +694,7 @@
         '<div class="mp-br"><span class="m">' + T('Brasil', 'Brazil') + '</span><div class="v"><span id="mp-brv"></span><small id="mp-brpos"></small></div><div class="mp-brsit" id="mp-brsit"></div></div>' +
         '<div class="mp-rola"><ul class="mp-rank">' + Array.apply(null, Array(11)).map(function () { return '<li><span class="m"></span><span><img class="bandeira" alt="" loading="lazy"><span class="nome"></span></span><b></b><span class="barra"><i style="width:0"></i></span></li>'; }).join('') + '</ul>' +
         '<p class="mp-nota">' + T('Como ler: o número é o total de certificados em vigor em 31-dez-2025, emitidos em qualquer ano e ainda válidos nessa data; não é o número de certificações feitas em 2025. Site é cada local permanente coberto por um certificado. Entram só certificados de organismos acreditados por membros da Global ACI (antigo IAF), carregados no IAF CertSearch: certificação sem acreditação e certificadoras que ainda não enviaram dados ficam de fora, então o total real do país pode ser maior. Fonte: ISO Survey 2025, publicado em outubro de 2026.', 'How to read: the figure is the total of certificates in force on 31-dec-2025, issued in any year and still valid on that date; it is not the number of certifications granted in 2025. A site is each permanent location covered by a certificate. Only certificates from bodies accredited by Global ACI members (formerly IAF), uploaded to IAF CertSearch, are counted: non-accredited certification and certification bodies that have not yet uploaded data are left out, so the real total for a country may be higher. Source: ISO Survey 2025, published October 2026.') + '</p></div>';   // 27/10: ranking e nota numa caixa que rola; total e Brasil ficam fixos em cima
-      entra($('.mp-rank', lado));
+      cascata($('.mp-rank', lado), 'li');
     }
     $('h3', lado).textContent = nome; $('#mp-tit').textContent = s.titulo || '';
     roleta($('#mp-tot'), s.total); $('#mp-paises').textContent = T('certificados em vigor em ', 'certificates in force on ') + dataBR('2025-12-31') + (s.total_sites ? ' · ' + fmt(s.total_sites) + ' sites' : '') + ' · ' + rank.length + T(' países', ' countries');   // 27/10: «ficar bem claro que esse número é de 2025… todos os números válidos»
