@@ -202,29 +202,30 @@
    vidro fosco). Só no computador e só neste painel. Atrás de tudo, img/fundo-painel-vidro.webp (manchas desfocadas nas cores da marca, gerada em Python);
    cabeçalho, coluna de filtros e área principal viram placas de vidro: branco translúcido, desfoque de 22 px, borda clara e
    sombra leve. Os cartões de dentro (busca, abas, mapa, Brasil, ficha) seguem o mesmo vidro, mais opaco para o dado ler bem.
-   A margem esquerda de 48 px deixa a etiqueta da gaveta fora da placa. */
+   Canto de 3 px como o resto do site e fundo clareado com véu creme de 58% (Leandro, mesmo dia: «quero tudo 3px, e quero que o
+   fundo seja mais claro»). A margem esquerda de 48 px deixa a etiqueta da gaveta fora da placa. */
 @media (min-width:981px){
   .pn{--vidro:rgba(255,255,255,.46);--vidro2:rgba(255,255,255,.68);--vborda:rgba(255,255,255,.75);--vsombra:0 10px 34px rgba(20,48,76,.12),inset 0 1px 0 rgba(255,255,255,.7);
-    background:linear-gradient(rgba(250,249,245,.30),rgba(250,249,245,.30)),url(../img/fundo-painel-vidro.webp) center/cover no-repeat;
+    background:linear-gradient(rgba(250,249,245,.58),rgba(250,249,245,.58)),url(../img/fundo-painel-vidro.webp) center/cover no-repeat;
     gap:14px;padding:14px 18px 14px 48px}
   .pn-cab,.pn-lado,.pn-main{background:var(--vidro);-webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35);
-    border:1px solid var(--vborda);border-radius:18px;box-shadow:var(--vsombra)}
+    border:1px solid var(--vborda);border-radius:3px;box-shadow:var(--vsombra)}
   .pn-cab{padding:50px 24px 16px 24px}
   .pn-lado{padding:18px 20px 32px}
   .pn-topo,.lt-cab{background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
-  .pn-topo{margin:0 -16px;padding-left:16px;padding-right:16px;border-radius:18px 18px 0 0}
+  .pn-topo{margin:0 -16px;padding-left:16px;padding-right:16px;border-radius:3px 3px 0 0}
   .pn-main{padding:0 24px 40px}
   .pn-busca input,.pn-op input{background:var(--vidro2)}
-  .pn-busca input{border-color:var(--vborda);border-radius:10px;box-shadow:inset 0 1px 2px rgba(20,48,76,.06)}
-  .pn-abas{border-color:var(--vborda);border-radius:12px;background:rgba(255,255,255,.35)}
+  .pn-busca input{border-color:var(--vborda);border-radius:3px;box-shadow:inset 0 1px 2px rgba(20,48,76,.06)}
+  .pn-abas{border-color:var(--vborda);border-radius:3px;background:rgba(255,255,255,.35)}
   .pn-abas button{border-left-color:rgba(255,255,255,.6)}
-  .mp-sel button{background:var(--vidro2);border-color:var(--vborda);border-radius:8px}
+  .mp-sel button{background:var(--vidro2);border-color:var(--vborda);border-radius:3px}
   .mp-sel button[aria-pressed=true]{background:var(--tinta);border-color:var(--tinta)}
-  .mp-mapa{background:var(--vidro2);border-color:var(--vborda);border-radius:14px;box-shadow:var(--vsombra)}
-  .mp-br{background:var(--vidro2);border-radius:12px;box-shadow:var(--vsombra)}
-  .md-nota,.pn-links a{background:var(--vidro2);border-radius:10px}
+  .mp-mapa{background:var(--vidro2);border-color:var(--vborda);border-radius:3px;box-shadow:var(--vsombra)}
+  .mp-br{background:var(--vidro2);border-radius:3px;box-shadow:var(--vsombra)}
+  .md-nota,.pn-links a{background:var(--vidro2);border-radius:3px}
   .pn-det{background:rgba(255,255,255,.80);-webkit-backdrop-filter:blur(26px) saturate(1.3);backdrop-filter:blur(26px) saturate(1.3);
-    border:1px solid var(--vborda);border-radius:18px 0 0 18px;box-shadow:-12px 0 40px rgba(20,48,76,.16)}
+    border:1px solid var(--vborda);border-radius:3px;box-shadow:-12px 0 40px rgba(20,48,76,.16)}
   .pn-det{top:calc(var(--cab-h,120px) + 28px);right:18px;bottom:14px}   /* a ficha abre alinhada à placa principal */
-  .pn-veu{inset:calc(var(--cab-h,120px) + 28px) 18px 14px 48px;border-radius:18px}
+  .pn-veu{inset:calc(var(--cab-h,120px) + 28px) 18px 14px 48px;border-radius:3px}
 }
