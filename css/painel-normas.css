@@ -649,3 +649,9 @@
 }
 .pn-logo-fixo{display:none}
 @media (min-width:981px){.pn-logo-fixo{display:flex}}
+
+/* 27/10/2026, «o menu que fica colapsado pode ser creme, não mais glassy»: a tarja e a barra que descem da etiqueta Menu em
+   creme sólido, sem desfoque */
+@media (min-width:981px){
+  .pn-pagina .tarja,.pn-pagina .barra{background:var(--creme,#FAF9F5);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
