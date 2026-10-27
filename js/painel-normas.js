@@ -199,7 +199,7 @@
     if (id === 'revisao') montaRevisao();
     history.replaceState(null, '', '#' + id);
     deslizaTudo();
-    if (!primeiraAba && window.bateAsas && bateAsas.deNovo) bateAsas.deNovo(); primeiraAba = false;   // 27/10: o pássaro bate as asas a cada troca de seção (na entrada ele já bate sozinho)
+    /* 27/10: a batida na troca de seção entrou e saiu no mesmo dia («não precisa bater asa quando muda de seção»); só na entrada */
     var vista = $('#v-' + id); if (vista) { vista.classList.remove('entra'); void vista.offsetWidth; vista.classList.add('entra'); }
   }
 
