@@ -325,7 +325,7 @@
   var GRUPOS = [
     { id: 'industria', nome: 'Indústria', ea: [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23] },
     { id: 'facilities', nome: 'Construção e facilities', ea: [27] },
-    { id: 'comercio', nome: 'Comércio e serviços', ea: [28, 29, 31, 34], sem: true },
+    { id: 'comercio', nome: 'Comércio e serviços', ea: [28, 29, 31, 34] },
     { id: 'tecnologia', nome: 'Tecnologia e engenharia', ea: [32, 33] },
     { id: 'transporte', nome: 'Transporte e logística', ea: [30] },
     { id: 'saude', nome: 'Saúde', ea: [37] },
@@ -362,6 +362,40 @@
         (ea.length > 6 ? '<li><span class="m">+ ' + (ea.length - 6) + ' setores EA</span><b>' + fmt(ea.slice(6).reduce(function (a, e) { return a + e.v; }, 0)) + '</b></li>' : '') + '</ul></article>';
     }).join('');
     entra($('#st-grade'));
+    pintaCalor();
+  }
+  /* 27/10: «a base traz mais divisões por setores… fazer um gráfico, um dashboard melhor», com o calendário de quadrados que
+     o Leandro mandou como linguagem: mapa de calor dos 39 setores EA × 17 normas (quadrado por célula, 5 níveis em escala
+     log) e, na mesma linha, a barra do setor na norma escolhida. Linhas na ordem da norma escolhida. */
+  function pintaCalor() {
+    var S = D.setores, nums = Object.keys(S.normas).sort(function (a, b) { return D.survey[b].total - D.survey[a].total; });
+    var atual = S.normas[stNum][stOnde], max = Math.max.apply(null, atual) || 1;
+    var ordem = atual.map(function (v, i) { return i; }).sort(function (a, b) { return atual[b] - atual[a]; });
+    var nivel = function (v) { return !v ? 0 : v < 10 ? 1 : v < 100 ? 2 : v < 1000 ? 3 : 4; };
+    var cab = '<div class="ca-linha ca-cabeca"><span></span><div class="ca-cels">' + nums.map(function (k) { return '<button type="button" data-num="' + k + '"' + (k === stNum ? ' aria-pressed="true"' : '') + '><i>' + (SURVEY_NOME[k] || 'ISO ' + k).replace('ISO/IEC ', '') + '</i></button>'; }).join('') + '</div><span class="m">' + (SURVEY_NOME[stNum] || 'ISO ' + stNum) + ' · ' + (stOnde === 'br' ? 'Brasil' : 'mundo') + '</span></div>';
+    var corpo = ordem.map(function (i, r) {
+      return '<div class="ca-linha"><span class="ca-nome" title="' + esc(S.setores[i]) + '">' + esc(EA_PT[i] || S.setores[i]) + '</span><div class="ca-cels">' +
+        nums.map(function (k, c) { var v = S.normas[k][stOnde][i]; return '<span class="ca-q' + (k === stNum ? ' sel' : '') + '" tabindex="0" data-n="' + nivel(v) + '" data-v="' + v + '" data-s="' + esc(EA_PT[i] || S.setores[i]) + '" data-k="' + (SURVEY_NOME[k] || 'ISO ' + k) + '" style="transition-delay:' + (c * 14 + r * 4) + 'ms"></span>'; }).join('') +
+        '</div><span class="ca-barra"><i style="width:' + (atual[i] / max * 100) + '%"></i></span><b>' + fmt(atual[i]) + '</b></div>';
+    }).join('');
+    var cal = $('#st-calor');
+    cal.innerHTML = '<div class="ca-cab"><b>Setores EA por norma</b><span>39 setores EA · 17 normas · ' + (stOnde === 'br' ? 'Brasil' : 'mundo') + '</span></div>' + cab + corpo +
+      '<div class="ca-pe"><span>Quadrado = certificados do setor na norma; barra = norma escolhida.</span><span class="ca-leg"><em>0</em><span class="ca-q" data-n="0"></span><span class="ca-q" data-n="1"></span><span class="ca-q" data-n="2"></span><span class="ca-q" data-n="3"></span><span class="ca-q" data-n="4"></span><em>10 mil+</em></span></div><div class="ca-dica"></div>';
+    var dica = $('.ca-dica', cal);
+    function mostra(q) {
+      var v = +q.dataset.v, rc = q.getBoundingClientRect(), rb = cal.getBoundingClientRect();
+      dica.innerHTML = '<b>' + fmt(v) + '</b> · ' + q.dataset.s + ' · ' + q.dataset.k;
+      var meia = dica.offsetWidth / 2, x = rc.left - rb.left + rc.width / 2; x = Math.max(meia, Math.min(rb.width - meia, x));
+      dica.style.left = x + 'px'; dica.style.top = (rc.top - rb.top) + 'px'; dica.classList.add('on');
+    }
+    $$('.ca-linha .ca-q', cal).forEach(function (q) {
+      q.addEventListener('mouseenter', function () { mostra(q); }); q.addEventListener('focus', function () { mostra(q); });
+      q.addEventListener('mouseleave', function () { dica.classList.remove('on'); }); q.addEventListener('blur', function () { dica.classList.remove('on'); });
+    });
+    $$('.ca-cabeca button', cal).forEach(function (b) { b.addEventListener('click', function () { var t = $('#st-sel button[data-num="' + b.dataset.num + '"]'); if (t) t.click(); }); });
+    cal.classList.remove('ca-on'); void cal.offsetWidth;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { cal.classList.add('ca-on'); return; }
+    requestAnimationFrame(function () { cal.classList.add('ca-on'); });
   }
 
   /* ---------- mapa ---------- */
