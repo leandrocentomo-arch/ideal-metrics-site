@@ -582,3 +582,13 @@
 @media (prefers-reduced-motion:reduce){.ca-q{transition:none;transform:none;opacity:1}}
 @media (max-width:980px){.ca-linha{grid-template-columns:120px auto}.ca-barra,.ca-linha>b{display:none}}
 .ca-cal{margin-top:0}   /* 27/10: só o diagrama na aba de setores, sem os cartões */
+
+/* 27/10/2026, «quero que tenha transparência também nesta faixa» (tarja da data e barra do menu): o fundo de manchas passa
+   para o <body> (preso à tela) e sobe atrás da tarja e da barra, que viram vidro; o .pn fica transparente para não duplicar */
+@media (min-width:981px){
+  body.pn-pagina{background:var(--creme,#FAF9F5) url(../img/fundo-painel-creme.webp) center/cover fixed no-repeat}
+  .pn-pagina .pn{background:transparent}
+  .pn-pagina .tarja{background:rgba(250,249,245,.35);-webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35)}
+  .pn-pagina .barra{background:rgba(250,249,245,.3)}
+  .pn-pagina .barra-espaco{background:transparent}
+}
