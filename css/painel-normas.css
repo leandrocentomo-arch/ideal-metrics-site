@@ -517,3 +517,9 @@
 .st-card .st-barra{height:2px;background:rgba(20,48,76,.08)}
 .st-card .st-barra i{background:var(--tinta);opacity:.55}
 .st-ea li{font-size:11px}
+
+/* 27/10/2026, «quero que o efeito de entrada aqui [tabela dos países] seja da esquerda para direita»: as linhas do ranking do
+   mapa entram deslizando de 14 px à esquerda, uma a uma */
+.mp-rank li.entra{animation:pn-entra-esq .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes pn-entra-esq{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.mp-rank li.entra{animation:none}}
