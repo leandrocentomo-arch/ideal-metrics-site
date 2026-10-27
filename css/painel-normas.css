@@ -734,3 +734,4 @@
   .pn-logo-fixo .marca-frente{position:relative;top:3px}   /* 27/10: «logo ligeiramente mais para baixo, alinhado com a parte escrita do botão»: o «ideal·m» desce 3 px, na linha do texto da aba */
 }
 .mp-mapa .pulso .vareta{stroke-width:.8}   /* 27/10: «as linhas de conexão do globo» escuras: a 0,3 px o navegador pintava cinza; 0,8 px é um pixel físico cheio, na tinta */
+.mp-mapa .pulso .vareta{stroke-width:.6}   /* 27/10: «não tem como serem mais finas?»: 0,6 px, o limite antes de o navegador clarear a linha (a 0,3 saía cinza) */
