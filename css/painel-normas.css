@@ -733,12 +733,3 @@
 @media (min-width:981px){
   .pn-logo-fixo .marca-frente{position:relative;top:3px}   /* 27/10: «logo ligeiramente mais para baixo, alinhado com a parte escrita do botão»: o «ideal·m» desce 3 px, na linha do texto da aba */
 }
-
-/* 27/10/2026, «queria que os fios fossem na cor escura da Ideal-m»: as bordas das placas de vidro, das abas, dos botões de
-   norma, da caixa do Brasil, da ficha e do mapa de calor em tinta #14304C, bem finas (0,5 px), no lugar do fio branco */
-@media (min-width:981px){
-  .pn{--vborda:#14304C}
-  .pn-cab,.pn-lado,.pn-main,.pn-abas,.mp-sel button,.mp-mapa,.pn-det,.st-card,.ca-cal,.pn-busca input{border-width:.5px}
-  .pn-abas button{border-left-color:rgba(20,48,76,.35)}
-  .mp-br{border:.5px solid #14304C}   /* a caixa do Brasil tinha o fio na liga */
-}
