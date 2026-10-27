@@ -425,3 +425,4 @@
 .mp-mapa path.esfera{filter:none}
 .mp-mapa path.pais{fill-opacity:.85}
 .mp-mapa path.grade{stroke:rgba(51,102,153,.4);stroke-width:.3}
+.mp-rank .bandeira{width:14.4px;height:10.8px;margin-right:7px;vertical-align:-1px}   /* 27/10: «faça as bandeiras 20% menores» (18 × 13,5 → 14,4 × 10,8) */
