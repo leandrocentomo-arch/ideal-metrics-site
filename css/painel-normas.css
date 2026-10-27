@@ -410,3 +410,7 @@
   .pn{--vidro:rgba(255,255,255,.46);background:url(../img/fundo-painel-creme.webp) center/cover no-repeat}
   .pn-cab,.pn-lado,.pn-main{-webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35)}
 }
+
+/* 27/10/2026, «deixe um pouco mais evidente as coordenadas no globo»: grade de latitude e longitude em azul da marca a 35%
+   (antes branca a 55%, quase sumia no oceano claro) */
+.mp-mapa path.grade{stroke:rgba(51,102,153,.35);stroke-width:.6}
