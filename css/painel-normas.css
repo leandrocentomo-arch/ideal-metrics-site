@@ -730,3 +730,6 @@
   .pn-logo-fixo{top:auto;bottom:12px}   /* 12 e não 13: a base das abas inclui o fio de 1 px */
 }
 .mp-mapa .pulso .vareta{stroke:var(--tinta);stroke-opacity:1;stroke-width:.3;vector-effect:non-scaling-stroke}   /* 27/10: «tente fazer estas linhas escuras, bem finas»: varetas em tinta cheia, 0,3 px na tela */
+@media (min-width:981px){
+  .pn-logo-fixo .marca-frente{position:relative;top:3px}   /* 27/10: «logo ligeiramente mais para baixo, alinhado com a parte escrita do botão»: o «ideal·m» desce 3 px, na linha do texto da aba */
+}
