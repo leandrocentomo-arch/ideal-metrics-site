@@ -523,3 +523,12 @@
 .mp-rank li.entra{animation:pn-entra-esq .5s cubic-bezier(.2,.7,.2,1) both}
 @keyframes pn-entra-esq{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.mp-rank li.entra{animation:none}}
+
+/* 27/10/2026, «faça as ilustrações menores e mais largas… deixe-as mais discretas»: faixa de 560 × 150 (tela comum, gerada por
+   _ferramentas/setores_img.py), cor bem atenuada */
+.st-card .st-ilus,.st-card .st-sem{aspect-ratio:560/150;filter:saturate(.4) opacity(.65)}
+
+/* 27/10/2026, «estão muito grandes, muito altas… queria uma coisa mais sóbria»: faixa de 560 × 100 (≈ 55 px no cartão), em
+   monocromia tinta a 45%, como uma marca d'água; o cartão fica com o dado em primeiro plano */
+.st-card .st-ilus,.st-card .st-sem{aspect-ratio:560/100;filter:grayscale(1) brightness(.9) opacity(.45);margin:0 0 12px}
+.st-card{padding-top:12px}
