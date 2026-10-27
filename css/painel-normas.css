@@ -888,5 +888,9 @@
 @media (min-width:1181px) and (min-height:600px){
   #v-mapa.ativa{display:flex;flex-direction:column;height:100%}
   #v-mapa .mp-grid{flex:1 1 auto;min-height:0;grid-template-rows:minmax(0,1fr)}
-  #v-mapa .mp-lado{min-height:0;overflow-y:auto;overflow-anchor:none;overscroll-behavior:contain;padding-right:8px;scrollbar-width:thin;scrollbar-color:rgba(20,48,76,.25) transparent}
+  /* 27/10, 2º: «quero que esta parte fique fixa»: norma, total e caixa do Brasil ficam parados; só ranking e nota rolam */
+  #v-mapa .mp-lado{min-height:0;display:flex;flex-direction:column;overflow:hidden}
+  #v-mapa .mp-lado>*{flex:none}
+  #v-mapa .mp-lado>.mp-br{margin-bottom:10px}
+  #v-mapa .mp-rola{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-anchor:none;overscroll-behavior:contain;padding-right:8px;scrollbar-width:thin;scrollbar-color:rgba(20,48,76,.25) transparent}
 }
