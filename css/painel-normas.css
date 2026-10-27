@@ -402,3 +402,11 @@
   .pn{--vidro:rgba(255,255,255,.5);background:url(../img/fundo-painel-glifos.webp?v=3) center/cover no-repeat}
   .pn-cab,.pn-lado,.pn-main{-webkit-backdrop-filter:blur(4px) saturate(1.2);backdrop-filter:blur(4px) saturate(1.2)}
 }
+
+/* 27/10/2026, «não ficou legal [glifos], vamos voltar mais para esse [manchas], mas vamos deixar uma cor clara de fundo, o creme
+   não teria como ser né?»: volta o vidro das manchas (22 px, 46% de branco), agora com as manchas sobre o CREME do site
+   (img/fundo-painel-creme.webp, _ferramentas/fundo_manchas.py). Guardados: glifos, pássaro, mosaico e manchas sobre azul */
+@media (min-width:981px){
+  .pn{--vidro:rgba(255,255,255,.46);background:url(../img/fundo-painel-creme.webp) center/cover no-repeat}
+  .pn-cab,.pn-lado,.pn-main{-webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35)}
+}
