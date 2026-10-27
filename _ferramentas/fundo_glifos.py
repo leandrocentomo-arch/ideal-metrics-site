@@ -9,8 +9,8 @@ from PIL import Image, ImageChops
 
 RAIZ = Path(__file__).resolve().parent.parent
 W, H, C = 2400, 1350, 150
-FUNDO = ('#2E6FC7', '#5C9BE8')                       # azul vívido, diagonal
-TONS = [('#FFFFFF', .30), ('#FFFFFF', .18), ('#D3E2F2', .40), ('#9FC5F0', .55), ('#FFFFFF', .45), ('#1F57A8', .35)]
+FUNDO = ('#A9C3E3', '#CBDCEF')                       # 27/10, 2º: «o azul tem que ser menos azul»
+TONS = [('#2E6FC7', .45), ('#336699', .40), ('#4F86C6', .50), ('#1F57A8', .30), ('#2E6FC7', .25), ('#FFFFFF', .45)]   # «os glifos devem ser mais azulados»
 
 GLIFO = 'M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z'   # viewBox 22 × 14, igual ao js/gaveta.js
 

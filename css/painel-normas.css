@@ -399,6 +399,6 @@
    img/fundo-painel-glifos.webp (_ferramentas/fundo_glifos.py, glifos do mosaico de símbolos da Ideal Metrics sobre azul vívido
    #2E6FC7 → #5C9BE8). Guardados: pássaro, mosaico claro e manchas (trocar a url) */
 @media (min-width:981px){
-  .pn{--vidro:rgba(255,255,255,.5);background:url(../img/fundo-painel-glifos.webp?v=2) center/cover no-repeat}
+  .pn{--vidro:rgba(255,255,255,.5);background:url(../img/fundo-painel-glifos.webp?v=3) center/cover no-repeat}
   .pn-cab,.pn-lado,.pn-main{-webkit-backdrop-filter:blur(4px) saturate(1.2);backdrop-filter:blur(4px) saturate(1.2)}
 }
