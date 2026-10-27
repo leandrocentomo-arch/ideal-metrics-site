@@ -4,7 +4,7 @@ e «faça na vertical». Listras de larguras variadas, espelhadas no meio (simé
 dos tons claros. Rodar: python _ferramentas/fundo_listras.py  (semente fixa)."""
 import random
 from pathlib import Path
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter
 
 RAIZ = Path(__file__).resolve().parent.parent
 W, H = 2400, 1350
@@ -22,6 +22,11 @@ def main():
     for w, c in metade:                                   # do meio para fora, nos dois lados: simetria em espelho
         d.rectangle([x, 0, x + w, H], fill=hx(c)); d.rectangle([W - x - w, 0, W - x, H], fill=hx(c)); x += w
     saida = RAIZ / 'img' / 'fundo-painel-listras.webp'; im.save(saida, quality=88)
+    print(saida.name, saida.stat().st_size // 1024, 'KB')
+    # 27/10, «os gaps fossem nada mesmo, só a cor de fundo»: o vidro passa a ser o fundo de cada placa (attachment fixed), com
+    # as listras JÁ foscas: 22 px de desfoque na tela ≈ 34 px nesta imagem (2400 px cobrindo ~1536 px css) e saturação 1,35
+    fosco = ImageEnhance.Color(im.filter(ImageFilter.GaussianBlur(34))).enhance(1.35)
+    saida = RAIZ / 'img' / 'fundo-painel-listras-fosco.webp'; fosco.save(saida, quality=88)
     print(saida.name, saida.stat().st_size // 1024, 'KB')
 
 if __name__ == '__main__':

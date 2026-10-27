@@ -425,3 +425,13 @@
     -webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35)}
   .pn-cab,.pn-lado,.pn-main{position:relative;z-index:1}
 }
+
+/* 27/10/2026, «eu gostaria que os gaps fossem nada mesmo, só a cor de fundo»: o fundo do painel é só o creme; as listras ficam
+   SÓ dentro das placas, já foscas na imagem (img/fundo-painel-listras-fosco.webp) e presas à tela (fixed), então as três placas
+   mostram um mesmo fundo contínuo e os vãos ficam lisos. Sem backdrop-filter nas placas (não há mais o que desfocar atrás) */
+@media (min-width:981px){
+  .pn{background:var(--creme,#FAF9F5)}
+  .pn::before{display:none}
+  .pn-cab,.pn-lado,.pn-main{background:linear-gradient(var(--vidro),var(--vidro)),url(../img/fundo-painel-listras-fosco.webp) center/cover fixed;
+    -webkit-backdrop-filter:none;backdrop-filter:none}
+}
