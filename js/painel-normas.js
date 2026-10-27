@@ -539,9 +539,13 @@
       /* 27/10: oceano de vidro, no mesmo tom da placa onde o globo está (só um brilho claro no alto à esquerda); mais transparente desde o 2º ajuste */
       var brilho = svg.append('defs').append('radialGradient').attr('id', 'mp-vidro').attr('cx', '32%').attr('cy', '26%').attr('r', '78%');
       /* 27/10, 3º: oceano branco a ~78% (mais claro que o #F2F1F5 da legenda, e o globo fica 20% menos transparente) */
-      brilho.append('stop').attr('offset', '0').attr('stop-color', '#fff').attr('stop-opacity', .86);
-      brilho.append('stop').attr('offset', '.55').attr('stop-color', '#fff').attr('stop-opacity', .78);
-      brilho.append('stop').attr('offset', '1').attr('stop-color', '#fff').attr('stop-opacity', .74);
+      /* 27/10, 4º: «o fundo do globo é branco, não poderia ser mais transparente para dar mais efeito 3D, aberto também»: vidro
+         de verdade, com brilho no alto à esquerda (62%), miolo transparente (24%) e borda azulada mais densa (o reflexo da
+         borda de uma bola de vidro), no globo e no mapa aberto */
+      brilho.append('stop').attr('offset', '0').attr('stop-color', '#fff').attr('stop-opacity', .62);
+      brilho.append('stop').attr('offset', '.45').attr('stop-color', '#fff').attr('stop-opacity', .24);
+      brilho.append('stop').attr('offset', '.82').attr('stop-color', '#E8F0F8').attr('stop-opacity', .26);
+      brilho.append('stop').attr('offset', '1').attr('stop-color', '#B9CDE2').attr('stop-opacity', .5);
       /* 27/10: «se a bola do globo ficasse ligeiramente transparente»: os países do lado de trás aparecem apagados através do
          globo. Lado de trás = ortográfica centrada no antípoda e espelhada (mesma posição de tela de quem olha através da bola) */
       var esfera = svg.append('path').attr('class', 'esfera').attr('fill', 'url(#mp-vidro)').attr('stroke', 'rgba(255,255,255,.9)').attr('stroke-width', 1.2);
