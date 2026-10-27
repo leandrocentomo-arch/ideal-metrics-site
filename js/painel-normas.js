@@ -116,16 +116,25 @@
   }
 
   /* ---------- lista ---------- */
-  function filtra() {
-    var q = F.q, qn = q.replace(/^iso[\/\s-]*(iec)?[\s-]*/, '').replace(/[^0-9a-z:\-]/g, '');
-    return D.normas.filter(function (n) {
-      if (!F.temas[n.tema] || !F.fases[n.fase] || !F.tipos[n.tipo]) return false;
-      if (F.pagina && !n.pagina) return false;
-      if (!q) return true;
-      var hay = (n.ref + ' ' + n.titulo + ' ' + n.comite + ' ' + (n.tcnome || '')).toLowerCase();
-      return hay.indexOf(q) >= 0 || (qn && (n.num.indexOf(qn) === 0 || n.ref.toLowerCase().replace(/[^0-9a-z:\-]/g, '').indexOf(qn) >= 0));
-    });
+  /* 27/10/2026 (Leandro: «parece que o filtro não está funcionando»): busca e filtros valem para todas as abas de normas, não só
+     para Normas por tema. passa() é a regra única; semFase ignora o filtro de estágio (linha do tempo e o que mudou mostram
+     a norma em qualquer estágio). */
+  function passa(n, semFase) {
+    if (!F.temas[n.tema] || (!semFase && !F.fases[n.fase]) || !F.tipos[n.tipo]) return false;
+    if (F.pagina && !n.pagina) return false;
+    var q = F.q; if (!q) return true;
+    var qn = q.replace(/^iso[\/\s-]*(iec)?[\s-]*/, '').replace(/[^0-9a-z:\-]/g, '');
+    var hay = (n.ref + ' ' + n.titulo + ' ' + n.comite + ' ' + (n.tcnome || '')).toLowerCase();
+    return hay.indexOf(q) >= 0 || (qn && (n.num.indexOf(qn) === 0 || n.ref.toLowerCase().replace(/[^0-9a-z:\-]/g, '').indexOf(qn) >= 0));
   }
+  function semFiltro() {
+    if (F.q || F.pagina) return false;
+    for (var k in F.temas) if (!F.temas[k]) return false;
+    for (var t in F.tipos) if (!F.tipos[t]) return false;
+    return true;
+  }
+  function filtra() { return D.normas.filter(function (n) { return passa(n); }); }
+  function vistaAtiva() { var v = $('.pn-vista.ativa'); return v ? v.id.replace(/^v-/, '') : ''; }
   function ordena(xs) {
     var k = F.ord;
     return xs.sort(function (a, b) {
@@ -163,6 +172,8 @@
     }
   }
   function render() {
+    var v = vistaAtiva();
+    if (v === 'tempo') montaTempo(); else if (v === 'mudancas') montaMudancas(); else if (v === 'revisao') montaRevisao();
     atual = ordena(filtra()); mostrados = 0;
     $('#pn-total').innerHTML = '<b>' + fmt(atual.length) + '</b> de ' + fmt(D.normas.length) + ' normas';
     var lista = $('#pn-lista');
@@ -220,15 +231,15 @@
   }
 
   /* ---------- linha do tempo ---------- */
-  var tempoFeito = false;
   function montaTempo() {
-    if (tempoFeito) return; tempoFeito = true;
     var A0 = 1985, A1 = 2028, span = A1 - A0;
     var px = function (d) { var y = +String(d).slice(0, 4), m = +(String(d).slice(5, 7) || 6); return ((y + (m - 1) / 12 - A0) / span * 100); };
     var anos = ''; for (var a = 1990; a <= 2025; a += 5) anos += '<span style="left:' + px(a) + '%">' + a + '</span>';
     $('#lt-anos').innerHTML = anos;
     var hist = {}; (D.historico || []).forEach(function (h) { (hist[h.num] = hist[h.num] || []).push(h); });
-    $('#lt-corpo').innerHTML = CHAVE.filter(function (k) { return D.porNum[k]; }).map(function (k) {
+    var chaves = CHAVE.filter(function (k) { return D.porNum[k] && D.porNum[k].some(function (x) { return passa(x, true); }); });
+    if (!chaves.length) { $('#lt-corpo').innerHTML = '<p class="pn-vazio">Nenhuma norma-chave com esses filtros.</p>'; return; }
+    $('#lt-corpo').innerHTML = chaves.map(function (k) {
       var xs = D.porNum[k].slice().sort(function (a, b) { return String(a.pub || '9999').localeCompare(String(b.pub || '9999')); });
       var atual = xs.filter(function (x) { return x.fase === 'publicada' || x.fase === 'revisao'; }).pop();
       var nome = (atual || xs[0]).titulo.split(/ [—–-] /)[0];
@@ -246,7 +257,12 @@
   /* ---------- mudanças ---------- */
   function montaMudancas() {
     var el = $('#md-corpo'), it = (MUD.itens || []).slice().sort(function (a, b) { return b.data.localeCompare(a.data) || a.ref.localeCompare(b.ref); });
-    var desde = dataBR((MUD.desde || D.gerado));
+    var desde = dataBR((MUD.desde || D.gerado)), todos = semFiltro();
+    var achaN = function (id) { for (var i = 0; i < D.normas.length; i++) if (D.normas[i].id === id) return D.normas[i]; return null; };
+    var total = it.length;
+    // norma que saiu da base não tem mais ficha: só aparece quando nenhum filtro está ligado
+    it = it.filter(function (m) { var n = achaN(m.id); return n ? passa(n, true) : todos; });
+    if (total && !it.length) { el.innerHTML = '<p class="pn-vazio">Nenhum movimento com esses filtros.</p>'; return; }
     if (!it.length) {
       el.innerHTML = '<p class="pn-vazio">Nenhuma mudança de estágio registrada desde ' + desde + '. A base da ISO é comparada toda semana; o que entrar, avançar de estágio ou for publicado aparece aqui.</p>';
       return;
@@ -263,8 +279,10 @@
 
   /* ---------- revisão sistemática ---------- */
   function montaRevisao() {
-    var xs = D.normas.filter(function (n) { return n.fase === 'revisao'; }).sort(function (a, b) { return a.num.localeCompare(b.num, undefined, { numeric: true }); });
-    $('#rv-total').innerHTML = '<b>' + xs.length + '</b> normas em revisão sistemática';
+    var todas = D.normas.filter(function (n) { return n.fase === 'revisao'; });
+    var xs = todas.filter(function (n) { return passa(n); }).sort(function (a, b) { return a.num.localeCompare(b.num, undefined, { numeric: true }); });
+    $('#rv-total').innerHTML = '<b>' + xs.length + '</b>' + (xs.length < todas.length ? ' de ' + todas.length : '') + ' normas em revisão sistemática';
+    if (!xs.length) { $('#rv-corpo').innerHTML = '<li class="pn-vazio">Nenhuma norma em revisão sistemática com esses filtros.</li>'; return; }
     $('#rv-corpo').innerHTML = xs.map(function (n) {
       var proj = (D.porNum[n.num] || []).filter(function (x) { return x.id !== n.id && !x.pub; });
       return '<li class="pn-item" data-id="' + n.id + '"><span class="ref">' + esc(n.ref) + '</span><span class="tit">' + esc(n.titulo) + '<small>' + esc(D.temasMap[n.tema]) + ' · ' + esc(n.comite) + (proj.length ? ' · projeto de nova edição em curso: ' + esc(proj[0].ref) : '') + '</small></span>' +

@@ -3829,6 +3829,14 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 .ft-powered{margin-left:auto;display:inline-flex;align-items:center;gap:8px;
   font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
 .ft-powered-selo{height:18px;width:auto;display:block}
+/* 27/10/2026 (Leandro: «no rodapé de todas as páginas, coloque isto do lado direito»): a linha legal ocupa só a metade
+   esquerda da grade e o crédito descia para uma segunda linha. No computador ele fica no canto direito do rodapé, na
+   altura da linha do CNPJ (34 px, a altura da marca vertical); a linha de créditos da coluna direita sobe para não encostar. */
+@media (min-width:881px){
+  .ft-root{position:relative}
+  .ft-powered{position:absolute;right:var(--lado,40px);bottom:26px;height:34px;margin-left:0}
+  .ft-credits{padding-bottom:46px}
+}
 @media (max-width:880px){ .ft-powered{margin-left:0;width:100%;margin-top:8px} }
 
 /* ===== BARRA DA HOME (gerado por _ferramentas/barra.py) ===== */
