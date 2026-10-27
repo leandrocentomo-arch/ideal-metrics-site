@@ -593,3 +593,9 @@
   .pn-pagina .barra-espaco{background:transparent}
 }
 .mp-mapa svg.plano .pulso text{paint-order:stroke;stroke:rgba(255,255,255,.9);stroke-width:3px;stroke-linejoin:round}   /* 27/10: no mapa aberto o rótulo fica sobre os países, aí o contorno branco volta */
+
+/* 27/10/2026, mapa de calor: ordem fixa dos setores e efeito de entrada a cada troca de norma («faça efeitos de entrada, quando
+   mudo de norma»): linhas entram da esquerda, uma a uma, e as barras crescem de zero */
+.ca-linha.entra{animation:pn-entra-esq .5s cubic-bezier(.2,.7,.2,1) both}
+.ca-barra i{transition:width .7s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){.ca-linha.entra{animation:none}.ca-barra i{transition:none}}

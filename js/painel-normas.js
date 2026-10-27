@@ -371,13 +371,15 @@
   function pintaCalor() {
     var S = D.setores, nums = Object.keys(S.normas).sort(function (a, b) { return D.survey[b].total - D.survey[a].total; });
     var atual = S.normas[stNum][stOnde], max = Math.max.apply(null, atual) || 1;
-    var ordem = atual.map(function (v, i) { return i; }).sort(function (a, b) { return atual[b] - atual[a]; });
+    /* 27/10: «não quero que mude a ordem dos setores»: ordem FIXA, pela soma das 17 normas no mundo, igual para qualquer norma */
+    var soma = S.setores.map(function (_, i) { return nums.reduce(function (t, k) { return t + S.normas[k].mundo[i]; }, 0); });
+    var ordem = atual.map(function (v, i) { return i; }).sort(function (a, b) { return soma[b] - soma[a]; });
     var nivel = function (v) { return !v ? 0 : v < 10 ? 1 : v < 100 ? 2 : v < 1000 ? 3 : 4; };
     var cab = '<div class="ca-linha ca-cabeca"><span></span><div class="ca-cels">' + nums.map(function (k) { return '<button type="button" data-num="' + k + '"' + (k === stNum ? ' aria-pressed="true"' : '') + '><i>' + (SURVEY_NOME[k] || 'ISO ' + k).replace('ISO/IEC ', '') + '</i></button>'; }).join('') + '</div><span class="m">' + (SURVEY_NOME[stNum] || 'ISO ' + stNum) + ' · ' + (stOnde === 'br' ? 'Brasil' : 'mundo') + '</span></div>';
     var corpo = ordem.map(function (i, r) {
-      return '<div class="ca-linha"><span class="ca-nome" title="' + esc(S.setores[i]) + '">' + esc(EA_PT[i] || S.setores[i]) + '</span><div class="ca-cels">' +
+      return '<div class="ca-linha entra" style="animation-delay:' + (r * 18) + 'ms"><span class="ca-nome" title="' + esc(S.setores[i]) + '">' + esc(EA_PT[i] || S.setores[i]) + '</span><div class="ca-cels">' +
         nums.map(function (k, c) { var v = S.normas[k][stOnde][i]; return '<span class="ca-q' + (k === stNum ? ' sel' : '') + '" tabindex="0" data-n="' + nivel(v) + '" data-v="' + v + '" data-s="' + esc(EA_PT[i] || S.setores[i]) + '" data-k="' + (SURVEY_NOME[k] || 'ISO ' + k) + '" style="transition-delay:' + (c * 14 + r * 4) + 'ms"></span>'; }).join('') +
-        '</div><span class="ca-barra"><i style="width:' + (atual[i] / max * 100) + '%"></i></span><b>' + fmt(atual[i]) + '</b></div>';
+        '</div><span class="ca-barra"><i style="width:0" data-w="' + (atual[i] / max * 100) + '"></i></span><b>' + fmt(atual[i]) + '</b></div>';
     }).join('');
     var cal = $('#st-calor');
     cal.innerHTML = '<div class="ca-cab"><b>Setores EA por norma</b><span>39 setores EA · 17 normas · ' + (stOnde === 'br' ? 'Brasil' : 'mundo') + '</span></div>' + cab + corpo +
@@ -395,8 +397,9 @@
     });
     $$('.ca-cabeca button', cal).forEach(function (b) { b.addEventListener('click', function () { var t = $('#st-sel button[data-num="' + b.dataset.num + '"]'); if (t) t.click(); }); });
     cal.classList.remove('ca-on'); void cal.offsetWidth;
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { cal.classList.add('ca-on'); return; }
-    requestAnimationFrame(function () { cal.classList.add('ca-on'); });
+    var cresce = function () { $$('.ca-barra i', cal).forEach(function (b) { b.style.width = b.dataset.w + '%'; }); };   // barras crescem a cada troca de norma
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { cal.classList.add('ca-on'); cresce(); return; }
+    requestAnimationFrame(function () { cal.classList.add('ca-on'); cresce(); });
   }
 
   /* ---------- mapa ---------- */
