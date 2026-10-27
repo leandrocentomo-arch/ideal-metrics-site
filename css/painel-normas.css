@@ -386,3 +386,10 @@
     background:linear-gradient(rgba(250,249,245,.18),rgba(250,249,245,.18)),url(../img/fundo-painel-mosaico.webp) center/cover no-repeat}
   .pn-cab,.pn-lado,.pn-main{-webkit-backdrop-filter:blur(7px) saturate(1.3);backdrop-filter:blur(7px) saturate(1.3)}
 }
+
+/* 27/10/2026, «colocar o pássaro da Ideal Metrics de fundo, mais claro, iluminado como o globo… o resto do fundo com um azul mais
+   claro»: fundo img/fundo-painel-passaro.webp (_ferramentas/fundo_passaro.py). O mosaico (fundo-painel-mosaico.webp) fica guardado:
+   para voltar a ele, trocar a url abaixo */
+@media (min-width:981px){
+  .pn{--vidro:rgba(255,255,255,.42);background:url(../img/fundo-painel-passaro.webp) center/cover no-repeat}   /* vidro mais transparente para o pássaro aparecer através das placas */
+}
