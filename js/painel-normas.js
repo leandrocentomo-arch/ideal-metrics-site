@@ -455,14 +455,20 @@
       function poePulsos() {
         var a = Math.sqrt(Math.max(0, Math.min(1, prog))), olho = [-giro[0], -giro[1]];
         var n = gPulsos.selectAll('g.pulso').size(), x0 = W / 2 + ESC_GLOBO + 26, y0 = H / 2 - (n - 1) * 11;
+        var postos = [];   // 27/10, mapa aberto: rótulos ao lado do ponto, empurrados para baixo quando se sobrepõem (Europa, Ásia)
+        if (a > .5) {
+          gPulsos.selectAll('g.pulso').each(function (d) { var p = proj(d.c); if (p) postos.push({ d: d, x: p[0] + 11, y: p[1] - 10 }); });
+          postos.sort(function (u, v) { return u.y - v.y; });
+          postos.forEach(function (u, i) { for (var j = 0; j < i; j++) { var v = postos[j]; if (Math.abs(v.x - u.x) < 130 && u.y - v.y < 13) u.y = v.y + 13; } d3.select(null); u.d.rot = [u.x, u.y]; });
+        }
         gPulsos.selectAll('g.pulso').each(function (d) {
           var vis = a > .98 || d3.geoDistance(d.c, olho) < 1.42, p = proj(d.c), sy = y0 + d.vaga * 22, g = d3.select(this);
           g.style('opacity', vis && p ? 1 : 0);
           if (!p) return;
           g.selectAll('circle').attr('cx', p[0]).attr('cy', p[1]);
-          if (a > .5) {   // 27/10: mapa aberto: a coluna fixa caía em cima da Ásia; no mapa nada se move, então o rótulo fica ao lado do ponto
-            g.select('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', p[0] + 9).attr('y2', p[1] - 9);
-            g.select('text').attr('x', p[0] + 11).attr('y', p[1] - 10);
+          if (a > .5 && d.rot) {
+            g.select('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', d.rot[0] - 2).attr('y2', d.rot[1] + 1);
+            g.select('text').attr('x', d.rot[0]).attr('y', d.rot[1]);
           } else {
             g.select('line').attr('x1', p[0]).attr('y1', p[1]).attr('x2', x0 - 6).attr('y2', sy);
             g.select('text').attr('x', x0).attr('y', sy + 4);
