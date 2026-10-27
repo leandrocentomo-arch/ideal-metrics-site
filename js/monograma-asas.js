@@ -7,12 +7,14 @@
    com três batidas inteiras cada vez mais fracas (1, .7, .45), e ao assentar um brilho prateado em diagonal atravessa
    o pássaro e a parte escrita (máscara alfa com o próprio monograma). Nada é redesenhado nem pintado: é a geometria
    oficial girada; ao fim, tudo volta ao desenho original. Respeita prefers-reduced-motion.
-   window.bateAsasMonograma(img): anima um <img> específico (o Painel de normas usa na cópia do logo do cabeçalho).
+   window.bateAsasMonograma(img, {prata:true}): anima um <img> específico; o brilho prateado só com prata:true (o Painel
+   de normas pede na cópia do logo do cabeçalho; na barra do topo «não precisa do pulse», 27/10).
    Na carga, anima sozinho o logo da barra do topo, menos no Painel de normas (lá a barra fica recolhida e o painel
    cuida da cópia). */
 (function () {
   var n = 0;
-  function bateAsas(img) {
+  function bateAsas(img, opts) {
+    opts = opts || {};
     if (!img || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
     var id = ++n;
     fetch(img.getAttribute('src')).then(function (r) { return r.text(); }).then(function (txt) {
@@ -56,7 +58,7 @@
         curta.setAttribute('transform', 'rotate(' + (-g * .4).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
         var e = 1 - Math.pow(1 - k, 3); passaro.style.transform = 'scale(' + (.35 + .65 * e).toFixed(3) + ')'; passaro.style.opacity = Math.min(1, .3 + k * 1.4).toFixed(2);
         if (k < 1) requestAnimationFrame(passo);
-        else { longa.removeAttribute('transform'); curta.removeAttribute('transform'); passaro.style.transform = ''; passaro.style.opacity = ''; pulsoPrata(); }
+        else { longa.removeAttribute('transform'); curta.removeAttribute('transform'); passaro.style.transform = ''; passaro.style.opacity = ''; if (opts.prata) pulsoPrata(); }   // 27/10: o brilho prateado só onde for pedido (no logo da barra «não precisa do pulse»)
       })(t0);
     }).catch(function () {});
   }

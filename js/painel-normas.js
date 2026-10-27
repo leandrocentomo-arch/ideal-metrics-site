@@ -105,7 +105,7 @@
     document.body.appendChild(b);
     /* 27/10: «o logo tem que aparecer sempre»: cópia da caixa do logo, fixa no lugar de sempre, visível enquanto o menu está
        recolhido (a original desce junto com a barra quando o menu abre) */
-    var marca = $('header.barra .barra-marca'); if (marca) { var cp = marca.cloneNode(true); cp.classList.add('pn-logo-fixo'); cp.removeAttribute('id'); ($('.pn-cab') || document.body).appendChild(cp); if (window.bateAsasMonograma) bateAsasMonograma(cp.querySelector('img')); }   // dentro do cabeçalho do painel: rola junto com ele («o logo tem que ficar fixo [no lugar], está descendo junto no scroll»)
+    var marca = $('header.barra .barra-marca'); if (marca) { var cp = marca.cloneNode(true); cp.classList.add('pn-logo-fixo'); cp.removeAttribute('id'); ($('.pn-cab') || document.body).appendChild(cp); if (window.bateAsasMonograma) bateAsasMonograma(cp.querySelector('img'), { prata: true }); }   // dentro do cabeçalho do painel: rola junto com ele («o logo tem que ficar fixo [no lugar], está descendo junto no scroll»)
     /* 27/10: a batida de asas (antes aqui) vive em js/monograma-asas.js, compartilhado por todas as páginas */
     function poe(ab) { document.body.classList.toggle('menu-aberto', ab); b.setAttribute('aria-expanded', ab); b.setAttribute('aria-label', ab ? 'Recolher o menu do site' : 'Abrir o menu do site'); }
     b.addEventListener('click', function () { poe(!document.body.classList.contains('menu-aberto')); });
