@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw
 
 RAIZ = Path(__file__).resolve().parent.parent
 W, H = 2400, 1350
-CORES = ['#FAF9F5', '#FAF9F5', '#D3E2F2', '#D3E2F2', '#9FC5F0', '#9FC5F0', '#6E93BC', '#4F86C6', '#336699', '#14304C']
+CORES = ['#FAF9F5', '#FAF9F5', '#EEF3F9', '#E2ECF7', '#D3E2F2', '#C4D8EE', '#B3CDEA', '#9FC5F0']   # 27/10, 2º: «menos contrastes, e mais claras» (sem tinta nem azul forte)
 
 def hx(h): h = h.lstrip('#'); return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
 

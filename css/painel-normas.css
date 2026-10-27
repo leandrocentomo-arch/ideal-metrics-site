@@ -415,5 +415,5 @@
    vertical»: listras verticais espelhadas no meio (img/fundo-painel-listras.webp, _ferramentas/fundo_listras.py), atrás do vidro
    fosco de 22 px. O creme com manchas (fundo-painel-creme.webp, commit 2b2d4eb) fica guardado */
 @media (min-width:981px){
-  .pn{background:url(../img/fundo-painel-listras.webp) center/cover no-repeat}
+  .pn{background:url(../img/fundo-painel-listras.webp?v=2) center/cover no-repeat}
 }
