@@ -883,3 +883,10 @@
 @media (max-width:1180px), (max-height:599px){
   body.pn-pagina::before{background:var(--creme,#FAF9F5) url(../img/fundo-painel-creme.webp) center/cover no-repeat}
 }
+/* 27/10/2026, «aqui, faça com que seja scroll» (coluna da direita do mapa): no computador a aba do mapa ocupa a altura da
+   placa e a coluna do total, Brasil e ranking rola sozinha; o globo fica parado */
+@media (min-width:1181px) and (min-height:600px){
+  #v-mapa.ativa{display:flex;flex-direction:column;height:100%}
+  #v-mapa .mp-grid{flex:1 1 auto;min-height:0;grid-template-rows:minmax(0,1fr)}
+  #v-mapa .mp-lado{min-height:0;overflow-y:auto;overflow-anchor:none;overscroll-behavior:contain;padding-right:8px;scrollbar-width:thin;scrollbar-color:rgba(20,48,76,.25) transparent}
+}
