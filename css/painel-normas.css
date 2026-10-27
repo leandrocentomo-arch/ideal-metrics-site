@@ -193,10 +193,7 @@
   body.pn-pagina .tarja,body.pn-pagina header.barra,body.pn-pagina .mega-menu{position:absolute}
   .pn{height:100vh;height:100dvh;margin-bottom:96px}
   .pn-lado,.pn-main{overscroll-behavior:auto}
-  body.pn-pagina .ft-root{padding:8px var(--lado,40px)}
-  body.pn-pagina .ft-root>:not(.ft-legal){display:none}
-  body.pn-pagina .ft-legal{margin:0;padding:0;border:0;min-height:42px}
-  body.pn-pagina .ft-powered{bottom:8px;height:42px}   /* rodapé compacto: o crédito no canto direito, na linha do CNPJ */
+  /* 27/10/2026, «a página precisa de rodapé»: sai o rodapé compacto (só a linha legal); vale o rodapé completo do site, igual às outras páginas */
   .mp-mapa svg{width:auto;max-width:100%;max-height:calc(100dvh - var(--cab-h,215px) - 215px);margin:0 auto}
 }
 /* 27/10/2026, efeito vidro (Leandro: «poderia fazer esse efeito de glass no painel de normas?», referência de dashboard em
