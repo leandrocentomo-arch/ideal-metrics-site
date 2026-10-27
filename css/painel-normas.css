@@ -619,3 +619,23 @@
 @keyframes mp-rola{0%{opacity:1}45%{opacity:0}50%{opacity:0}100%{opacity:1}}   /* 27/10: «o efeito dos nomes dos países pode ser esmaecer»: só fade, sem deslocar (o tambor de cima para baixo saiu) */
 @media (prefers-reduced-motion:reduce){.mp-rank li>span.rola{animation:none}}
 .mp-mapa svg,.mp-mapa svg text{user-select:none;-webkit-user-select:none}   /* 27/10: «por que a tag fica grifada?»: o arraste do globo selecionava o texto SVG dos rótulos */
+
+/* 27/10/2026, «um tag colapsado como o do lado esquerdo, mas no topo, com os elementos do menu»: no computador a tarja e a
+   barra ficam recolhidas acima da tela (fixas, translateY(-100%)); a etiqueta «Menu» (.pn-menu-puxa, criada pelo JS) fica
+   pendurada no topo, centrada, e puxa as duas para baixo (body.menu-aberto). O painel ganha os 72 px do topo. */
+.pn-menu-puxa{display:none}
+@media (min-width:981px){
+  body.pn-pagina .tarja,body.pn-pagina header.barra{position:fixed;left:0;right:0;transform:translateY(-100%);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+  body.pn-pagina .tarja{top:0;z-index:985}
+  body.pn-pagina header.barra{top:26px;z-index:984}
+  body.pn-pagina.menu-aberto .tarja,body.pn-pagina.menu-aberto header.barra{transform:none}
+  body.pn-pagina .mega-menu{position:fixed}
+  .pn-pagina .barra-espaco{height:14px}
+  .pn-pagina .pn{height:calc(100vh - 14px);height:calc(100dvh - 14px)}
+  .pn-menu-puxa{display:flex;position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:986;align-items:center;gap:10px;padding:5px 14px 6px;
+    background:#FAF9F5;color:#14304C;border:1px solid rgba(20,48,76,.28);border-top:0;border-radius:0 0 3px 3px;cursor:pointer;
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;transition:top .45s cubic-bezier(.2,.7,.2,1),background .2s,color .2s}
+  .pn-menu-puxa svg{width:18px;height:11px;fill:currentColor;flex:none}
+  .pn-menu-puxa:hover,.pn-menu-puxa:focus-visible,body.menu-aberto .pn-menu-puxa{background:#14304C;color:#FAF9F5;outline:none}
+  body.menu-aberto .pn-menu-puxa{top:72px}
+}

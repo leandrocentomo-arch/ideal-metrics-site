@@ -96,6 +96,19 @@
 
   /* 27/10: a coluna de busca e filtros fica recolhida numa etiqueta e se puxa para abrir (Leandro: «o menu da esquerda pode ser
      puxado por tag, para ficar mais espaço») */
+  /* 27/10: «talvez um tag colapsado como o do lado esquerdo, mas no topo, com os elementos do menu»: no computador a tarja e a
+     barra do menu ficam recolhidas acima da tela e uma etiqueta «Menu» no topo (mesma família da etiqueta da gaveta) as puxa
+     para baixo; Esc, clique fora ou a própria etiqueta recolhem. Ganha os 72 px do topo para o painel. */
+  (function () {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'pn-menu-puxa'; b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-label', 'Abrir o menu do site');
+    b.innerHTML = '<svg viewBox="0 0 22 14" aria-hidden="true"><path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/></svg><span>Menu</span>';
+    document.body.appendChild(b);
+    function poe(ab) { document.body.classList.toggle('menu-aberto', ab); b.setAttribute('aria-expanded', ab); b.setAttribute('aria-label', ab ? 'Recolher o menu do site' : 'Abrir o menu do site'); }
+    b.addEventListener('click', function () { poe(!document.body.classList.contains('menu-aberto')); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-aberto')) poe(false); });
+    document.addEventListener('pointerdown', function (e) { if (document.body.classList.contains('menu-aberto') && !e.target.closest('.tarja, header.barra, .mega-menu, .pn-menu-puxa')) poe(false); });
+  })();
+
   $('.pn-puxa').addEventListener('click', function () {
     var ab = $('.pn').classList.toggle('lado-aberto');
     this.setAttribute('aria-expanded', ab); this.setAttribute('aria-label', ab ? 'Recolher busca e filtros' : 'Abrir busca e filtros');
