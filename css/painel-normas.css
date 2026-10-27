@@ -643,7 +643,8 @@
      quando o menu abre e a original desce no mesmo lugar */
   /* 27/10, 2º: «deixe o logo direto neste campo, sem o fundo»: só o monograma, sem caixa, no vão à esquerda do título do painel */
   /* 27/10, 3º: «borda em volta do espaço do logo, bem fina, na cor escura da Ideal-m»: moldura de 0,5 px em #14304C, fundo transparente, ocupando o vão do cabeçalho */
-  .pn-logo-fixo{position:fixed;top:34px;left:56px;z-index:983;transition:opacity .25s;background:transparent;border:.5px solid #14304C;border-radius:3px;padding:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;width:auto;height:auto;padding:4px 5px;justify-content:center}   /* 8 px dentro da placa do cabeçalho (que começa em 48,26); «diminua o gap entre o logo e a borda»: moldura justa, 4/5 px de folga */
+  .pn-cab{position:relative}
+  .pn-logo-fixo{position:absolute;top:8px;left:8px;z-index:3;transition:opacity .25s;background:transparent;border:.5px solid #14304C;border-radius:3px;padding:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;width:auto;height:auto;padding:4px 5px;justify-content:center}   /* 8 px dentro da placa do cabeçalho (que começa em 48,26); «diminua o gap entre o logo e a borda»: moldura justa, 4/5 px de folga */
   .pn-logo-fixo .marca-frente{height:96px}   /* «o logo pode ficar um pouco maior naquele espaço» (85 → 96, dentro da moldura) */
   body.menu-aberto .pn-logo-fixo{opacity:0;pointer-events:none}
 }
