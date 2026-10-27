@@ -123,6 +123,25 @@
         passaro.appendChild(longa); passaro.appendChild(curta);
         svg.setAttribute('class', img.className); svg.setAttribute('aria-hidden', 'true'); svg.style.height = getComputedStyle(img).height;
         img.parentNode.replaceChild(svg, img);
+        /* 27/10, 7º («quando o pássaro parar de bater asas, passe um pulse na diagonal prateado somente em cima do pássaro e
+           da parte escrita»): máscara alfa com o próprio monograma e um retângulo com degradê diagonal prateado que atravessa
+           da esquerda para a direita em .9 s; só pinta onde há desenho */
+        var vb = (svg.getAttribute('viewBox') || '0 0 100 100').split(/\s+/).map(Number), defs = doc.createElementNS(ns, 'defs');
+        defs.innerHTML = '<linearGradient id="pn-prata" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".42" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#E6EBF1" stop-opacity=".95"/><stop offset=".58" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
+          '<mask id="pn-prata-m" maskUnits="userSpaceOnUse" x="' + vb[0] + '" y="' + vb[1] + '" width="' + vb[2] + '" height="' + vb[3] + '" style="mask-type:alpha"><use href="#monograma-270"/></mask>';
+        svg.insertBefore(defs, svg.firstChild);
+        var brilho = doc.createElementNS(ns, 'rect');
+        brilho.setAttribute('x', vb[0]); brilho.setAttribute('y', vb[1]); brilho.setAttribute('width', vb[2]); brilho.setAttribute('height', vb[3]);
+        brilho.setAttribute('fill', 'url(#pn-prata)'); brilho.setAttribute('mask', 'url(#pn-prata-m)'); brilho.setAttribute('pointer-events', 'none'); brilho.style.display = 'none';
+        svg.appendChild(brilho);
+        function pulsoPrata() {
+          var t0 = performance.now(), dur = 900; brilho.style.display = '';
+          (function passo(t) {
+            var k = Math.max(0, Math.min((t - t0) / dur, 1));
+            brilho.setAttribute('transform', 'translate(' + ((k * 2 - 1) * vb[2] * 1.1).toFixed(1) + ' 0)');
+            if (k < 1) requestAnimationFrame(passo); else brilho.style.display = 'none';
+          })(t0);
+        }
         var PL = [39.5, 20.5], PC = [45.5, 15], raf = null;   // ombros, nas coordenadas do desenho
         /* 27/10, 3º («não ficou boa, faça como antes, mas abaixe mais as asas, talvez uma batida e meia»): volta o vaivém da
            1ª versão, com uma batida e meia em 1,8 s e a asa descendo mais (até −18°) do que sobe (+7°).
@@ -143,7 +162,7 @@
             longa.setAttribute('transform', 'rotate(' + g.toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
             curta.setAttribute('transform', 'rotate(' + (-g * .4).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
             if (entrada) { var e = 1 - Math.pow(1 - k, 3); passaro.style.transform = 'scale(' + (.35 + .65 * e).toFixed(3) + ')'; passaro.style.opacity = Math.min(1, .3 + k * 1.4).toFixed(2); }
-            if (k < 1) raf = requestAnimationFrame(passo); else { raf = null; longa.removeAttribute('transform'); curta.removeAttribute('transform'); passaro.style.transform = ''; passaro.style.opacity = ''; }
+            if (k < 1) raf = requestAnimationFrame(passo); else { raf = null; longa.removeAttribute('transform'); curta.removeAttribute('transform'); passaro.style.transform = ''; passaro.style.opacity = ''; if (entrada) pulsoPrata(); }
           })(t0);
         };
         bateAsas.deNovo(true);
