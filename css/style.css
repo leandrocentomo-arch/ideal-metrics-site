@@ -3823,7 +3823,7 @@ html.js .content > .in-view { opacity: 1; transform: none; }
 .txt-escuro .content .ifc-svg-n { fill: var(--color-primary); }
 
 
-/* 24/09/2026: credito no fim do rodape, «Website powered by Ideal Metrics», com o
+/* 24/09/2026: credito no fim do rodape, «Website by Ideal Metrics» (30/10: era «powered by»), com o
    selo bem pequeno ao lado. Na mesma linha do CNPJ, empurrado para a direita. */
 .ft-legal{flex-wrap:wrap}
 .ft-powered{margin-left:auto;display:inline-flex;align-items:center;gap:8px;
