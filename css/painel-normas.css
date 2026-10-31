@@ -1417,3 +1417,46 @@ html[data-tema=noite][data-noite=azul] .mp-mapa .etq rect.pilula{fill:rgba(56,10
 html[data-tema=noite][data-noite=azul] .pn-det{background:linear-gradient(135deg,rgba(66,114,164,.97) 0%,rgba(58,104,152,.95) 100%)}
 html[data-tema=noite][data-noite=azul] body.pn-pagina .tarja,html[data-tema=noite][data-noite=azul] body.pn-pagina header.barra,html[data-tema=noite][data-noite=azul] body.pn-pagina .mega-menu,html[data-tema=noite][data-noite=azul] body.pn-pagina .gaveta-painel,
 html[data-tema=noite][data-noite=azul] body.pn-pagina .gaveta:not(.aberta) .gaveta-aba:not(:hover):not(:focus-visible),html[data-tema=noite][data-noite=azul] body.pn-pagina .pn-menu-puxa:not(:hover):not(:focus-visible){background:rgba(64,112,162,.62)}
+
+/* 31/10/2026, «tem que ajustar a cor do botão também para bater no tema, o pulso está outra cor»: nos temas azul e marinho a
+   placa da norma escolhida fica clara e a faixa que passa é o #336699 da marca (não mais a tinta escura); o texto inverte
+   junto, tinta sobre a placa e branco sobre a faixa */
+html[data-tema=noite][data-noite=azul] #mp-sel .desliza,html[data-tema=noite][data-noite=azul] #br-sel .desliza,
+html[data-tema=noite][data-noite=marinho] #mp-sel .desliza,html[data-tema=noite][data-noite=marinho] #br-sel .desliza{background-image:linear-gradient(115deg,#FFFFFF 0%,#FFFFFF 38%,#336699 47%,#336699 53%,#FFFFFF 62%,#FFFFFF 100%)}
+html[data-tema=noite][data-noite=azul] #mp-sel button[aria-pressed=true],html[data-tema=noite][data-noite=azul] #br-sel button[aria-pressed=true],
+html[data-tema=noite][data-noite=marinho] #mp-sel button[aria-pressed=true],html[data-tema=noite][data-noite=marinho] #br-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#14304C 0%,#14304C 38%,#FFFFFF 47%,#FFFFFF 53%,#14304C 62%,#14304C 100%)}
+/* «este cinza não dá pra ler com fundo escuro»: na gaveta Guia, nos temas escuros, número, pergunta, rodapé e links mono saem do
+   #315275 para o claro secundário; títulos e links no claro */
+html[data-tema=noite] body.pn-pagina .gaveta{color:#DFE7F1}
+html[data-tema=noite] body.pn-pagina .gaveta .mp-n,html[data-tema=noite] body.pn-pagina .gaveta .mp-q,html[data-tema=noite] body.pn-pagina .gaveta .mp-fim a,html[data-tema=noite] body.pn-pagina .gaveta .mp-pe{color:#C9D8E8}
+html[data-tema=noite] body.pn-pagina .gaveta .mp-col-tit,html[data-tema=noite] body.pn-pagina .gaveta .mp-lista a,html[data-tema=noite] body.pn-pagina .gaveta .mp-pe a{color:#F2F6FB}
+html[data-tema=noite] body.pn-pagina .gaveta .mp-lista a{border-bottom-color:rgba(220,230,242,.22)}
+
+/* ===== 31/10/2026, 6º, «crie uma quarta opção, entre o azul mais escuro e o azul 336699»: MARINHO =
+   html[data-tema=noite][data-noite=marinho], fundo #284A70 (o meio entre o escuro #1C2E46 e o #336699), texto #EEF3F9,
+   secundário #C9D8E8, vidro e manchas no meio-termo. Interruptor: sol, escuro, marinho (círculo com miolo) e azul. ===== */
+html[data-tema=noite][data-noite=marinho] body.pn-pagina,html[data-tema=noite][data-noite=marinho] body.pn-pagina::before{background:#284A70}
+@media (min-width:1181px) and (min-height:600px){ html[data-tema=noite][data-noite=marinho] body.pn-pagina::before{display:none} }
+html[data-tema=noite][data-noite=marinho] .pn-fundo .o1{background:radial-gradient(circle,rgba(20,48,76,.40) 0%,rgba(20,48,76,.10) 45%,transparent 70%)}
+html[data-tema=noite][data-noite=marinho] .pn-fundo .o2{background:radial-gradient(circle,rgba(159,197,240,.26) 0%,rgba(159,197,240,.07) 45%,transparent 70%)}
+html[data-tema=noite][data-noite=marinho] .pn-fundo .o3{background:radial-gradient(circle,rgba(211,226,242,.12) 0%,transparent 68%)}
+html[data-tema=noite][data-noite=marinho] .pn-fundo .o4{background:radial-gradient(circle,rgba(51,102,153,.50) 0%,rgba(51,102,153,.12) 45%,transparent 70%)}
+html[data-tema=noite][data-noite=marinho] .pn-fundo .o5{background:radial-gradient(circle,rgba(189,221,255,.18) 0%,transparent 68%)}
+html[data-tema=noite][data-noite=marinho] .pn{--tinta:#EEF3F9;--creme:#1E3A5F;--perola:rgba(238,243,249,.12);--fio:rgba(238,243,249,.18);--fio2:rgba(238,243,249,.32);color:#EEF3F9}
+html[data-tema=noite][data-noite=marinho] .pn .m,html[data-tema=noite][data-noite=marinho] .pn-cab .pn-sub,html[data-tema=noite][data-noite=marinho] .mp-esc,
+html[data-tema=noite][data-noite=marinho] .mp-lado .tot small,html[data-tema=noite][data-noite=marinho] .mp-br .v small,html[data-tema=noite][data-noite=marinho] .mp-nota,
+html[data-tema=noite][data-noite=marinho] .mp-brsit,html[data-tema=noite][data-noite=marinho] .lt-anos span,html[data-tema=noite][data-noite=marinho] .pn-item .tit small,
+html[data-tema=noite][data-noite=marinho] .pn-item .fase,html[data-tema=noite][data-noite=marinho] .ca-cab span,html[data-tema=noite][data-noite=marinho] .ca-pe,
+html[data-tema=noite][data-noite=marinho] .pn-op .n,html[data-tema=noite][data-noite=marinho] .pn-fonte,html[data-tema=noite][data-noite=marinho] .pn-vazio,
+html[data-tema=noite][data-noite=marinho] .pn-det .tema,html[data-tema=noite][data-noite=marinho] .pn-kv dt,html[data-tema=noite][data-noite=marinho] .md-item .de,
+html[data-tema=noite][data-noite=marinho] .md-nota,html[data-tema=noite][data-noite=marinho] .lt-leg,html[data-tema=noite][data-noite=marinho] .lt-ed .r{color:#C9D8E8}
+html[data-tema=noite][data-noite=marinho] .pn-lado,html[data-tema=noite][data-noite=marinho] #v-mapa .mp-lado,html[data-tema=noite][data-noite=marinho] #v-brasil .mp-lado{
+  background:linear-gradient(135deg,rgba(211,226,242,.11) 0%,rgba(159,197,240,.04) 55%,rgba(189,221,255,.07) 100%);border:1px solid rgba(211,226,242,.22);box-shadow:inset 0 1px 0 rgba(242,246,251,.12),0 22px 50px -32px rgba(8,24,48,.65)}
+html[data-tema=noite][data-noite=marinho] .pn-det{background:linear-gradient(135deg,rgba(40,74,114,.97) 0%,rgba(34,66,104,.95) 100%)}
+html[data-tema=noite][data-noite=marinho] .pn-abas,html[data-tema=noite][data-noite=marinho] .mp-sel button{background:rgba(211,226,242,.07)}
+html[data-tema=noite][data-noite=marinho] .mp-mapa .etq rect.pilula{fill:rgba(34,66,104,.92)}
+html[data-tema=noite][data-noite=marinho] .mp-mapa .pulso text.en{fill:#EEF3F9}
+html[data-tema=noite][data-noite=marinho] .pn-abas button[aria-selected=true],html[data-tema=noite][data-noite=marinho] .pn-abas button[aria-selected=true] .m,html[data-tema=noite][data-noite=marinho] .mp-sel button[aria-pressed=true]{color:#14304C}
+html[data-tema=noite][data-noite=marinho] body.pn-pagina .tarja,html[data-tema=noite][data-noite=marinho] body.pn-pagina header.barra,html[data-tema=noite][data-noite=marinho] body.pn-pagina .mega-menu,html[data-tema=noite][data-noite=marinho] body.pn-pagina .gaveta-painel,
+html[data-tema=noite][data-noite=marinho] body.pn-pagina .gaveta:not(.aberta) .gaveta-aba:not(:hover):not(:focus-visible),html[data-tema=noite][data-noite=marinho] body.pn-pagina .pn-menu-puxa:not(:hover):not(:focus-visible){background:rgba(36,68,108,.64)}
+html[data-tema=noite][data-noite=marinho] #v-mapa .mp-esc .mp-fonte,html[data-tema=noite][data-noite=marinho] #br-esc .mp-fonte{color:#C9D8E8}
