@@ -653,7 +653,7 @@
         lista.forEach(function (it) {
           var d = it[1], g = d3.select(it[0]), p = d.p; if (!p) return;
           var PILHA = 24, base = p[1] - 3, topo = base - PILHA, txt = d.uf + ' ' + pct(d.v), pw = 14 + txt.length * 6.3, ph = 18, lx = p[0], ly = topo - ph / 2 - 2, alvo = [0, 0];
-          var livre = function (x, y) { return postos.every(function (q) { return x + pw / 2 + 3 < q[0] || x - pw / 2 - 3 > q[1] || y + ph / 2 + 3 < q[2] || y - ph / 2 - 3 > q[3]; }); };
+          var livre = function (x, y) { return y - ph / 2 > 4 && postos.every(function (q) { return x + pw / 2 + 3 < q[0] || x - pw / 2 - 3 > q[1] || y + ph / 2 + 3 < q[2] || y - ph / 2 - 3 > q[3]; }); };
           if (!livre(lx, ly)) for (var k = 1, ok = false; k <= 10 && !ok; k++) [[pw + 6, -(k - 1) * (ph + 4)], [-(pw + 6), -(k - 1) * (ph + 4)], [0, -k * (ph + 4)]].some(function (c) { if (livre(lx + c[0], ly + c[1])) { alvo = c; ok = true; return true; } return false; });
           postos.push([lx + alvo[0] - pw / 2, lx + alvo[0] + pw / 2, ly + alvo[1] - ph / 2, ly + alvo[1] + ph / 2]);
           var sobe = calmo ? 0 : Math.pow(1 - Math.min(1, gr / .6), 3) * 18, x = lx + alvo[0], y = ly + alvo[1] + sobe;
@@ -719,9 +719,14 @@
          esquerda para a direita em loop (molde do dashboard do HASDA 2027). Mapa plano equirretangular de 78N a 56S
          ocupando a altura; a largura (2π × escala) passa da tela e a emenda do loop fica escondida pela borda esmaecida.
          No computador o quadro acompanha o tamanho da área (W muda, H fica 480) e a coluna dos dados passa por cima, no vidro. */
-      var W = 960, H = 480, LAT_N = 78, LAT_S = -56, ESC_MAPA = H / ((LAT_N - LAT_S) * Math.PI / 180), Y_MAPA = (LAT_N + LAT_S) / 2 * Math.PI / 180 * ESC_MAPA, ESC_GLOBO = H / 2 - 8, KM = ESC_MAPA * Math.PI / 180;
+      /* 31/10/2026, «usar o novo mapa global, que mostra a proporção exata dos países»: o mapa aberto passa à projeção Equal
+         Earth (Šavrič, Patterson e Jenny, 2018), de área igual: cada país no tamanho real em relação aos outros (Rússia,
+         Canadá e Groenlândia deixam de parecer gigantes; África e América do Sul aparecem no tamanho de verdade). A faixa
+         de 78N a 56S ocupa a altura; a borda do mapa é curva, e o mapa corre dentro dela. */
+      var MAPA_RAW = d3.geoEqualEarthRaw, RAD0 = Math.PI / 180;
+      var W = 960, H = 480, LAT_N = 86, LAT_S = -58, Y_N = MAPA_RAW(0, LAT_N * RAD0)[1], Y_S = MAPA_RAW(0, LAT_S * RAD0)[1], ESC_MAPA = H / (Y_N - Y_S), Y_MAPA = (Y_N + Y_S) / 2 * ESC_MAPA, X_EQ = MAPA_RAW(Math.PI, 0)[0], ESC_GLOBO = H / 2 - 8, KM = ESC_MAPA * X_EQ / 180;
       var GIRO_BR = [52, 12], giro = [-10, 0], prog = 1, anima = false, arrasta = null, sobre = false, cxG = W / 2, cxM = W / 2, fimVis = W * .92, crescendo = false, mouseDentro = false;
-      var muta = d3.geoProjectionMutator(function (t) { return function (x, y) { var a = d3.geoOrthographicRaw(x, y), b = d3.geoEquirectangularRaw(x, y); return [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])]; }; });
+      var muta = d3.geoProjectionMutator(function (t) { return function (x, y) { var a = d3.geoOrthographicRaw(x, y), b = MAPA_RAW(x, y); return [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])]; }; });
       var proj = muta(0).translate([W / 2, H / 2]).precision(.5), geo = d3.geoPath(proj);
       var FEATS = MUNDO.features.filter(function (f) { return f.id !== '010'; });
       /* 31/10/2026, «quero que os pontos dos países fiquem parecidos com o da Sodexo»: o mapa é uma trama de pontos, como no
@@ -732,7 +737,7 @@
       var cv = document.createElement('canvas'); cv.className = 'mp-pontos'; cv.setAttribute('aria-hidden', 'true'); box.insertBefore(cv, box.firstChild);
       var ctx = cv.getContext('2d');
       var svg = d3.select(box).insert('svg', '.mp-dica').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', T('Mapa de certificados por país', 'Map of certificates by country')).classed('plano', true);
-      var PASSO = .6, PTS = FEATS.map(function () { return []; }), RID = null, RW = 0, RH = 0, celas = null, celasChave = '';
+      var PASSO = .6, PTS = FEATS.map(function () { return []; }), RID = null, RW = 0, RH = 0, celas = null, celasChave = '', img = null, buf = null;
       (function () {
         var cw = Math.round(720 / PASSO), ch = Math.round(360 / PASSO), oc = document.createElement('canvas'); oc.width = cw; oc.height = ch;
         var o = oc.getContext('2d'), gp = d3.geoPath(d3.geoEquirectangular().scale(cw / (2 * Math.PI)).translate([cw / 2, ch / 2]).precision(.2), o);
@@ -796,35 +801,34 @@
         }
         var qM = PASSO * KM, qG = PASSO * RAD * R;
         /* 31/10, «a trama não ficou legal»: no mapa aberto a trama é de TELA, não geográfica: um ponto quadrado de 2 px a cada
-           3 px de tela (2,5 px css × escala, ponto em 62% do passo), cravado no pixel (como a trama das fotos do site), e cada nó lê o país no raster. A volta inteira (360°) fica
-           pré-desenhada numa faixa que só desliza, em passos de pixel inteiro; a faixa é redesenhada quando muda o tamanho
-           ou a cor (na troca de norma, a cada quadro, enquanto a cor passa) */
+           3 px de tela (2,5 px css × escala, ponto em 62% do passo), cravado no pixel, e cada nó lê o país no raster.
+           Equal Earth (31/10, 2º): a longitude escala diferente em cada latitude, então o giro não é mais um deslize da faixa;
+           cada quadro refaz a malha (inversa da projeção por linha, guardada) e escreve os pontos direto num ImageData */
         if (a >= 1) {
-          var larg = 360 * KM, sd = s * dpr, fw = Math.round(larg * sd), fh = Math.round(H * sd), PX = Math.max(3, Math.round(2.5 * dpr)), DOT = Math.max(2, Math.round(PX * .62)), ck = [fw, fh, PX].join();
-          if (celasChave !== ck) {
-            celasChave = ck; celas = FEATS.map(function () { return []; });
-            for (var cy = Math.floor(PX / 2); cy < fh; cy += PX) {
-              var lat = (tyM - cy / sd) / KM; if (lat > 84 || lat < -60) continue; var ry = Math.floor((90 - lat) / 180 * RH) * RW;
-              for (var cx2 = Math.floor(PX / 2); cx2 < fw; cx2 += PX) { var id = RID[ry + Math.min(RW - 1, Math.floor(cx2 / fw * RW))]; if (id >= 0) celas[id].push(cx2, cy); }
+          var sd = s * dpr, PX = Math.max(3, Math.round(2.5 * dpr)), DOT = Math.max(2, Math.round(PX * .62)), Wd = cv.width, Hd = cv.height, ck = [Wd, Hd, PX, W, sd.toFixed(4)].join();
+          if (celasChave !== ck) {   // por linha da malha: y na tela, linha do raster e unidades por radiano de longitude nessa latitude
+            celasChave = ck; celas = [];
+            for (var cy = Math.floor(PX / 2); cy < Hd; cy += PX) {
+              var yr = (tyM - (cy - oy * dpr) / sd) / ESC_MAPA; if (yr > Y_N + .03 || yr < Y_S - .03) continue;
+              var phi = MAPA_RAW.invert(0, yr)[1], lat = phi / RAD0; if (!(lat <= 84 && lat >= -60)) continue;
+              celas.push(cy, Math.floor((90 - lat) / 180 * RH) * RW, MAPA_RAW(1, phi)[0] * ESC_MAPA);
             }
-            faixa = null;
+            img = ctx.createImageData(Wd, Hd); buf = new Uint32Array(img.data.buffer);
           }
-          var chave = ck + '|' + corChave;
-          if (!faixa || faixa.chave !== chave || corDe) {
-            faixa = faixa || document.createElement('canvas'); faixa.chave = chave;
-            if (faixa.width !== fw || faixa.height !== fh) { faixa.width = fw; faixa.height = fh; }
-            var fx = faixa.getContext('2d'); fx.setTransform(1, 0, 0, 1, 0, 0); fx.clearRect(0, 0, fw, fh);
-            var mD = Math.floor(DOT / 2);
-            for (var fi = 0; fi < celas.length; fi++) {
-              var FC = celas[fi]; if (!FC.length) continue; var fc = corAt[fi];
-              fx.fillStyle = 'rgb(' + Math.round(fc[0]) + ',' + Math.round(fc[1]) + ',' + Math.round(fc[2]) + ')'; fx.globalAlpha = fc[3];
-              for (var fj = 0; fj < FC.length; fj += 2) fx.fillRect(FC[fj] - mD, FC[fj + 1] - mD, DOT, DOT);
+          buf.fill(0);
+          var cores = corAt.map(function (c) { return ((Math.round(c[3] * 255) << 24) | (Math.round(c[2]) << 16) | (Math.round(c[1]) << 8) | Math.round(c[0])) >>> 0; });
+          var mD = Math.floor(DOT / 2), x0u = ox * dpr, PI = Math.PI;
+          for (var r = 0; r < celas.length; r += 3) {
+            var cy2 = celas[r], ry = celas[r + 1], kx = celas[r + 2], lin = (cy2 - mD) * Wd;
+            for (var cx2 = Math.floor(PX / 2); cx2 < Wd; cx2 += PX) {
+              var lonR = ((cx2 - x0u) / sd - cxM) / kx; if (lonR < -PI || lonR > PI) continue;
+              var lon = lonR / RAD0 - lam; lon = ((lon % 360) + 540) % 360 - 180;
+              var id = RID[ry + Math.min(RW - 1, Math.floor((lon + 180) / 360 * RW))]; if (id < 0) continue;
+              var cor = cores[id]; if (!cor) continue;
+              for (var dy = 0; dy < DOT; dy++) { var o = lin + dy * Wd + cx2 - mD; if (o < 0 || o >= buf.length - DOT) continue; for (var dx = 0; dx < DOT; dx++) buf[o + dx] = cor; }
             }
           }
-          var x0f = cxM + (((lam % 360) + 360) % 360) * KM - 180 * KM, xd = Math.round((x0f * s + ox) * dpr), yd = Math.round(oy * dpr);
-          while (xd > 0) xd -= fw;
-          ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
-          for (; xd < cv.width; xd += fw) ctx.drawImage(faixa, xd, yd);
+          ctx.putImageData(img, 0, 0);
           return;
         }
         for (var i = 0; i < PTS.length; i++) {
@@ -840,7 +844,7 @@
             var lo = (P[j2] + lam) * RAD, la = P[j2 + 1] * RAD, cl = Math.cos(la), x = cl * Math.cos(lo), y = cl * Math.sin(lo), z = Math.sin(la);
             var Y = z * cP + x * sP, Dp = x * cP - z * sP;
             if (Dp <= 0 && a < .02) { ctx.globalAlpha = c[3] * .07; ctx.fillRect(cxG + R * y - .35, H / 2 - R * Y - .35, .7, .7); continue; }
-            var lw2 = ((P[j2] + lam) % 360 + 540) % 360 - 180, gx = cxG + R * y, gy = H / 2 - R * Y, mx = cxM + lw2 * KM, my = tyM - P[j2 + 1] * KM;
+            var lw2 = ((P[j2] + lam) % 360 + 540) % 360 - 180, gx = cxG + R * y, gy = H / 2 - R * Y, pm = MAPA_RAW(lw2 * RAD, P[j2 + 1] * RAD), mx = cxM + pm[0] * ESC_MAPA, my = tyM - pm[1] * ESC_MAPA;
             var aG = Dp > 0 ? .45 + .55 * Dp : .05, qg = Dp > 0 ? qG * (L ? .55 : .45) * (.65 + .35 * Dp) : qG * .3, q = qg + (qm - qg) * a;
             ctx.globalAlpha = c[3] * (aG + (1 - aG) * a);
             ctx.fillRect(gx + (mx - gx) * a - q / 2, gy + (my - gy) * a - q / 2, q, q);
@@ -909,7 +913,7 @@
             var cr = 1 - Math.pow(1 - gr, 3), PILHA = 26, base = p[1] - 3, topo = base - PILHA;
             g.select('path.vareta').attr('d', 'M' + p[0].toFixed(1) + ',' + base.toFixed(1) + 'V' + (base - PILHA * cr).toFixed(1));
             var pw = 35 + fmt(d.v).length * 6.3, ph = 18, lx0 = p[0], ly0 = topo - ph / 2 - 2, alvo = [0, 0];
-            var livre = function (x, y) { return postos.every(function (q) { return x + pw / 2 + 3 < q[0] || x - pw / 2 - 3 > q[1] || y + ph / 2 + 3 < q[2] || y - ph / 2 - 3 > q[3]; }); };
+            var livre = function (x, y) { return y - ph / 2 > 4 && postos.every(function (q) { return x + pw / 2 + 3 < q[0] || x - pw / 2 - 3 > q[1] || y + ph / 2 + 3 < q[2] || y - ph / 2 - 3 > q[3]; }); };
             if (vis && !livre(lx0, ly0)) {
               for (var k = 1, ok = false; k <= 14 && !ok; k++) [[0, -k * (ph + 4)], [pw + 6, -(k - 1) * (ph + 4)], [-(pw + 6), -(k - 1) * (ph + 4)]].some(function (c) { if (livre(lx0 + c[0], ly0 + c[1])) { alvo = c; ok = true; return true; } return false; });
             }
@@ -966,7 +970,7 @@
       svg.on('pointerdown', function (ev) { if (anima) return; arrasta = [ev.clientX, ev.clientY]; svg.classed('arrastando', true); });
       window.addEventListener('pointermove', function (ev) {
         if (!arrasta) return; var w = svg.node().getBoundingClientRect().width;
-        if (prog === 1) giro[0] += (ev.clientX - arrasta[0]) * 360 * W / (2 * Math.PI * ESC_MAPA * w);
+        if (prog === 1) giro[0] += (ev.clientX - arrasta[0]) * 360 * W / (2 * X_EQ * ESC_MAPA * w);
         else { var k = 300 / w; giro[0] += (ev.clientX - arrasta[0]) * k; giro[1] = Math.max(-80, Math.min(80, giro[1] - (ev.clientY - arrasta[1]) * k)); }
         arrasta = [ev.clientX, ev.clientY]; desenha();
       });
