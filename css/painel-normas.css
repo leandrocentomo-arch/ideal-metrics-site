@@ -1141,3 +1141,39 @@ html[data-tema=noite] .pn-ctrl .pn-lang button:not([aria-pressed=true]){color:#D
 html[data-tema=noite] .pn-ctrl .pn-lang button[aria-pressed=true]{background:#DCE6F2;color:#0E1B2E}
 html[data-tema=noite] .pn-ctrl .pn-lang img{filter:grayscale(1) brightness(1.2)}
 html[data-tema=noite] .pn-ctrl .pn-lang button[aria-pressed=true] img{filter:none}
+
+/* 31/10/2026, «deixe bem claro que esses dados são da ISO Survey… o link logo na página inicial, próximo à legenda; a legenda
+   pode ficar um pouquinho menos larga»: legenda com faixas de 28 px (eram 44) e uma segunda linha com a fonte e o link oficial
+   (iso.org/the-iso-survey.html); o card dos dados repete a fonte, com link, logo abaixo do total */
+.mp-esc{flex-wrap:wrap;row-gap:7px}
+.mp-esc i{width:28px}
+.mp-esc span{margin:0 8px 0 5px}
+.mp-esc .mp-fonte{flex-basis:100%;font-family:var(--mono);font-size:9.5px;letter-spacing:.02em;line-height:1.35;color:var(--tinta);text-decoration:none;border-top:1px solid var(--fio);padding-top:7px;max-width:470px}
+.mp-esc .mp-fonte:hover{text-decoration:underline}
+.mp-esc .mp-fonte b{font-weight:500}
+.mp-fonte-card{display:inline-block;margin:6px 0 2px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta);text-decoration:none;border-bottom:1px solid var(--fio2)}
+.mp-fonte-card:hover{border-bottom-color:var(--tinta)}
+/* «quero que fique bem evidente qual a norma que está selecionada… se ficasse pulsando, ficaria claro que existe a possibilidade
+   de seleção»: a placa da norma escolhida pulsa (anel que se abre e some, 2,4 s) e, a cada 9 s, uma onda passa pelas outras
+   normas da fileira (cada uma sobe 2 px e acende o contorno), mostrando que dá para escolher */
+.mp-sel .desliza{animation:mp-pulsa 2.4s ease-out infinite}
+@keyframes mp-pulsa{0%{box-shadow:0 0 0 0 rgba(51,102,153,.6)}70%{box-shadow:0 0 0 9px rgba(51,102,153,0)}100%{box-shadow:0 0 0 0 rgba(51,102,153,0)}}
+html[data-tema=noite] .mp-sel .desliza{animation-name:mp-pulsa-n}
+@keyframes mp-pulsa-n{0%{box-shadow:0 0 0 0 rgba(220,230,242,.55)}70%{box-shadow:0 0 0 9px rgba(220,230,242,0)}100%{box-shadow:0 0 0 0 rgba(220,230,242,0)}}
+#mp-sel button[aria-pressed=false]{animation:mp-onda 9s ease-in-out infinite;animation-delay:calc(3s + var(--i,0) * .07s)}
+@keyframes mp-onda{0%,5%,100%{transform:none;border-color:var(--vborda,var(--fio))}2.5%{transform:translateY(-2px);border-color:var(--liga)}}
+@media (prefers-reduced-motion:reduce){.mp-sel .desliza,#mp-sel button{animation:none}}
+/* 31/10/2026, «deixa as bandeiras tingidas aqui também e deixa as bandeiras mais pequenas»: 13 × 9,75 px (eram 16 × 12) no
+   mesmo tingimento azul do ranking; a escolhida, sobre a placa escura, no mesmo tom mais claro */
+.pn-ctrl .pn-lang img{width:13px;height:9.75px;filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(1.5) brightness(.92) contrast(1.05)}
+.pn-ctrl .pn-lang button[aria-pressed=true] img{filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(1.2) brightness(1.55) contrast(1.05)}
+html[data-tema=noite] .pn-ctrl .pn-lang img{filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(1.3) brightness(1.15) contrast(1.05)}
+html[data-tema=noite] .pn-ctrl .pn-lang button[aria-pressed=true] img{filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(1.5) brightness(.75) contrast(1.1)}
+.pn-ctrl .pn-lang button{gap:4px}
+/* a fonte desce para a segunda linha da legenda (a legenda não passa de 440 px, longe do botão do globo) */
+#v-mapa .mp-esc{flex-wrap:wrap;width:auto;max-width:440px}
+#v-mapa .mp-esc .mp-fonte{flex:0 0 100%;max-width:none}
+/* escala inteira numa linha só (o «10 mil+» quebrava): faixas de 24 px, vãos menores, legenda até 470 px */
+#v-mapa .mp-esc{max-width:470px}
+#v-mapa .mp-esc i{width:24px}
+#v-mapa .mp-esc span{margin:0 7px 0 4px;white-space:nowrap}

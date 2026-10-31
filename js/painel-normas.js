@@ -575,7 +575,7 @@
   function montaMapa() {
     if (mapaFeito) return; mapaFeito = true;
     var nums = Object.keys(D.survey).sort(function (a, b) { return D.survey[b].total - D.survey[a].total; });
-    $('#mp-sel').innerHTML = nums.map(function (k) { var nm = SURVEY_NOME[k] || 'ISO ' + k; return '<button data-num="' + k + '" aria-pressed="' + (k === mapaNum) + '"' + (nm.length > 13 ? ' class="longo"' : '') + '>' + nm + '</button>'; }).join('');
+    $('#mp-sel').innerHTML = nums.map(function (k, i) { var nm = SURVEY_NOME[k] || 'ISO ' + k; return '<button style="--i:' + i + '" data-num="' + k + '" aria-pressed="' + (k === mapaNum) + '"' + (nm.length > 13 ? ' class="longo"' : '') + '>' + nm + '</button>'; }).join('');
     $$('.mp-sel button').forEach(function (b) { b.addEventListener('click', function () { escolheSurvey(b.dataset.num); }); });
     var box = $('#mp-mapa'); dica = $('#mp-dica');
     if (!window.d3 || !window.topojson) { box.innerHTML = '<p class="pn-vazio" style="padding:20px">' + T('O mapa precisa das bibliotecas d3 e topojson, que não carregaram. A tabela ao lado continua válida.', 'The map needs the d3 and topojson libraries, which did not load. The table alongside remains valid.') + '</p>'; pintaLado(); return; }
@@ -851,7 +851,11 @@
     });
   }
   var CORES_DIA = ['rgba(20,48,76,.2)', '#A9C3DE', '#7FA3C9', '#5C88B8', '#336699', '#14304C'], CORES_NOITE = ['rgba(220,230,242,.16)', '#2C4A6E', '#3E6593', '#5C88B8', '#8DB3DD', '#D6E4F5'];   // 31/10: as faixas da trama de pontos, nos dois temas
-  function pintaMapaLegenda() { var C = NOITE ? CORES_NOITE : CORES_DIA; $('#mp-esc').innerHTML = '<span style="margin-left:0">' + T('certificados', 'certificates') + '</span>' + ['0', '1', '10', '100', T('1 mil', '1k'), T('10 mil+', '10k+')].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join(''); }
+  /* 31/10, «deixe bem claro que esses dados são da ISO Survey… o link para o ISO Survey logo na página inicial, próximo à
+     legenda; a legenda pode ficar um pouquinho menos larga»: a legenda ganha uma segunda linha com a fonte e o link oficial */
+  var ISO_SURVEY = 'https://www.iso.org/the-iso-survey.html';
+  function pintaMapaLegenda() { var C = NOITE ? CORES_NOITE : CORES_DIA; $('#mp-esc').innerHTML = '<span style="margin-left:0">' + T('certificados', 'certificates') + '</span>' + ['0', '1', '10', '100', T('1 mil', '1k'), T('10 mil+', '10k+')].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join('') +
+    '<a class="mp-fonte" href="' + ISO_SURVEY + '" target="_blank" rel="noopener">' + T('Fonte: ISO Survey 2025, da ISO (Organização Internacional de Normalização) · certificados acreditados em vigor em 31-dez-2025', 'Source: ISO Survey 2025, by ISO (International Organization for Standardization) · accredited certificates in force on 31-dec-2025') + ' <b aria-hidden="true">↗</b></a>'; }
   function pintaMapa() {
     var s = D.survey[mapaNum]; if (!s) return;
     var porNum = {}; Object.keys(D.paises).forEach(function (a2) { if (D.paises[a2].n) porNum[D.paises[a2].n] = a2; });
@@ -886,6 +890,7 @@
     if (!lado.dataset.pronto) {
       lado.dataset.pronto = '1';
       lado.innerHTML = '<h3></h3><div class="m" id="mp-tit"></div><div class="tot"><span id="mp-tot"></span><small id="mp-paises"></small></div>' +
+        '<a class="mp-fonte-card" href="' + ISO_SURVEY + '" target="_blank" rel="noopener">' + T('Dados do ISO Survey 2025 (ISO)', 'Data from the ISO Survey 2025 (ISO)') + ' ↗</a>' +
         '<div class="mp-br"><span class="m">' + T('Brasil', 'Brazil') + '</span><div class="v"><span id="mp-brv"></span><small id="mp-brpos"></small></div><div class="mp-brsit" id="mp-brsit"></div></div>' +
         '<div class="mp-rola"><ul class="mp-rank">' + Array.apply(null, Array(11)).map(function () { return '<li><span class="m"></span><span><img class="bandeira" alt="" loading="lazy"><span class="nome"></span></span><b></b><span class="barra"><i style="width:0"></i></span></li>'; }).join('') + '</ul>' +
         '<p class="mp-nota">' + T('Como ler: o número é o total de certificados em vigor em 31-dez-2025, emitidos em qualquer ano e ainda válidos nessa data; não é o número de certificações feitas em 2025. Site é cada local permanente coberto por um certificado. Entram só certificados de organismos acreditados por membros da Global ACI (antigo IAF), carregados no IAF CertSearch: certificação sem acreditação e certificadoras que ainda não enviaram dados ficam de fora, então o total real do país pode ser maior. Fonte: ISO Survey 2025, publicado em outubro de 2026.', 'How to read: the figure is the total of certificates in force on 31-dec-2025, issued in any year and still valid on that date; it is not the number of certifications granted in 2025. A site is each permanent location covered by a certificate. Only certificates from bodies accredited by Global ACI members (formerly IAF), uploaded to IAF CertSearch, are counted: non-accredited certification and certification bodies that have not yet uploaded data are left out, so the real total for a country may be higher. Source: ISO Survey 2025, published October 2026.') + '</p></div>';   // 27/10: ranking e nota numa caixa que rola; total e Brasil ficam fixos em cima
