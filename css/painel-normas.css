@@ -1519,3 +1519,12 @@ html:not([data-tema=noite]) #mp-sel .desliza::after,html:not([data-tema=noite]) 
 html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tema=noite]) #br-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#14304C 0%,#14304C 38%,#FAF9F5 47%,#FAF9F5 53%,#14304C 62%,#14304C 100%);background-size:300% 100%;
   -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:mp-onda-placa 2s linear infinite}
 @media (prefers-reduced-motion:reduce){html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza,html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tema=noite]) #br-sel button[aria-pressed=true]{animation:none;background-position:0 0}}
+/* 31/10/2026, tema claro: «faça os stacks escuros, e não precisa de contorno para o tag; faça o tag um pouquinho mais
+   transparente; para cor creme no botão selecionado, use a cor mais escura da Ideal Metrics para o pulso»:
+   haste, ponto e fio na tinta #14304C (eram #0011BB); etiqueta sem contorno e com fundo creme a 76% (era 90%);
+   norma escolhida com placa creme #FAF9F5 e a faixa do pulso em #14304C (texto na tinta, creme onde a faixa passa) */
+html:not([data-tema=noite]) .mp-mapa g.pulso.no-mapa .vareta,html:not([data-tema=noite]) .mp-mapa .etq .fio{stroke:#14304C}
+html:not([data-tema=noite]) .mp-mapa g.pulso.no-mapa .ponto{fill:#14304C}
+html:not([data-tema=noite]) .mp-mapa .etq rect.pilula{stroke:none;fill:rgba(250,249,245,.76)}
+html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza{background-image:linear-gradient(115deg,#FAF9F5 0%,#FAF9F5 38%,#14304C 47%,#14304C 53%,#FAF9F5 62%,#FAF9F5 100%);box-shadow:inset 0 0 0 .5px rgba(20,48,76,.35)}
+html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tema=noite]) #br-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#14304C 0%,#14304C 38%,#FAF9F5 47%,#FAF9F5 53%,#14304C 62%,#14304C 100%)}
