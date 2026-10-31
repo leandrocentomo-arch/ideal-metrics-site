@@ -1229,3 +1229,4 @@ html[data-tema=noite] .pn-pagina .barra-nav a,html[data-tema=noite] .pn-pagina .
 html[data-tema=noite][data-noite=clara] .mp-mapa .etq rect.pilula{fill:rgba(26,43,66,.92)}
 html[data-tema=noite][data-noite=clara] .mp-mapa .pulso text.en{fill:#EEF3F9}
 html[data-tema=noite] #v-mapa .mp-esc .mp-fonte{color:#A9BCFF}
+#mp-sel button[aria-pressed=true]::after{animation-duration:.9s}   /* 31/10: «quero a bolinha ainda mais rápida» (1,4 → 0,9 s) */
