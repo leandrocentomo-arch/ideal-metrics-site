@@ -270,9 +270,20 @@
     pl.style.width = b.offsetWidth + 'px'; pl.style.height = b.offsetHeight + 'px';
     pl.style.transform = 'translate(' + b.offsetLeft + 'px,' + b.offsetTop + 'px)';
     if (pl.classList.contains('sem-anima')) { pl.offsetWidth; pl.classList.remove('sem-anima'); }
+    acerta(pl, b);
     var esq = b.offsetLeft - caixa.scrollLeft, dir = esq + b.offsetWidth;   // na fileira que rola, traz o escolhido para a vista
     if (caixa.scrollWidth > caixa.clientWidth && (esq < 0 || dir > caixa.clientWidth)) caixa.scrollTo({ left: b.offsetLeft - 24, behavior: 'smooth' });
   }
+  /* 31/10, «primeiro fica branco, depois a escrita fica escura… teria que ser ao mesmo tempo»: a placa corria a varredura desde
+     o carregamento e a letra do botão só desde a escolha, fora de fase; as duas animações passam a contar do mesmo zero
+     (início da linha do tempo do documento), então placa e letra trocam juntas, em qualquer botão e depois de trocar o tema */
+  function acerta() {
+    Array.prototype.forEach.call(arguments, function (e) {
+      if (e && e.getAnimations) e.getAnimations().forEach(function (an) { if (an.animationName === 'mp-varre') an.startTime = 0; });
+    });
+  }
+  function acertaTudo() { ['#mp-sel', '#br-sel'].forEach(function (q) { var c = $(q); if (c) acerta(c.querySelector('.desliza'), c.querySelector('[aria-pressed=true]')); }); }
+  document.addEventListener('pn-tema', function () { requestAnimationFrame(acertaTudo); });
   function deslizaTudo() { desliza($('.pn-abas'), '[aria-selected=true]'); desliza($('#mp-sel'), '[aria-pressed=true]'); desliza($('#st-sel'), '[aria-pressed=true]'); if ($('#br-sel button')) desliza($('#br-sel'), '[aria-pressed=true]'); }
   window.addEventListener('resize', deslizaTudo);
 

@@ -1617,3 +1617,5 @@ body.pn-pagina.menu-aberto .pn-menu-puxa,body.pn-pagina.menu-aberto .pn-menu-pux
 body.pn-pagina.menu-aberto .pn-menu-puxa svg path{fill:#FAF9F5}
 html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa,html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa:not(:hover):not(:focus-visible){background:#DFE7F1;color:#0E1B2E}
 html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa svg path,html[data-tema=noite] body.pn-pagina .pn-menu-puxa:hover svg path,html[data-tema=noite] body.pn-pagina .pn-menu-puxa:focus-visible svg path{fill:#0E1B2E}
+/* a letra do botão media a varredura pela caixa interna (sem a borda de 1 px) e a placa pela externa; mesma origem nas duas */
+#mp-sel button[aria-pressed=true],#br-sel button[aria-pressed=true]{background-origin:border-box}
