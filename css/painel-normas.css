@@ -1002,3 +1002,9 @@ body.pn-pagina{background:#F2F2EF}
   #v-mapa .mp-lado{background:linear-gradient(135deg,rgba(255,255,255,.32) 0%,rgba(255,255,255,.14) 55%,rgba(255,255,255,.22) 100%);
     -webkit-backdrop-filter:blur(16px) saturate(1.5);backdrop-filter:blur(16px) saturate(1.5)}
 }
+/* 31/10/2026, «tente fazer o stack e o contorno do tag no azul 0011BB, pois ficou difícil de ler»: haste, ponto, contorno da
+   etiqueta e fio no #0011BB cheio (substitui a tinta a 40/20% do ajuste anterior) */
+.mp-mapa g.pulso.no-mapa .vareta{stroke:#0011BB}
+.mp-mapa g.pulso.no-mapa .ponto{fill:#0011BB}
+.mp-mapa .etq rect.pilula{stroke:#0011BB}
+.mp-mapa .etq .fio{stroke:#0011BB}
