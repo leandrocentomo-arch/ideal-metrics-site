@@ -1490,3 +1490,10 @@ html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tem
   #v-mapa .mp-mapa{right:342px}
   #v-mapa .mp-ctl{right:62px}
 }
+/* 31/10/2026, «deixa o card ainda um pouco mais largo»: placa dos dados com 440 px; o mapa termina 396 px antes da borda
+   (10% dentro da placa) e o botão do globo acompanha */
+@media (min-width:1181px) and (min-height:600px){
+  #v-mapa .mp-lado{width:440px}
+  #v-mapa .mp-mapa{right:396px}
+  #v-mapa .mp-ctl{right:68px}
+}
