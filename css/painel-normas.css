@@ -1255,3 +1255,6 @@ html[data-tema=noite] .pn-pagina .mega-menu-col h4{color:#B7C8DC;border-color:rg
 html[data-tema=noite] .pn-pagina .mega-menu-col a{color:#DFE7F1}
 html[data-tema=noite] .pn-pagina .mega-menu-col a:hover{color:#A9BCFF}
 html[data-tema=noite] .pn-pagina .mega-traco{background:#A9BCFF}
+/* 31/10/2026, 2º: «o Painel de normas ISO tem que ser o primeiro que aparece; Estudos e pesquisa aplicada junto com a linha
+   de painel, base ISO e a data; pode fazer a fonte menor»: título no alto, subtítulo, e embaixo uma linha mono só, 9 px */
+.pn-cab .pn-base{font-size:9px;letter-spacing:.1em;margin-top:5px}
