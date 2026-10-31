@@ -727,7 +727,7 @@
          escala uniforme mantém a proporção de área entre os países (todos crescem 15%), que é o que a projeção mostra */
       var ESTICA = 1.15, MAPA_RAW = function (l, p) { var r = d3.geoEqualEarthRaw(l, p); return [r[0] * ESTICA, r[1]]; }, RAD0 = Math.PI / 180;
       MAPA_RAW.invert = function (x, y) { return d3.geoEqualEarthRaw.invert(x / ESTICA, y); };
-      var W = 960, H = 480, LAT_N = 86, LAT_S = -58, Y_N = MAPA_RAW(0, LAT_N * RAD0)[1], Y_S = MAPA_RAW(0, LAT_S * RAD0)[1], ESC_MAPA = H / (Y_N - Y_S), Y_MAPA = (Y_N + Y_S) / 2 * ESC_MAPA, X_EQ = MAPA_RAW(Math.PI, 0)[0], ESC_GLOBO = H / 2 - 8, KM = ESC_MAPA * X_EQ / 180;
+      var W = 960, H = 480, LAT_N = 86, LAT_S = -58, Y_N = MAPA_RAW(0, LAT_N * RAD0)[1], Y_S = MAPA_RAW(0, LAT_S * RAD0)[1], ESC_MAPA = .9 * H / (Y_N - Y_S),   /* 31/10, 3º, «um pouquinho menor»: 90% da altura */ Y_MAPA = (Y_N + Y_S) / 2 * ESC_MAPA, X_EQ = MAPA_RAW(Math.PI, 0)[0], ESC_GLOBO = H / 2 - 8, KM = ESC_MAPA * X_EQ / 180;
       var GIRO_BR = [52, 12], giro = [-10, 0], prog = 1, anima = false, arrasta = null, sobre = false, cxG = W / 2, cxM = W / 2, fimVis = W * .92, crescendo = false, mouseDentro = false;
       var muta = d3.geoProjectionMutator(function (t) { return function (x, y) { var a = d3.geoOrthographicRaw(x, y), b = MAPA_RAW(x, y); return [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])]; }; });
       var proj = muta(0).translate([W / 2, H / 2]).precision(.5), geo = d3.geoPath(proj);
