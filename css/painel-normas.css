@@ -1357,3 +1357,47 @@ html[data-tema=noite] #br-sel .desliza{background-image:linear-gradient(115deg,#
 html[data-tema=noite] #br-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#0E1B2E 0%,#0E1B2E 38%,#DFE7F1 47%,#DFE7F1 53%,#0E1B2E 62%,#0E1B2E 100%)}
 @media (prefers-reduced-motion:reduce){#br-sel .desliza,#br-sel button[aria-pressed=true]{animation:none}}
 @media (min-width:1181px) and (min-height:600px){ #v-brasil .mp-esc{max-width:430px} }   /* a escala em percentual numa linha só */
+/* 31/10/2026, «botões na mesma linha, no mesmo tamanho; se for dividir por setor e por estado, faça botões diferentes, pode
+   ser rádio abaixo»: as duas normas em botões iguais (120 px) numa linha só; «Por estado / Por setor» vira rádio, logo abaixo */
+.br-barra{flex-direction:column;align-items:flex-start;gap:8px}
+#br-sel{display:flex;gap:6px}
+#br-sel button{width:120px;min-width:0;height:26px;padding:0;display:flex;align-items:center;justify-content:center}
+.br-modo{display:flex;gap:18px;padding-left:2px}
+.br-modo button{display:flex;align-items:center;gap:7px;padding:0;border:0;background:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta);cursor:pointer;opacity:.7}
+.br-modo button::before{content:"";width:10px;height:10px;border-radius:50%;border:1px solid currentColor;box-sizing:border-box}
+.br-modo button[aria-pressed=true]{opacity:1}
+.br-modo button[aria-pressed=true]::before{background:radial-gradient(circle,currentColor 0 2.5px,transparent 3px)}
+
+/* ===== 31/10/2026, 4º, «tente uma terceira opção, mais parecida com o azul, um azul mais claro dentro da carteira de cores
+   da Ideal Metrics, mais voltado para 336699»: AZUL = html[data-tema=noite][data-noite=azul]. Herda o escuro (tokens claros
+   sobre fundo) e troca o fundo para #2F5F8E, entre o #315275 e o #336699 da marca; manchas em #336699, #9FC5F0 e #D3E2F2;
+   vidro um passo mais claro; texto #F2F6FB e secundário #D3E2F2. Interruptor com três botões: sol, escuro (círculo com
+   a linha) e azul (círculo cheio). ===== */
+.pn-tema .cheio{fill:currentColor;stroke:none}
+html[data-tema=noite][data-noite=azul] body.pn-pagina,html[data-tema=noite][data-noite=azul] body.pn-pagina::before{background:#2F5F8E}
+@media (min-width:1181px) and (min-height:600px){ html[data-tema=noite][data-noite=azul] body.pn-pagina::before{display:none} }
+html[data-tema=noite][data-noite=azul] .pn-fundo .o1{background:radial-gradient(circle,rgba(20,48,76,.38) 0%,rgba(20,48,76,.10) 45%,transparent 70%)}
+html[data-tema=noite][data-noite=azul] .pn-fundo .o2{background:radial-gradient(circle,rgba(159,197,240,.32) 0%,rgba(159,197,240,.08) 45%,transparent 70%)}
+html[data-tema=noite][data-noite=azul] .pn-fundo .o3{background:radial-gradient(circle,rgba(211,226,242,.16) 0%,transparent 68%)}
+html[data-tema=noite][data-noite=azul] .pn-fundo .o4{background:radial-gradient(circle,rgba(51,102,153,.55) 0%,rgba(51,102,153,.14) 45%,transparent 70%)}
+html[data-tema=noite][data-noite=azul] .pn-fundo .o5{background:radial-gradient(circle,rgba(189,221,255,.22) 0%,transparent 68%)}
+html[data-tema=noite][data-noite=azul] .pn{--tinta:#F2F6FB;--creme:#2A5682;--perola:rgba(242,246,251,.14);--fio:rgba(242,246,251,.20);--fio2:rgba(242,246,251,.34);color:#F2F6FB}
+html[data-tema=noite][data-noite=azul] .pn .m,html[data-tema=noite][data-noite=azul] .pn-cab .pn-sub,html[data-tema=noite][data-noite=azul] .mp-esc,
+html[data-tema=noite][data-noite=azul] .mp-lado .tot small,html[data-tema=noite][data-noite=azul] .mp-br .v small,html[data-tema=noite][data-noite=azul] .mp-nota,
+html[data-tema=noite][data-noite=azul] .mp-brsit,html[data-tema=noite][data-noite=azul] .lt-anos span,html[data-tema=noite][data-noite=azul] .pn-item .tit small,
+html[data-tema=noite][data-noite=azul] .pn-item .fase,html[data-tema=noite][data-noite=azul] .ca-cab span,html[data-tema=noite][data-noite=azul] .ca-pe,
+html[data-tema=noite][data-noite=azul] .pn-op .n,html[data-tema=noite][data-noite=azul] .pn-fonte,html[data-tema=noite][data-noite=azul] .pn-vazio,
+html[data-tema=noite][data-noite=azul] .pn-det .tema,html[data-tema=noite][data-noite=azul] .pn-kv dt,html[data-tema=noite][data-noite=azul] .md-item .de,
+html[data-tema=noite][data-noite=azul] .md-nota,html[data-tema=noite][data-noite=azul] .lt-leg,html[data-tema=noite][data-noite=azul] .lt-ed .r{color:#D3E2F2}
+html[data-tema=noite][data-noite=azul] .pn-lado,html[data-tema=noite][data-noite=azul] #v-mapa .mp-lado,html[data-tema=noite][data-noite=azul] #v-brasil .mp-lado{
+  background:linear-gradient(135deg,rgba(211,226,242,.14) 0%,rgba(159,197,240,.05) 55%,rgba(189,221,255,.09) 100%);border:1px solid rgba(211,226,242,.26);box-shadow:inset 0 1px 0 rgba(242,246,251,.14),0 22px 50px -32px rgba(10,30,60,.6)}
+html[data-tema=noite][data-noite=azul] .pn-det{background:linear-gradient(135deg,rgba(44,88,134,.96) 0%,rgba(38,78,120,.94) 100%)}
+html[data-tema=noite][data-noite=azul] .pn-abas,html[data-tema=noite][data-noite=azul] .mp-sel button{background:rgba(211,226,242,.08)}
+html[data-tema=noite][data-noite=azul] .mp-mapa .etq rect.pilula{fill:rgba(36,74,114,.92)}
+html[data-tema=noite][data-noite=azul] .mp-mapa .pulso text.en{fill:#F2F6FB}
+html[data-tema=noite][data-noite=azul] .pn-abas button[aria-selected=true],html[data-tema=noite][data-noite=azul] .pn-abas button[aria-selected=true] .m,html[data-tema=noite][data-noite=azul] .mp-sel button[aria-pressed=true]{color:#14304C}
+html[data-tema=noite][data-noite=azul] body.pn-pagina .tarja,html[data-tema=noite][data-noite=azul] body.pn-pagina header.barra,html[data-tema=noite][data-noite=azul] body.pn-pagina .mega-menu,html[data-tema=noite][data-noite=azul] body.pn-pagina .gaveta-painel,
+html[data-tema=noite][data-noite=azul] body.pn-pagina .gaveta:not(.aberta) .gaveta-aba:not(:hover):not(:focus-visible),html[data-tema=noite][data-noite=azul] body.pn-pagina .pn-menu-puxa:not(:hover):not(:focus-visible){background:rgba(40,80,124,.62)}
+html[data-tema=noite][data-noite=azul] #mp-sel .desliza,html[data-tema=noite][data-noite=azul] #br-sel .desliza{background-image:linear-gradient(115deg,#F2F6FB 0%,#F2F6FB 38%,#14304C 47%,#14304C 53%,#F2F6FB 62%,#F2F6FB 100%)}
+html[data-tema=noite][data-noite=azul] #mp-sel button[aria-pressed=true],html[data-tema=noite][data-noite=azul] #br-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#14304C 0%,#14304C 38%,#F2F6FB 47%,#F2F6FB 53%,#14304C 62%,#14304C 100%)}
+html[data-tema=noite][data-noite=azul] #v-mapa .mp-esc .mp-fonte,html[data-tema=noite][data-noite=azul] #br-esc .mp-fonte{color:#D3E2F2}
