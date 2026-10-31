@@ -1611,3 +1611,9 @@ html[data-tema=noite][data-noite] #mp-sel .desliza,html[data-tema=noite][data-no
 .pn-som.mudo svg .liga{display:none}
 .pn-som.mudo svg .desliga{display:inline}
 .pn-som.mudo button{opacity:.55}
+/* 31/10, «não consigo ler o menu quando a etiqueta está para baixo»: com o menu aberto, a regra do vidro (mais específica)
+   vencia a da etiqueta aberta e deixava letra creme sobre vidro creme; no escuro o ícone ficava claro sobre a etiqueta clara */
+body.pn-pagina.menu-aberto .pn-menu-puxa,body.pn-pagina.menu-aberto .pn-menu-puxa:not(:hover):not(:focus-visible){background:#14304C;color:#FAF9F5;-webkit-backdrop-filter:none;backdrop-filter:none}
+body.pn-pagina.menu-aberto .pn-menu-puxa svg path{fill:#FAF9F5}
+html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa,html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa:not(:hover):not(:focus-visible){background:#DFE7F1;color:#0E1B2E}
+html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa svg path,html[data-tema=noite] body.pn-pagina .pn-menu-puxa:hover svg path,html[data-tema=noite] body.pn-pagina .pn-menu-puxa:focus-visible svg path{fill:#0E1B2E}
