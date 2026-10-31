@@ -1497,3 +1497,9 @@ html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tem
   #v-mapa .mp-mapa{right:396px}
   #v-mapa .mp-ctl{right:68px}
 }
+/* 31/10/2026, «que o botão selecionado fique piscando»: a placa da norma escolhida pisca devagar (opacidade 1 → .5 → 1 em
+   1,6 s), nos três temas; no escuro e no marinho junto com a onda que já corre nela. Para com movimento reduzido. */
+@keyframes mp-pisca{0%,100%{opacity:1}50%{opacity:.5}}
+#mp-sel .desliza,#br-sel .desliza{animation:mp-onda-placa 2s linear infinite,mp-pisca 1.6s ease-in-out infinite}
+html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza{animation:mp-pisca 1.6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){#mp-sel .desliza,#br-sel .desliza,html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza{animation:none}}
