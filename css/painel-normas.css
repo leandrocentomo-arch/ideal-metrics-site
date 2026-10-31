@@ -1205,3 +1205,8 @@ html[data-tema=noite] #v-mapa .mp-esc .mp-fonte{color:#8FA6FF}
 /* 31/10/2026, «tire a caixa de trás do menu»: o cabeçalho do painel (logo, título e abas) perde a placa de vidro, nos três
    temas; fica direto no vidro do fundo, como a área principal */
 .pn-cab,html[data-tema=noite] .pn-cab,html[data-tema=noite][data-noite=clara] .pn-cab{background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border-color:transparent;box-shadow:none}
+/* 31/10/2026, «faça a bolinha ficar mais rápida e fora do botão, não dentro»: corre logo abaixo da borda do botão escolhido
+   (5 px abaixo), ida e volta em 1,4 s (era 2,4 s) */
+#mp-sel{overflow:visible}
+#mp-sel button[aria-pressed=true]::after{bottom:-8px;animation-duration:1.4s}
+#mp-sel button[aria-pressed=true]{overflow:visible}   /* o botão cortava a bolinha por fora (overflow:hidden das reticências) */
