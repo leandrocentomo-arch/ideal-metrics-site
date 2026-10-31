@@ -1113,7 +1113,7 @@
       WORLD_OK = true; pintaMapa();
     });
   }
-  var CORES_DIA = ['rgba(20,48,76,.2)', '#A9C3DE', '#7FA3C9', '#5C88B8', '#336699', '#14304C'], CORES_NOITE = ['rgba(220,230,242,.16)', '#2C4A6E', '#3E6593', '#5C88B8', '#8DB3DD', '#D6E4F5'];   // 31/10: as faixas da trama de pontos, nos dois temas
+  var CORES_DIA = ['rgba(20,48,76,.2)', '#A9C3DE', '#7FA3C9', '#5C88B8', '#336699', '#24476E'], CORES_NOITE = ['rgba(220,230,242,.16)', '#2C4A6E', '#3E6593', '#5C88B8', '#8DB3DD', '#D6E4F5'];   // 31/10: as faixas da trama de pontos, nos dois temas; no claro a faixa do topo passou de #14304C para #24476E («a cor escura do globo um pouco mais clara»)
   /* 31/10, «deixe bem claro que esses dados são da ISO Survey… o link para o ISO Survey logo na página inicial, próximo à
      legenda; a legenda pode ficar um pouquinho menos larga»: a legenda ganha uma segunda linha com a fonte e o link oficial */
   var ISO_SURVEY = 'https://www.iso.org/the-iso-survey.html';
