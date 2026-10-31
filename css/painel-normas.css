@@ -1401,3 +1401,19 @@ html[data-tema=noite][data-noite=azul] body.pn-pagina .gaveta:not(.aberta) .gave
 html[data-tema=noite][data-noite=azul] #mp-sel .desliza,html[data-tema=noite][data-noite=azul] #br-sel .desliza{background-image:linear-gradient(115deg,#F2F6FB 0%,#F2F6FB 38%,#14304C 47%,#14304C 53%,#F2F6FB 62%,#F2F6FB 100%)}
 html[data-tema=noite][data-noite=azul] #mp-sel button[aria-pressed=true],html[data-tema=noite][data-noite=azul] #br-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#14304C 0%,#14304C 38%,#F2F6FB 47%,#F2F6FB 53%,#14304C 62%,#14304C 100%)}
 html[data-tema=noite][data-noite=azul] #v-mapa .mp-esc .mp-fonte,html[data-tema=noite][data-noite=azul] #br-esc .mp-fonte{color:#D3E2F2}
+/* 31/10/2026, 5º, «eu queria um azul mais claro ainda, você fez um mais escuro»: fundo #4A7EB2 (era #2F5F8E), um passo acima do
+   #336699 na direção do #5C88B8 da marca; texto branco, secundário #E6EEF7; manchas e vidro mais claros */
+html[data-tema=noite][data-noite=azul] body.pn-pagina,html[data-tema=noite][data-noite=azul] body.pn-pagina::before{background:#4A7EB2}
+html[data-tema=noite][data-noite=azul] .pn-fundo .o1{background:radial-gradient(circle,rgba(51,102,153,.45) 0%,rgba(51,102,153,.12) 45%,transparent 70%)}
+html[data-tema=noite][data-noite=azul] .pn-fundo .o2{background:radial-gradient(circle,rgba(189,221,255,.36) 0%,rgba(189,221,255,.10) 45%,transparent 70%)}
+html[data-tema=noite][data-noite=azul] .pn-fundo .o4{background:radial-gradient(circle,rgba(92,136,184,.55) 0%,rgba(92,136,184,.14) 45%,transparent 70%)}
+html[data-tema=noite][data-noite=azul] .pn{--tinta:#FFFFFF;--creme:#3F6F9F;color:#FFFFFF}
+html[data-tema=noite][data-noite=azul] .pn .m,html[data-tema=noite][data-noite=azul] .pn-cab .pn-sub,html[data-tema=noite][data-noite=azul] .mp-esc,
+html[data-tema=noite][data-noite=azul] .mp-lado .tot small,html[data-tema=noite][data-noite=azul] .mp-br .v small,html[data-tema=noite][data-noite=azul] .mp-nota,
+html[data-tema=noite][data-noite=azul] .mp-brsit,html[data-tema=noite][data-noite=azul] .lt-anos span,html[data-tema=noite][data-noite=azul] .pn-item .tit small,
+html[data-tema=noite][data-noite=azul] .pn-item .fase,html[data-tema=noite][data-noite=azul] .ca-cab span,html[data-tema=noite][data-noite=azul] .ca-pe,
+html[data-tema=noite][data-noite=azul] .md-nota,html[data-tema=noite][data-noite=azul] .lt-leg{color:#E6EEF7}
+html[data-tema=noite][data-noite=azul] .mp-mapa .etq rect.pilula{fill:rgba(56,104,152,.92)}
+html[data-tema=noite][data-noite=azul] .pn-det{background:linear-gradient(135deg,rgba(66,114,164,.97) 0%,rgba(58,104,152,.95) 100%)}
+html[data-tema=noite][data-noite=azul] body.pn-pagina .tarja,html[data-tema=noite][data-noite=azul] body.pn-pagina header.barra,html[data-tema=noite][data-noite=azul] body.pn-pagina .mega-menu,html[data-tema=noite][data-noite=azul] body.pn-pagina .gaveta-painel,
+html[data-tema=noite][data-noite=azul] body.pn-pagina .gaveta:not(.aberta) .gaveta-aba:not(:hover):not(:focus-visible),html[data-tema=noite][data-noite=azul] body.pn-pagina .pn-menu-puxa:not(:hover):not(:focus-visible){background:rgba(64,112,162,.62)}
