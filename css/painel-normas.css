@@ -1619,3 +1619,16 @@ html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa,html[data-tema=no
 html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa svg path,html[data-tema=noite] body.pn-pagina .pn-menu-puxa:hover svg path,html[data-tema=noite] body.pn-pagina .pn-menu-puxa:focus-visible svg path{fill:#0E1B2E}
 /* a letra do botão media a varredura pela caixa interna (sem a borda de 1 px) e a placa pela externa; mesma origem nas duas */
 #mp-sel button[aria-pressed=true],#br-sel button[aria-pressed=true]{background-origin:border-box}
+/* 31/10/2026, «nesta página, pode deixar o card mais largo»: a placa dos dados do Brasil fica com 500 px, igual à do mundo;
+   o mapa termina 450 px antes da borda (10% dentro da placa) e a lista de setores para 24 px antes dela.
+   «Quando clicarmos no setor, o mapa vá para o canto inferior direito, menor, como no morph do PowerPoint»: o mapa encolhe
+   e desliza por transform (a conta do destino está no JS), sem as etiquetas; o mapa pequeno volta para «Por estado» no clique */
+@media (min-width:1181px) and (min-height:600px){
+  #v-brasil .mp-lado{width:500px}
+  #v-brasil .mp-mapa{right:450px;transform-origin:0 0;transition:transform .8s cubic-bezier(.65,0,.35,1)}
+  #v-brasil .br-setores{right:524px}
+  #v-brasil .mp-mapa .pulsos{transition:opacity .35s}
+  #v-brasil .mp-mapa.mini .pulsos{opacity:0}
+  #v-brasil .mp-mapa.mini,#v-brasil .mp-mapa.mini svg path{cursor:pointer}
+}
+@media (prefers-reduced-motion:reduce){#v-brasil .mp-mapa{transition:none}}

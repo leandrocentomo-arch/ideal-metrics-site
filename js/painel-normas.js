@@ -97,7 +97,7 @@
         }
         if (ctx.state === 'suspended') ctx.resume();
         var f = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), g = ctx.createGain();
-        f.buffer = ruido; bp.type = 'bandpass'; bp.frequency.value = 3200; bp.Q.value = 1.4; g.gain.value = .75;   // 31/10: «gostei do click… mais forte»
+        f.buffer = ruido; bp.type = 'bandpass'; bp.frequency.value = 3200; bp.Q.value = 1.4; g.gain.value = .35;   // 31/10: «um pouco menos forte, como da primeira vez»
         f.connect(bp); bp.connect(g); g.connect(ctx.destination); f.start();
       } catch (e) { }
     }
@@ -656,6 +656,7 @@
       var paths = svg.append('g').selectAll('path').data(FE).enter().append('path').attr('class', 'pais');
       var gEtq = svg.append('g').attr('class', 'pulsos'), t0 = 0, crescendo = false, calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
       paths.on('mousemove', function (ev, f) {
+        if (box.classList.contains('mini')) { dicaB.style.display = 'none'; return; }
         var v = brPartes(BRD.normas[brNum].uf || {})[f.uf] || 0, r = box.getBoundingClientRect();
         dicaB.style.display = 'block'; dicaB.style.left = (ev.clientX - r.left) + 'px'; dicaB.style.top = (ev.clientY - r.top) + 'px';
         dicaB.innerHTML = esc(UF_NOME[f.uf] || f.uf) + ' · <b>' + pct(v) + '</b>' + T(' das empresas certificadas', ' of certified companies');
@@ -667,13 +668,15 @@
         proj.fitExtent([[24, 30], [W - 24, H - 14]], FC);
       }
       function pontos() {
-        var r = svg.node().getBoundingClientRect(); if (!r.width) return;
-        var dpr = Math.min(2, window.devicePixelRatio || 1), cw = Math.round(r.width * dpr), ch = Math.round(r.height * dpr), br = box.getBoundingClientRect();
+        var r0 = svg.node().getBoundingClientRect(), br = box.getBoundingClientRect(); if (!r0.width) return;
+        var kz = (box.offsetWidth && br.width / box.offsetWidth) || 1;   // com o mapa encolhido no canto (modo setor), mede no tamanho real, sem a escala
+        var r = { width: r0.width / kz, height: r0.height / kz, left: r0.left / kz, top: r0.top / kz }; br = { left: br.left / kz, top: br.top / kz };
+        var dpr = Math.min(2, window.devicePixelRatio || 1), dc = dpr / escMini, cw = Math.round(r.width * dc), ch = Math.round(r.height * dc);   // no mapa pequeno o canvas sai na resolução da tela, sem moiré
         cv.width = cw; cv.height = ch; cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px'; cv.style.left = (r.left - br.left) + 'px'; cv.style.top = (r.top - br.top) + 'px';
         var s = Math.min(r.width / W, r.height / H), ox = (r.width - W * s) / 2, oy = (r.height - H * s) / 2;
         /* raster dos estados: cada um pintado com a cor-número dele, num canvas fora da tela do mesmo tamanho */
         var oc = document.createElement('canvas'); oc.width = cw; oc.height = ch; var o = oc.getContext('2d');
-        o.setTransform(dpr * s, 0, 0, dpr * s, dpr * ox, dpr * oy); var gp = d3.geoPath(proj, o);
+        o.setTransform(dc * s, 0, 0, dc * s, dc * ox, dc * oy); var gp = d3.geoPath(proj, o);
         FE.forEach(function (f, i) { var k = i + 1; o.fillStyle = 'rgb(' + k + ',' + ((k * 37) % 256) + ',97)'; o.beginPath(); gp(f); o.fill(); });
         var px = o.getImageData(0, 0, cw, ch).data, P = Math.max(3, Math.round(2.5 * dpr)), D = Math.max(2, Math.round(P * .62)), m = Math.floor(D / 2);
         var C = coresTema(), dados = brPartes(BRD.normas[brNum].uf || {});
@@ -738,14 +741,35 @@
         $('#br-esc').innerHTML = '<span style="margin-left:0">' + T('participação', 'share') + '</span>' + ['0', pct(.001), pct(.01), pct(.02), pct(.05), pct(.10) + '+'].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join('') +
           '<a class="mp-fonte" href="' + CERTIFIQ + '" target="_blank" rel="noopener">' + T('Fonte: Inmetro, Certifiq · certificados emitidos no Brasil por organismos acreditados pelo Inmetro', 'Source: Inmetro, Certifiq · certificates issued in Brazil by Inmetro-accredited bodies') + ' <b aria-hidden="true">↗</b></a>';
       }
+      /* 31/10/2026, «quando clicarmos no setor, o mapa do Brasil vá para o canto inferior direito, menor, como no morph do
+         PowerPoint»: no modo setor o mapa não some; encolhe e desliza (transform, .8 s) para o canto inferior direito da área
+         livre entre a lista de setores e a placa dos dados. Clicar no mapa pequeno volta para «Por estado». Só na tela larga;
+         na estreita o mapa continua saindo de cena. */
+      var LARGA = window.matchMedia('(min-width:1181px) and (min-height:600px)'), escMini = 1, scMini = 1;
+      function encolhe(on) {
+        box.classList.toggle('mini', on);
+        if (!on) { box.style.transform = ''; scMini = 1; return; }
+        var bw = box.offsetWidth, bh = box.offsetHeight, s = Math.min(bw / W, bh / H), ox = (bw - W * s) / 2, oy = (bh - H * s) / 2;
+        var b = d3.geoPath(proj).bounds(FC), x0 = ox + b[0][0] * s, y0 = oy + b[0][1] * s, x1 = ox + b[1][0] * s, y1 = oy + b[1][1] * s;
+        var pl = $('#br-lado'), lista = $('#br-setores .br-set'), gH = pl.offsetHeight, dir = pl.offsetLeft - 28, esq = lista ? lista.offsetWidth + 28 : 0;
+        var sc = Math.min(Math.max(200, Math.min(380, dir - esq)) / (x1 - x0), gH * .55 / (y1 - y0));
+        scMini = +sc.toFixed(4);
+        box.style.transform = 'translate(' + Math.round(dir - box.offsetLeft - sc * x1) + 'px,' + Math.round(gH - 10 - box.offsetTop - sc * y1) + 'px) scale(' + scMini + ')';
+        if (parseFloat(getComputedStyle(box).transitionDuration) === 0) afia();
+      }
+      /* durante o movimento os pontos encolhem junto (efeito morph); parado no canto, a trama é refeita na resolução da tela */
+      function afia() { if (!box.classList.contains('mini') || escMini === scMini) return; escMini = scMini; pontos(); }
+      box.addEventListener('transitionend', function (e) { if (e.target === box && e.propertyName === 'transform') afia(); });
+      box.addEventListener('click', function () { if (box.classList.contains('mini')) { var u = $('.br-modo button[data-modo=uf]'); if (u) u.click(); } });
       brDesenha = function (reinicia) {
-        var setor = brModo === 'setor';
-        box.hidden = setor; $('#br-setores').hidden = !setor; $('#br-esc').style.display = setor ? 'none' : '';
+        var setor = brModo === 'setor', mini = setor && LARGA.matches; escMini = mini && box.classList.contains('mini') ? scMini : 1;   // trocar a norma com o mapa já no canto mantém a trama nítida
+        box.hidden = setor && !mini; $('#br-setores').hidden = !setor; $('#br-esc').style.display = setor ? 'none' : '';
         lado(); legenda();
         if (setor) setores();
-        else { quadro(); paths.attr('d', d3.geoPath(proj)); pontos(); etiquetas(reinicia); }
+        if (!box.hidden) { quadro(); paths.attr('d', d3.geoPath(proj)); pontos(); etiquetas(reinicia); }
+        encolhe(mini);
       };
-      if (window.ResizeObserver) new ResizeObserver(function () { if (brModo === 'uf' && !box.hidden) { quadro(); paths.attr('d', d3.geoPath(proj)); pontos(); etiquetas(false); } }).observe(box);
+      if (window.ResizeObserver) new ResizeObserver(function () { if (!box.hidden) { quadro(); paths.attr('d', d3.geoPath(proj)); var mi = brModo === 'setor' && LARGA.matches; encolhe(mi); escMini = mi ? scMini : 1; pontos(); etiquetas(false); } }).observe(box);
       document.addEventListener('pn-tema', function () { if (brDesenha) brDesenha(false); });
       brDesenha(true);
     }).catch(function () { box.innerHTML = '<p class="pn-vazio" style="padding:20px">' + T('Os dados do Inmetro não carregaram.', 'The Inmetro data did not load.') + '</p>'; });
