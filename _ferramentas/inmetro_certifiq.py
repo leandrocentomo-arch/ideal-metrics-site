@@ -19,6 +19,9 @@ import requests
 BASE = 'https://certifiq.inmetro.gov.br/'
 NORMAS = {'9001': ('1', '5', 'ABNT NBR ISO 9001:2015'), '14001': ('3', '6', 'ABNT NBR ISO 14001:2015')}
 SAIDA = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'dados', 'inmetro-certifiq.json')
+# 31/10/2026, «no schedule, no painel do Spirit, entre também a base do Inmetro, que levantamos semanalmente»: cada rodada
+# acrescenta uma linha (data, válidos e soma por estado) ao histórico, que a aba [ 11 ] Radar do Spirit mostra
+HIST = os.path.join(os.path.dirname(SAIDA), 'inmetro-historico.json')
 
 s = requests.Session(); s.headers['User-Agent'] = 'Mozilla/5.0 (Ideal Metrics, painel de normas)'
 
@@ -107,6 +110,15 @@ def main():
     with open(SAIDA, 'w', encoding='utf-8') as f:
         json.dump(dados, f, ensure_ascii=False, separators=(',', ':'))
     print('gravado', SAIDA)
+    try:
+        hist = json.load(open(HIST, encoding='utf-8'))
+    except FileNotFoundError:
+        hist = []
+    hist = [h for h in hist if h.get('data') != dados['gerado']]
+    hist.append({'data': dados['gerado'], 'normas': {k: dict(n['validos'], uf=sum(n['uf'].values())) for k, n in dados['normas'].items()}})
+    hist.sort(key=lambda h: h['data'])
+    json.dump(hist, open(HIST, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+    print('histórico:', len(hist), 'rodadas')
 
 
 if __name__ == '__main__':
