@@ -626,7 +626,7 @@
         o.setTransform(dpr * s, 0, 0, dpr * s, dpr * ox, dpr * oy); var gp = d3.geoPath(proj, o);
         FE.forEach(function (f, i) { var k = i + 1; o.fillStyle = 'rgb(' + k + ',' + ((k * 37) % 256) + ',97)'; o.beginPath(); gp(f); o.fill(); });
         var px = o.getImageData(0, 0, cw, ch).data, P = Math.max(3, Math.round(2.5 * dpr)), D = Math.max(2, Math.round(P * .62)), m = Math.floor(D / 2);
-        var C = NOITE ? CORES_NOITE : CORES_DIA, dados = brPartes(BRD.normas[brNum].uf || {});
+        var C = coresTema(), dados = brPartes(BRD.normas[brNum].uf || {});
         ctx.clearRect(0, 0, cw, ch);
         var grupos = FE.map(function () { return []; });
         for (var y = Math.floor(P / 2); y < ch; y += P) for (var x = Math.floor(P / 2); x < cw; x += P) {
@@ -684,7 +684,7 @@
         cascata($('#br-lado .mp-rank'), 'li');
       }
       function legenda() {
-        var C = NOITE ? CORES_NOITE : CORES_DIA;
+        var C = coresTema();
         $('#br-esc').innerHTML = '<span style="margin-left:0">' + T('participação', 'share') + '</span>' + ['0', pct(.001), pct(.01), pct(.02), pct(.05), pct(.10) + '+'].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join('') +
           '<a class="mp-fonte" href="' + CERTIFIQ + '" target="_blank" rel="noopener">' + T('Fonte: Inmetro, Certifiq · certificados emitidos no Brasil por organismos acreditados pelo Inmetro', 'Source: Inmetro, Certifiq · certificates issued in Brazil by Inmetro-accredited bodies') + ' <b aria-hidden="true">↗</b></a>';
       }
@@ -755,7 +755,11 @@
       var NIV_DIA = [[20, 48, 76, .2], [169, 195, 222, 1], [127, 163, 201, 1], [92, 136, 184, 1], [51, 102, 153, 1], [20, 48, 76, 1]];
       /* no escuro a escala se inverte: mais certificados, mais claro (o ponto cheio acende sobre o fundo azul-noite) */
       var NIV_NOITE = [[220, 230, 242, .16], [44, 74, 110, 1], [62, 101, 147, 1], [92, 136, 184, 1], [141, 179, 221, 1], [214, 228, 245, 1]];
-      var NIV = NOITE ? NIV_NOITE : NIV_DIA;
+      /* 31/10, «com essa cor tem estados que não aparecem; a mesma cor dos gráficos»: no marinho e no azul a escala é de branco
+         translúcido (16% a 100%), que aparece sobre qualquer fundo azul; os tons azuis do escuro se confundiam com o fundo */
+      var NIV_BRANCA = [[255, 255, 255, .16], [255, 255, 255, .38], [255, 255, 255, .55], [255, 255, 255, .72], [255, 255, 255, .88], [255, 255, 255, 1]];
+      function nivTema() { var p = paletaTema(); return p === 'dia' ? NIV_DIA : p === 'branca' ? NIV_BRANCA : NIV_NOITE; }
+      var NIV = nivTema();
       var nivelF = FEATS.map(function () { return 0; }), corAt = FEATS.map(function () { return NIV[0].slice(); }), corPara = corAt, corDe = null, corT0 = 0, faixa = null, corChave = '';
       /* quadro do tamanho da área: H fixo, W pela proporção da caixa; o globo fica no centro da parte livre, à esquerda da placa dos dados */
       function quadro() {
@@ -847,7 +851,7 @@
       pintaPaises = function () {
         var s = D.survey[mapaNum], cortes = [1, 10, 100, 1000, 10000];
         nivelF = FEATS.map(function (f) { var a2 = porNumFeat[f.id], v = a2 ? s.paises[a2] : 0; if (!v) return 0; for (var i = cortes.length - 1; i >= 0; i--) if (v >= cortes[i]) return i + 1; return 1; });
-        corPara = nivelF.map(function (n) { return NIV[n]; }); corChave = mapaNum + (NOITE ? 'n' : 'd');
+        corPara = nivelF.map(function (n) { return NIV[n]; }); corChave = mapaNum + paletaTema();
         if (calmo) { corAt = corPara.map(function (c) { return c.slice(); }); corDe = null; } else { corDe = corAt.map(function (c) { return c.slice(); }); corT0 = performance.now(); }
         pintaPontos();
       };
@@ -973,7 +977,7 @@
         sobre = x * x + y * y <= ESC_GLOBO * ESC_GLOBO;
       }).on('pointerleave', function () { sobre = false; mouseDentro = false; }).on('pointerenter', function () { mouseDentro = true; paths.attr('d', geo); });
       if (window.ResizeObserver) new ResizeObserver(function () { quadro(); desenha(); }).observe(box);
-      document.addEventListener('pn-tema', function () { NIV = NOITE ? NIV_NOITE : NIV_DIA; pintaPaises(); pintaMapaLegenda(); desenha(); });
+      document.addEventListener('pn-tema', function () { NIV = nivTema(); pintaPaises(); pintaMapaLegenda(); desenha(); });
       desenha(); requestAnimationFrame(function (t) { ult = t; gira(t); });
       var porNum = porNumFeat;
       paths.on('mousemove', function (ev, f) {
@@ -989,7 +993,10 @@
   /* 31/10, «deixe bem claro que esses dados são da ISO Survey… o link para o ISO Survey logo na página inicial, próximo à
      legenda; a legenda pode ficar um pouquinho menos larga»: a legenda ganha uma segunda linha com a fonte e o link oficial */
   var ISO_SURVEY = 'https://www.iso.org/the-iso-survey.html';
-  function pintaMapaLegenda() { var C = NOITE ? CORES_NOITE : CORES_DIA; $('#mp-esc').innerHTML = '<span style="margin-left:0">' + T('certificados', 'certificates') + '</span>' + ['0', '1', '10', '100', T('1 mil', '1k'), T('10 mil+', '10k+')].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join('') +
+  var CORES_BRANCA = ['rgba(255,255,255,.16)', 'rgba(255,255,255,.38)', 'rgba(255,255,255,.55)', 'rgba(255,255,255,.72)', 'rgba(255,255,255,.88)', '#FFFFFF'];
+  function paletaTema() { var v = document.documentElement.getAttribute('data-noite'); return !NOITE ? 'dia' : (v === 'azul' || v === 'marinho') ? 'branca' : 'noite'; }
+  function coresTema() { var p = paletaTema(); return p === 'dia' ? CORES_DIA : p === 'branca' ? CORES_BRANCA : CORES_NOITE; }
+  function pintaMapaLegenda() { var C = coresTema(); $('#mp-esc').innerHTML = '<span style="margin-left:0">' + T('certificados', 'certificates') + '</span>' + ['0', '1', '10', '100', T('1 mil', '1k'), T('10 mil+', '10k+')].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join('') +
     '<a class="mp-fonte" href="' + ISO_SURVEY + '" target="_blank" rel="noopener">' + T('Fonte: ISO Survey 2025 (ISO) · certificados acreditados em vigor em 31-dez-2025', 'Source: ISO Survey 2025 (ISO) · accredited certificates in force on 31-dec-2025') + ' <b aria-hidden="true">↗</b></a>'; }
   function pintaMapa() {
     var s = D.survey[mapaNum]; if (!s) return;
