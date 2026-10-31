@@ -752,8 +752,8 @@
         var bw = box.offsetWidth, bh = box.offsetHeight, s = Math.min(bw / W, bh / H), ox = (bw - W * s) / 2, oy = (bh - H * s) / 2;
         var b = d3.geoPath(proj).bounds(FC), x0 = ox + b[0][0] * s, y0 = oy + b[0][1] * s, x1 = ox + b[1][0] * s, y1 = oy + b[1][1] * s;
         /* 31/10/2026, «o Brasil pode correr para trás da tabela, de forma que a tabela pega só um pouquinho do canto superior
-           esquerdo do mapa»: o canto superior esquerdo do Brasil entra 48 px sob o fim da lista de setores (largura e altura) */
-        var pl = $('#br-lado'), lista = $('#br-setores .br-set'), gH = pl.offsetHeight, dir = pl.offsetLeft - 28, SOB = 48;
+           esquerdo do mapa»: o canto superior esquerdo do Brasil entra 90 px sob o fim da lista de setores (largura e altura) */
+        var pl = $('#br-lado'), lista = $('#br-setores .br-set'), gH = pl.offsetHeight, dir = pl.offsetLeft - 28, SOB = 90;   // 31/10: «um pouquinho mais com o gráfico para dentro da tabela» (era 48)
         var lD = lista ? lista.offsetWidth : 0, lB = lista ? lista.offsetTop + lista.offsetHeight - $('#br-setores').scrollTop : 0;
         var sc = Math.min(Math.max(260, Math.min(420, dir - lD + SOB)) / (x1 - x0), gH * .6 / (y1 - y0));
         var ax = Math.min(lD - SOB, dir - sc * (x1 - x0)), ay = Math.max(0, Math.min(lB - SOB, gH - 10 - sc * (y1 - y0)));

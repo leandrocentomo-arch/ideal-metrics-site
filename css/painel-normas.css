@@ -1646,3 +1646,11 @@ html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa svg path,html[dat
   #v-brasil .br-setores{pointer-events:none}
   #v-brasil .br-set{pointer-events:auto}
 }
+/* 31/10/2026, «o efeito morph ainda um pouquinho mais devagar e o gráfico mais transparente quando estiver pequeno»:
+   1,6 s (era 1,2) e o mapa pequeno a 45% de opacidade (era 70%), 70% com o mouse em cima */
+@media (min-width:1181px) and (min-height:600px){
+  #v-brasil .mp-mapa{transition:transform 1.6s cubic-bezier(.65,0,.35,1),opacity 1.6s ease}
+  #v-brasil .mp-mapa.mini{opacity:.45}
+  #v-brasil .mp-mapa.mini:hover{opacity:.7}
+}
+@media (prefers-reduced-motion:reduce){#v-brasil .mp-mapa{transition:none}}
