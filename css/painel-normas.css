@@ -1297,3 +1297,14 @@ html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa{background:#DFE7F
 @keyframes mp-onda-placa{from{background-position:100% 0}to{background-position:0 0}}
 html[data-tema=noite] #mp-sel .desliza{background-image:linear-gradient(90deg,#DFE7F1 0%,#DFE7F1 35%,#9FB9D8 50%,#DFE7F1 65%,#DFE7F1 100%)}
 @media (prefers-reduced-motion:reduce){#mp-sel .desliza{animation:none}}
+/* 31/10/2026, «pode tirar a cobrinha em volta do botão; o pulso tem que ficar mais evidente; a parte escrita também tem que
+   mudar, alternando entre o claro e o escuro; faça na diagonal, da esquerda para a direita»: sai o traço do contorno; a placa
+   da norma escolhida é atravessada por uma faixa diagonal (115°) que inverte a cor (tinta → claro → tinta) e o texto inverte
+   junto (creme → tinta → creme), com o mesmo gradiente recortado no texto e o mesmo passo, 2 s por passada */
+#mp-sel button[aria-pressed=true]::after{content:none}
+#mp-sel .desliza{background-image:linear-gradient(115deg,#14304C 0%,#14304C 38%,#D3E2F2 47%,#D3E2F2 53%,#14304C 62%,#14304C 100%);background-size:300% 100%;animation:mp-onda-placa 2s linear infinite}
+#mp-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#FAF9F5 0%,#FAF9F5 38%,#14304C 47%,#14304C 53%,#FAF9F5 62%,#FAF9F5 100%);background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:mp-onda-placa 2s linear infinite}
+html[data-tema=noite] #mp-sel .desliza{background-image:linear-gradient(115deg,#DFE7F1 0%,#DFE7F1 38%,#14304C 47%,#14304C 53%,#DFE7F1 62%,#DFE7F1 100%)}
+html[data-tema=noite] #mp-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#0E1B2E 0%,#0E1B2E 38%,#DFE7F1 47%,#DFE7F1 53%,#0E1B2E 62%,#0E1B2E 100%);color:transparent}
+@media (prefers-reduced-motion:reduce){#mp-sel button[aria-pressed=true]{animation:none;background-position:0 0}}
