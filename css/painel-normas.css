@@ -1013,3 +1013,5 @@ body.pn-pagina{background:#F2F2EF}
 .mp-mapa g.pulso.no-mapa .ponto{r:1.6px}
 .mp-mapa .etq rect.pilula{stroke-width:.5}
 .mp-mapa .etq .fio{stroke-width:.4}
+/* 31/10/2026, «faça 0,25»: haste, contorno da etiqueta e fio do mapa aberto em 0,25 */
+.mp-mapa g.pulso.no-mapa .vareta,.mp-mapa .etq rect.pilula,.mp-mapa .etq .fio{stroke-width:.25}
