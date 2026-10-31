@@ -428,3 +428,7 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
    por setor trava 150 px abaixo do topo da tela (era 120), com folga sob o logo do cabeçalho; a frase da coluna ao lado
    continua se encontrando com ela na mesma relação (34 px abaixo) */
 @media (min-width:881px){ .qc-abre-linha>.qc-mat{top:150px} }
+/* 31/10/2026, «dê um espaço entre o limite do traço e onde começa o título Normas e padrões por setor»: a grade começa
+   20 px depois da etiqueta (padding de 47 para 59 px; a etiqueta tem 39 px, 47 no hover). O js/setores-matriz.js
+   desconta os mesmos 59 px na largura do desenho */
+@media (min-width:881px){ .qc-abre-linha>.qc-mat{padding-left:59px} }

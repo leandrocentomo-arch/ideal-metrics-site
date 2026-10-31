@@ -40,7 +40,7 @@
      para nada mudar de tamanho nem de lugar durante a abertura */
   function medir(){
     if(window.innerWidth <= 880){ fig.style.removeProperty('--mat-w'); if(rola) rola.style.height = ''; return; }
-    fig.style.setProperty('--mat-w', (linha.clientWidth - 41 - 47 - 2) + 'px');
+    fig.style.setProperty('--mat-w', (linha.clientWidth - 41 - 59 - 2) + 'px');   // 31/10: 59 = o recuo da grade depois da etiqueta (era 47)
     /* 19/10/2026: a altura soma a da barra horizontal (no Windows ela ocupa ~17 px dentro da caixa) e 10 px de folga, para
        nunca aparecer a barra vertical */
     /* 31/10/2026, «tem um gap aqui, deixe alinhado»: o offsetHeight já trazia a barra, que era somada de novo, mais os 10 px;
