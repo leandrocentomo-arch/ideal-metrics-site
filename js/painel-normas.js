@@ -933,7 +933,15 @@
             et.select('image').attr('x', (px - pw / 2 + 7).toFixed(1)).attr('y', (py - 6).toFixed(1));
             et.select('text').attr('x', (px - pw / 2 + 28).toFixed(1)).attr('y', (py + 3.6).toFixed(1));
             et.select('path.fio').attr('d', Math.abs(d.lo[0]) + Math.abs(d.lo[1]) > 3 ? 'M' + p[0].toFixed(1) + ',' + topo.toFixed(1) + 'L' + px.toFixed(1) + ',' + (py + (d.lo[1] < -3 ? ph / 2 : 0)).toFixed(1) : null);
+            /* 31/10, «as tags acompanhassem a curva dessa impressão, fazendo a curva junto com o mundo»: haste e etiqueta inclinam
+               pelo meridiano do país (na Equal Earth os meridianos se curvam para as bordas): ângulo entre a vertical e o
+               caminho de 1° para o norte a partir do ponto, limitado a 40° */
+            var pN = proj([d.c[0], Math.min(89, d.c[1] + 1)]), ang = 0;
+            if (pN && Math.abs(pN[0] - p[0]) < 40) ang = Math.max(-40, Math.min(40, Math.atan2(pN[0] - p[0], p[1] - pN[1]) * 180 / Math.PI));
+            var gira = Math.abs(ang) > .2 ? 'rotate(' + ang.toFixed(2) + ' ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + ')' : null;
+            g.select('path.vareta').attr('transform', gira); et.attr('transform', gira);
           } else {
+            g.select('path.vareta').attr('transform', null); g.select('g.etq').attr('transform', null);
             /* curva em S: sai do país na horizontal e chega na vaga na horizontal (bezier com os dois controles no meio do caminho) */
             var xm = (p[0] + x0 - 6) / 2;
             g.select('path.vareta').attr('d', 'M' + p[0].toFixed(1) + ',' + p[1].toFixed(1) + 'C' + xm.toFixed(1) + ',' + p[1].toFixed(1) + ' ' + xm.toFixed(1) + ',' + sy + ' ' + (x0 - 6) + ',' + sy);
