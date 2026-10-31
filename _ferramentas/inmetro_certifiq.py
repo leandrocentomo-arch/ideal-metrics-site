@@ -6,7 +6,9 @@ Fonte: Certifiq, sistema público do Inmetro com os certificados emitidos no Bra
 (só ABNT NBR ISO 9001 e ABNT NBR ISO 14001). Relatórios públicos, sem login:
   - Grafico/CertificadosValidosBrasil: certificados válidos na data, dentro e fora do SBAC (números embutidos no HTML);
   - Consulta/CertificacoesValidasConcedidas: certificados válidos por setor IAF (os 39 setores EA do ISO Survey);
-  - Consulta/CertificadosConcedidosUF: empresas certificadas ou recertificadas por estado, ano a ano. O Certifiq não dá os
+  - Consulta/CertificadosConcedidosUF: empresas certificadas ou recertificadas por estado, ano a ano. A contagem por unidade de
+    negócio (planta) seria a mais fiel ao mapa, mas o Certifiq tem unidades cadastradas em poucos certificados (31/10/2026: 331
+    unidades contra 11.402 empresas na ISO 9001), então fica por empresa, no estado do cadastro dela. O Certifiq não dá os
     válidos por estado; a soma dos três últimos anos (o ciclo de um certificado) é a aproximação, e o painel diz isso.
 O servidor é lento: cada consulta por estado é de um ano só (com todos os anos ele passa de 90 s e cai).
 
@@ -82,7 +84,8 @@ def por_setor(tipo, padrao):
 
 def por_uf(tipo, padrao, ano):
     u = 'Consulta/CertificadosConcedidosUF'
-    d = {'__RequestVerificationToken': token(u), 'TipoConsulta': '2', 'PorEmpresa': 'True', 'Sbac': '', 'IdTipoAcreditacao': tipo,
+    d = {'__RequestVerificationToken': token(u), 'TipoConsulta': '2', 'PorEmpresa': 'True', 'Sbac': '',   # 31/10: por EMPRESA. Testado por unidade de negócio no mesmo dia: o Certifiq só tem unidades em poucos certificados (331 na 9001 contra 11.402 empresas), então não serve para o mapa
+         'IdTipoAcreditacao': tipo,
          'IdPadraoNormativo': padrao, 'PorAno': 'True', 'AnoInicial': str(ano), 'AnoFinal': str(ano), 'BuscarCertificacoesEmitidasUf': ''}
     out = {}
     for l in tabela(pega(u, data=d))[1:]:
