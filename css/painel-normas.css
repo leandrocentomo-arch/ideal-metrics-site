@@ -1202,3 +1202,6 @@ html[data-tema=noite] #v-mapa .mp-esc .mp-fonte{color:#8FA6FF}
 #mp-sel button[aria-pressed=true]::after{content:"";position:absolute;bottom:3px;left:6px;width:5px;height:5px;border-radius:50%;background:#E5322D;box-shadow:0 0 6px rgba(229,50,45,.75);z-index:2;pointer-events:none;
   animation:mp-bolinha 2.4s ease-in-out infinite alternate}
 @media (prefers-reduced-motion:reduce){#mp-sel button[aria-pressed=true]::after{animation:none;left:calc(50% - 2.5px)}}
+/* 31/10/2026, «tire a caixa de trás do menu»: o cabeçalho do painel (logo, título e abas) perde a placa de vidro, nos três
+   temas; fica direto no vidro do fundo, como a área principal */
+.pn-cab,html[data-tema=noite] .pn-cab,html[data-tema=noite][data-noite=clara] .pn-cab{background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border-color:transparent;box-shadow:none}
