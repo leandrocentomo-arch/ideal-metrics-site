@@ -1465,3 +1465,10 @@ html[data-tema=noite][data-noite=marinho] #v-mapa .mp-esc .mp-fonte,html[data-te
    (as regras deles têm html[data-tema=noite] e vencem estas). */
 #mp-sel .desliza,#br-sel .desliza{background-image:linear-gradient(115deg,#336699 0%,#336699 38%,#D3E2F2 47%,#D3E2F2 53%,#336699 62%,#336699 100%)}
 #mp-sel button[aria-pressed=true],#br-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#FAF9F5 0%,#FAF9F5 38%,#336699 47%,#336699 53%,#FAF9F5 62%,#FAF9F5 100%)}
+/* 31/10/2026, «teria como fazer a trama quadriculada no botão selecionado? esse azul saiu um pouco do tom»: no tema claro a
+   placa da norma escolhida é uma trama quadriculada (quadrados de 2 px alternando #14304C e #5C88B8, dois tons da rampa da
+   trama do site), no lugar do #336699 chapado; a onda clara (#D3E2F2) passa por cima num ::after. Temas escuros sem mudança. */
+html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza{background-image:repeating-conic-gradient(#14304C 0% 25%,#5C88B8 0% 50%);background-size:4px 4px;background-position:0 0;animation:none}
+html:not([data-tema=noite]) #mp-sel .desliza::after,html:not([data-tema=noite]) #br-sel .desliza::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background-image:linear-gradient(115deg,transparent 0%,transparent 38%,#D3E2F2 47%,#D3E2F2 53%,transparent 62%,transparent 100%);background-size:300% 100%;animation:mp-onda-placa 2s linear infinite}
+@media (prefers-reduced-motion:reduce){html:not([data-tema=noite]) #mp-sel .desliza::after,html:not([data-tema=noite]) #br-sel .desliza::after{animation:none;background-position:0 0}}
