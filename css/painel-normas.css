@@ -1567,3 +1567,7 @@ html[data-tema=noite][data-noite] #mp-sel button[aria-pressed=true],html[data-te
 html[data-tema=noite] .pn-op input{background:transparent;border-color:rgba(223,231,241,.5)}
 html[data-tema=noite] .pn-op input:checked{background:#DFE7F1;border-color:#DFE7F1}
 html[data-tema=noite] .pn-op input:checked::after{background:#1C2E46}
+/* 31/10, «ficaria mais legal se fosse um quadradinho dentro do espaço do quadrado»: no escuro a marcada é só o contorno claro
+   com um quadradinho claro no meio (o vão entre os dois mostra o fundo) */
+html[data-tema=noite] .pn-op input:checked{background:transparent;border-color:#DFE7F1}
+html[data-tema=noite] .pn-op input:checked::after{inset:2.5px;background:#DFE7F1;border-radius:1px}
