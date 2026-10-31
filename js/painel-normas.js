@@ -199,12 +199,15 @@
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var cv = document.createElement('canvas'); cv.className = 'pn-luz'; cv.setAttribute('aria-hidden', 'true'); document.body.insertBefore(cv, f.nextSibling);
     var cx = cv.getContext('2d'); if (!cx) return;
+    /* 31/10, «o rastro na tela escura está muito forte… deixa menos intenso; queria o rastro na tela clara também»: no escuro,
+       luz azul a .2 (era .46); no claro, a luz branca não aparecia sobre o fundo claro, então o rastro é um véu azul da marca
+       a .12, pintado por cima (sem somar luz). Mesma velocidade (680 ms) */
     var RAIO = 36, VIDA = 680, FORCA = .46, pts = [], laco = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
     function medida() { var w = Math.round(innerWidth * dpr), h = Math.round(innerHeight * dpr); if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; } }
     function pinta() {
       var ag = performance.now(); pts = pts.filter(function (p) { return ag - p.t < VIDA; });
-      cx.clearRect(0, 0, cv.width, cv.height); cx.globalCompositeOperation = 'lighter';
-      pts.forEach(function (p) { var k = 1 - (ag - p.t) / VIDA, rr = RAIO * dpr * (.35 + .65 * k), gr = cx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr); var lz = NOITE ? '150,180,255' : '255,255,255'; gr.addColorStop(0, 'rgba(' + lz + ',' + (FORCA * k * k) + ')'); gr.addColorStop(1, 'rgba(' + lz + ',0)'); cx.fillStyle = gr; cx.beginPath(); cx.arc(p.x, p.y, rr, 0, 6.2832); cx.fill(); });
+      cx.clearRect(0, 0, cv.width, cv.height); cx.globalCompositeOperation = NOITE ? 'lighter' : 'source-over'; FORCA = NOITE ? .2 : .12;
+      pts.forEach(function (p) { var k = 1 - (ag - p.t) / VIDA, rr = RAIO * dpr * (.35 + .65 * k), gr = cx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr); var lz = NOITE ? '150,180,255' : '51,102,153'; gr.addColorStop(0, 'rgba(' + lz + ',' + (FORCA * k * k) + ')'); gr.addColorStop(1, 'rgba(' + lz + ',0)'); cx.fillStyle = gr; cx.beginPath(); cx.arc(p.x, p.y, rr, 0, 6.2832); cx.fill(); });
       laco = pts.length ? requestAnimationFrame(pinta) : 0;
     }
     document.addEventListener('pointermove', function (e) { if (e.pointerType === 'touch') return; medida(); pts.push({ x: e.clientX * dpr, y: e.clientY * dpr, t: performance.now() }); if (!laco) laco = requestAnimationFrame(pinta); }, { passive: true });
