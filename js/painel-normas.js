@@ -671,7 +671,7 @@
         var r0 = svg.node().getBoundingClientRect(), br = box.getBoundingClientRect(); if (!r0.width) return;
         var kz = (box.offsetWidth && br.width / box.offsetWidth) || 1;   // com o mapa encolhido no canto (modo setor), mede no tamanho real, sem a escala
         var r = { width: r0.width / kz, height: r0.height / kz, left: r0.left / kz, top: r0.top / kz }; br = { left: br.left / kz, top: br.top / kz };
-        var dpr = Math.min(2, window.devicePixelRatio || 1), dc = dpr / escMini, cw = Math.round(r.width * dc), ch = Math.round(r.height * dc);   // no mapa pequeno o canvas sai na resolução da tela, sem moiré
+        var dpr = Math.min(2, window.devicePixelRatio || 1), dc = dpr * escMini, cw = Math.round(r.width * dc), ch = Math.round(r.height * dc);   // no mapa pequeno o canvas sai na resolução da tela (1 px do canvas = 1 px da tela depois da escala), sem moiré
         cv.width = cw; cv.height = ch; cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px'; cv.style.left = (r.left - br.left) + 'px'; cv.style.top = (r.top - br.top) + 'px';
         var s = Math.min(r.width / W, r.height / H), ox = (r.width - W * s) / 2, oy = (r.height - H * s) / 2;
         /* raster dos estados: cada um pintado com a cor-número dele, num canvas fora da tela do mesmo tamanho */
@@ -751,10 +751,14 @@
         if (!on) { box.style.transform = ''; scMini = 1; return; }
         var bw = box.offsetWidth, bh = box.offsetHeight, s = Math.min(bw / W, bh / H), ox = (bw - W * s) / 2, oy = (bh - H * s) / 2;
         var b = d3.geoPath(proj).bounds(FC), x0 = ox + b[0][0] * s, y0 = oy + b[0][1] * s, x1 = ox + b[1][0] * s, y1 = oy + b[1][1] * s;
-        var pl = $('#br-lado'), lista = $('#br-setores .br-set'), gH = pl.offsetHeight, dir = pl.offsetLeft - 28, esq = lista ? lista.offsetWidth + 28 : 0;
-        var sc = Math.min(Math.max(200, Math.min(380, dir - esq)) / (x1 - x0), gH * .55 / (y1 - y0));
+        /* 31/10/2026, «o Brasil pode correr para trás da tabela, de forma que a tabela pega só um pouquinho do canto superior
+           esquerdo do mapa»: o canto superior esquerdo do Brasil entra 48 px sob o fim da lista de setores (largura e altura) */
+        var pl = $('#br-lado'), lista = $('#br-setores .br-set'), gH = pl.offsetHeight, dir = pl.offsetLeft - 28, SOB = 48;
+        var lD = lista ? lista.offsetWidth : 0, lB = lista ? lista.offsetTop + lista.offsetHeight - $('#br-setores').scrollTop : 0;
+        var sc = Math.min(Math.max(260, Math.min(420, dir - lD + SOB)) / (x1 - x0), gH * .6 / (y1 - y0));
+        var ax = Math.min(lD - SOB, dir - sc * (x1 - x0)), ay = Math.max(0, Math.min(lB - SOB, gH - 10 - sc * (y1 - y0)));
         scMini = +sc.toFixed(4);
-        box.style.transform = 'translate(' + Math.round(dir - box.offsetLeft - sc * x1) + 'px,' + Math.round(gH - 10 - box.offsetTop - sc * y1) + 'px) scale(' + scMini + ')';
+        box.style.transform = 'translate(' + Math.round(ax - box.offsetLeft - sc * x0) + 'px,' + Math.round(ay - box.offsetTop - sc * y0) + 'px) scale(' + scMini + ')';
         if (parseFloat(getComputedStyle(box).transitionDuration) === 0) afia();
       }
       /* durante o movimento os pontos encolhem junto (efeito morph); parado no canto, a trama é refeita na resolução da tela */

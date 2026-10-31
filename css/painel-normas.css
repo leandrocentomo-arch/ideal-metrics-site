@@ -1632,3 +1632,17 @@ html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa svg path,html[dat
   #v-brasil .mp-mapa.mini,#v-brasil .mp-mapa.mini svg path{cursor:pointer}
 }
 @media (prefers-reduced-motion:reduce){#v-brasil .mp-mapa{transition:none}}
+/* 31/10/2026, «faça o efeito um pouquinho mais devagar; pode colocar um pouco transparente»: o mapa vai para o canto em
+   1,2 s (era 0,8) e fica a 70% de opacidade lá */
+@media (min-width:1181px) and (min-height:600px){
+  #v-brasil .mp-mapa{transition:transform 1.2s cubic-bezier(.65,0,.35,1),opacity 1.2s ease}
+  #v-brasil .mp-mapa.mini{opacity:.7}
+  #v-brasil .mp-mapa.mini:hover{opacity:.9}
+}
+@media (prefers-reduced-motion:reduce){#v-brasil .mp-mapa{transition:none}}
+/* a caixa da lista de setores cobre a área toda até a placa; só as linhas recebem o mouse, para o mapa pequeno, que corre
+   por trás da lista, continuar clicável */
+@media (min-width:1181px) and (min-height:600px){
+  #v-brasil .br-setores{pointer-events:none}
+  #v-brasil .br-set{pointer-events:auto}
+}
