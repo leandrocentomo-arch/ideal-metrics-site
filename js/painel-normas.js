@@ -933,13 +933,13 @@
             et.select('image').attr('x', (px - pw / 2 + 7).toFixed(1)).attr('y', (py - 6).toFixed(1));
             et.select('text').attr('x', (px - pw / 2 + 28).toFixed(1)).attr('y', (py + 3.6).toFixed(1));
             et.select('path.fio').attr('d', Math.abs(d.lo[0]) + Math.abs(d.lo[1]) > 3 ? 'M' + p[0].toFixed(1) + ',' + topo.toFixed(1) + 'L' + px.toFixed(1) + ',' + (py + (d.lo[1] < -3 ? ph / 2 : 0)).toFixed(1) : null);
-            /* 31/10, «as tags acompanhassem a curva dessa impressão, fazendo a curva junto com o mundo»: haste e etiqueta inclinam
-               pelo meridiano do país (na Equal Earth os meridianos se curvam para as bordas): ângulo entre a vertical e o
-               caminho de 1° para o norte a partir do ponto, limitado a 40° */
-            var pN = proj([d.c[0], Math.min(89, d.c[1] + 1)]), ang = 0;
-            if (pN && Math.abs(pN[0] - p[0]) < 40) ang = Math.max(-40, Math.min(40, Math.atan2(pN[0] - p[0], p[1] - pN[1]) * 180 / Math.PI));
-            var gira = Math.abs(ang) > .2 ? 'rotate(' + ang.toFixed(2) + ' ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + ')' : null;
-            g.select('path.vareta').attr('transform', gira); et.attr('transform', gira);
+            /* 31/10, «as tags fazendo a curva junto com o país; não podem inclinar: o país vai saindo de lado, então ela vai
+               virando»: a etiqueta não tomba; ela GIRA em torno do eixo vertical, como um cartão preso ao país: no centro do
+               mapa fica de frente, e conforme o país vai para a borda da Equal Earth ela estreita (cos do giro, até 60° na
+               borda), virando para o lado de onde o país sai. A haste fica em pé. */
+            var kxL = MAPA_RAW(1, d.c[1] * RAD0)[0] * ESC_MAPA * Math.PI, u = kxL ? Math.max(-1, Math.min(1, (p[0] - cxM) / kxL)) : 0;
+            var sx = Math.max(.5, Math.cos(u * Math.PI / 3)), gira = sx < .995 ? 'translate(' + px.toFixed(1) + ' 0) scale(' + sx.toFixed(3) + ' 1) translate(' + (-px).toFixed(1) + ' 0)' : null;
+            g.select('path.vareta').attr('transform', null); et.attr('transform', gira);
           } else {
             g.select('path.vareta').attr('transform', null); g.select('g.etq').attr('transform', null);
             /* curva em S: sai do país na horizontal e chega na vaga na horizontal (bezier com os dois controles no meio do caminho) */
