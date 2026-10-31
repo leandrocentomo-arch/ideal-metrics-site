@@ -424,3 +424,7 @@ a.mr-norma:hover{border-color:rgba(20,48,76,.55)}
 .qc-abre-linha .qc-mat-aba{cursor:grab;touch-action:none}
 .qc-abre-linha.mat-arrasta>.qc-mat,.qc-abre-linha.mat-arrasta>.qc-abre-texto{transition:none}
 .qc-abre-linha.mat-arrasta,.qc-abre-linha.mat-arrasta *{cursor:grabbing;user-select:none}
+/* 31/10/2026, «aqui precisa um pouco mais de espaço para ficar alinhado na altura com a parte escrita»: a grade de normas
+   por setor trava 150 px abaixo do topo da tela (era 120), com folga sob o logo do cabeçalho; a frase da coluna ao lado
+   continua se encontrando com ela na mesma relação (34 px abaixo) */
+@media (min-width:881px){ .qc-abre-linha>.qc-mat{top:150px} }
