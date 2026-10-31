@@ -232,7 +232,7 @@
     var esq = b.offsetLeft - caixa.scrollLeft, dir = esq + b.offsetWidth;   // na fileira que rola, traz o escolhido para a vista
     if (caixa.scrollWidth > caixa.clientWidth && (esq < 0 || dir > caixa.clientWidth)) caixa.scrollTo({ left: b.offsetLeft - 24, behavior: 'smooth' });
   }
-  function deslizaTudo() { desliza($('.pn-abas'), '[aria-selected=true]'); desliza($('#mp-sel'), '[aria-pressed=true]'); desliza($('#st-sel'), '[aria-pressed=true]'); }
+  function deslizaTudo() { desliza($('.pn-abas'), '[aria-selected=true]'); desliza($('#mp-sel'), '[aria-pressed=true]'); desliza($('#st-sel'), '[aria-pressed=true]'); if ($('#br-sel button')) desliza($('#br-sel'), '[aria-pressed=true]'); }
   window.addEventListener('resize', deslizaTudo);
 
   /* 27/10: efeito de entrada: cada filho direto do bloco (linhas, cartões) nasce 10 px abaixo e sobe, um atrás do outro */
@@ -265,10 +265,11 @@
     if (!$('#v-' + id)) return;
     $$('.pn-abas button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.aba === id); });
     $$('.pn-vista').forEach(function (v) { v.classList.toggle('ativa', v.id === 'v-' + id); });
-    $('.pn').classList.toggle('sem-lado', id === 'mapa' || id === 'setores');   // 27/10: os filtros não valem para o mapa nem para os setores, então a coluna some
+    $('.pn').classList.toggle('sem-lado', id === 'mapa' || id === 'setores' || id === 'brasil');   // 27/10: os filtros não valem para o mapa nem para os setores, então a coluna some
     $('.pn-main').scrollTop = 0;
     fechaDetalhe();
     if (id === 'mapa') montaMapa();
+    if (id === 'brasil') montaBrasil();
     if (id === 'setores') montaSetores();
     if (id === 'tempo') montaTempo();
     if (id === 'mudancas') montaMudancas();
@@ -569,6 +570,128 @@
       $('.ca-barra i', li).style.width = (atual[i] / max * 100) + '%';
       roleta($('b', li), atual[i]);   // 27/10: números do mapa de calor também em roleta
     });
+  }
+
+  /* ---------- certificados no Brasil (Inmetro, Certifiq) ----------
+     31/10/2026, Leandro: «coloque a opção de abrir o mapa do Brasil de certificados por estado e por setor; coloque como uma
+     opção no cabeçalho, ao lado de Certificados no mundo, e tente fazer do jeito que está». Dados do Certifiq, do Inmetro
+     (dados/inmetro-certifiq.json, gerado por _ferramentas/inmetro_certifiq.py): só ISO 9001 e ISO 14001. Por estado, o
+     Certifiq não publica os válidos; a aba mostra as empresas certificadas ou recertificadas nos três últimos anos (o ciclo
+     de um certificado) e diz isso. Por setor, os certificados válidos por setor IAF. Mapa dos estados (IBGE, malha mínima)
+     na mesma trama de pontos do mapa do mundo, com haste e etiqueta nos maiores estados. */
+  var brFeito = false, brNum = '9001', brModo = 'uf', BRD = null, brDesenha = null;
+  var UF_IBGE = { 11: 'RO', 12: 'AC', 13: 'AM', 14: 'RR', 15: 'PA', 16: 'AP', 17: 'TO', 21: 'MA', 22: 'PI', 23: 'CE', 24: 'RN', 25: 'PB', 26: 'PE', 27: 'AL', 28: 'SE', 29: 'BA', 31: 'MG', 32: 'ES', 33: 'RJ', 35: 'SP', 41: 'PR', 42: 'SC', 43: 'RS', 50: 'MS', 51: 'MT', 52: 'GO', 53: 'DF' };
+  var UF_NOME = { AC: 'Acre', AL: 'Alagoas', AM: 'Amazonas', AP: 'Amapá', BA: 'Bahia', CE: 'Ceará', DF: 'Distrito Federal', ES: 'Espírito Santo', GO: 'Goiás', MA: 'Maranhão', MG: 'Minas Gerais', MS: 'Mato Grosso do Sul', MT: 'Mato Grosso', PA: 'Pará', PB: 'Paraíba', PE: 'Pernambuco', PI: 'Piauí', PR: 'Paraná', RJ: 'Rio de Janeiro', RN: 'Rio Grande do Norte', RO: 'Rondônia', RR: 'Roraima', RS: 'Rio Grande do Sul', SC: 'Santa Catarina', SE: 'Sergipe', SP: 'São Paulo', TO: 'Tocantins' };
+  var CERTIFIQ = 'https://certifiq.inmetro.gov.br/', BR_CORTES = [1, 10, 50, 200, 1000];
+  function brNivel(v) { if (!v) return 0; for (var i = BR_CORTES.length - 1; i >= 0; i--) if (v >= BR_CORTES[i]) return i + 1; return 1; }
+  function montaBrasil() {
+    if (brFeito) { if (brDesenha) brDesenha(true); return; } brFeito = true;
+    var box = $('#br-mapa'), dicaB = $('#br-dica');
+    $('#br-sel').innerHTML = ['9001', '14001'].map(function (k, i) { return '<button style="--i:' + i + '" data-num="' + k + '" aria-pressed="' + (k === brNum) + '">ISO ' + k + '</button>'; }).join('');
+    $$('#br-sel button').forEach(function (b) { b.addEventListener('click', function () { brNum = b.dataset.num; $$('#br-sel button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); desliza($('#br-sel'), '[aria-pressed=true]'); if (brDesenha) brDesenha(true); }); });
+    $$('.br-modo button').forEach(function (b) { b.addEventListener('click', function () { brModo = b.dataset.modo; $$('.br-modo button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); if (brDesenha) brDesenha(true); }); });
+    desliza($('#br-sel'), '[aria-pressed=true]');
+    if (!window.d3 || !window.topojson) { box.innerHTML = '<p class="pn-vazio" style="padding:20px">' + T('O mapa precisa das bibliotecas d3 e topojson, que não carregaram.', 'The map needs the d3 and topojson libraries, which did not load.') + '</p>'; return; }
+    Promise.all([fetch('dados/inmetro-certifiq.json?v=' + (document.querySelector('script[src*="painel-normas.js"]').src.split('v=')[1] || 1)).then(function (r) { return r.json(); }), fetch('dados/brasil-uf.json').then(function (r) { return r.json(); })]).then(function (res) {
+      BRD = res[0]; var topo = res[1], FE = topojson.feature(topo, topo.objects.BRUF).features, FC = { type: 'FeatureCollection', features: FE };
+      FE.forEach(function (f) { f.uf = UF_IBGE[+f.properties.codarea]; });
+      var W = 960, H = 480, proj = d3.geoMercator(), cv = document.createElement('canvas'); cv.className = 'mp-pontos'; cv.setAttribute('aria-hidden', 'true'); box.insertBefore(cv, box.firstChild);
+      var ctx = cv.getContext('2d'), svg = d3.select(box).insert('svg', '.mp-dica').attr('role', 'img').attr('aria-label', T('Mapa do Brasil por estado', 'Map of Brazil by state'));
+      var paths = svg.append('g').selectAll('path').data(FE).enter().append('path').attr('class', 'pais');
+      var gEtq = svg.append('g').attr('class', 'pulsos'), t0 = 0, crescendo = false, calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      paths.on('mousemove', function (ev, f) {
+        var v = (BRD.normas[brNum].uf || {})[f.uf] || 0, r = box.getBoundingClientRect();
+        dicaB.style.display = 'block'; dicaB.style.left = (ev.clientX - r.left) + 'px'; dicaB.style.top = (ev.clientY - r.top) + 'px';
+        dicaB.innerHTML = esc(UF_NOME[f.uf] || f.uf) + ' · <b>' + fmt(v) + '</b>' + T(' empresas', ' companies');
+      }).on('mouseleave', function () { dicaB.style.display = 'none'; });
+      function quadro() {
+        var r = box.getBoundingClientRect();
+        W = (getComputedStyle(box).position === 'absolute' && r.height > 40) ? Math.max(480, Math.round(H * r.width / r.height)) : 960;
+        svg.attr('viewBox', '0 0 ' + W + ' ' + H);
+        proj.fitExtent([[24, 30], [W - 24, H - 14]], FC);
+      }
+      function pontos() {
+        var r = svg.node().getBoundingClientRect(); if (!r.width) return;
+        var dpr = Math.min(2, window.devicePixelRatio || 1), cw = Math.round(r.width * dpr), ch = Math.round(r.height * dpr), br = box.getBoundingClientRect();
+        cv.width = cw; cv.height = ch; cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px'; cv.style.left = (r.left - br.left) + 'px'; cv.style.top = (r.top - br.top) + 'px';
+        var s = Math.min(r.width / W, r.height / H), ox = (r.width - W * s) / 2, oy = (r.height - H * s) / 2;
+        /* raster dos estados: cada um pintado com a cor-número dele, num canvas fora da tela do mesmo tamanho */
+        var oc = document.createElement('canvas'); oc.width = cw; oc.height = ch; var o = oc.getContext('2d');
+        o.setTransform(dpr * s, 0, 0, dpr * s, dpr * ox, dpr * oy); var gp = d3.geoPath(proj, o);
+        FE.forEach(function (f, i) { var k = i + 1; o.fillStyle = 'rgb(' + k + ',' + ((k * 37) % 256) + ',97)'; o.beginPath(); gp(f); o.fill(); });
+        var px = o.getImageData(0, 0, cw, ch).data, P = Math.max(3, Math.round(2.5 * dpr)), D = Math.max(2, Math.round(P * .62)), m = Math.floor(D / 2);
+        var C = NOITE ? CORES_NOITE : CORES_DIA, dados = BRD.normas[brNum].uf || {};
+        ctx.clearRect(0, 0, cw, ch);
+        var grupos = FE.map(function () { return []; });
+        for (var y = Math.floor(P / 2); y < ch; y += P) for (var x = Math.floor(P / 2); x < cw; x += P) {
+          var q = (y * cw + x) * 4, k = px[q];
+          if (px[q + 3] === 255 && px[q + 2] === 97 && k >= 1 && k <= FE.length && px[q + 1] === (k * 37) % 256) grupos[k - 1].push(x, y);
+        }
+        grupos.forEach(function (g, i) { ctx.fillStyle = C[brNivel(dados[FE[i].uf] || 0)]; for (var j = 0; j < g.length; j += 2) ctx.fillRect(g[j] - m, g[j + 1] - m, D, D); });
+      }
+      function etiquetas(reinicia) {
+        var dados = BRD.normas[brNum].uf || {}, top = Object.keys(dados).sort(function (a, b) { return dados[b] - dados[a]; }).slice(0, 8);
+        var cen = {}; FE.forEach(function (f) { cen[f.uf] = proj(d3.geoCentroid(f)); });
+        var g = gEtq.selectAll('g.pulso').data(top.map(function (u) { return { uf: u, v: dados[u], p: cen[u] }; }), function (d) { return d.uf; });
+        g.exit().remove();
+        var e = g.enter().append('g').attr('class', 'pulso no-mapa');
+        e.append('path').attr('class', 'vareta'); e.append('circle').attr('class', 'ponto').attr('r', 1.6);
+        var et = e.append('g').attr('class', 'etq'); et.append('path').attr('class', 'fio'); et.append('rect').attr('class', 'pilula').attr('height', 18).attr('rx', 3); et.append('text').attr('class', 'en');
+        if (reinicia) { t0 = performance.now(); gEtq.selectAll('g.pulso').each(function (d) { var n = this.querySelector('.en'); n.dataset.v = 0; roleta(n, d.v, 1200); }); }
+        poe();
+      }
+      function poe() {
+        var agora = performance.now(), gr = calmo ? 1 : Math.max(0, Math.min(1, (agora - t0) / 1200)), cr = 1 - Math.pow(1 - gr, 3), postos = [];
+        crescendo = gr < 1;
+        var lista = []; gEtq.selectAll('g.pulso').each(function (d) { lista.push([this, d]); }); lista.sort(function (a, b) { return b[1].v - a[1].v; });
+        lista.forEach(function (it) {
+          var d = it[1], g = d3.select(it[0]), p = d.p; if (!p) return;
+          var PILHA = 24, base = p[1] - 3, topo = base - PILHA, txt = d.uf + ' ' + fmt(d.v), pw = 14 + txt.length * 6.3, ph = 18, lx = p[0], ly = topo - ph / 2 - 2, alvo = [0, 0];
+          var livre = function (x, y) { return postos.every(function (q) { return x + pw / 2 + 3 < q[0] || x - pw / 2 - 3 > q[1] || y + ph / 2 + 3 < q[2] || y - ph / 2 - 3 > q[3]; }); };
+          if (!livre(lx, ly)) for (var k = 1, ok = false; k <= 10 && !ok; k++) [[pw + 6, -(k - 1) * (ph + 4)], [-(pw + 6), -(k - 1) * (ph + 4)], [0, -k * (ph + 4)]].some(function (c) { if (livre(lx + c[0], ly + c[1])) { alvo = c; ok = true; return true; } return false; });
+          postos.push([lx + alvo[0] - pw / 2, lx + alvo[0] + pw / 2, ly + alvo[1] - ph / 2, ly + alvo[1] + ph / 2]);
+          var sobe = calmo ? 0 : Math.pow(1 - Math.min(1, gr / .6), 3) * 18, x = lx + alvo[0], y = ly + alvo[1] + sobe;
+          g.select('circle').attr('cx', p[0]).attr('cy', p[1]);
+          g.select('path.vareta').attr('d', 'M' + p[0].toFixed(1) + ',' + base.toFixed(1) + 'V' + (base - PILHA * cr).toFixed(1));
+          var et = g.select('g.etq').style('opacity', Math.min(1, gr / .25));
+          et.select('rect').attr('x', (x - pw / 2).toFixed(1)).attr('y', (y - ph / 2).toFixed(1)).attr('width', pw.toFixed(1));
+          et.select('text').attr('x', (x - pw / 2 + 7).toFixed(1)).attr('y', (y + 3.6).toFixed(1));
+          var n = et.select('text').node(); if (!n.dataset.v || +n.dataset.v === d.v) n.textContent = d.uf + ' ' + (n.dataset.v ? fmt(+n.dataset.v) : '');
+          et.select('path.fio').attr('d', Math.abs(alvo[0]) + Math.abs(alvo[1]) > 3 ? 'M' + p[0].toFixed(1) + ',' + topo.toFixed(1) + 'L' + x.toFixed(1) + ',' + (y + (alvo[1] < -3 ? ph / 2 : 0)).toFixed(1) : null);
+        });
+        if (crescendo) requestAnimationFrame(poe);
+      }
+      function setores() {
+        var lista = (BRD.normas[brNum].setores || []).slice().sort(function (a, b) { return b.n - a.n; }), max = lista.length ? lista[0].n : 1;
+        $('#br-setores').innerHTML = '<ul class="br-set">' + lista.map(function (x) { return '<li><span title="' + esc(x.setor) + '">' + esc(x.setor) + '</span><span class="barra"><i style="width:' + (x.n / max * 100).toFixed(1) + '%"></i></span><b>' + fmt(x.n) + '</b></li>'; }).join('') + '</ul>';
+        cascata($('#br-setores .br-set'), 'li');
+      }
+      function lado() {
+        var N = BRD.normas[brNum], dados = N.uf || {}, sv = D.survey[brNum], rank = Object.keys(dados).sort(function (a, b) { return dados[b] - dados[a]; }), max = dados[rank[0]] || 1, anos = BRD.anos_uf || [];
+        $('#br-lado').innerHTML = '<h3>ISO ' + brNum + '</h3><div class="m">' + esc(N.nome) + '</div>' +
+          '<div class="tot"><span>' + fmt(N.validos.total) + '</span><small>' + T('certificados válidos no Certifiq em ', 'valid certificates in Certifiq on ') + dataBR(BRD.gerado) + ' · ' + fmt(N.validos.sbac) + T(' no SBAC', ' within SBAC') + ' · ' + fmt(N.validos.fora) + T(' fora', ' outside') + '</small></div>' +
+          '<a class="mp-fonte-card" href="' + CERTIFIQ + '" target="_blank" rel="noopener">' + T('Dados do Inmetro (Certifiq)', 'Data from Inmetro (Certifiq)') + ' ↗</a>' +
+          '<div class="mp-br"><span class="m">' + T('ISO Survey 2025 · Brasil', 'ISO Survey 2025 · Brazil') + '</span><div class="v">' + fmt(sv && sv.paises.BR || 0) + '<small>' + T('certificados em 31-dez-2025', 'certificates on 31-dec-2025') + '</small></div><div class="mp-brsit">' + T('O Survey conta certificados de organismos acreditados por membros da Global ACI; o Certifiq, os registrados por organismos acreditados pelo Inmetro. A diferença é o que está numa base e não na outra.', 'The Survey counts certificates from bodies accredited by Global ACI members; Certifiq, those registered by bodies accredited by Inmetro. The gap is what is in one database and not the other.') + '</div></div>' +
+          '<div class="mp-rola"><ul class="mp-rank">' + rank.slice(0, 27).map(function (u, i) { return '<li><span class="m">' + (i + 1) + '</span><span><span class="nome">' + esc(UF_NOME[u] || u) + '</span></span><b>' + fmt(dados[u]) + '</b><span class="barra"><i style="width:' + (dados[u] / max * 100).toFixed(1) + '%"></i></span></li>'; }).join('') + '</ul>' +
+          '<p class="mp-nota">' + T('Por estado: empresas certificadas ou recertificadas de ' + anos[0] + ' a ' + anos[anos.length - 1] + ' (até a data), dentro e fora do SBAC. O Certifiq não publica os certificados válidos por estado; como um certificado vale três anos, a soma desse período é a aproximação. Por setor: certificados válidos por setor IAF. O Certifiq cobre só a ISO 9001 e a ISO 14001. Fonte: Inmetro, Certifiq, relatórios públicos.', 'By state: companies certified or recertified from ' + anos[0] + ' to ' + anos[anos.length - 1] + ' (to date), within and outside SBAC. Certifiq does not publish valid certificates by state; since a certificate is valid for three years, the sum of that period is the approximation. By sector: valid certificates by IAF sector. Certifiq covers only ISO 9001 and ISO 14001. Source: Inmetro, Certifiq, public reports.') + '</p></div>';
+        cascata($('#br-lado .mp-rank'), 'li');
+      }
+      function legenda() {
+        var C = NOITE ? CORES_NOITE : CORES_DIA;
+        $('#br-esc').innerHTML = '<span style="margin-left:0">' + T('empresas', 'companies') + '</span>' + ['0', '1', '10', '50', '200', T('1 mil+', '1k+')].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join('') +
+          '<a class="mp-fonte" href="' + CERTIFIQ + '" target="_blank" rel="noopener">' + T('Fonte: Inmetro, Certifiq · certificados emitidos no Brasil por organismos acreditados pelo Inmetro', 'Source: Inmetro, Certifiq · certificates issued in Brazil by Inmetro-accredited bodies') + ' <b aria-hidden="true">↗</b></a>';
+      }
+      brDesenha = function (reinicia) {
+        var setor = brModo === 'setor';
+        box.hidden = setor; $('#br-setores').hidden = !setor; $('#br-esc').style.display = setor ? 'none' : '';
+        lado(); legenda();
+        if (setor) setores();
+        else { quadro(); paths.attr('d', d3.geoPath(proj)); pontos(); etiquetas(reinicia); }
+      };
+      if (window.ResizeObserver) new ResizeObserver(function () { if (brModo === 'uf' && !box.hidden) { quadro(); paths.attr('d', d3.geoPath(proj)); pontos(); etiquetas(false); } }).observe(box);
+      document.addEventListener('pn-tema', function () { if (brDesenha) brDesenha(false); });
+      brDesenha(true);
+    }).catch(function () { box.innerHTML = '<p class="pn-vazio" style="padding:20px">' + T('Os dados do Inmetro não carregaram.', 'The Inmetro data did not load.') + '</p>'; });
   }
 
   /* ---------- mapa ---------- */
