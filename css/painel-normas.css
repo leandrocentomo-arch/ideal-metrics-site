@@ -1510,3 +1510,12 @@ html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel
   #v-mapa .mp-mapa{right:450px}
   #v-mapa .mp-ctl{right:74px}
 }
+/* 31/10/2026, «faça o pulse da página branca igual ao das outras páginas, mais compensado para o claro»: no tema claro a
+   norma escolhida tem o mesmo efeito do escuro e do marinho (faixa diagonal que inverte placa e texto, mais o piscar),
+   puxado para o claro: placa #D3E2F2 com texto #14304C, faixa #336699 com texto creme. Saem a trama quadriculada e o brilho. */
+html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza{background-image:linear-gradient(115deg,#D3E2F2 0%,#D3E2F2 38%,#336699 47%,#336699 53%,#D3E2F2 62%,#D3E2F2 100%);background-size:300% 100%;background-position:100% 0;
+  animation:mp-onda-placa 2s linear infinite,mp-pisca 1.6s ease-in-out infinite}
+html:not([data-tema=noite]) #mp-sel .desliza::after,html:not([data-tema=noite]) #br-sel .desliza::after{content:none}
+html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tema=noite]) #br-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#14304C 0%,#14304C 38%,#FAF9F5 47%,#FAF9F5 53%,#14304C 62%,#14304C 100%);background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:mp-onda-placa 2s linear infinite}
+@media (prefers-reduced-motion:reduce){html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza,html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tema=noite]) #br-sel button[aria-pressed=true]{animation:none;background-position:0 0}}
