@@ -565,24 +565,24 @@
          dashboard do HASDA 2027, desenhada num canvas atrás do SVG. O SVG fica com os contornos invisíveis (só para a dica
          do mouse) e com as etiquetas dos países. Malha de 0,6°, tirada do próprio mundo-110m: cada país é pintado num canvas
          fora da tela com uma cor que é o seu número, e a malha lê a cor em cada nó; onde a cor vem misturada (borda entre
-         dois países, costa), quem decide é d3.geoContains. */
+         dois países, costa), vale o vizinho mais próximo com cor limpa. */
       var cv = document.createElement('canvas'); cv.className = 'mp-pontos'; cv.setAttribute('aria-hidden', 'true'); box.insertBefore(cv, box.firstChild);
       var ctx = cv.getContext('2d');
       var svg = d3.select(box).insert('svg', '.mp-dica').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', T('Mapa de certificados por país', 'Map of certificates by country')).classed('plano', true);
-      var PASSO = .6, PTS = FEATS.map(function () { return []; });
+      var PASSO = .6, PTS = FEATS.map(function () { return []; }), RID = null, RW = 0, RH = 0, celas = null, celasChave = '';
       (function () {
         var cw = Math.round(720 / PASSO), ch = Math.round(360 / PASSO), oc = document.createElement('canvas'); oc.width = cw; oc.height = ch;
         var o = oc.getContext('2d'), gp = d3.geoPath(d3.geoEquirectangular().scale(cw / (2 * Math.PI)).translate([cw / 2, ch / 2]).precision(.2), o);
         FEATS.forEach(function (f, i) { var k = i + 1; o.fillStyle = 'rgb(' + k + ',' + ((k * 37) % 256) + ',97)'; o.beginPath(); gp(f); o.fill(); });
-        var px = o.getImageData(0, 0, cw, ch).data, caixas = FEATS.map(function (f) { return d3.geoBounds(f); });
+        var px = o.getImageData(0, 0, cw, ch).data, n = cw * ch; RW = cw; RH = ch; RID = new Int16Array(n);
+        for (var t = 0, q = 0; t < n; t++, q += 4) {   // número do país em cada pixel; -2 = cor misturada de borda com mais de meio pixel de terra
+          var al = px[q + 3], k = px[q];
+          RID[t] = !al ? -1 : (al === 255 && px[q + 2] === 97 && k >= 1 && k <= FEATS.length && px[q + 1] === (k * 37) % 256) ? k - 1 : (al >= 128 ? -2 : -1);
+        }
+        var viz = [-1, 1, -cw, cw, -cw - 1, -cw + 1, cw - 1, cw + 1, -2, 2, -2 * cw, 2 * cw];
+        for (var t2 = 0; t2 < n; t2++) if (RID[t2] === -2) { var achou = -1; for (var v = 0; v < viz.length; v++) { var u = RID[t2 + viz[v]]; if (u >= 0) { achou = u; break; } } RID[t2] = achou; }
         for (var la = 84 - PASSO / 2; la > -60; la -= PASSO) for (var lo = -180 + PASSO / 2; lo < 180; lo += PASSO) {
-          var q = (Math.floor((90 - la) / 180 * ch) * cw + Math.floor((lo + 180) / 360 * cw)) * 4, k = px[q], idx = -1;
-          if (px[q + 3] === 255 && px[q + 2] === 97 && k >= 1 && k <= FEATS.length && px[q + 1] === (k * 37) % 256) idx = k - 1;
-          else if (px[q + 3] > 0) for (var i = 0; i < FEATS.length; i++) {
-            var b = caixas[i]; if (la < b[0][1] || la > b[1][1]) continue;
-            if (b[0][0] <= b[1][0] ? (lo < b[0][0] || lo > b[1][0]) : (lo < b[0][0] && lo > b[1][0])) continue;
-            if (d3.geoContains(FEATS[i], [lo, la])) { idx = i; break; }
-          }
+          var idx = RID[Math.floor((90 - la) / 180 * ch) * cw + Math.floor((lo + 180) / 360 * cw)];
           if (idx >= 0) PTS[idx].push(lo, la);
         }
         PTS = PTS.map(function (a) { return new Float32Array(a); });
@@ -621,22 +621,36 @@
           ctx.globalAlpha = 1 - a; ctx.beginPath(); ctx.arc(cxG, H / 2, R, 0, 6.2832); ctx.fillStyle = gr; ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.stroke();
         }
         var qM = PASSO * KM, qG = PASSO * RAD * R;
-        /* mapa aberto parado na cor: a volta inteira (360°) fica pré-desenhada numa faixa e só desliza; redesenha a faixa
-           quando a cor ou o tamanho mudam (sem isso, 36 mil pontos por quadro deixavam o mapa a 12 quadros/s) */
-        if (a >= 1 && !corDe) {
-          var larg = 360 * KM, chave = [s, dpr, H].join() + '|' + corChave;
-          if (!faixa || faixa.chave !== chave) {
+        /* 31/10, «a trama não ficou legal»: no mapa aberto a trama é de TELA, não geográfica: um ponto quadrado de 2 px a cada
+           3 px de tela (2,5 px css × escala, ponto em 62% do passo), cravado no pixel (como a trama das fotos do site), e cada nó lê o país no raster. A volta inteira (360°) fica
+           pré-desenhada numa faixa que só desliza, em passos de pixel inteiro; a faixa é redesenhada quando muda o tamanho
+           ou a cor (na troca de norma, a cada quadro, enquanto a cor passa) */
+        if (a >= 1) {
+          var larg = 360 * KM, sd = s * dpr, fw = Math.round(larg * sd), fh = Math.round(H * sd), PX = Math.max(3, Math.round(2.5 * dpr)), DOT = Math.max(2, Math.round(PX * .62)), ck = [fw, fh, PX].join();
+          if (celasChave !== ck) {
+            celasChave = ck; celas = FEATS.map(function () { return []; });
+            for (var cy = Math.floor(PX / 2); cy < fh; cy += PX) {
+              var lat = (tyM - cy / sd) / KM; if (lat > 84 || lat < -60) continue; var ry = Math.floor((90 - lat) / 180 * RH) * RW;
+              for (var cx2 = Math.floor(PX / 2); cx2 < fw; cx2 += PX) { var id = RID[ry + Math.min(RW - 1, Math.floor(cx2 / fw * RW))]; if (id >= 0) celas[id].push(cx2, cy); }
+            }
+            faixa = null;
+          }
+          var chave = ck + '|' + corChave;
+          if (!faixa || faixa.chave !== chave || corDe) {
             faixa = faixa || document.createElement('canvas'); faixa.chave = chave;
-            faixa.width = Math.ceil(larg * s * dpr); faixa.height = Math.ceil(H * s * dpr);
-            var fx = faixa.getContext('2d'); fx.setTransform(s * dpr, 0, 0, s * dpr, 0, 0); fx.clearRect(0, 0, larg, H);
-            for (var fi = 0; fi < PTS.length; fi++) {
-              var FP = PTS[fi]; if (!FP.length) continue; var fc = corAt[fi], fq = qM * (nivelF[fi] ? .62 : .5);
+            if (faixa.width !== fw || faixa.height !== fh) { faixa.width = fw; faixa.height = fh; }
+            var fx = faixa.getContext('2d'); fx.setTransform(1, 0, 0, 1, 0, 0); fx.clearRect(0, 0, fw, fh);
+            var mD = Math.floor(DOT / 2);
+            for (var fi = 0; fi < celas.length; fi++) {
+              var FC = celas[fi]; if (!FC.length) continue; var fc = corAt[fi];
               fx.fillStyle = 'rgb(' + Math.round(fc[0]) + ',' + Math.round(fc[1]) + ',' + Math.round(fc[2]) + ')'; fx.globalAlpha = fc[3];
-              for (var fj = 0; fj < FP.length; fj += 2) fx.fillRect((FP[fj] + 180) * KM - fq / 2, tyM - FP[fj + 1] * KM - fq / 2, fq, fq);
+              for (var fj = 0; fj < FC.length; fj += 2) fx.fillRect(FC[fj] - mD, FC[fj + 1] - mD, DOT, DOT);
             }
           }
-          var x0f = cxM + (((lam % 360) + 360) % 360) * KM - 180 * KM; while (x0f > 0) x0f -= larg;
-          ctx.globalAlpha = 1; for (; x0f < W; x0f += larg) ctx.drawImage(faixa, x0f, 0, larg, H);
+          var x0f = cxM + (((lam % 360) + 360) % 360) * KM - 180 * KM, xd = Math.round((x0f * s + ox) * dpr), yd = Math.round(oy * dpr);
+          while (xd > 0) xd -= fw;
+          ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
+          for (; xd < cv.width; xd += fw) ctx.drawImage(faixa, xd, yd);
           return;
         }
         for (var i = 0; i < PTS.length; i++) {
