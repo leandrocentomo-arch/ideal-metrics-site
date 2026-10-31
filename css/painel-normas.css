@@ -1284,3 +1284,7 @@ html[data-tema=noite] body.pn-pagina .gaveta-painel{background:rgba(22,38,60,.72
 html[data-tema=noite] body.pn-pagina .gaveta-painel a,html[data-tema=noite] body.pn-pagina .gaveta-painel h3,html[data-tema=noite] body.pn-pagina .gaveta-painel h4{color:#DFE7F1}
 html[data-tema=noite] body.pn-pagina .gaveta-aba svg path,html[data-tema=noite] body.pn-pagina .pn-menu-puxa svg path{fill:#DFE7F1}
 html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa{background:#DFE7F1;color:#0E1B2E}
+/* 31/10/2026, «traço um pouquinho maior, mais devagar e um pouquinho mais largo»: 10° → 18° de comprimento, 1,5 → 2 px de
+   espessura, volta em 1,1 → 1,8 s */
+#mp-sel button[aria-pressed=true]::after{left:-2px;top:-2px;right:-2px;bottom:-2px;padding:2px;
+  background:conic-gradient(from var(--pn-ang),#E5322D 0deg 18deg,transparent 18deg 360deg);animation-duration:1.8s}
