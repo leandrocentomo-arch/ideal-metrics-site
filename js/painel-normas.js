@@ -998,7 +998,7 @@
         gPulsos.selectAll('g.pulso').select('.nome').text(function (d) { return nomePais(d.a2); });
         gPulsos.selectAll('g.pulso').select('.n').each(function () { this.dataset.v = 0; this.textContent = ''; });
         gPulsos.selectAll('g.pulso').select('.en').each(function () { this.dataset.v = 0; this.textContent = ''; });
-        gPulsos.selectAll('g.pulso').select('image').attr('href', function (d) { return 'https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/' + d.a2.toLowerCase() + '.svg'; });
+        gPulsos.selectAll('g.pulso').select('image').attr('href', function (d) { return 'img/bandeiras/' + d.a2.toLowerCase() + '.svg'; });
         poePulsos();
       };
       function poePulsos() {
@@ -1172,7 +1172,7 @@
       $('.m', li).textContent = rank.indexOf(a) + 1;
       /* 27/10: «faça o nome e bandeira dos países também com efeito roleta»: quando o país da vaga muda, nome e bandeira
          rolam para cima e o novo entra por baixo (classe .rola; a troca do conteúdo acontece no meio do giro) */
-      var img = $('.bandeira', li), src = 'https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/' + a.toLowerCase() + '.svg', cel = img.parentNode;
+      var img = $('.bandeira', li), src = 'img/bandeiras/' + a.toLowerCase() + '.svg', cel = img.parentNode;
       var troca = function () { img.style.visibility = 'visible'; img.onerror = function () { img.style.visibility = 'hidden'; }; img.setAttribute('src', src); $('.nome', li).textContent = nomePais(a); };
       if (li.dataset.a !== a) {
         li.dataset.a = a; cel.classList.remove('rola'); void cel.offsetWidth; cel.classList.add('rola');

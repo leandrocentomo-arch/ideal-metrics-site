@@ -289,3 +289,9 @@ Regra da casa: o que o Leandro corrige numa página vira padrão do site inteiro
 - **Frase de abertura:** a letra da chamada do Spirit ([ 02 ] Visual): IBM Plex Sans Condensed, bold 700 por inteiro, `clamp(20px, 2.2vw, 28px)`, entrelinha 1,2, espaçamento -0,012em, largura até 800 px. Sem variar bold e não bold dentro da frase.
 - **Diagrama:** SVG em linha fina com `viewBox` de 900 de largura (a coluna de texto tem ~890 px), para o texto do desenho sair no tamanho de leitura. Desenho mais largo encolhe a letra.
 - CSS novo: subir `css/style.css?v=` em todas as páginas.
+
+## Privacidade (31/10/2026)
+
+- **Nenhum serviço de terceiro ao abrir a página.** Fontes em `fonts/` + `css/fontes.css` (IBM Plex, latin e latin-ext), bibliotecas em `js/vendor/` (d3 7.9.0, topojson 3.0.2, Chart.js 4.6.1) e bandeiras em `img/bandeiras/` (flag-icons 7.2.3). Página nova usa `<link href="css/fontes.css?v=1" rel="stylesheet">`; nunca Google Fonts, cdnjs ou jsDelivr. O aviso de privacidade afirma isso.
+- **Aviso de privacidade** em `privacidade.html`, linkado na linha do CNPJ do rodapé de todas as páginas. Sem cookie e sem rastreador, não há banner. Se entrar Google Analytics, pixel ou parecido: banner com recusa, política de cookies e revisão do aviso.
+- **Newsletter da home:** Netlify Forms (`name="newsletter"`, honeypot `nl-mel`, caixa de aceite obrigatória), envio por `fetch` com retorno na própria página. As inscrições ficam no painel do Netlify, em Forms. Para funcionar, a detecção de formulários precisa estar ligada no Netlify. Quando um serviço de envio de e-mail entrar, acrescentar no aviso, em Compartilhamento.
