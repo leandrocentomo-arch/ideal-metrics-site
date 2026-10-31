@@ -1658,8 +1658,12 @@ html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa svg path,html[dat
    selecionado»: sai a placa que deslizava e a varredura (mp-varre) das normas no mundo, no Brasil e nos setores; a norma
    escolhida fica com o mesmo vidro e a mesma letra das vizinhas, mais um traço vermelho de 3 px na base, nos dois temas.
    Os !important vencem as camadas de regras da varredura acumuladas acima */
-.mp-sel .desliza{display:none!important}
+/* «você sabe que tem que fazer efeito de deslizamento»: o traço é a própria placa que desliza (.desliza, posta pelo JS do
+   botão anterior para o escolhido), reduzida a 3 px de vermelho na base e por cima dos botões */
+html .mp-sel .desliza{display:block!important;z-index:2!important;animation:none!important;box-shadow:none!important;border-radius:0 0 3px 3px!important;
+  background:linear-gradient(to top,#D62828 0,#D62828 3px,transparent 3px)!important}
+html[data-tema=noite] .mp-sel .desliza{background:linear-gradient(to top,#FF5A5A 0,#FF5A5A 3px,transparent 3px)!important}
 html .mp-sel button[aria-pressed=true]{animation:none!important;background:rgba(255,255,255,.34)!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;
   color:inherit!important;-webkit-text-fill-color:currentColor!important;border-color:var(--vborda,rgba(255,255,255,.75))!important;
-  -webkit-backdrop-filter:blur(10px)!important;backdrop-filter:blur(10px)!important;box-shadow:inset 0 -3px 0 #D62828!important}
-html[data-tema=noite] .mp-sel button[aria-pressed=true]{background:rgba(160,185,255,.06)!important;box-shadow:inset 0 -3px 0 #FF5A5A!important}
+  -webkit-backdrop-filter:blur(10px)!important;backdrop-filter:blur(10px)!important;box-shadow:none!important}
+html[data-tema=noite] .mp-sel button[aria-pressed=true]{background:rgba(160,185,255,.06)!important}
