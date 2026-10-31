@@ -1242,3 +1242,16 @@ html[data-tema=noite][data-noite=clara] .pn-det .tema,html[data-tema=noite][data
 html[data-tema=noite][data-noite=clara] .md-nota,html[data-tema=noite][data-noite=clara] .lt-leg,html[data-tema=noite][data-noite=clara] .lt-ed .r{color:#B7C8DC}
 html[data-tema=noite][data-noite=clara] .mp-mapa .pulso text.en{fill:#DFE7F1}
 .pn-tema button[data-tema=noite] svg{fill:none;stroke:currentColor}
+/* 31/10/2026, «deixe em cima de tudo "Estudos e Pesquisa Aplicada"; "Painel", deixe abaixo do subtítulo»: a linha mono de
+   cima fica só com a divisão; «painel · base da ISO de …» desce para baixo do subtítulo, na mesma letra mono */
+.pn-cab .pn-base{display:block;margin-top:4px}
+/* 31/10/2026, «o menu pode ser escuro e vidraçado também»: no escuro, tarja, barra e mega-menu do site viram vidro azul-noite
+   (translúcido com desfoque, fio claro), texto claro e o traço do item em azul claro */
+html[data-tema=noite] .pn-pagina .tarja,html[data-tema=noite] .pn-pagina header.barra,html[data-tema=noite] .pn-pagina .mega-menu{
+  background:rgba(22,38,60,.72);-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);color:#DFE7F1;border-color:rgba(190,210,255,.16)}
+html[data-tema=noite] .pn-pagina .mega-menu{border-top:1px solid rgba(190,210,255,.14);border-bottom:1px solid rgba(190,210,255,.14)}
+html[data-tema=noite] .pn-pagina .mega-menu::before{background:transparent}
+html[data-tema=noite] .pn-pagina .mega-menu-col h4{color:#B7C8DC;border-color:rgba(190,210,255,.18)}
+html[data-tema=noite] .pn-pagina .mega-menu-col a{color:#DFE7F1}
+html[data-tema=noite] .pn-pagina .mega-menu-col a:hover{color:#A9BCFF}
+html[data-tema=noite] .pn-pagina .mega-traco{background:#A9BCFF}
