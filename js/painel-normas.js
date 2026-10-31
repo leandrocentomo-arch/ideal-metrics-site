@@ -963,7 +963,7 @@
         /* 31/10: o mapa aberto também corre (da esquerda para a direita, .007 grau/ms, cerca de 50 s por volta); o globo segue a .009.
            Parado (mouse sobre um país), as etiquetas que estão nascendo e a troca de cor continuam */
         var ativa = !document.hidden && $('#v-mapa').classList.contains('ativa');
-        if ((prog === 0 || prog === 1) && !anima && !arrasta && !sobre && ativa) { giro[0] += Math.min(t - ult, 50) * (prog ? .01045 : .01089); desenha(); }   // 31/10: «10% mais rápida»; 2º, «girasse um pouquinho mais rápido»: mapa .0095
+        if ((prog === 0 || prog === 1) && !anima && !arrasta && !sobre && ativa) { giro[0] += Math.min(t - ult, 50) * (prog ? .0115 : .012); desenha(); }   // 31/10: «10% mais rápida»; 2º, «girasse um pouquinho mais rápido»: mapa .0095
         else if (ativa && !anima) { if (corDe) pintaPontos(); if (crescendo) poePulsos(); }
         ult = t; if (!calmo) requestAnimationFrame(gira);
       }
