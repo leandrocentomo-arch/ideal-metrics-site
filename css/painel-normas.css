@@ -1361,7 +1361,7 @@ html[data-tema=noite] #br-sel button[aria-pressed=true]{background-image:linear-
    ser rádio abaixo»: as duas normas em botões iguais (120 px) numa linha só; «Por estado / Por setor» vira rádio, logo abaixo */
 .br-barra{flex-direction:column;align-items:flex-start;gap:8px}
 #br-sel{display:flex;gap:6px}
-#br-sel button{width:120px;min-width:0;height:26px;padding:0;display:flex;align-items:center;justify-content:center}
+#br-sel button{width:120px;min-width:0;height:26px;display:flex;align-items:center;justify-content:center}
 .br-modo{display:flex;gap:18px;padding-left:2px}
 .br-modo button{display:flex;align-items:center;gap:7px;padding:0;border:0;background:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta);cursor:pointer;opacity:.7}
 .br-modo button::before{content:"";width:10px;height:10px;border-radius:50%;border:1px solid currentColor;box-sizing:border-box}
@@ -1571,3 +1571,28 @@ html[data-tema=noite] .pn-op input:checked::after{background:#1C2E46}
    com um quadradinho claro no meio (o vão entre os dois mostra o fundo) */
 html[data-tema=noite] .pn-op input:checked{background:transparent;border-color:#DFE7F1}
 html[data-tema=noite] .pn-op input:checked::after{inset:2.5px;background:#DFE7F1;border-radius:1px}
+/* 31/10, «as seleções dos botões selecionados têm que ficar padrão, como na primeira página»: as normas da aba Brasil usam a
+   mesma grade, o mesmo tamanho e o mesmo efeito dos botões de norma do mapa (a fileira ocupa a largura toda, 17 colunas) */
+.br-barra{align-items:stretch}
+.br-modo{align-self:flex-start}
+#br-sel{display:grid;grid-template-columns:repeat(17,minmax(0,1fr));gap:4px}
+#br-sel button{width:auto;height:auto;min-width:0;display:block;text-align:center}   /* padding: o mesmo das normas do mapa (.mp-sel button) */
+
+/* 31/10, «vamos fazer um X para todos; qualquer mudança que faz no escuro, faz proporcionalmente no claro»: caixinha dos filtros
+   só com contorno; marcada ganha um X fino dentro, na cor do contorno (tinta no claro, claro no escuro) */
+.pn-op input,.pn-op input:checked{background:transparent;border-color:rgba(20,48,76,.45)}
+.pn-op input:checked{border-color:var(--tinta)}
+.pn-op input:checked::after{inset:2px;border-radius:0;background:
+  linear-gradient(45deg,transparent calc(50% - .7px),var(--tinta) calc(50% - .7px),var(--tinta) calc(50% + .7px),transparent calc(50% + .7px)),
+  linear-gradient(-45deg,transparent calc(50% - .7px),var(--tinta) calc(50% - .7px),var(--tinta) calc(50% + .7px),transparent calc(50% + .7px))}
+html[data-tema=noite] .pn-op input,html[data-tema=noite] .pn-op input:checked{background:transparent;border-color:rgba(223,231,241,.5)}
+html[data-tema=noite] .pn-op input:checked{border-color:#DFE7F1}
+html[data-tema=noite] .pn-op input:checked::after{inset:2px;border-radius:0;background:
+  linear-gradient(45deg,transparent calc(50% - .7px),#DFE7F1 calc(50% - .7px),#DFE7F1 calc(50% + .7px),transparent calc(50% + .7px)),
+  linear-gradient(-45deg,transparent calc(50% - .7px),#DFE7F1 calc(50% - .7px),#DFE7F1 calc(50% + .7px),transparent calc(50% + .7px))}
+
+/* 31/10, «escuro ficou um azul meio fora do tom aqui, essa caixa de filtro»: o vidro da gaveta de filtros puxava para o lilás
+   (tinta 170,195,255 e saturação 1,5 do desfoque sobre as manchas do fundo); agora é um vidro no mesmo azul do fundo, sem saturar */
+html[data-tema=noite] .pn-lado,html[data-tema=noite][data-noite=clara] .pn-lado{
+  background:linear-gradient(135deg,rgba(205,222,242,.08) 0%,rgba(205,222,242,.03) 55%,rgba(205,222,242,.05) 100%);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-color:rgba(205,222,242,.18)}

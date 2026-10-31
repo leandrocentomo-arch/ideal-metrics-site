@@ -93,7 +93,7 @@
         }
         if (ctx.state === 'suspended') ctx.resume();
         var f = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), g = ctx.createGain();
-        f.buffer = ruido; bp.type = 'bandpass'; bp.frequency.value = 3200; bp.Q.value = 1.4; g.gain.value = .35;
+        f.buffer = ruido; bp.type = 'bandpass'; bp.frequency.value = 3200; bp.Q.value = 1.4; g.gain.value = .75;   // 31/10: «gostei do click… mais forte»
         f.connect(bp); bp.connect(g); g.connect(ctx.destination); f.start();
       } catch (e) { }
     }
