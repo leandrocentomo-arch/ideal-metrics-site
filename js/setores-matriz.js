@@ -43,7 +43,9 @@
     fig.style.setProperty('--mat-w', (linha.clientWidth - 41 - 47 - 2) + 'px');
     /* 19/10/2026: a altura soma a da barra horizontal (no Windows ela ocupa ~17 px dentro da caixa) e 10 px de folga, para
        nunca aparecer a barra vertical */
-    if(rola && !fig.classList.contains('aberto')){ rola.style.height = ''; rola.style.height = (rola.offsetHeight + (rola.offsetHeight - rola.clientHeight) + 10) + 'px'; }
+    /* 31/10/2026, «tem um gap aqui, deixe alinhado»: o offsetHeight já trazia a barra, que era somada de novo, mais os 10 px;
+       sobravam ~29 px vazios entre a última linha (Serviços e setor público) e a barra. Agora é o conteúdo + a barra + 2 px */
+    if(rola && !fig.classList.contains('aberto')){ rola.style.height = ''; rola.style.height = (rola.scrollHeight + (rola.offsetHeight - rola.clientHeight) + 2) + 'px'; }
   }
   medir();
   window.addEventListener('load', medir);   /* 19/10/2026: mede de novo com as fontes carregadas */
