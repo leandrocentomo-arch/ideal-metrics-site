@@ -1210,3 +1210,22 @@ html[data-tema=noite] #v-mapa .mp-esc .mp-fonte{color:#8FA6FF}
 #mp-sel{overflow:visible}
 #mp-sel button[aria-pressed=true]::after{bottom:-8px;animation-duration:1.4s}
 #mp-sel button[aria-pressed=true]{overflow:visible}   /* o botão cortava a bolinha por fora (overflow:hidden das reticências) */
+/* 31/10/2026, 3º, «melhore o contraste das fontes no escuro; gostei dessa segunda, pode eliminar a outra noite»: o escuro é
+   só o suave (o interruptor tem sol e lua; a lua liga data-tema=noite + data-noite=clara). Contraste: texto principal
+   #EEF3F9, secundário #C6D4E4 (era #A9BED6), número das abas e das normas na placa clara herda a cor escura da placa
+   (o secundário claro sumia nela), menu do site em claro sobre o azul */
+html[data-tema=noite][data-noite=clara] .pn{--tinta:#EEF3F9;color:#EEF3F9}
+html[data-tema=noite][data-noite=clara] .pn .m,html[data-tema=noite][data-noite=clara] .pn-cab .pn-sub,html[data-tema=noite][data-noite=clara] .mp-esc,
+html[data-tema=noite][data-noite=clara] .mp-lado .tot small,html[data-tema=noite][data-noite=clara] .mp-br .v small,html[data-tema=noite][data-noite=clara] .mp-nota,
+html[data-tema=noite][data-noite=clara] .mp-brsit,html[data-tema=noite][data-noite=clara] .lt-anos span,html[data-tema=noite][data-noite=clara] .pn-item .tit small,
+html[data-tema=noite][data-noite=clara] .pn-item .fase,html[data-tema=noite][data-noite=clara] .ca-cab span,html[data-tema=noite][data-noite=clara] .ca-pe,
+html[data-tema=noite][data-noite=clara] .pn-op .n,html[data-tema=noite][data-noite=clara] .pn-fonte,html[data-tema=noite][data-noite=clara] .pn-vazio,
+html[data-tema=noite][data-noite=clara] .pn-det .tema,html[data-tema=noite][data-noite=clara] .pn-kv dt,html[data-tema=noite][data-noite=clara] .md-item .de,
+html[data-tema=noite][data-noite=clara] .md-nota,html[data-tema=noite][data-noite=clara] .lt-leg,html[data-tema=noite][data-noite=clara] .lt-ed .r{color:#C6D4E4}
+html[data-tema=noite] .pn-abas button[aria-selected=true] .m,html[data-tema=noite] .pn-abas button[aria-selected=true]{color:#0E1B2E}
+html[data-tema=noite] .pn-abas button[aria-selected=true] .m{opacity:.7}
+html[data-tema=noite] .mp-sel button[aria-pressed=true]{color:#0E1B2E}
+html[data-tema=noite] .pn-pagina .barra-nav a,html[data-tema=noite] .pn-pagina .barra-menu,html[data-tema=noite] .pn-pagina .tarja,html[data-tema=noite] .pn-pagina .tarja a{color:#EEF3F9}
+html[data-tema=noite][data-noite=clara] .mp-mapa .etq rect.pilula{fill:rgba(26,43,66,.92)}
+html[data-tema=noite][data-noite=clara] .mp-mapa .pulso text.en{fill:#EEF3F9}
+html[data-tema=noite] #v-mapa .mp-esc .mp-fonte{color:#A9BCFF}

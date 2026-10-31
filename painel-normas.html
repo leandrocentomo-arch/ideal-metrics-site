@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<script>/* 31/10/2026: tema escuro do painel, escolhido no interruptor sol/lua; aplicado antes de pintar */try{var t=localStorage.getItem('pn-tema');if(t==='noite'||t==='noite-clara')document.documentElement.setAttribute('data-tema','noite');if(t==='noite-clara')document.documentElement.setAttribute('data-noite','clara')}catch(e){}</script>
+<script>/* 31/10/2026: tema escuro do painel, escolhido no interruptor sol/lua; aplicado antes de pintar */try{var t=localStorage.getItem('pn-tema');if(t==='noite'||t==='noite-clara'){document.documentElement.setAttribute('data-tema','noite');document.documentElement.setAttribute('data-noite','clara')}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Painel de normas ISO | Ideal Metrics</title>
 <!-- seo -->
@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=115">
-<link rel="stylesheet" href="css/painel-normas.css?v=145">
+<link rel="stylesheet" href="css/painel-normas.css?v=146">
 <meta name="description" content="Andamento das normas ISO de sistemas de gestão, sustentabilidade e segurança: estágio, comitê, revisão sistemática e certificados por país. Fonte: ISO Open Data e ISO Survey.">
 <script>document.documentElement.classList.add('js');window.addEventListener('load',function(){setTimeout(function(){if(!document.querySelector('.in-view')){var n=document.querySelectorAll('.rot-sec,.sec,.content>*');for(var i=0;i<n.length;i++){n[i].classList.add('in-view');}}},1200);});</script>
 </head>
@@ -278,6 +278,6 @@
 <script src="js/banner.js?v=2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" defer></script>
-<script src="js/painel-normas.js?v=75" defer></script>
+<script src="js/painel-normas.js?v=76" defer></script>
 <script src="js/gaveta.js?v=14" defer></script>
 </body></html>
