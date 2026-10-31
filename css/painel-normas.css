@@ -1268,3 +1268,19 @@ html[data-tema=noite] .pn-pagina .mega-traco{background:#A9BCFF}
   animation:pn-volta 1.1s linear infinite}
 @keyframes pn-volta{to{--pn-ang:360deg}}
 @media (prefers-reduced-motion:reduce){#mp-sel button[aria-pressed=true]::after{animation:none}}
+/* 31/10/2026, «o efeito de vidro nos menus dessa página, tanto no menu de cima quanto no menu do lado esquerdo»: só nesta
+   página, nos dois temas, a tarja, a barra e o mega-menu do site (em cima) e a etiqueta e o painel da gaveta Guia (à esquerda)
+   e a etiqueta Menu viram vidro: translúcidos com desfoque de 22 px e fio fino; no hover e aberta, a etiqueta continua cheia.
+   Revoga, nesta página, o «menu colapsado pode ser creme, não mais glassy» de 27/10. */
+body.pn-pagina .tarja,body.pn-pagina header.barra,body.pn-pagina .mega-menu,body.pn-pagina .gaveta-painel,
+body.pn-pagina .gaveta:not(.aberta) .gaveta-aba:not(:hover):not(:focus-visible),body.pn-pagina .pn-menu-puxa:not(:hover):not(:focus-visible){
+  background:rgba(250,249,245,.5);-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4)}
+body.pn-pagina.menu-aberto .pn-menu-puxa{background:#14304C}
+body.pn-pagina .gaveta-painel{background:rgba(250,249,245,.62)}
+html[data-tema=noite] body.pn-pagina .tarja,html[data-tema=noite] body.pn-pagina header.barra,html[data-tema=noite] body.pn-pagina .mega-menu,html[data-tema=noite] body.pn-pagina .gaveta-painel,
+html[data-tema=noite] body.pn-pagina .gaveta:not(.aberta) .gaveta-aba:not(:hover):not(:focus-visible),html[data-tema=noite] body.pn-pagina .pn-menu-puxa:not(:hover):not(:focus-visible){
+  background:rgba(22,38,60,.6);color:#DFE7F1;border-color:rgba(190,210,255,.18)}
+html[data-tema=noite] body.pn-pagina .gaveta-painel{background:rgba(22,38,60,.72);color:#DFE7F1}
+html[data-tema=noite] body.pn-pagina .gaveta-painel a,html[data-tema=noite] body.pn-pagina .gaveta-painel h3,html[data-tema=noite] body.pn-pagina .gaveta-painel h4{color:#DFE7F1}
+html[data-tema=noite] body.pn-pagina .gaveta-aba svg path,html[data-tema=noite] body.pn-pagina .pn-menu-puxa svg path{fill:#DFE7F1}
+html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa{background:#DFE7F1;color:#0E1B2E}
