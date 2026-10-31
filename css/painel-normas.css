@@ -1503,3 +1503,10 @@ html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tem
 #mp-sel .desliza,#br-sel .desliza{animation:mp-onda-placa 2s linear infinite,mp-pisca 1.6s ease-in-out infinite}
 html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza{animation:mp-pisca 1.6s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){#mp-sel .desliza,#br-sel .desliza,html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza{animation:none}}
+/* 31/10/2026, «deixa ainda o card um pouquinho mais largo»: placa dos dados com 500 px; o mapa termina 450 px antes da borda
+   (10% dentro da placa) e o botão do globo acompanha */
+@media (min-width:1181px) and (min-height:600px){
+  #v-mapa .mp-lado{width:500px}
+  #v-mapa .mp-mapa{right:450px}
+  #v-mapa .mp-ctl{right:74px}
+}
