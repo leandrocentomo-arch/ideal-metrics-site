@@ -1094,3 +1094,7 @@ html[data-tema=noite] .pn-pagina .tarja,html[data-tema=noite] .pn-pagina .barra{
 }
 .mp-mapa .etq rect.pilula{fill:rgba(255,255,255,.9)}
 html[data-tema=noite] .mp-mapa .etq rect.pilula{fill:rgba(14,27,46,.88)}
+/* escuro: zebra e realce das linhas da linha do tempo e da lista de normas em luz azul fraca (o branco a 22/45% acendia demais) */
+html[data-tema=noite] .lt-linha{border-bottom-color:rgba(220,230,242,.06)}
+html[data-tema=noite] .lt-linha:nth-child(even){background:rgba(160,185,255,.05)}
+html[data-tema=noite] .lt-linha:hover,html[data-tema=noite] .pn-item:hover,html[data-tema=noite] .pn-item:focus-visible{background:rgba(160,185,255,.10)}
