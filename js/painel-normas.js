@@ -804,7 +804,7 @@
         /* 31/10: o mapa aberto também corre (da esquerda para a direita, .007 grau/ms, cerca de 50 s por volta); o globo segue a .009.
            Parado (mouse sobre um país), as etiquetas que estão nascendo e a troca de cor continuam */
         var ativa = !document.hidden && $('#v-mapa').classList.contains('ativa');
-        if ((prog === 0 || prog === 1) && !anima && !arrasta && !sobre && ativa) { giro[0] += Math.min(t - ult, 50) * (prog ? .007 : .009); desenha(); }
+        if ((prog === 0 || prog === 1) && !anima && !arrasta && !sobre && ativa) { giro[0] += Math.min(t - ult, 50) * (prog ? .0077 : .0099); desenha(); }   // 31/10: «10% mais rápida»
         else if (ativa && !anima) { if (corDe) pintaPontos(); if (crescendo) poePulsos(); }
         ult = t; if (!calmo) requestAnimationFrame(gira);
       }
@@ -855,7 +855,7 @@
      legenda; a legenda pode ficar um pouquinho menos larga»: a legenda ganha uma segunda linha com a fonte e o link oficial */
   var ISO_SURVEY = 'https://www.iso.org/the-iso-survey.html';
   function pintaMapaLegenda() { var C = NOITE ? CORES_NOITE : CORES_DIA; $('#mp-esc').innerHTML = '<span style="margin-left:0">' + T('certificados', 'certificates') + '</span>' + ['0', '1', '10', '100', T('1 mil', '1k'), T('10 mil+', '10k+')].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join('') +
-    '<a class="mp-fonte" href="' + ISO_SURVEY + '" target="_blank" rel="noopener">' + T('Fonte: ISO Survey 2025, da ISO (Organização Internacional de Normalização) · certificados acreditados em vigor em 31-dez-2025', 'Source: ISO Survey 2025, by ISO (International Organization for Standardization) · accredited certificates in force on 31-dec-2025') + ' <b aria-hidden="true">↗</b></a>'; }
+    '<a class="mp-fonte" href="' + ISO_SURVEY + '" target="_blank" rel="noopener">' + T('Fonte: ISO Survey 2025 (ISO) · certificados acreditados em vigor em 31-dez-2025', 'Source: ISO Survey 2025 (ISO) · accredited certificates in force on 31-dec-2025') + ' <b aria-hidden="true">↗</b></a>'; }
   function pintaMapa() {
     var s = D.survey[mapaNum]; if (!s) return;
     var porNum = {}; Object.keys(D.paises).forEach(function (a2) { if (D.paises[a2].n) porNum[D.paises[a2].n] = a2; });

@@ -1186,3 +1186,19 @@ html[data-tema=noite] .pn-ctrl .pn-lang button[aria-pressed=true] img{filter:gra
 }
 #v-mapa .mp-esc .mp-fonte{font-size:9px;color:#0011BB;text-decoration:underline;text-underline-offset:2px;border-top:0;padding-top:0}
 html[data-tema=noite] #v-mapa .mp-esc .mp-fonte{color:#8FA6FF}
+/* 31/10/2026, «deixe mais evidente que estamos na ISO 9001; não precisa ficar pulsando as outras, só a que está; talvez uma
+   bolinha vermelha indo de um lado para o outro, percorrendo a largura do botão selecionado; aí não precisa dos pulsos»:
+   saem o anel que pulsava e a onda das outras normas; na placa da norma escolhida, uma bolinha vermelha de 5 px corre de
+   ponta a ponta junto à base, ida e volta em 2,4 s */
+.mp-sel .desliza,html[data-tema=noite] .mp-sel .desliza{animation:none;box-shadow:none}
+#mp-sel button[aria-pressed=false]{animation:none}
+.mp-sel .desliza::after{content:"";position:absolute;bottom:3px;left:6px;width:5px;height:5px;border-radius:50%;background:#E5322D;box-shadow:0 0 6px rgba(229,50,45,.75);
+  animation:mp-bolinha 2.4s ease-in-out infinite alternate}
+@keyframes mp-bolinha{from{left:6px}to{left:calc(100% - 11px)}}
+@media (prefers-reduced-motion:reduce){.mp-sel .desliza::after{animation:none;left:calc(50% - 2.5px)}}
+/* a bolinha fica no próprio botão escolhido (a placa que desliza fica por baixo do botão e escondia a bolinha) */
+.mp-sel .desliza::after{content:none}
+#mp-sel button{position:relative}
+#mp-sel button[aria-pressed=true]::after{content:"";position:absolute;bottom:3px;left:6px;width:5px;height:5px;border-radius:50%;background:#E5322D;box-shadow:0 0 6px rgba(229,50,45,.75);z-index:2;pointer-events:none;
+  animation:mp-bolinha 2.4s ease-in-out infinite alternate}
+@media (prefers-reduced-motion:reduce){#mp-sel button[aria-pressed=true]::after{animation:none;left:calc(50% - 2.5px)}}
