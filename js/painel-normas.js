@@ -740,7 +740,7 @@
       var cv = document.createElement('canvas'); cv.className = 'mp-pontos'; cv.setAttribute('aria-hidden', 'true'); box.insertBefore(cv, box.firstChild);
       var ctx = cv.getContext('2d');
       var svg = d3.select(box).insert('svg', '.mp-dica').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', T('Mapa de certificados por país', 'Map of certificates by country')).classed('plano', true);
-      var PASSO = .6, PTS = FEATS.map(function () { return []; }), RID = null, RW = 0, RH = 0, celas = null, celasChave = '', img = null, buf = null;
+      var PASSO = .6, PTS = FEATS.map(function () { return []; }), RID = null, RW = 0, RH = 0, celas = null, celasChave = '', img = null, buf = null, TEX = null, LINHAS = null;
       (function () {
         var cw = Math.round(720 / PASSO), ch = Math.round(360 / PASSO), oc = document.createElement('canvas'); oc.width = cw; oc.height = ch;
         var o = oc.getContext('2d'), gp = d3.geoPath(d3.geoEquirectangular().scale(cw / (2 * Math.PI)).translate([cw / 2, ch / 2]).precision(.2), o);
@@ -807,31 +807,36 @@
            3 px de tela (2,5 px css × escala, ponto em 62% do passo), cravado no pixel, e cada nó lê o país no raster.
            Equal Earth (31/10, 2º): a longitude escala diferente em cada latitude, então o giro não é mais um deslize da faixa;
            cada quadro refaz a malha (inversa da projeção por linha, guardada) e escreve os pontos direto num ImageData */
+        /* 31/10, «algo que parecesse bem fluido»: no mapa aberto os pontos ficam PRESOS À TERRA (a malha geográfica de 0,6°),
+           não à tela: cada ponto anda com o país em posição contínua, com borda suavizada, e o mapa desliza liso.
+           A posição vem de uma textura da malha (abaixo), desenhada linha a linha. A malha
+           presa à tela (quadrado de 2 px a cada 3, refeita a cada quadro) fazia a borda dos países trocar de ponto e tremular
+           enquanto o mapa corria; está no commit b0f9244. A posição de cada ponto na Equal Earth é guardada uma vez (y e a
+           escala da longitude dependem só da latitude); a cada quadro só a longitude muda. */
         if (a >= 1) {
-          var sd = s * dpr, PX = Math.max(3, Math.round(2.5 * dpr)), DOT = Math.max(2, Math.round(PX * .62)), Wd = cv.width, Hd = cv.height, ck = [Wd, Hd, PX, W, sd.toFixed(4)].join();
-          if (celasChave !== ck) {   // por linha da malha: y na tela, linha do raster e unidades por radiano de longitude nessa latitude
-            celasChave = ck; celas = [];
-            for (var cy = Math.floor(PX / 2); cy < Hd; cy += PX) {
-              var yr = (tyM - (cy - oy * dpr) / sd) / ESC_MAPA; if (yr > Y_N + .03 || yr < Y_S - .03) continue;
-              var phi = MAPA_RAW.invert(0, yr)[1], lat = phi / RAD0; if (!(lat <= 84 && lat >= -60)) continue;
-              celas.push(cy, Math.floor((90 - lat) / 180 * RH) * RW, MAPA_RAW(1, phi)[0] * ESC_MAPA);
-            }
-            img = ctx.createImageData(Wd, Hd); buf = new Uint32Array(img.data.buffer);
-          }
-          buf.fill(0);
-          var cores = corAt.map(function (c) { return ((Math.round(c[3] * 255) << 24) | (Math.round(c[2]) << 16) | (Math.round(c[1]) << 8) | Math.round(c[0])) >>> 0; });
-          var mD = Math.floor(DOT / 2), x0u = ox * dpr, PI = Math.PI;
-          for (var r = 0; r < celas.length; r += 3) {
-            var cy2 = celas[r], ry = celas[r + 1], kx = celas[r + 2], lin = (cy2 - mD) * Wd;
-            for (var cx2 = Math.floor(PX / 2); cx2 < Wd; cx2 += PX) {
-              var lonR = ((cx2 - x0u) / sd - cxM) / kx; if (lonR < -PI || lonR > PI) continue;
-              var lon = lonR / RAD0 - lam; lon = ((lon % 360) + 540) % 360 - 180;
-              var id = RID[ry + Math.min(RW - 1, Math.floor((lon + 180) / 360 * RW))]; if (id < 0) continue;
-              var cor = cores[id]; if (!cor) continue;
-              for (var dy = 0; dy < DOT; dy++) { var o = lin + dy * Wd + cx2 - mD; if (o < 0 || o >= buf.length - DOT) continue; for (var dx = 0; dx < DOT; dx++) buf[o + dx] = cor; }
+          /* textura da malha: uma linha de 4 px por latitude (0,6°), uma célula de 4 px por 0,6° de longitude, ponto de 2,5 px
+             no meio da célula. Refeita só quando a cor muda. Cada quadro desenha cada linha esticada pela escala da longitude
+             naquela latitude e deslocada pelo giro (duas cópias, cortadas na borda da Equal Earth): ~480 cópias por quadro, em
+             posição contínua (o navegador suaviza), em vez de 36 mil pontos */
+          var RC = 4, NCOL = Math.round(360 / PASSO), NLIN = Math.round(144 / PASSO), TW = NCOL * RC, TH = NLIN * RC;
+          if (!LINHAS) { LINHAS = []; for (var n = 0; n < NLIN; n++) { var la1 = 84 - PASSO / 2 - n * PASSO, ph1 = la1 * RAD0, yA = MAPA_RAW(0, (la1 + PASSO / 2) * RAD0)[1], yB = MAPA_RAW(0, (la1 - PASSO / 2) * RAD0)[1]; LINHAS.push(tyM - yA * ESC_MAPA, (yA - yB) * ESC_MAPA, MAPA_RAW(1, ph1)[0] * ESC_MAPA * RAD0); } }
+          var tchave = corChave + '|' + (corDe ? performance.now() : '');
+          if (!TEX || TEX.chave !== tchave) {
+            TEX = TEX || document.createElement('canvas'); TEX.chave = tchave; if (TEX.width !== TW) { TEX.width = TW; TEX.height = TH; }
+            var tx = TEX.getContext('2d'); tx.clearRect(0, 0, TW, TH);
+            for (var fi = 0; fi < PTS.length; fi++) {
+              var P = PTS[fi]; if (!P.length) continue; var c = corAt[fi], d = nivelF[fi] ? 2.5 : 2, m = (RC - d) / 2;
+              tx.fillStyle = 'rgb(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ')'; tx.globalAlpha = c[3];
+              for (var j = 0; j < P.length; j += 2) tx.fillRect(Math.floor((P[j] + 180) / PASSO) * RC + m, Math.floor((84 - P[j + 1]) / PASSO) * RC + m, d, d);
             }
           }
-          ctx.putImageData(img, 0, 0);
+          ctx.globalAlpha = 1; ctx.imageSmoothingEnabled = true;
+          var lamw = ((lam % 360) + 360) % 360, corte = (360 - lamw) / 360 * TW;
+          for (var n2 = 0; n2 < LINHAS.length; n2 += 3) {
+            var y0 = LINHAS[n2], hL = LINHAS[n2 + 1], k = LINHAS[n2 + 2], sy = (n2 / 3) * RC, xL = cxM - 180 * k;
+            if (corte > .5) ctx.drawImage(TEX, 0, sy, corte, RC, cxM + (-180 + lamw) * k, y0, (360 - lamw) * k, hL);   // de -180+giro até a borda direita
+            if (TW - corte > .5) ctx.drawImage(TEX, corte, sy, TW - corte, RC, xL, y0, lamw * k, hL);                 // o que passou da borda volta pela esquerda
+          }
           return;
         }
         for (var i = 0; i < PTS.length; i++) {
