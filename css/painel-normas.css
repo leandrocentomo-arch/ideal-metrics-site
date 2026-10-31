@@ -1288,3 +1288,12 @@ html[data-tema=noite] body.pn-pagina.menu-aberto .pn-menu-puxa{background:#DFE7F
    espessura, volta em 1,1 → 1,8 s */
 #mp-sel button[aria-pressed=true]::after{left:-2px;top:-2px;right:-2px;bottom:-2px;padding:2px;
   background:conic-gradient(from var(--pn-ang),#E5322D 0deg 18deg,transparent 18deg 360deg);animation-duration:1.8s}
+/* 31/10/2026, «o botão selecionado ficaria pulsando da esquerda para a direita, em ondas, na cor e na inversão da cor, tipo
+   claro e escuro»: a placa da norma escolhida ganha uma onda que corre da esquerda para a direita (escuro → claro → escuro,
+   1,6 s, sem parar); no claro, a faixa vai da tinta ao azul #5C88B8; no escuro, da placa clara ao azul #9FB9D8. O texto
+   continua legível nos dois tons. O traço vermelho no contorno continua. */
+#mp-sel .desliza{background-image:linear-gradient(90deg,#14304C 0%,#14304C 35%,#5C88B8 50%,#14304C 65%,#14304C 100%);background-size:300% 100%;background-position:100% 0;
+  animation:mp-onda-placa 1.6s linear infinite}
+@keyframes mp-onda-placa{from{background-position:100% 0}to{background-position:0 0}}
+html[data-tema=noite] #mp-sel .desliza{background-image:linear-gradient(90deg,#DFE7F1 0%,#DFE7F1 35%,#9FB9D8 50%,#DFE7F1 65%,#DFE7F1 100%)}
+@media (prefers-reduced-motion:reduce){#mp-sel .desliza{animation:none}}
