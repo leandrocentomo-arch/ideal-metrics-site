@@ -79,6 +79,32 @@
     });
   })();
 
+  /* 31/10, «coloque um clique sonoro ao clicar nos itens, para qualquer clique»: estalo curto sintetizado (ruído de 14 ms num
+     passa-banda em 3,2 kHz), sem arquivo de áudio. Toca no pointerdown de tudo o que é clicável no painel (botão, link, filtro,
+     linha da lista, país, mapa); o navegador só libera o som depois do primeiro gesto, e esse primeiro já toca. */
+  (function () {
+    var ctx = null, ruido = null;
+    function toca() {
+      try {
+        if (!ctx) {
+          var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+          ctx = new AC(); ruido = ctx.createBuffer(1, Math.round(ctx.sampleRate * .014), ctx.sampleRate);
+          var d = ruido.getChannelData(0); for (var i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3);
+        }
+        if (ctx.state === 'suspended') ctx.resume();
+        var f = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), g = ctx.createGain();
+        f.buffer = ruido; bp.type = 'bandpass'; bp.frequency.value = 3200; bp.Q.value = 1.4; g.gain.value = .35;
+        f.connect(bp); bp.connect(g); g.connect(ctx.destination); f.start();
+      } catch (e) { }
+    }
+    var ALVO = 'button,a[href],label,input,select,summary,[role=button],[role=tab],[tabindex]:not([tabindex="-1"]),.mp-mapa svg,.mp-mapa canvas';
+    document.addEventListener('pointerdown', function (ev) {
+      if (ev.button !== 0) return;
+      var el = ev.target; if (!el || !el.closest) return;
+      if (el.closest(ALVO) || getComputedStyle(el).cursor === 'pointer') toca();
+    }, true);
+  })();
+
   /* 31/10/2026, «faça a versão escura dessa página; dê a opção, mesmo que a versão clara deva ficar como default»: interruptor
      sol/lua ao lado das bandeirinhas; a escolha fica guardada (localStorage pn-tema) e o <head> já a aplica antes de pintar.
      Sem escolha guardada, claro. Ao trocar, avisa o mapa (evento pn-tema) para refazer as cores da trama. */

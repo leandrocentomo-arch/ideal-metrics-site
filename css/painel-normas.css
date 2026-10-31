@@ -1562,3 +1562,8 @@ html[data-tema=noite][data-noite] #mp-sel button[aria-pressed=true],html[data-te
   -webkit-backdrop-filter:none;backdrop-filter:none;animation:mp-varre 2.8s linear infinite}
 @media (prefers-reduced-motion:reduce){html[data-tema=noite][data-noite] #mp-sel .desliza,html[data-tema=noite][data-noite] #br-sel .desliza,
   html[data-tema=noite][data-noite] #mp-sel button[aria-pressed=true],html[data-tema=noite][data-noite] #br-sel button[aria-pressed=true]{animation:none;background-position:100% 0}}
+/* 31/10, «a seleção de normas no tema escuro pode ficar claro, não escuro»: no escuro a caixinha marcada dos filtros fica
+   clara (o espelho do claro: lá é tinta com miolo creme, aqui é claro com miolo no fundo da página); a desmarcada fica só no contorno */
+html[data-tema=noite] .pn-op input{background:transparent;border-color:rgba(223,231,241,.5)}
+html[data-tema=noite] .pn-op input:checked{background:#DFE7F1;border-color:#DFE7F1}
+html[data-tema=noite] .pn-op input:checked::after{background:#1C2E46}
