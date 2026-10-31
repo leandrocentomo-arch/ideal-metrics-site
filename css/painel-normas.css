@@ -1177,3 +1177,12 @@ html[data-tema=noite] .pn-ctrl .pn-lang button[aria-pressed=true] img{filter:gra
 #v-mapa .mp-esc{max-width:470px}
 #v-mapa .mp-esc i{width:24px}
 #v-mapa .mp-esc span{margin:0 7px 0 4px;white-space:nowrap}
+/* 31/10/2026, legenda: «menos larga, a fonte pode ser menor; o link em azul e grifado… deixa sem fundo, direto no vidro»:
+   sem placa (sem fundo, borda, sombra e desfoque), até 360 px, letra de 9 px, faixas de 20 px, fonte em #0011BB sublinhada */
+@media (min-width:1181px) and (min-height:600px){
+  #v-mapa .mp-esc,html[data-tema=noite] #v-mapa .mp-esc,html[data-tema=noite][data-noite=clara] #v-mapa .mp-esc{background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:0;box-shadow:none;padding:0;max-width:360px;font-size:9px}
+  #v-mapa .mp-esc i{width:20px;height:7px}
+  #v-mapa .mp-esc span{margin:0 6px 0 4px}
+}
+#v-mapa .mp-esc .mp-fonte{font-size:9px;color:#0011BB;text-decoration:underline;text-underline-offset:2px;border-top:0;padding-top:0}
+html[data-tema=noite] #v-mapa .mp-esc .mp-fonte{color:#8FA6FF}
