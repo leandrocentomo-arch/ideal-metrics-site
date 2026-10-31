@@ -795,8 +795,21 @@
         var a = Math.sqrt(Math.max(0, Math.min(1, prog))), lam = giro[0], ph = giro[1] * Math.PI / 180, cP = Math.cos(ph), sP = Math.sin(ph), R = ESC_GLOBO, tyM = H / 2 + Y_MAPA, RAD = Math.PI / 180;
         if (a < 1) {   // bola de vidro do globo (some ao abrir em mapa); no escuro, vidro azulado com borda clara
           var gr = ctx.createRadialGradient(cxG - R * .36, H / 2 - R * .48, R * .05, cxG, H / 2, R);
-          if (NOITE) { gr.addColorStop(0, 'rgba(120,150,220,.22)'); gr.addColorStop(.5, 'rgba(60,80,140,.10)'); gr.addColorStop(1, 'rgba(110,140,220,.28)'); }
-          else { gr.addColorStop(0, 'rgba(255,255,255,.62)'); gr.addColorStop(.45, 'rgba(255,255,255,.24)'); gr.addColorStop(.82, 'rgba(232,240,248,.26)'); gr.addColorStop(1, 'rgba(185,205,226,.5)'); }
+          /* 31/10, «globo fechado com mais transparência, para ver os continentes de fundo que já passaram» e «mais efeito de
+             vidro»: com o globo fechado, primeiro os continentes do LADO DE TRÁS (espelhados, como vistos através da bola, a 26%),
+             depois o vidro por cima deles (mais transparente no miolo, mais denso e azulado na borda, que é o que dá volume),
+             depois os da frente e, por último, o reflexo de luz no alto à esquerda e um fio de luz na borda */
+          if (a < .02) for (var ib = 0; ib < PTS.length; ib++) {
+            var PB = PTS[ib]; if (!PB.length) continue; var cb = corAt[ib];
+            ctx.fillStyle = 'rgb(' + Math.round(cb[0]) + ',' + Math.round(cb[1]) + ',' + Math.round(cb[2]) + ')'; ctx.globalAlpha = cb[3] * (NOITE ? .3 : .26);
+            for (var jb = 0; jb < PB.length; jb += 2) {
+              var lob = (PB[jb] + lam) * RAD, lab = PB[jb + 1] * RAD, clb = Math.cos(lab), xb = clb * Math.cos(lob), yb = clb * Math.sin(lob), zb = Math.sin(lab);
+              if (xb * cP - zb * sP > 0) continue; var qb = PASSO * RAD * R * .4;
+              ctx.fillRect(cxG + R * yb - qb / 2, H / 2 - R * (zb * cP + xb * sP) - qb / 2, qb, qb);
+            }
+          }
+          if (NOITE) { gr.addColorStop(0, 'rgba(120,150,220,.18)'); gr.addColorStop(.55, 'rgba(60,80,140,.06)'); gr.addColorStop(.85, 'rgba(90,120,200,.14)'); gr.addColorStop(1, 'rgba(140,170,240,.34)'); }
+          else { gr.addColorStop(0, 'rgba(255,255,255,.34)'); gr.addColorStop(.5, 'rgba(255,255,255,.08)'); gr.addColorStop(.84, 'rgba(214,228,244,.20)'); gr.addColorStop(1, 'rgba(160,190,222,.55)'); }
           /* 31/10: «o globo só apareça depois que os continentes se juntarem em forma esférica»: o vidro da bola só acende nos últimos
              15% da passagem (a de .15 a 0), quando os pontos já fecharam a esfera; ao abrir em mapa, apaga logo no começo */
           var esf = Math.max(0, Math.min(1, 1 - a / .15)); esf = esf * esf * (3 - 2 * esf);
@@ -851,11 +864,23 @@
           for (var j2 = 0; j2 < P.length; j2 += 2) {   // globo e passagem: cada ponto viaja da posição no globo para a do mapa
             var lo = (P[j2] + lam) * RAD, la = P[j2 + 1] * RAD, cl = Math.cos(la), x = cl * Math.cos(lo), y = cl * Math.sin(lo), z = Math.sin(la);
             var Y = z * cP + x * sP, Dp = x * cP - z * sP;
-            if (Dp <= 0 && a < .02) { ctx.globalAlpha = c[3] * .07; ctx.fillRect(cxG + R * y - .35, H / 2 - R * Y - .35, .7, .7); continue; }
+            if (Dp <= 0 && a < .02) continue;   // lado de trás: desenhado antes do vidro
             var lw2 = ((P[j2] + lam) % 360 + 540) % 360 - 180, gx = cxG + R * y, gy = H / 2 - R * Y, pm = MAPA_RAW(lw2 * RAD, P[j2 + 1] * RAD), mx = cxM + pm[0] * ESC_MAPA, my = tyM - pm[1] * ESC_MAPA;
             var aG = Dp > 0 ? .45 + .55 * Dp : .05, qg = Dp > 0 ? qG * (L ? .55 : .45) * (.65 + .35 * Dp) : qG * .3, q = qg + (qm - qg) * a;
             ctx.globalAlpha = c[3] * (aG + (1 - aG) * a);
             ctx.fillRect(gx + (mx - gx) * a - q / 2, gy + (my - gy) * a - q / 2, q, q);
+          }
+        }
+        if (a < 1) {   // reflexo de luz no alto à esquerda e fio de luz na borda, por cima dos continentes (some com o vidro)
+          var esf2 = Math.max(0, Math.min(1, 1 - a / .15)); esf2 = esf2 * esf2 * (3 - 2 * esf2);
+          if (esf2 > 0) {
+            ctx.globalAlpha = esf2;
+            var hl = ctx.createRadialGradient(cxG - R * .42, H / 2 - R * .46, 0, cxG - R * .42, H / 2 - R * .46, R * .5);
+            hl.addColorStop(0, NOITE ? 'rgba(200,215,255,.30)' : 'rgba(255,255,255,.55)'); hl.addColorStop(1, 'rgba(255,255,255,0)');
+            ctx.fillStyle = hl; ctx.beginPath(); ctx.arc(cxG, H / 2, R, 0, 6.2832); ctx.fill();
+            var rim = ctx.createRadialGradient(cxG, H / 2, R * .9, cxG, H / 2, R);
+            rim.addColorStop(0, 'rgba(255,255,255,0)'); rim.addColorStop(1, NOITE ? 'rgba(190,210,255,.30)' : 'rgba(255,255,255,.55)');
+            ctx.fillStyle = rim; ctx.beginPath(); ctx.arc(cxG, H / 2, R, 0, 6.2832); ctx.fill();
           }
         }
         ctx.globalAlpha = 1;
