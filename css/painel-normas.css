@@ -1230,3 +1230,15 @@ html[data-tema=noite][data-noite=clara] .mp-mapa .etq rect.pilula{fill:rgba(26,4
 html[data-tema=noite][data-noite=clara] .mp-mapa .pulso text.en{fill:#EEF3F9}
 html[data-tema=noite] #v-mapa .mp-esc .mp-fonte{color:#A9BCFF}
 #mp-sel button[aria-pressed=true]::after{animation-duration:.9s}   /* 31/10: «quero a bolinha ainda mais rápida» (1,4 → 0,9 s) */
+/* 31/10/2026, «no escuro tá muito forte, diminua um pouquinho»: texto principal #DFE7F1 (era #EEF3F9), secundário #B7C8DC
+   (era #C6D4E4); o botão do escuro usa o símbolo de meia-lua (círculo com metade cheia) */
+html[data-tema=noite][data-noite=clara] .pn{--tinta:#DFE7F1;color:#DFE7F1}
+html[data-tema=noite][data-noite=clara] .pn .m,html[data-tema=noite][data-noite=clara] .pn-cab .pn-sub,html[data-tema=noite][data-noite=clara] .mp-esc,
+html[data-tema=noite][data-noite=clara] .mp-lado .tot small,html[data-tema=noite][data-noite=clara] .mp-br .v small,html[data-tema=noite][data-noite=clara] .mp-nota,
+html[data-tema=noite][data-noite=clara] .mp-brsit,html[data-tema=noite][data-noite=clara] .lt-anos span,html[data-tema=noite][data-noite=clara] .pn-item .tit small,
+html[data-tema=noite][data-noite=clara] .pn-item .fase,html[data-tema=noite][data-noite=clara] .ca-cab span,html[data-tema=noite][data-noite=clara] .ca-pe,
+html[data-tema=noite][data-noite=clara] .pn-op .n,html[data-tema=noite][data-noite=clara] .pn-fonte,html[data-tema=noite][data-noite=clara] .pn-vazio,
+html[data-tema=noite][data-noite=clara] .pn-det .tema,html[data-tema=noite][data-noite=clara] .pn-kv dt,html[data-tema=noite][data-noite=clara] .md-item .de,
+html[data-tema=noite][data-noite=clara] .md-nota,html[data-tema=noite][data-noite=clara] .lt-leg,html[data-tema=noite][data-noite=clara] .lt-ed .r{color:#B7C8DC}
+html[data-tema=noite][data-noite=clara] .mp-mapa .pulso text.en{fill:#DFE7F1}
+.pn-tema button[data-tema=noite] svg{fill:none;stroke:currentColor}

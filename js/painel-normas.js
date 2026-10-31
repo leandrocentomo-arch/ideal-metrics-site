@@ -89,7 +89,7 @@
     var lang = $('.pn-lang'); if (!lang) return;
     var t = document.createElement('div'); t.className = 'pn-tema'; t.setAttribute('role', 'group'); t.setAttribute('aria-label', T('Tema claro ou escuro', 'Light or dark theme'));
     t.innerHTML = '<button type="button" data-tema="dia" title="' + T('Claro', 'Light') + '" aria-label="' + T('Claro', 'Light') + '"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6L13 13M13 3l-1.4 1.4M4.4 11.6L3 13"/></svg></button>' +
-      '<button type="button" data-tema="noite" title="' + T('Escuro', 'Dark') + '" aria-label="' + T('Escuro', 'Dark') + '"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12.5 10.2A5.2 5.2 0 0 1 5.8 3.5a5.2 5.2 0 1 0 6.7 6.7z"/></svg></button>';
+      '<button type="button" data-tema="noite" title="' + T('Escuro', 'Dark') + '" aria-label="' + T('Escuro', 'Dark') + '"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.2"/><path class="meia" d="M8 2.8a5.2 5.2 0 0 1 0 10.4z"/></svg></button>';   // 31/10: símbolo de meia-lua no lugar da lua
     /* 31/10, «aqui tem que estar tudo na mesma linha… faça as bandeiras melhores e coloque PT e EN»: tema e idioma numa barra só
        (.pn-ctrl), com a mesma altura; cada bandeira ganha a sigla */
     var ctrl = document.createElement('div'); ctrl.className = 'pn-ctrl'; lang.parentNode.insertBefore(ctrl, lang);
