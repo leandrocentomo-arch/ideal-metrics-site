@@ -1008,3 +1008,8 @@ body.pn-pagina{background:#F2F2EF}
 .mp-mapa g.pulso.no-mapa .ponto{fill:#0011BB}
 .mp-mapa .etq rect.pilula{stroke:#0011BB}
 .mp-mapa .etq .fio{stroke:#0011BB}
+/* 31/10/2026, «teria como isso ser mais fino?»: haste .8 → .5, contorno da etiqueta .8 → .5, fio .7 → .4, ponto 2,2 → 1,6 */
+.mp-mapa g.pulso.no-mapa .vareta{stroke-width:.5}
+.mp-mapa g.pulso.no-mapa .ponto{r:1.6px}
+.mp-mapa .etq rect.pilula{stroke-width:.5}
+.mp-mapa .etq .fio{stroke-width:.4}
