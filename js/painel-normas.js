@@ -82,9 +82,13 @@
   /* 31/10, «coloque um clique sonoro ao clicar nos itens, para qualquer clique»: estalo curto sintetizado (ruído de 14 ms num
      passa-banda em 3,2 kHz), sem arquivo de áudio. Toca no pointerdown de tudo o que é clicável no painel (botão, link, filtro,
      linha da lista, país, mapa); o navegador só libera o som depois do primeiro gesto, e esse primeiro já toca. */
+  /* 31/10, «ao lado do sol, deixa o ícone para poder tirar o som»: alto-falante à esquerda do interruptor de tema; desligado
+     fica guardado (localStorage pn-som = 0) */
+  var SOM = true; try { SOM = localStorage.getItem('pn-som') !== '0'; } catch (e) { }
   (function () {
     var ctx = null, ruido = null;
     function toca() {
+      if (!SOM) return;
       try {
         if (!ctx) {
           var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
@@ -120,7 +124,17 @@
     /* 31/10, «aqui tem que estar tudo na mesma linha… faça as bandeiras melhores e coloque PT e EN»: tema e idioma numa barra só
        (.pn-ctrl), com a mesma altura; cada bandeira ganha a sigla */
     var ctrl = document.createElement('div'); ctrl.className = 'pn-ctrl'; lang.parentNode.insertBefore(ctrl, lang);
-    ctrl.appendChild(t); ctrl.appendChild(lang);
+    var som = document.createElement('div'); som.className = 'pn-tema pn-som';
+    som.innerHTML = '<button type="button" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="cx" d="M2 6h2.6L8 3.2v9.6L4.6 10H2z"/><path class="liga" d="M10.6 5.6c1 .9 1 3.9 0 4.8M12.4 3.9c2 1.9 2 6.3 0 8.2"/><path class="desliga" d="M10.5 6l4 4M14.5 6l-4 4"/></svg></button>';
+    var bSom = som.firstChild;
+    function marcaSom() {
+      som.classList.toggle('mudo', !SOM);
+      bSom.title = SOM ? T('Som ligado', 'Sound on') : T('Som desligado', 'Sound off');
+      bSom.setAttribute('aria-label', SOM ? T('Desligar o som dos cliques', 'Turn click sound off') : T('Ligar o som dos cliques', 'Turn click sound on'));
+    }
+    marcaSom();
+    bSom.addEventListener('click', function () { SOM = !SOM; try { localStorage.setItem('pn-som', SOM ? '1' : '0'); } catch (e) { } marcaSom(); });
+    ctrl.appendChild(som); ctrl.appendChild(t); ctrl.appendChild(lang);
     $$('button', lang).forEach(function (b) { if (!$('.sigla', b)) { var sg = document.createElement('span'); sg.className = 'sigla'; sg.textContent = b.dataset.lang.toUpperCase(); b.appendChild(sg); } });
     function marca() { $$('button', t).forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.tema === TEMA); }); }
     marca();

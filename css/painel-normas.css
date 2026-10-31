@@ -1604,3 +1604,10 @@ html[data-tema=noite][data-noite] #mp-sel .desliza,html[data-tema=noite][data-no
   background-image:linear-gradient(90deg,#DFE7F1 0%,#DFE7F1 33.34%,rgba(160,185,255,.06) 33.34%,rgba(160,185,255,.06) 66.67%,#DFE7F1 66.67%,#DFE7F1 100%);
   box-shadow:inset 0 0 0 1px rgba(170,195,255,.18)}
 #mp-sel .desliza,#br-sel .desliza,html[data-tema=noite][data-noite] #mp-sel .desliza,html[data-tema=noite][data-noite] #br-sel .desliza{background-color:transparent}   /* a cor chapada da placa aparecia por trás do trecho translúcido */
+/* 31/10: botão do som, à esquerda do sol; alto-falante com ondas (ligado) ou com X (desligado) */
+.pn-som button{opacity:.8}
+.pn-som svg .cx{fill:currentColor;stroke:none}
+.pn-som svg .desliga{display:none}
+.pn-som.mudo svg .liga{display:none}
+.pn-som.mudo svg .desliga{display:inline}
+.pn-som.mudo button{opacity:.55}
