@@ -1528,3 +1528,18 @@ html:not([data-tema=noite]) .mp-mapa g.pulso.no-mapa .ponto{fill:#14304C}
 html:not([data-tema=noite]) .mp-mapa .etq rect.pilula{stroke:none;fill:rgba(250,249,245,.76)}
 html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza{background-image:linear-gradient(115deg,#FAF9F5 0%,#FAF9F5 38%,#14304C 47%,#14304C 53%,#FAF9F5 62%,#FAF9F5 100%);box-shadow:inset 0 0 0 .5px rgba(20,48,76,.35)}
 html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tema=noite]) #br-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#14304C 0%,#14304C 38%,#FAF9F5 47%,#FAF9F5 53%,#14304C 62%,#14304C 100%)}
+/* 31/10/2026, «não estou satisfeito com o pulse no botão; uma linha reta de cima para baixo, transformando a cor escura em
+   clara, escura e clara»: no tema claro a norma escolhida troca de cor por VARREDURA: uma linha vertical reta atravessa o
+   botão da esquerda para a direita e, por onde passa, a placa vira de #14304C para creme; meio segundo parado; a passada
+   seguinte devolve ao #14304C. O texto inverte junto (creme na placa escura, tinta na clara). Saem a faixa diagonal e o
+   piscar. Cada passada leva .9 s; o ciclo inteiro (escura → clara → escura) 2,8 s. */
+@keyframes mp-varre{0%,12%{background-position:100% 0}44%,62%{background-position:50% 0}94%,100%{background-position:0 0}}
+html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza{
+  background-image:linear-gradient(90deg,#14304C 0%,#14304C 33.34%,#FAF9F5 33.34%,#FAF9F5 66.67%,#14304C 66.67%,#14304C 100%);
+  background-size:300% 100%;background-position:100% 0;box-shadow:inset 0 0 0 .5px rgba(20,48,76,.45);
+  animation:mp-varre 2.8s cubic-bezier(.45,0,.25,1) infinite}
+html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tema=noite]) #br-sel button[aria-pressed=true]{
+  background-image:linear-gradient(90deg,#FAF9F5 0%,#FAF9F5 33.34%,#14304C 33.34%,#14304C 66.67%,#FAF9F5 66.67%,#FAF9F5 100%);
+  background-size:300% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  animation:mp-varre 2.8s cubic-bezier(.45,0,.25,1) infinite}
+@media (prefers-reduced-motion:reduce){html:not([data-tema=noite]) #mp-sel .desliza,html:not([data-tema=noite]) #br-sel .desliza,html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tema=noite]) #br-sel button[aria-pressed=true]{animation:none;background-position:100% 0}}
