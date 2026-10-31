@@ -159,6 +159,27 @@
     document.addEventListener('pointerdown', function (e) { if (document.body.classList.contains('menu-aberto') && !e.target.closest('.tarja, header.barra, .mega-menu, .pn-menu-puxa')) poe(false); });
   })();
 
+  /* 31/10/2026, «copie o efeito de vidro feito no HASDA para o painel de normas»: atrás do vidro, manchas de cor nas cores da
+     marca flutuando devagar e o rastro de luz do mouse (molde do dashboard do HASDA 2027: raio 36, 680 ms, força .46); o
+     desfoque do vidro espalha os dois. Sem movimento com prefers-reduced-motion. */
+  (function () {
+    var f = document.createElement('div'); f.className = 'pn-fundo'; f.setAttribute('aria-hidden', 'true');
+    f.innerHTML = '<i class="o1"></i><i class="o2"></i><i class="o3"></i><i class="o4"></i><i class="o5"></i>';
+    document.body.insertBefore(f, document.body.firstChild);
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var cv = document.createElement('canvas'); cv.className = 'pn-luz'; cv.setAttribute('aria-hidden', 'true'); document.body.insertBefore(cv, f.nextSibling);
+    var cx = cv.getContext('2d'); if (!cx) return;
+    var RAIO = 36, VIDA = 680, FORCA = .46, pts = [], laco = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
+    function medida() { var w = Math.round(innerWidth * dpr), h = Math.round(innerHeight * dpr); if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; } }
+    function pinta() {
+      var ag = performance.now(); pts = pts.filter(function (p) { return ag - p.t < VIDA; });
+      cx.clearRect(0, 0, cv.width, cv.height); cx.globalCompositeOperation = 'lighter';
+      pts.forEach(function (p) { var k = 1 - (ag - p.t) / VIDA, rr = RAIO * dpr * (.35 + .65 * k), gr = cx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr); gr.addColorStop(0, 'rgba(255,255,255,' + (FORCA * k * k) + ')'); gr.addColorStop(1, 'rgba(255,255,255,0)'); cx.fillStyle = gr; cx.beginPath(); cx.arc(p.x, p.y, rr, 0, 6.2832); cx.fill(); });
+      laco = pts.length ? requestAnimationFrame(pinta) : 0;
+    }
+    document.addEventListener('pointermove', function (e) { if (e.pointerType === 'touch') return; medida(); pts.push({ x: e.clientX * dpr, y: e.clientY * dpr, t: performance.now() }); if (!laco) laco = requestAnimationFrame(pinta); }, { passive: true });
+  })();
+
   $('.pn-puxa').addEventListener('click', function () {
     var ab = $('.pn').classList.toggle('lado-aberto');
     this.setAttribute('aria-expanded', ab); this.setAttribute('aria-label', ab ? T('Recolher busca e filtros', 'Collapse search and filters') : T('Abrir busca e filtros', 'Open search and filters'));
@@ -518,7 +539,7 @@
   }
 
   /* ---------- mapa ---------- */
-  var mapaFeito = false, mapaNum = '9001', paths = null, dica = null, refazPulsos = null;
+  var mapaFeito = false, mapaNum = '9001', paths = null, dica = null, refazPulsos = null, pintaPaises = null;
   function escolheSurvey(num) { mapaNum = num; $$('.mp-sel button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.num === num); }); desliza($('#mp-sel'), '[aria-pressed=true]'); pintaMapa(); }
   function montaMapa() {
     if (mapaFeito) return; mapaFeito = true;
@@ -531,124 +552,243 @@
       MUNDO = topojson.feature(topo, topo.objects.countries);
       var porNumFeat = {}; Object.keys(D.paises).forEach(function (a2) { if (D.paises[a2].n) porNumFeat[D.paises[a2].n] = a2; });
       /* 27/10: globo que gira e se desenrola em mapa (projeção ortográfica interpolada com a Natural Earth) */
-      var W = 960, H = 480, ESC_MAPA = d3.geoNaturalEarth1().fitExtent([[6, 6], [W - 6, H - 6]], { type: 'Sphere' }).scale(), ESC_GLOBO = H / 2 - 8;
-      var GIRO_BR = [52, 12], giro = GIRO_BR.slice(), prog = 0, anima = false, arrasta = null, sobre = false;
-      var muta = d3.geoProjectionMutator(function (t) { return function (x, y) { var a = d3.geoOrthographicRaw(x, y), b = d3.geoNaturalEarth1Raw(x, y); return [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])]; }; });
+      /* 31/10/2026, «quero que o globo fique aberto, e passando conforme no HASDA»: o mapa aberto é o padrão e corre da
+         esquerda para a direita em loop (molde do dashboard do HASDA 2027). Mapa plano equirretangular de 78N a 56S
+         ocupando a altura; a largura (2π × escala) passa da tela e a emenda do loop fica escondida pela borda esmaecida.
+         No computador o quadro acompanha o tamanho da área (W muda, H fica 480) e a coluna dos dados passa por cima, no vidro. */
+      var W = 960, H = 480, LAT_N = 78, LAT_S = -56, ESC_MAPA = H / ((LAT_N - LAT_S) * Math.PI / 180), Y_MAPA = (LAT_N + LAT_S) / 2 * Math.PI / 180 * ESC_MAPA, ESC_GLOBO = H / 2 - 8, KM = ESC_MAPA * Math.PI / 180;
+      var GIRO_BR = [52, 12], giro = [-10, 0], prog = 1, anima = false, arrasta = null, sobre = false, cxG = W / 2, cxM = W / 2, fimVis = W * .92, crescendo = false, mouseDentro = false;
+      var muta = d3.geoProjectionMutator(function (t) { return function (x, y) { var a = d3.geoOrthographicRaw(x, y), b = d3.geoEquirectangularRaw(x, y); return [a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])]; }; });
       var proj = muta(0).translate([W / 2, H / 2]).precision(.5), geo = d3.geoPath(proj);
-      var svg = d3.select(box).insert('svg', ':first-child').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', T('Globo de certificados por país', 'Globe of certificates by country'));
-      /* 27/10: oceano de vidro, no mesmo tom da placa onde o globo está (só um brilho claro no alto à esquerda); mais transparente desde o 2º ajuste */
-      var brilho = svg.append('defs').append('radialGradient').attr('id', 'mp-vidro').attr('cx', '32%').attr('cy', '26%').attr('r', '78%');
-      /* 27/10, 3º: oceano branco a ~78% (mais claro que o #F2F1F5 da legenda, e o globo fica 20% menos transparente) */
-      /* 27/10, 4º: «o fundo do globo é branco, não poderia ser mais transparente para dar mais efeito 3D, aberto também»: vidro
-         de verdade, com brilho no alto à esquerda (62%), miolo transparente (24%) e borda azulada mais densa (o reflexo da
-         borda de uma bola de vidro), no globo e no mapa aberto */
-      brilho.append('stop').attr('offset', '0').attr('stop-color', '#fff').attr('stop-opacity', .62);
-      brilho.append('stop').attr('offset', '.45').attr('stop-color', '#fff').attr('stop-opacity', .24);
-      brilho.append('stop').attr('offset', '.82').attr('stop-color', '#E8F0F8').attr('stop-opacity', .26);
-      brilho.append('stop').attr('offset', '1').attr('stop-color', '#B9CDE2').attr('stop-opacity', .5);
-      /* 27/10: «se a bola do globo ficasse ligeiramente transparente»: os países do lado de trás aparecem apagados através do
-         globo. Lado de trás = ortográfica centrada no antípoda e espelhada (mesma posição de tela de quem olha através da bola) */
-      var esfera = svg.append('path').attr('class', 'esfera').attr('fill', 'url(#mp-vidro)').attr('stroke', 'rgba(255,255,255,.9)').attr('stroke-width', 1.2);
-      var tras = svg.append('g').attr('class', 'tras').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path');   // sobre o oceano, para aparecer através dele
-      var grade = svg.append('path').datum(d3.geoGraticule10()).attr('class', 'grade');
-      paths = svg.append('g').selectAll('path').data(MUNDO.features.filter(function (f) { return f.id !== '010'; })).enter().append('path').attr('class', 'pais');
-      /* 27/10: «nos principais países, com pulso animado, fosse mostrando os números conforme o globo gira»: os oito maiores da
-         norma (e o Brasil) ganham um anel que pulsa e o número, no centro do país, só enquanto estão no hemisfério da frente */
+      var FEATS = MUNDO.features.filter(function (f) { return f.id !== '010'; });
+      /* 31/10/2026, «quero que os pontos dos países fiquem parecidos com o da Sodexo»: o mapa é uma trama de pontos, como no
+         dashboard do HASDA 2027, desenhada num canvas atrás do SVG. O SVG fica com os contornos invisíveis (só para a dica
+         do mouse) e com as etiquetas dos países. Malha de 0,6°, tirada do próprio mundo-110m: cada país é pintado num canvas
+         fora da tela com uma cor que é o seu número, e a malha lê a cor em cada nó; onde a cor vem misturada (borda entre
+         dois países, costa), quem decide é d3.geoContains. */
+      var cv = document.createElement('canvas'); cv.className = 'mp-pontos'; cv.setAttribute('aria-hidden', 'true'); box.insertBefore(cv, box.firstChild);
+      var ctx = cv.getContext('2d');
+      var svg = d3.select(box).insert('svg', '.mp-dica').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', T('Mapa de certificados por país', 'Map of certificates by country')).classed('plano', true);
+      var PASSO = .6, PTS = FEATS.map(function () { return []; });
+      (function () {
+        var cw = Math.round(720 / PASSO), ch = Math.round(360 / PASSO), oc = document.createElement('canvas'); oc.width = cw; oc.height = ch;
+        var o = oc.getContext('2d'), gp = d3.geoPath(d3.geoEquirectangular().scale(cw / (2 * Math.PI)).translate([cw / 2, ch / 2]).precision(.2), o);
+        FEATS.forEach(function (f, i) { var k = i + 1; o.fillStyle = 'rgb(' + k + ',' + ((k * 37) % 256) + ',97)'; o.beginPath(); gp(f); o.fill(); });
+        var px = o.getImageData(0, 0, cw, ch).data, caixas = FEATS.map(function (f) { return d3.geoBounds(f); });
+        for (var la = 84 - PASSO / 2; la > -60; la -= PASSO) for (var lo = -180 + PASSO / 2; lo < 180; lo += PASSO) {
+          var q = (Math.floor((90 - la) / 180 * ch) * cw + Math.floor((lo + 180) / 360 * cw)) * 4, k = px[q], idx = -1;
+          if (px[q + 3] === 255 && px[q + 2] === 97 && k >= 1 && k <= FEATS.length && px[q + 1] === (k * 37) % 256) idx = k - 1;
+          else if (px[q + 3] > 0) for (var i = 0; i < FEATS.length; i++) {
+            var b = caixas[i]; if (la < b[0][1] || la > b[1][1]) continue;
+            if (b[0][0] <= b[1][0] ? (lo < b[0][0] || lo > b[1][0]) : (lo < b[0][0] && lo > b[1][0])) continue;
+            if (d3.geoContains(FEATS[i], [lo, la])) { idx = i; break; }
+          }
+          if (idx >= 0) PTS[idx].push(lo, la);
+        }
+        PTS = PTS.map(function (a) { return new Float32Array(a); });
+      })();
+      /* cor de cada país pelo número de certificados (5 faixas); terra sem certificado em tinta a 20%. Na troca de norma a cor
+         de cada país passa da antiga para a nova em .6 s; na entrada, sai do tom apagado */
+      var NIV = [[20, 48, 76, .2], [169, 195, 222, 1], [127, 163, 201, 1], [92, 136, 184, 1], [51, 102, 153, 1], [20, 48, 76, 1]];
+      var nivelF = FEATS.map(function () { return 0; }), corAt = FEATS.map(function () { return NIV[0].slice(); }), corPara = corAt, corDe = null, corT0 = 0, faixa = null, corChave = '';
+      /* quadro do tamanho da área: H fixo, W pela proporção da caixa; o globo fica no centro da parte livre, à esquerda da placa dos dados */
+      function quadro() {
+        var r = box.getBoundingClientRect(), lado = $('#mp-lado'), cobre = 0;
+        if (getComputedStyle(box).position === 'absolute' && r.height > 40) {
+          W = Math.max(480, Math.round(H * r.width / r.height));
+          if (lado && getComputedStyle(lado).position === 'absolute') cobre = Math.max(0, r.right - lado.getBoundingClientRect().left) * H / r.height;
+        } else W = 960;
+        svg.attr('viewBox', '0 0 ' + W + ' ' + H);
+        cxM = W / 2; cxG = Math.max(ESC_GLOBO + 20, (W - cobre) / 2); fimVis = W - cobre;   // rótulos somem antes da placa dos dados
+      }
+      quadro();
+      function pintaPontos() {
+        var r = svg.node().getBoundingClientRect(); if (!r.width || !ctx) return;
+        var br = box.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1), cwp = Math.round(r.width * dpr), chp = Math.round(r.height * dpr);
+        if (cv.width !== cwp || cv.height !== chp) { cv.width = cwp; cv.height = chp; cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px'; }
+        cv.style.left = (r.left - br.left) + 'px'; cv.style.top = (r.top - br.top) + 'px';
+        var s = Math.min(r.width / W, r.height / H), ox = (r.width - W * s) / 2, oy = (r.height - H * s) / 2;
+        ctx.setTransform(dpr * s, 0, 0, dpr * s, dpr * ox, dpr * oy); ctx.clearRect(-ox / s, -oy / s, r.width / s, r.height / s);
+        if (corDe) {
+          var kc = Math.min(1, (performance.now() - corT0) / 600), e = 1 - Math.pow(1 - kc, 3);
+          corAt = corDe.map(function (c, i) { var p = corPara[i]; return [c[0] + (p[0] - c[0]) * e, c[1] + (p[1] - c[1]) * e, c[2] + (p[2] - c[2]) * e, c[3] + (p[3] - c[3]) * e]; });
+          if (kc >= 1) corDe = null;
+        }
+        var a = Math.sqrt(Math.max(0, Math.min(1, prog))), lam = giro[0], ph = giro[1] * Math.PI / 180, cP = Math.cos(ph), sP = Math.sin(ph), R = ESC_GLOBO, tyM = H / 2 + Y_MAPA, RAD = Math.PI / 180;
+        if (a < 1) {   // bola de vidro do globo (some ao abrir em mapa)
+          var gr = ctx.createRadialGradient(cxG - R * .36, H / 2 - R * .48, R * .05, cxG, H / 2, R);
+          gr.addColorStop(0, 'rgba(255,255,255,.62)'); gr.addColorStop(.45, 'rgba(255,255,255,.24)'); gr.addColorStop(.82, 'rgba(232,240,248,.26)'); gr.addColorStop(1, 'rgba(185,205,226,.5)');
+          ctx.globalAlpha = 1 - a; ctx.beginPath(); ctx.arc(cxG, H / 2, R, 0, 6.2832); ctx.fillStyle = gr; ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.stroke();
+        }
+        var qM = PASSO * KM, qG = PASSO * RAD * R;
+        /* mapa aberto parado na cor: a volta inteira (360°) fica pré-desenhada numa faixa e só desliza; redesenha a faixa
+           quando a cor ou o tamanho mudam (sem isso, 36 mil pontos por quadro deixavam o mapa a 12 quadros/s) */
+        if (a >= 1 && !corDe) {
+          var larg = 360 * KM, chave = [s, dpr, H].join() + '|' + corChave;
+          if (!faixa || faixa.chave !== chave) {
+            faixa = faixa || document.createElement('canvas'); faixa.chave = chave;
+            faixa.width = Math.ceil(larg * s * dpr); faixa.height = Math.ceil(H * s * dpr);
+            var fx = faixa.getContext('2d'); fx.setTransform(s * dpr, 0, 0, s * dpr, 0, 0); fx.clearRect(0, 0, larg, H);
+            for (var fi = 0; fi < PTS.length; fi++) {
+              var FP = PTS[fi]; if (!FP.length) continue; var fc = corAt[fi], fq = qM * (nivelF[fi] ? .62 : .5);
+              fx.fillStyle = 'rgb(' + Math.round(fc[0]) + ',' + Math.round(fc[1]) + ',' + Math.round(fc[2]) + ')'; fx.globalAlpha = fc[3];
+              for (var fj = 0; fj < FP.length; fj += 2) fx.fillRect((FP[fj] + 180) * KM - fq / 2, tyM - FP[fj + 1] * KM - fq / 2, fq, fq);
+            }
+          }
+          var x0f = cxM + (((lam % 360) + 360) % 360) * KM - 180 * KM; while (x0f > 0) x0f -= larg;
+          ctx.globalAlpha = 1; for (; x0f < W; x0f += larg) ctx.drawImage(faixa, x0f, 0, larg, H);
+          return;
+        }
+        for (var i = 0; i < PTS.length; i++) {
+          var P = PTS[i]; if (!P.length) continue;
+          var c = corAt[i], L = nivelF[i], qm = qM * (L ? .62 : .5);
+          ctx.fillStyle = 'rgb(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ')';
+          if (a >= 1) {   // mapa aberto: só a conta da longitude, sem trigonometria
+            ctx.globalAlpha = c[3];
+            for (var j = 0; j < P.length; j += 2) { var lw = ((P[j] + lam) % 360 + 540) % 360 - 180; ctx.fillRect(cxM + lw * KM - qm / 2, tyM - P[j + 1] * KM - qm / 2, qm, qm); }
+            continue;
+          }
+          for (var j2 = 0; j2 < P.length; j2 += 2) {   // globo e passagem: cada ponto viaja da posição no globo para a do mapa
+            var lo = (P[j2] + lam) * RAD, la = P[j2 + 1] * RAD, cl = Math.cos(la), x = cl * Math.cos(lo), y = cl * Math.sin(lo), z = Math.sin(la);
+            var Y = z * cP + x * sP, Dp = x * cP - z * sP;
+            if (Dp <= 0 && a < .02) { ctx.globalAlpha = c[3] * .07; ctx.fillRect(cxG + R * y - .35, H / 2 - R * Y - .35, .7, .7); continue; }
+            var lw2 = ((P[j2] + lam) % 360 + 540) % 360 - 180, gx = cxG + R * y, gy = H / 2 - R * Y, mx = cxM + lw2 * KM, my = tyM - P[j2 + 1] * KM;
+            var aG = Dp > 0 ? .45 + .55 * Dp : .05, qg = Dp > 0 ? qG * (L ? .55 : .45) * (.65 + .35 * Dp) : qG * .3, q = qg + (qm - qg) * a;
+            ctx.globalAlpha = c[3] * (aG + (1 - aG) * a);
+            ctx.fillRect(gx + (mx - gx) * a - q / 2, gy + (my - gy) * a - q / 2, q, q);
+          }
+        }
+        ctx.globalAlpha = 1;
+      }
+      pintaPaises = function () {
+        var s = D.survey[mapaNum], cortes = [1, 10, 100, 1000, 10000];
+        nivelF = FEATS.map(function (f) { var a2 = porNumFeat[f.id], v = a2 ? s.paises[a2] : 0; if (!v) return 0; for (var i = cortes.length - 1; i >= 0; i--) if (v >= cortes[i]) return i + 1; return 1; });
+        corPara = nivelF.map(function (n) { return NIV[n]; }); corChave = mapaNum;
+        if (calmo) { corAt = corPara.map(function (c) { return c.slice(); }); corDe = null; } else { corDe = corAt.map(function (c) { return c.slice(); }); corT0 = performance.now(); }
+        pintaPontos();
+      };
+      paths = svg.append('g').selectAll('path').data(FEATS).enter().append('path').attr('class', 'pais');
+      /* 27/10: «nos principais países, com pulso animado, fosse mostrando os números conforme o globo gira». 31/10, no mapa
+         aberto, a marcação do HASDA: ponto no país, haste fina que cresce para cima e, na ponta, a etiqueta de vidro com a
+         bandeira e o número, que sobe de baixo e conta de zero quando o país entra; nenhuma etiqueta sobre outra (a do maior
+         país escolhe primeiro; a seguinte sobe ou vai para o lado e ganha um fio até a haste). No globo continua a coluna
+         com as varetas em curva. */
       var gPulsos = svg.append('g').attr('class', 'pulsos'), centro = {};
       MUNDO.features.forEach(function (f) { var a2 = porNumFeat[f.id]; if (a2) centro[a2] = d3.geoCentroid(f); });
       refazPulsos = function () {
         var s = D.survey[mapaNum]; if (!s) return;
-        var top = Object.keys(s.paises).filter(function (a) { return centro[a]; }).sort(function (a, b) { return s.paises[b] - s.paises[a]; }).slice(0, 8);
+        var top = Object.keys(s.paises).filter(function (a) { return centro[a]; }).sort(function (a, b) { return s.paises[b] - s.paises[a]; }).slice(0, 10);
         if (s.paises.BR && centro.BR && top.indexOf('BR') < 0) top.push('BR');
         var g = gPulsos.selectAll('g.pulso').data(top.map(function (a) { return { a2: a, c: centro[a], v: s.paises[a] }; }), function (d) { return d.a2; });
         g.exit().remove();
-        /* 27/10, 2º: «as tags de número ficam pulando conforme o globo roda, use varetas bem finas»: o número fica numa
-           coluna fixa à direita do globo (uma vaga por país, na ordem do ranking) e uma vareta liga a vaga ao ponto do país */
         var e = g.enter().append('g').attr('class', 'pulso');
-        e.append('path').attr('class', 'vareta');   // 27/10: vareta em curva («poderiam ser curvas para manter a lista ao lado bem organizada»)
+        e.append('path').attr('class', 'vareta');
         e.append('circle').attr('class', 'anel').attr('r', 7).style('animation-delay', function (d, i) { return (i * .27) + 's'; });
         e.append('circle').attr('class', 'ponto').attr('r', 1.8);
-        var t = e.append('text'); t.append('tspan').attr('class', 'nome'); t.append('tspan').attr('class', 'n').attr('dx', 6);
-        gPulsos.selectAll('g.pulso').each(function (d, i) { d.vaga = i; });
-        /* 27/10: «quando mudo de norma tem que sair os dados da anterior»: selectAll não repassa o dado novo do grupo aos
-           filhos (ficava o número da norma anterior); select repassa */
+        var t = e.append('text').attr('class', 'rot'); t.append('tspan').attr('class', 'nome'); t.append('tspan').attr('class', 'n').attr('dx', 6);
+        var et = e.append('g').attr('class', 'etq');
+        et.append('path').attr('class', 'fio'); et.append('rect').attr('class', 'pilula').attr('height', 18).attr('rx', 3);
+        et.append('image').attr('class', 'bandeira').attr('width', 16).attr('height', 12).attr('preserveAspectRatio', 'none');
+        et.append('text').attr('class', 'en');
+        gPulsos.selectAll('g.pulso').each(function (d, i) { d.vaga = i; d.naFrente = false; d.t0 = 0; d.lo = null; });
+        /* 27/10: «quando mudo de norma tem que sair os dados da anterior»: select (não selectAll) repassa o dado novo aos filhos */
         gPulsos.selectAll('g.pulso').select('.nome').text(function (d) { return nomePais(d.a2); });
-        gPulsos.selectAll('g.pulso').select('.n').each(function (d) { this.dataset.v = 0; this.textContent = ''; });   // o número nasce ao entrar na frente (poePulsos)
+        gPulsos.selectAll('g.pulso').select('.n').each(function () { this.dataset.v = 0; this.textContent = ''; });
+        gPulsos.selectAll('g.pulso').select('.en').each(function () { this.dataset.v = 0; this.textContent = ''; });
+        gPulsos.selectAll('g.pulso').select('image').attr('href', function (d) { return 'https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/' + d.a2.toLowerCase() + '.svg'; });
         poePulsos();
       };
       function poePulsos() {
-        var a = Math.sqrt(Math.max(0, Math.min(1, prog))), olho = [-giro[0], -giro[1]];
-        var n = gPulsos.selectAll('g.pulso').size(), x0 = W / 2 + ESC_GLOBO + 26, y0 = H / 2 - (n - 1) * 11;
-        var postos = [];   // 27/10, mapa aberto: rótulos ao lado do ponto, empurrados para baixo quando se sobrepõem (Europa, Ásia)
-        if (a > .5) {
-          gPulsos.selectAll('g.pulso').each(function (d) { var p = proj(d.c); if (p) postos.push({ d: d, x: p[0] + 11, y: p[1] - 10 }); });
-          postos.sort(function (u, v) { return u.y - v.y; });
-          postos.forEach(function (u, i) { for (var j = 0; j < i; j++) { var v = postos[j]; if (Math.abs(v.x - u.x) < 130 && u.y - v.y < 13) u.y = v.y + 13; } d3.select(null); u.d.rot = [u.x, u.y]; });
-        }
-        gPulsos.selectAll('g.pulso').each(function (d) {
-          var vis = a > .98 || d3.geoDistance(d.c, olho) < 1.42, p = proj(d.c), sy = y0 + d.vaga * 22, g = d3.select(this);
-          g.style('opacity', vis && p ? 1 : 0);
-          /* 27/10: «o número fosse crescendo conforme o globo fosse girando, numa velocidade conforme o efeito»: ao entrar na
-             frente, o número corre de zero até o valor em 1,2 s (o fade do conjunto leva .45 s); ao sair, volta a zero */
-          var n = this.querySelector('.n');
-          if (vis && p && !d.naFrente) { d.naFrente = true; roleta(n, d.v, 1200); }
-          else if (!(vis && p) && d.naFrente) { d.naFrente = false; n.dataset.v = 0; n.textContent = ''; }
+        var a = Math.sqrt(Math.max(0, Math.min(1, prog))), olho = [-giro[0], -giro[1]], agora = performance.now(), mapa = a > .5;
+        var n = gPulsos.selectAll('g.pulso').size(), x0 = cxG + ESC_GLOBO + 26, y0 = H / 2 - (n - 1) * 11, postos = [], lista = [];
+        gPulsos.selectAll('g.pulso').each(function (d) { lista.push([this, d]); });
+        lista.sort(function (u, v) { return v[1].v - u[1].v; });   // o maior país escolhe o lugar da etiqueta primeiro
+        crescendo = false;
+        lista.forEach(function (it) {
+          var el = it[0], d = it[1], g = d3.select(el), p = proj(d.c), sy = y0 + d.vaga * 22;
+          /* no mapa que corre, a marcação surge só depois que o país entrou 8% da largura e some antes da placa dos dados */
+          var vis = !!p && (a > .98 ? p[0] > W * .08 && p[0] < fimVis - 30 : d3.geoDistance(d.c, olho) < 1.42);
+          if (d.modo !== mapa) { d.modo = mapa; d.naFrente = false; }
+          g.classed('no-mapa', mapa).style('opacity', vis ? 1 : 0);
+          /* 27/10: ao entrar na frente, o número corre de zero até o valor em 1,2 s; ao sair, volta a zero */
+          var nEl = el.querySelector(mapa ? '.en' : '.n'), outro = el.querySelector(mapa ? '.n' : '.en');
+          if (vis && !d.naFrente) { d.naFrente = true; d.t0 = agora; d.lo = null; outro.dataset.v = 0; outro.textContent = ''; roleta(nEl, d.v, 1200); }
+          else if (!vis && d.naFrente) { d.naFrente = false; nEl.dataset.v = 0; nEl.textContent = ''; }
           if (!p) return;
           g.selectAll('circle').attr('cx', p[0]).attr('cy', p[1]);
-          if (a > .5 && d.rot) {
-            g.select('path').attr('d', 'M' + p[0] + ',' + p[1] + 'L' + (d.rot[0] - 2) + ',' + (d.rot[1] + 1));
-            g.select('text').attr('x', d.rot[0]).attr('y', d.rot[1]);
+          if (mapa) {
+            var gr = calmo ? 1 : Math.max(0, Math.min(1, (agora - d.t0) / 1200)); if (vis && gr < 1) crescendo = true;
+            var cr = 1 - Math.pow(1 - gr, 3), PILHA = 26, base = p[1] - 3, topo = base - PILHA;
+            g.select('path.vareta').attr('d', 'M' + p[0].toFixed(1) + ',' + base.toFixed(1) + 'V' + (base - PILHA * cr).toFixed(1));
+            var pw = 35 + fmt(d.v).length * 6.3, ph = 18, lx0 = p[0], ly0 = topo - ph / 2 - 2, alvo = [0, 0];
+            var livre = function (x, y) { return postos.every(function (q) { return x + pw / 2 + 3 < q[0] || x - pw / 2 - 3 > q[1] || y + ph / 2 + 3 < q[2] || y - ph / 2 - 3 > q[3]; }); };
+            if (vis && !livre(lx0, ly0)) {
+              for (var k = 1, ok = false; k <= 14 && !ok; k++) [[0, -k * (ph + 4)], [pw + 6, -(k - 1) * (ph + 4)], [-(pw + 6), -(k - 1) * (ph + 4)]].some(function (c) { if (livre(lx0 + c[0], ly0 + c[1])) { alvo = c; ok = true; return true; } return false; });
+            }
+            if (vis) postos.push([lx0 + alvo[0] - pw / 2, lx0 + alvo[0] + pw / 2, ly0 + alvo[1] - ph / 2, ly0 + alvo[1] + ph / 2]);
+            if (!d.lo) d.lo = alvo.slice(); else { d.lo[0] += (alvo[0] - d.lo[0]) * .2; d.lo[1] += (alvo[1] - d.lo[1]) * .2; }
+            var sobe = calmo ? 0 : Math.pow(1 - Math.min(1, gr / .6), 3) * 22, px = lx0 + d.lo[0], py = ly0 + d.lo[1] + sobe;
+            var et = g.select('g.etq').style('opacity', Math.min(1, gr / .25));
+            et.select('rect').attr('x', (px - pw / 2).toFixed(1)).attr('y', (py - ph / 2).toFixed(1)).attr('width', pw.toFixed(1));
+            et.select('image').attr('x', (px - pw / 2 + 7).toFixed(1)).attr('y', (py - 6).toFixed(1));
+            et.select('text').attr('x', (px - pw / 2 + 28).toFixed(1)).attr('y', (py + 3.6).toFixed(1));
+            et.select('path.fio').attr('d', Math.abs(d.lo[0]) + Math.abs(d.lo[1]) > 3 ? 'M' + p[0].toFixed(1) + ',' + topo.toFixed(1) + 'L' + px.toFixed(1) + ',' + (py + (d.lo[1] < -3 ? ph / 2 : 0)).toFixed(1) : null);
           } else {
             /* curva em S: sai do país na horizontal e chega na vaga na horizontal (bezier com os dois controles no meio do caminho) */
             var xm = (p[0] + x0 - 6) / 2;
-            g.select('path').attr('d', 'M' + p[0].toFixed(1) + ',' + p[1].toFixed(1) + 'C' + xm.toFixed(1) + ',' + p[1].toFixed(1) + ' ' + xm.toFixed(1) + ',' + sy + ' ' + (x0 - 6) + ',' + sy);
-            g.select('text').attr('x', x0).attr('y', sy + 4);
+            g.select('path.vareta').attr('d', 'M' + p[0].toFixed(1) + ',' + p[1].toFixed(1) + 'C' + xm.toFixed(1) + ',' + p[1].toFixed(1) + ' ' + xm.toFixed(1) + ',' + sy + ' ' + (x0 - 6) + ',' + sy);
+            g.select('text.rot').attr('x', x0).attr('y', sy + 4);
           }
         });
       }
       function desenha() {
         var a = Math.sqrt(Math.max(0, Math.min(1, prog)));
-        proj = muta(a).scale(ESC_GLOBO + a * (ESC_MAPA - ESC_GLOBO)).translate([W / 2, H / 2]).rotate(giro).precision(.5);
-        var raio = (90 + a * 89) * Math.PI / 180;   // corte em círculo que cresce até quase o antípoda, encadeado com o corte no antimeridiano (sem ele os países cortados viram faixas no meio da transição)
+        proj = muta(a).scale(ESC_GLOBO + a * (ESC_MAPA - ESC_GLOBO)).translate([cxG + a * (cxM - cxG), H / 2 + a * Y_MAPA]).rotate(giro).precision(.5);
+        var raio = (90 + a * 89) * Math.PI / 180;   // corte em círculo que cresce até quase o antípoda, encadeado com o corte no antimeridiano
         proj.preclip(a < .999 ? function (s) { return d3.geoClipCircle(raio)(d3.geoClipAntimeridian(s)); } : d3.geoClipAntimeridian);
         geo = d3.geoPath(proj);
-        esfera.attr('d', geo({ type: 'Sphere' })); grade.attr('d', geo); paths.attr('d', geo);
-        if (a < .02) {
-          var pt = d3.geoOrthographic().scale(ESC_GLOBO).translate([W / 2, H / 2]).rotate([giro[0] + 180, -giro[1]]).reflectX(true).precision(.5);
-          tras.attr('d', d3.geoPath(pt)).style('display', null);
-        } else tras.style('display', 'none');
-        poePulsos();
+        if (mouseDentro || a < 1) paths.attr('d', geo);   // contornos invisíveis, só para a dica do mouse: no mapa aberto, só com o mouse sobre o mapa
+        pintaPontos(); poePulsos();
       }
       var calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches, ult = 0;
       function gira(t) {
-        if (prog === 0 && !anima && !arrasta && !sobre && !document.hidden && $('#v-mapa').classList.contains('ativa')) { giro[0] += Math.min(t - ult, 50) * .009; desenha(); }
+        /* 31/10: o mapa aberto também corre (da esquerda para a direita, .007 grau/ms, cerca de 50 s por volta); o globo segue a .009.
+           Parado (mouse sobre um país), as etiquetas que estão nascendo e a troca de cor continuam */
+        var ativa = !document.hidden && $('#v-mapa').classList.contains('ativa');
+        if ((prog === 0 || prog === 1) && !anima && !arrasta && !sobre && ativa) { giro[0] += Math.min(t - ult, 50) * (prog ? .007 : .009); desenha(); }
+        else if (ativa && !anima) { if (corDe) pintaPontos(); if (crescendo) poePulsos(); }
         ult = t; if (!calmo) requestAnimationFrame(gira);
       }
-      var bt = d3.select(box).append('div').attr('class', 'mp-ctl'), btVira = bt.append('button').attr('type', 'button').text(T('Abrir em mapa', 'Open as map')), btCentro = bt.append('button').attr('type', 'button').text(T('Centralizar', 'Recenter'));
+      var bt = d3.select(box).append('div').attr('class', 'mp-ctl'), btVira = bt.append('button').attr('type', 'button').text(T('Abrir em globo', 'Open as globe')), btCentro = bt.append('button').attr('type', 'button').text(T('Centralizar', 'Recenter'));
       function lonPerto(de, para) { return para + Math.round((de - para) / 360) * 360; }
       btVira.on('click', function () {
         if (anima) return; anima = true; btVira.property('disabled', true);
-        var p0 = prog, p1 = prog < .5 ? 1 : 0, g0 = giro.slice(), g1 = p1 ? [lonPerto(giro[0], 0), 0] : [lonPerto(giro[0], GIRO_BR[0]), GIRO_BR[1]], t0 = performance.now(), dur = calmo ? 1 : 1600;
+        var p0 = prog, p1 = prog < .5 ? 1 : 0, g0 = giro.slice(), g1 = p1 ? [giro[0], 0] : [lonPerto(giro[0], GIRO_BR[0]), GIRO_BR[1]], t0 = performance.now(), dur = calmo ? 1 : 1600;
         (function passo(t) {
           var k = Math.min((t - t0) / dur, 1), e = d3.easeCubicInOut(k);
           prog = p0 + (p1 - p0) * e; giro = [g0[0] + (g1[0] - g0[0]) * e, g0[1] + (g1[1] - g0[1]) * e]; desenha();
           if (k < 1) return requestAnimationFrame(passo);
-          prog = p1; anima = false; btVira.property('disabled', false).text(p1 ? T('Voltar ao globo', 'Back to globe') : T('Abrir em mapa', 'Open as map'));
+          prog = p1; anima = false; btVira.property('disabled', false).text(p1 ? T('Abrir em globo', 'Open as globe') : T('Abrir em mapa', 'Open as map'));
           svg.classed('plano', !!p1).attr('aria-label', p1 ? T('Mapa de certificados por país', 'Map of certificates by country') : T('Globo de certificados por país', 'Globe of certificates by country'));
+          desenha();
         })(t0);
       });
       btCentro.on('click', function () { if (!anima && prog === 0) { giro = GIRO_BR.slice(); desenha(); } });
-      svg.on('pointerdown', function (ev) { if (prog > 0 || anima) return; arrasta = [ev.clientX, ev.clientY]; svg.classed('arrastando', true); });
+      /* 31/10: no mapa aberto o arraste puxa o mapa para os lados (só a longitude) */
+      svg.on('pointerdown', function (ev) { if (anima) return; arrasta = [ev.clientX, ev.clientY]; svg.classed('arrastando', true); });
       window.addEventListener('pointermove', function (ev) {
-        if (!arrasta) return; var k = 300 / box.getBoundingClientRect().width;
-        giro[0] += (ev.clientX - arrasta[0]) * k; giro[1] = Math.max(-80, Math.min(80, giro[1] - (ev.clientY - arrasta[1]) * k));
+        if (!arrasta) return; var w = svg.node().getBoundingClientRect().width;
+        if (prog === 1) giro[0] += (ev.clientX - arrasta[0]) * 360 * W / (2 * Math.PI * ESC_MAPA * w);
+        else { var k = 300 / w; giro[0] += (ev.clientX - arrasta[0]) * k; giro[1] = Math.max(-80, Math.min(80, giro[1] - (ev.clientY - arrasta[1]) * k)); }
         arrasta = [ev.clientX, ev.clientY]; desenha();
       });
       window.addEventListener('pointerup', function () { arrasta = null; svg.classed('arrastando', false); });
-      svg.on('pointermove', function (ev) {   // 27/10: para de girar só com o mouse sobre o globo, não em qualquer lugar da área
-        var r = this.getBoundingClientRect(), x = (ev.clientX - r.left) * W / r.width - W / 2, y = (ev.clientY - r.top) * H / r.height - H / 2;
+      svg.on('pointermove', function (ev) {   // 27/10: para de girar só com o mouse sobre o globo; 31/10: no mapa aberto, com o mouse sobre um país
+        if (prog === 1) { sobre = !!(ev.target && ev.target.classList && ev.target.classList.contains('pais')); return; }
+        var r = this.getBoundingClientRect(), x = (ev.clientX - r.left) * W / r.width - cxG, y = (ev.clientY - r.top) * H / r.height - H / 2;
         sobre = x * x + y * y <= ESC_GLOBO * ESC_GLOBO;
-      }).on('pointerleave', function () { sobre = false; });
+      }).on('pointerleave', function () { sobre = false; mouseDentro = false; }).on('pointerenter', function () { mouseDentro = true; paths.attr('d', geo); });
+      if (window.ResizeObserver) new ResizeObserver(function () { quadro(); desenha(); }).observe(box);
       desenha(); requestAnimationFrame(function (t) { ult = t; gira(t); });
       var porNum = porNumFeat;
       paths.on('mousemove', function (ev, f) {
@@ -660,13 +800,13 @@
       WORLD_OK = true; pintaMapa();
     });
   }
-  var CORES = ['#F2F1F5', '#D3E2F2', '#9FC5F0', '#6A9CC9', '#336699', '#14304C'];
+  var CORES = ['rgba(20,48,76,.2)', '#A9C3DE', '#7FA3C9', '#5C88B8', '#336699', '#14304C'];   // 31/10: as faixas da trama de pontos
   function pintaMapa() {
     var s = D.survey[mapaNum]; if (!s) return;
     var porNum = {}; Object.keys(D.paises).forEach(function (a2) { if (D.paises[a2].n) porNum[D.paises[a2].n] = a2; });
     var cortes = [1, 10, 100, 1000, 10000];
     var cor = function (v) { if (!v) return CORES[0]; for (var i = cortes.length - 1; i >= 0; i--) if (v >= cortes[i]) return CORES[i + 1]; return CORES[1]; };
-    if (paths) paths.transition().duration(400).attr('fill', function (f) { var a2 = porNum[f.id]; return cor(a2 ? s.paises[a2] : 0); });
+    if (pintaPaises) pintaPaises();   // 31/10: os países são a trama de pontos do canvas
     if (refazPulsos) refazPulsos();
     $('#mp-esc').innerHTML = '<span style="margin-left:0">' + T('certificados', 'certificates') + '</span>' + ['0', '1', '10', '100', T('1 mil', '1k'), T('10 mil+', '10k+')].map(function (t, i) { return '<i style="background:' + CORES[i] + '"></i><span>' + t + '</span>'; }).join('');
     pintaLado();

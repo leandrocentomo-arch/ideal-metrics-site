@@ -908,3 +908,79 @@
 .cai{animation:pn-cai .45s cubic-bezier(.2,.7,.2,1) both}
 @keyframes pn-cai{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.cai{animation:none}}
+
+/* 31/10/2026, «quero que copie o efeito de vidro feito no HASDA para o painel de normas»; «não quero divisões no fundo, quero
+   que os dados sejam no vidro como no HASDA, com efeito de movimentação do globo aberto». Molde: dashboard do HASDA 2027
+   (Sodexo HASDA 2027/hasda-2027-dashboard.css). Atrás de tudo, um fundo claro liso com manchas de cor da marca flutuando
+   (.pn-fundo, posto pelo JS) e o rastro de luz do mouse (.pn-luz); saem a foto de manchas e os fios verticais da grade-guia.
+   O cabeçalho é uma placa no vidro do HASDA (gradiente 135° branco .42/.16/.26, desfoque 18 saturate 1.7, borda branca
+   1,6 px e fio interno azul); a área principal perde a placa e o conteúdo fica direto no vidro. No mapa, a coluna dos
+   dados vira uma placa de vidro por cima do mapa aberto, que corre por baixo dela. */
+.pn-fundo{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.pn-fundo i{position:absolute;border-radius:50%;will-change:transform;animation:pn-flutua 38s ease-in-out infinite alternate}
+.pn-fundo .o1{width:46vmax;height:46vmax;left:-12vmax;top:4vh;background:radial-gradient(circle,rgba(20,48,76,.22) 0%,rgba(20,48,76,.07) 45%,transparent 70%)}
+.pn-fundo .o2{width:40vmax;height:40vmax;right:-10vmax;top:-8vh;background:radial-gradient(circle,rgba(51,102,153,.32) 0%,rgba(51,102,153,.10) 45%,transparent 70%);animation-duration:44s;animation-delay:-9s}
+.pn-fundo .o3{width:34vmax;height:34vmax;left:34vw;bottom:-16vh;background:radial-gradient(circle,rgba(196,168,120,.24) 0%,rgba(196,168,120,.08) 45%,transparent 70%);animation-duration:52s;animation-delay:-20s}
+.pn-fundo .o4{width:26vmax;height:26vmax;right:12vw;bottom:8vh;background:radial-gradient(circle,rgba(154,172,193,.40) 0%,rgba(154,172,193,.12) 45%,transparent 70%);animation-duration:47s;animation-delay:-14s}
+.pn-fundo .o5{width:20vmax;height:20vmax;left:20vw;top:38vh;background:radial-gradient(circle,rgba(159,197,240,.38) 0%,transparent 68%);animation-duration:36s;animation-delay:-5s}
+.pn-luz{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:-1}
+@keyframes pn-flutua{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(4vw,-3vh,0) scale(1.08)}100%{transform:translate3d(-3vw,4vh,0) scale(.96)}}
+@media (prefers-reduced-motion:reduce){.pn-fundo i{animation:none}}
+@media print{.pn-fundo,.pn-luz{display:none}}
+body.pn-pagina{background:#F2F2EF}
+@media (max-width:1180px), (max-height:599px){ body.pn-pagina::before{background:#F2F2EF} }
+.mp-mapa svg.plano{cursor:grab}
+.mp-mapa svg.plano.arrastando{cursor:grabbing}
+@media (min-width:1181px) and (min-height:600px){
+  body.pn-pagina{background:#F2F2EF}
+  body.pn-pagina::before{display:none}
+  .pn{--vidro2:rgba(255,255,255,.4)}
+  .pn-cab,.pn-lado,.pn-det{background:linear-gradient(135deg,rgba(255,255,255,.42) 0%,rgba(255,255,255,.16) 55%,rgba(255,255,255,.26) 100%);
+    -webkit-backdrop-filter:blur(18px) saturate(1.7);backdrop-filter:blur(18px) saturate(1.7);border:1.6px solid rgba(255,255,255,.7);
+    box-shadow:inset 0 0 0 1px rgba(20,48,76,.14),inset 1px 1px 0 rgba(255,255,255,.9)}
+  .pn-det{background:linear-gradient(135deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.55) 55%,rgba(255,255,255,.62) 100%)}
+  .pn-main{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border-color:transparent;box-shadow:none}
+  .pn-abas{background:rgba(255,255,255,.3);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  .mp-sel button{background:rgba(255,255,255,.34);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  /* mapa aberto na largura toda da área; os dados numa placa de vidro à direita, por cima dele */
+  #v-mapa .mp-grid{display:block;position:relative;flex:1 1 auto;min-height:0;padding-top:0;margin-top:6px}
+  #v-mapa .mp-grid>div:first-child{position:absolute;inset:0}
+  #v-mapa .mp-mapa{position:absolute;inset:0;background:transparent;border:0;box-shadow:none;border-radius:0;overflow:hidden}
+  #v-mapa .mp-mapa svg{width:100%;height:100%;max-width:none;max-height:none;margin:0;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 100%)}
+  #v-mapa .mp-lado{position:absolute;top:0;right:0;bottom:0;width:320px;z-index:3;box-sizing:border-box;padding:18px 18px 14px;border-radius:3px;
+    background:linear-gradient(135deg,rgba(255,255,255,.80) 0%,rgba(255,255,255,.66) 55%,rgba(255,255,255,.74) 100%);
+    -webkit-backdrop-filter:blur(26px) saturate(1.4);backdrop-filter:blur(26px) saturate(1.4);border:1.6px solid rgba(255,255,255,.75);
+    box-shadow:inset 0 0 0 1px rgba(20,48,76,.14),inset 1px 1px 0 rgba(255,255,255,.9),0 18px 40px -28px rgba(20,48,76,.45)}
+  #v-mapa .mp-br{background:transparent;box-shadow:none;border:1px solid rgba(20,48,76,.28)}
+  #v-mapa .mp-ctl{right:344px;bottom:12px;z-index:4}
+  #v-mapa .mp-esc{position:absolute;left:0;bottom:12px;z-index:2;margin:0;padding:10px 14px 9px;border-radius:3px;
+    background:linear-gradient(135deg,rgba(255,255,255,.80) 0%,rgba(255,255,255,.66) 55%,rgba(255,255,255,.74) 100%);
+    -webkit-backdrop-filter:blur(26px) saturate(1.4);backdrop-filter:blur(26px) saturate(1.4);border:1.6px solid rgba(255,255,255,.75);
+    box-shadow:inset 0 0 0 1px rgba(20,48,76,.14),inset 1px 1px 0 rgba(255,255,255,.9),0 18px 40px -28px rgba(20,48,76,.45)}
+}
+
+/* 31/10/2026, «quero que os pontos dos países fiquem parecidos com o da Sodexo» e «a animação dos países fique melhor»: os
+   países são uma trama de pontos num canvas (.mp-pontos) atrás do SVG; no SVG ficam os contornos invisíveis, que só servem
+   para a dica do mouse, e as marcações. No mapa aberto, a marcação do HASDA: ponto, haste fina e etiqueta com bandeira e
+   número (.etq); no globo, a coluna com as varetas em curva continua. */
+.mp-mapa canvas.mp-pontos{position:absolute;left:0;top:0;z-index:0;pointer-events:none}
+.mp-mapa svg{position:relative;z-index:1}
+.mp-dica{z-index:5}
+.mp-mapa path.pais{fill:transparent;fill-opacity:1;stroke:transparent;pointer-events:all}
+.mp-mapa path.pais:hover{stroke:rgba(20,48,76,.5);stroke-width:.8}
+.mp-mapa g.pulso.no-mapa text.rot,.mp-mapa g.pulso.no-mapa .anel{display:none}
+.mp-mapa g.pulso:not(.no-mapa) g.etq{display:none}
+.mp-mapa g.pulso.no-mapa .vareta{stroke:var(--tinta);stroke-opacity:1;stroke-width:.8;vector-effect:none}
+.mp-mapa g.pulso.no-mapa .ponto{r:2.2px}
+.mp-mapa .etq rect.pilula{fill:rgba(255,255,255,.6);stroke:rgba(20,48,76,.3);stroke-width:.8}
+.mp-mapa .etq .fio{fill:none;stroke:rgba(20,48,76,.35);stroke-width:.7}
+.mp-mapa .etq image{filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(1.5) brightness(.92) contrast(1.05)}
+.mp-mapa .pulso text.en,.mp-mapa svg.plano .pulso text.en{font-family:var(--mono);font-size:10.5px;font-weight:500;fill:var(--tinta);stroke:none;paint-order:normal}
+/* 31/10, «termine o globo onde o card começar, deixe avançar 10% pra cima do card»: a área do mapa acaba 10% dentro da placa
+   dos dados (320 px × 90% = 288 px antes da borda direita), com as duas bordas esmaecidas */
+@media (min-width:1181px) and (min-height:600px){
+  #v-mapa .mp-mapa{right:288px}
+  #v-mapa .mp-mapa svg,#v-mapa .mp-mapa canvas.mp-pontos{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 94%,transparent 100%)}
+  #v-mapa .mp-ctl{right:56px}
+}
