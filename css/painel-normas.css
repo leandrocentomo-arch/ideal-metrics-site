@@ -984,3 +984,9 @@ body.pn-pagina{background:#F2F2EF}
   #v-mapa .mp-mapa svg,#v-mapa .mp-mapa canvas.mp-pontos{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 94%,transparent 100%)}
   #v-mapa .mp-ctl{right:56px}
 }
+/* 31/10/2026, «pode deixar esta caixa mais transparente» (placa dos dados do mapa): branco de 80/66/74% para 50/30/40%,
+   desfoque de 26 para 20 px; o mapa que passa por baixo aparece mais */
+@media (min-width:1181px) and (min-height:600px){
+  #v-mapa .mp-lado{background:linear-gradient(135deg,rgba(255,255,255,.50) 0%,rgba(255,255,255,.30) 55%,rgba(255,255,255,.40) 100%);
+    -webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5)}
+}
