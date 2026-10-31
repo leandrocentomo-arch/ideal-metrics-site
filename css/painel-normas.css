@@ -1015,3 +1015,82 @@ body.pn-pagina{background:#F2F2EF}
 .mp-mapa .etq .fio{stroke-width:.4}
 /* 31/10/2026, «faça 0,25»: haste, contorno da etiqueta e fio do mapa aberto em 0,25 */
 .mp-mapa g.pulso.no-mapa .vareta,.mp-mapa .etq rect.pilula,.mp-mapa .etq .fio{stroke-width:.25}
+
+/* ===== 31/10/2026, «faça a versão escura dessa página; dê a opção, mesmo que a versão clara deva ficar como default» =====
+   html[data-tema="noite"], posto pelo interruptor sol/lua (.pn-tema) ao lado das bandeirinhas e guardado em localStorage.
+   Molde: noite do dashboard do HASDA 2027 (fundo azul-noite, manchas de luz azul, vidro azulado translúcido com fio claro).
+   Os tokens do painel se invertem: a tinta vira o claro do texto e o creme vira o escuro, então a placa escura do item
+   escolhido (abas, normas, botões) vira placa clara com texto escuro. O logo usa a versão clara (negativo) por filtro. */
+.pn-tema{position:absolute;top:12px;right:76px;display:flex;gap:2px;z-index:4;padding:2px;border:.5px solid rgba(20,48,76,.25);border-radius:3px}
+.pn-tema button{display:block;width:22px;height:18px;padding:0;border:0;border-radius:2px;background:transparent;cursor:pointer;line-height:0;color:#14304C;opacity:.55;transition:opacity .2s,background .2s,color .2s}
+.pn-tema button:hover,.pn-tema button:focus-visible{opacity:.9;outline:none}
+.pn-tema button[aria-pressed=true]{opacity:1;background:#14304C;color:#FAF9F5;cursor:default}
+.pn-tema svg{width:12px;height:12px;margin:3px auto 0;display:block;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:square}
+.pn-tema button[data-tema=noite] svg{fill:currentColor;stroke:none}
+@media (max-width:1180px), (max-height:599px){ .pn-tema{right:72px} }
+
+html[data-tema=noite]{color-scheme:dark}
+html[data-tema=noite] body.pn-pagina{background:#0A1424}
+html[data-tema=noite] body.pn-pagina::before{background:#0A1424}
+@media (min-width:1181px) and (min-height:600px){ html[data-tema=noite] body.pn-pagina::before{display:none} }
+html[data-tema=noite] .pn-fundo .o1{background:radial-gradient(circle,rgba(51,102,153,.42) 0%,rgba(51,102,153,.12) 45%,transparent 70%)}
+html[data-tema=noite] .pn-fundo .o2{background:radial-gradient(circle,rgba(90,140,220,.30) 0%,rgba(90,140,220,.08) 45%,transparent 70%)}
+html[data-tema=noite] .pn-fundo .o3{background:radial-gradient(circle,rgba(196,168,120,.14) 0%,transparent 68%)}
+html[data-tema=noite] .pn-fundo .o4{background:radial-gradient(circle,rgba(110,130,200,.20) 0%,rgba(110,130,200,.06) 45%,transparent 70%)}
+html[data-tema=noite] .pn-fundo .o5{background:radial-gradient(circle,rgba(70,170,240,.18) 0%,transparent 68%)}
+html[data-tema=noite] .pn{--tinta:#DCE6F2;--liga:#7FA8D6;--claro:#9FC5F0;--creme:#0E1B2E;--perola:rgba(220,230,242,.08);--fio:rgba(220,230,242,.14);--fio2:rgba(220,230,242,.26);
+  --vidro:rgba(160,185,255,.08);--vidro2:rgba(160,185,255,.07);--vborda:rgba(170,195,255,.18);--vsombra:0 22px 50px -32px rgba(0,8,30,.75);color:#DCE6F2}
+/* texto secundário (era #315275) */
+html[data-tema=noite] .pn .m,html[data-tema=noite] .pn-cab .pn-sub,html[data-tema=noite] .pn-op .n,html[data-tema=noite] .pn-fonte,html[data-tema=noite] .pn-item .tit small,
+html[data-tema=noite] .pn-item .fase,html[data-tema=noite] .pn-vazio,html[data-tema=noite] .pn-det .tema,html[data-tema=noite] .pn-kv dt,html[data-tema=noite] .pn-links a .m,
+html[data-tema=noite] .pn-trilha div,html[data-tema=noite] .lt-anos span,html[data-tema=noite] .lt-ed .r,html[data-tema=noite] .lt-leg,html[data-tema=noite] .md-item .de,
+html[data-tema=noite] .md-nota,html[data-tema=noite] .mp-esc,html[data-tema=noite] .mp-lado .tot small,html[data-tema=noite] .mp-br .v small,html[data-tema=noite] .mp-nota,
+html[data-tema=noite] .ca-cab span,html[data-tema=noite] .ca-pe,html[data-tema=noite] .mp-brsit{color:#9DB4CF}
+html[data-tema=noite] .st-ea li.zero{color:#6F86A2}
+/* placas de vidro azulado (cabeçalho, filtros, ficha, dados do mapa, legenda) */
+html[data-tema=noite] .pn-cab,html[data-tema=noite] .pn-lado,html[data-tema=noite] .pn-det,html[data-tema=noite] #v-mapa .mp-lado,html[data-tema=noite] #v-mapa .mp-esc{
+  background:linear-gradient(135deg,rgba(170,195,255,.11) 0%,rgba(120,150,255,.035) 55%,rgba(150,175,255,.06) 100%);
+  -webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);border:1px solid rgba(170,195,255,.16);
+  box-shadow:inset 0 1px 0 rgba(200,215,255,.10),0 22px 50px -32px rgba(0,8,30,.75)}
+html[data-tema=noite] .pn-det{background:linear-gradient(135deg,rgba(24,40,66,.94) 0%,rgba(16,30,52,.92) 100%)}
+html[data-tema=noite] .pn-abas,html[data-tema=noite] .mp-sel button{background:rgba(160,185,255,.06)}
+html[data-tema=noite] .pn-abas button{border-left-color:rgba(170,195,255,.12)}
+html[data-tema=noite] .pn-busca input,html[data-tema=noite] .pn-op input{background:rgba(160,185,255,.08);color:#DCE6F2}
+html[data-tema=noite] .mp-mapa{background:transparent}
+html[data-tema=noite] #v-mapa .mp-br{border-color:rgba(170,195,255,.22)}
+html[data-tema=noite] .mp-rank li.br{background:rgba(127,168,214,.12)}
+/* logo do cabeçalho: versão clara (negativo da marca) e moldura clara */
+html[data-tema=noite] .pn-logo-fixo{border-color:rgba(220,230,242,.55)}
+html[data-tema=noite] .pn-logo-fixo svg,html[data-tema=noite] .pn-logo-fixo img{filter:brightness(0) invert(.92)}
+/* bandeiras e interruptores no escuro */
+html[data-tema=noite] .pn-lang button[aria-pressed=true]{border-color:#DCE6F2}
+html[data-tema=noite] .pn-tema{border-color:rgba(220,230,242,.25)}
+html[data-tema=noite] .pn-tema button{color:#DCE6F2}
+html[data-tema=noite] .pn-tema button[aria-pressed=true]{background:#DCE6F2;color:#0E1B2E}
+html[data-tema=noite] .pn .bandeira,html[data-tema=noite] .pn-lang img,html[data-tema=noite] .mp-mapa .etq image{filter:grayscale(1) sepia(1) hue-rotate(178deg) saturate(1.3) brightness(1.15) contrast(1.05)}
+/* mapa: etiquetas e hastes no azul claro (o #0011BB some no fundo escuro) */
+html[data-tema=noite] .mp-mapa .etq rect.pilula{fill:rgba(14,27,46,.62);stroke:#8FA6FF}
+html[data-tema=noite] .mp-mapa g.pulso.no-mapa .vareta,html[data-tema=noite] .mp-mapa .etq .fio{stroke:#8FA6FF}
+html[data-tema=noite] .mp-mapa g.pulso.no-mapa .ponto{fill:#8FA6FF}
+html[data-tema=noite] .mp-mapa .pulso circle.ponto{fill:#DCE6F2}
+html[data-tema=noite] .mp-mapa .pulso circle.anel{stroke:#DCE6F2}
+html[data-tema=noite] .mp-mapa path.pais:hover{stroke:rgba(220,230,242,.6)}
+html[data-tema=noite] .mp-mapa svg.plano .pulso text.rot{stroke:rgba(10,20,36,.85)}
+/* linha do tempo, mapa de calor e dicas */
+html[data-tema=noite] .lt-ed.dev,html[data-tema=noite] .lt-ed.ant,html[data-tema=noite] .lt-leg i.ant,html[data-tema=noite] .lt-leg i.dev{background:#0E1B2E}
+html[data-tema=noite] .ca-q{background:rgba(220,230,242,.07)}
+html[data-tema=noite] .ca-q[data-n="1"]{background:#2C4A6E}html[data-tema=noite] .ca-q[data-n="2"]{background:#3E6593}html[data-tema=noite] .ca-q[data-n="3"]{background:#5C88B8}html[data-tema=noite] .ca-q[data-n="4"]{background:#D6E4F5}
+html[data-tema=noite] .ca-dica{background:#DCE6F2;color:#0E1B2E}
+html[data-tema=noite] .pn-menu-puxa{background:#0E1B2E;color:#DCE6F2;border-color:rgba(170,195,255,.28)}
+html[data-tema=noite] .pn-menu-puxa:hover,html[data-tema=noite] .pn-menu-puxa:focus-visible,html[data-tema=noite] body.menu-aberto .pn-menu-puxa{background:#DCE6F2;color:#0E1B2E}
+html[data-tema=noite] .pn-pagina .tarja,html[data-tema=noite] .pn-pagina .barra{background:#0E1B2E;color:#DCE6F2}
+/* 31/10/2026, 3º, «quero o card ainda mais transparente, e o fundo das etiquetas dos números dos países menos transparente»:
+   placa dos dados com branco 18/6/12% e desfoque de 12 px; etiquetas do mapa com fundo a 90% (claro) e 88% (escuro) */
+@media (min-width:1181px) and (min-height:600px){
+  #v-mapa .mp-lado{background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.06) 55%,rgba(255,255,255,.12) 100%);
+    -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4)}
+  html[data-tema=noite] #v-mapa .mp-lado{background:linear-gradient(135deg,rgba(170,195,255,.07) 0%,rgba(120,150,255,.02) 55%,rgba(150,175,255,.04) 100%);
+    -webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4)}
+}
+.mp-mapa .etq rect.pilula{fill:rgba(255,255,255,.9)}
+html[data-tema=noite] .mp-mapa .etq rect.pilula{fill:rgba(14,27,46,.88)}

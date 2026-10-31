@@ -79,6 +79,28 @@
     });
   })();
 
+  /* 31/10/2026, «faça a versão escura dessa página; dê a opção, mesmo que a versão clara deva ficar como default»: interruptor
+     sol/lua ao lado das bandeirinhas; a escolha fica guardada (localStorage pn-tema) e o <head> já a aplica antes de pintar.
+     Sem escolha guardada, claro. Ao trocar, avisa o mapa (evento pn-tema) para refazer as cores da trama. */
+  var NOITE = document.documentElement.getAttribute('data-tema') === 'noite';
+  (function () {
+    var lang = $('.pn-lang'); if (!lang) return;
+    var t = document.createElement('div'); t.className = 'pn-tema'; t.setAttribute('role', 'group'); t.setAttribute('aria-label', T('Tema claro ou escuro', 'Light or dark theme'));
+    t.innerHTML = '<button type="button" data-tema="dia" title="' + T('Claro', 'Light') + '" aria-label="' + T('Claro', 'Light') + '"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6L13 13M13 3l-1.4 1.4M4.4 11.6L3 13"/></svg></button>' +
+      '<button type="button" data-tema="noite" title="' + T('Escuro', 'Dark') + '" aria-label="' + T('Escuro', 'Dark') + '"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12.5 10.2A5.2 5.2 0 0 1 5.8 3.5a5.2 5.2 0 1 0 6.7 6.7z"/></svg></button>';
+    lang.parentNode.insertBefore(t, lang);
+    function marca() { $$('button', t).forEach(function (b) { b.setAttribute('aria-pressed', (b.dataset.tema === 'noite') === NOITE); }); }
+    marca();
+    $$('button', t).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var n = b.dataset.tema === 'noite'; if (n === NOITE) return; NOITE = n;
+        if (n) document.documentElement.setAttribute('data-tema', 'noite'); else document.documentElement.removeAttribute('data-tema');
+        try { localStorage.setItem('pn-tema', n ? 'noite' : 'dia'); } catch (e) { }
+        marca(); document.dispatchEvent(new CustomEvent('pn-tema'));
+      });
+    });
+  })();
+
   /* ---------- carga ---------- */
   Promise.all([
     fetch('dados/painel-normas.json?v=' + (document.querySelector('script[src*="painel-normas.js"]').src.split('v=')[1] || 1)).then(function (r) { return r.json(); }),
@@ -174,7 +196,7 @@
     function pinta() {
       var ag = performance.now(); pts = pts.filter(function (p) { return ag - p.t < VIDA; });
       cx.clearRect(0, 0, cv.width, cv.height); cx.globalCompositeOperation = 'lighter';
-      pts.forEach(function (p) { var k = 1 - (ag - p.t) / VIDA, rr = RAIO * dpr * (.35 + .65 * k), gr = cx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr); gr.addColorStop(0, 'rgba(255,255,255,' + (FORCA * k * k) + ')'); gr.addColorStop(1, 'rgba(255,255,255,0)'); cx.fillStyle = gr; cx.beginPath(); cx.arc(p.x, p.y, rr, 0, 6.2832); cx.fill(); });
+      pts.forEach(function (p) { var k = 1 - (ag - p.t) / VIDA, rr = RAIO * dpr * (.35 + .65 * k), gr = cx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rr); var lz = NOITE ? '150,180,255' : '255,255,255'; gr.addColorStop(0, 'rgba(' + lz + ',' + (FORCA * k * k) + ')'); gr.addColorStop(1, 'rgba(' + lz + ',0)'); cx.fillStyle = gr; cx.beginPath(); cx.arc(p.x, p.y, rr, 0, 6.2832); cx.fill(); });
       laco = pts.length ? requestAnimationFrame(pinta) : 0;
     }
     document.addEventListener('pointermove', function (e) { if (e.pointerType === 'touch') return; medida(); pts.push({ x: e.clientX * dpr, y: e.clientY * dpr, t: performance.now() }); if (!laco) laco = requestAnimationFrame(pinta); }, { passive: true });
@@ -589,7 +611,10 @@
       })();
       /* cor de cada país pelo número de certificados (5 faixas); terra sem certificado em tinta a 20%. Na troca de norma a cor
          de cada país passa da antiga para a nova em .6 s; na entrada, sai do tom apagado */
-      var NIV = [[20, 48, 76, .2], [169, 195, 222, 1], [127, 163, 201, 1], [92, 136, 184, 1], [51, 102, 153, 1], [20, 48, 76, 1]];
+      var NIV_DIA = [[20, 48, 76, .2], [169, 195, 222, 1], [127, 163, 201, 1], [92, 136, 184, 1], [51, 102, 153, 1], [20, 48, 76, 1]];
+      /* no escuro a escala se inverte: mais certificados, mais claro (o ponto cheio acende sobre o fundo azul-noite) */
+      var NIV_NOITE = [[220, 230, 242, .16], [44, 74, 110, 1], [62, 101, 147, 1], [92, 136, 184, 1], [141, 179, 221, 1], [214, 228, 245, 1]];
+      var NIV = NOITE ? NIV_NOITE : NIV_DIA;
       var nivelF = FEATS.map(function () { return 0; }), corAt = FEATS.map(function () { return NIV[0].slice(); }), corPara = corAt, corDe = null, corT0 = 0, faixa = null, corChave = '';
       /* quadro do tamanho da área: H fixo, W pela proporção da caixa; o globo fica no centro da parte livre, à esquerda da placa dos dados */
       function quadro() {
@@ -615,10 +640,11 @@
           if (kc >= 1) corDe = null;
         }
         var a = Math.sqrt(Math.max(0, Math.min(1, prog))), lam = giro[0], ph = giro[1] * Math.PI / 180, cP = Math.cos(ph), sP = Math.sin(ph), R = ESC_GLOBO, tyM = H / 2 + Y_MAPA, RAD = Math.PI / 180;
-        if (a < 1) {   // bola de vidro do globo (some ao abrir em mapa)
+        if (a < 1) {   // bola de vidro do globo (some ao abrir em mapa); no escuro, vidro azulado com borda clara
           var gr = ctx.createRadialGradient(cxG - R * .36, H / 2 - R * .48, R * .05, cxG, H / 2, R);
-          gr.addColorStop(0, 'rgba(255,255,255,.62)'); gr.addColorStop(.45, 'rgba(255,255,255,.24)'); gr.addColorStop(.82, 'rgba(232,240,248,.26)'); gr.addColorStop(1, 'rgba(185,205,226,.5)');
-          ctx.globalAlpha = 1 - a; ctx.beginPath(); ctx.arc(cxG, H / 2, R, 0, 6.2832); ctx.fillStyle = gr; ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.stroke();
+          if (NOITE) { gr.addColorStop(0, 'rgba(120,150,220,.22)'); gr.addColorStop(.5, 'rgba(60,80,140,.10)'); gr.addColorStop(1, 'rgba(110,140,220,.28)'); }
+          else { gr.addColorStop(0, 'rgba(255,255,255,.62)'); gr.addColorStop(.45, 'rgba(255,255,255,.24)'); gr.addColorStop(.82, 'rgba(232,240,248,.26)'); gr.addColorStop(1, 'rgba(185,205,226,.5)'); }
+          ctx.globalAlpha = 1 - a; ctx.beginPath(); ctx.arc(cxG, H / 2, R, 0, 6.2832); ctx.fillStyle = gr; ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = NOITE ? 'rgba(170,195,255,.35)' : 'rgba(255,255,255,.9)'; ctx.stroke();
         }
         var qM = PASSO * KM, qG = PASSO * RAD * R;
         /* 31/10, «a trama não ficou legal»: no mapa aberto a trama é de TELA, não geográfica: um ponto quadrado de 2 px a cada
@@ -677,7 +703,7 @@
       pintaPaises = function () {
         var s = D.survey[mapaNum], cortes = [1, 10, 100, 1000, 10000];
         nivelF = FEATS.map(function (f) { var a2 = porNumFeat[f.id], v = a2 ? s.paises[a2] : 0; if (!v) return 0; for (var i = cortes.length - 1; i >= 0; i--) if (v >= cortes[i]) return i + 1; return 1; });
-        corPara = nivelF.map(function (n) { return NIV[n]; }); corChave = mapaNum;
+        corPara = nivelF.map(function (n) { return NIV[n]; }); corChave = mapaNum + (NOITE ? 'n' : 'd');
         if (calmo) { corAt = corPara.map(function (c) { return c.slice(); }); corDe = null; } else { corDe = corAt.map(function (c) { return c.slice(); }); corT0 = performance.now(); }
         pintaPontos();
       };
@@ -803,6 +829,7 @@
         sobre = x * x + y * y <= ESC_GLOBO * ESC_GLOBO;
       }).on('pointerleave', function () { sobre = false; mouseDentro = false; }).on('pointerenter', function () { mouseDentro = true; paths.attr('d', geo); });
       if (window.ResizeObserver) new ResizeObserver(function () { quadro(); desenha(); }).observe(box);
+      document.addEventListener('pn-tema', function () { NIV = NOITE ? NIV_NOITE : NIV_DIA; pintaPaises(); pintaMapaLegenda(); desenha(); });
       desenha(); requestAnimationFrame(function (t) { ult = t; gira(t); });
       var porNum = porNumFeat;
       paths.on('mousemove', function (ev, f) {
@@ -814,7 +841,8 @@
       WORLD_OK = true; pintaMapa();
     });
   }
-  var CORES = ['rgba(20,48,76,.2)', '#A9C3DE', '#7FA3C9', '#5C88B8', '#336699', '#14304C'];   // 31/10: as faixas da trama de pontos
+  var CORES_DIA = ['rgba(20,48,76,.2)', '#A9C3DE', '#7FA3C9', '#5C88B8', '#336699', '#14304C'], CORES_NOITE = ['rgba(220,230,242,.16)', '#2C4A6E', '#3E6593', '#5C88B8', '#8DB3DD', '#D6E4F5'];   // 31/10: as faixas da trama de pontos, nos dois temas
+  function pintaMapaLegenda() { var C = NOITE ? CORES_NOITE : CORES_DIA; $('#mp-esc').innerHTML = '<span style="margin-left:0">' + T('certificados', 'certificates') + '</span>' + ['0', '1', '10', '100', T('1 mil', '1k'), T('10 mil+', '10k+')].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join(''); }
   function pintaMapa() {
     var s = D.survey[mapaNum]; if (!s) return;
     var porNum = {}; Object.keys(D.paises).forEach(function (a2) { if (D.paises[a2].n) porNum[D.paises[a2].n] = a2; });
@@ -822,7 +850,7 @@
     var cor = function (v) { if (!v) return CORES[0]; for (var i = cortes.length - 1; i >= 0; i--) if (v >= cortes[i]) return CORES[i + 1]; return CORES[1]; };
     if (pintaPaises) pintaPaises();   // 31/10: os países são a trama de pontos do canvas
     if (refazPulsos) refazPulsos();
-    $('#mp-esc').innerHTML = '<span style="margin-left:0">' + T('certificados', 'certificates') + '</span>' + ['0', '1', '10', '100', T('1 mil', '1k'), T('10 mil+', '10k+')].map(function (t, i) { return '<i style="background:' + CORES[i] + '"></i><span>' + t + '</span>'; }).join('');
+    pintaMapaLegenda();
     pintaLado();
   }
   /* 27/10: «faça os números com efeito tipo roleta»: o número corre do valor atual até o novo em .7 s (ease-out), formatado */
