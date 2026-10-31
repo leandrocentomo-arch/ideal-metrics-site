@@ -945,7 +945,8 @@
             var gr = calmo ? 1 : Math.max(0, Math.min(1, (agora - d.t0) / 1200)); if (vis && gr < 1) crescendo = true;
             var cr = 1 - Math.pow(1 - gr, 3), PILHA = 26, base = p[1] - 3, topo = base - PILHA;
             g.select('path.vareta').attr('d', 'M' + p[0].toFixed(1) + ',' + base.toFixed(1) + 'V' + (base - PILHA * cr).toFixed(1));
-            var pw = 35 + fmt(d.v).length * 6.3, ph = 18, lx0 = p[0], ly0 = topo - ph / 2 - 2, alvo = [0, 0];
+            /* 31/10, «deixa as tags só um pouquinho menores»: etiqueta inteira a 88% (pílula, bandeira, número) */
+            var K = .88, pw = (35 + fmt(d.v).length * 6.3) * K, ph = 18 * K, lx0 = p[0], ly0 = topo - ph / 2 - 2, alvo = [0, 0];
             var livre = function (x, y) { return y - ph / 2 > 4 && postos.every(function (q) { return x + pw / 2 + 3 < q[0] || x - pw / 2 - 3 > q[1] || y + ph / 2 + 3 < q[2] || y - ph / 2 - 3 > q[3]; }); };
             if (vis && !livre(lx0, ly0)) {
               for (var k = 1, ok = false; k <= 14 && !ok; k++) [[0, -k * (ph + 4)], [pw + 6, -(k - 1) * (ph + 4)], [-(pw + 6), -(k - 1) * (ph + 4)]].some(function (c) { if (livre(lx0 + c[0], ly0 + c[1])) { alvo = c; ok = true; return true; } return false; });
@@ -954,9 +955,9 @@
             if (!d.lo) d.lo = alvo.slice(); else { d.lo[0] += (alvo[0] - d.lo[0]) * .2; d.lo[1] += (alvo[1] - d.lo[1]) * .2; }
             var sobe = calmo ? 0 : Math.pow(1 - Math.min(1, gr / .6), 3) * 22, px = lx0 + d.lo[0], py = ly0 + d.lo[1] + sobe;
             var et = g.select('g.etq').style('opacity', Math.min(1, gr / .25));
-            et.select('rect').attr('x', (px - pw / 2).toFixed(1)).attr('y', (py - ph / 2).toFixed(1)).attr('width', pw.toFixed(1));
-            et.select('image').attr('x', (px - pw / 2 + 7).toFixed(1)).attr('y', (py - 6).toFixed(1));
-            et.select('text').attr('x', (px - pw / 2 + 28).toFixed(1)).attr('y', (py + 3.6).toFixed(1));
+            et.select('rect').attr('x', (px - pw / 2).toFixed(1)).attr('y', (py - ph / 2).toFixed(1)).attr('width', pw.toFixed(1)).attr('height', ph.toFixed(1)).attr('rx', 3 * K);
+            et.select('image').attr('x', (px - pw / 2 + 7 * K).toFixed(1)).attr('y', (py - 6 * K).toFixed(1)).attr('width', 16 * K).attr('height', 12 * K);
+            et.select('text').attr('x', (px - pw / 2 + 28 * K).toFixed(1)).attr('y', (py + 3.6 * K).toFixed(1));
             et.select('path.fio').attr('d', Math.abs(d.lo[0]) + Math.abs(d.lo[1]) > 3 ? 'M' + p[0].toFixed(1) + ',' + topo.toFixed(1) + 'L' + px.toFixed(1) + ',' + (py + (d.lo[1] < -3 ? ph / 2 : 0)).toFixed(1) : null);
             /* 31/10, «as tags fazendo a curva junto com o país; não podem inclinar: o país vai saindo de lado, então ela vai
                virando»: a etiqueta não tomba; ela GIRA em torno do eixo vertical, como um cartão preso ao país: no centro do
