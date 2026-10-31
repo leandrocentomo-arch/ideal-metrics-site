@@ -1477,3 +1477,8 @@ html:not([data-tema=noite]) #mp-sel .desliza::after,html:not([data-tema=noite]) 
    #3E6593) se destacarem do fundo; placas e creme acompanham um passo abaixo */
 html[data-tema=noite][data-noite=marinho] body.pn-pagina,html[data-tema=noite][data-noite=marinho] body.pn-pagina::before{background:#1E3756}
 html[data-tema=noite][data-noite=marinho] .pn{--creme:#192F4A}
+/* 31/10/2026, «o pulso sobre o botão tem que ser claro, não escuro, no tema claro»: no claro, a faixa que corre pela norma
+   escolhida é só luz: brilho azul-claro translúcido sobre a trama (D3E2F2 a 55%, com miolo branco) e o texto fica creme o
+   tempo todo (antes a faixa do texto passava em #336699 e escurecia as letras) */
+html:not([data-tema=noite]) #mp-sel .desliza::after,html:not([data-tema=noite]) #br-sel .desliza::after{background-image:linear-gradient(115deg,transparent 0%,transparent 38%,rgba(211,226,242,.55) 46%,rgba(255,255,255,.7) 50%,rgba(211,226,242,.55) 54%,transparent 62%,transparent 100%)}
+html:not([data-tema=noite]) #mp-sel button[aria-pressed=true],html:not([data-tema=noite]) #br-sel button[aria-pressed=true]{background-image:linear-gradient(115deg,#FAF9F5 0%,#FAF9F5 100%)}
