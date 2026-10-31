@@ -582,8 +582,12 @@
   var brFeito = false, brNum = '9001', brModo = 'uf', BRD = null, brDesenha = null;
   var UF_IBGE = { 11: 'RO', 12: 'AC', 13: 'AM', 14: 'RR', 15: 'PA', 16: 'AP', 17: 'TO', 21: 'MA', 22: 'PI', 23: 'CE', 24: 'RN', 25: 'PB', 26: 'PE', 27: 'AL', 28: 'SE', 29: 'BA', 31: 'MG', 32: 'ES', 33: 'RJ', 35: 'SP', 41: 'PR', 42: 'SC', 43: 'RS', 50: 'MS', 51: 'MT', 52: 'GO', 53: 'DF' };
   var UF_NOME = { AC: 'Acre', AL: 'Alagoas', AM: 'Amazonas', AP: 'Amapá', BA: 'Bahia', CE: 'Ceará', DF: 'Distrito Federal', ES: 'Espírito Santo', GO: 'Goiás', MA: 'Maranhão', MG: 'Minas Gerais', MS: 'Mato Grosso do Sul', MT: 'Mato Grosso', PA: 'Pará', PB: 'Paraíba', PE: 'Pernambuco', PI: 'Piauí', PR: 'Paraná', RJ: 'Rio de Janeiro', RN: 'Rio Grande do Norte', RO: 'Rondônia', RR: 'Roraima', RS: 'Rio Grande do Sul', SC: 'Santa Catarina', SE: 'Sergipe', SP: 'São Paulo', TO: 'Tocantins' };
-  var CERTIFIQ = 'https://certifiq.inmetro.gov.br/', BR_CORTES = [1, 10, 50, 200, 1000];
-  function brNivel(v) { if (!v) return 0; for (var i = BR_CORTES.length - 1; i >= 0; i--) if (v >= BR_CORTES[i]) return i + 1; return 1; }
+  /* 31/10, 2º («faça a sua sugestão, com percentual»): a aba mostra só a DISTRIBUIÇÃO (participação de cada estado e setor
+     no total do Certifiq), nunca o total absoluto, que competiria com o número oficial do ISO Survey da aba do mundo */
+  var CERTIFIQ = 'https://certifiq.inmetro.gov.br/', BR_CORTES = [.001, .01, .02, .05, .10];
+  function brNivel(f) { if (!f) return 0; for (var i = BR_CORTES.length - 1; i >= 0; i--) if (f >= BR_CORTES[i]) return i + 1; return 1; }
+  function pct(f) { var v = f * 100; return (v >= 10 ? Math.round(v) : v >= 1 ? v.toFixed(1) : v.toFixed(2)).toString().replace('.', EN ? '.' : ',') + '%'; }
+  function brPartes(o) { var t = 0, k; for (k in o) t += o[k]; var r = {}; for (k in o) r[k] = t ? o[k] / t : 0; return r; }
   function montaBrasil() {
     if (brFeito) { if (brDesenha) brDesenha(true); return; } brFeito = true;
     var box = $('#br-mapa'), dicaB = $('#br-dica');
@@ -600,9 +604,9 @@
       var paths = svg.append('g').selectAll('path').data(FE).enter().append('path').attr('class', 'pais');
       var gEtq = svg.append('g').attr('class', 'pulsos'), t0 = 0, crescendo = false, calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
       paths.on('mousemove', function (ev, f) {
-        var v = (BRD.normas[brNum].uf || {})[f.uf] || 0, r = box.getBoundingClientRect();
+        var v = brPartes(BRD.normas[brNum].uf || {})[f.uf] || 0, r = box.getBoundingClientRect();
         dicaB.style.display = 'block'; dicaB.style.left = (ev.clientX - r.left) + 'px'; dicaB.style.top = (ev.clientY - r.top) + 'px';
-        dicaB.innerHTML = esc(UF_NOME[f.uf] || f.uf) + ' · <b>' + fmt(v) + '</b>' + T(' empresas', ' companies');
+        dicaB.innerHTML = esc(UF_NOME[f.uf] || f.uf) + ' · <b>' + pct(v) + '</b>' + T(' das empresas certificadas', ' of certified companies');
       }).on('mouseleave', function () { dicaB.style.display = 'none'; });
       function quadro() {
         var r = box.getBoundingClientRect();
@@ -620,7 +624,7 @@
         o.setTransform(dpr * s, 0, 0, dpr * s, dpr * ox, dpr * oy); var gp = d3.geoPath(proj, o);
         FE.forEach(function (f, i) { var k = i + 1; o.fillStyle = 'rgb(' + k + ',' + ((k * 37) % 256) + ',97)'; o.beginPath(); gp(f); o.fill(); });
         var px = o.getImageData(0, 0, cw, ch).data, P = Math.max(3, Math.round(2.5 * dpr)), D = Math.max(2, Math.round(P * .62)), m = Math.floor(D / 2);
-        var C = NOITE ? CORES_NOITE : CORES_DIA, dados = BRD.normas[brNum].uf || {};
+        var C = NOITE ? CORES_NOITE : CORES_DIA, dados = brPartes(BRD.normas[brNum].uf || {});
         ctx.clearRect(0, 0, cw, ch);
         var grupos = FE.map(function () { return []; });
         for (var y = Math.floor(P / 2); y < ch; y += P) for (var x = Math.floor(P / 2); x < cw; x += P) {
@@ -630,14 +634,14 @@
         grupos.forEach(function (g, i) { ctx.fillStyle = C[brNivel(dados[FE[i].uf] || 0)]; for (var j = 0; j < g.length; j += 2) ctx.fillRect(g[j] - m, g[j + 1] - m, D, D); });
       }
       function etiquetas(reinicia) {
-        var dados = BRD.normas[brNum].uf || {}, top = Object.keys(dados).sort(function (a, b) { return dados[b] - dados[a]; }).slice(0, 8);
+        var dados = brPartes(BRD.normas[brNum].uf || {}), top = Object.keys(dados).sort(function (a, b) { return dados[b] - dados[a]; }).slice(0, 8);
         var cen = {}; FE.forEach(function (f) { cen[f.uf] = proj(d3.geoCentroid(f)); });
         var g = gEtq.selectAll('g.pulso').data(top.map(function (u) { return { uf: u, v: dados[u], p: cen[u] }; }), function (d) { return d.uf; });
         g.exit().remove();
         var e = g.enter().append('g').attr('class', 'pulso no-mapa');
         e.append('path').attr('class', 'vareta'); e.append('circle').attr('class', 'ponto').attr('r', 1.6);
         var et = e.append('g').attr('class', 'etq'); et.append('path').attr('class', 'fio'); et.append('rect').attr('class', 'pilula').attr('height', 18).attr('rx', 3); et.append('text').attr('class', 'en');
-        if (reinicia) { t0 = performance.now(); gEtq.selectAll('g.pulso').each(function (d) { var n = this.querySelector('.en'); n.dataset.v = 0; roleta(n, d.v, 1200); }); }
+        if (reinicia) t0 = performance.now();
         poe();
       }
       function poe() {
@@ -646,7 +650,7 @@
         var lista = []; gEtq.selectAll('g.pulso').each(function (d) { lista.push([this, d]); }); lista.sort(function (a, b) { return b[1].v - a[1].v; });
         lista.forEach(function (it) {
           var d = it[1], g = d3.select(it[0]), p = d.p; if (!p) return;
-          var PILHA = 24, base = p[1] - 3, topo = base - PILHA, txt = d.uf + ' ' + fmt(d.v), pw = 14 + txt.length * 6.3, ph = 18, lx = p[0], ly = topo - ph / 2 - 2, alvo = [0, 0];
+          var PILHA = 24, base = p[1] - 3, topo = base - PILHA, txt = d.uf + ' ' + pct(d.v), pw = 14 + txt.length * 6.3, ph = 18, lx = p[0], ly = topo - ph / 2 - 2, alvo = [0, 0];
           var livre = function (x, y) { return postos.every(function (q) { return x + pw / 2 + 3 < q[0] || x - pw / 2 - 3 > q[1] || y + ph / 2 + 3 < q[2] || y - ph / 2 - 3 > q[3]; }); };
           if (!livre(lx, ly)) for (var k = 1, ok = false; k <= 10 && !ok; k++) [[pw + 6, -(k - 1) * (ph + 4)], [-(pw + 6), -(k - 1) * (ph + 4)], [0, -k * (ph + 4)]].some(function (c) { if (livre(lx + c[0], ly + c[1])) { alvo = c; ok = true; return true; } return false; });
           postos.push([lx + alvo[0] - pw / 2, lx + alvo[0] + pw / 2, ly + alvo[1] - ph / 2, ly + alvo[1] + ph / 2]);
@@ -656,29 +660,30 @@
           var et = g.select('g.etq').style('opacity', Math.min(1, gr / .25));
           et.select('rect').attr('x', (x - pw / 2).toFixed(1)).attr('y', (y - ph / 2).toFixed(1)).attr('width', pw.toFixed(1));
           et.select('text').attr('x', (x - pw / 2 + 7).toFixed(1)).attr('y', (y + 3.6).toFixed(1));
-          var n = et.select('text').node(); if (!n.dataset.v || +n.dataset.v === d.v) n.textContent = d.uf + ' ' + (n.dataset.v ? fmt(+n.dataset.v) : '');
+          et.select('text').text(d.uf + ' ' + pct(d.v * (calmo ? 1 : 1 - Math.pow(1 - gr, 3))));   // o percentual corre de zero junto com a haste
           et.select('path.fio').attr('d', Math.abs(alvo[0]) + Math.abs(alvo[1]) > 3 ? 'M' + p[0].toFixed(1) + ',' + topo.toFixed(1) + 'L' + x.toFixed(1) + ',' + (y + (alvo[1] < -3 ? ph / 2 : 0)).toFixed(1) : null);
         });
         if (crescendo) requestAnimationFrame(poe);
       }
       function setores() {
-        var lista = (BRD.normas[brNum].setores || []).slice().sort(function (a, b) { return b.n - a.n; }), max = lista.length ? lista[0].n : 1;
-        $('#br-setores').innerHTML = '<ul class="br-set">' + lista.map(function (x) { return '<li><span title="' + esc(x.setor) + '">' + esc(x.setor) + '</span><span class="barra"><i style="width:' + (x.n / max * 100).toFixed(1) + '%"></i></span><b>' + fmt(x.n) + '</b></li>'; }).join('') + '</ul>';
+        var lista = (BRD.normas[brNum].setores || []).slice().sort(function (a, b) { return b.n - a.n; }), max = lista.length ? lista[0].n : 1, tot = lista.reduce(function (a, x) { return a + x.n; }, 0) || 1;
+        $('#br-setores').innerHTML = '<ul class="br-set">' + lista.map(function (x) { return '<li><span title="' + esc(x.setor) + '">' + esc(x.setor) + '</span><span class="barra"><i style="width:' + (x.n / max * 100).toFixed(1) + '%"></i></span><b>' + pct(x.n / tot) + '</b></li>'; }).join('') + '</ul>';
         cascata($('#br-setores .br-set'), 'li');
       }
       function lado() {
-        var N = BRD.normas[brNum], dados = N.uf || {}, sv = D.survey[brNum], rank = Object.keys(dados).sort(function (a, b) { return dados[b] - dados[a]; }), max = dados[rank[0]] || 1, anos = BRD.anos_uf || [];
+        var N = BRD.normas[brNum], dados = brPartes(N.uf || {}), rank = Object.keys(dados).sort(function (a, b) { return dados[b] - dados[a]; }), max = dados[rank[0]] || 1, anos = BRD.anos_uf || [];
+        var se = (N.setores || []).slice().sort(function (a, b) { return b.n - a.n; }), stot = se.reduce(function (a, x) { return a + x.n; }, 0) || 1;
         $('#br-lado').innerHTML = '<h3>ISO ' + brNum + '</h3><div class="m">' + esc(N.nome) + '</div>' +
-          '<div class="tot"><span>' + fmt(N.validos.total) + '</span><small>' + T('certificados válidos no Certifiq em ', 'valid certificates in Certifiq on ') + dataBR(BRD.gerado) + ' · ' + fmt(N.validos.sbac) + T(' no SBAC', ' within SBAC') + ' · ' + fmt(N.validos.fora) + T(' fora', ' outside') + '</small></div>' +
+          '<div class="tot"><span>' + pct(dados[rank[0]] || 0) + '</span><small>' + T('das empresas certificadas estão em ', 'of certified companies are in ') + esc(UF_NOME[rank[0]] || rank[0]) + '</small></div>' +
+          (se[0] ? '<div class="mp-br"><span class="m">' + T('Setor com mais certificados', 'Sector with most certificates') + '</span><div class="v">' + pct(se[0].n / stot) + '<small>' + esc(se[0].setor) + '</small></div></div>' : '') +
           '<a class="mp-fonte-card" href="' + CERTIFIQ + '" target="_blank" rel="noopener">' + T('Dados do Inmetro (Certifiq)', 'Data from Inmetro (Certifiq)') + ' ↗</a>' +
-          '<div class="mp-br"><span class="m">' + T('ISO Survey 2025 · Brasil', 'ISO Survey 2025 · Brazil') + '</span><div class="v">' + fmt(sv && sv.paises.BR || 0) + '<small>' + T('certificados em 31-dez-2025', 'certificates on 31-dec-2025') + '</small></div><div class="mp-brsit">' + T('O Survey conta certificados de organismos acreditados por membros da Global ACI; o Certifiq, os registrados por organismos acreditados pelo Inmetro. A diferença é o que está numa base e não na outra.', 'The Survey counts certificates from bodies accredited by Global ACI members; Certifiq, those registered by bodies accredited by Inmetro. The gap is what is in one database and not the other.') + '</div></div>' +
-          '<div class="mp-rola"><ul class="mp-rank">' + rank.slice(0, 27).map(function (u, i) { return '<li><span class="m">' + (i + 1) + '</span><span><span class="nome">' + esc(UF_NOME[u] || u) + '</span></span><b>' + fmt(dados[u]) + '</b><span class="barra"><i style="width:' + (dados[u] / max * 100).toFixed(1) + '%"></i></span></li>'; }).join('') + '</ul>' +
-          '<p class="mp-nota">' + T('Por estado: empresas certificadas ou recertificadas de ' + anos[0] + ' a ' + anos[anos.length - 1] + ' (até a data), dentro e fora do SBAC. O Certifiq não publica os certificados válidos por estado; como um certificado vale três anos, a soma desse período é a aproximação. Por setor: certificados válidos por setor IAF. O Certifiq cobre só a ISO 9001 e a ISO 14001. Fonte: Inmetro, Certifiq, relatórios públicos.', 'By state: companies certified or recertified from ' + anos[0] + ' to ' + anos[anos.length - 1] + ' (to date), within and outside SBAC. Certifiq does not publish valid certificates by state; since a certificate is valid for three years, the sum of that period is the approximation. By sector: valid certificates by IAF sector. Certifiq covers only ISO 9001 and ISO 14001. Source: Inmetro, Certifiq, public reports.') + '</p></div>';
+          '<div class="mp-rola"><ul class="mp-rank">' + rank.map(function (u, i) { return '<li><span class="m">' + (i + 1) + '</span><span><span class="nome">' + esc(UF_NOME[u] || u) + '</span></span><b>' + pct(dados[u]) + '</b><span class="barra"><i style="width:' + (dados[u] / max * 100).toFixed(1) + '%"></i></span></li>'; }).join('') + '</ul>' +
+          '<p class="mp-nota">' + T('Distribuição, em percentual, dos certificados registrados no Certifiq, a base pública do Inmetro com os certificados emitidos no Brasil por organismos acreditados pelo Inmetro (ISO 9001 e ISO 14001). Por estado: empresas certificadas ou recertificadas de ' + anos[0] + ' a ' + anos[anos.length - 1] + ' (o ciclo de um certificado). Por setor: certificados válidos, pela seção da classificação NACE. Base atualizada em ' + dataBR(BRD.gerado) + '.', 'Percentage distribution of the certificates registered in Certifiq, the public Inmetro database of certificates issued in Brazil by Inmetro-accredited bodies (ISO 9001 and ISO 14001). By state: companies certified or recertified from ' + anos[0] + ' to ' + anos[anos.length - 1] + ' (a certificate cycle). By sector: valid certificates, by NACE section. Database updated on ' + dataBR(BRD.gerado) + '.') + '</p></div>';
         cascata($('#br-lado .mp-rank'), 'li');
       }
       function legenda() {
         var C = NOITE ? CORES_NOITE : CORES_DIA;
-        $('#br-esc').innerHTML = '<span style="margin-left:0">' + T('empresas', 'companies') + '</span>' + ['0', '1', '10', '50', '200', T('1 mil+', '1k+')].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join('') +
+        $('#br-esc').innerHTML = '<span style="margin-left:0">' + T('participação', 'share') + '</span>' + ['0', pct(.001), pct(.01), pct(.02), pct(.05), pct(.10) + '+'].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join('') +
           '<a class="mp-fonte" href="' + CERTIFIQ + '" target="_blank" rel="noopener">' + T('Fonte: Inmetro, Certifiq · certificados emitidos no Brasil por organismos acreditados pelo Inmetro', 'Source: Inmetro, Certifiq · certificates issued in Brazil by Inmetro-accredited bodies') + ' <b aria-hidden="true">↗</b></a>';
       }
       brDesenha = function (reinicia) {
