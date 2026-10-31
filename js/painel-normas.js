@@ -84,14 +84,14 @@
      Sem escolha guardada, claro. Ao trocar, avisa o mapa (evento pn-tema) para refazer as cores da trama. */
   /* 31/10, 2º, «deixar o fundo escuro um pouco mais claro… não refaça o atual, faça uma terceira opção»: escuro suave =
      data-tema=noite + data-noite=clara (todas as regras do escuro valem, e o bloco do suave clareia o fundo e as placas) */
-  var NOITE = document.documentElement.getAttribute('data-tema') === 'noite', TEMA = NOITE ? ({ azul: 'azul', marinho: 'marinho' }[document.documentElement.getAttribute('data-noite')] || 'noite') : 'dia';   // 31/10, 6º: quarta opção «marinho», entre o escuro e o #336699   // 31/10, 4º: terceira opção «azul», mais clara, puxada para o #336699   // 31/10, 3º: «gostei dessa segunda, pode eliminar a outra noite»: só claro e escuro (o escuro é o suave)
+  var NOITE = document.documentElement.getAttribute('data-tema') === 'noite', TEMA = NOITE ? ({ azul: 'marinho', marinho: 'marinho' }[document.documentElement.getAttribute('data-noite')] || 'noite') : 'dia';   // 31/10, 7º: «tonalidade de azul pode tirar»: ficam claro, escuro e marinho; quem tinha azul cai no marinho   // 31/10, 6º: quarta opção «marinho», entre o escuro e o #336699   // 31/10, 4º: terceira opção «azul», mais clara, puxada para o #336699   // 31/10, 3º: «gostei dessa segunda, pode eliminar a outra noite»: só claro e escuro (o escuro é o suave)
   (function () {
     var lang = $('.pn-lang'); if (!lang) return;
     var t = document.createElement('div'); t.className = 'pn-tema'; t.setAttribute('role', 'group'); t.setAttribute('aria-label', T('Tema claro ou escuro', 'Light or dark theme'));
     t.innerHTML = '<button type="button" data-tema="dia" title="' + T('Claro', 'Light') + '" aria-label="' + T('Claro', 'Light') + '"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6L13 13M13 3l-1.4 1.4M4.4 11.6L3 13"/></svg></button>' +
       '<button type="button" data-tema="noite" title="' + T('Escuro', 'Dark') + '" aria-label="' + T('Escuro', 'Dark') + '"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="4.6"/><path d="M8 1v14"/></svg></button>' +
-      '<button type="button" data-tema="marinho" title="' + T('Marinho', 'Navy') + '" aria-label="' + T('Marinho', 'Navy') + '"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="4.6"/><circle class="cheio" cx="8" cy="8" r="2"/></svg></button>' +
-      '<button type="button" data-tema="azul" title="' + T('Azul', 'Blue') + '" aria-label="' + T('Azul', 'Blue') + '"><svg viewBox="0 0 16 16" aria-hidden="true"><circle class="cheio" cx="8" cy="8" r="4.6"/></svg></button>';   // 31/10: «um ciclo sem preenchimento, com uma linha no meio, na vertical, um pouco acima e abaixo do ciclo, na altura do sol"
+      '<button type="button" data-tema="marinho" title="' + T('Marinho', 'Navy') + '" aria-label="' + T('Marinho', 'Navy') + '"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="4.6"/><circle class="cheio" cx="8" cy="8" r="2"/></svg></button>';
+   // 31/10: «um ciclo sem preenchimento, com uma linha no meio, na vertical, um pouco acima e abaixo do ciclo, na altura do sol"
     /* 31/10, «aqui tem que estar tudo na mesma linha… faça as bandeiras melhores e coloque PT e EN»: tema e idioma numa barra só
        (.pn-ctrl), com a mesma altura; cada bandeira ganha a sigla */
     var ctrl = document.createElement('div'); ctrl.className = 'pn-ctrl'; lang.parentNode.insertBefore(ctrl, lang);
@@ -785,7 +785,10 @@
           var gr = ctx.createRadialGradient(cxG - R * .36, H / 2 - R * .48, R * .05, cxG, H / 2, R);
           if (NOITE) { gr.addColorStop(0, 'rgba(120,150,220,.22)'); gr.addColorStop(.5, 'rgba(60,80,140,.10)'); gr.addColorStop(1, 'rgba(110,140,220,.28)'); }
           else { gr.addColorStop(0, 'rgba(255,255,255,.62)'); gr.addColorStop(.45, 'rgba(255,255,255,.24)'); gr.addColorStop(.82, 'rgba(232,240,248,.26)'); gr.addColorStop(1, 'rgba(185,205,226,.5)'); }
-          ctx.globalAlpha = 1 - a; ctx.beginPath(); ctx.arc(cxG, H / 2, R, 0, 6.2832); ctx.fillStyle = gr; ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = NOITE ? 'rgba(170,195,255,.35)' : 'rgba(255,255,255,.9)'; ctx.stroke();
+          /* 31/10: «o globo só apareça depois que os continentes se juntarem em forma esférica»: o vidro da bola só acende nos últimos
+             15% da passagem (a de .15 a 0), quando os pontos já fecharam a esfera; ao abrir em mapa, apaga logo no começo */
+          var esf = Math.max(0, Math.min(1, 1 - a / .15)); esf = esf * esf * (3 - 2 * esf);
+          ctx.globalAlpha = esf; ctx.beginPath(); ctx.arc(cxG, H / 2, R, 0, 6.2832); ctx.fillStyle = gr; ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = NOITE ? 'rgba(170,195,255,.35)' : 'rgba(255,255,255,.9)'; ctx.stroke();
         }
         var qM = PASSO * KM, qG = PASSO * RAD * R;
         /* 31/10, «a trama não ficou legal»: no mapa aberto a trama é de TELA, não geográfica: um ponto quadrado de 2 px a cada
