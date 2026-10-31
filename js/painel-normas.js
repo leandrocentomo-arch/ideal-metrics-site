@@ -994,7 +994,7 @@
      legenda; a legenda pode ficar um pouquinho menos larga»: a legenda ganha uma segunda linha com a fonte e o link oficial */
   var ISO_SURVEY = 'https://www.iso.org/the-iso-survey.html';
   var CORES_BRANCA = ['rgba(255,255,255,.16)', 'rgba(255,255,255,.38)', 'rgba(255,255,255,.55)', 'rgba(255,255,255,.72)', 'rgba(255,255,255,.88)', '#FFFFFF'];
-  function paletaTema() { var v = document.documentElement.getAttribute('data-noite'); return !NOITE ? 'dia' : (v === 'azul' || v === 'marinho') ? 'branca' : 'noite'; }
+  function paletaTema() { var v = document.documentElement.getAttribute('data-noite'); return !NOITE ? 'dia' : v === 'azul' ? 'branca' : 'noite'; }   // 31/10, 2º: «preferiria que tivesse mexido na cor do fundo»: no marinho volta a escala azul e o fundo escurece (CSS)
   function coresTema() { var p = paletaTema(); return p === 'dia' ? CORES_DIA : p === 'branca' ? CORES_BRANCA : CORES_NOITE; }
   function pintaMapaLegenda() { var C = coresTema(); $('#mp-esc').innerHTML = '<span style="margin-left:0">' + T('certificados', 'certificates') + '</span>' + ['0', '1', '10', '100', T('1 mil', '1k'), T('10 mil+', '10k+')].map(function (t, i) { return '<i style="background:' + C[i] + '"></i><span>' + t + '</span>'; }).join('') +
     '<a class="mp-fonte" href="' + ISO_SURVEY + '" target="_blank" rel="noopener">' + T('Fonte: ISO Survey 2025 (ISO) · certificados acreditados em vigor em 31-dez-2025', 'Source: ISO Survey 2025 (ISO) · accredited certificates in force on 31-dec-2025') + ' <b aria-hidden="true">↗</b></a>'; }
