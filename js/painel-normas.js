@@ -1106,7 +1106,7 @@
         /* 31/10: o mapa aberto também corre (da esquerda para a direita, .007 grau/ms, cerca de 50 s por volta); o globo segue a .009.
            Parado (mouse sobre um país), as etiquetas que estão nascendo e a troca de cor continuam */
         var ativa = !document.hidden && $('#v-mapa').classList.contains('ativa');
-        if ((prog === 0 || prog === 1) && !anima && !arrasta && !sobre && ativa) { giro[0] += Math.min(t - ult, 50) * (prog ? .0115 : .012); desenha(); }   // 31/10: «10% mais rápida»; 2º, «girasse um pouquinho mais rápido»: mapa .0095
+        if ((prog === 0 || prog === 1) && !anima && !arrasta && !sobre && !pausado && ativa) { giro[0] += Math.min(t - ult, 50) * (prog ? .0115 : .012); desenha(); }   // 31/10: «10% mais rápida»; 2º, «girasse um pouquinho mais rápido»: mapa .0095
         else if (ativa && !anima) { if (corDe) pintaPontos(); if (crescendo) poePulsos(); }
         ult = t; if (!calmo) requestAnimationFrame(gira);
       }
@@ -1126,15 +1126,34 @@
       });
       btCentro.on('click', function () { if (!anima && prog === 0) { giro = GIRO_BR.slice(); desenha(); } });
       /* 31/10: no mapa aberto o arraste puxa o mapa para os lados (só a longitude) */
-      svg.on('pointerdown', function (ev) { if (anima) return; arrasta = [ev.clientX, ev.clientY]; svg.classed('arrastando', true); });
+      /* 01/11/2026, «no celular eu não quero que ele pare quando a gente põe o dedo em cima, porque é natural fazer o scroll
+         na tela… a não ser que tenha um botãozinho para parar o giro, ou a não ser que você puxe o globo ao contrário»: no
+         toque, encostar o dedo não para o giro (o rolar da página passa direto); só o arrasto para os lados mexe no mapa, e
+         aí o giro fica parado até o botão «Girar». O botão «Parar giro» / «Girar» aparece só no celular */
+      var toque = null, arrastaToque = false, pausado = false;
+      var btGiro = bt.insert('button', function () { return btCentro.node(); }).attr('type', 'button').attr('class', 'mp-giro');   // antes do Centralizar: o CSS esconde o último botão no mapa aberto
+      function marcaGiro() { btGiro.text(pausado ? T('Girar', 'Spin') : T('Parar giro', 'Stop spin')).attr('aria-pressed', pausado); }
+      marcaGiro(); btGiro.on('click', function () { pausado = !pausado; marcaGiro(); });
+      svg.on('pointerdown', function (ev) {
+        if (anima) return;
+        if (ev.pointerType === 'touch') { toque = [ev.clientX, ev.clientY]; return; }   // o dedo só vira arrasto se andar para os lados
+        arrasta = [ev.clientX, ev.clientY]; svg.classed('arrastando', true);
+      });
       window.addEventListener('pointermove', function (ev) {
+        if (toque && !arrasta) {
+          var dx = ev.clientX - toque[0], dy = ev.clientY - toque[1];
+          if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) { arrasta = toque; arrastaToque = true; pausado = true; marcaGiro(); }
+          else return;
+        }
         if (!arrasta) return; var w = svg.node().getBoundingClientRect().width;
         if (prog === 1) giro[0] += (ev.clientX - arrasta[0]) * 360 * W / (2 * X_EQ * ESC_MAPA * w);
-        else { var k = 300 / w; giro[0] += (ev.clientX - arrasta[0]) * k; giro[1] = Math.max(-80, Math.min(80, giro[1] - (ev.clientY - arrasta[1]) * k)); }
+        else { var k = 300 / w; giro[0] += (ev.clientX - arrasta[0]) * k; if (!arrastaToque) giro[1] = Math.max(-80, Math.min(80, giro[1] - (ev.clientY - arrasta[1]) * k)); }
         arrasta = [ev.clientX, ev.clientY]; desenha();
       });
-      window.addEventListener('pointerup', function () { arrasta = null; svg.classed('arrastando', false); });
+      function solta() { arrasta = null; toque = null; arrastaToque = false; svg.classed('arrastando', false); }
+      window.addEventListener('pointerup', solta); window.addEventListener('pointercancel', solta);
       svg.on('pointermove', function (ev) {   // 27/10: para de girar só com o mouse sobre o globo; 31/10: no mapa aberto, com o mouse sobre um país
+        if (ev.pointerType === 'touch') return;   // 01/11: o dedo não para o giro
         if (prog === 1) { sobre = !!(ev.target && ev.target.classList && ev.target.classList.contains('pais')); return; }
         var r = this.getBoundingClientRect(), x = (ev.clientX - r.left) * W / r.width - cxG, y = (ev.clientY - r.top) * H / r.height - H / 2;
         sobre = x * x + y * y <= ESC_GLOBO * ESC_GLOBO;
