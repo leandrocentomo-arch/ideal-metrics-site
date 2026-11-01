@@ -158,7 +158,8 @@
        etiqueta do Guia e com o topo alinhado a ela (mede a etiqueta do Guia; com a gaveta fechada). Antes (17/10) ficava
        na coluna da pagina, encostada na migalha e presa ao cabecalho. */
     var snCola = function(){
-      /* 01/11/2026: no celular tambem (a lista de botoes saiu: «pode tirar essas tags») */
+      /* 01/11/2026: no celular a etiqueta mora na borda DIREITA (o CSS posiciona), para as duas etiquetas nao cobrirem o texto */
+      if(innerWidth <= 900){ sn.style.left = ''; sn.style.top = ''; sn.style.transform = ''; return; }
       if(g.classList.contains('aberta')) return;
       var r = aba.getBoundingClientRect(); if(!r.width) return;
       sn.style.left = Math.round(r.right) + 'px'; sn.style.top = Math.round(r.top) + 'px'; sn.style.transform = 'none';

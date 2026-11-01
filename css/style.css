@@ -4185,3 +4185,24 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
   .sn-painel .sn-group a { display: block; padding: 5px 0 5px 10px; border: 0; border-left: 2px solid transparent; border-radius: 0; font-size: 13.5px; line-height: 1.35; }
   .sn-painel .sn-group a.active { border-left-color: var(--accent-red); background: none; }
 }
+
+/* 01/11/2026, «para todos os diagramas, pode colocar uma barra de scroll horizontal para não ficar tão espremido no celular»:
+   no celular todo diagrama em linha fina (.ifc-fig) fica com 700 px e rola de lado dentro da coluna, com a barra fina embaixo;
+   a legenda fica parada à esquerda enquanto o desenho rola */
+@media (max-width: 760px) {
+  .ifc-fig { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; padding-bottom: 10px;
+    scrollbar-width: thin; scrollbar-color: rgba(20,48,76,.35) transparent; }
+  .ifc-fig::-webkit-scrollbar { height: 4px; }
+  .ifc-fig::-webkit-scrollbar-thumb { background: rgba(20,48,76,.35); border-radius: 2px; }
+  .ifc-fig svg, .content .vi-rola svg { width: 700px; min-width: 700px; max-width: none; margin: 0; }
+  .ifc-fig figcaption { position: sticky; left: 0; }
+}
+/* 01/11/2026: no celular a Navegação mora na borda DIREITA da tela (à esquerda já está a do Guia; as duas juntas cobriam o
+   texto): a etiqueta presa pela direita, virada para a esquerda, e o painel abre para a esquerda */
+@media (max-width: 900px) {
+  .sidenav { left: auto; right: 0; top: 50%; transform: translateY(-50%); min-height: 0; width: 0; }
+  .sn-caixa { left: auto; right: 0; flex-direction: row-reverse; }
+  .sidenav.fora:not(.aberta) .sn-caixa { transform: translateX(calc(100% + 40px)); }
+  .sn-painel { border-left: 1px solid rgba(20,48,76,.16); box-shadow: 4px 10px 40px -24px rgba(20,48,76,.45); }
+  .sn-aba { border: 1px solid #A3B5C8; border-right: 0; border-radius: 3px 0 0 3px; box-shadow: -6px 0 18px -10px rgba(20,48,76,.35); }
+}
