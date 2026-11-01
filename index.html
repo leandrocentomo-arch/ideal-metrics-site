@@ -401,6 +401,14 @@ body>*{position:relative;z-index:1}
 @media (max-width:880px){ .gs-cab{position:static;grid-column:1/-1;grid-row:auto;padding-right:0;min-height:0;padding-bottom:0}
   .gs .sv-title{grid-column:1/-1;grid-row:auto;margin-top:40px} .gs .sv-list{grid-row:auto;margin-top:20px}
   .gs ~ .mp-grade{margin-top:156px} }
+/* 01/11/2026, celular: «que eu gostaria que não quebrasse linha». Cada setor numa linha só: a letra acompanha a largura da
+   tela (4vw: 15,6 px num celular de 390, 24 px no teto), de modo que o nome mais longo («Alimentos e serviços de
+   alimentação») cabe inteiro; o número estreita de 44 para 34 px. Abaixo de 340 px, se não couber, termina em reticências. */
+@media (max-width:880px){
+  .gs .sv-item-title{font-size:clamp(14px,4vw,24px);padding-top:12px;padding-bottom:12px}
+  .gs .sv-item-title>span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .gs-num{min-width:34px}
+}
 /* ===== fim GUIA SETORES ===== */
 /* ===== secao: diferenciais ===== */
 /* ===== diferenciais (df-) — reconstrução da seção "Most Recent Projects" ===== */
