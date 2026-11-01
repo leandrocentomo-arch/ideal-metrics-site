@@ -129,10 +129,10 @@ body>*{position:relative;z-index:1}
 /* 01/11/2026: «pode tirar as arestas»: os quatro traços e as pontas saem; fica só o logo */
 .abertura .l-v,.abertura .l-h{display:none}
 /* 01/11/2026, «a parte escrita tem que ter efeito de surgimento na entrada, tipo fade, mas positivo»: a escrita aparece em
-   0,9 s subindo 8 px e saindo de um desfoque leve; o pássaro chega do fundo depois dela */
+   0,9 s, parada, saindo de um desfoque leve; o pássaro chega do fundo depois dela */
 .abertura.arma .ab-logo{animation:ab-surge .9s cubic-bezier(.22,1,.36,1) .25s both}   /* animação, não transição: o SVG que
    o monograma-asas.js põe no lugar do <img> começa o surgimento do zero, sem pular */
-@keyframes ab-surge{from{opacity:0;transform:translateY(8px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes ab-surge{from{opacity:0;filter:blur(6px)}to{opacity:1;filter:none}}   /* 01/11, 2º: «não queria que a parte escrita se movimentasse de baixo para cima»: só aparece, parada */
 @media (prefers-reduced-motion:reduce){.abertura.arma .ab-logo{animation:none}}
 
 /* ---- placa fixa do logo + aba MENU ---- */
