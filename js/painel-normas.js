@@ -102,10 +102,20 @@
       } catch (e) { }
     }
     var ALVO = 'button,a[href],label,input,select,summary,[role=button],[role=tab],[tabindex]:not([tabindex="-1"]),.mp-mapa svg,.mp-mapa canvas';
+    /* 01/11/2026, «no celular… não pode ser toda vez que a gente toca na tela; tem que ser só quando a gente dá um comando,
+       não para arrastar a tela»: no toque o clique soa no evento click (que não dispara quando o dedo rola ou arrasta) e só
+       em botão, link, aba ou campo, nunca no mapa; com mouse, continua no pressionar */
+    var toqueAgora = false, CMD = 'button,a[href],label,input,select,summary,[role=button],[role=tab]';
     document.addEventListener('pointerdown', function (ev) {
-      if (ev.button !== 0) return;
+      toqueAgora = ev.pointerType === 'touch' || ev.pointerType === 'pen';
+      if (toqueAgora || ev.button !== 0) return;
       var el = ev.target; if (!el || !el.closest) return;
       if (el.closest(ALVO) || getComputedStyle(el).cursor === 'pointer') toca();
+    }, true);
+    document.addEventListener('click', function (ev) {
+      if (!toqueAgora) return;
+      var el = ev.target; if (!el || !el.closest || el.closest('.mp-mapa svg,.mp-mapa canvas')) return;
+      if (el.closest(CMD) || el.closest('[data-id]')) toca();
     }, true);
   })();
 
