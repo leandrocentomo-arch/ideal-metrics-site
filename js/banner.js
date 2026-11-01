@@ -3,7 +3,42 @@
    _ferramentas/banner/banner.py. Abaixo de 769px o banner fica creme liso. */
 (function(){
   var b = document.querySelector('.page-banner');
-  if(!b || !window.ditherVivo || !window.matchMedia('(min-width:769px)').matches) return;
+  if(!b) return;
+  /* 01/11/2026, «seria possível ver a foto do menu bem pequena no celular?»: abaixo de 769 px a foto do banner aparece numa
+     faixa baixa embaixo do título e do subtítulo (.pb-tira), com a mesma trama e a mesma passagem para o creme. Só onde a
+     página tem foto própria (data-lum); banner só de trama (Todos os serviços, Conteúdo) continua creme liso no celular. */
+  var celular = !window.matchMedia('(min-width:769px)').matches;
+  if(celular){
+    var lumC = b.getAttribute('data-cor') || b.getAttribute('data-lum') || '';
+    if(!lumC || /trama|conteudo/.test(lumC)) return;
+    /* o motor (js/trama.js) não roda em tela de toque: a faixa é desenhada uma vez, parada, com a receita do banner
+       (tom gama .86, contraste 1,55, brilho +.35, 4 níveis em Bayer 4×4, rampa da marca), ponto de 1 px de tela */
+    var tira = document.createElement('canvas'); tira.className = 'pb-tira'; tira.setAttribute('aria-hidden', 'true'); b.appendChild(tira);
+    var tomC = null; try { tomC = JSON.parse(b.getAttribute('data-tom') || 'null'); } catch(e){}
+    var G = (tomC && +tomC.gama) || .86, K = (tomC && +tomC.ctr) || 1.55, BR = (tomC && tomC.brilhoTom != null) ? +tomC.brilhoTom : .35;
+    var RAMPA = [[21,51,81],[24,56,88],[103,146,189],[250,249,245]];
+    if(tomC && tomC.cores && tomC.cores.length === 4) RAMPA = tomC.cores.map(function(h){ var v = parseInt(String(h).replace('#',''), 16); return [v>>16&255, v>>8&255, v&255]; });
+    var BAYER = [0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+    var im = new Image();
+    im.onload = function(){
+      var dpr = Math.min(3, window.devicePixelRatio || 1), W = Math.round(tira.clientWidth * dpr), H = Math.round(tira.clientHeight * dpr);
+      if(!W || !H) return;
+      tira.width = W; tira.height = H;
+      var cx = tira.getContext('2d'), sc = Math.max(W / im.naturalWidth, H / im.naturalHeight);
+      cx.drawImage(im, W - im.naturalWidth * sc, (H - im.naturalHeight * sc) / 2, im.naturalWidth * sc, im.naturalHeight * sc);   // cobre, encostada à direita
+      var d = cx.getImageData(0, 0, W, H), p = d.data, c = Math.max(1, Math.round(dpr));   // célula de 1 px de tela
+      for(var y = 0; y < H; y++) for(var x = 0; x < W; x++){
+        var i = (y * W + x) * 4, g = (.2126 * p[i] + .7152 * p[i+1] + .0722 * p[i+2]) / 255;
+        var v = Math.min(1 - 1e-6, Math.max(1e-6, Math.pow(g, G))), a = Math.pow(v, K), bb = Math.pow(1 - v, K), t = Math.min(1, Math.max(0, a / (a + bb) + BR));
+        var lim = (BAYER[((Math.floor(y / c) & 3) << 2) | (Math.floor(x / c) & 3)] + .5) / 16, n = Math.min(3, Math.floor(t * 3 + lim)), cor = RAMPA[n];
+        p[i] = cor[0]; p[i+1] = cor[1]; p[i+2] = cor[2]; p[i+3] = 255;
+      }
+      cx.putImageData(d, 0, 0);
+    };
+    im.src = lumC;
+    return;
+  }
+  if(!window.ditherVivo) return;
   /* 23/09: cada pagina pode ter a SUA foto no banner, por data-lum no .page-banner.
      Sem isso, fica a rampa neutra de creme a trama. A foto ja vem esvanecida no
      proprio arquivo de luminancia (ver _ferramentas/banner/foto_banner.py). */

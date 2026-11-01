@@ -4206,3 +4206,9 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
   .sn-painel { border-left: 1px solid rgba(20,48,76,.16); box-shadow: 4px 10px 40px -24px rgba(20,48,76,.45); }
   .sn-aba { border: 1px solid #A3B5C8; border-right: 0; border-radius: 3px 0 0 3px; box-shadow: -6px 0 18px -10px rgba(20,48,76,.35); }
 }
+/* 01/11/2026, «seria possível ver a foto do menu bem pequena no celular?»: a foto do banner numa faixa de 92 px embaixo do
+   texto, na largura do banner (o js/banner.js cria a .pb-tira só no celular e só onde a página tem foto) */
+.pb-tira { display: none; }
+@media (max-width: 768px) {
+  .page-banner .pb-tira { display: block; position: relative; z-index: 1; width: calc(100% + 32px); height: 92px; margin: 16px -16px -26px; }
+}
