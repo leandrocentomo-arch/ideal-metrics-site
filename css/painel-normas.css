@@ -1667,3 +1667,109 @@ html .mp-sel button[aria-pressed=true]{animation:none!important;background:rgba(
   color:inherit!important;-webkit-text-fill-color:currentColor!important;border-color:var(--vborda,rgba(255,255,255,.75))!important;
   -webkit-backdrop-filter:blur(10px)!important;backdrop-filter:blur(10px)!important;box-shadow:none!important}
 html[data-tema=noite] .mp-sel button[aria-pressed=true]{background:rgba(160,185,255,.06)!important}
+
+/* ===== 01/11/2026, modelo para celular (Leandro, a 400 px: subtítulo, abas, normas, mapa e cartão de dados saíam pela direita;
+   «pode fazer menus laterais tipo gaveta, onde necessário, no estilo ideal-m»). Só abaixo de 1181 px; o computador não muda.
+   - nenhum filho da grade do painel alarga a página (as sete abas de 120 px faziam o documento ter 905 px);
+   - até 760 px: abas numa fileira que rola dentro de si, com a placa do escolhido deslizando; normas idem, com o traço vermelho;
+   - busca e filtros viram GAVETA à direita, presa a uma etiqueta creme com o texto vertical e os seis losangos (o desenho da
+     etiqueta do Guia), que só existe nas abas em que os filtros valem; Esc, toque fora ou a etiqueta recolhem;
+   - mapa do mundo e do Brasil na largura da placa, cartão de dados (número, Brasil, ranking) embaixo do mapa. ===== */
+@media (max-width:1180px), (max-height:599px){
+  .pn>*{min-width:0}
+  .pn-abas{overflow-x:auto;scrollbar-width:none}
+  .pn-abas::-webkit-scrollbar{display:none}
+}
+.pn-puxa .losangos{display:none}
+@media (max-width:760px){
+  /* cabeçalho: título e subtítulo quebram dentro da placa; a linha mono continua numa linha, com reticências */
+  .pn-cab{padding:44px 12px 12px;gap:10px}
+  .pn-cab .pn-sub{white-space:normal;font-size:13px;line-height:1.35}
+  .pn-cab>div:first-child>.m{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* abas: fileira única que rola por dentro */
+  .pn-abas{display:flex;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .pn-abas button,.pn-abas button:nth-child(n){flex:none;white-space:nowrap;min-height:40px;padding:8px 12px;font-size:13px;gap:6px;border-top:0;border-left:1px solid var(--fio);scroll-snap-align:start}
+  .pn-abas button:first-child{border-left:0}
+  /* seletores de norma: fileira única que rola por dentro (mundo, Brasil e setores) */
+  .pn .mp-sel,#br-sel{display:flex!important;flex-wrap:nowrap;gap:4px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding-top:6px;padding-bottom:2px;overscroll-behavior-x:contain}
+  .pn .mp-sel::-webkit-scrollbar{display:none}
+  .pn .mp-sel button{flex:none;width:auto;min-width:0;white-space:nowrap;padding:6px 9px;font-size:11px;letter-spacing:0}
+  .br-barra{flex-direction:column;align-items:stretch;gap:8px}
+  .br-modo{align-self:flex-start}
+  /* mapa e cartão de dados empilhados */
+  .mp-grid,.mp-grid.br-grid{display:block;padding-top:8px}
+  .mp-grid>div{min-width:0}
+  .pn .mp-mapa,#v-mapa .mp-mapa,#v-brasil .mp-mapa{position:relative;inset:auto;right:auto;width:100%;height:auto;transform:none}
+  #v-mapa .mp-lado,#v-brasil .mp-lado,.pn .mp-lado{position:static;width:auto;inset:auto;margin-top:14px;padding:14px 14px 12px;border-radius:3px}
+  .pn .mp-esc,#v-mapa .mp-esc,#v-brasil .mp-esc{position:static;max-width:none;margin:10px 0 0;padding:0}
+  #v-brasil .br-setores{position:static;inset:auto}
+  .mp-lado .tot{font-size:28px}
+  .mp-rank li{height:30px}
+  .mp-rank li>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .br-set li{grid-template-columns:minmax(0,1fr) 30% 52px;gap:10px}
+  /* listas: linha única com reticências */
+  .pn-item{grid-template-columns:118px minmax(0,1fr) 30px;gap:8px}
+  .pn-item .tit small{display:none}
+  .md-item{grid-template-columns:104px minmax(0,1fr);height:auto;min-height:34px;padding:6px 0;row-gap:2px}
+  .md-item>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .pn-topo{gap:6px 12px}
+  .pn-topo h2{font-size:16px}
+
+  /* busca e filtros: gaveta à direita */
+  .pn-lado,.pn.lado-aberto .pn-lado{position:fixed;top:0;right:0;bottom:0;left:auto;z-index:950;width:min(340px,86vw);max-height:none;margin:0;
+    padding:20px 18px 28px;overflow:visible;border:0;border-left:1px solid rgba(20,48,76,.16);border-radius:0;
+    background:#FAF9F5;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:-24px 0 60px -30px rgba(20,48,76,.45);
+    transform:translateX(100%);transition:transform .55s cubic-bezier(.65,.05,.36,1)}
+  .pn.lado-aberto .pn-lado{transform:none}
+  .pn-lado .pn-rola-lado{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding:22px 18px 32px}
+  .pn:not(.lado-aberto) .pn-lado>.pn-rola-lado,.pn.lado-aberto .pn-lado>.pn-rola-lado{display:block}
+  .pn:not(.lado-aberto) .pn-lado>.pn-rola-lado{visibility:hidden;transition:visibility 0s .55s}
+  .pn.lado-aberto .pn-lado>.pn-rola-lado{visibility:visible;transition:visibility 0s}
+  /* a etiqueta: presa pela borda da gaveta, virada para a esquerda (para onde se puxa) */
+  .pn-puxa,.pn.lado-aberto .pn-puxa,.pn:not(.lado-aberto) .pn-puxa{position:absolute;right:100%;left:auto;top:50%;transform:translateY(-50%);width:auto;height:auto;min-height:0;margin:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:12px;padding:14px 8px;background:#FAF9F5;color:#14304C;
+    border:1px solid #A3B5C8;border-right:0;border-bottom:1px solid #A3B5C8;border-radius:3px 0 0 3px;box-shadow:-6px 0 18px -10px rgba(20,48,76,.35);transition:background .25s,color .25s}
+  .pn-puxa .m,.pn.lado-aberto .pn-puxa .m,.pn:not(.lado-aberto) .pn-puxa .m{writing-mode:vertical-rl;transform:rotate(180deg);font-size:10.5px;letter-spacing:.16em;color:inherit}
+  .pn-puxa>svg:not(.losangos){display:none}
+  .pn-puxa .losangos{display:block;width:18px;height:11px;fill:currentColor;stroke:none;flex:none;transform:none}
+  .pn.lado-aberto .pn-puxa,.pn-puxa:focus-visible{background:#14304C;color:#FAF9F5;outline:none}
+  .pn-lado .pn-busca{margin-top:4px}
+  .pn-lado .pn-busca input{background:#fff}
+}
+@media (max-width:760px){
+  /* mapa mais alto que largo no celular (o JS usa o quadro 384 × 480), com as etiquetas dos países 20% maiores; o toque
+     vertical rola a página, o arrasto para os lados gira o mapa */
+  .pn #v-mapa .mp-mapa svg{touch-action:pan-y}
+  .pn #v-mapa .mp-mapa .pulso text.en{font-size:11.1px}
+  .pn .mp-ctl{right:6px;bottom:6px}
+  .pn .mp-ctl button{padding:4px 7px;font-size:9px}
+  .pn .mp-esc{flex-wrap:wrap;row-gap:6px;font-size:9px}
+  .pn .mp-esc i{width:16px;height:7px;flex:none}
+  .pn .mp-esc span{margin:0 5px 0 3px;white-space:nowrap}
+  .pn .mp-esc .mp-fonte{flex-basis:100%;white-space:normal;margin:0}
+}
+@media (max-width:760px){
+  .pn .mp-esc{font-size:8.5px}
+  .pn .mp-esc i,#v-brasil .mp-esc i{width:12px}
+  .pn .mp-esc span,#v-brasil .mp-esc span{margin:0 4px 0 3px}
+}
+@media (max-width:760px){
+  /* nas abas com filtros, a etiqueta da gaveta mora na borda direita: o painel deixa a faixa dela livre, como faz à esquerda com a do Guia */
+  .pn:not(.sem-lado){padding-right:30px}
+  .pn-topo>.m{flex-basis:100%;order:2}
+  .pn-topo>.pn-ord{order:3}
+}
+@media (max-width:760px){
+  .pn-lado,.pn.lado-aberto .pn-lado{z-index:1500}   /* por cima da tarja e da barra do site, abaixo da ficha da norma (2000) */
+}
+@media (max-width:760px){
+  /* escuro: a gaveta e a etiqueta espelham o claro (lá creme com tinta; aqui o azul-noite da placa com o claro do texto) */
+  html[data-tema=noite] .pn-lado,html[data-tema=noite] .pn.lado-aberto .pn-lado{background:#1A2B42;border-left-color:rgba(205,222,242,.18);box-shadow:-24px 0 60px -30px rgba(0,8,30,.8)}
+  html[data-tema=noite] .pn-puxa,html[data-tema=noite] .pn:not(.lado-aberto) .pn-puxa{background:#1A2B42;color:#DFE7F1;border-color:rgba(205,222,242,.35);box-shadow:-6px 0 18px -10px rgba(0,8,30,.7)}
+  html[data-tema=noite] .pn.lado-aberto .pn-puxa,html[data-tema=noite] .pn-puxa:focus-visible{background:#DFE7F1;color:#0E1B2E}
+  html[data-tema=noite] .pn-lado .pn-busca input{background:rgba(205,222,242,.06)}
+}
+@media (max-width:760px){
+  html .pn .pn-puxa .m,html[data-tema][data-noite] .pn .pn-puxa .m{color:inherit}   /* a cor do rótulo mono do painel não vence a da etiqueta */
+  .pn #v-brasil .mp-mapa svg{touch-action:pan-y}
+}

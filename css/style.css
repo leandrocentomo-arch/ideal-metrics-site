@@ -3883,7 +3883,10 @@ html.js .content > .in-view { opacity: 1; transform: none; }
   counter-increment:none;color:rgba(250,249,245,.88)}
 .veu-mapa a::before{content:none}
 .veu-mapa a:hover{color:var(--branco);padding-left:6px}
-@media (max-width:880px){ .veu-mapa{grid-template-columns:1fr 1fr;gap:18px 20px} }
+/* 01/11/2026, «eu quero um menu alinhado… sempre tem que ser alinhado»: no celular o mapa do véu é uma coluna só, cada
+   título e cada item numa linha (texto longo corta com reticências), todos começando na mesma margem */
+@media (max-width:880px){ .veu-mapa{grid-template-columns:minmax(0,1fr);gap:26px}
+  .veu-mapa h3,.veu-mapa a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis} }
 /* 24/09: o MEGA-MENU flutuante de antes da troca de cabecalho, de volta para o
    Leandro comparar com o veu. Largura toda, altura so a do conteudo, icones
    redondos. Abre por «Todos os servicos» na barra (hover ou clique) e dentro do

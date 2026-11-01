@@ -259,6 +259,24 @@
     this.setAttribute('aria-expanded', ab); this.setAttribute('aria-label', ab ? T('Recolher busca e filtros', 'Collapse search and filters') : T('Abrir busca e filtros', 'Open search and filters'));
     if (ab) setTimeout(function () { $('#pn-q').focus({ preventScroll: true }); }, 360);
   });
+  /* 01/11/2026, «pode fazer menus laterais tipo gaveta, onde necessário, no estilo ideal-m»: no celular (até 760 px) a busca e
+     filtros é uma gaveta à direita, presa a uma etiqueta com os seis losangos (o desenho da etiqueta do Guia). O conteúdo vai
+     numa caixa que rola por dentro, para a etiqueta poder ficar para fora da gaveta; no computador nada muda */
+  (function () {
+    var puxa = $('.pn-puxa'), lado = $('.pn-lado'), CEL = window.matchMedia('(max-width:760px)');
+    var lz = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); lz.setAttribute('viewBox', '0 0 22 14'); lz.setAttribute('class', 'losangos'); lz.setAttribute('aria-hidden', 'true');
+    lz.innerHTML = '<path d="M3 0l3 3-3 3-3-3zM11 0l3 3-3 3-3-3zM19 0l3 3-3 3-3-3zM3 8l3 3-3 3-3-3zM11 8l3 3-3 3-3-3zM19 8l3 3-3 3-3-3z"/>';
+    puxa.appendChild(lz);
+    function poe() {
+      var cx = $('.pn-rola-lado', lado);
+      if (CEL.matches && !cx) { cx = document.createElement('div'); cx.className = 'pn-rola-lado'; $$('.pn-lado>:not(.pn-puxa)').forEach(function (e) { cx.appendChild(e); }); lado.appendChild(cx); }
+      else if (!CEL.matches && cx) { while (cx.firstChild) lado.insertBefore(cx.firstChild, cx); cx.remove(); }
+    }
+    poe(); if (CEL.addEventListener) CEL.addEventListener('change', poe);
+    function fecha() { if (CEL.matches && $('.pn').classList.contains('lado-aberto')) puxa.click(); }
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') fecha(); });
+    document.addEventListener('pointerdown', function (e) { if (!e.target.closest('.pn-lado')) fecha(); });
+  })();
 
   /* 27/10: navegação entre botões sempre com deslize (Leandro: «a navegação entre botões deve ser sempre com aquele efeito de
      deslize»): uma placa escura desliza do botão anterior para o escolhido, nas abas e nas normas do mapa */
@@ -663,7 +681,8 @@
       }).on('mouseleave', function () { dicaB.style.display = 'none'; });
       function quadro() {
         var r = box.getBoundingClientRect();
-        W = (getComputedStyle(box).position === 'absolute' && r.height > 40) ? Math.max(480, Math.round(H * r.width / r.height)) : 960;
+        W = window.matchMedia('(max-width:760px)').matches ? 420   /* 01/11/2026: no celular o Brasil ocupa um quadro quase quadrado, e as etiquetas dos estados se leem */
+          : (getComputedStyle(box).position === 'absolute' && r.height > 40) ? Math.max(480, Math.round(H * r.width / r.height)) : 960;
         svg.attr('viewBox', '0 0 ' + W + ' ' + H);
         proj.fitExtent([[24, 30], [W - 24, H - 14]], FC);
       }
@@ -853,13 +872,19 @@
       var NIV = nivTema();
       var nivelF = FEATS.map(function () { return 0; }), corAt = FEATS.map(function () { return NIV[0].slice(); }), corPara = corAt, corDe = null, corT0 = 0, faixa = null, corChave = '';
       /* quadro do tamanho da área: H fixo, W pela proporção da caixa; o globo fica no centro da parte livre, à esquerda da placa dos dados */
+      /* 01/11/2026, «os tags no globo, no celular, têm que aparecer de alguma forma… tenho que ver os tags»: no celular (até
+         760 px) o quadro do mapa é mais alto que largo (384 × 480), então o mundo aparece maior e corre de lado por ele; as
+         etiquetas ficam 20% maiores e se leem à medida que cada país passa. O globo encolhe para caber na largura */
+      var CEL_M = window.matchMedia('(max-width:760px)');
       function quadro() {
         var r = box.getBoundingClientRect(), lado = $('#mp-lado'), cobre = 0;
-        if (getComputedStyle(box).position === 'absolute' && r.height > 40) {
+        if (CEL_M.matches) W = 384;
+        else if (getComputedStyle(box).position === 'absolute' && r.height > 40) {
           W = Math.max(480, Math.round(H * r.width / r.height));
           if (lado && getComputedStyle(lado).position === 'absolute') cobre = Math.max(0, r.right - lado.getBoundingClientRect().left) * H / r.height;
         } else W = 960;
         svg.attr('viewBox', '0 0 ' + W + ' ' + H);
+        ESC_GLOBO = CEL_M.matches ? W / 2 - 14 : H / 2 - 8;
         cxM = W / 2; cxG = Math.max(ESC_GLOBO + 20, (W - cobre) / 2); fimVis = W - cobre;   // rótulos somem antes da placa dos dados
       }
       quadro();
@@ -1015,7 +1040,7 @@
       };
       function poePulsos() {
         var a = Math.sqrt(Math.max(0, Math.min(1, prog))), olho = [-giro[0], -giro[1]], agora = performance.now(), mapa = a > .5;
-        var n = gPulsos.selectAll('g.pulso').size(), x0 = cxG + ESC_GLOBO + 26, y0 = H / 2 - (n - 1) * 11, postos = [], lista = [];
+        var n = gPulsos.selectAll('g.pulso').size(), x0 = CEL_M.matches ? W - 150 : cxG + ESC_GLOBO + 26, y0 = H / 2 - (n - 1) * 11, postos = [], lista = [];
         gPulsos.selectAll('g.pulso').each(function (d) { lista.push([this, d]); });
         lista.sort(function (u, v) { return v[1].v - u[1].v; });   // o maior país escolhe o lugar da etiqueta primeiro
         crescendo = false;
@@ -1036,7 +1061,7 @@
             var cr = 1 - Math.pow(1 - gr, 3), PILHA = 26, base = p[1] - 3, topo = base - PILHA;
             g.select('path.vareta').attr('d', 'M' + p[0].toFixed(1) + ',' + base.toFixed(1) + 'V' + (base - PILHA * cr).toFixed(1));
             /* 31/10, «deixa as tags só um pouquinho menores»: etiqueta inteira a 88% (pílula, bandeira, número) */
-            var K = .88, pw = (35 + fmt(d.v).length * 6.3) * K, ph = 18 * K, lx0 = p[0], ly0 = topo - ph / 2 - 2, alvo = [0, 0];
+            var K = CEL_M.matches ? 1.06 : .88, pw = (35 + fmt(d.v).length * 6.3) * K, ph = 18 * K, lx0 = p[0], ly0 = topo - ph / 2 - 2, alvo = [0, 0];
             var livre = function (x, y) { return y - ph / 2 > 4 && postos.every(function (q) { return x + pw / 2 + 3 < q[0] || x - pw / 2 - 3 > q[1] || y + ph / 2 + 3 < q[2] || y - ph / 2 - 3 > q[3]; }); };
             if (vis && !livre(lx0, ly0)) {
               for (var k = 1, ok = false; k <= 14 && !ok; k++) [[0, -k * (ph + 4)], [pw + 6, -(k - 1) * (ph + 4)], [-(pw + 6), -(k - 1) * (ph + 4)]].some(function (c) { if (livre(lx0 + c[0], ly0 + c[1])) { alvo = c; ok = true; return true; } return false; });
