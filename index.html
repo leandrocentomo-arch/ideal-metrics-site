@@ -126,6 +126,8 @@ body>*{position:relative;z-index:1}
 /* 13/10/2026: «tire esta pagina de inicializacao, acho que eu nao gosto mais dela; pode deixar no modulo mobile»:
    no computador (acima de 880 px) a abertura nao aparece; no celular continua igual. */
 @media (min-width:881px){ .abertura{display:none} }
+/* 01/11/2026: «pode tirar as arestas»: os quatro traços e as pontas saem; fica só o logo */
+.abertura .l-v,.abertura .l-h{display:none}
 
 /* ---- placa fixa do logo + aba MENU ---- */
 /* a vaga do logotipo, no canto superior esquerdo. Sem fundo e sem
@@ -3932,12 +3934,15 @@ window.addEventListener('load', function(){
   ab.classList.add('arma');
   /* 01/11/2026: o pássaro do logo bate as asas na abertura, como no Painel de normas (js/monograma-asas.js); a abertura
      segura 2 s (era 1,5) para as três batidas terminarem antes de ela se dissolver */
-  if(window.bateAsasMonograma) bateAsasMonograma(ab.querySelector('.ab-logo'), {largura:true, dur:1700});
+  /* 01/11/2026, «pode tirar as arestas, pode deixar só o logo com efeito, a parte escrita e depois o pássaro vindo, batendo
+     asas»: sem os traços; a escrita aparece e, 0,7 s depois, o pássaro chega voando do alto à direita (1,7 s); a abertura
+     segura 2,6 s */
+  if(window.bateAsasMonograma) bateAsasMonograma(ab.querySelector('.ab-logo'), {largura:true, dur:1700, vem:true, atraso:700});
   setTimeout(function(){
     document.body.classList.remove('carga');
     document.body.classList.add('pronta');window.dispatchEvent(new Event('im:pronta'));
     setTimeout(function(){ ab.classList.add('fora'); }, 900);
-  }, 2000);   /* 01/11/2026: 2000 (era 1500), para a batida de asas. 18/09: era 2300. A abertura arma em ~1,1s; 1,5s e o tempo de ve-la pronta e sair */
+  }, 2600);   /* 01/11/2026: 2600 (o pássaro chega depois da escrita); antes 2000 (era 1500), para a batida de asas. 18/09: era 2300. A abertura arma em ~1,1s; 1,5s e o tempo de ve-la pronta e sair */
 });
 
 // scramble do modelo (chars "x&im" da marca; 0,5s no hover, do "_" na entrada)
@@ -4426,7 +4431,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script>/* tarja: data do dia, dd.mm.aaaa */(function(){var e=document.getElementById('tarja-data');if(!e)return;var d=new Date(),z=function(n){return(n<10?'0':'')+n};e.textContent=z(d.getDate())+'.'+z(d.getMonth()+1)+'.'+d.getFullYear();})();</script>
-<script src="js/monograma-asas.js?v=3" defer></script>
+<script src="js/monograma-asas.js?v=4" defer></script>
 <script src="js/trama.js?v=31"></script>
 <script>
 /* as pecas da home que usam o motor (js/trama.js) */

@@ -63,14 +63,21 @@
       }
       /* entrada: cresce a partir do ombro e bate três vezes; a amplitude só troca no cruzamento do zero, então a terceira
          batida termina inteira junto com o crescimento */
-      var PL = M(39.5, 20.5), PC = M(45.5, 15), OR = M(39, 20), AMP = [1, .7, .45], t0 = performance.now(), dur = opts.dur || 2400;
+      /* 01/11/2026, abertura do celular: «pode deixar só o logo com efeito, a parte escrita e depois o pássaro vindo, batendo
+         asas» (opts.vem): o pássaro fica escondido enquanto a escrita aparece e, depois de opts.atraso ms, entra voando do alto
+         à direita, crescendo e batendo as três batidas, até pousar no lugar dele no logo */
+      var PL = M(39.5, 20.5), PC = M(45.5, 15), OR = M(39, 20), AMP = [1, .7, .45], t0 = performance.now() + (opts.vem ? opts.atraso || 0 : 0), dur = opts.dur || 2400;
+      var DX = opts.vem ? vb[2] * .55 : 0, DY = opts.vem ? -vb[3] * .7 : 0;
       passaro.style.transformOrigin = OR[0].toFixed(2) + 'px ' + OR[1].toFixed(2) + 'px'; passaro.style.transformBox = 'view-box';
+      if (opts.vem) passaro.style.opacity = '0';
       (function passo(t) {
+        if (t < t0) { requestAnimationFrame(passo); return; }
         var k = Math.max(0, Math.min((t - t0) / dur, 1)), a = -Math.sin(k * Math.PI * 6) * AMP[Math.min(2, Math.floor(k * 3))];
         var g = a < 0 ? a * 18 : a * 7;   // descida ampla, subida curta
         longa.setAttribute('transform', 'rotate(' + g.toFixed(2) + ' ' + PL[0] + ' ' + PL[1] + ')');
         curta.setAttribute('transform', 'rotate(' + (-g * .4).toFixed(2) + ' ' + PC[0] + ' ' + PC[1] + ')');
-        var e = 1 - Math.pow(1 - k, 3); passaro.style.transform = 'scale(' + (.35 + .65 * e).toFixed(3) + ')'; passaro.style.opacity = Math.min(1, .3 + k * 1.4).toFixed(2);
+        var e = 1 - Math.pow(1 - k, 3), voo = opts.vem ? 'translate(' + ((1 - e) * DX).toFixed(1) + 'px,' + ((1 - e) * DY).toFixed(1) + 'px) ' : '';
+        passaro.style.transform = voo + 'scale(' + (.35 + .65 * e).toFixed(3) + ')'; passaro.style.opacity = Math.min(1, (opts.vem ? 0 : .3) + k * (opts.vem ? 4 : 1.4)).toFixed(2);
         if (k < 1) requestAnimationFrame(passo);
         else { longa.removeAttribute('transform'); curta.removeAttribute('transform'); passaro.style.transform = ''; passaro.style.opacity = ''; if (opts.prata) pulsoPrata(); }   // 27/10: o brilho prateado só onde for pedido (no logo da barra «não precisa do pulse»)
       })(t0);
