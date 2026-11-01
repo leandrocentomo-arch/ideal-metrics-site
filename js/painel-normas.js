@@ -818,8 +818,10 @@
       var cv = document.createElement('canvas'); cv.className = 'mp-pontos'; cv.setAttribute('aria-hidden', 'true'); box.insertBefore(cv, box.firstChild);
       var ctx = cv.getContext('2d');
       var svg = d3.select(box).insert('svg', '.mp-dica').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', T('Mapa de certificados por país', 'Map of certificates by country')).classed('plano', true);
-      /* 01/11/2026, «sugira um outro tipo de trama, estou achando esse muito pesado»: prova de tramas pelo endereço (?trama=a a e) */
-      var TRAMA = (location.search.match(/[?&]trama=([a-e])/) || [])[1] || '';
+      /* 01/11/2026, «sugira um outro tipo de trama, estou achando esse muito pesado»: prova de tramas pelo endereço (?trama=a a e).
+         «Vou tentar o A»: a trama A (ponto redondo de 42% da célula, malha de 1°) é a padrão; ?trama=0 volta a anterior
+         (quadrado de 2 px a cada 0,6°) */
+      var TRAMA = (location.search.match(/[?&]trama=([a-e0])/) || [])[1] || 'a', REDONDA = TRAMA !== '0' && TRAMA !== 'd', FQ = TRAMA === 'a' ? .75 : 1;
       var PASSO = { a: 1, b: 1.5, c: 1.2, d: .6, e: 2 }[TRAMA] || .6, PTS = FEATS.map(function () { return []; }), RID = null, RW = 0, RH = 0, celas = null, celasChave = '', img = null, buf = null, TEX = null, LINHAS = null;
       (function () {
         var cw = Math.round(720 / PASSO), ch = Math.round(360 / PASSO), oc = document.createElement('canvas'); oc.width = cw; oc.height = ch;
@@ -884,7 +886,7 @@
             ctx.fillStyle = 'rgb(' + Math.round(cb[0]) + ',' + Math.round(cb[1]) + ',' + Math.round(cb[2]) + ')'; ctx.globalAlpha = cb[3] * (NOITE ? .3 : .26);
             for (var jb = 0; jb < PB.length; jb += 2) {
               var lob = (PB[jb] + lam) * RAD, lab = PB[jb + 1] * RAD, clb = Math.cos(lab), xb = clb * Math.cos(lob), yb = clb * Math.sin(lob), zb = Math.sin(lab);
-              if (xb * cP - zb * sP > 0) continue; var qb = PASSO * RAD * R * .4;
+              if (xb * cP - zb * sP > 0) continue; var qb = PASSO * RAD * R * .4 * FQ;
               ctx.fillRect(cxG + R * yb - qb / 2, H / 2 - R * (zb * cP + xb * sP) - qb / 2, qb, qb);
             }
           }
@@ -895,7 +897,7 @@
           var esf = Math.max(0, Math.min(1, 1 - a / .15)); esf = esf * esf * (3 - 2 * esf);
           ctx.globalAlpha = esf; ctx.beginPath(); ctx.arc(cxG, H / 2, R, 0, 6.2832); ctx.fillStyle = gr; ctx.fill(); ctx.lineWidth = 1.2; ctx.strokeStyle = NOITE ? 'rgba(170,195,255,.35)' : 'rgba(255,255,255,.9)'; ctx.stroke();
         }
-        var qM = PASSO * KM, qG = PASSO * RAD * R;
+        var qM = PASSO * KM * FQ, qG = PASSO * RAD * R * FQ;   // na trama A o ponto do globo e da passagem afina junto
         /* 31/10, «a trama não ficou legal»: no mapa aberto a trama é de TELA, não geográfica: um ponto quadrado de 2 px a cada
            3 px de tela (2,5 px css × escala, ponto em 62% do passo), cravado no pixel, e cada nó lê o país no raster.
            Equal Earth (31/10, 2º): a longitude escala diferente em cada latitude, então o giro não é mais um deslize da faixa;
@@ -911,7 +913,7 @@
              no meio da célula. Refeita só quando a cor muda. Cada quadro desenha cada linha esticada pela escala da longitude
              naquela latitude e deslocada pelo giro (duas cópias, cortadas na borda da Equal Earth): ~480 cópias por quadro, em
              posição contínua (o navegador suaviza), em vez de 36 mil pontos */
-          var RC = TRAMA && TRAMA !== 'd' ? 12 : 4, NCOL = Math.round(360 / PASSO), NLIN = Math.round(144 / PASSO), TW = NCOL * RC, TH = NLIN * RC;
+          var RC = REDONDA ? 12 : 4, NCOL = Math.round(360 / PASSO), NLIN = Math.round(144 / PASSO), TW = NCOL * RC, TH = NLIN * RC;
           if (!LINHAS) { LINHAS = []; for (var n = 0; n < NLIN; n++) { var la1 = 84 - PASSO / 2 - n * PASSO, ph1 = la1 * RAD0, yA = MAPA_RAW(0, (la1 + PASSO / 2) * RAD0)[1], yB = MAPA_RAW(0, (la1 - PASSO / 2) * RAD0)[1]; LINHAS.push(tyM - yA * ESC_MAPA, (yA - yB) * ESC_MAPA, MAPA_RAW(1, ph1)[0] * ESC_MAPA * RAD0); } }
           var tchave = corChave + '|' + (corDe ? performance.now() : '');
           if (!TEX || TEX.chave !== tchave) {
@@ -921,7 +923,7 @@
               var P = PTS[fi]; if (!P.length) continue; var c = corAt[fi], d = nivelF[fi] ? 2.5 : 2, m = (RC - d) / 2;
               tx.fillStyle = 'rgb(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ')'; tx.globalAlpha = c[3];
               if (TRAMA === 'd') { for (var jd = 0; jd < P.length; jd += 2) tx.fillRect(Math.floor((P[jd] + 180) / PASSO) * RC, Math.floor((84 - P[jd + 1]) / PASSO) * RC + 1.4, RC, 1.2); continue; }
-              if (TRAMA) {
+              if (REDONDA) {
                 var dr = RC / 2 * (TRAMA === 'a' ? .42 : TRAMA === 'b' ? .58 : TRAMA === 'e' ? .5 : .3 + .1 * nivelF[fi]);
                 tx.beginPath();
                 for (var jr = 0; jr < P.length; jr += 2) { var xr = Math.floor((P[jr] + 180) / PASSO) * RC + RC / 2, yr = Math.floor((84 - P[jr + 1]) / PASSO) * RC + RC / 2; tx.moveTo(xr + dr, yr); tx.arc(xr, yr, dr, 0, 6.2832); }
