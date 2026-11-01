@@ -21,14 +21,28 @@
       if (!img.parentNode) return;
       var doc = new DOMParser().parseFromString(txt, 'image/svg+xml'), svg = doc.documentElement;
       if (!svg || svg.nodeName !== 'svg') return;
-      var mono = svg.querySelector('#monograma-270'), passaro = mono && mono.querySelector(':scope > g'); if (!passaro) return;
+      var mono = svg.querySelector('#monograma-270'), passaro = mono && mono.querySelector(':scope > g');
+      /* 01/11/2026, «nesta tela [a abertura do celular] faça o pássaro batendo [asas] como feito para o painel de normas»:
+         o lockup prata da abertura não tem o #monograma-270; o pássaro é o primeiro grupo com os mesmos 45 desenhos, na
+         mesma ordem, em outra escala. A escala e o deslocamento saem de dois pontos conhecidos (o 1º vértice das lâminas 8 e
+         44), e com eles o ombro e o centro do giro passam para as coordenadas desse arquivo */
+      var M = function (x, y) { return [x, y]; };
+      if (!passaro) {
+        passaro = Array.prototype.filter.call(svg.querySelectorAll('g'), function (g) { return g.children.length === 45; })[0];
+        if (!passaro) return;
+        var v = function (i) { return (passaro.children[i].getAttribute('points') || '').trim().split(/[\s,]+/).slice(0, 2).map(Number); }, a8 = v(8), a44 = v(44);
+        var sx = (a44[0] - a8[0]) / (72.02 - 66.91), sy = (a44[1] - a8[1]) / (21.13 - 17.48), ox = a8[0] - 66.91 * sx, oy = a8[1] - 17.48 * sy;
+        if (!isFinite(sx) || !isFinite(sy)) return;
+        M = function (x, y) { return [ox + x * sx, oy + y * sy]; };
+        mono = passaro;
+      }
       mono.setAttribute('id', 'monograma-270-' + id);   // ids únicos: pode haver mais de um monograma inline na página
       var filhos = Array.prototype.slice.call(passaro.children), ns = 'http://www.w3.org/2000/svg';
       var longa = doc.createElementNS(ns, 'g'), curta = doc.createElementNS(ns, 'g');
       [25].forEach(function (i) { if (filhos[i]) longa.appendChild(filhos[i]); });
       [8, 20, 21, 22, 24, 43, 44].forEach(function (i) { if (filhos[i]) curta.appendChild(filhos[i]); });
       passaro.appendChild(longa); passaro.appendChild(curta);
-      svg.setAttribute('class', img.className); svg.setAttribute('aria-hidden', 'true'); svg.style.width = 'auto'; svg.style.display = 'block';
+      svg.setAttribute('class', img.className); svg.setAttribute('aria-hidden', 'true'); if (!opts.largura) svg.style.width = 'auto'; svg.style.display = 'block';   // largura:true = a largura vem do CSS (abertura)
       img.parentNode.replaceChild(svg, img);
       /* brilho prateado: retângulo com degradê diagonal, mascarado pelo próprio monograma, atravessa em .9 s */
       var vb = (svg.getAttribute('viewBox') || '0 0 100 100').split(/\s+/).map(Number), defs = doc.createElementNS(ns, 'defs');
@@ -49,8 +63,8 @@
       }
       /* entrada: cresce a partir do ombro e bate três vezes; a amplitude só troca no cruzamento do zero, então a terceira
          batida termina inteira junto com o crescimento */
-      var PL = [39.5, 20.5], PC = [45.5, 15], AMP = [1, .7, .45], t0 = performance.now(), dur = 2400;
-      passaro.style.transformOrigin = '39px 20px'; passaro.style.transformBox = 'view-box';
+      var PL = M(39.5, 20.5), PC = M(45.5, 15), OR = M(39, 20), AMP = [1, .7, .45], t0 = performance.now(), dur = opts.dur || 2400;
+      passaro.style.transformOrigin = OR[0].toFixed(2) + 'px ' + OR[1].toFixed(2) + 'px'; passaro.style.transformBox = 'view-box';
       (function passo(t) {
         var k = Math.max(0, Math.min((t - t0) / dur, 1)), a = -Math.sin(k * Math.PI * 6) * AMP[Math.min(2, Math.floor(k * 3))];
         var g = a < 0 ? a * 18 : a * 7;   // descida ampla, subida curta
