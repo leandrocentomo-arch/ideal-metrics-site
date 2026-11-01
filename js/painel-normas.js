@@ -884,8 +884,10 @@
           if (lado && getComputedStyle(lado).position === 'absolute') cobre = Math.max(0, r.right - lado.getBoundingClientRect().left) * H / r.height;
         } else W = 960;
         svg.attr('viewBox', '0 0 ' + W + ' ' + H);
-        ESC_GLOBO = CEL_M.matches ? W / 2 - 14 : H / 2 - 8;
-        cxM = W / 2; cxG = Math.max(ESC_GLOBO + 20, (W - cobre) / 2); fimVis = W - cobre;   // rótulos somem antes da placa dos dados
+        /* 01/11/2026, 2º, «o globo poderia ser menor e a legenda poderia ficar fora do globo»: no celular o globo fica à
+           esquerda, com raio de 104, e a coluna dos países à direita dele, fora da bola */
+        ESC_GLOBO = CEL_M.matches ? 104 : H / 2 - 8;
+        cxM = W / 2; cxG = CEL_M.matches ? ESC_GLOBO + 14 : Math.max(ESC_GLOBO + 20, (W - cobre) / 2); fimVis = W - cobre;   // rótulos somem antes da placa dos dados
       }
       quadro();
       function pintaPontos() {
@@ -1040,7 +1042,7 @@
       };
       function poePulsos() {
         var a = Math.sqrt(Math.max(0, Math.min(1, prog))), olho = [-giro[0], -giro[1]], agora = performance.now(), mapa = a > .5;
-        var n = gPulsos.selectAll('g.pulso').size(), x0 = CEL_M.matches ? W - 150 : cxG + ESC_GLOBO + 26, y0 = H / 2 - (n - 1) * 11, postos = [], lista = [];
+        var n = gPulsos.selectAll('g.pulso').size(), x0 = CEL_M.matches ? cxG + ESC_GLOBO + 18 : cxG + ESC_GLOBO + 26, y0 = H / 2 - (n - 1) * 11, postos = [], lista = [];
         gPulsos.selectAll('g.pulso').each(function (d) { lista.push([this, d]); });
         lista.sort(function (u, v) { return v[1].v - u[1].v; });   // o maior país escolhe o lugar da etiqueta primeiro
         crescendo = false;
