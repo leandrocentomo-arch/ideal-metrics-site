@@ -1773,3 +1773,8 @@ html[data-tema=noite] .mp-sel button[aria-pressed=true]{background:rgba(160,185,
   html .pn .pn-puxa .m,html[data-tema][data-noite] .pn .pn-puxa .m{color:inherit}   /* a cor do rótulo mono do painel não vence a da etiqueta */
   .pn #v-brasil .mp-mapa svg{touch-action:pan-y}
 }
+/* 01/11/2026, «o fundo do mapa eu gostaria que fosse transparente» (celular): o mapa do mundo e o do Brasil ficam direto no
+   vidro da placa, sem a caixa branca, o fio e a sombra, como no computador */
+@media (max-width:1180px), (max-height:599px){
+  .pn .mp-mapa,.pn #v-mapa .mp-mapa,.pn #v-brasil .mp-mapa{background:transparent;border-color:transparent;box-shadow:none}
+}
