@@ -818,7 +818,9 @@
       var cv = document.createElement('canvas'); cv.className = 'mp-pontos'; cv.setAttribute('aria-hidden', 'true'); box.insertBefore(cv, box.firstChild);
       var ctx = cv.getContext('2d');
       var svg = d3.select(box).insert('svg', '.mp-dica').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', T('Mapa de certificados por país', 'Map of certificates by country')).classed('plano', true);
-      var PASSO = .6, PTS = FEATS.map(function () { return []; }), RID = null, RW = 0, RH = 0, celas = null, celasChave = '', img = null, buf = null, TEX = null, LINHAS = null;
+      /* 01/11/2026, «sugira um outro tipo de trama, estou achando esse muito pesado»: prova de tramas pelo endereço (?trama=a a e) */
+      var TRAMA = (location.search.match(/[?&]trama=([a-e])/) || [])[1] || '';
+      var PASSO = { a: 1, b: 1.5, c: 1.2, d: .6, e: 2 }[TRAMA] || .6, PTS = FEATS.map(function () { return []; }), RID = null, RW = 0, RH = 0, celas = null, celasChave = '', img = null, buf = null, TEX = null, LINHAS = null;
       (function () {
         var cw = Math.round(720 / PASSO), ch = Math.round(360 / PASSO), oc = document.createElement('canvas'); oc.width = cw; oc.height = ch;
         var o = oc.getContext('2d'), gp = d3.geoPath(d3.geoEquirectangular().scale(cw / (2 * Math.PI)).translate([cw / 2, ch / 2]).precision(.2), o);
@@ -909,7 +911,7 @@
              no meio da célula. Refeita só quando a cor muda. Cada quadro desenha cada linha esticada pela escala da longitude
              naquela latitude e deslocada pelo giro (duas cópias, cortadas na borda da Equal Earth): ~480 cópias por quadro, em
              posição contínua (o navegador suaviza), em vez de 36 mil pontos */
-          var RC = 4, NCOL = Math.round(360 / PASSO), NLIN = Math.round(144 / PASSO), TW = NCOL * RC, TH = NLIN * RC;
+          var RC = TRAMA && TRAMA !== 'd' ? 12 : 4, NCOL = Math.round(360 / PASSO), NLIN = Math.round(144 / PASSO), TW = NCOL * RC, TH = NLIN * RC;
           if (!LINHAS) { LINHAS = []; for (var n = 0; n < NLIN; n++) { var la1 = 84 - PASSO / 2 - n * PASSO, ph1 = la1 * RAD0, yA = MAPA_RAW(0, (la1 + PASSO / 2) * RAD0)[1], yB = MAPA_RAW(0, (la1 - PASSO / 2) * RAD0)[1]; LINHAS.push(tyM - yA * ESC_MAPA, (yA - yB) * ESC_MAPA, MAPA_RAW(1, ph1)[0] * ESC_MAPA * RAD0); } }
           var tchave = corChave + '|' + (corDe ? performance.now() : '');
           if (!TEX || TEX.chave !== tchave) {
@@ -918,6 +920,13 @@
             for (var fi = 0; fi < PTS.length; fi++) {
               var P = PTS[fi]; if (!P.length) continue; var c = corAt[fi], d = nivelF[fi] ? 2.5 : 2, m = (RC - d) / 2;
               tx.fillStyle = 'rgb(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ')'; tx.globalAlpha = c[3];
+              if (TRAMA === 'd') { for (var jd = 0; jd < P.length; jd += 2) tx.fillRect(Math.floor((P[jd] + 180) / PASSO) * RC, Math.floor((84 - P[jd + 1]) / PASSO) * RC + 1.4, RC, 1.2); continue; }
+              if (TRAMA) {
+                var dr = RC / 2 * (TRAMA === 'a' ? .42 : TRAMA === 'b' ? .58 : TRAMA === 'e' ? .5 : .3 + .1 * nivelF[fi]);
+                tx.beginPath();
+                for (var jr = 0; jr < P.length; jr += 2) { var xr = Math.floor((P[jr] + 180) / PASSO) * RC + RC / 2, yr = Math.floor((84 - P[jr + 1]) / PASSO) * RC + RC / 2; tx.moveTo(xr + dr, yr); tx.arc(xr, yr, dr, 0, 6.2832); }
+                tx.fill(); continue;
+              }
               for (var j = 0; j < P.length; j += 2) tx.fillRect(Math.floor((P[j] + 180) / PASSO) * RC + m, Math.floor((84 - P[j + 1]) / PASSO) * RC + m, d, d);
             }
           }
