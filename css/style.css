@@ -4145,3 +4145,43 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
 
 /* numero do tile no celular: data em dd-mmm-aaaa (26/10/2026) tem 11 caracteres e estourava a coluna de 162 px */
 @media (max-width: 760px) { .vi-nums .vi-num { padding: 16px 14px 14px; } .vi-nums .vi-num b { font-size: 24px; } }
+
+/* 01/11/2026, Leandro: «crie menos espaçamento no subtítulo, entre a quebra de frases; isso vale pro site também, não só para o
+   celular»: o subtítulo da faixa do topo com entrelinha 1,3 (herdava a do corpo do texto) */
+.page-banner p { line-height: 1.3; }
+
+/* 01/11/2026, «nos menus, eu não quero quebrar, por exemplo, "segurança da informação"… prefiro que a janela do menu seja mais
+   larga»: o painel da Navegação passa de 300 para 360 px e cada item fica numa linha só (texto longo corta com reticências) */
+@media (min-width: 901px) {
+  .sidenav.aberta .sn-painel { width: 360px; }
+  .sn-painel-in { width: 360px; }
+}
+.sn-painel .sn-group a { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* 01/11/2026, «pode tirar essas tags» (no celular a Navegação virava um monte de botões no começo da página) e «menus laterais
+   tipo gaveta, no estilo ideal-m»: no celular a Navegação é a mesma gaveta do computador, com a etiqueta colada à direita da
+   etiqueta do Guia (o js/gaveta.js mede e posiciona); o painel abre por cima do texto, com a largura que a tela deixa */
+@media (max-width: 900px) {
+  .sidenav { position: fixed; left: 36px; top: 50%; display: block; min-height: 140px; max-height: none; overflow: visible;
+    padding: 0; margin: 0; border: 0; z-index: 60; }
+  .sidenav > :not(.sn-caixa) { display: none; }
+  .sn-caixa { position: absolute; left: 0; top: 0; display: flex; align-items: flex-start;
+    transition: transform .55s cubic-bezier(.65,.05,.36,1), opacity .45s ease; }
+  .sidenav.fora:not(.aberta) .sn-caixa { transform: translateX(calc(-100% - 40px)); opacity: 0; pointer-events: none; }
+  .sn-painel { display: block; width: 0; overflow: hidden; visibility: hidden; background: #FAF9F5; border: 1px solid rgba(20,48,76,.16);
+    border-right: 0; border-left: 0; box-shadow: -4px 10px 40px -24px rgba(20,48,76,.45);
+    transition: width .6s cubic-bezier(.65,.05,.36,1), visibility 0s .6s; }
+  .sidenav.aberta .sn-painel { width: min(360px, calc(100vw - 112px)); visibility: visible; transition: width .6s cubic-bezier(.65,.05,.36,1), visibility 0s; }
+  .sn-painel-in { display: block; width: min(360px, calc(100vw - 112px)); box-sizing: border-box; max-height: calc(100vh - 150px);
+    overflow-y: auto; scrollbar-width: thin; padding: 20px 16px 8px 18px; }
+  .sn-aba { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 16px 9px; background: #FAF9F5; color: #14304C; cursor: pointer;
+    border: 1px solid #A3B5C8; border-left: 0; border-radius: 0 3px 3px 0; box-shadow: 6px 0 18px -10px rgba(20,48,76,.35); transition: background .25s, color .25s; font: inherit; }
+  .sn-aba svg { width: 18px; height: 11px; fill: currentColor; flex: none; }
+  .sn-aba span { writing-mode: vertical-rl; transform: rotate(180deg); font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }
+  .sn-aba:hover, .sn-aba:focus-visible, .sidenav.aberta .sn-aba { background: #14304C; color: #FAF9F5; outline: none; }
+  /* dentro do painel, a lista volta a ser a do computador (títulos, números e itens em coluna), não botões */
+  .sn-painel .sn-title, .sn-painel .sn-group .sn-num, .sn-painel .sn-group h5 { display: block; }
+  .sn-painel .sn-group { display: block; margin-bottom: 22px; }
+  .sn-painel .sn-group a { display: block; padding: 5px 0 5px 10px; border: 0; border-left: 2px solid transparent; border-radius: 0; font-size: 13.5px; line-height: 1.35; }
+  .sn-painel .sn-group a.active { border-left-color: var(--accent-red); background: none; }
+}
