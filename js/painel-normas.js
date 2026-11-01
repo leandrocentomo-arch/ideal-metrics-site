@@ -819,10 +819,10 @@
       var ctx = cv.getContext('2d');
       var svg = d3.select(box).insert('svg', '.mp-dica').attr('viewBox', '0 0 ' + W + ' ' + H).attr('role', 'img').attr('aria-label', T('Mapa de certificados por país', 'Map of certificates by country')).classed('plano', true);
       /* 01/11/2026, «sugira um outro tipo de trama, estou achando esse muito pesado»: prova de tramas pelo endereço (?trama=a a e).
-         «Vou tentar o A»: a trama A (ponto redondo de 50% da célula, malha de 0,8°) é a padrão; ?trama=0 volta a anterior
+         «Vou tentar o A»: a trama A (ponto redondo de 50% da célula, malha de 0,7°) é a padrão; ?trama=0 volta a anterior
          (quadrado de 2 px a cada 0,6°) */
-      var TRAMA = (location.search.match(/[?&]trama=([a-e0])/) || [])[1] || 'a', REDONDA = TRAMA !== '0' && TRAMA !== 'd', FQ = TRAMA === 'a' ? .85 : 1;
-      var PASSO = { a: .8, b: 1.5, c: 1.2, d: .6, e: 2 }[TRAMA] || .6,   // 01/11, «não tem como deixar este mais denso?»: a A passou de 1° para 0,8°, ponto de 50% da célula (era 42%)
+      var TRAMA = (location.search.match(/[?&]trama=([a-e0])/) || [])[1] || 'a', REDONDA = TRAMA !== '0' && TRAMA !== 'd', FQ = TRAMA === 'a' ? .9 : 1;
+      var PASSO = { a: .7, b: 1.5, c: 1.2, d: .6, e: 2 }[TRAMA] || .6,   // 01/11, «não tem como deixar este mais denso?»: a A passou de 1° para 0,8° e, «ainda mais denso», para 0,7°; ponto de 50% da célula (era 42%)
       PTS = FEATS.map(function () { return []; }), RID = null, RW = 0, RH = 0, celas = null, celasChave = '', img = null, buf = null, TEX = null, LINHAS = null;
       (function () {
         var cw = Math.round(720 / PASSO), ch = Math.round(360 / PASSO), oc = document.createElement('canvas'); oc.width = cw; oc.height = ch;
