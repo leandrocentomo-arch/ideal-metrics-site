@@ -57,7 +57,10 @@
     '.wa{transition:opacity .45s ease,transform .55s cubic-bezier(.65,.05,.36,1)}',
     '.wa.fora:not(.aberta){opacity:0;transform:translateX(110%);pointer-events:none}',
     '@media (prefers-reduced-motion:reduce){.gaveta{transition:none}}',
-    '@media (max-width:880px){.gaveta-painel{padding:96px 22px 40px}.gaveta .mp-grade{grid-template-columns:1fr;gap:36px}.wa-aba{bottom:24px}}'
+    '@media (max-width:880px){.gaveta-painel{padding:96px 22px 40px}.gaveta .mp-grade{grid-template-columns:1fr;gap:36px}.wa-aba{bottom:24px}}',
+    /* 02/11/2026, celular: «a etiqueta da gaveta tem que ser mais estreita, para não subir sobre a parte escrita». De 38 px
+       para 20 px, menor que a margem do texto da página */
+    '@media (max-width:760px){.gaveta-aba{gap:9px;padding:10px 3px}.gaveta-aba svg{width:12px;height:8px}.gaveta-aba span{font-size:9px;line-height:1;letter-spacing:.14em}}'
   ].join('\n');
   document.head.appendChild(css);
 
