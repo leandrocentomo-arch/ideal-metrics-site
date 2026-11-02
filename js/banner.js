@@ -14,6 +14,14 @@
     /* o motor (js/trama.js) não roda em tela de toque: a faixa é desenhada uma vez, parada, com a receita do banner
        (tom gama .86, contraste 1,55, brilho +.35, 4 níveis em Bayer 4×4, rampa da marca), ponto de 1 px de tela */
     var tira = document.createElement('canvas'); tira.className = 'pb-tira'; tira.setAttribute('aria-hidden', 'true'); b.appendChild(tira);
+    /* 02/11/2026, «colocar o título sobre a foto… tipo grifado em creme»: a faixa vira o fundo do banner (css .pb-foto) e o
+       texto do título e do subtítulo ganha um span .pb-grifo, que leva o creme linha a linha */
+    b.classList.add('pb-foto');
+    [].forEach.call(b.querySelectorAll(':scope > h1, :scope > p'), function(el){
+      var g = document.createElement('span'); g.className = 'pb-grifo';
+      while(el.firstChild) g.appendChild(el.firstChild);
+      el.appendChild(g);
+    });
     var tomC = null; try { tomC = JSON.parse(b.getAttribute('data-tom') || 'null'); } catch(e){}
     var G = (tomC && +tomC.gama) || .86, K = (tomC && +tomC.ctr) || 1.55, BR = (tomC && tomC.brilhoTom != null) ? +tomC.brilhoTom : .35;
     var RAMPA = [[21,51,81],[24,56,88],[103,146,189],[250,249,245]];

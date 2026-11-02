@@ -4260,3 +4260,15 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
   .rail { grid-template-rows: auto repeat(6, auto); grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; }
   .rail a { font-size: 13.5px; gap: 8px; }
 }
+/* 02/11/2026, celular: «não acho legal estar o título em cima e a foto embaixo… colocar o título sobre a foto… tipo grifado
+   em creme». A foto (.pb-tira, js/banner.js) passa a ser o fundo do banner inteiro, e o título e o subtítulo ficam por cima,
+   embaixo à esquerda, cada linha grifada em creme (.pb-grifo, que o js põe dentro do h1 e do p) */
+@media (max-width: 768px) {
+  .page-banner.pb-foto { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 236px; padding-top: 24px; padding-bottom: 22px; }
+  .page-banner.pb-foto .pb-tira { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; z-index: 0; }
+  .page-banner.pb-foto h1, .page-banner.pb-foto p { position: relative; z-index: 1; }
+  .page-banner.pb-foto h1 { line-height: 1.32; }
+  .page-banner.pb-foto p { line-height: 1.62; margin-top: 6px; }
+  .breadcrumb { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }   /* a trilha numa linha só (quebrava na 45001) */
+  .pb-grifo { background: #FAF9F5; padding: 1px 8px; margin: 0 -8px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+}
