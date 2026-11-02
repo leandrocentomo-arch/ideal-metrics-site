@@ -59,8 +59,9 @@
     '@media (prefers-reduced-motion:reduce){.gaveta{transition:none}}',
     '@media (max-width:880px){.gaveta-painel{padding:96px 22px 40px}.gaveta .mp-grade{grid-template-columns:1fr;gap:36px}.wa-aba{bottom:24px}}',
     /* 02/11/2026, celular: «a etiqueta da gaveta tem que ser mais estreita, para não subir sobre a parte escrita». De 38 px
-       para 20 px, menor que a margem do texto da página */
-    '@media (max-width:760px){.gaveta-aba{gap:9px;padding:10px 3px}.gaveta-aba svg{width:12px;height:8px}.gaveta-aba span{font-size:9px;line-height:1;letter-spacing:.14em}}'
+       para 20 px, menor que a margem do texto da página. Depois, «pode fazer um pouco mais larga, e faça com sombra»: 24 px,
+       com sombra para a direita */
+    '@media (max-width:760px){.gaveta-aba{gap:9px;padding:10px 6px;box-shadow:3px 2px 10px -1px rgba(20,48,76,.3)}.gaveta-aba svg{width:12px;height:8px}.gaveta-aba span{font-size:9px;line-height:1;letter-spacing:.14em}}'
   ].join('\n');
   document.head.appendChild(css);
 
