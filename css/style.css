@@ -4265,7 +4265,8 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
    embaixo à esquerda, cada linha grifada em creme (.pb-grifo, que o js põe dentro do h1 e do p) */
 @media (max-width: 768px) {
   .page-banner.pb-foto { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 236px; padding-top: 24px; padding-bottom: 22px; }
-  .page-banner.pb-foto .pb-tira { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; z-index: 0; }
+  /* «ficou poluído… a foto poderia ser mais transparente, só para o mobile»: 40% sobre o creme do banner */
+  .page-banner.pb-foto .pb-tira { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; z-index: 0; opacity: .4; }
   .page-banner.pb-foto h1, .page-banner.pb-foto p { position: relative; z-index: 1; }
   .page-banner.pb-foto h1 { line-height: 1.32; }
   .page-banner.pb-foto p { line-height: 1.62; margin-top: 6px; }
