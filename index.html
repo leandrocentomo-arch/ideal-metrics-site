@@ -2525,7 +2525,9 @@ body>*{position:relative;z-index:1}
   /* 02/11/2026, celular: «não precisa ficar claro os cards ao pressionar com o dedo, o conteúdo já ficou no claro»: o véu creme do hover (e do foco no botão) não acende */
   .sh-rolo .sh-tira--flow .sh-col:hover::after,.sh-rolo .sh-tira--flow .sh-col:focus-within::after{opacity:.12;-webkit-backdrop-filter:blur(0px) saturate(100%);backdrop-filter:blur(0px) saturate(100%)}
   .sh-rolo .sh-col,.sh-rolo .sh-col a{-webkit-tap-highlight-color:transparent}
-  .sh-rolo .sh-tira--flow .sh-conteudo{justify-content:flex-start;padding:30px 20px 0}
+  /* 02/11/2026, celular: «sinto falta da escrita na diagonal, pode fazer bem discreto»: a palavra em pé de cada card (Emissões, Normas…), que saía no celular, volta menor e mais clara, no alto à direita, sobre o creme e fora da foto; o toque não a altera */
+  .sh-rolo .sh-tira--flow .sh-vertical,.sh-rolo .sh-tira--flow .sh-col:hover .sh-vertical,.sh-rolo .sh-tira--flow .sh-col--florestal .sh-vertical,.sh-rolo .sh-tira--flow .sh-col--florestal:hover .sh-vertical{display:block;top:30px;right:14px;transform:rotate(180deg);font-size:24px;opacity:.1;color:var(--azul);-webkit-text-stroke:0}
+  .sh-rolo .sh-tira--flow .sh-conteudo{justify-content:flex-start;padding:30px 20px 0 28px}   /* 02/11/2026: 28 px, a margem do logo e do resto da home; a 20 px a etiqueta do Guia cobria a borda do botão */
   .sh-rolo .sh-tira--flow .sh-conteudo>div:last-child{margin-top:12px}
   .sh-rolo .sh-tira--flow .sh-lista li{margin-bottom:6px}
   .sh-pontos{display:flex;justify-content:center;gap:4px;padding:16px 0 4px}
