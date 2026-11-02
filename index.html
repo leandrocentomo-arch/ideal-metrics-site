@@ -2531,7 +2531,7 @@ body>*{position:relative;z-index:1}
     background:transparent;transition:background .3s}
   .sh-pontos button[aria-current=true]::before{background:var(--azul)}
 }
-@media (min-width:881px){ .sh-pontos{display:none} }
+@media (min-width:761px){ .sh-pontos{display:none} }   /* 02/11/2026, iPad: «na versão ipad não precisa disso»; os losangos da tira só no celular */
 .nt-midia{position:relative}
 .nt-gl{z-index:1}
 .nt-midia.gl-on .nt-layer{visibility:hidden}
@@ -4582,7 +4582,7 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 })();
 </script>
 <script src="js/busca.js?v=21"></script>
-<script src="js/gaveta.js?v=20" defer></script>
+<script src="js/gaveta.js?v=21" defer></script>
 <script>
 /* CONHECIMENTO: entrada do mapa de linhas nos DOIS SENTIDOS (_ferramentas/arcos/linhas.py). Toda vez que um
    mapa entra na tela (35% dele a vista), descendo ou subindo a pagina, o progresso --p corre de 0 a 1 em 3 s;

@@ -24,8 +24,11 @@
       var dpr = Math.min(3, window.devicePixelRatio || 1), W = Math.round(tira.clientWidth * dpr), H = Math.round(tira.clientHeight * dpr);
       if(!W || !H) return;
       tira.width = W; tira.height = H;
-      var cx = tira.getContext('2d'), sc = Math.max(W / im.naturalWidth, H / im.naturalHeight);
-      cx.drawImage(im, W - im.naturalWidth * sc, (H - im.naturalHeight * sc) / 2, im.naturalWidth * sc, im.naturalHeight * sc);   // cobre, encostada à direita
+      /* 02/11/2026, «as fotos não ficaram boas no celular»: o arquivo do banner tem a foto na metade direita e o creme da
+         passagem na esquerda; a faixa usa só a metade direita, cobrindo a largura inteira, recortada no meio da altura */
+      var cx = tira.getContext('2d'), iw = im.naturalWidth, ih = im.naturalHeight, sw = iw * .5, sh = sw * H / W;
+      if(sh > ih){ sh = ih; sw = sh * W / H; }
+      cx.drawImage(im, iw - sw, (ih - sh) / 2, sw, sh, 0, 0, W, H);
       var d = cx.getImageData(0, 0, W, H), p = d.data, c = Math.max(1, Math.round(dpr));   // célula de 1 px de tela
       for(var y = 0; y < H; y++) for(var x = 0; x < W; x++){
         var i = (y * W + x) * 4, g = (.2126 * p[i] + .7152 * p[i+1] + .0722 * p[i+2]) / 255;

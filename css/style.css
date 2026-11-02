@@ -4214,11 +4214,32 @@ body::before{content:"";position:fixed;top:0;bottom:0;left:var(--lado-guia);righ
 }
 /* 02/11/2026, celular: «mesmo com todas as outras tags de etiquetas para versão mobile». A etiqueta da Navegação no desenho
    da do Guia (js/gaveta.js): 25 px de largura e sombra, aqui espelhada porque ela mora na borda direita */
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .sn-aba { gap: 9px; padding: 10px 6px; box-shadow: -3px 2px 10px -1px rgba(20,48,76,.3); }
   .sn-aba svg { width: 12px; height: 8px; }
   .sn-aba span { font-size: 9px; line-height: 1; letter-spacing: .14em; }
-  /* o texto das páginas internas começava a 20 px da borda e as etiquetas de 25 px subiam sobre ele: margem de 32 px dos dois
-     lados (Guia à esquerda; Navegação e WhatsApp à direita) */
-  .page-layout { padding-left: 32px; padding-right: 32px; }
+}
+/* iPad em pé (761 a 900 px), «isso aqui está ruim»: a etiqueta do Guia cobria o índice e o texto, que começavam a 20 px.
+   Etiquetas estreitas também aqui (acima) e o texto a 40 px, na margem do título do banner */
+@media (min-width: 761px) and (max-width: 900px) {
+  .page-layout, .page-banner, .breadcrumb, .rot-doc, body .rot-main, body .bl-post, body .blog-section, body .pr-topo,
+  body .dm-sec.dm-sec--servicos { padding-left: 40px; padding-right: 40px; }
+  .page-layout, .page-layout.sem-nav { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  /* o texto das páginas internas começava a 20 px da borda e as etiquetas de 25 px subiam sobre ele. «Aqui você sabe que tem
+     que estar alinhado»: banner, trilha e texto na mesma margem do cabeçalho (logo e Menu a 28 px da borda) e da home */
+  .page-layout { padding-left: 28px; padding-right: 28px; }
+  .page-banner, .breadcrumb { padding-left: 28px; padding-right: 28px; }
+  .rot-doc, body .rot-main, body .bl-post, body .blog-section, body .pr-topo, body .dm-sec.dm-sec--servicos { padding-left: 28px; padding-right: 28px; }
+  /* a coluna do texto não cresce com o diagrama de 700 px (Sobre, Segurança viária, IFC alargavam a página): ele rola dentro */
+  .page-layout, .page-layout.sem-nav { grid-template-columns: minmax(0, 1fr); }
+  .page-banner .pb-tira { width: calc(100% + 56px); margin-left: -28px; margin-right: -28px; }
+}
+/* 02/11/2026, «as fotos não ficaram boas no celular»: a faixa recorta só a parte da foto (sem o creme da passagem do
+   computador) e sobe para 120 px. O canvas do motor do computador (.pb-gl) não aparece abaixo de 769 px: quem abre a página
+   larga e estreita a janela via a foto do computador por trás do título */
+@media (max-width: 768px) {
+  .page-banner .pb-tira { height: 120px; }
+  .page-banner .pb-gl { display: none; }
 }
