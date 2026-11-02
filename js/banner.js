@@ -44,6 +44,9 @@
       for(var y = 0; y < H; y++) for(var x = 0; x < W; x++){
         var i = (y * W + x) * 4, g = (.2126 * p[i] + .7152 * p[i+1] + .0722 * p[i+2]) / 255;
         var v = Math.min(1 - 1e-6, Math.max(1e-6, Math.pow(g, G))), a = Math.pow(v, K), bb = Math.pow(1 - v, K), t = Math.min(1, Math.max(0, a / (a + bb) + BR));
+        /* 02/11/2026, «um avanço maior do creme do lado esquerdo para o direito»: a foto se desfaz em trama até o creme, da
+           direita para a esquerda; creme cheio na borda esquerda, foto cheia a partir de 68% da largura */
+        var fx = Math.max(0, 1 - x / (W * .68)); t += (1 - t) * fx * fx * (3 - 2 * fx);
         var lim = (BAYER[((Math.floor(y / c) & 3) << 2) | (Math.floor(x / c) & 3)] + .5) / 16, n = Math.min(3, Math.floor(t * 3 + lim)), cor = RAMPA[n];
         p[i] = cor[0]; p[i+1] = cor[1]; p[i+2] = cor[2]; p[i+3] = 255;
       }
