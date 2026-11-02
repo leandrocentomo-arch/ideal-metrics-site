@@ -2536,7 +2536,22 @@ body>*{position:relative;z-index:1}
     background:transparent;transition:background .3s}
   .sh-pontos button[aria-current=true]::before{background:var(--azul)}
 }
-@media (min-width:761px){ .sh-pontos{display:none} }   /* 02/11/2026, iPad: «na versão ipad não precisa disso»; os losangos da tira só no celular */
+@media (min-width:561px){ .sh-pontos{display:none} }   /* 02/11/2026, iPad: «na versão ipad não precisa disso»; os losangos da tira só no celular em pé */
+/* 02/11/2026, meia tela e iPad em pé: «é melhor ter etiqueta lateral, como na tela inteira, do que ter essa navegação embaixo».
+   As três etiquetas da tela inteira (+1 Próximo, 05 a 08 Mais, Voltar), na largura estreita das outras. São cópias (.sh-meia)
+   presas numa caixa em volta do rolo, porque aqui o rolo rola e levaria junto o que estivesse dentro dele */
+.sh-aba.sh-meia{display:none}
+@media (min-width:561px) and (max-width:880px){
+  .sh-rolo-caixa{position:relative}
+  .sh-aba.sh-meia{display:flex;justify-content:flex-start;width:25px;height:auto;padding:10px 0;gap:9px;box-shadow:-3px 2px 10px -1px rgba(20,48,76,.3)}
+  .sh-aba.sh-meia:hover,.sh-aba.sh-meia:focus-visible{width:25px}
+  .sh-aba.sh-meia svg{width:12px;height:8px}
+  .sh-meia .sh-aba-txt{font-size:9px;letter-spacing:.14em}
+  .sh-aba.sh-meia-um{top:8%}
+  .sh-aba.sh-meia-mais{top:auto;bottom:9%}
+  .sh-aba.sh-meia-volta{top:8%;box-shadow:3px 2px 10px -1px rgba(20,48,76,.3)}
+  .sh-aba.sh-meia.oculta{opacity:0;pointer-events:none}
+}
 .nt-midia{position:relative}
 .nt-gl{z-index:1}
 .nt-midia.gl-on .nt-layer{visibility:hidden}
@@ -4445,6 +4460,48 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
 <script src="js/monograma-asas.js?v=5" defer></script>
 <script src="js/trama.js?v=31"></script>
 <script>
+/* 02/11/2026: fora do bloco do motor, que não roda em tela de toque: sem isto, celular e iPad de verdade ficavam sem losangos e sem etiquetas */
+  /* 01/10: a SETA do rolo: desliza a faixa meio rolo (cards 05 a 08) e volta */
+  (function(){
+    var rolo = document.getElementById('shRolo'), faixa = document.getElementById('shFaixa'); if(!rolo || !faixa) return;
+    /* 10/10: k = quantos cards a faixa andou (0 a 4); cada card e 1/8 da faixa, 12,5% */
+    var k = 0, MAX = 4;
+    function vai(n){
+      k = Math.max(0, Math.min(MAX, n));
+      faixa.style.transform = k ? 'translateX(-' + (k * 12.5) + '%)' : '';
+      faixa.classList.toggle('avancou', k === MAX); rolo.classList.toggle('avancou', k > 0); rolo.classList.toggle('fim', k === MAX);
+    }
+    var um = document.getElementById('shUm'); if(um) um.addEventListener('click', function(){ vai(k + 1); });
+    document.getElementById('shAvanca').addEventListener('click', function(){ vai(MAX); });
+    document.getElementById('shVolta').addEventListener('click', function(){ vai(0); });
+    /* 01/11/2026: no celular a fila rola com o dedo; os losangos abaixo dela marcam o card da vez e levam a qualquer um */
+    var cols = rolo.querySelectorAll('.sh-col'), pontos = document.createElement('div'); pontos.className = 'sh-pontos';
+    [].forEach.call(cols, function(c, i){
+      var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Card ' + (i + 1) + ' de ' + cols.length);
+      b.addEventListener('click', function(){ rolo.scrollTo({left: c.offsetLeft, behavior: 'smooth'}); });
+      pontos.appendChild(b);
+    });
+    rolo.parentNode.insertBefore(pontos, rolo.nextSibling);
+    function marca(){
+      var w = cols[0] ? cols[0].offsetWidth : 1, n = Math.max(0, Math.min(cols.length - 1, Math.round(rolo.scrollLeft / w)));
+      if(rolo.scrollLeft + rolo.clientWidth >= rolo.scrollWidth - 2) n = cols.length - 1;
+      [].forEach.call(pontos.children, function(b, i){ b.setAttribute('aria-current', i === n ? 'true' : 'false'); });
+      atual = n; var fim = n === cols.length - 1;
+      meiaUm.classList.toggle('oculta', fim); meiaMais.classList.toggle('oculta', fim || n >= 4); meiaVolta.classList.toggle('oculta', n === 0);
+    }
+    /* 02/11/2026, meia tela e iPad em pé: as etiquetas da tela inteira, em cópias fora do rolo, levando o rolo até o card */
+    var atual = 0, caixa = document.createElement('div'); caixa.className = 'sh-rolo-caixa';
+    rolo.parentNode.insertBefore(caixa, rolo); caixa.appendChild(rolo);
+    function meia(id, classe, destino){
+      var b = document.getElementById(id).cloneNode(true); b.removeAttribute('id'); b.classList.add('sh-meia', classe);
+      b.addEventListener('click', function(){ marca(); var c = cols[Math.min(cols.length - 1, destino())]; if(c) rolo.scrollTo({left: c.offsetLeft, behavior: 'smooth'}); });
+      caixa.appendChild(b); return b;
+    }
+    var meiaUm = meia('shUm', 'sh-meia-um', function(){ return atual + 1; }), meiaMais = meia('shAvanca', 'sh-meia-mais', function(){ return 4; }), meiaVolta = meia('shVolta', 'sh-meia-volta', function(){ return 0; });
+    rolo.addEventListener('scroll', marca, {passive: true}); marca();
+  })();
+</script>
+<script>
 /* as pecas da home que usam o motor (js/trama.js) */
 (function(){
   var ditherVivo = window.ditherVivo; if(!ditherVivo) return;
@@ -4497,36 +4554,6 @@ document.querySelectorAll('.rv').forEach(function(e){ io.observe(e); });
     var troca = function(){ if(largo.matches) liga(); else desliga(); };
     if(largo.addEventListener) largo.addEventListener('change', troca); else if(largo.addListener) largo.addListener(troca);
   });
-  /* 01/10: a SETA do rolo: desliza a faixa meio rolo (cards 05 a 08) e volta */
-  (function(){
-    var rolo = document.getElementById('shRolo'), faixa = document.getElementById('shFaixa'); if(!rolo || !faixa) return;
-    /* 10/10: k = quantos cards a faixa andou (0 a 4); cada card e 1/8 da faixa, 12,5% */
-    var k = 0, MAX = 4;
-    function vai(n){
-      k = Math.max(0, Math.min(MAX, n));
-      faixa.style.transform = k ? 'translateX(-' + (k * 12.5) + '%)' : '';
-      faixa.classList.toggle('avancou', k === MAX); rolo.classList.toggle('avancou', k > 0); rolo.classList.toggle('fim', k === MAX);
-    }
-    var um = document.getElementById('shUm'); if(um) um.addEventListener('click', function(){ vai(k + 1); });
-    document.getElementById('shAvanca').addEventListener('click', function(){ vai(MAX); });
-    document.getElementById('shVolta').addEventListener('click', function(){ vai(0); });
-    /* 01/11/2026: no celular a fila rola com o dedo; os losangos abaixo dela marcam o card da vez e levam a qualquer um */
-    var cols = rolo.querySelectorAll('.sh-col'), pontos = document.createElement('div'); pontos.className = 'sh-pontos';
-    [].forEach.call(cols, function(c, i){
-      var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Card ' + (i + 1) + ' de ' + cols.length);
-      b.addEventListener('click', function(){ rolo.scrollTo({left: c.offsetLeft, behavior: 'smooth'}); });
-      pontos.appendChild(b);
-    });
-    rolo.parentNode.insertBefore(pontos, rolo.nextSibling);
-    function marca(){
-      var w = cols[0] ? cols[0].offsetWidth : 1, n = Math.max(0, Math.min(cols.length - 1, Math.round(rolo.scrollLeft / w)));
-      if(rolo.scrollLeft + rolo.clientWidth >= rolo.scrollWidth - 2) n = cols.length - 1;
-      [].forEach.call(pontos.children, function(b, i){ b.setAttribute('aria-current', i === n ? 'true' : 'false'); });
-    }
-    rolo.addEventListener('scroll', marca, {passive: true}); marca();
-  })();
-
-
   /* 19/10/2026: o logo da Frentes no motor da trama, com o efeito do mouse. Desde a receita da aba [ 11 ] do Spirit (lockup
      todo em trama, uniforme, rampa 315275 336699 D3E2F2 FAF9F5, matriz 8): a luminancia leva a tinta a 0,151, que cai 45%
      no 336699 e 55% no 315275, a mistura do PNG do Spirit; o fundo e o creme da pagina (no Spirit, linho) */
