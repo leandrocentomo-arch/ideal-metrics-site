@@ -2522,6 +2522,9 @@ body>*{position:relative;z-index:1}
   .sh-rolo .sh-tira--flow .sh-foto{top:auto;bottom:0;height:calc(var(--cw) * 1.245);object-fit:cover;object-position:center bottom;
     -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 28%);mask-image:linear-gradient(to bottom,transparent 0,#000 28%)}
   .sh-rolo .sh-tira--flow .sh-col:hover .sh-foto{transform:none}
+  /* 02/11/2026, celular: «não precisa ficar claro os cards ao pressionar com o dedo, o conteúdo já ficou no claro»: o véu creme do hover (e do foco no botão) não acende */
+  .sh-rolo .sh-tira--flow .sh-col:hover::after,.sh-rolo .sh-tira--flow .sh-col:focus-within::after{opacity:.12;-webkit-backdrop-filter:blur(0px) saturate(100%);backdrop-filter:blur(0px) saturate(100%)}
+  .sh-rolo .sh-col,.sh-rolo .sh-col a{-webkit-tap-highlight-color:transparent}
   .sh-rolo .sh-tira--flow .sh-conteudo{justify-content:flex-start;padding:30px 20px 0}
   .sh-rolo .sh-tira--flow .sh-conteudo>div:last-child{margin-top:12px}
   .sh-rolo .sh-tira--flow .sh-lista li{margin-bottom:6px}
