@@ -13,15 +13,18 @@
     if(!lumC || /trama|conteudo/.test(lumC)) return;
     /* o motor (js/trama.js) não roda em tela de toque: a faixa é desenhada uma vez, parada, com a receita do banner
        (tom gama .86, contraste 1,55, brilho +.35, 4 níveis em Bayer 4×4, rampa da marca), ponto de 1 px de tela */
-    var tira = document.createElement('canvas'); tira.className = 'pb-tira'; tira.setAttribute('aria-hidden', 'true'); b.appendChild(tira);
-    /* 02/11/2026, «colocar o título sobre a foto… tipo grifado em creme»: a faixa vira o fundo do banner (css .pb-foto) e o
-       texto do título e do subtítulo ganha um span .pb-grifo, que leva o creme linha a linha */
+    var tira = document.createElement('canvas'); tira.className = 'pb-tira'; tira.setAttribute('aria-hidden', 'true');
+    /* 02/11/2026, «colocar o título sobre a foto… tipo grifado em creme»: a foto e o título moram numa capa (css .pb-capa), o
+       título ganha um span .pb-grifo, que leva o creme linha a linha, e o subtítulo fica embaixo da capa, no creme */
     b.classList.add('pb-foto');
-    [].forEach.call(b.querySelectorAll(':scope > h1, :scope > p'), function(el){
-      var g = document.createElement('span'); g.className = 'pb-grifo';
-      while(el.firstChild) g.appendChild(el.firstChild);
-      el.appendChild(g);
-    });
+    var capa = document.createElement('div'); capa.className = 'pb-capa'; capa.appendChild(tira);
+    var tituloC = b.querySelector(':scope > h1');
+    if(tituloC){
+      var grifo = document.createElement('span'); grifo.className = 'pb-grifo';
+      while(tituloC.firstChild) grifo.appendChild(tituloC.firstChild);
+      tituloC.appendChild(grifo);
+      b.insertBefore(capa, tituloC); capa.appendChild(tituloC);
+    } else b.insertBefore(capa, b.firstChild);
     var tomC = null; try { tomC = JSON.parse(b.getAttribute('data-tom') || 'null'); } catch(e){}
     var G = (tomC && +tomC.gama) || .86, K = (tomC && +tomC.ctr) || 1.55, BR = (tomC && tomC.brilhoTom != null) ? +tomC.brilhoTom : .35;
     var RAMPA = [[21,51,81],[24,56,88],[103,146,189],[250,249,245]];
