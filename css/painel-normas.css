@@ -1781,3 +1781,10 @@ html[data-tema=noite] .mp-sel button[aria-pressed=true]{background:rgba(160,185,
 /* 01/11/2026: o botão «Parar giro» / «Girar» do mapa só existe no celular (no computador o giro para com o mouse sobre o país) */
 .mp-ctl .mp-giro{display:none}
 @media (max-width:760px){ .pn .mp-ctl .mp-giro{display:block} }
+/* 02/11/2026, celular: «mesmo com todas as outras tags de etiquetas para versão mobile». A etiqueta dos filtros no desenho
+   da do Guia: 25 px de largura e sombra, espelhada porque ela fica na borda direita */
+@media (max-width:760px){
+  .pn-puxa,.pn.lado-aberto .pn-puxa,.pn:not(.lado-aberto) .pn-puxa{gap:9px;padding:10px 6px;box-shadow:-3px 2px 10px -1px rgba(20,48,76,.3)}
+  .pn-puxa .losangos{width:12px;height:8px}
+  .pn-puxa .m,.pn.lado-aberto .pn-puxa .m,.pn:not(.lado-aberto) .pn-puxa .m{font-size:9px;line-height:1;letter-spacing:.14em}
+}

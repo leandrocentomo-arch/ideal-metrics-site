@@ -61,7 +61,9 @@
     /* 02/11/2026, celular: «a etiqueta da gaveta tem que ser mais estreita, para não subir sobre a parte escrita». De 38 px
        para 20 px, menor que a margem do texto da página. Depois, «pode fazer um pouco mais larga, e faça com sombra»: 24 px,
        com sombra para a direita */
-    '@media (max-width:760px){.gaveta-aba{gap:9px;padding:10px 6px;box-shadow:3px 2px 10px -1px rgba(20,48,76,.3)}.gaveta-aba svg{width:12px;height:8px}.gaveta-aba span{font-size:9px;line-height:1;letter-spacing:.14em}}'
+    '@media (max-width:760px){.gaveta-aba{gap:9px;padding:10px 6px;box-shadow:3px 2px 10px -1px rgba(20,48,76,.3)}.gaveta-aba svg{width:12px;height:8px}.gaveta-aba span{font-size:9px;line-height:1;letter-spacing:.14em}'+
+      /* «mesmo com todas as outras tags de etiquetas para versão mobile»: a do WhatsApp com a mesma largura e a sombra espelhada */
+      '.wa-aba{gap:9px;padding:10px 6px;box-shadow:-3px 2px 10px -1px rgba(20,48,76,.3)}.wa-aba img{width:13px;height:13px}.wa-aba span{font-size:9px;line-height:1;letter-spacing:.14em}}'
   ].join('\n');
   document.head.appendChild(css);
 
