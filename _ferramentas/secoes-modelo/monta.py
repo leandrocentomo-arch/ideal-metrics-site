@@ -14,7 +14,7 @@ src = (RAIZ / 'norma-iso-45001.html').read_text(encoding='utf-8')
 home = (RAIZ / 'index.html').read_text(encoding='utf-8')
 secoes = (AQUI / 'secoes.html').read_text(encoding='utf-8')
 css = (AQUI / 'estilo.css').read_text(encoding='utf-8')
-js = (AQUI / 'motor.js').read_text(encoding='utf-8')
+js = (AQUI / 'motor.js').read_text(encoding='utf-8') + '\n' + (AQUI / 'deitada.js').read_text(encoding='utf-8')
 painel = json.loads((RAIZ / 'dados' / 'painel-normas.json').read_text(encoding='utf-8'))
 
 
@@ -90,17 +90,32 @@ for r, p in POS:
     bol = ''.join(f'<i class="{"on" if i == p else "ate" if i < p else ""}"></i>' for i in range(1, 31))
     escala += f'<div class="ep-l"><span class="n">{r}</span><div class="ep-p">{bol}</div><b>{p}º</b></div>'
 
-# ----- matriz: os dados reais do grafico da home
+# ----- grade deitada: os dados reais do grafico da home, com setor, tema e pagina de setores-dados.js
 i_mat = acha('class="qc-mat', home)
-COLS = [('iso9001', 'ISO 9001'), ('iso14001', 'ISO 14001'), ('iso45001', 'ISO 45001'), ('iso27001', 'ISO/IEC 27001'),
-        ('iso22000', 'ISO 22000'), ('iso50001', 'ISO 50001'), ('iso37001', 'ISO 37001'), ('iso39001', 'ISO 39001')]
-linhas = re.findall(r'<g class="li" data-s="([^"]+)">(.*?)</g>', home[i_mat:], flags=re.S)
-if not linhas: sys.exit('matriz da home nao encontrada')
-setores, tem = [], {}
-for s, corpo in linhas:
-    setores.append((s, re.search(r'class="rs"[^>]*>([^<]+)<', corpo).group(1)))
-    for cl, nn in re.findall(r'class="(q[^"]*)" data-n="([^"]+)"', corpo):
-        tem[(s, nn)] = cl
+mat = home[i_mat:acha('fim relacao setor norma', home)]
+dd = (RAIZ / 'js' / 'setores-dados.js').read_text(encoding='utf-8')
+dd = json.loads(dd[dd.index('{'):dd.rindex('}') + 1])
+TEMA_CURTO = {'qualidade': 'Qualidade', 'ambiente': 'Meio ambiente', 'sst': 'Saúde e segurança', 'viaria': 'Segurança viária', 'clima': 'Clima e carbono',
+              'esg': 'ESG', 'social': 'Social e cadeia', 'alimentos': 'Segurança de alimentos', 'infosec': 'Segurança da informação', 'compliance': 'Compliance e riscos'}
+ord_g = [g['id'] for g in dd['grupos']]
+colunas = re.findall(r'<g class="co" data-n="([^"]+)" data-rev="([^"]*)" data-tit="([^"]*)">(.*?)</g>', mat, flags=re.S)
+if len(colunas) != len(dd['ordemNormas']): sys.exit('colunas da grade da home diferentes de setores-dados.js')
+def pagina_norma(nid):
+    num = re.match(r'iso(\d+)$', nid)
+    if num and (RAIZ / f'norma-iso-{num.group(1)}.html').exists(): return f'norma-iso-{num.group(1)}.html'
+    return dd['normas'][nid].get('pagina') or ''
+M_N = [{'id': n, 'l': re.search(r'>([^<]+)</text>', c).group(1), 'rev': r, 'tit': t, 'g': ord_g.index(dd['normas'][n]['grupo']), 'p': pagina_norma(n)} for n, r, t, c in colunas]
+ordem_ok = [x['g'] for x in M_N]
+if ordem_ok != sorted(ordem_ok): sys.exit('colunas da home fora da ordem dos temas')
+por_s = {s['id']: s for s in dd['setores']}
+M_S, M_M = [], []
+for sid, corpo in re.findall(r'<g class="li" data-s="([^"]+)">(.*?)</g>', mat, flags=re.S):
+    M_S.append({'id': sid, 'c': re.search(r'class="rs"[^>]*>([^<]+)<', corpo).group(1), 'n': por_s[sid]['nome'], 'r': por_s[sid]['resumo'], 'p': por_s[sid]['pagina']})
+    rel = {nn: cl for cl, nn in re.findall(r'class="(q[^"]*)" data-n="([^"]+)"', corpo)}
+    M_M.append(''.join({'q': '2', 'q t': '1'}.get(rel.get(x['id'], ''), '0') for x in M_N))
+if len(M_S) != 9: sys.exit('grade da home sem os nove setores')
+dados_md = json.dumps({'S': M_S, 'N': M_N, 'G': [{'id': g, 'n': TEMA_CURTO[g]} for g in ord_g], 'M': M_M}, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
+temas_md = '<button type="button" role="tab" data-g="-1" aria-selected="true">Todos os temas</button>' + ''.join(f'<button type="button" role="tab" data-g="{k}" aria-selected="false">{TEMA_CURTO[g]}</button>' for k, g in enumerate(ord_g))
 
 # Figura 1 da ISO 9001:2026, o desenho que ja esta na pagina da norma
 s9 = (RAIZ / 'norma-iso-9001.html').read_text(encoding='utf-8')
@@ -113,7 +128,7 @@ CAMADAS = [('Eliminação', 'a)'), ('Substituição', 'b)'), ('Controles de enge
 planta = iso.planta()
 for marca, valor in {'{{FICHAS}}': fichas, '{{FICHAS3}}': fichas3, '{{CAL}}': cal, '{{NUMEROS}}': numeros, '{{ESCALA}}': escala,
                      '{{PILHA}}': iso.pilha(CAMADAS), '{{ESCADA}}': iso.escada(), '{{INTEGRADO}}': iso.integrado(), '{{PLANTA}}': planta, '{{PLANTA_M}}': iso.planta(True),
-                     '{{RELEVO}}': iso.matriz_relevo(setores, COLS, tem), '{{PROCESSO}}': processo, '{{GLIFO}}': glifo,
+                     '{{DADOS_MD}}': dados_md, '{{TEMAS_MD}}': temas_md, '{{PROCESSO}}': processo, '{{GLIFO}}': glifo,
                      '{{BARRA}}': iso.barras('ISO-9001-2026')}.items():
     if marca not in secoes: sys.exit(f'falta {marca}')
     secoes = secoes.replace(marca, valor)
@@ -149,7 +164,7 @@ NUM = r'(?:9001|14001|45001|39001|39002|27001|37001|37301|22000|41001|50001|1901
 for fonte, nome in ((secoes, 'secoes'), (topo, 'topo')):
     for mt in re.finditer(r'(?<![\d.\-])' + NUM + r'\b', fonte):
         antes = fonte[max(0, mt.start() - 12):mt.start()]
-        if antes.endswith(('iso', 'iso-', 'ISO-')): continue   # chave de dado, endereco de pagina
+        if antes.endswith(('iso', 'iso-', 'ISO-', 'fssc', 'FSSC ')): continue   # chave de dado, endereco de pagina; FSSC 22000 e outro esquema, nao norma ISO
         if not re.search(r'ISO(/IEC)? $', antes): sys.exit(f'NUMERO SEM ISO em {nome}: ...{fonte[max(0,mt.start()-40):mt.end()+10]}')
 for bruto in set(re.findall(r'(?:src|data-lum)="(img/[^"?]+)', secoes)):
     if not (RAIZ / bruto).exists(): sys.exit(f'imagem nao existe: {bruto}')

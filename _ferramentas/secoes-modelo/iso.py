@@ -292,41 +292,6 @@ def integrado():
     return f'<svg class="iso iso-int" viewBox="{g.vb(16, 16, 30, 50)}" role="img" aria-label="Núcleo comum do sistema de gestão integrado e três normas">' + ''.join(s)
 
 
-# ------------------------------------------------------------ matriz em relevo
-def matriz_relevo(setores, normas, tem):
-    """setores: [(id, nome)], normas: [(id, rotulo)], tem: {(setor, norma): 'q' destaque | 'q t' qualquer setor}."""
-    ns, nn = len(setores), len(normas)
-    u = 34
-    g = Iso(250 + ns * 0 + 4, 150, u)
-    s = [sombra_defs('smBlurM', 12)]
-    g.poly([(0, 0, -.5), (nn * 1.6, 0, -.5), (nn * 1.6, ns * 1.3, -.5), (0, ns * 1.3, -.5)], 'iso-sombra', 'filter="url(#smBlurM)" transform="translate(8 20)"')
-    g.box(0, 0, -.45, nn * 1.6, ns * 1.3, .45, 'iso-cl-t', 'iso-cl-f', 'iso-cl-l')
-    for j in range(nn + 1):
-        g.line((j * 1.6, 0, 0), (j * 1.6, ns * 1.3, 0), 'iso-grade')
-    for i in range(ns + 1):
-        g.line((0, i * 1.3, 0), (nn * 1.6, i * 1.3, 0), 'iso-grade')
-    for i, (sid, _) in enumerate(setores):
-        for j, (nid, _) in enumerate(normas):
-            k = tem.get((sid, nid))
-            if not k:
-                continue
-            x, y = j * 1.6 + .32, i * 1.3 + .2
-            if k == 'q':
-                g.box(x, y, 0, .96, .9, .78, 'iso-ac-t', 'iso-ac-f', 'iso-ac-l')
-            else:
-                g.box(x, y, 0, .96, .9, .22, 'iso-br-t', 'iso-tinta-f2', 'iso-tinta-l2')
-    # rotulos por ultimo, para nenhum bloco cobrir
-    for j, (_, r) in enumerate(normas):
-        X, Y = g.p(j * 1.6 + .86, -.85, 0)
-        g.add(f'<text class="iso-mini iso-tx" transform="matrix({f(C)} {f(-S)} 0 1 {f(X)} {f(Y)})" data-c="{normas[j][0]}">{r}</text>')
-    for i, (sid, nome) in enumerate(setores):
-        X, Y = g.p(-.85, i * 1.3 + .72, 0)
-        g.add(f'<text class="iso-mini iso-tx" text-anchor="end" transform="matrix({f(C)} {f(S)} 0 1 {f(X)} {f(Y)})">{nome}</text>')
-    s.append(g.svg())
-    s.append('</svg>')
-    return f'<svg class="iso iso-mat" viewBox="{g.vb(150, 90, 100, 40)}" role="img" aria-label="Matriz de setores e normas em relevo">' + ''.join(s)
-
-
 # ------------------------------------------------------------ codigo de barras (Code 39 de verdade)
 _C39 = dict(zip('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. *', '''nnnwwnwnn wnnwnnnnw nnwwnnnnw wnwwnnnnn nnnwwnnnw wnnwwnnnn nnwwwnnnn nnnwnnwnw wnnwnnwnn nnwwnnwnn
 wnnnnwnnw nnwnnwnnw wnwnnwnnn nnnnwwnnw wnnnwwnnn nnwnwwnnn nnnnnwwnw wnnnnwwnn nnwnnwwnn nnnnwwwnn wnnnnnnww nnwnnnnww wnwnnnnwn nnnnwnnww wnnnwnnwn nnwnwnnwn nnnnnnwww wnnnnnwwn nnwnnnwwn nnnnwnwwn wwnnnnnnw nwwnnnnnw wwwnnnnnn nwnnwnnnw wwnnwnnnn nwwnwnnnn nwnnnnwnw wwnnnnwnn nwwnnnwnn nwnnwnwnn'''.split()))

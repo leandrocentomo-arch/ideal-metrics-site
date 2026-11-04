@@ -199,9 +199,29 @@
   </div>
 </section>
 
-<section class="sm-sec sm-ar" data-fam="Isométricos" data-nome="Matriz setor e norma em relevo">
+<section class="sm-sec sm-ar" data-fam="Isométricos" data-nome="Grade setor e norma deitada e interativa">
   <div class="rt"><i class="lo"></i><span>Normas e padrões por setor</span><b class="pt"></b><span class="rt-d"><i class="lo ch"></i>Destaque do setor</span><span class="rt-d"><i class="lo"></i>Vale para qualquer setor</span></div>
-  <div class="sm-rola" style="--min:760px">{{RELEVO}}</div>
+  <div class="md" id="smMd">
+    <div class="md-palco"><canvas tabindex="0" role="img" aria-label="Grade em perspectiva que liga cada setor às normas e padrões. Setas do teclado percorrem as casas; o detalhe aparece na ficha."></canvas></div>
+    <div class="md-lado">
+      <div class="sm-abas md-modo" role="tablist" aria-label="Relações mostradas" style="--n:2;--i:0"><i class="sm-desl"></i><button type="button" role="tab" aria-selected="true">Todas</button><button type="button" role="tab" aria-selected="false">Só destaque</button></div>
+      <div class="md-temas" role="tablist" aria-label="Tema de gestão"><i class="md-desl"></i>{{TEMAS_MD}}</div>
+    </div>
+    <div class="md-set" role="group" aria-label="Setor"><i class="md-desl"></i></div>
+    <aside class="md-ficha" aria-live="polite">
+      <div class="md-fc"><span>Ficha</span><em data-f="dica">Clique fixa a seleção</em><button type="button" data-f="solta" hidden>Soltar</button></div>
+      <dl>
+        <div><dt>Setor</dt><dd data-f="setor"></dd></div>
+        <div><dt>Norma</dt><dd data-f="norma"></dd></div>
+        <div><dt>Revisão</dt><dd data-f="rev"></dd></div>
+        <div class="md-alto"><dt>Título</dt><dd data-f="tit"></dd></div>
+        <div><dt>Relação</dt><dd data-f="rel"></dd></div>
+        <div class="md-alto2"><dt data-f="lisr">Relacionados</dt><dd data-f="lis"></dd></div>
+      </dl>
+      <div class="md-ls"><a data-f="ls" href="#" style="visibility:hidden">Página do setor</a><a data-f="ln" href="#" style="visibility:hidden">Página da norma</a></div>
+    </aside>
+    <script type="application/json" id="smMdD">{{DADOS_MD}}</script>
+  </div>
 </section>
 
 <!-- ================================= NUMEROS E LISTAS ================================= -->
