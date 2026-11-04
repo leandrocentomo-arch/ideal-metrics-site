@@ -19,3 +19,6 @@ graphify-out/
 _prova-*.html
 _prova-banner-ifc-cor.webp
 _ferramentas/_cache-iso/
+
+# 03/11/2026: rascunho da home no estilo suico (gerado por _ferramentas/home-swiss/monta.py)
+index-swiss.html
