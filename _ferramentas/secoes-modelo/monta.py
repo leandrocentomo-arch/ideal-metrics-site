@@ -14,7 +14,7 @@ src = (RAIZ / 'norma-iso-45001.html').read_text(encoding='utf-8')
 home = (RAIZ / 'index.html').read_text(encoding='utf-8')
 secoes = (AQUI / 'secoes.html').read_text(encoding='utf-8')
 css = (AQUI / 'estilo.css').read_text(encoding='utf-8')
-js = (AQUI / 'motor.js').read_text(encoding='utf-8') + '\n' + (AQUI / 'deitada.js').read_text(encoding='utf-8') + '\n' + (AQUI / 'plana.js').read_text(encoding='utf-8')
+js = (AQUI / 'motor.js').read_text(encoding='utf-8') + '\n' + (AQUI / 'deitada.js').read_text(encoding='utf-8') + '\n' + (AQUI / 'plana.js').read_text(encoding='utf-8') + '\n' + (AQUI / 'paginas.js').read_text(encoding='utf-8')
 painel = json.loads((RAIZ / 'dados' / 'painel-normas.json').read_text(encoding='utf-8'))
 
 
@@ -138,6 +138,26 @@ def plana():
         s.append(f'<g class="mg-co" data-x="{X}" style="--j:{j};transform:translateX({X}px)"><text style="transform:translate(13.5px,182px) rotate(-90deg)">{c["l"]}</text>{cel}</g>')
     return ''.join(s) + '</g></svg>'
 
+# ----- paginas inteiras 37 e 38: setores e temas lidos da mesma fonte da grade da home; icones na gramatica do IC de blocos.py
+IC_S = {'industria': '<path d="M3 20V10l5 3v-3l5 3v-3l5 3V4h3v16zM3 20h18"/>', 'transporte': '<path d="M8 3 4 21M16 3l4 18M12 4v3M12 10v4M12 17v3"/>',
+        'facilities': '<path d="M6 3h12v18H6zM6 9h12M6 15h12M12 3v18"/>', 'alimentos': '<path d="M5 8h14v13H5zM8 8V3h8v5M5 13h14"/>',
+        'agro': '<path d="M12 3 6 12h12zM12 8 4 20h16zM12 20v2"/>', 'saude': '<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>',
+        'energia': '<path d="M12 3 7 21M12 3l5 18M6 7h12M8.5 13h7M4 12l2-5M20 12l-2-5"/>', 'tecnologia': '<path d="M7 7h10v10H7zM10 7V3M14 7V3M10 21v-4M14 21v-4M3 10h4M3 14h4M21 10h-4M21 14h-4"/>',
+        'servicos': '<path d="M3 15h6v6H3zM15 15h6v6h-6zM9 3h6v6H9zM12 9v3M6 15v-3h12v3"/>'}
+IC_T = {'qualidade': '<polygon points="12 4 20 12 12 20 4 12"/><path d="M8 12h8"/>', 'ambiente': '<polygon points="12 4 20 18 4 18"/><path d="M4 21h16"/>',
+        'sst': '<path d="M12 4v16M4 12h16"/>', 'viaria': '<path d="M7 4v16M17 4v16M12 6v3M12 11v3M12 16v3"/>', 'clima': '<path d="M4 5h5v5h5v5h6M4 20h16"/>',
+        'esg': '<polygon points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5"/>', 'social': '<rect x="4" y="4" width="4" height="4"/><rect x="16" y="4" width="4" height="4"/><rect x="4" y="16" width="4" height="4"/><rect x="16" y="16" width="4" height="4"/><path d="M8 8l8 8M16 8l-8 8"/>',
+        'alimentos': '<rect x="4" y="4" width="16" height="16"/><path d="M12 4v16M4 12h16"/>', 'infosec': '<rect x="4" y="4" width="16" height="16"/><rect x="10.5" y="10.5" width="3" height="3"/><path d="M4 12h4M16 12h4M12 4v4M12 16v4"/>',
+        'compliance': '<rect x="4" y="4" width="16" height="16"/><path d="M8 9h8M8 12h8M8 15h5"/>'}
+pg_setores = ''.join(f'<a class="pc pc-s" data-i="{k}" href="{s["pagina"]}"><div class="cm pts pc-f"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true">{IC_S[s["id"]]}</svg></div><div><div class="pc-a"><h3>{s["nome"]}</h3><i>{k:03d}</i></div><p>{s["resumo"]}</p></div></a>' for k, s in enumerate(dd['setores'], 1))
+def pg_tema(k, g):
+    linhas = ''
+    for nid in [n for n in dd['ordemNormas'] if dd['normas'][n]['grupo'] == g][:5]:
+        p, nome = pagina_norma(nid), dd['normas'][nid]['nome']
+        linhas += f'<a href="{p}">{nome}</a>' if p else f'<span>{nome}</span>'
+    return f'<article class="pc pc-t" data-i="{k}"><div class="pc-a"><h3>{TEMA_CURTO[g]}</h3><i>{k:03d}</i></div><div class="cm pts pc-f"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true">{IC_T[g]}</svg></div><div class="pc-ln">{linhas}</div></article>'
+pg_temas = ''.join(pg_tema(k, g) for k, g in enumerate(ord_g, 1))
+
 # Figura 1 da ISO 9001:2026, o desenho que ja esta na pagina da norma
 s9 = (RAIZ / 'norma-iso-9001.html').read_text(encoding='utf-8')
 i9 = acha('<figcaption>Elementos de um único processo', s9)
@@ -149,7 +169,7 @@ CAMADAS = [('Eliminação', 'a)'), ('Substituição', 'b)'), ('Controles de enge
 planta = iso.planta()
 for marca, valor in {'{{FICHAS}}': fichas, '{{FICHAS3}}': fichas3, '{{CAL}}': cal, '{{NUMEROS}}': numeros, '{{ESCALA}}': escala,
                      '{{PILHA}}': iso.pilha(CAMADAS), '{{ESCADA}}': iso.escada(), '{{INTEGRADO}}': iso.integrado(), '{{PLANTA}}': planta, '{{PLANTA_M}}': iso.planta(True),
-                     '{{DADOS_MD}}': dados_md, '{{TEMAS_MD}}': temas_md, '{{PLANA}}': plana(), '{{PROCESSO}}': processo, '{{GLIFO}}': glifo,
+                     '{{DADOS_MD}}': dados_md, '{{TEMAS_MD}}': temas_md, '{{PLANA}}': plana(), '{{PG_SETORES}}': pg_setores, '{{PG_TEMAS}}': pg_temas, '{{PROCESSO}}': processo, '{{GLIFO}}': glifo,
                      '{{BARRA}}': iso.barras('ISO-9001-2026')}.items():
     if marca not in secoes: sys.exit(f'falta {marca}')
     secoes = secoes.replace(marca, valor)
@@ -157,11 +177,14 @@ for marca, valor in {'{{FICHAS}}': fichas, '{{FICHAS3}}': fichas3, '{{CAL}}': ca
 # ----- numera, etiqueta e indice
 secoes = re.sub(r'<!--.*?-->', '', secoes, flags=re.S)
 partes = list(re.finditer(r'<section class="(sm-sec[^"]*)" data-fam="([^"]+)" data-nome="([^"]+)">', secoes))
-if len(partes) != 32: sys.exit(f'{len(partes)} secoes; o pedido e 30 mais as duas grades planas')
+if len(partes) != 38: sys.exit(f'{len(partes)} secoes; sao 41 numeros menos os 3 retirados')
+# 04/11/2026: o 04, o 08 e o 10 sairam a pedido; o numero de cada modelo nao muda, porque e por ele que o Leandro se refere a cada um
+SAIRAM = {4, 8, 10}
 fams, n = {}, 0
 def etiqueta(mt):
     global n
     n += 1
+    while n in SAIRAM: n += 1
     fams.setdefault(mt.group(2), []).append((n, mt.group(3)))
     return (f'<section class="{mt.group(1)}" id="m{n:02d}"><div class="sm-tag"><b>Modelo {n:02d}</b><span>{mt.group(2)} · {mt.group(3)}</span></div>')
 secoes = re.sub(r'<section class="(sm-sec[^"]*)" data-fam="([^"]+)" data-nome="([^"]+)">', etiqueta, secoes)
@@ -175,7 +198,7 @@ cabeca = re.sub(r'<!-- seo -->.*?<!-- /seo -->', '<meta name="robots" content="n
 cabeca = re.sub(r'<title>.*?</title>', '<title>Modelos de seção | Ideal Metrics</title>', cabeca, flags=re.S)
 cabeca = re.sub(r'<meta name="description"[^>]*>', '', cabeca)
 # italico do mono e serifa so na prova: o site hospeda as proprias fontes e estas ainda nao estao em fonts/
-cabeca = cabeca.replace('</head>', '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,400&family=IBM+Plex+Serif:wght@300&display=swap" rel="stylesheet">\n</head>', 1)
+cabeca = cabeca.replace('</head>', '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,400&display=swap" rel="stylesheet">\n</head>', 1)
 cabeca = cabeca.replace('</style>', css + '\n</style>', 1)
 cauda = cauda.replace('<script src="js/gaveta.js', '<script>\n' + js + '\n</script>\n<script src="js/gaveta.js', 1)
 corpo = cabeca + topo + secoes + cauda

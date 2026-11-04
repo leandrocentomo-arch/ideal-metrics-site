@@ -62,16 +62,6 @@
     marca(0);
   }
 
-  /* 10 indice: losango unico segue o mouse */
-  var ix = document.getElementById('smIx');
-  if(ix){
-    var cur = ix.querySelector('.ix-cur');
-    q('a', ix).forEach(function(a){
-      a.addEventListener('mouseenter', function(){ cur.style.setProperty('--y', (a.offsetTop + a.offsetHeight/2 - 5) + 'px'); cur.style.opacity = 1; });
-    });
-    ix.addEventListener('mouseleave', function(){ cur.style.opacity = 0; });
-  }
-
   /* 13 planta: marcador e lista acendem juntos */
   var pl = document.getElementById('smPl'), pll = document.getElementById('smPlL');
   if(pl && pll){
