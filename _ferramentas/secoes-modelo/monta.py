@@ -14,7 +14,7 @@ src = (RAIZ / 'norma-iso-45001.html').read_text(encoding='utf-8')
 home = (RAIZ / 'index.html').read_text(encoding='utf-8')
 secoes = (AQUI / 'secoes.html').read_text(encoding='utf-8')
 css = (AQUI / 'estilo.css').read_text(encoding='utf-8')
-js = (AQUI / 'motor.js').read_text(encoding='utf-8') + '\n' + (AQUI / 'deitada.js').read_text(encoding='utf-8')
+js = (AQUI / 'motor.js').read_text(encoding='utf-8') + '\n' + (AQUI / 'deitada.js').read_text(encoding='utf-8') + '\n' + (AQUI / 'plana.js').read_text(encoding='utf-8')
 painel = json.loads((RAIZ / 'dados' / 'painel-normas.json').read_text(encoding='utf-8'))
 
 
@@ -117,6 +117,27 @@ if len(M_S) != 9: sys.exit('grade da home sem os nove setores')
 dados_md = json.dumps({'S': M_S, 'N': M_N, 'G': [{'id': g, 'n': TEMA_CURTO[g]} for g in ord_g], 'M': M_M}, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 temas_md = '<button type="button" role="tab" data-g="-1" aria-selected="true">Todos os temas</button>' + ''.join(f'<button type="button" role="tab" data-g="{k}" aria-selected="false">{TEMA_CURTO[g]}</button>' for k, g in enumerate(ord_g))
 
+# ----- grade reta (modelo 31): mesma geometria da grade da home, com as colunas em grupos para o filtro por tema
+cab_h = mat[mat.index('<svg'):mat.index('<g class="co"')]
+chamas = ''.join(re.findall(r'<g class="gr chama">.*?</g>', cab_h, flags=re.S))
+grupos = ''.join(re.findall(r'<g class="gr">.*?</g>', cab_h, flags=re.S))
+def plana():
+    s = [f'<svg class="mg-svg" viewBox="0 0 1770 510" tabindex="0" role="img" aria-label="Grade que liga cada setor às normas e padrões. Setas do teclado percorrem as casas; o detalhe aparece na ficha."><g class="mg-grs">{chamas}</g><g transform="translate(0 73)"><g class="mg-grs">{grupos}</g>']
+    s.append('<g class="mg-gt"><text x="238" y="11"></text><path d=""/></g>')
+    for i, x in enumerate(M_S):
+        s.append(f'<g class="mg-li" style="--i:{i}"><path class="fio" d="M0 {190 + i * 27} H1770"/><text class="rs" x="0" y="{208 + i * 27}">{x["c"]}</text></g>')
+    s.append('<path class="fio" d="M0 433 H1770"/>')
+    for j, c in enumerate(M_N):
+        X = 238 + j * 20 + c['g'] * 14
+        cel = ''
+        for i in range(len(M_S)):
+            k = M_M[i][j]
+            y = 197 + i * 27
+            if k == '0': cel += f'<rect class="v" style="--i:{i}" data-s="{i}" y="{y + 5.5}" width="2" height="2"/>'
+            else: cel += f'<rect class="q{" t" if k == "1" else ""}" style="--i:{i}" data-s="{i}" x="3.5" y="{y}" height="13" rx="3"/>'
+        s.append(f'<g class="mg-co" data-x="{X}" style="--j:{j};transform:translateX({X}px)"><text style="transform:translate(13.5px,182px) rotate(-90deg)">{c["l"]}</text>{cel}</g>')
+    return ''.join(s) + '</g></svg>'
+
 # Figura 1 da ISO 9001:2026, o desenho que ja esta na pagina da norma
 s9 = (RAIZ / 'norma-iso-9001.html').read_text(encoding='utf-8')
 i9 = acha('<figcaption>Elementos de um único processo', s9)
@@ -128,7 +149,7 @@ CAMADAS = [('Eliminação', 'a)'), ('Substituição', 'b)'), ('Controles de enge
 planta = iso.planta()
 for marca, valor in {'{{FICHAS}}': fichas, '{{FICHAS3}}': fichas3, '{{CAL}}': cal, '{{NUMEROS}}': numeros, '{{ESCALA}}': escala,
                      '{{PILHA}}': iso.pilha(CAMADAS), '{{ESCADA}}': iso.escada(), '{{INTEGRADO}}': iso.integrado(), '{{PLANTA}}': planta, '{{PLANTA_M}}': iso.planta(True),
-                     '{{DADOS_MD}}': dados_md, '{{TEMAS_MD}}': temas_md, '{{PROCESSO}}': processo, '{{GLIFO}}': glifo,
+                     '{{DADOS_MD}}': dados_md, '{{TEMAS_MD}}': temas_md, '{{PLANA}}': plana(), '{{PROCESSO}}': processo, '{{GLIFO}}': glifo,
                      '{{BARRA}}': iso.barras('ISO-9001-2026')}.items():
     if marca not in secoes: sys.exit(f'falta {marca}')
     secoes = secoes.replace(marca, valor)
@@ -136,7 +157,7 @@ for marca, valor in {'{{FICHAS}}': fichas, '{{FICHAS3}}': fichas3, '{{CAL}}': ca
 # ----- numera, etiqueta e indice
 secoes = re.sub(r'<!--.*?-->', '', secoes, flags=re.S)
 partes = list(re.finditer(r'<section class="(sm-sec[^"]*)" data-fam="([^"]+)" data-nome="([^"]+)">', secoes))
-if len(partes) != 30: sys.exit(f'{len(partes)} secoes; o pedido e 30')
+if len(partes) != 31: sys.exit(f'{len(partes)} secoes; o pedido e 30 mais a grade reta')
 fams, n = {}, 0
 def etiqueta(mt):
     global n
