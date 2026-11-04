@@ -1,10 +1,32 @@
-/* 03/11/2026: comportamento dos 30 modelos de secao. Fotos no motor da trama com o contrato de sempre: a peca liga
+/* 04/11/2026: comportamento da 2a rodada dos modelos. Fotos no motor da trama, com o contrato de sempre: a peca liga
    perto da tela e e destruida ao sair, porque o navegador segura poucos contextos WebGL. */
 (function(){
+  var q = function(s, r){ return [].slice.call((r || document).querySelectorAll(s)); };
+
+  /* seletor de acento da prova */
+  var guarda = null;
+  try { guarda = localStorage.getItem('sm-acento'); } catch(e){}
+  var bar = document.createElement('div');
+  bar.className = 'sm-acento';
+  bar.innerHTML = '<span>Acento</span><div class="sm-abas" role="tablist" aria-label="Cor de acento" style="--n:3"><i class="sm-desl"></i>' +
+    '<button type="button" data-a="azul">Azul</button><button type="button" data-a="celeste">Celeste</button><button type="button" data-a="laranja">Laranja</button></div>';
+  document.body.appendChild(bar);
+  var abasAc = bar.querySelector('.sm-abas'), btsAc = q('button', abasAc);
+  function acento(nome){
+    var i = 0;
+    btsAc.forEach(function(b, n){ var on = b.getAttribute('data-a') === nome; b.setAttribute('aria-selected', on); if(on) i = n; });
+    abasAc.style.setProperty('--i', i);
+    document.body.setAttribute('data-acento', nome);
+    try { localStorage.setItem('sm-acento', nome); } catch(e){}
+  }
+  btsAc.forEach(function(b){ b.addEventListener('click', function(){ acento(b.getAttribute('data-a')); }); });
+  acento(['azul','celeste','laranja'].indexOf(guarda) >= 0 ? guarda : 'azul');
+
+  /* fotos */
   var ditherVivo = window.ditherVivo;
   if(ditherVivo && 'IntersectionObserver' in window){
     var OFICIAL = [[21.2,50.9,80.6],[24.2,56.2,88.1],[103.0,146.1,189.4],[250,249,245]];
-    [].forEach.call(document.querySelectorAll('.sm-quadro'), function(raiz){
+    q('.sm-quadro').forEach(function(raiz){
       var im = raiz.querySelector('img[data-lum]'); if(!im) return;
       var gl = null, dentro = false;
       function atualiza(){
@@ -18,75 +40,57 @@
     });
   }
 
-  /* barras crescem ao entrar na tela */
-  var barras = document.querySelector('.sm-barras');
-  if(barras && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion:reduce)').matches){
-    barras.classList.add('sm-anim');
-    new IntersectionObserver(function(es, o){ es.forEach(function(e){ if(e.isIntersecting){ barras.classList.remove('sm-anim'); o.disconnect(); } }); },
-      {threshold:.3}).observe(barras);
+  /* 01 ficha: abas com deslize; a pilha guarda a altura da maior ficha */
+  var fc = document.getElementById('smFc'), fp = document.getElementById('smFcP');
+  if(fc && fp){
+    var bts = q('button', fc);
+    bts.forEach(function(b, i){
+      b.addEventListener('click', function(){
+        bts.forEach(function(o){ o.setAttribute('aria-selected', o === b); });
+        fc.style.setProperty('--i', i);
+        q('.fc-p', fp).forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-t') === b.getAttribute('data-t')); });
+      });
+    });
   }
 
-  /* sanfona */
-  [].forEach.call(document.querySelectorAll('#smSanfona .sm-sf'), function(sf, i, todos){
-    sf.querySelector('button').addEventListener('click', function(){
-      var abre = !sf.classList.contains('aberto');
-      [].forEach.call(document.querySelectorAll('#smSanfona .sm-sf'), function(o){
-        o.classList.remove('aberto'); o.querySelector('button').setAttribute('aria-expanded', 'false');
-      });
-      if(abre){ sf.classList.add('aberto'); this.setAttribute('aria-expanded', 'true'); }
+  /* 06 cartoes: o acento desliza para o cartao sob o mouse */
+  var c3 = document.getElementById('smC3');
+  if(c3){
+    var cs = q('.c3f-c', c3);
+    var marca = function(i){ c3.style.setProperty('--i', i); cs.forEach(function(c, n){ c.classList.toggle('on', n === i); }); };
+    cs.forEach(function(c, i){ c.addEventListener('mouseenter', function(){ marca(i); }); });
+    marca(0);
+  }
+
+  /* 10 indice: losango unico segue o mouse */
+  var ix = document.getElementById('smIx');
+  if(ix){
+    var cur = ix.querySelector('.ix-cur');
+    q('a', ix).forEach(function(a){
+      a.addEventListener('mouseenter', function(){ cur.style.setProperty('--y', (a.offsetTop + a.offsetHeight/2 - 5) + 'px'); cur.style.opacity = 1; });
+    });
+    ix.addEventListener('mouseleave', function(){ cur.style.opacity = 0; });
+  }
+
+  /* 13 planta: marcador e lista acendem juntos */
+  var pl = document.getElementById('smPl'), pll = document.getElementById('smPlL');
+  if(pl && pll){
+    var todos = q('[data-p]', pl).concat(q('li', pll));
+    var acende = function(n){ todos.forEach(function(o){ o.classList.toggle('on', o.getAttribute('data-p') === n); }); };
+    todos.forEach(function(o){
+      o.addEventListener('mouseenter', function(){ acende(o.getAttribute('data-p')); });
+      o.addEventListener('focus', function(){ acende(o.getAttribute('data-p')); });
+    });
+    acende('1');
+  }
+
+  /* 28 perguntas: abre uma por vez */
+  q('#smPq .pq-i').forEach(function(it){
+    var b = it.querySelector('button');
+    b.addEventListener('click', function(){
+      var abre = !it.classList.contains('aberto');
+      q('#smPq .pq-i').forEach(function(o){ o.classList.remove('aberto'); o.querySelector('button').setAttribute('aria-expanded', 'false'); });
+      if(abre){ it.classList.add('aberto'); b.setAttribute('aria-expanded', 'true'); }
     });
   });
-
-  /* filtro: indicador desliza; a caixa do resultado tem altura fixa */
-  var filtro = document.getElementById('smFiltro'), res = document.getElementById('smFiltroRes');
-  if(filtro && res){
-    var bts = filtro.querySelectorAll('button');
-    [].forEach.call(bts, function(b, i){
-      b.addEventListener('click', function(){
-        [].forEach.call(bts, function(o){ o.setAttribute('aria-selected', o === b ? 'true' : 'false'); });
-        filtro.style.setProperty('--i', i);
-        filtro.style.setProperty('--x', i % 2);
-        filtro.style.setProperty('--y', Math.floor(i / 2));
-        [].forEach.call(res.children, function(p){ p.classList.toggle('on', p.getAttribute('data-t') === b.getAttribute('data-t')); });
-      });
-    });
-  }
-
-  /* matriz: acende linha e coluna; a linha de cima mostra a norma com a revisao */
-  var mat = document.getElementById('smMat'), info = document.getElementById('smMatInfo');
-  if(mat){
-    var limpa = function(){ [].forEach.call(mat.querySelectorAll('.acende'), function(c){ c.classList.remove('acende'); }); };
-    mat.addEventListener('mouseover', function(e){
-      var c = e.target.closest('[data-l]'); if(!c) return;
-      limpa();
-      [].forEach.call(mat.querySelectorAll('[data-l="' + c.getAttribute('data-l') + '"],[data-c="' + c.getAttribute('data-c') + '"]'), function(o){ o.classList.add('acende'); });
-      if(info) info.textContent = c.getAttribute('data-txt') || ' ';
-    });
-    mat.addEventListener('mouseleave', function(){ limpa(); if(info) info.textContent = ' '; });
-  }
-
-  /* carrossel: um losango por posicao que a fila alcanca (4 cards na tela: 3 posicoes; 1 card na tela: 6) */
-  var carro = document.getElementById('smCarro'), pontos = document.getElementById('smPontos');
-  if(carro && pontos){
-    var cards = carro.children;
-    var passo = function(){ return cards[1].offsetLeft - cards[0].offsetLeft; };
-    var marca = function(){
-      var n = Math.round(carro.scrollLeft / passo());
-      [].forEach.call(pontos.children, function(b, i){ b.setAttribute('aria-current', i === Math.min(n, pontos.children.length - 1) ? 'true' : 'false'); });
-    };
-    var monta = function(){
-      var total = Math.min(cards.length, Math.ceil((carro.scrollWidth - carro.clientWidth) / passo() - .02) + 1);
-      if(pontos.children.length === total) return marca();
-      pontos.textContent = '';
-      for(var i = 0; i < total; i++) (function(i){
-        var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Posição ' + (i + 1));
-        b.addEventListener('click', function(){ carro.scrollTo({left: i * passo(), behavior: 'smooth'}); });
-        pontos.appendChild(b);
-      })(i);
-      marca();
-    };
-    carro.addEventListener('scroll', marca, {passive:true});
-    window.addEventListener('resize', monta);
-    monta();
-  }
 })();

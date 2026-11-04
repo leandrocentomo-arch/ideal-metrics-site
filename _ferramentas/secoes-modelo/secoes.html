@@ -1,395 +1,377 @@
-<!-- 03/11/2026: 30 modelos de secao para avaliacao. O monta.py numera, poe a etiqueta da prova e o indice. -->
+<!-- 04/11/2026: 2a rodada dos 30 modelos, na linguagem das referencias do Leandro (ficha tecnica, cartao chanfrado, marcas de corte, painel chapado, isometrico). O monta.py numera e poe etiqueta e indice. -->
 
-<section class="sm-sec" data-fam="Abertura" data-nome="Tese e etapas em linha fina">
-  <p class="sm-abre">A Ideal Metrics apoia organizações na implantação do sistema de gestão da qualidade e na preparação para a certificação ISO 9001:2026.</p>
-  <p class="sm-p sm-estreito">O sistema é montado com a equipe da organização, a partir dos processos reais da operação.</p>
-  <figure class="sm-fig sm-rola" style="--min:700px">
-    <svg viewBox="0 0 900 170" role="img" aria-label="Etapas para implantação: diagnóstico, plano diretor, implantação, auditoria interna e organização pronta para a certificação">
-      <line class="ifc-linha" x1="90" y1="66" x2="810" y2="66"/>
-      {{ETAPAS}}
-    </svg>
-    <figcaption>Etapas para implantação</figcaption>
-  </figure>
-</section>
-
-<section class="sm-sec" data-fam="Abertura" data-nome="Rótulo fixo à esquerda e tese à direita">
-  <div class="sm-g">
-    <div class="c3">
-      <p class="sm-rot">[ Sistemas de gestão ]</p>
-      <ul class="sm-mono-lista">
-        <li>ISO 9001:2026</li>
-        <li>ISO 14001:2026</li>
-        <li>ISO 45001:2018 (2024)</li>
-      </ul>
+<!-- ================================= FICHAS ================================= -->
+<section class="sm-sec" data-fam="Fichas técnicas" data-nome="Ficha de catálogo da norma">
+  <div class="fc">
+    <div class="fc-abas sm-abas" id="smFc" role="tablist" aria-label="Norma" style="--n:3">
+      <i class="sm-desl"></i>
+      <button type="button" role="tab" aria-selected="false" data-t="a">ISO 9001</button>
+      <button type="button" role="tab" aria-selected="false" data-t="b">ISO 14001</button>
+      <button type="button" role="tab" aria-selected="true" data-t="c">ISO 45001</button>
     </div>
-    <div class="c9">
-      <p class="sm-abre">A implantação começa pela comparação da operação com a norma, requisito a requisito.</p>
-      <p class="sm-p sm-estreito">A equipe de consultoria implementa as metodologias necessárias, realiza as auditorias internas e os treinamentos das equipes.</p>
-      <p class="sm-p sm-estreito">A implantação é conduzida através dos processos internos da organização, que reúnem as rotinas e atividades operacionais.</p>
-    </div>
+    <div class="fc-pilha" id="smFcP">{{FICHAS}}</div>
   </div>
 </section>
 
-<section class="sm-sec sm-sangra" data-fam="Abertura" data-nome="Foto em 2/3 com passagem para o creme">
-  <div class="sm-foto23">
-    <div class="sm-foto23-txt">
-      <p class="sm-rot">[ Meio ambiente ]</p>
-      <h2>Gestão Ambiental</h2>
-      <p class="sm-sub">ISO 14001:2026</p>
-      <p class="sm-p">A Ideal Metrics apoia organizações na implantação do sistema de gestão ambiental e na preparação para a certificação.</p>
-      <a class="sm-bt" href="norma-iso-14001.html">Detalhes</a>
-    </div>
-    <div class="sm-quadro sm-foto23-img"><img src="img/ambiente-01-bayer-st.webp" data-lum="img/ambiente-01-lum-st.webp" alt="" loading="lazy"></div>
-  </div>
+<section class="sm-sec" data-fam="Fichas técnicas" data-nome="Três fichas lado a lado">
+  <div class="rt"><i class="lo"></i><span>Sistemas de gestão</span><b class="pt"></b></div>
+  <div class="f3">{{FICHAS3}}</div>
+  <p class="sm-fonte">Fontes: ISO Open Data, consulta de 17-out-2026 · ISO Survey 2025, certificados válidos em 31-dez-2025.</p>
 </section>
 
-<section class="sm-sec" data-fam="Números" data-nome="Números em cards, com fonte">
-  <h2>Certificação ISO 9001</h2>
-  <div class="sm-cards sm-c4">
-    <div class="sm-card sm-num"><b>1,6 milhão</b><span>certificados ISO 9001 válidos no mundo em 2025</span></div>
-    <div class="sm-card sm-num"><b>20,8 mil</b><span>certificados ISO 9001 válidos no Brasil em 2025</span></div>
-    <div class="sm-card sm-num"><b>16-set-2026</b><span>publicação da ISO 9001:2026</span></div>
-    <div class="sm-card sm-num"><b>6ª edição</b><span>ISO 9001:2026 substitui ISO 9001:2015</span></div>
-  </div>
-  <p class="sm-fonte">Fontes: ISO Survey 2025 (certificados válidos em 31-dez-2025) · ISO Open Data, consulta de 17-out-2026.</p>
-</section>
-
-<section class="sm-sec" data-fam="Números" data-nome="Barras finas por norma">
-  <div class="sm-g">
-    <div class="c3"><h2>Certificados por norma</h2><p class="sm-sub">Mundo, 31-dez-2025</p></div>
-    <div class="c9">
-      <div class="sm-barras">
-        {{BARRAS}}
+<section class="sm-sec" data-fam="Fichas técnicas" data-nome="Folha de serviço com painel chapado">
+  <div class="fs">
+    <div class="fs-alto">
+      <div class="fs-nav"><b>Ideal Metrics</b><span>Serviços</span><span>Normas</span><em>Implantação ISO</em></div>
+      <p class="fs-mig">Serviços &gt; Sistemas de gestão &gt; <em>Implantação ISO</em></p>
+      <h2 class="fs-t">Implantação de sistemas de gestão</h2>
+      <p class="fs-p">A Ideal Metrics implanta o sistema de gestão junto com a equipe da organização, a partir dos processos reais da operação, e deixa a empresa pronta para a certificação.</p>
+      <div class="fs-3">
+        <div><h4>Mapeamento e metodologias</h4><p>Fluxos, líderes de processos e construção de metodologias para cada rotina da operação.</p></div>
+        <div><h4>Indicadores e análise crítica</h4><p>Objetivos, metas e painel usados pela direção na análise crítica.</p></div>
+        <div><h4>Auditoria interna e treinamento</h4><p>Programa de auditoria, gestão de não conformidades e capacitação das equipes.</p></div>
       </div>
-      <p class="sm-fonte">Fonte: ISO Survey 2025. Só certificados acreditados; China via CNAS e só algumas normas.</p>
+    </div>
+    <div class="fs-pn">
+      <div class="fs-fig">{{PLANTA}}</div>
+      <div class="fs-tab">
+        <div class="l"><i>01</i><span>Diagnóstico da operação</span></div>
+        <div class="l"><i>02</i><span>Plano diretor do projeto</span></div>
+        <div class="l"><i>03</i><span>Implantação nos processos</span></div>
+        <div class="vz"></div>
+        <div class="l so"><span>Prazo definido no diagnóstico.</span></div>
+        <div class="gr">Entregas alinhadas à ISO 9001:2026, à ISO 14001:2026 e à ISO 45001:2018</div>
+        <div class="l so r"><span class="n">Ideal Metrics Ltda</span><span class="a">2026</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="sm-sec" data-fam="Números" data-nome="Posição do Brasil em escala">
-  <h2>Posição do Brasil no mundo</h2>
-  <p class="sm-sub">Certificados válidos em 31-dez-2025</p>
-  <div class="sm-pos">
-    <div class="sm-pos-esc"><span>1º</span><span>10º</span><span>20º</span><span>30º</span></div>
-    {{POSICOES}}
+<section class="sm-sec sm-sangra sm-ch" data-fam="Fichas técnicas" data-nome="Etapas em painel chapado">
+  <div class="pe">
+    <div class="pe-v">Etapas para implantação</div>
+    <div class="pe-l">
+      <a class="pe-i"><i>01</i><b>Diagnóstico</b><span>Operação comparada à norma, requisito a requisito</span></a>
+      <a class="pe-i"><i>02</i><b>Plano diretor</b><span>Prazo, líderes de processos e capacitação</span></a>
+      <a class="pe-i"><i>03</i><b>Implantação</b><span>Processos, indicadores e procedimentos</span></a>
+      <a class="pe-i"><i>04</i><b>Auditoria interna</b><span>Apontamentos e análise crítica pela direção</span></a>
+      <a class="pe-i"><i>05</i><b>Empresa pronta</b><span>Sistema de gestão pronto para a certificação</span></a>
+    </div>
   </div>
-  <p class="sm-fonte">Fonte: ISO Survey 2025. Só certificados acreditados.</p>
 </section>
 
-<section class="sm-sec" data-fam="Números" data-nome="Linha do tempo de transição">
-  <h2>Transição para ISO 9001:2026</h2>
-  <div class="sm-tempo">
-    <div class="sm-tempo-it on"><time>16-set-2026</time><b>Publicação ISO</b><span>ISO 9001:2026, 6ª edição</span></div>
-    <div class="sm-tempo-it on"><time>13-out-2026</time><b>Adoção ABNT</b><span>ABNT NBR ISO 9001:2026</span></div>
-    <div class="sm-tempo-it"><time>31-mar-2027</time><b>Acreditadores</b><span>prontos para avaliar na edição nova</span></div>
-    <div class="sm-tempo-it"><time>30-set-2027</time><b>Parecer da Dicor</b><span>declaração dos organismos no Brasil</span></div>
-    <div class="sm-tempo-it fim"><time>30-set-2029</time><b>Fim da transição</b><span>edição anterior deixa de valer</span></div>
-  </div>
-  <p class="sm-fonte">Fontes: iso.org · ABNT Catálogo · Global ACI-TECH-3-TR · Ofício Circular nº 18/2026/Dicor/Cgcre-Inmetro, conferidos em 02-nov-2026.</p>
-</section>
-
-<section class="sm-sec" data-fam="Tabelas" data-nome="Comparação de edições e prazos">
-  <h2>Edições novas e prazos</h2>
-  <div class="sm-tab-rolo">
-    <table class="sm-tab">
-      <thead><tr><th>Norma</th><th>Publicação ISO</th><th>Adoção ABNT</th><th>Substitui</th><th>Fim da transição</th></tr></thead>
-      <tbody>
-        <tr><td class="n">ISO 9001:2026</td><td data-th="Publicação ISO">16-set-2026</td><td data-th="Adoção ABNT">13-out-2026</td><td data-th="Substitui">ISO 9001:2015</td><td data-th="Fim da transição">30-set-2029</td></tr>
-        <tr><td class="n">ISO 14001:2026</td><td data-th="Publicação ISO">15-abr-2026</td><td data-th="Adoção ABNT">08-jul-2026</td><td data-th="Substitui">ISO 14001:2015</td><td data-th="Fim da transição">30-abr-2029</td></tr>
-      </tbody>
-    </table>
+<section class="sm-sec" data-fam="Fichas técnicas" data-nome="Edições e prazos em folha técnica">
+  <div class="rt"><i class="lo"></i><span>Edições novas e prazos</span><b class="pt"></b></div>
+  <div class="ft">
+    <div class="ft-c"><span>Norma</span><span>Publicação ISO</span><span>Adoção ABNT</span><span>Substitui</span><span class="ac">Fim da transição</span></div>
+    <div class="ft-l"><b>ISO 9001:2026</b><span data-th="Publicação ISO">16-set-2026</span><span data-th="Adoção ABNT">13-out-2026</span><span data-th="Substitui">ISO 9001:2015</span><span data-th="Fim da transição" class="ac">30-set-2029</span></div>
+    <div class="ft-l"><b>ISO 14001:2026</b><span data-th="Publicação ISO">15-abr-2026</span><span data-th="Adoção ABNT">08-jul-2026</span><span data-th="Substitui">ISO 14001:2015</span><span data-th="Fim da transição" class="ac">30-abr-2029</span></div>
   </div>
   <p class="sm-fonte">Fontes: iso.org · ABNT Catálogo · Global ACI, conferidos em 02-nov-2026.</p>
 </section>
 
-<section class="sm-sec" data-fam="Tabelas" data-nome="Ferramenta e o que a organização recebe">
-  <h2>Serviços dentro do sistema</h2>
-  <p class="sm-sub">Implantação ISO 9001:2026</p>
-  <div class="sm-tab-rolo">
-    <table class="sm-tab">
-      <thead><tr><th>Nº</th><th>Ferramenta</th><th>Organização recebe</th></tr></thead>
-      <tbody>
-        <tr><td class="n">01</td><td data-th="Ferramenta"><b>Mapeamento de processos</b></td><td data-th="Organização recebe">Fluxos, líderes de processos e interfaces da operação</td></tr>
-        <tr><td class="n">02</td><td data-th="Ferramenta"><b>Objetivos e indicadores</b></td><td data-th="Organização recebe">Metas, painel e análise crítica pela direção</td></tr>
-        <tr><td class="n">03</td><td data-th="Ferramenta"><b>Construção de metodologias</b></td><td data-th="Organização recebe">Ferramentas da qualidade e procedimentos</td></tr>
-        <tr><td class="n">04</td><td data-th="Ferramenta"><b>Controle de fornecedores</b></td><td data-th="Organização recebe">Seleção, avaliação e monitoramento</td></tr>
-        <tr><td class="n">05</td><td data-th="Ferramenta"><b>Gestão de não conformidades</b></td><td data-th="Organização recebe">Registro, causa, ação corretiva e eficácia</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section class="sm-sec" data-fam="Tabelas" data-nome="Mesmo capítulo em três normas">
-  <h2>Estrutura comum por capítulo</h2>
-  <div class="sm-tab-rolo">
-    <table class="sm-tab sm-tab-larga">
-      <thead><tr><th>Capítulo</th><th>ISO 9001:2026</th><th>ISO 14001:2026</th><th>ISO 45001:2018 (2024)</th></tr></thead>
-      <tbody>
-        <tr><td class="n">Planejamento</td><td data-th="ISO 9001:2026">Riscos e oportunidades</td><td data-th="ISO 14001:2026">Aspectos ambientais e requisitos legais</td><td data-th="ISO 45001:2018 (2024)">Perigos e avaliação de riscos</td></tr>
-        <tr><td class="n">Operação</td><td data-th="ISO 9001:2026">Produção e fornecimento</td><td data-th="ISO 14001:2026">Controle operacional e emergências</td><td data-th="ISO 45001:2018 (2024)">Hierarquia de controles e emergências</td></tr>
-        <tr><td class="n">Avaliação</td><td data-th="ISO 9001:2026">Auditoria interna e análise crítica</td><td data-th="ISO 14001:2026">Auditoria interna e análise crítica</td><td data-th="ISO 45001:2018 (2024)">Auditoria interna e análise crítica</td></tr>
-        <tr><td class="n">Melhoria</td><td data-th="ISO 9001:2026">Não conformidade e ação corretiva</td><td data-th="ISO 14001:2026">Não conformidade e ação corretiva</td><td data-th="ISO 45001:2018 (2024)">Incidente, não conformidade e ação corretiva</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section class="sm-sec" data-fam="Tabelas" data-nome="Matriz setor e norma">
-  <h2>Normas por setor</h2>
-  <p class="sm-info" id="smMatInfo" aria-live="polite">&nbsp;</p>
-  <div class="sm-tab-rolo">
-    <div class="sm-mat" id="smMat">{{MATRIZ}}</div>
-  </div>
-</section>
-
-<section class="sm-sec" data-fam="Tabelas" data-nome="Ficha técnica da norma">
-  <div class="sm-g">
-    <div class="c4">
-      <h2>ISO 9001:2026</h2>
-      <p class="sm-sub">Sistemas de gestão da qualidade: requisitos</p>
-    </div>
-    <div class="c8">
-      <dl class="sm-ficha">
-        <div><dt>Edição</dt><dd>6ª, 36 páginas</dd></div>
-        <div><dt>Publicação ISO</dt><dd>16-set-2026</dd></div>
-        <div><dt>Substitui</dt><dd>ISO 9001:2015, com Emenda 1:2024</dd></div>
-        <div><dt>Adoção no Brasil</dt><dd>ABNT NBR ISO 9001:2026, 13-out-2026</dd></div>
-        <div><dt>Comitê ABNT</dt><dd>ABNT/CB-025 Qualidade</dd></div>
-        <div><dt>Fim da transição</dt><dd>30-set-2029</dd></div>
-      </dl>
-      <p class="sm-fonte">Fontes: iso.org · ABNT Catálogo · Global ACI, conferidos em 02-nov-2026.</p>
+<!-- ================================= CHANFRO ================================= -->
+<section class="sm-sec sm-sangra sm-esc" data-fam="Cartões chanfrados" data-nome="Três cartões com figura em marcas de corte">
+  <div class="sm-esc-in">
+    <div class="rt rt-cl"><i class="lo"></i><span>Serviços</span><b class="pt"></b></div>
+    <div class="c3f" id="smC3">
+      <i class="c3f-cur" aria-hidden="true"></i>
+      <article class="c3f-c"><div class="c3f-a"><h3>Implantação</h3><i>001</i></div>
+        <div class="cm pts"><svg viewBox="0 0 200 200" class="fg" aria-hidden="true"><path d="M100 22 18 172h164zM100 22v130M18 172l82-20 82 20M18 172l82-44 82 44M18 172l82-68 82 68M18 172l82-92 82 92"/></svg></div>
+        <div class="c3f-b"><p>Processos, indicadores e procedimentos, com a empresa pronta para a certificação</p><span class="tr" aria-hidden="true"></span></div></article>
+      <article class="c3f-c"><div class="c3f-a"><h3>Auditoria interna</h3><i>002</i></div>
+        <div class="cm pts"><svg viewBox="0 0 200 200" class="fg" aria-hidden="true"><circle cx="100" cy="100" r="78"/><circle cx="100" cy="116" r="62"/><circle cx="100" cy="132" r="46"/><circle cx="100" cy="148" r="30"/><path d="M95 38h10M95 70h10M100 65v10M95 100h10M95 148h10M100 143v10"/></svg></div>
+        <div class="c3f-b"><p>Programa de auditoria, auditores internos e relatório de apontamentos</p><span class="tr" aria-hidden="true"></span></div></article>
+      <article class="c3f-c"><div class="c3f-a"><h3>Treinamento</h3><i>003</i></div>
+        <div class="cm pts"><svg viewBox="0 0 200 200" class="fg" aria-hidden="true"><defs><pattern id="smHach" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)"><line x1="0" y1="0" x2="6" y2="0" stroke="currentColor" stroke-width=".9"/></pattern><clipPath id="smV1"><circle cx="100" cy="74" r="50"/></clipPath><clipPath id="smV2"><circle cx="72" cy="124" r="50"/></clipPath></defs><circle cx="100" cy="74" r="50"/><circle cx="72" cy="124" r="50"/><circle cx="128" cy="124" r="50"/><g clip-path="url(#smV1)"><g clip-path="url(#smV2)"><circle cx="128" cy="124" r="50" fill="url(#smHach)"/></g></g></svg></div>
+        <div class="c3f-b"><p>Líderes de processos, auditores internos e equipes da operação</p><span class="tr" aria-hidden="true"></span></div></article>
     </div>
   </div>
 </section>
 
-<section class="sm-sec" data-fam="Diagramas" data-nome="Ciclo animado">
-  <h2>Ciclo do sistema de gestão</h2>
-  <p class="sm-sub">ISO 45001:2018 (2024)</p>
-  <figure class="sm-fig sm-rola" style="--min:640px">{{PDCA}}</figure>
+<section class="sm-sec" data-fam="Cartões chanfrados" data-nome="Calendário de transição com marcadores">
+  <div class="cal chf">
+    {{CAL}}
+    <div class="cal-p"><b>Transição</b><i class="pt"></i><span><i class="lo"></i>Publicação ISO</span><span><i class="lo ch"></i>Fim da transição</span></div>
+  </div>
+  <p class="sm-fonte">Fontes: iso.org · ABNT Catálogo · Global ACI, conferidos em 02-nov-2026.</p>
 </section>
 
-<section class="sm-sec" data-fam="Diagramas" data-nome="Hierarquia em degraus">
-  <div class="sm-g">
-    <div class="c4">
-      <h2>Hierarquia de controles</h2>
-      <p class="sm-sub">ISO 45001:2018 (2024), item 8.1.2</p>
-    </div>
-    <div class="c8">
-      <ol class="sm-degraus">
-        <li style="--l:100%"><span>01</span><b>Eliminação</b></li>
-        <li style="--l:84%"><span>02</span><b>Substituição</b></li>
-        <li style="--l:68%"><span>03</span><b>Controles de engenharia</b></li>
-        <li style="--l:52%"><span>04</span><b>Controles administrativos</b></li>
-        <li style="--l:36%"><span>05</span><b>EPI</b></li>
-      </ol>
+<section class="sm-sec" data-fam="Cartões chanfrados" data-nome="Título grande em serifa sobre painel">
+  <div class="tg chf">
+    <div class="rt"><i class="lo"></i><span>Integração</span><b class="pt"></b></div>
+    <span class="tk" aria-hidden="true"></span>
+    <h2 class="tg-t">Sistema de gestão integrado</h2>
+    <div class="tg-b">
+      <p>A ISO 9001, a ISO 14001 e a ISO 45001 têm a mesma estrutura. Política, riscos, auditoria interna e análise crítica podem ser um processo só.</p>
+      <ul><li>ISO 9001:2026</li><li>ISO 14001:2026</li><li>ISO 45001:2018 (2024)</li></ul>
     </div>
   </div>
 </section>
 
-<section class="sm-sec" data-fam="Diagramas" data-nome="Núcleo comum e frentes por norma">
-  <h2>Sistema integrado</h2>
-  <div class="sm-nucleo">
-    <div class="sm-nuc-col"><p class="sm-rot">ISO 9001:2026</p><ul class="sm-los"><li>Processos</li><li>Satisfação do cliente</li><li>Fornecedores</li></ul></div>
-    <div class="sm-nuc-col"><p class="sm-rot">ISO 14001:2026</p><ul class="sm-los"><li>Aspectos ambientais</li><li>Requisitos legais</li><li>Emergências</li></ul></div>
-    <div class="sm-nuc-col"><p class="sm-rot">ISO 45001:2018 (2024)</p><ul class="sm-los"><li>Perigos e riscos</li><li>Hierarquia de controles</li><li>Consulta aos trabalhadores</li></ul></div>
-    <div class="sm-nuc-base">
-      <p class="sm-rot">Processos comuns</p>
-      <div class="sm-nuc-itens"><span>Política</span><span>Riscos</span><span>Auditoria interna</span><span>Análise crítica</span></div>
-    </div>
+<section class="sm-sec" data-fam="Cartões chanfrados" data-nome="Modelo de trabalho em quatro cartões">
+  <div class="rt"><i class="lo"></i><span>Como trabalhamos</span><b class="pt"></b></div>
+  <div class="c4">
+    <article><div class="c4-a"><h3>Homens/dia</h3><i>001</i></div><div class="cm pts c4-f"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 20V10h5v10M10 20V4h5v16M16 20v-7h4v7M3 20h18"/></svg></div><p>Consultoria dimensionada em homens/dia.</p></article>
+    <article><div class="c4-a"><h3>Prazo</h3><i>002</i></div><div class="cm pts c4-f"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 12h16M4 8v8M20 8v8M9 12V9M14 12V9"/></svg></div><p>Prazo definido no diagnóstico, conforme escopo e maturidade.</p></article>
+    <article><div class="c4-a"><h3>Visitas</h3><i>003</i></div><div class="cm pts c4-f"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M9 3v4M15 3v4"/><path class="ch" d="M8 13h3v3H8zM14 13h3v3h-3z"/></svg></div><p>Visitas mensais definidas no plano diretor.</p></article>
+    <article><div class="c4-a"><h3>Reuniões</h3><i>004</i></div><div class="cm pts c4-f"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 5h16v11H4zM9 20h6M12 16v4M8 9h8M8 12h5"/></svg></div><p>Reuniões de acompanhamento online.</p></article>
   </div>
 </section>
 
-<section class="sm-sec" data-fam="Diagramas" data-nome="Elementos de um processo">
-  <h2>Elementos de um único processo</h2>
-  <p class="sm-sub">Figura 1 da ISO 9001:2026</p>
-  <figure class="sm-fig sm-rola" style="--min:700px">
-    {{PROCESSO}}
-  </figure>
-</section>
-
-<section class="sm-sec" data-fam="Cards e listas" data-nome="Cards de modelo de trabalho">
-  <h2>Como trabalhamos</h2>
-  <div class="sm-cards sm-c4">
-    <div class="sm-card"><span class="sm-rot">Contratação</span><h4>Homens/dia</h4><p>Consultoria dimensionada em homens/dia.</p></div>
-    <div class="sm-card"><span class="sm-rot">Prazo</span><h4>Diagnóstico</h4><p>Prazo definido no diagnóstico, conforme escopo e maturidade.</p></div>
-    <div class="sm-card"><span class="sm-rot">Visitas</span><h4>Plano diretor</h4><p>Visitas mensais definidas no plano diretor.</p></div>
-    <div class="sm-card"><span class="sm-rot">Reuniões</span><h4>Online</h4><p>Reuniões de acompanhamento online.</p></div>
-  </div>
-  <p class="sm-p sm-mais"><a href="como-trabalhamos.html">Detalhes em Como trabalhamos</a></p>
-</section>
-
-<section class="sm-sec" data-fam="Cards e listas" data-nome="Diferenciais e equipe em losangos">
-  <div class="sm-g">
-    <div class="c6">
-      <h2>Por que a Ideal Metrics</h2>
-      <ul class="sm-los sm-los-g">
-        <li>Consultores: formação internacional de Auditor Líder (Lead Auditor) em ISO 9001.</li>
-        <li>Processos antes de documentos: o sistema nasce da operação.</li>
-        <li>Indicadores que a direção usa: a análise crítica decide com número.</li>
-        <li>Equipe em atuação desde 1998.</li>
-      </ul>
-    </div>
-    <div class="c6">
-      <h2>Equipe</h2>
-      <ul class="sm-los sm-los-g">
-        <li>Lead Auditor.</li>
-        <li>Engenheiros de SST.</li>
-        <li>Especialistas por tema.</li>
-        <li>Técnicos de inspeção.</li>
-        <li>Associados por norma e setor.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="sm-sec" data-fam="Cards e listas" data-nome="Sanfona numerada">
-  <h2>Serviços que prestamos, por tema</h2>
-  <div class="sm-sanfona" id="smSanfona">
-    <div class="sm-sf aberto"><button type="button" aria-expanded="true"><span class="sm-sf-n">01</span><span class="sm-sf-t">Sistemas de gestão</span><i></i></button>
-      <div class="sm-sf-p"><div><ul class="sm-mono-lista sm-2c"><li>ISO 9001:2026</li><li>ISO 14001:2026</li><li>ISO 45001:2018 (2024)</li><li>ISO 39001:2015</li></ul></div></div></div>
-    <div class="sm-sf"><button type="button" aria-expanded="false"><span class="sm-sf-n">02</span><span class="sm-sf-t">Compliance e informação</span><i></i></button>
-      <div class="sm-sf-p"><div><ul class="sm-mono-lista sm-2c"><li>ISO 37301:2021</li><li>ISO 37001:2025</li><li>ISO/IEC 27001:2022</li></ul></div></div></div>
-    <div class="sm-sf"><button type="button" aria-expanded="false"><span class="sm-sf-n">03</span><span class="sm-sf-t">Alimentos e facilities</span><i></i></button>
-      <div class="sm-sf-p"><div><ul class="sm-mono-lista sm-2c"><li>ISO 22000:2019</li><li>ISO 41001:2020</li></ul></div></div></div>
-    <div class="sm-sf"><button type="button" aria-expanded="false"><span class="sm-sf-n">04</span><span class="sm-sf-t">Auditoria interna</span><i></i></button>
-      <div class="sm-sf-p"><div><ul class="sm-mono-lista sm-2c"><li>Programa de auditoria</li><li>Auditoria em fornecedores</li><li>ISO 19011:2026</li></ul></div></div></div>
-  </div>
-</section>
-
-<section class="sm-sec" data-fam="Cards e listas" data-nome="Índice tipográfico de normas">
-  <h2>Normas atendidas</h2>
-  <nav class="sm-indice" aria-label="Normas atendidas">
-    <a href="norma-iso-9001.html"><b>ISO 9001:2026</b><span>Qualidade</span></a>
-    <a href="norma-iso-14001.html"><b>ISO 14001:2026</b><span>Meio ambiente</span></a>
-    <a href="norma-iso-45001.html"><b>ISO 45001:2018 (2024)</b><span>Saúde e segurança</span></a>
-    <a href="seguranca-viaria.html"><b>ISO 39001:2015</b><span>Segurança viária</span></a>
-    <a href="norma-iso-27001.html"><b>ISO/IEC 27001:2022</b><span>Segurança da informação</span></a>
+<section class="sm-sec" data-fam="Cartões chanfrados" data-nome="Índice de normas com linha pontilhada">
+  <div class="rt"><i class="lo"></i><span>Normas atendidas</span><b class="pt"></b></div>
+  <nav class="ix" id="smIx" aria-label="Normas atendidas">
+    <i class="ix-cur" aria-hidden="true"></i>
+    <a href="norma-iso-9001.html"><b>ISO 9001:2026</b><i class="pt"></i><span>Qualidade</span></a>
+    <a href="norma-iso-14001.html"><b>NBR ISO 14001:2026</b><i class="pt"></i><span>Meio ambiente</span></a>
+    <a href="norma-iso-45001.html"><b>NBR ISO 45001:2018 (2024)</b><i class="pt"></i><span>Saúde e segurança do trabalho</span></a>
+    <a href="seguranca-viaria.html"><b>NBR ISO 39001:2015</b><i class="pt"></i><span>Segurança viária</span></a>
+    <a href="norma-iso-27001.html"><b>NBR ISO/IEC 27001:2022</b><i class="pt"></i><span>Segurança da informação</span></a>
+    <a href="norma-iso-37301.html"><b>NBR ISO 37301:2021</b><i class="pt"></i><span>Compliance</span></a>
+    <a href="norma-iso-37001.html"><b>NBR ISO 37001:2025</b><i class="pt"></i><span>Antissuborno</span></a>
+    <a href="norma-iso-41001.html"><b>NBR ISO 41001:2020</b><i class="pt"></i><span>Facilities</span></a>
+    <a href="norma-iso-22000.html"><b>NBR ISO 22000:2019</b><i class="pt"></i><span>Segurança de alimentos</span></a>
   </nav>
 </section>
 
-<section class="sm-sec" data-fam="Cards e listas" data-nome="Filtro com botão deslizante">
-  <h2>Normas por tema</h2>
-  <div class="sm-filtro" id="smFiltro" role="tablist" aria-label="Temas">
-    <span class="sm-filtro-ind" aria-hidden="true"></span>
-    <button type="button" role="tab" aria-selected="true" data-t="gestao">Sistemas de gestão</button>
-    <button type="button" role="tab" aria-selected="false" data-t="compliance">Compliance</button>
-    <button type="button" role="tab" aria-selected="false" data-t="setor">Normas setoriais</button>
-    <button type="button" role="tab" aria-selected="false" data-t="carbono">Carbono</button>
-  </div>
-  <div class="sm-filtro-res" id="smFiltroRes">
-    <div data-t="gestao" class="on"><span>ISO 9001:2026</span><span>ISO 14001:2026</span><span>ISO 45001:2018 (2024)</span><span>ISO 39001:2015</span></div>
-    <div data-t="compliance"><span>ISO 37301:2021</span><span>ISO 37001:2025</span><span>ISO/IEC 27001:2022</span></div>
-    <div data-t="setor"><span>ISO 22000:2019</span><span>ISO 41001:2020</span></div>
-    <div data-t="carbono"><span>ISO 14064-1:2022</span><span>ISO 14067:2023</span><span>ISO 14068:2026</span></div>
+<!-- ================================= ISOMETRICOS ================================= -->
+<section class="sm-sec sm-cinza" data-fam="Isométricos" data-nome="Pilha de camadas">
+  <div class="iso2">
+    <div>
+      <p class="gg">ISO 45001</p>
+      <div class="iso2-t"><span class="ic-g" aria-hidden="true"><i></i><i></i><i></i></span><div><h2>Hierarquia de controles</h2><p>ISO 45001:2018 (2024), item 8.1.2</p></div></div>
+      <ol class="nl">
+        <li><span class="ib"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg></span><b>01<i></i></b><div><h4>Eliminação</h4><p>Eliminar o perigo.</p></div></li>
+        <li><span class="ib"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg></span><b>02<i></i></b><div><h4>Substituição</h4><p>Processos, materiais ou equipamentos menos perigosos.</p></div></li>
+        <li><span class="ib"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 5v14M19 5v14M5 12h14"/></svg></span><b>03<i></i></b><div><h4>Controles de engenharia</h4><p>Controles de engenharia e reorganização do trabalho.</p></div></li>
+        <li><span class="ib"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 4h14v16H5zM9 9h6M9 13h6"/></svg></span><b>04<i></i></b><div><h4>Controles administrativos</h4><p>Procedimentos e treinamento.</p></div></li>
+        <li><span class="ib"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 4 20 12 12 20 4 12z"/></svg></span><b>05<i></i></b><div><h4>EPI</h4><p>Equipamentos de proteção individual adequados.</p></div></li>
+      </ol>
+    </div>
+    <div class="iso2-f">{{PILHA}}</div>
   </div>
 </section>
 
-<section class="sm-sec" data-fam="Cards e listas" data-nome="Coluna fixa e etapas rolando">
-  <div class="sm-g">
-    <div class="c4 sm-fixo">
-      <p class="sm-rot">[ Implantação ]</p>
-      <h2>Etapas</h2>
-      <p class="sm-sub">ISO 9001:2026</p>
+<section class="sm-sec sm-cinza" data-fam="Isométricos" data-nome="Escada das etapas">
+  <div class="iso2 iso2-r">
+    <div>
+      <div class="iso2-t"><div><h2>Etapas para implantação</h2><p>Sequência do projeto, por norma</p></div></div>
+      <ol class="sq">
+        <li><span class="ibc"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16M14 4v16"/></svg></span><div><h4>Diagnóstico</h4><p>Operação comparada à norma.</p></div></li>
+        <li><span class="ibc"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 6h8v3H4zM9 11h8v3H9zM13 16h7v3h-7z"/></svg></span><div><h4>Plano diretor</h4><p>Prazo, líderes de processos e capacitação.</p></div></li>
+        <li><span class="ibc"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h6v6H4zM14 4h6v6h-6zM14 14h6v6h-6zM10 12h2M12 7v10M12 7h2M12 17h2"/></svg></span><div><h4>Implantação</h4><p>Processos, indicadores e procedimentos.</p></div></li>
+        <li><span class="ibc"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 4h14v16H5zM8 9l2 2 3-3M8 15l2 2 3-3"/></svg></span><div><h4>Auditoria interna</h4><p>Apontamentos e análise crítica pela direção.</p></div></li>
+        <li><span class="ibc"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 3 21 12 12 21 3 12zM12 8l4 4-4 4-4-4z"/></svg></span><div><h4>Empresa pronta</h4><p>Sistema de gestão pronto para a certificação.</p></div></li>
+      </ol>
     </div>
-    <div class="c8">
-      <ol class="sm-etapas">
-        <li><span>01</span><div><h4>Diagnóstico</h4><p>Operação comparada à norma, requisito a requisito.</p></div></li>
-        <li><span>02</span><div><h4>Plano diretor</h4><p>Prazo, líderes de processos e capacitação.</p></div></li>
-        <li><span>03</span><div><h4>Implantação</h4><p>Processos, indicadores e procedimentos internos.</p></div></li>
-        <li><span>04</span><div><h4>Auditoria interna</h4><p>Auditoria interna e análise crítica pela direção.</p></div></li>
-        <li><span>05</span><div><h4>Organização pronta</h4><p>Preparação para a certificação ISO 9001:2026.</p></div></li>
+    <div class="iso2-f">{{ESCADA}}</div>
+  </div>
+</section>
+
+<section class="sm-sec" data-fam="Isométricos" data-nome="Planta em linha fina com chamadas">
+  <div class="rt"><i class="lo"></i><span>ISO 14001:2026, aspectos ambientais</span><b class="pt"></b></div>
+  <div class="pl">
+    <div class="cm pts pl-f2" id="smPl">{{PLANTA_M}}</div>
+    <ol class="pl-l" id="smPlL">
+      <li data-p="1"><i>1</i><div><h4>Emissões atmosféricas</h4><p>Fontes fixas, monitoramento e limites legais.</p></div></li>
+      <li data-p="2"><i>2</i><div><h4>Produtos químicos</h4><p>Armazenamento, contenção e resposta a emergências.</p></div></li>
+      <li data-p="3"><i>3</i><div><h4>Energia</h4><p>Consumo por processo e indicadores.</p></div></li>
+      <li data-p="4"><i>4</i><div><h4>Efluentes</h4><p>Coleta, tratamento e destinação.</p></div></li>
+      <li data-p="5"><i>5</i><div><h4>Resíduos</h4><p>Segregação, armazenamento e destinação.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sm-sec" data-fam="Isométricos" data-nome="Blocos do sistema integrado">
+  <div class="iso2 iso2-m">
+    <div class="iso2-f">{{INTEGRADO}}</div>
+    <div>
+      <div class="rt"><i class="lo"></i><span>Sistema de gestão integrado</span><b class="pt"></b></div>
+      <h2 class="h-g">Núcleo comum e frentes por norma</h2>
+      <dl class="dl">
+        <div><dt>Estrutura comum</dt><dd>Contexto, liderança, planejamento, apoio, operação, avaliação de desempenho e melhoria.</dd></div>
+        <div><dt>ISO 9001:2026</dt><dd>Clientes, produtos e serviços.</dd></div>
+        <div><dt>ISO 14001:2026</dt><dd>Aspectos ambientais e ciclo de vida.</dd></div>
+        <div><dt>ISO 45001:2018 (2024)</dt><dd>Perigos, hierarquia de controles e consulta aos trabalhadores.</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="sm-sec sm-ar" data-fam="Isométricos" data-nome="Matriz setor e norma em relevo">
+  <div class="rt"><i class="lo"></i><span>Normas e padrões por setor</span><b class="pt"></b><span class="rt-d"><i class="lo ch"></i>Destaque do setor</span><span class="rt-d"><i class="lo"></i>Vale para qualquer setor</span></div>
+  <div class="sm-rola" style="--min:760px">{{RELEVO}}</div>
+</section>
+
+<!-- ================================= NUMEROS E LISTAS ================================= -->
+<section class="sm-sec" data-fam="Números e listas" data-nome="Cartaz com a norma em corpo grande">
+  <div class="cz">
+    <div class="cz-top"><p class="cz-c">Gestão ambiental<br>Ciclo de vida</p><p class="cz-d">Etapas sobre as quais a organização avalia os aspectos ambientais, com o controle e a influência que tem em cada uma.</p></div>
+    <p class="gg gg-x">ISO 14001</p>
+    <div class="cz-v" aria-hidden="true"><span>ISO 14001:2026<br>Definição 3.3.3</span></div>
+    <ol class="cz-l">
+      <li><i>01</i>Matéria-prima</li><li><i>02</i>Projeto</li><li><i>03</i>Produção</li><li><i>04</i>Transporte e entrega</li><li><i>05</i>Uso</li><li><i>06</i>Pós-uso</li><li><i>07</i>Disposição final</li>
+    </ol>
+  </div>
+</section>
+
+<section class="sm-sec" data-fam="Números e listas" data-nome="Certificados em números condensados">
+  <div class="rt"><i class="lo"></i><span>Certificados válidos no mundo</span><b class="pt"></b><span class="rt-d">Brasil</span></div>
+  <div class="nu">{{NUMEROS}}</div>
+  <p class="sm-fonte">Fonte: ISO Survey 2025, certificados válidos em 31-dez-2025 · edição contada no levantamento.</p>
+</section>
+
+<section class="sm-sec sm-cinza" data-fam="Números e listas" data-nome="Lista numerada com ícone em caixa">
+  <div class="ln">
+    <div class="ln-a"><p class="gg gg-m">1998</p><p class="ln-s">Equipe em atuação desde 1998</p><span class="ac-q" aria-hidden="true"></span></div>
+    <div>
+      <h2 class="h-g">Por que a Ideal Metrics</h2>
+      <ol class="nl nl-g">
+        <li><span class="ib"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 9h6v6H4zM14 4h6v6h-6zM14 14h6v6h-6zM10 12h4"/></svg></span><b>01<i></i></b><div><h4>Processos antes de documentos</h4><p>O sistema de gestão nasce da operação.</p></div></li>
+        <li><span class="ib"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-3"/></svg></span><b>02<i></i></b><div><h4>Indicadores da direção</h4><p>A análise crítica decide com número.</p></div></li>
+        <li><span class="ib"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M5 4h14v16H5zM8 9l2 2 3-3M8 15h8"/></svg></span><b>03<i></i></b><div><h4>Formação de Auditor Líder</h4><p>ISO 9001, ISO 14001, ISO 45001 e ISO 39001.</p></div></li>
+        <li><span class="ib"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6z"/></svg></span><b>04<i></i></b><div><h4>Engenheiros de SST</h4><p>Profissionais qualificados e experientes.</p></div></li>
       </ol>
     </div>
   </div>
 </section>
 
-<section class="sm-sec" data-fam="Cards e listas" data-nome="Ícones geométricos">
-  <h2>Entregas da implantação</h2>
-  <div class="sm-icones">
-    <div><svg viewBox="0 0 24 24"><rect x="4" y="5" width="3" height="3"/><rect x="4" y="10.5" width="3" height="3"/><rect x="4" y="16" width="3" height="3"/><path d="M10 6.5h10M10 12h10M10 17.5h10"/></svg><b>Procedimentos internos</b></div>
-    <div><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><path d="M4 10h16M4 16h16M10 4v16"/></svg><b>Painel de indicadores</b></div>
-    <div><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><rect x="10.5" y="10.5" width="3" height="3"/><path d="M4 12h4M16 12h4M12 4v4M12 16v4"/></svg><b>Auditorias internas</b></div>
-    <div><svg viewBox="0 0 24 24"><rect x="3" y="8" width="7" height="8"/><rect x="14" y="8" width="7" height="8"/><path d="M10 12h4"/></svg><b>Treinamentos das equipes</b></div>
-    <div><svg viewBox="0 0 24 24"><polygon points="12 4 20 12 12 20 4 12"/><path d="M8 12h8"/></svg><b>Análise crítica</b></div>
-    <div><svg viewBox="0 0 24 24"><rect x="4" y="9" width="11" height="11"/><rect x="9" y="4" width="11" height="11"/></svg><b>Relatórios e painéis</b></div>
+<section class="sm-sec" data-fam="Números e listas" data-nome="Notas com rótulo na borda">
+  <div class="nt2">
+    <fieldset class="nb"><legend>Leitura do ISO Survey</legend><p>O levantamento conta certificados em vigor em 31-dez-2025, emitidos em qualquer ano, por certificadoras acreditadas.</p><strong>ISO Survey 2025</strong><a class="qd" href="painel-normas.html" aria-label="Painel de normas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></fieldset>
+    <fieldset class="nb"><legend>Exigência da ISO 9001</legend><p>A certificação é exigida por contrato: editais, grandes compradores e cadeias de fornecimento.</p><strong>Exigência contratual</strong><a class="qd" href="norma-iso-9001.html" aria-label="Página da ISO 9001"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></fieldset>
   </div>
 </section>
 
-<section class="sm-sec" data-fam="Fotos" data-nome="Três fotos com legenda">
-  <h2>Aplicação</h2>
-  <p class="sm-sub">Qualquer organização, independentemente do tipo, do porte ou dos produtos e serviços que fornece (item 1 da ISO 9001:2026).</p>
-  <div class="sm-fotos3">
-    <figure><div class="sm-quadro"><img src="img/industria-01-bayer-st.webp" data-lum="img/industria-01-lum-st.webp" alt="" loading="lazy"></div><figcaption>Indústria</figcaption></figure>
-    <figure><div class="sm-quadro"><img src="img/qualidade-02-bayer-st.webp" data-lum="img/qualidade-02-lum-st.webp" alt="" loading="lazy"></div><figcaption>Serviços</figcaption></figure>
-    <figure><div class="sm-quadro"><img src="img/qualidade-04-bayer-st.webp" data-lum="img/qualidade-04-lum-st.webp" alt="" loading="lazy"></div><figcaption>Comércio</figcaption></figure>
-  </div>
+<section class="sm-sec" data-fam="Números e listas" data-nome="Escala de posição do Brasil">
+  <div class="rt"><i class="lo"></i><span>Posição do Brasil em certificados</span><b class="pt"></b></div>
+  <div class="ep">{{ESCALA}}</div>
+  <p class="sm-fonte">Fonte: ISO Survey 2025 · posição entre os países com certificados válidos em 31-dez-2025.</p>
 </section>
 
-<section class="sm-sec sm-sangra" data-fam="Fotos" data-nome="Foto larga com caixa de vidro">
-  <div class="sm-largo">
-    <div class="sm-quadro sm-largo-img"><img src="img/facilities-03-bayer-st.webp" data-lum="img/facilities-03-lum-st.webp" alt="" loading="lazy"></div>
-    <div class="sm-vidro">
-      <p class="sm-rot">[ Facilities ]</p>
-      <h2>Gestão de Facilities</h2>
-      <p class="sm-sub">ISO 41001:2020</p>
-      <ul class="sm-los"><li>Implantação do sistema</li><li>Auditoria interna</li><li>Preparação para a certificação</li></ul>
-    </div>
-  </div>
-</section>
-
-<section class="sm-sec" data-fam="Fotos" data-nome="Carrossel de setores com losangos">
-  <h2>Setores atendidos</h2>
-  <div class="sm-carro" id="smCarro">
-    <article><div class="sm-quadro"><img src="img/industria-01-bayer-st.webp" data-lum="img/industria-01-lum-st.webp" alt="" loading="lazy"></div><h4>Indústria</h4><p>ISO 9001:2026 · ISO 45001:2018 (2024)</p></article>
-    <article><div class="sm-quadro"><img src="img/transporte-bayer-st.webp" data-lum="img/transporte-lum-st.webp" alt="" loading="lazy"></div><h4>Transporte e rodovias</h4><p>ISO 39001:2015</p></article>
-    <article><div class="sm-quadro"><img src="img/facilities-03-bayer-st.webp" data-lum="img/facilities-03-lum-st.webp" alt="" loading="lazy"></div><h4>Facilities</h4><p>ISO 41001:2020</p></article>
-    <article><div class="sm-quadro"><img src="img/alimentos-03-bayer-st.webp" data-lum="img/alimentos-03-lum-st.webp" alt="" loading="lazy"></div><h4>Alimentos</h4><p>ISO 22000:2019</p></article>
-    <article><div class="sm-quadro"><img src="img/florestal-01-bayer-st.webp" data-lum="img/florestal-01-lum-st.webp" alt="" loading="lazy"></div><h4>Agro e florestal</h4><p>ISO 14001:2026</p></article>
-    <article><div class="sm-quadro"><img src="img/energia-bayer-st.webp" data-lum="img/energia-lum-st.webp" alt="" loading="lazy"></div><h4>Energia</h4><p>ISO 50001:2018</p></article>
-  </div>
-  <div class="sm-pontos" id="smPontos"></div>
-</section>
-
-<section class="sm-sec" data-fam="Fotos" data-nome="Foto e texto alternados">
-  <div class="sm-zig">
-    <div class="sm-quadro"><img src="img/sso-01-bayer-st.webp" data-lum="img/sso-01-lum-st.webp" alt="" loading="lazy"></div>
-    <div class="sm-zig-txt"><p class="sm-rot">ISO 45001:2018 (2024)</p><h2>Saúde e segurança</h2><ul class="sm-los"><li>Inventário de perigos e riscos</li><li>Hierarquia de controles</li><li>Consulta aos trabalhadores</li></ul></div>
-  </div>
-  <div class="sm-zig sm-zig-inv">
-    <div class="sm-quadro"><img src="img/ambiente-02-bayer-st.webp" data-lum="img/ambiente-02-lum-st.webp" alt="" loading="lazy"></div>
-    <div class="sm-zig-txt"><p class="sm-rot">ISO 14001:2026</p><h2>Meio ambiente</h2><ul class="sm-los"><li>Aspectos e impactos ambientais</li><li>Requisitos legais</li><li>Preparação para emergências</li></ul></div>
-  </div>
-</section>
-
-<section class="sm-sec" data-fam="Fechamento" data-nome="Perguntas frequentes em duas colunas">
-  <div class="sm-g">
-    <div class="c4"><h2>Perguntas frequentes</h2><p class="sm-sub">ISO 9001:2026</p></div>
-    <div class="c8">
-      <div class="faq">
-        <details class="faq-item" open><summary>Quando a ISO 9001 é exigida?</summary><p>A certificação ISO 9001 costuma ser exigida para vender a grandes clientes e para participar de licitações.</p></details>
-        <details class="faq-item"><summary>Quanto tempo leva a implantação?</summary><p>O prazo é definido no diagnóstico, conforme o escopo e a maturidade do sistema que já existe. As visitas mensais são combinadas no plano diretor.</p></details>
-        <details class="faq-item"><summary>A ISO 9001 se integra a outras normas?</summary><p>A ISO 9001, a ISO 14001 e a ISO 45001 têm a mesma estrutura. Política, riscos, auditoria interna e análise crítica podem ser um processo só.</p></details>
-        <details class="faq-item"><summary>A ISO 9001 é obrigatória?</summary><p>A certificação é exigida por contrato: editais, grandes compradores e cadeias de fornecimento.</p></details>
+<!-- ================================= DIAGRAMAS ================================= -->
+<section class="sm-sec sm-sangra sm-esc" data-fam="Diagramas" data-nome="Escopos de emissão em círculos tangentes">
+  <div class="sm-esc-in">
+    <div class="rt rt-cl"><i class="lo"></i><span>Gestão de carbono</span><b class="pt"></b></div>
+    <div class="ec">
+      <div class="ec-a chf"><div class="c3f-a"><h3>Escopos de emissão</h3><i>GHG</i></div>
+        <div class="cm pts ec-f"><svg viewBox="0 0 320 320" class="fg" aria-hidden="true"><circle cx="160" cy="160" r="136"/><circle cx="160" cy="202" r="94"/><circle cx="160" cy="238" r="58"/><path d="M155 62h10M160 57v10M155 146h10M160 141v10M155 238h10M160 233v10"/></svg></div>
+      </div>
+      <div class="ec-l">
+        <div class="ec-i chf"><i>01</i><div><h4>Escopo 1</h4><p>Emissões diretas da organização: combustão, frota e processos.</p></div></div>
+        <div class="ec-i chf"><i>02</i><div><h4>Escopo 2</h4><p>Emissões da energia comprada.</p></div></div>
+        <div class="ec-i chf"><i>03</i><div><h4>Escopo 3</h4><p>Demais emissões da cadeia de valor, antes e depois da organização.</p></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sm-sec" data-fam="Fechamento" data-nome="Normas de referência">
-  <h2>Normas de referência</h2>
-  <ul class="sm-refs">
-    <li><b>ISO 9001:2026</b><span>Sistemas de gestão da qualidade: requisitos; 6ª edição.</span></li>
-    <li><b>ABNT NBR ISO 9001:2026</b><span>Adoção no Brasil, 13-out-2026.</span></li>
-    <li><b>ISO 19011:2026</b><span>Diretrizes para auditoria de sistemas de gestão.</span></li>
-    <li><b>ABNT NBR ISO 20700:2025</b><span>Serviços de consultoria organizacional.</span></li>
-  </ul>
-  <p class="sm-fonte">Situação das normas conferida no ISO Open Data em 02-nov-2026.</p>
+<section class="sm-sec" data-fam="Diagramas" data-nome="Requisitos comuns em três círculos">
+  <div class="rt"><i class="lo"></i><span>Requisitos comuns</span><b class="pt"></b></div>
+  <figure class="vn">
+    <svg viewBox="-60 0 1240 450" class="fg vn-s" role="img" aria-label="Três normas com requisitos comuns no centro">
+      <defs><pattern id="smH2" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)"><line x1="0" y1="0" x2="7" y2="0" stroke="var(--sm-ac)" stroke-width="1.3"/></pattern><clipPath id="smVa"><circle cx="550" cy="170" r="130"/></clipPath><clipPath id="smVb"><circle cx="475" cy="300" r="130"/></clipPath></defs>
+      <circle cx="550" cy="170" r="130"/><circle cx="475" cy="300" r="130"/><circle cx="625" cy="300" r="130"/>
+      <g clip-path="url(#smVa)"><g clip-path="url(#smVb)"><circle cx="625" cy="300" r="130" fill="url(#smH2)" stroke="none"/></g></g>
+      <g class="vn-pt"><path d="M552 95H830"/><path d="M394 325H240"/><path d="M706 325H860"/><path d="M550 256V30H830" /></g>
+      <rect class="vn-q" x="548" y="93" width="4" height="4"/><rect class="vn-q" x="392" y="323" width="4" height="4"/><rect class="vn-q" x="704" y="323" width="4" height="4"/><rect class="vn-q" x="548" y="254" width="4" height="4"/>
+      <text class="vn-n" x="836" y="26">Itens comuns</text><text class="vn-d" x="836" y="44">Contexto, liderança, planejamento,</text><text class="vn-d" x="836" y="60">apoio, operação, avaliação e melhoria</text>
+      <text class="vn-n" x="836" y="91">ISO 9001:2026</text><text class="vn-d" x="836" y="109">Clientes, produtos e serviços</text>
+      <text class="vn-n" x="232" y="321" text-anchor="end">ISO 14001:2026</text><text class="vn-d" x="232" y="339" text-anchor="end">Aspectos ambientais e ciclo de vida</text>
+      <text class="vn-n" x="866" y="321">ISO 45001:2018 (2024)</text><text class="vn-d" x="866" y="339">Perigos e consulta aos trabalhadores</text>
+    </svg>
+    <dl class="dl vn-m">
+      <div><dt>Itens comuns</dt><dd>Contexto, liderança, planejamento, apoio, operação, avaliação e melhoria.</dd></div>
+      <div><dt>ISO 9001:2026</dt><dd>Clientes, produtos e serviços.</dd></div>
+      <div><dt>ISO 14001:2026</dt><dd>Aspectos ambientais e ciclo de vida.</dd></div>
+      <div><dt>ISO 45001:2018 (2024)</dt><dd>Perigos e consulta aos trabalhadores.</dd></div>
+    </dl>
+  </figure>
 </section>
 
-<section class="sm-sec sm-sangra" data-fam="Fechamento" data-nome="Faixa de contato">
-  <div class="sm-faixa">
-    <svg class="sm-glifo" viewBox="0 0 22 14" aria-hidden="true">{{GLIFO}}</svg>
-    <p class="sm-faixa-t">Implantação ISO 9001:2026</p>
-    <a class="sm-bt sm-bt-claro" href="contato.html">Contato com a equipe técnica</a>
+<section class="sm-sec" data-fam="Diagramas" data-nome="Figura da norma em marcas de corte">
+  <div class="rt"><i class="lo"></i><span>Elementos de um único processo</span><b class="pt"></b><span class="rt-d">Figura 1 da ISO 9001:2026</span></div>
+  <figure class="cm pts sm-rola fg-fig" style="--min:700px">{{PROCESSO}}</figure>
+</section>
+
+<section class="sm-sec" data-fam="Diagramas" data-nome="Ferramentas em folhas de desenho">
+  <div class="rt"><i class="lo"></i><span>Entregas da implantação</span><b class="pt"></b></div>
+  <div class="fh">
+    <article><div class="fh-f cm"><svg viewBox="0 0 120 150" class="fg" aria-hidden="true"><path d="M18 22h30v18H18zM72 22h30v18H72zM45 66h30v18H45zM18 110h30v18H18zM72 110h30v18H72zM48 31h24M33 40v35h12M87 40v35H75M60 84v35H48M60 119h12"/></svg></div><i>001</i><h4>Mapeamento de processos</h4><p>Fluxos, líderes de processos e interfaces da operação</p></article>
+    <article><div class="fh-f cm"><svg viewBox="0 0 120 150" class="fg" aria-hidden="true"><path d="M18 128V22M18 128h86M34 128V92M52 128V70M70 128V82M88 128V48M26 86l26-24 18 12 26-34"/></svg></div><i>002</i><h4>Objetivos e indicadores</h4><p>Metas, painel e análise crítica pela direção</p></article>
+    <article><div class="fh-f cm"><svg viewBox="0 0 120 150" class="fg" aria-hidden="true"><path d="M18 22h84v106H18zM18 44h84M18 66h84M18 88h84M18 110h84M46 22v106"/></svg></div><i>003</i><h4>Construção de metodologias</h4><p>Ferramentas da qualidade e procedimentos</p></article>
+    <article><div class="fh-f cm"><svg viewBox="0 0 120 150" class="fg" aria-hidden="true"><path d="M60 24 96 60 60 96 24 60zM60 96v32M24 60H10M96 60h14M42 128h36M50 52h20M50 68h20"/></svg></div><i>004</i><h4>Controle de fornecedores</h4><p>Seleção, avaliação e monitoramento</p></article>
+    <article><div class="fh-f cm"><svg viewBox="0 0 120 150" class="fg" aria-hidden="true"><path d="M14 75h92M106 75l-10-6M106 75l-10 6M32 28l14 47M64 28l14 47M32 122l14-47M64 122l14-47M24 28h16M56 28h16M24 122h16M56 122h16"/></svg></div><i>005</i><h4>Gestão de não conformidades</h4><p>Registro, causa, ação corretiva e eficácia</p></article>
+  </div>
+</section>
+
+<!-- ================================= FOTOS ================================= -->
+<section class="sm-sec" data-fam="Fotos" data-nome="Foto de catálogo com ficha">
+  <div class="fx">
+    <div class="fx-f cm cm-f"><div class="sm-quadro"><img src="img/sso-01-bayer-st.webp" data-lum="img/sso-01-lum-st.webp" alt="" loading="lazy"></div></div>
+    <div class="fx-d">
+      <div class="fx-a"><p>Aplicação<br><b>001</b></p><ul class="carimbo"><li>Norma</li><li>Item</li><li>Foto</li></ul></div>
+      <h2 class="fx-t">Hierarquia de controles</h2>
+      <p class="fx-s">Trabalho em altura</p>
+      <dl class="cp"><div><dt>Norma</dt><dd>ISO 45001:2018 (2024)</dd></div><div><dt>Item</dt><dd>8.1.2</dd></div><div><dt>Controle</dt><dd>Conferência do cinto antes do trabalho em altura</dd></div></dl>
+    </div>
+  </div>
+</section>
+
+<section class="sm-sec sm-sangra sm-esc" data-fam="Fotos" data-nome="Foto e cartão de cor chapada">
+  <div class="sm-esc-in">
+    <div class="rt rt-cl"><i class="lo"></i><span>Controles operacionais, ISO 14001:2026</span><b class="pt"></b></div>
+    <div class="fc4">
+      <article class="fc4-t chf"><div class="c3f-a"><h3>Controle operacional</h3><i>8.1</i></div><p>O controle acompanha cada etapa do ciclo de vida.</p></article>
+      <figure class="chf"><div class="sm-quadro"><img src="img/ambiente-01-bayer-st.webp" data-lum="img/ambiente-01-lum-st.webp" alt="" loading="lazy"></div><figcaption><i>001</i>Amostra de efluente</figcaption></figure>
+      <figure class="chf"><div class="sm-quadro"><img src="img/ambiente-02-bayer-st.webp" data-lum="img/ambiente-02-lum-st.webp" alt="" loading="lazy"></div><figcaption><i>002</i>Segregação de resíduos</figcaption></figure>
+      <figure class="chf"><div class="sm-quadro"><img src="img/ambiente-03-bayer-st.webp" data-lum="img/ambiente-03-lum-st.webp" alt="" loading="lazy"></div><figcaption><i>003</i>Medição de emissão</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sm-sec" data-fam="Fotos" data-nome="Folha de contato com legenda técnica">
+  <div class="rt"><i class="lo"></i><span>Controles presos ao item da norma</span><b class="pt"></b></div>
+  <div class="fct">
+    <figure><div class="cm cm-f"><div class="sm-quadro"><img src="img/informacao-01-bayer-st.webp" data-lum="img/informacao-01-lum-st.webp" alt="" loading="lazy"></div></div><figcaption><i>001</i><b>Segurança de redes</b><span>ISO/IEC 27001:2022 · A.8.20</span></figcaption></figure>
+    <figure><div class="cm cm-f"><div class="sm-quadro"><img src="img/informacao-02-bayer-st.webp" data-lum="img/informacao-02-lum-st.webp" alt="" loading="lazy"></div></div><figcaption><i>002</i><b>Entrada física</b><span>ISO/IEC 27001:2022 · A.7.2</span></figcaption></figure>
+    <figure><div class="cm cm-f"><div class="sm-quadro"><img src="img/alimentos-04-bayer-st.webp" data-lum="img/alimentos-04-lum-st.webp" alt="" loading="lazy"></div></div><figcaption><i>003</i><b>Monitoramento de perigos</b><span>NBR ISO 22000:2019 · 8.5.4</span></figcaption></figure>
+    <figure><div class="cm cm-f"><div class="sm-quadro"><img src="img/alimentos-05-bayer-st.webp" data-lum="img/alimentos-05-lum-st.webp" alt="" loading="lazy"></div></div><figcaption><i>004</i><b>Pré-requisitos</b><span>NBR ISO 22000:2019 · 8.2</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ================================= FECHAMENTO ================================= -->
+<section class="sm-sec" data-fam="Fechamento" data-nome="Perguntas em tabela numerada">
+  <div class="rt"><i class="lo"></i><span>Perguntas frequentes</span><b class="pt"></b></div>
+  <div class="pq" id="smPq">
+    <div class="pq-i"><button type="button" aria-expanded="false"><i>001</i><b>Quando a ISO 9001 é exigida?</b><u></u></button><div class="pq-c"><div><p>A certificação ISO 9001 costuma ser exigida para vender a grandes clientes e para participar de licitações.</p></div></div></div>
+    <div class="pq-i"><button type="button" aria-expanded="false"><i>002</i><b>Quanto tempo leva a implantação?</b><u></u></button><div class="pq-c"><div><p>O prazo é definido no diagnóstico, conforme o escopo e a maturidade do sistema de gestão que já existe. As visitas mensais são combinadas no plano diretor.</p></div></div></div>
+    <div class="pq-i"><button type="button" aria-expanded="false"><i>003</i><b>A ISO 9001 se integra a outras normas?</b><u></u></button><div class="pq-c"><div><p>A ISO 9001, a ISO 14001 e a ISO 45001 têm a mesma estrutura. Política, riscos, auditoria interna e análise crítica podem ser um processo só.</p></div></div></div>
+    <div class="pq-i"><button type="button" aria-expanded="false"><i>004</i><b>A ISO 9001 é obrigatória?</b><u></u></button><div class="pq-c"><div><p>A certificação é exigida por contrato: editais, grandes compradores e cadeias de fornecimento.</p></div></div></div>
+  </div>
+</section>
+
+<section class="sm-sec" data-fam="Fechamento" data-nome="Normas de referência com código de barras">
+  <div class="rf">
+    <div class="rf-a"><div><p class="rf-o">Referências</p><p class="gg gg-p">ISO 9001</p></div><ul class="carimbo"><li>Norma</li><li>Revisão</li><li>Situação</li></ul></div>
+    <div class="rf-l"><b>ISO 9001:2026</b><span>Sistemas de gestão da qualidade: requisitos; 6ª edição.</span></div>
+    <div class="rf-l"><b>ABNT NBR ISO 9001:2026</b><span>Adoção no Brasil, 13-out-2026.</span></div>
+    <div class="rf-l"><b>ISO 19011:2026</b><span>Diretrizes para auditoria de sistemas de gestão.</span></div>
+    <div class="rf-l"><b>ABNT NBR ISO 20700:2025</b><span>Serviços de consultoria organizacional.</span></div>
+    <div class="rf-z"><div><span>Conferência</span><b>02-nov-2026</b></div><div><span>Fonte</span><b>ISO Open Data</b></div>{{BARRA}}<i class="ac-q" aria-hidden="true"></i></div>
+  </div>
+</section>
+
+<section class="sm-sec sm-sangra sm-ch" data-fam="Fechamento" data-nome="Contato em painel chapado">
+  <div class="cn">
+    <div class="cn-g">
+      <div class="cn-a"><svg class="glifo" viewBox="0 0 22 14" aria-hidden="true">{{GLIFO}}</svg><h2>Contato com a equipe técnica</h2></div>
+      <div class="cn-t">
+        <a class="l" href="mailto:info@idealmetrics.org"><i>01</i><span>info@idealmetrics.org</span><u class="qd"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></u></a>
+        <a class="l" href="contato.html"><i>02</i><span>Página de contato</span><u class="qd"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></u></a>
+        <div class="l so"><span>Ideal Metrics Ltda</span></div>
+      </div>
+    </div>
   </div>
 </section>
