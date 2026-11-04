@@ -216,3 +216,5 @@ if '—' in secoes + topo: sys.exit('travessao no texto')
 
 (RAIZ / '_prova-secoes-modelo.html').write_text(corpo, encoding='utf-8')
 print('_prova-secoes-modelo.html', len(corpo), 'bytes;', n, 'modelos;', {f: len(v) for f, v in fams.items()})
+import spirit
+spirit.grava(secoes, cabeca, js, fams, RAIZ)

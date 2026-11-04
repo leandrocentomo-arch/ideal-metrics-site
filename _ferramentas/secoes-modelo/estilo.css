@@ -708,6 +708,13 @@ a:hover>.qd,a.qd:hover{background:var(--sm-tx-ac);color:#FAF9F5}
 .pc-ls li{height:34px;margin:0;padding:0;display:flex;align-items:center;white-space:nowrap;border-top:.5pt solid currentColor}
 .pc-ls li::before{content:none}
 .pc-ls li:last-child{border-bottom:.5pt solid currentColor}
+/* coluna aberta estreita: a lista desce para baixo da figura, para a figura nao encolher ate sumir */
+.pc-fl .pc-f{container-type:inline-size}
+@container (max-width:440px){
+  .pc-fl.on .pc-f>svg{width:calc(100% - 48px);height:calc(100% - 228px)}
+  .pc-ls{top:auto;bottom:16px;left:24px;right:24px;width:auto;transform:none}
+  .pc-ls li{height:30px}
+}
 /* 34 */
 .pg-2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .pc-cp{flex:1 1 0;min-height:0;display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:22px;padding:0 26px 24px}
