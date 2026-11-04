@@ -157,7 +157,7 @@ for marca, valor in {'{{FICHAS}}': fichas, '{{FICHAS3}}': fichas3, '{{CAL}}': ca
 # ----- numera, etiqueta e indice
 secoes = re.sub(r'<!--.*?-->', '', secoes, flags=re.S)
 partes = list(re.finditer(r'<section class="(sm-sec[^"]*)" data-fam="([^"]+)" data-nome="([^"]+)">', secoes))
-if len(partes) != 31: sys.exit(f'{len(partes)} secoes; o pedido e 30 mais a grade reta')
+if len(partes) != 32: sys.exit(f'{len(partes)} secoes; o pedido e 30 mais as duas grades planas')
 fams, n = {}, 0
 def etiqueta(mt):
     global n

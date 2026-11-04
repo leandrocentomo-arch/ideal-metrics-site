@@ -1,8 +1,11 @@
 /* 04/11/2026: grade setor x norma da home deitada em isometrico e interativa. Desenho em canvas: sao 630 casas, e a troca de
    tema anima a largura de cada coluna e a escala do desenho juntas. Os dados vem do grafico da home (monta.py). */
 (function(){
-  var raiz = document.getElementById('smMd'); if(!raiz) return;
-  var D = JSON.parse(document.getElementById('smMdD').textContent);
+  var elDados = document.getElementById('smMdD'); if(!elDados) return;
+  var DADOS = JSON.parse(elDados.textContent);
+  [].forEach.call(document.querySelectorAll('.md'), function(raiz){ grade(raiz, DADOS, raiz.hasAttribute('data-plano')); });
+
+function grade(raiz, D, plano){
   var cv = raiz.querySelector('canvas'), ctx = cv.getContext('2d');
   var C = Math.cos(Math.PI / 6), S = .5, nS = D.S.length, nN = D.N.length;
   var quieto = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -36,13 +39,15 @@
   var P = {};
   function cores(){
     var cs = getComputedStyle(document.body), v = function(n){ return hex(cs.getPropertyValue(n)); };
-    P = {ac:v('--sm-ac'), ac2:v('--sm-ac2'), ac3:v('--sm-ac3'), ta:v('--sm-ta'), tx:v('--sm-tx-ac'),
+    P = {ac:v('--sm-ac'), ac2:v('--sm-ac2'), ac3:v('--sm-ac3'), ta:v('--sm-ta'), tx:v('--sm-tx-ac'), bg:v('--sm-cr'),
          flT:[244,244,242], flF:[233,233,230], flL:[199,201,202], brT:[251,251,250], brF:[169,178,188], brL:[139,150,162]};
   }
   var rgb = function(c, a){ return 'rgba(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ',' + (a === undefined ? 1 : a) + ')'; };
   var mistura = function(a, b, q){ return [mix(a[0], b[0], q), mix(a[1], b[1], q), mix(a[2], b[2], q)]; };
 
   /* ----- geometria do quadro */
+  function folgaN(q){ return movel ? 6 : plano ? 12 : mix(26, 32, q); }
+  function folgaS(q){ return movel ? 6 : plano ? 12 : mix(14, 22, q); }
   function fonteBase(q){ return movel ? mix(8.5, 10.5, q) : mix(10.5, 13, q); }
   function mede(){
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -57,13 +62,13 @@
     for(var j = 0; j < nN; j++){ X.push(L); L += cw[j]; }
     X.push(L);
     var Dy = nS * by, fs = fonteBase(q), wS = maxS * fs / 13, wN = maxN * fs / 13;
-    var hD = mix(1.25, .62, q), hT = mix(.36, .17, q);
-    var x1 = movel ? W : W - mix(0, 330, q), bot = mix(nLanes * 15 + 18, 10, q), topo = Math.max(wS + 22, wN + mix(26, 32, q)) * S + 10;
+    var hD = plano ? 0 : mix(1.25, .62, q), hT = plano ? 0 : mix(.36, .17, q);
+    var x1 = movel ? W : W - mix(0, 330, q), bot = mix(nLanes * 15 + 18, 10, q), topo = Math.max(wS + 22, wN + folgaN(q)) * S + 10;
     var uW = (x1 - (movel ? 0 : mix(0, 76, q)) - (wS + wN) * C - 16) / ((L + Dy) * C), uH = (H - topo - bot - 10) / ((L + Dy) * S + hD * .4);
     var u = Math.min(uW, uH, movel ? 40 : 58);
     var tw = (L + Dy) * C * u + (wS + wN) * C, th = (L + Dy) * S * u + topo + bot, x0 = movel ? 0 : mix(0, 76, q);
     var ox = x0 + (x1 - x0 - tw) / 2 + wS * C + Dy * C * u, oy = (H - th) / 2 + topo;
-    geo = {by:by, L:L, X:X, Dy:Dy, fs:fs, hD:hD, hT:hT, u:u, ox:ox, oy:oy, fx:mix(.76, .66, q), fy:mix(.68, .74, q), esp:mix(9, 18, q) / u};
+    geo = {by:by, L:L, X:X, Dy:Dy, fs:fs, hD:hD, hT:hT, u:u, ox:ox, oy:oy, fx:mix(.76, .66, q), fy:mix(.68, .74, q), esp:plano ? 0 : mix(9, 18, q) / u};
   }
   var sx = function(x, y){ return geo.ox + (x - y) * C * geo.u; };
   var sy = function(x, y, z){ return geo.oy + (x + y) * S * geo.u - (z || 0) * geo.u; };
@@ -93,6 +98,34 @@
     ctx.fillText(txt, 0, 0);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
+  /* versao plana: os quadrados de canto redondo da grade da home, deitados no mesmo plano, sem altura */
+  function quadrados(){
+    var g = geo, X = g.X, u = g.u, by = g.by, i, j;
+    ctx.setTransform(dpr * C * u, dpr * S * u, -dpr * C * u, dpr * S * u, dpr * g.ox, dpr * g.oy);
+    for(i = 0; i < nS; i++){
+      for(j = 0; j < nN; j++){
+        var w = cw[j]; if(w < .015) continue;
+        var c = cel[i][j];
+        if(c.k === 0 || (c.k === 1 && tv < .04)){
+          var pt = Math.min(.05, w * .05);
+          ctx.fillStyle = rgb(c.lit > .02 ? P.ta : [120, 134, 150], c.lit > .02 ? mix(.3, .8, c.lit) : mix(.55, .15, c.dim));
+          ctx.fillRect(X[j] + w / 2 - pt, i * by + by / 2 - pt, pt * 2, pt * 2);
+          continue;
+        }
+        if(c.ent < .02) continue;
+        var lado = Math.min(w * .68, by * .8) * c.ent, x = X[j] + (w - lado) / 2, y = i * by + (by - lado) / 2, r = Math.min(.13, lado * .23);
+        var cor = c.k === 2 ? P.ac : mistura(P.bg, P.ac, .42 * tv);
+        cor = mistura(cor, P.ta, c.lit * (1 - c.foc));
+        if(c.foc > .01) cor = mistura(cor, P.ac, c.foc);
+        if(c.dim > .01) cor = mistura(cor, P.bg, c.dim * .84);
+        ctx.beginPath();
+        if(ctx.roundRect) ctx.roundRect(x, y, lado, lado, r); else ctx.rect(x, y, lado, lado);
+        ctx.fillStyle = rgb(cor); ctx.fill();
+        if(c.foc > .01){ ctx.strokeStyle = rgb(P.ta, c.foc); ctx.lineWidth = .1; ctx.stroke(); }
+      }
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
   function desenha(){
     calcula();
     var g = geo, X = g.X, u = g.u, by = g.by, L = g.L, Dy = g.Dy, i, j;
@@ -102,12 +135,14 @@
 
     /* laje */
     var A = [sx(0, 0), sy(0, 0)], B = [sx(L, 0), sy(L, 0)], E = [sx(L, Dy), sy(L, Dy)], F = [sx(0, Dy), sy(0, Dy)], esp = g.esp * u;
+    if(!plano){
     ctx.save(); ctx.shadowColor = 'rgba(20,48,76,.3)'; ctx.shadowBlur = movel ? 12 : 34; ctx.shadowOffsetX = movel ? 3 : 8; ctx.shadowOffsetY = movel ? 8 : 22;
     poly([F[0], F[1], E[0], E[1], B[0], B[1] + esp, E[0], E[1] + esp, F[0], F[1] + esp], rgb(P.flF));
     ctx.restore();
     poly([F[0], F[1], E[0], E[1], E[0], E[1] + esp, F[0], F[1] + esp], rgb(P.flF));
     poly([E[0], E[1], B[0], B[1], B[0], B[1] + esp, E[0], E[1] + esp], rgb(P.flL));
     poly([A[0], A[1], B[0], B[1], E[0], E[1], F[0], F[1]], rgb(P.flT));
+    }
 
     /* faixas dos temas, linha e coluna acesas no piso */
     if(t < 1) lanes.forEach(function(l){ if(l.g % 2) poly(piso(X[l.a], 0, X[l.b], Dy), 'rgba(20,48,76,' + (.035 * (1 - t)) + ')'); });
@@ -124,7 +159,8 @@
     }
 
     /* blocos, de tras para a frente */
-    for(i = 0; i < nS; i++){
+    if(plano) quadrados();
+    else for(i = 0; i < nS; i++){
       for(j = 0; j < nN; j++){
         var w = cw[j]; if(w < .015) continue;
         var c = cel[i][j], x0 = X[j] + w * (1 - g.fx) / 2, dx = w * g.fx, y0 = i * by + by * (1 - g.fy) / 2, dy = by * g.fy;
@@ -153,7 +189,7 @@
     }
 
     /* rotulos por ultimo, para nenhum bloco cobrir */
-    var fs = g.fs, gap = (movel ? 6 : mix(14, 22, t)) / u, gapN = (movel ? 6 : mix(26, 32, t)) / u, tem = !!foco;
+    var fs = g.fs, gap = folgaS(t) / u, gapN = folgaN(t) / u, tem = !!foco;
     for(i = 0; i < nS; i++){
       var ls = rowF[i].v, ys = (i + .5) * by;
       texto(D.S[i].t, sx(-gap, ys) - 5 * ls * C, sy(-gap, ys) - 5 * ls * S, S, 'right', fs, ls > .5 ? 600 : 500, ls > .5 ? P.tx : P.ta, tem && ls < .5 ? .36 : 1);
@@ -308,13 +344,13 @@
   /* ----- mouse: bloco de cima primeiro, depois rotulo, depois piso */
   function acerta(mx, my){
     var g = geo, X = g.X, u = g.u, by = g.by, i, j;
-    for(i = nS - 1; i >= 0; i--) for(j = nN - 1; j >= 0; j--){
+    if(!plano) for(i = nS - 1; i >= 0; i--) for(j = nN - 1; j >= 0; j--){
       var c = cel[i][j]; if(c.k === 0 || cw[j] < .03 || (c.k === 1 && tv < .04)) continue;
       var w = cw[j], x0 = X[j] + w * (1 - g.fx) / 2, x1 = x0 + w * g.fx, y0 = i * by + by * (1 - g.fy) / 2, y1 = y0 + by * g.fy;
       var h = (c.k === 2 ? g.hD : g.hT) * c.ent + c.lift;
       if(dentroHex(mx, my, x0, x1, y0, y1, h)) return {s:i, n:j};
     }
-    var fs = g.fs, gap = (movel ? 6 : mix(14, 22, t)) / u, gapN = (movel ? 6 : mix(26, 32, t)) / u;
+    var fs = g.fs, gap = folgaS(t) / u, gapN = folgaN(t) / u;
     for(i = 0; i < nS; i++){
       var sxx = sx(-gap, (i + .5) * by), syy = sy(-gap, (i + .5) * by), lx = (mx - sxx) / C, ly = (my - syy) - S * lx, wS = D.S[i].w * fs / 13;
       if(lx <= 8 && lx >= -wS - 8 && Math.abs(ly) < Math.max(fs * .7, by * u * C * .42)) return {s:i};
@@ -411,4 +447,5 @@
   if('ResizeObserver' in window) new ResizeObserver(function(){ ajusta(); }).observe(cv); else window.addEventListener('resize', ajusta);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ mede(); faixas(); pede(); });
   new MutationObserver(function(){ cores(); pede(); }).observe(document.body, {attributes:true, attributeFilter:['data-acento']});
+}
 })();
