@@ -886,6 +886,21 @@
          760 px) o quadro do mapa é mais alto que largo (384 × 480), então o mundo aparece maior e corre de lado por ele; as
          etiquetas ficam 20% maiores e se leem à medida que cada país passa. O globo encolhe para caber na largura */
       var CEL_M = window.matchMedia('(max-width:760px)');
+      var ROT_L = 0;
+      function largRot() {   // largura, em unidades do quadro, do maior rótulo da coluna do globo (dez maiores países e o Brasil, em todas as normas)
+        if (ROT_L) return ROT_L;
+        var maior = '';
+        Object.keys(D.survey).forEach(function (num) {
+          var p = D.survey[num].paises;
+          Object.keys(p).sort(function (x, y) { return p[y] - p[x]; }).slice(0, 10).concat(p.BR ? ['BR'] : []).forEach(function (a2) {
+            var t = nomePais(a2) + ' ' + fmt(p[a2]); if (t.length > maior.length) maior = t;
+          });
+        });
+        var g = svg.append('g').attr('class', 'pulso').style('opacity', 0), w = g.append('text').attr('class', 'rot').text(maior).node().getComputedTextLength();
+        g.remove();
+        if (w) ROT_L = w + 6;   // +6: o dx entre o nome e o número
+        return w ? ROT_L : maior.length * 7;   // aba escondida não mede
+      }
       function quadro() {
         var r = box.getBoundingClientRect(), lado = $('#mp-lado'), cobre = 0;
         if (CEL_M.matches) W = 384;
@@ -896,8 +911,16 @@
         svg.attr('viewBox', '0 0 ' + W + ' ' + H);
         /* 01/11/2026, 2º, «o globo poderia ser menor e a legenda poderia ficar fora do globo»: no celular o globo fica à
            esquerda, com raio de 104, e a coluna dos países à direita dele, fora da bola */
-        ESC_GLOBO = CEL_M.matches ? 104 : H / 2 - 8;
-        cxM = W / 2; cxG = CEL_M.matches ? ESC_GLOBO + 14 : Math.max(ESC_GLOBO + 20, (W - cobre) / 2); fimVis = W - cobre;   // rótulos somem antes da placa dos dados
+        /* 05/11/2026, «a legenda fica em cima do card… o globo poderia ficar um pouco para a esquerda, não precisa ficar centralizado»:
+           o globo fica a 41% da parte livre, e mais à esquerda ou menor se a coluna dos países não couber antes da placa dos dados.
+           A folga é a do maior rótulo entre todas as normas, para o globo não mudar de lugar na troca de norma. O mapa aberto não usa cxG */
+        var livre = W - cobre, folgaRot = 26 + largRot() + 12;
+        cxM = W / 2; fimVis = livre;   // rótulos somem antes da placa dos dados
+        if (CEL_M.matches) { ESC_GLOBO = 104; cxG = ESC_GLOBO + 14; }
+        else {
+          ESC_GLOBO = Math.max(140, Math.min(H / 2 - 8, (livre - 20 - folgaRot) / 2));
+          cxG = Math.max(ESC_GLOBO + 20, Math.min(livre * .41, livre - folgaRot - ESC_GLOBO));
+        }
       }
       quadro();
       function pintaPontos() {
