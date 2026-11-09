@@ -186,12 +186,6 @@
 "fonte": "https://www.sedex.com/solutions/smeta-audit/",
 "certeza": "alta"
 },
-"sa8000": {
-"designacao": "SA8000:2026",
-"titulo": "SA8000 Standard (Social Accountability 8000)",
-"fonte": "https://www.sa-intl.org/resources/sa8000-standard/ | publicada 01/01/2026",
-"certeza": "alta"
-},
 "ifc": {
 "designacao": "IFC Performance Standards (2012)",
 "titulo": "Padrões de Desempenho sobre Sustentabilidade Socioambiental",

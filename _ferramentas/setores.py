@@ -77,7 +77,6 @@ NORMAS = {
  'fooddefense': ('Food Defense', 'Proteção contra contaminação intencional', 'alimentos', SEG),
  # social, etica e sustentabilidade
  'smeta': ('SEDEX / SMETA', 'Auditoria ética da cadeia de suprimentos', 'social', 'sedex-smeta.html'),
- 'sa8000': ('SA 8000', 'Responsabilidade social no trabalho', 'social', IMPL),
  'ifc': ('IFC Performance Standards', 'Padrão ambiental e social de bancos de desenvolvimento e financiadores', 'esg', 'ifc-performance-standards.html'),
  'ecovadis': ('EcoVadis', 'Avaliação de desempenho em sustentabilidade', 'esg', PADR),
  'fsc': ('FSC', 'Forest Stewardship Council, manejo florestal', 'ambiente', 'compliance-ambiental-fsc.html'),
@@ -133,12 +132,12 @@ SETORES = [   # 10/10/2026: nove setores (aprovados pelo Leandro)
  ('saude', 'setor-saude.html', ['iso9001', 'iso14001', 'iso45001', 'iso13485', 'iso14971', 'iso15189', 'iso27001', 'ona', 'lgpd']),
  ('energia', 'setor-energia.html', ['iso9001', 'iso14001', 'iso45001', 'iso50001', 'iso55001', 'iso29001', 'iso37001', 'nr10', 'nr37', 'iso14064', 'sbce', 'cbam']),
  ('tecnologia', 'setor-tecnologia.html', ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso200001', 'iso42001', 'iso22301', 'lgpd']),
- ('servicos', 'setor-servicos-setor-publico.html', ['iso9001', 'iso14001', 'iso45001', 'iso37001', 'iso37301', 'iso21001', 'iso17025', 'sa8000', 'smeta', 'nr01', 'lgpd']),
+ ('servicos', 'setor-servicos-setor-publico.html', ['iso9001', 'iso14001', 'iso45001', 'iso37001', 'iso37301', 'iso21001', 'iso17025', 'smeta', 'nr01', 'lgpd']),
 ]
 
 # valem para qualquer setor: normas genericas de sistema de gestao, programas de cadeia, clima e requisitos legais gerais
 TRANSVERSAIS = ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso50001', 'iso14064', 'iso28000',
-                'iso37001', 'iso37301', 'iso55001', 'iso22301', 'iso31000', 'iso31022', 'smeta', 'sa8000', 'ifc',
+                'iso37001', 'iso37301', 'iso55001', 'iso22301', 'iso31000', 'iso31022', 'smeta', 'ifc',
                 'ecovadis', 'abntpr1004', 'abntpr2030', 'ghgprotocol', 'iso14067', 'iso14040', 'iso14025',
                 'iso14068', 'cdp', 'gri', 'sbti', 'verra', 'goldstandard', 'nr01', 'nr17', 'esocial', 'lgpd']
 # 10/10/2026: ISO 39001, ISO/IEC 20000-1 e ISO/IEC 42001 sairam das transversais. O ISO Survey 2025 mostra 96% da

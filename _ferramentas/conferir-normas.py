@@ -23,11 +23,14 @@ FORA_DO_SITE = {   # número: motivo
     '56001': 'gestão da inovação: o Leandro ainda não anuncia (09/11/2026)',
     '56002': 'gestão da inovação: guia, não certificável; retirada do site em 09/11/2026',
 }
+FORA_PADRAO = {   # padrões fora do site que não são ISO: rótulo: (expressão, motivo)
+    'SA8000': (r'SA ?8000', 'responsabilidade social: o Leandro tirou do site em 09/11/2026 («não é mais utilizada», 14/10/2026)'),
+}
 
 CATALOGO = [   # a lista «Normas que atuamos», na ordem do site
     'NBR ISO 9001:2026', 'NBR ISO 14001:2026', 'NBR ISO 45001:2018 (2024)', 'NBR ISO 39001:2015', 'NBR ISO 41001:2020',
     'NBR ISO 37001:2025', 'NBR ISO 37301:2021', 'NBR ISO 50001:2018', 'NBR ISO/IEC 27001:2022', 'NBR ISO 55001:2024',
-    'NBR ISO 22000:2019', 'FSSC 22000 v7', 'NBR ISO 13485:2016', 'IATF 16949:2016', 'SA8000:2026', 'ISO 21001:2025',
+    'NBR ISO 22000:2019', 'FSSC 22000 v7', 'NBR ISO 13485:2016', 'IATF 16949:2016', 'ISO 21001:2025',
     'NBR ISO/IEC 17025:2017',
 ]
 
@@ -57,6 +60,8 @@ def main():
         for n, motivo in FORA_DO_SITE.items():
             for m in re.finditer(r'ISO ' + n + r'\b', s):
                 erros.append('%s: cita a ISO %s (%s)' % (f, n, motivo)); break
+        for rot, (er, motivo) in FORA_PADRAO.items():
+            if re.search(er, s): erros.append('%s: cita a %s (%s)' % (f, rot, motivo))
         for m in re.finditer(r'(?<!NBR )(?<!NBR» )ISO (?:/IEC )?(\d{4,5}):(\d{4})', s):
             n, ano = m.group(1), int(m.group(2))
             if n in ANOS and ANOS[n][1] and ano == ANOS[n][1] and ano != ANOS[n][0]:
