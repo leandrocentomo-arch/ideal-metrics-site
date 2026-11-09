@@ -51,7 +51,6 @@ NORMAS = {
  'iso41001': ('ISO 41001', 'Gestão de facilities', 'qualidade', IMPL),
  'iso37001': ('ISO 37001', 'Gestão antissuborno', 'compliance', COMP),
  'iso37301': ('ISO 37301', 'Gestão de compliance', 'compliance', COMP),
- 'iso56002': ('ISO 56002', 'Gestão da inovação', 'qualidade', IMPL),
  'iso50001': ('ISO 50001', 'Gestão de energia', 'clima', IMPL),
  'iso55001': ('ISO 55001', 'Gestão de ativos', 'compliance', IMPL),
  'iso27001': ('ISO/IEC 27001', 'Segurança da informação', 'infosec', COMP),
@@ -133,12 +132,12 @@ SETORES = [   # 10/10/2026: nove setores (aprovados pelo Leandro)
  ('agro', 'setor-agro-florestal.html', ['iso9001', 'iso14001', 'iso45001', 'fsc', 'cerflor', 'rtrs', 'bonsucro', 'globalgap', 'rainforest', 'eudr', 'iso14064', 'iso14067', 'smeta']),
  ('saude', 'setor-saude.html', ['iso9001', 'iso14001', 'iso45001', 'iso13485', 'iso14971', 'iso15189', 'iso27001', 'ona', 'lgpd']),
  ('energia', 'setor-energia.html', ['iso9001', 'iso14001', 'iso45001', 'iso50001', 'iso55001', 'iso29001', 'iso37001', 'nr10', 'nr37', 'iso14064', 'sbce', 'cbam']),
- ('tecnologia', 'setor-tecnologia.html', ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso200001', 'iso42001', 'iso22301', 'lgpd', 'iso56002']),
+ ('tecnologia', 'setor-tecnologia.html', ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso200001', 'iso42001', 'iso22301', 'lgpd']),
  ('servicos', 'setor-servicos-setor-publico.html', ['iso9001', 'iso14001', 'iso45001', 'iso37001', 'iso37301', 'iso21001', 'iso17025', 'sa8000', 'smeta', 'nr01', 'lgpd']),
 ]
 
 # valem para qualquer setor: normas genericas de sistema de gestao, programas de cadeia, clima e requisitos legais gerais
-TRANSVERSAIS = ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso50001', 'iso56002', 'iso14064', 'iso28000',
+TRANSVERSAIS = ['iso9001', 'iso14001', 'iso45001', 'iso27001', 'iso27701', 'iso50001', 'iso14064', 'iso28000',
                 'iso37001', 'iso37301', 'iso55001', 'iso22301', 'iso31000', 'iso31022', 'smeta', 'sa8000', 'ifc',
                 'ecovadis', 'abntpr1004', 'abntpr2030', 'ghgprotocol', 'iso14067', 'iso14040', 'iso14025',
                 'iso14068', 'cdp', 'gri', 'sbti', 'verra', 'goldstandard', 'nr01', 'nr17', 'esocial', 'lgpd']

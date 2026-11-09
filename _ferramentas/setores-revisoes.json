@@ -1,9 +1,9 @@
 {
 "_nota": "Revisao vigente e titulo oficial (portugues quando existe) de cada norma do grafico setor x norma. Pesquisa em fonte primaria em 09/10/2026. certeza baixa ou media = conferir antes de citar em proposta.",
 "iso9001": {
-"designacao": "ISO 9001:2026",
+"designacao": "ABNT NBR ISO 9001:2026",
 "titulo": "Sistemas de gestão da qualidade: requisitos",
-"fonte": "https://www.iso.org/standard/9001 | publicada 16/09/2026; no Brasil a ABNT NBR ISO 9001:2015 + Emenda 1:2024 segue vigente ate a NBR 2026",
+"fonte": "https://www.iso.org/standard/9001 | publicada em 09/2026; ABNT NBR ISO 9001:2026 publicada em 10/2026 (normas.com.br/visualizar/abnt-nbr-nm/3; conferido em 09/11/2026)",
 "certeza": "alta"
 },
 "iso14001": {
@@ -13,7 +13,7 @@
 "certeza": "alta"
 },
 "iso45001": {
-"designacao": "ABNT NBR ISO 45001:2024 (com Emenda 1:2025)",
+"designacao": "ABNT NBR ISO 45001:2024",
 "titulo": "Sistemas de gestão de saúde e segurança ocupacional: requisitos com orientações para uso",
 "fonte": "https://normas.com.br/visualizar/abnt-nbr-nm/14003 | equivale a ISO 45001:2018/Amd 1:2024; ISO 45001:2026 ainda em DIS",
 "certeza": "media"
@@ -40,12 +40,6 @@
 "designacao": "ABNT NBR ISO 37301:2021 (com Emenda 1:2024)",
 "titulo": "Sistemas de gestão de compliance: requisitos com orientações para uso",
 "fonte": "https://www.normas.com.br/visualizar/abnt-nbr-nm/13121",
-"certeza": "alta"
-},
-"iso56002": {
-"designacao": "ABNT NBR ISO 56002:2020",
-"titulo": "Gestão da inovação: sistema de gestão da inovação: diretrizes",
-"fonte": "https://www.normas.com.br/visualizar/abnt-nbr-nm/12899 | guia; a norma certificavel e a ABNT NBR ISO 56001:2025",
 "certeza": "alta"
 },
 "iso50001": {
