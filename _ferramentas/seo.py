@@ -25,7 +25,7 @@ DESCRICOES = {
     'norma-iso-27001.html': 'Consultoria para implantação da NBR ISO/IEC 27001:2022: gestão da segurança da informação, riscos, Declaração de Aplicabilidade, Anexo A e LGPD no mesmo sistema.',
     'norma-iso-37301.html': 'Consultoria para implantação da NBR ISO 37301:2021: sistema de gestão de compliance, obrigações, riscos, canal de preocupações e programa de integridade.',
     'norma-iso-37001.html': 'Consultoria para implantação da NBR ISO 37001:2025: sistema de gestão antissuborno, riscos de suborno, due diligence, controles e canal de denúncias.',
-    'norma-iso-41001.html': 'Consultoria para implantação da NBR ISO 41001:2020: sistema de gestão de facility management, estratégia e planos de FM, níveis de serviço, fornecedores e indicadores.',
+    'norma-iso-41001.html': 'Consultoria para implantação da NBR ISO 41001:2020: sistema de gestão de facilities, estratégia e planos de FM, níveis de serviço, fornecedores e indicadores.',
     'norma-iso-22000.html': 'Consultoria para implantação da NBR ISO 22000:2019: sistema de gestão de segurança de alimentos, PPR, análise de perigos, plano HACCP e base para a FSSC 22000.',
     'compliance-ambiental-fsc.html': 'Consultoria para certificação florestal FSC e Cerflor/PEFC, due diligence do EUDR e compliance ambiental: licenças, condicionantes e legislação.',
     'norma-iso-45001.html': 'Consultoria para implantação da NBR ISO 45001:2018: sistema de gestão de saúde e segurança ocupacional, GRO e NRs no mesmo sistema, preparação para a certificação.',
