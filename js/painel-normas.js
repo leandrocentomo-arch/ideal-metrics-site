@@ -470,11 +470,21 @@
     var am = det.querySelector('[data-mapa]'); if (am) am.addEventListener('click', function (e) { e.preventDefault(); fechaDetalhe(); mostraAba('mapa'); escolheSurvey(am.dataset.mapa); });
     det.classList.add('aberta'); $('#pn-veu').classList.add('on'); det.scrollTop = 0;
     $$('.pn-item').forEach(function (li) { li.classList.toggle('sel', +li.dataset.id === id); });
+    marcaFoco(id);
     history.replaceState(null, '', '#n' + id);
+  }
+  /* 27/11/2026 (Leandro: «quando selecionado e o card aberto, quero que as outras linhas fiquem bem apagadas, mas ainda
+     legíveis»): com a ficha aberta, a linha escolhida segue acesa e as demais apagam (filter, para não brigar com a
+     animação de entrada, que prende a opacity). Vale para Normas por tema, Linha do tempo, O que mudou e Revisão. */
+  function marcaFoco(id) {
+    document.body.classList.toggle('pn-foco', id != null);
+    $$('.md-item').forEach(function (li) { li.classList.toggle('sel', id != null && +li.dataset.id === id); });
+    $$('.lt-linha').forEach(function (li) { li.classList.toggle('sel', id != null && !!li.querySelector('[data-id="' + id + '"]')); });
   }
   function fechaDetalhe() {
     $('#pn-det').classList.remove('aberta'); $('#pn-veu').classList.remove('on');
     $$('.pn-item.sel').forEach(function (li) { li.classList.remove('sel'); });
+    marcaFoco(null);
     if (/^#n\d+/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);   // mantém o ?lang=en
   }
 

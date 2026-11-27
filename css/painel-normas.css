@@ -1788,3 +1788,10 @@ html[data-tema=noite] .mp-sel button[aria-pressed=true]{background:rgba(160,185,
   .pn-puxa .losangos{width:12px;height:8px}
   .pn-puxa .m,.pn.lado-aberto .pn-puxa .m,.pn:not(.lado-aberto) .pn-puxa .m{font-size:9px;line-height:1;letter-spacing:.14em}
 }
+
+/* 27/11/2026: ficha aberta = demais linhas bem apagadas, ainda legíveis; a escolhida fica acesa (marcaFoco no JS).
+   filter em vez de opacity porque a animação de entrada (pn-entra, fill both) prende a opacity das linhas. */
+.pn-item,.md-item,.lt-linha{transition:filter .25s}
+.pn-foco .pn-item:not(.sel),.pn-foco .md-item:not(.sel),.pn-foco .lt-linha:not(.sel){filter:opacity(.35)}
+.pn-foco .pn-item:not(.sel):hover,.pn-foco .md-item:not(.sel):hover,.pn-foco .lt-linha:not(.sel):hover{filter:opacity(.6)}
+.md-item.sel{background:rgba(51,102,153,.09)}
