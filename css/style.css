@@ -1004,7 +1004,7 @@ a.blog-card:hover h3 { color: #336699; }
 }
 
 /* ===== marcas oficiais =====
-   04/10/2026: o logo do fim do rodape e o 18Asset 208 (img/marca-vertical-ideal-m.svg), com a placa
+   04/10/2026: o logo do fim do rodape e o 18Asset 208 (img/marca-vertical-ideal-m.svg?v=28112026a), com a placa
    Linho #F3F0E9 do proprio arquivo, sem tingir. Sobre o rodape azul le como um carimbo claro. */
 .ft-legal{display:flex;align-items:center;gap:14px}
 .ft-mono{height:34px;width:auto;flex:none;display:block;border-radius:2px}
@@ -3999,7 +3999,7 @@ html.js .content > .in-view { opacity: 1; transform: none; }
   /* 28/09: «troque o fundo do monograma para mescla azul claro e mescla creme»: a
      placa do Asset 182, degrade liso de #BDDDFF (alto, esquerda) a #FAF9F5 (baixo,
      direita), no angulo da diagonal da placa; o monograma volta a TINTA (#14304C,
-     monograma-ideal-m-limpo.svg). O metal azul de 24/09 (#8EB4D8/#79A4CD/#6590BE,
+     monograma-ideal-m-limpo.svg?v=28112026a). O metal azul de 24/09 (#8EB4D8/#79A4CD/#6590BE,
      monograma prata) saiu. */
   background:linear-gradient(143deg, #F3F7FD 0%, #FAF9F5 58%);   /* 28/09: «mais bege do que azul»: o creme domina a partir de 58%; depois «meio branco onde e o azul»: #BDDDFF -> #F3F7FD */
   border-color:rgba(20,48,76,.16);

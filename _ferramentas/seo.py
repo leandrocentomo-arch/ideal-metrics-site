@@ -11,7 +11,7 @@ Tambem escreve sitemap.xml e robots.txt. Rodar: python _ferramentas/seo.py (da r
 import os, re, json, glob, html, subprocess
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); os.chdir(RAIZ)
 HOST = 'https://idealmetrics.org/'
-OG_IMG = HOST + 'img/og-ideal-metrics.png?v=19102026a'
+OG_IMG = HOST + 'img/og-ideal-metrics.png?v=28112026a'
 SERVICOS = set('''implantacao-iso norma-iso-9001 norma-iso-14001 norma-iso-45001 norma-iso-27001 norma-iso-22000 norma-iso-41001 norma-iso-37001 norma-iso-37301 seguranca-viaria compliance-seguranca-informacao compliance-ambiental-fsc suporte
 padroes-mercado ifc-performance-standards sedex-smeta gestao-carbono esg seguranca-alimentos nrs inspecoes produtos-inspecionamos
 estudos-pesquisa estudos-regulatorios estudos-setoriais observatorio-setorial rastreabilidade-cadeia
@@ -37,7 +37,7 @@ DESCRICOES = {
 }
 NAO_INDEXAR = {'painel-placas.html'}   # pagina de trabalho (placas da tira), fora do sitemap e com noindex
 MESES = {'jan': 1, 'fev': 2, 'mar': 3, 'abr': 4, 'mai': 5, 'jun': 6, 'jul': 7, 'ago': 8, 'set': 9, 'out': 10, 'nov': 11, 'dez': 12}
-ORG = {"@type": "Organization", "name": "Ideal Metrics", "url": HOST, "logo": HOST + 'img/logo-ideal-m-escuro.svg?v=11102026b',
+ORG = {"@type": "Organization", "name": "Ideal Metrics", "url": HOST, "logo": HOST + 'img/logo-ideal-m-escuro.svg?v=28112026a',
        "email": "info@idealmetrics.org", "address": {"@type": "PostalAddress", "addressRegion": "SP", "addressCountry": "BR"}}
 
 def texto(h):
